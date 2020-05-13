@@ -1,10 +1,13 @@
 import Vue from '../../utils/vue'
+import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Utility methods ---
 
 // Parse a rowspan or colspan into a digit (or `null` if < `1` )
 const parseSpan = value => {
@@ -42,6 +45,7 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
@@ -160,7 +164,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Header or footer cells
         role = 'columnheader'
         scope = colspan > 0 ? 'colspan' : 'col'
-      } else if (this.tag === 'th') {
+      } else if (isTag(this.tag, 'th')) {
         // th's in tbody
         role = 'rowheader'
         scope = rowspan > 0 ? 'rowgroup' : 'row'

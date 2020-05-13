@@ -132,7 +132,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       const prefetch = this.prefetch
       return this.isRouterLink
         ? {
-            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this.$props),
+            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this),
             // Coerce `prefetch` value `null` to be `undefined`
             prefetch: isBoolean(prefetch) ? prefetch : undefined,
             // Pass `router-tag` as `tag` prop

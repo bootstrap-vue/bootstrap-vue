@@ -1,3 +1,4 @@
+import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import { toString } from './string'
@@ -87,7 +88,9 @@ export const parseQuery = query => {
   return parsed
 }
 
-export const isRouterLink = tag => toString(tag).toLowerCase() !== ANCHOR_TAG
+export const isLink = props => !!(props.href || props.to)
+
+export const isRouterLink = tag => !isTag(tag, ANCHOR_TAG)
 
 export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
   const hasRouter = thisOrParent.$router

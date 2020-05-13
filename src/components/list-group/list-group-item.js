@@ -3,7 +3,9 @@ import Vue from '../../utils/vue'
 import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
+import { isTag } from '../../utils/dom'
 import { omit } from '../../utils/object'
+import { isLink } from '../../utils/router'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
@@ -14,7 +16,7 @@ const actionTags = ['a', 'router-link', 'button', 'b-link']
 
 // --- Props ---
 
-const linkProps = omit(BLinkProps, ['event'])
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
@@ -45,13 +47,14 @@ export const BListGroupItem = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const tag = props.button ? 'button' : !props.href && !props.to ? props.tag : BLink
-    const isAction = Boolean(
-      props.href || props.to || props.action || props.button || arrayIncludes(actionTags, props.tag)
-    )
+    const { button, variant, active, disabled } = props
+    const link = isLink(props)
+    const tag = button ? 'button' : !link ? props.tag : BLink
+    const action = !!(props.action || link || button || arrayIncludes(actionTags, props.tag))
+
     const attrs = {}
     let itemProps = {}
-    if (tag === 'button') {
+    if (isTag(tag, 'button')) {
       if (!data.attrs || !data.attrs.type) {
         // Add a type for button is one not provided in passed attributes
         attrs.type = 'button'
@@ -63,18 +66,21 @@ export const BListGroupItem = /*#__PURE__*/ Vue.extend({
     } else {
       itemProps = pluckProps(linkProps, props)
     }
-    const componentData = {
-      attrs,
-      props: itemProps,
-      staticClass: 'list-group-item',
-      class: {
-        [`list-group-item-${props.variant}`]: props.variant,
-        'list-group-item-action': isAction,
-        active: props.active,
-        disabled: props.disabled
-      }
-    }
 
-    return h(tag, mergeData(data, componentData), children)
+    return h(
+      tag,
+      mergeData(data, {
+        attrs,
+        props: itemProps,
+        staticClass: 'list-group-item',
+        class: {
+          [`list-group-item-${variant}`]: variant,
+          'list-group-item-action': action,
+          active,
+          disabled
+        }
+      }),
+      children
+    )
   }
 })

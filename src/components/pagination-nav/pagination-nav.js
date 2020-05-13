@@ -185,7 +185,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       return info.link
     },
     linkProps(pageNum) {
-      const props = pluckProps(linkProps, this.$props)
+      const props = pluckProps(linkProps, this)
       const link = this.makeLink(pageNum)
       if (this.useRouter || isObject(link)) {
         props.to = link

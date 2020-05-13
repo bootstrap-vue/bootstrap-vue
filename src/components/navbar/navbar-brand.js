@@ -4,18 +4,21 @@ import pluckProps from '../../utils/pluck-props'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
+// --- Props ---
+
 const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'div'
-  }
+  },
+  ...linkProps
 }
 
+// --- Main component ---
 // @vue/component
 export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   name: 'BNavbarBrand',
