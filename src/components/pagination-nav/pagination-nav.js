@@ -7,6 +7,7 @@ import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { computeHref, parseQuery } from '../../utils/router'
 import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
@@ -19,10 +20,7 @@ const NAME = 'BPaginationNav'
 
 // --- Props ---
 
-const linkProps = pluckProps(
-  ['activeClass', 'exact', 'exactActiveClass', 'prefetch', 'noPrefetch', 'routerComponentName'],
-  BLinkProps
-)
+const linkProps = omit(BLinkProps, ['event'])
 
 const props = {
   size: {
@@ -187,38 +185,13 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       return info.link
     },
     linkProps(pageNum) {
+      const props = pluckProps(linkProps, this.$props)
       const link = this.makeLink(pageNum)
-      const {
-        disabled,
-        exact,
-        activeClass,
-        exactActiveClass,
-        append,
-        replace,
-        prefetch,
-        noPrefetch
-      } = this
-
-      const props = {
-        target: this.target || null,
-        rel: this.rel || null,
-        disabled,
-        // The following props are only used if `BLink` detects router
-        exact,
-        activeClass,
-        exactActiveClass,
-        append,
-        replace,
-        // <nuxt-link> specific prop
-        prefetch,
-        noPrefetch
-      }
       if (this.useRouter || isObject(link)) {
         props.to = link
       } else {
         props.href = link
       }
-
       return props
     },
     resolveLink(to = '') {
