@@ -197,14 +197,14 @@
   "active": {
     "description": "When set to 'true', places the component in the active state with active styling"
   },
+  "href": {
+    "description": "b-link prop: Denotes the target URL of the link for standard a links"
+  },
   "rel": {
-    "description": "Sets the 'rel' attribute on the rendered link"
+    "description": "b-link prop: Sets the 'rel' attribute on the rendered link"
   },
   "target": {
-    "description": "Sets the 'target' attribute on the rendered link"
-  },
-  "href": {
-    "description": "Denotes the target URL of the link for standard a links"
+    "description": "b-link prop: Sets the 'target' attribute on the rendered link"
   },
   "to": {
     "description": "router-link prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
