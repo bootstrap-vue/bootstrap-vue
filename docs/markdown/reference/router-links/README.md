@@ -216,7 +216,12 @@ these third party `<router-link>` compatible components via the use of the `rout
 prop. All `vue-router` props (excluding `<nuxt-link>` specific props) will be passed to the
 specified router link component.
 
-Note that the 3rd party component will only be used when the `to` prop is set.
+**Notes:**
+
+- The 3rd party component will only be used when the `to` prop is set.
+- Not all 3rd party components support all props supported by `<router-link>`, nor do not support
+  fully qualified domain name URLs, nor hash only URLs. Refer to the 3rd party component
+  documentation for details.
 
 ### `router-component-name`
 
