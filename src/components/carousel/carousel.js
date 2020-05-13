@@ -205,10 +205,10 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   },
   created() {
     // Create private non-reactive props
-    this._bvInterval = null
-    this._bvAnimationTimeout = null
-    this._bvTouchTimeout = null
-    this._bvObserver = null
+    this.$_interval = null
+    this.$_animationTimeout = null
+    this.$_touchTimeout = null
+    this.$_observer = null
     // Set initial paused state
     this.isPaused = !(toInteger(this.interval, 0) > 0)
   },
@@ -228,30 +228,30 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     clearInterval() {
-      if (this._bvInterval) {
-        clearInterval(this._bvInterval)
-        this._bvInterval = null
+      if (this.$_interval) {
+        clearInterval(this.$_interval)
+        this.$_interval = null
       }
     },
     clearAnimationTimeout() {
-      if (this._bvAnimationTimeout) {
-        clearTimeout(this._bvAnimationTimeout)
-        this._bvAnimationTimeout = null
+      if (this.$_animationTimeout) {
+        clearTimeout(this.$_animationTimeout)
+        this.$_animationTimeout = null
       }
     },
     clearTouchTimeout() {
-      if (this._bvTouchTimeout) {
-        clearTimeout(this._bvTouchTimeout)
-        this._bvTouchTimeout = null
+      if (this.$_touchTimeout) {
+        clearTimeout(this.$_touchTimeout)
+        this.$_touchTimeout = null
       }
     },
     setObserver(on = false) {
-      if (this._bvObserver) {
-        this._bvObserver.disconnect()
-        this._bvObserver = null
+      if (this.$_observer) {
+        this.$_observer.disconnect()
+        this.$_observer = null
       }
       if (on) {
-        this._bvObserver = observeDom(this.$refs.inner, this.updateSlides.bind(this), {
+        this.$_observer = observeDom(this.$refs.inner, this.updateSlides.bind(this), {
           subtree: false,
           childList: true,
           attributes: true,
@@ -323,7 +323,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       this.clearInterval()
       // Don't start if no interval, or less than 2 slides
       if (this.interval && this.numSlides > 1) {
-        this._bvInterval = setInterval(this.next, mathMax(1000, this.interval))
+        this.$_interval = setInterval(this.next, mathMax(1000, this.interval))
       }
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
@@ -407,7 +407,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           )
         }
         // Fallback to setTimeout()
-        this._bvAnimationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
+        this.$_animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)
       }
       if (isCycling) {
         this.start(false)
@@ -501,7 +501,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       // events to fire) we explicitly restart cycling
       this.pause(false)
       this.clearTouchTimeout()
-      this._bvTouchTimeout = setTimeout(
+      this.$_touchTimeout = setTimeout(
         this.start,
         TOUCH_EVENT_COMPAT_WAIT + mathMax(1000, this.interval)
       )

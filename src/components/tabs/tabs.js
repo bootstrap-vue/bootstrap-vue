@@ -313,7 +313,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   },
   created() {
     // Create private non-reactive props
-    this._bvObserver = null
+    this.$_observer = null
     this.currentTab = toInteger(this.value, -1)
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
@@ -365,9 +365,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // DOM observer is needed to detect changes in order of tabs
     setObserver(on) {
-      if (this._bvObserver) {
-        this._bvObserver.disconnect()
-        this._bvObserver = null
+      if (this.$_observer) {
+        this.$_observer.disconnect()
+        this.$_observer = null
       }
       if (on) {
         const self = this
@@ -382,7 +382,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           })
         }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
+        this.$_observer = observeDom(this.$refs.tabsContainer, handler, {
           childList: true,
           subtree: false,
           attributes: true,

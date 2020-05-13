@@ -155,7 +155,7 @@ export default {
     }
   },
   created() {
-    // Create non-reactive prop where we store the debounce timer id
+    // Create private non-reactive props
     this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependents

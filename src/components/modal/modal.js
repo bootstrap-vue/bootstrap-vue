@@ -450,7 +450,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   created() {
     // Define non-reactive properties
-    this._bvObserver = null
+    this.$_observer = null
   },
   mounted() {
     // Set initial z-index as queried from the DOM
@@ -479,12 +479,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     setObserver(on = false) {
-      if (this._bvObserver) {
-        this._bvObserver.disconnect()
-        this._bvObserver = null
+      if (this.$_observer) {
+        this.$_observer.disconnect()
+        this.$_observer = null
       }
       if (on) {
-        this._bvObserver = observeDom(
+        this.$_observer = observeDom(
           this.$refs.content,
           this.checkModalOverflow.bind(this),
           OBSERVER_CONFIG

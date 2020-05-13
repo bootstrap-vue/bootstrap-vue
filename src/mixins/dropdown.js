@@ -169,7 +169,7 @@ export default {
     }
   },
   created() {
-    // Create non-reactive property
+    // Create private non-reactive props
     this.$_popper = null
   },
   /* istanbul ignore next */
