@@ -43,6 +43,14 @@ export const routerLinkProps = {
   routerTag: {
     type: String,
     default: 'a'
+  },
+  // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
+  // Default is to auto choose between `<router-link>` and `<nuxt-link>`
+  // Gridsome doesn't provide a mechanism to auto detect and has caveats
+  // such as not supporting FQDN URLs or hash only URLs
+  routerComponentName: {
+    type: String
+    // default: undefined
   }
 }
 
@@ -61,14 +69,6 @@ export const nuxtLinkProps = {
   noPrefetch: {
     type: Boolean,
     default: false
-  },
-  // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
-  // Default is to auto choose between `<router-link>` and `<nuxt-link>`
-  // Gridsome doesn't provide a mechanism to auto detect and has caveats
-  // such as not supporting FQDN URLs or hash only URLs
-  routerComponentName: {
-    type: String
-    // default: undefined
   }
 }
 
