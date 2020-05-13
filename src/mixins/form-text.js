@@ -117,9 +117,11 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     // Create private non-reactive props
     this.$_inputDebounceTimer = null
+  },
+  mounted() {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state

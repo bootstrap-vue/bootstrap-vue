@@ -192,8 +192,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$off('disable', this.doDisable)
     this.$off('enable', this.doEnable)
     // Destroy the tip instance
-    this.$_toolpop && this.$_toolpop.$destroy()
-    this.$_toolpop = null
+    if (this.$_toolpop) {
+      this.$_toolpop.$destroy()
+      this.$_toolpop = null
+    }
   },
   mounted() {
     // Instantiate a new BVTooltip instance
@@ -236,7 +238,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       this.$on('enable', this.doEnable)
       // Initially show tooltip?
       if (this.localShow) {
-        this.$_toolpop && this.$_toolpop.show()
+        $toolpop.show()
       }
     })
   },

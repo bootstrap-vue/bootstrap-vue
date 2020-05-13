@@ -228,28 +228,20 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     clearInterval() {
-      if (this.$_interval) {
-        clearInterval(this.$_interval)
-        this.$_interval = null
-      }
+      clearInterval(this.$_interval)
+      this.$_interval = null
     },
     clearAnimationTimeout() {
-      if (this.$_animationTimeout) {
-        clearTimeout(this.$_animationTimeout)
-        this.$_animationTimeout = null
-      }
+      clearTimeout(this.$_animationTimeout)
+      this.$_animationTimeout = null
     },
     clearTouchTimeout() {
-      if (this.$_touchTimeout) {
-        clearTimeout(this.$_touchTimeout)
-        this.$_touchTimeout = null
-      }
+      clearTimeout(this.$_touchTimeout)
+      this.$_touchTimeout = null
     },
     setObserver(on = false) {
-      if (this.$_observer) {
-        this.$_observer.disconnect()
-        this.$_observer = null
-      }
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
       if (on) {
         this.$_observer = observeDom(this.$refs.inner, this.updateSlides.bind(this), {
           subtree: false,

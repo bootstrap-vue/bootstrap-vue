@@ -479,10 +479,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     setObserver(on = false) {
-      if (this.$_observer) {
-        this.$_observer.disconnect()
-        this.$_observer = null
-      }
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
       if (on) {
         this.$_observer = observeDom(
           this.$refs.content,

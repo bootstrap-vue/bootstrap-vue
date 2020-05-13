@@ -365,10 +365,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // DOM observer is needed to detect changes in order of tabs
     setObserver(on) {
-      if (this.$_observer) {
-        this.$_observer.disconnect()
-        this.$_observer = null
-      }
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
       if (on) {
         const self = this
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */

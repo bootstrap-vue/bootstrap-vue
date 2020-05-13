@@ -159,10 +159,8 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     },
     // Unmount the target
     unmountTarget() {
-      if (this.$_target) {
-        this.$_target.$destroy()
-        this.$_target = null
-      }
+      this.$_target && this.$_target.$destroy()
+      this.$_target = null
     }
   },
   render(h) {
