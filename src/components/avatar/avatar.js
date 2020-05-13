@@ -3,6 +3,7 @@ import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { BButton } from '../button/button'
 import { BLink, props as BLinkProps } from '../link/link'
 import { BIcon } from '../../icons/icon'
@@ -25,24 +26,7 @@ const DEFAULT_SIZES = {
 }
 
 // --- Props ---
-const linkProps = pluckProps(
-  [
-    'href',
-    'rel',
-    'target',
-    'disabled',
-    'to',
-    'append',
-    'replace',
-    'activeClass',
-    'exact',
-    'exactActiveClass',
-    'prefetch',
-    'noPrefetch',
-    'routerComponentName'
-  ],
-  BLinkProps
-)
+const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 const props = {
   src: {
