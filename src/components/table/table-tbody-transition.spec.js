@@ -1,7 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { config as vtuConfig, mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
 import { TransitionGroupStub } from '../../../tests/components'
 import { BTable } from './table'
+
+// Stub `<transition-group>` component
+vtuConfig.stubs['transition-group'] = TransitionGroupStub
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
@@ -19,6 +22,7 @@ describe('table > tbody transition', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tbody').element.tagName).toBe('TBODY')
+    // `<transition-group>` stub doesn't render itself with the specified tag
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(false)
 
     wrapper.destroy()
@@ -37,8 +41,8 @@ describe('table > tbody transition', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.element.tagName).toBe('TABLE')
+    // `<transition-group>` stub doesn't render itself with the specified tag
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
-    // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
     wrapper.destroy()
@@ -60,8 +64,8 @@ describe('table > tbody transition', () => {
     })
     expect(wrapper).toBeDefined()
     expect(wrapper.element.tagName).toBe('TABLE')
+    // `<transition-group>` stub doesn't render itself with the specified tag
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
-    // Transition-group stub doesn't render itself with the specified tag
     expect(wrapper.find('tbody').exists()).toBe(false)
 
     wrapper.destroy()

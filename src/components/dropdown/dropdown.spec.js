@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BDropdown } from './dropdown'
 import { BDropdownItem } from './dropdown-item'
@@ -429,15 +429,14 @@ describe('dropdown', () => {
   })
 
   it('dropdown opens and closes', async () => {
-    const localVue = createLocalVue()
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', { attrs: { id: 'container' } }, [
           h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, 'item')]),
           h('input', { attrs: { id: 'input' } })
         ])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer()
@@ -695,8 +694,7 @@ describe('dropdown', () => {
   })
 
   it('Keyboard navigation works when open', async () => {
-    const localVue = createLocalVue()
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', [
           h(BDropdown, { props: { id: 'test' } }, [
@@ -707,7 +705,7 @@ describe('dropdown', () => {
           ])
         ])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer()
