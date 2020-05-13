@@ -5,6 +5,8 @@ import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
 import { BImg } from '../image/img'
 
+// --- Props ---
+
 export const props = {
   imgSrc: {
     type: String
@@ -62,6 +64,7 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   name: 'BCarouselSlide',
@@ -94,11 +97,18 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const noDrag = !this.bvCarousel.noTouch && hasTouchSupport
+    let $img = this.normalizeSlot('img')
+    if (!$img && (this.imgSrc || this.imgBlank)) {
+      const on = {}
+      // Touch support event handler
+      /* istanbul ignore if: difficult to test in JSDOM */
+      if (!this.bvCarousel.noTouch && hasTouchSupport) {
+        on.dragstart = evt => {
+          evt.preventDefault()
+        }
+      }
 
-    let img = this.normalizeSlot('img')
-    if (!img && (this.imgSrc || this.imgBlank)) {
-      img = h(BImg, {
+      $img = h(BImg, {
         props: {
           fluidGrow: true,
           block: true,
@@ -109,40 +119,32 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
           height: this.computedHeight,
           alt: this.imgAlt
         },
-        // Touch support event handler
-        on: noDrag
-          ? /* istanbul ignore next */ {
-              dragstart /* istanbul ignore next */: e => {
-                /* istanbul ignore next: difficult to test in JSDOM */
-                e.preventDefault()
-              }
-            }
-          : {}
+        on
       })
     }
-    if (!img) {
-      img = h()
-    }
 
-    let content = h()
-
-    const contentChildren = [
+    const $contentChildren = [
+      // Caption
       this.caption || this.captionHtml
-        ? h(this.captionTag, {
-            domProps: htmlOrText(this.captionHtml, this.caption)
-          })
+        ? h(this.captionTag, { domProps: htmlOrText(this.captionHtml, this.caption) })
         : false,
+      // Text
       this.text || this.textHtml
         ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
         : false,
+      // Children
       this.normalizeSlot('default') || false
     ]
 
-    if (contentChildren.some(Boolean)) {
-      content = h(
+    let $content = h()
+    if ($contentChildren.some(Boolean)) {
+      $content = h(
         this.contentTag,
-        { staticClass: 'carousel-caption', class: this.contentClasses },
-        contentChildren.map(i => i || h())
+        {
+          staticClass: 'carousel-caption',
+          class: this.contentClasses
+        },
+        $contentChildren.map($child => $child || h())
       )
     }
 
@@ -153,7 +155,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
         style: { background: this.background || this.bvCarousel.background || null },
         attrs: { id: this.safeId(), role: 'listitem' }
       },
-      [img, content]
+      [$img, $content]
     )
   }
 })
