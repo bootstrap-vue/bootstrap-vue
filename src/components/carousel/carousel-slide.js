@@ -1,13 +1,15 @@
 import Vue from '../../utils/vue'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import pluckProps from '../../utils/pluck-props'
+import unPrefixPropName from '../../utils/unprefix-prop-name'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
+import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BImg } from '../image/img'
 
 // --- Props ---
 
-export const props = {
+const imgProps = {
   imgSrc: {
     type: String
     // default: undefined
@@ -31,7 +33,11 @@ export const props = {
   imgBlankColor: {
     type: String,
     default: 'transparent'
-  },
+  }
+}
+
+export const props = {
+  ...imgProps,
   contentVisibleUp: {
     type: String
   },
@@ -110,14 +116,11 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
 
       $img = h(BImg, {
         props: {
-          fluidGrow: true,
-          block: true,
-          src: this.imgSrc,
-          blank: this.imgBlank,
-          blankColor: this.imgBlankColor,
+          ...pluckProps(imgProps, this.$props, unPrefixPropName.bind(null, 'img')),
           width: this.computedWidth,
           height: this.computedHeight,
-          alt: this.imgAlt
+          fluidGrow: true,
+          block: true
         },
         on
       })
