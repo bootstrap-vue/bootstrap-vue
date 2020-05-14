@@ -42,9 +42,10 @@ export const BCardHeader = /*#__PURE__*/ Vue.extend({
             [`border-${headerBorderVariant}`]: headerBorderVariant,
             [`text-${headerTextVariant}`]: headerTextVariant
           }
-        ]
+        ],
+        domProps: children ? {} : htmlOrText(props.headerHtml, props.header)
       }),
-      children || [h('div', { domProps: htmlOrText(props.headerHtml, props.header) })]
+      children
     )
   }
 })
