@@ -218,7 +218,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     // Get all slides
     this.updateSlides()
     // Observe child changes so we can update slide list
-    this.setObserver()
+    this.setObserver(true)
   },
   beforeDestroy() {
     this.clearInterval()
