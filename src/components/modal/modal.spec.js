@@ -346,6 +346,38 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+    it('modal-ok and modal-cancel button content slots works', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true
+        },
+        slots: {
+          'modal-ok': '<em>bar ok</em>',
+          'modal-cancel': '<em>foo cancel</em>'
+        }
+      })
+      expect(wrapper).toBeDefined()
+
+      const $buttons = wrapper.findAll('footer button')
+      expect($buttons.length).toBe(2)
+
+      // Cancel button (left-most button)
+      const $cancel = $buttons.at(0)
+      expect($cancel.attributes('type')).toBe('button')
+      expect($cancel.text()).toContain('foo cancel')
+      // `v-html` is applied to a span
+      expect($cancel.html()).toContain('<em>foo cancel</em>')
+
+      // OK button (right-most button)
+      const $ok = $buttons.at(1)
+      expect($ok.attributes('type')).toBe('button')
+      expect($ok.text()).toContain('bar ok')
+      // `v-html` is applied to a span
+      expect($ok.html()).toContain('<em>bar ok</em>')
+
+      wrapper.destroy()
+    })
   })
 
   describe('button and event functionality', () => {
