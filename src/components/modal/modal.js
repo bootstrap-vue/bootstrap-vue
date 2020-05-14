@@ -622,7 +622,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.$nextTick(() => {
           // Observe changes in modal content and adjust if necessary
           // In a `$nextTick()` in case modal content is lazy
-          this.setObserver()
+          this.setObserver(true)
         })
       })
     },
