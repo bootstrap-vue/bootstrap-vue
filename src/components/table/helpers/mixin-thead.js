@@ -56,9 +56,9 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields || []
 
+      // In always stacked mode, we don't bother rendering the head/foot
+      // Or if no field headings (empty table)
       if (this.isStackedAlways || fields.length === 0) {
-        // In always stacked mode, we don't bother rendering the head/foot
-        // Or if no field headings (empty table)
         return h()
       }
 
