@@ -234,7 +234,7 @@ describe('dropdown', () => {
     const $buttons = wrapper.findAll('button')
     const $split = $buttons.at(0)
     const $toggle = $buttons.at(1)
-    
+
     expect($split.text()).toEqual('foobar')
     expect($toggle.classes()).toContain('dropdown-toggle')
     expect($toggle.text()).toEqual('')
