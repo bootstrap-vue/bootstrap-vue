@@ -42,9 +42,10 @@ export const BCardFooter = /*#__PURE__*/ Vue.extend({
             [`border-${footerBorderVariant}`]: footerBorderVariant,
             [`text-${footerTextVariant}`]: footerTextVariant
           }
-        ]
+        ],
+        domProps: children ? {} : htmlOrText(props.footerHtml, props.footer)
       }),
-      children || [h('div', { domProps: htmlOrText(props.footerHtml, props.footer) })]
+      children
     )
   }
 })
