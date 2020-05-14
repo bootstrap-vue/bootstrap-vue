@@ -346,6 +346,7 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
     it('modal-ok and modal-cancel button content slots works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
