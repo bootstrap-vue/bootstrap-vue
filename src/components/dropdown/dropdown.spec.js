@@ -221,8 +221,10 @@ describe('dropdown', () => {
   it('renders button-content slot inside split button', async () => {
     const wrapper = mount(BDropdown, {
       attachTo: createContainer(),
+      propsData: {
+        split: true
+      },
       slots: {
-        split: true,
         'button-content': 'foobar'
       }
     })
