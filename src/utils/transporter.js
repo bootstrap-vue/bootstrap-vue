@@ -88,8 +88,9 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    this._bv_defaultFn = null
-    this._bv_target = null
+    // Create private non-reactive props
+    this.$_defaultFn = null
+    this.$_target = null
   },
   beforeMount() {
     this.mountTarget()
@@ -105,7 +106,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     this.unmountTarget()
-    this._bv_defaultFn = null
+    this.$_defaultFn = null
   },
   methods: {
     // Get the element which the target should be appended to
@@ -120,12 +121,12 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     },
     // Mount the target
     mountTarget() {
-      if (!this._bv_target) {
+      if (!this.$_target) {
         const container = this.getContainer()
         if (container) {
           const el = document.createElement('div')
           container.appendChild(el)
-          this._bv_target = new BTransporterTargetSingle({
+          this.$_target = new BTransporterTargetSingle({
             el,
             parent: this,
             propsData: {
@@ -138,30 +139,28 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     },
     // Update the content of the target
     updateTarget() {
-      if (isBrowser && this._bv_target) {
+      if (isBrowser && this.$_target) {
         const defaultFn = this.$scopedSlots.default
         if (!this.disabled) {
           /* istanbul ignore else: only applicable in Vue 2.5.x */
-          if (defaultFn && this._bv_defaultFn !== defaultFn) {
+          if (defaultFn && this.$_defaultFn !== defaultFn) {
             // We only update the target component if the scoped slot
             // function is a fresh one. The new slot syntax (since Vue 2.6)
             // can cache unchanged slot functions and we want to respect that here
-            this._bv_target.updatedNodes = defaultFn
+            this.$_target.updatedNodes = defaultFn
           } else if (!defaultFn) {
             // We also need to be back compatible with non-scoped default slot (i.e. 2.5.x)
-            this._bv_target.updatedNodes = this.$slots.default
+            this.$_target.updatedNodes = this.$slots.default
           }
         }
         // Update the scoped slot function cache
-        this._bv_defaultFn = defaultFn
+        this.$_defaultFn = defaultFn
       }
     },
     // Unmount the target
     unmountTarget() {
-      if (this._bv_target) {
-        this._bv_target.$destroy()
-        this._bv_target = null
-      }
+      this.$_target && this.$_target.$destroy()
+      this.$_target = null
     }
   },
   render(h) {

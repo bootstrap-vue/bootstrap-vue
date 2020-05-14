@@ -466,6 +466,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     resetTimers() {
       clearTimeout(this.$_autoDelayTimer)
       clearInterval(this.$_autoRepeatTimer)
+      this.$_autoDelayTimer = null
+      this.$_autoRepeatTimer = null
     },
     clearRepeat() {
       this.resetTimers()
