@@ -14,7 +14,7 @@ export declare class BTime extends BvComponent {
 // --- Interfaces ---
 
 // Time context event object
-export interface BTimeContextEvent {
+export interface BvTimeCtxEvent {
   readonly formatted: string
   readonly value: string
   readonly hours: number | null
