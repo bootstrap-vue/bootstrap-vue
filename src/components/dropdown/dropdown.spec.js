@@ -239,7 +239,8 @@ describe('dropdown', () => {
 
     expect($split.text()).toEqual('foobar')
     expect($toggle.classes()).toContain('dropdown-toggle')
-    expect($toggle.text()).toEqual('')
+    // Toggle has `sr-only` hidden text
+    expect($toggle.text()).toEqual('Toggle Dropdown')
 
     wrapper.destroy()
   })
