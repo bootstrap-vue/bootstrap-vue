@@ -157,10 +157,10 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   updated() {
     // Update popper if needed
     // TODO: Should this be a watcher on `this.popperConfig` instead?
-    this.popperUpdate()
+    this.updatePopper()
   },
   beforeDestroy() {
-    this.popperDestroy()
+    this.destroyPopper()
   },
   destroyed() {
     // Make sure template is removed from DOM
@@ -198,16 +198,16 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       return this.offset
     },
     popperCreate(el) {
-      this.popperDestroy()
+      this.destroyPopper()
       // We use `el` rather than `this.$el` just in case the original
       // mountpoint root element type was changed by the template
       this.$_popper = new Popper(this.target, el, this.popperConfig)
     },
-    popperDestroy() {
+    destroyPopper() {
       this.$_popper && this.$_popper.destroy()
       this.$_popper = null
     },
-    popperUpdate() {
+    updatePopper() {
       this.$_popper && this.$_popper.scheduleUpdate()
     },
     popperPlacementChange(data) {

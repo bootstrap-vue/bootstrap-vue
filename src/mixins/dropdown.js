@@ -169,7 +169,7 @@ export default {
     }
   },
   created() {
-    // Create non-reactive property
+    // Create private non-reactive props
     this.$_popper = null
   },
   /* istanbul ignore next */
@@ -236,16 +236,14 @@ export default {
       this.destroyPopper()
       this.$_popper = new Popper(element, this.$refs.menu, this.getPopperConfig())
     },
+    // Ensure popper event listeners are removed cleanly
     destroyPopper() {
-      // Ensure popper event listeners are removed cleanly
-      if (this.$_popper) {
-        this.$_popper.destroy()
-      }
+      this.$_popper && this.$_popper.destroy()
       this.$_popper = null
     },
+    // Instructs popper to re-computes the dropdown position
+    // useful if the content changes size
     updatePopper() /* istanbul ignore next: not easy to test */ {
-      // Instructs popper to re-computes the dropdown position
-      // useful if the content changes size
       try {
         this.$_popper.scheduleUpdate()
       } catch {}
