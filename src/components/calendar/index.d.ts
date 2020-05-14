@@ -5,7 +5,15 @@ import { BvPlugin, BvComponent } from '../../'
 // Plugin
 export declare const CalendarPlugin: BvPlugin
 
-// Calendar context object
+// Component: b-calendar
+export declare class BCalendar extends BvComponent {
+  focus: () => void
+  blur: () => void
+}
+
+// --- Interfaces ---
+
+// Calendar context event object
 export interface BCalendarContextEvent {
   readonly selectedFormatted: string
   readonly selectedYMD: string
@@ -17,10 +25,4 @@ export interface BCalendarContextEvent {
   readonly locale: string
   readonly calendarLocale: string
   readonly rtl: boolean
-}
-
-// Component: b-calendar
-export declare class BCalendar extends BvComponent {
-  focus: () => void
-  blur: () => void
 }
