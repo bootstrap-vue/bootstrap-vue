@@ -450,7 +450,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   created() {
     // Define non-reactive properties
-    this._observer = null
+    this.$_observer = null
   },
   mounted() {
     // Set initial z-index as queried from the DOM
@@ -470,10 +470,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     // Ensure everything is back to normal
-    if (this._observer) {
-      this._observer.disconnect()
-      this._observer = null
-    }
+    this.setObserver(false)
     if (this.isVisible) {
       this.isVisible = false
       this.isShow = false
@@ -481,6 +478,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
+    setObserver(on = false) {
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
+      if (on) {
+        this.$_observer = observeDom(
+          this.$refs.content,
+          this.checkModalOverflow.bind(this),
+          OBSERVER_CONFIG
+        )
+      }
+    },
     // Private method to update the v-model
     updateModel(val) {
       if (val !== this.visible) {
@@ -562,10 +570,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         return
       }
       // Stop observing for content changes
-      if (this._observer) {
-        this._observer.disconnect()
-        this._observer = null
-      }
+      this.setObserver(false)
       // Trigger the hide transition
       this.isVisible = false
       // Update the v-model
@@ -615,13 +620,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         // Update the v-model
         this.updateModel(true)
         this.$nextTick(() => {
-          // In a nextTick in case modal content is lazy
           // Observe changes in modal content and adjust if necessary
-          this._observer = observeDom(
-            this.$refs.content,
-            this.checkModalOverflow.bind(this),
-            OBSERVER_CONFIG
-          )
+          // In a `$nextTick()` in case modal content is lazy
+          this.setObserver(true)
         })
       })
     },

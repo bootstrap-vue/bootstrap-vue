@@ -343,7 +343,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.clearActiveTriggers()
       this.localPlacementTarget = null
       try {
-        this.$_tip && this.$_tip.$destroy()
+        this.$_tip.$destroy()
       } catch {}
       this.$_tip = null
       this.removeAriaDescribedby()
@@ -552,16 +552,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return this.isDropdown() && target && select(DROPDOWN_OPEN_SELECTOR, target)
     },
     clearHoverTimeout() {
-      if (this.$_hoverTimeout) {
-        clearTimeout(this.$_hoverTimeout)
-        this.$_hoverTimeout = null
-      }
+      clearTimeout(this.$_hoverTimeout)
+      this.$_hoverTimeout = null
     },
     clearVisibilityInterval() {
-      if (this.$_visibleInterval) {
-        clearInterval(this.$_visibleInterval)
-        this.$_visibleInterval = null
-      }
+      clearInterval(this.$_visibleInterval)
+      this.$_visibleInterval = null
     },
     clearActiveTriggers() {
       for (const trigger in this.activeTrigger) {
