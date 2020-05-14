@@ -1,21 +1,24 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
-import { clone } from '../../utils/object'
+import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'
 
-const linkProps = clone(BLinkProps)
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'div'
-  }
+  },
+  ...linkProps
 }
 
+// --- Main component ---
 // @vue/component
 export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   name: 'BNavbarBrand',

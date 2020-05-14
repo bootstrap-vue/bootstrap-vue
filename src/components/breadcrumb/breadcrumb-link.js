@@ -1,6 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
+import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'
 
@@ -19,7 +20,7 @@ export const props = {
     type: String,
     default: 'location'
   },
-  ...BLinkProps
+  ...omit(BLinkProps, ['event', 'routerTag'])
 }
 
 // --- Main component ---

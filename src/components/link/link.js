@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
+import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { pluckProps } from '../../utils/props'
@@ -7,6 +8,10 @@ import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/r
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Constants ---
+
+const NAME = 'BLink'
 
 // --- Props ---
 
@@ -87,7 +92,15 @@ export const props = {
     default: false
   },
   ...routerLinkProps,
-  ...nuxtLinkProps
+  ...nuxtLinkProps,
+  // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
+  // Default is to auto choose between `<router-link>` and `<nuxt-link>`
+  // Gridsome doesn't provide a mechanism to auto detect and has caveats
+  // such as not supporting FQDN URLs or hash only URLs
+  routerComponentName: {
+    type: String,
+    default: () => getComponentConfig(NAME, 'routerComponentName')
+  }
 }
 
 // --- Main component ---
@@ -101,7 +114,8 @@ export const BLink = /*#__PURE__*/ Vue.extend({
   computed: {
     computedTag() {
       // We don't pass `this` as the first arg as we need reactivity of the props
-      return computeTag({ to: this.to, disabled: this.disabled }, this)
+      const { to, disabled, routerComponentName } = this
+      return computeTag({ to, disabled, routerComponentName }, this)
     },
     isRouterLink() {
       return isRouterLink(this.computedTag)
@@ -118,7 +132,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       const prefetch = this.prefetch
       return this.isRouterLink
         ? {
-            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this.$props),
+            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this),
             // Coerce `prefetch` value `null` to be `undefined`
             prefetch: isBoolean(prefetch) ? prefetch : undefined,
             // Pass `router-tag` as `tag` prop
