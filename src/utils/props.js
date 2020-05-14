@@ -22,19 +22,15 @@ export const copyProps = (props, transformFn = identity) => {
   if (isArray(props)) {
     return props.map(transformFn)
   }
-  // Props as an object.
   const copied = {}
-
   for (const prop in props) {
     /* istanbul ignore else */
-    // eslint-disable-next-line no-prototype-builtins
     if (hasOwnProperty(props, prop)) {
-      // If the prop value is an object, do a shallow clone to prevent
-      // potential mutations to the original object.
+      // If the prop value is an object, do a shallow clone
+      // to prevent potential mutations to the original object
       copied[transformFn(prop)] = isObject(props[prop]) ? clone(props[prop]) : props[prop]
     }
   }
-
   return copied
 }
 
