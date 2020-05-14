@@ -1,8 +1,7 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import prefixPropName from '../../utils/prefix-prop-name'
-import copyProps from '../../utils/copy-props'
+import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
+import { copyProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 
 // --- Props ---

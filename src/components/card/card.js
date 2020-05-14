@@ -1,11 +1,8 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
-import copyProps from '../../utils/copy-props'
-import pluckProps from '../../utils/pluck-props'
-import prefixPropName from '../../utils/prefix-prop-name'
-import unPrefixPropName from '../../utils/unprefix-prop-name'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
@@ -59,7 +56,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     let $imgLast = h()
     if (props.imgSrc) {
       const $img = h(BCardImg, {
-        props: pluckProps(cardImgProps, props, unPrefixPropName.bind(null, 'img'))
+        props: pluckProps(cardImgProps, props, unprefixPropName.bind(null, 'img'))
       })
 
       if (props.imgBottom) {

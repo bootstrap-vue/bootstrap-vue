@@ -1,8 +1,7 @@
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
-import unPrefixPropName from '../../utils/unprefix-prop-name'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
+import { pluckProps, unprefixPropName } from '../../utils/props'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BImg } from '../image/img'
@@ -116,7 +115,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
 
       $img = h(BImg, {
         props: {
-          ...pluckProps(imgProps, this.$props, unPrefixPropName.bind(null, 'img')),
+          ...pluckProps(imgProps, this.$props, unprefixPropName.bind(null, 'img')),
           width: this.computedWidth,
           height: this.computedHeight,
           fluidGrow: true,

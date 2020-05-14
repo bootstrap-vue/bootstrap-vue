@@ -1,7 +1,7 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { clone } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'
 
 const linkProps = clone(BLinkProps)
