@@ -8,11 +8,9 @@ import {
 } from '../../constants/class-names'
 import { NAME_CARD } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
-import copyProps from '../../utils/copy-props'
-import pluckProps from '../../utils/pluck-props'
-import prefixPropName from '../../utils/prefix-prop-name'
-import unPrefixPropName from '../../utils/unprefix-prop-name'
+import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
@@ -46,49 +44,68 @@ export const BCard = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
-    const $slots = slots()
-    // Vue < 2.6.x may return undefined for scopedSlots
+    const {
+      imgLeft,
+      imgRight,
+      imgStart,
+      imgEnd,
+      header,
+      headerHtml,
+      footer,
+      footerHtml,
+      align,
+      textVariant,
+      bgVariant,
+      borderVariant
+    } = props
     const $scopedSlots = scopedSlots || {}
+    const $slots = slots()
+    const slotScope = {}
 
-    // Create placeholder elements for each section
-    let imgFirst = h()
-    let header = h()
-    let content = h()
-    let footer = h()
-    let imgLast = h()
-
+    let $imgFirst = h()
+    let $imgLast = h()
     if (props.imgSrc) {
-      const img = h(BCardImg, {
-        props: pluckProps(cardImgProps, props, unPrefixPropName.bind(null, 'img'))
+      const $img = h(BCardImg, {
+        props: pluckProps(cardImgProps, props, unprefixPropName.bind(null, 'img'))
       })
+
       if (props.imgBottom) {
-        imgLast = img
+        $imgLast = $img
       } else {
-        imgFirst = img
+        $imgFirst = $img
       }
     }
 
-    if (props.header || props.headerHtml || hasNormalizedSlot('header', $scopedSlots, $slots)) {
-      header = h(
+    let $header = h()
+    const hasHeaderSlot = hasNormalizedSlot('header', $scopedSlots, $slots)
+    if (hasHeaderSlot || header || headerHtml) {
+      $header = h(
         BCardHeader,
-        { props: pluckProps(headerProps, props) },
-        normalizeSlot('header', {}, $scopedSlots, $slots)
+        {
+          props: pluckProps(headerProps, props),
+          domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
+        },
+        normalizeSlot('header', slotScope, $scopedSlots, $slots)
       )
     }
 
-    content = normalizeSlot('default', {}, $scopedSlots, $slots) || []
+    let $content = normalizeSlot('default', slotScope, $scopedSlots, $slots)
+
+    // Wrap content in <card-body> when `noBody` prop set
     if (!props.noBody) {
-      // Wrap content in card-body
-      content = [h(BCardBody, { props: pluckProps(bodyProps, props) }, [...content])]
+      $content = h(BCardBody, { props: pluckProps(bodyProps, props) }, $content)
     }
 
-    if (props.footer || props.footerHtml || hasNormalizedSlot('footer', $scopedSlots, $slots)) {
-      footer = h(
+    let $footer = h()
+    const hasFooterSlot = hasNormalizedSlot('footer', $scopedSlots, $slots)
+    if (hasFooterSlot || footer || footerHtml) {
+      $footer = h(
         BCardFooter,
         {
-          props: pluckProps(footerProps, props)
+          props: pluckProps(footerProps, props),
+          domProps: hasHeaderSlot ? {} : htmlOrText(footerHtml, footer)
         },
-        normalizeSlot('footer', {}, $scopedSlots, $slots)
+        normalizeSlot('footer', slotScope, $scopedSlots, $slots)
       )
     }
 
@@ -97,16 +114,15 @@ export const BCard = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         staticClass: CLASS_NAME_CARD,
         class: {
-          [CLASS_NAME_FLEX_ROW]: props.imgLeft || props.imgStart,
-          [CLASS_NAME_FLEX_ROW_REVERSE]:
-            (props.imgRight || props.imgEnd) && !(props.imgLeft || props.imgStart),
-          [`${CLASS_NAME_TEXT}-${props.align}`]: props.align,
-          [`${CLASS_NAME_BACKGROUND}-${props.bgVariant}`]: props.bgVariant,
-          [`${CLASS_NAME_BORDER}-${props.borderVariant}`]: props.borderVariant,
-          [`${CLASS_NAME_TEXT}-${props.textVariant}`]: props.textVariant
+          [CLASS_NAME_FLEX_ROW]: imgLeft || imgStart,
+          [CLASS_NAME_FLEX_ROW_REVERSE]: (imgRight || imgEnd) && !(imgLeft || imgStart),
+          [`${CLASS_NAME_TEXT}-${align}`]: align,
+          [`${CLASS_NAME_BACKGROUND}-${bgVariant}`]: bgVariant,
+          [`${CLASS_NAME_BORDER}-${borderVariant}`]: borderVariant,
+          [`${CLASS_NAME_TEXT}-${textVariant}`]: textVariant
         }
       }),
-      [imgFirst, header, ...content, footer, imgLast]
+      [$imgFirst, $header, $content, $footer, $imgLast]
     )
   }
 })

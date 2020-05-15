@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { htmlOrText } from '../../utils/html'
+import { pluckProps } from '../../utils/props'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

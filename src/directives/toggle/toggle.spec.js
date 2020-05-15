@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { VBToggle } from './toggle'
 
@@ -13,10 +13,8 @@ const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 
 describe('v-b-toggle directive', () => {
   it('works on buttons', async () => {
-    const localVue = createLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
@@ -27,11 +25,9 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: '<button v-b-toggle.test>button</button>'
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -58,10 +54,8 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on passing ID as directive value', async () => {
-    const localVue = createLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
@@ -72,11 +66,9 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: `<button v-b-toggle="'test'">button</button>`
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -101,10 +93,8 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on passing ID as directive argument', async () => {
-    const localVue = createLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
@@ -115,11 +105,9 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: `<button v-b-toggle:test>button</button>`
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -144,10 +132,8 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works with multiple targets, and updates when targets change', async () => {
-    const localVue = createLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
@@ -164,13 +150,12 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: `<button v-b-toggle="target">button</button>`
-    })
+    }
 
     const wrapper = mount(App, {
       propsData: {
         target: 'test1'
-      },
-      localVue
+      }
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -231,10 +216,8 @@ describe('v-b-toggle directive', () => {
   })
 
   it('works on non-buttons', async () => {
-    const localVue = createLocalVue()
     const spy = jest.fn()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
@@ -250,11 +233,9 @@ describe('v-b-toggle directive', () => {
         this.$root.$off(EVENT_TOGGLE, spy)
       },
       template: '<span v-b-toggle.test>{{ text }}</span>'
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
@@ -324,18 +305,14 @@ describe('v-b-toggle directive', () => {
   })
 
   it('responds to state update events', async () => {
-    const localVue = createLocalVue()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
       template: '<button v-b-toggle.test>button</button>'
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -374,18 +351,14 @@ describe('v-b-toggle directive', () => {
   })
 
   it('responds to private sync state update events', async () => {
-    const localVue = createLocalVue()
-
-    const App = localVue.extend({
+    const App = {
       directives: {
         bToggle: VBToggle
       },
       template: '<button v-b-toggle.test>button</button>'
-    })
+    }
 
-    const wrapper = mount(App, {
-      localVue
-    })
+    const wrapper = mount(App)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')

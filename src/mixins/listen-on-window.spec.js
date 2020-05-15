@@ -1,16 +1,14 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import listenOnWindowMixin from './listen-on-window'
 
 describe('mixins/listen-on-window', () => {
-  const localVue = new CreateLocalVue()
-
   it('works', async () => {
     const spyResize1 = jest.fn()
     const spyResize2 = jest.fn()
     const spyScroll = jest.fn()
 
-    const TestComponent = localVue.extend({
+    const TestComponent = {
       mixins: [listenOnWindowMixin],
       props: {
         offResizeOne: {
@@ -33,9 +31,9 @@ describe('mixins/listen-on-window', () => {
       render(h) {
         return h('div', this.$slots.default)
       }
-    })
+    }
 
-    const App = localVue.extend({
+    const App = {
       components: { TestComponent },
       props: {
         offResizeOne: {
@@ -53,7 +51,7 @@ describe('mixins/listen-on-window', () => {
         }
         return h('div', [this.destroy ? h() : h(TestComponent, { props }, 'test-component')])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer(),

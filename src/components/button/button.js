@@ -9,16 +9,22 @@ import { NAME_BUTTON } from '../../constants/components'
 import { ENTER, SPACE } from '../../constants/key-codes'
 import { ROLE_BUTTON } from '../../constants/roles'
 import Vue, { mergeData } from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { addClass, removeClass } from '../../utils/dom'
+import { addClass, isTag, removeClass } from '../../utils/dom'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
-import { keys } from '../../utils/object'
-import { suffixClass, toString } from '../../utils/string'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { isLink as isLinkStrict } from '../../utils/router'
+import { suffixClass } from '../../utils/string'
+import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
+delete linkProps.href.default
+delete linkProps.to.default
+
 const btnProps = {
   block: {
     type: Boolean,
@@ -60,17 +66,9 @@ const btnProps = {
   }
 }
 
-const linkProps = linkPropsFactory()
-delete linkProps.href.default
-delete linkProps.to.default
-const linkPropKeys = keys(linkProps)
-
-export const props = { ...linkProps, ...btnProps }
+export const props = { ...btnProps, ...linkProps }
 
 // --- Utility methods ---
-
-// Returns `true` if a tag's name equals `name`
-const tagIs = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()
 
 // Focus handler for toggle buttons
 // Needs class of 'focus' when focused
@@ -84,13 +82,13 @@ const handleFocus = evt => {
 
 // Is the requested button a link?
 // If tag prop is set to `a`, we use a <b-link> to get proper disabled handling
-const isLink = props => props.href || props.to || tagIs(props.tag, 'a')
+const isLink = props => isLinkStrict(props) || isTag(props.tag, 'a')
 
 // Is the button to be a toggle button?
 const isToggle = props => isBoolean(props.pressed)
 
 // Is the button "really" a button?
-const isButton = props => !(isLink(props) || (props.tag && !tagIs(props.tag, 'button')))
+const isButton = props => !(isLink(props) || (props.tag && !isTag(props.tag, 'button')))
 
 // Is the requested tag not a button or link?
 const isNonStandardTag = props => !isLink(props) && !isButton(props)
@@ -109,7 +107,7 @@ const computeClass = props => [
 ]
 
 // Compute the link props to pass to b-link (if required)
-const computeLinkProps = props => (isLink(props) ? pluckProps(linkPropKeys, props) : null)
+const computeLinkProps = props => (isLink(props) ? pluckProps(linkProps, props) : {})
 
 // Compute the attributes for a button
 const computeAttrs = (props, data) => {

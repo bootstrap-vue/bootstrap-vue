@@ -1,19 +1,23 @@
 import Vue, { mergeData } from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
-import { BLink, propsFactory } from '../link/link'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { BLink, props as BLinkProps } from '../link/link'
 
-const linkProps = propsFactory()
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 linkProps.href.default = undefined
 linkProps.to.default = undefined
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'div'
-  }
+  },
+  ...linkProps
 }
 
+// --- Main component ---
 // @vue/component
 export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
   name: 'BNavbarBrand',

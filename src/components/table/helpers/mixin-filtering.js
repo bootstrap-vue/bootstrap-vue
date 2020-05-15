@@ -101,8 +101,7 @@ export default {
     // Watch for debounce being set to 0
     computedFilterDebounce(newVal) {
       if (!newVal && this.$_filterTimer) {
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
+        this.clearFilterTimer()
         this.localFilter = this.filterSanitize(this.filter)
       }
     },
@@ -113,8 +112,7 @@ export default {
       deep: true,
       handler(newCriteria) {
         const timeout = this.computedFilterDebounce
-        clearTimeout(this.$_filterTimer)
-        this.$_filterTimer = null
+        this.clearFilterTimer()
         if (timeout && timeout > 0) {
           // If we have a debounce time, delay the update of `localFilter`
           this.$_filterTimer = setTimeout(() => {
@@ -155,7 +153,7 @@ export default {
     }
   },
   created() {
-    // Create non-reactive prop where we store the debounce timer id
+    // Create private non-reactive props
     this.$_filterTimer = null
     // If filter is "pre-set", set the criteria
     // This will trigger any watchers/dependents
@@ -167,10 +165,13 @@ export default {
     })
   },
   beforeDestroy() /* istanbul ignore next */ {
-    clearTimeout(this.$_filterTimer)
-    this.$_filterTimer = null
+    this.clearFilterTimer()
   },
   methods: {
+    clearFilterTimer() {
+      clearTimeout(this.$_filterTimer)
+      this.$_filterTimer = null
+    },
     filterSanitize(criteria) {
       // Sanitizes filter criteria based on internal or external filtering
       if (

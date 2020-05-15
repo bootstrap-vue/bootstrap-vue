@@ -7,18 +7,21 @@ import {
 import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { isLink } from '../../utils/router'
 import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
-import { BLink } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 
 // --- Constants ---
+
 const SLOT_BADGE = 'badge'
 const SLOT_DEFAULT = 'default'
 
@@ -32,52 +35,8 @@ const DEFAULT_SIZES = {
 }
 
 // --- Props ---
-const linkProps = {
-  href: {
-    type: String
-    // default: null
-  },
-  to: {
-    type: [String, Object]
-    // default: null
-  },
-  append: {
-    type: Boolean,
-    default: false
-  },
-  replace: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  rel: {
-    type: String
-    // default: null
-  },
-  target: {
-    type: String
-    // default: null
-  },
-  activeClass: {
-    type: String
-    // default: null
-  },
-  exact: {
-    type: Boolean,
-    default: false
-  },
-  exactActiveClass: {
-    type: String
-    // default: null
-  },
-  noPrefetch: {
-    type: Boolean,
-    default: false
-  }
-}
+
+const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 const props = {
   src: {
@@ -148,6 +107,7 @@ const props = {
 }
 
 // --- Utility methods ---
+
 export const computeSize = value => {
   // Default to `md` size when `null`, or parse to
   // number when value is a float-like string
@@ -244,14 +204,14 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       fontStyle,
       marginStyle,
       computedSize: size,
-      button: isButton,
+      button,
       buttonType: type,
       badge,
       badgeVariant,
       badgeStyle
     } = this
-    const isBLink = !isButton && (this.href || this.to)
-    const tag = isButton ? BButton : isBLink ? BLink : 'span'
+    const link = !button && isLink(this)
+    const tag = button ? BButton : link ? BLink : 'span'
     const alt = this.alt || null
     const ariaLabel = this.ariaLabel || null
 
@@ -303,7 +263,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       staticClass: CLASS_NAME_BV_AVATAR,
       class: {
         // We use badge styles for theme variants when not rendering `BButton`
-        [suffixClass(CLASS_NAME_BADGE, variant)]: !isButton && variant,
+        [suffixClass(CLASS_NAME_BADGE, variant)]: !button && variant,
         // Rounding/Square
         [CLASS_NAME_ROUNDED]: rounded === true,
         [suffixClass(CLASS_NAME_ROUNDED, rounded)]: rounded && rounded !== true,
@@ -312,8 +272,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       },
       style: { width: size, height: size, ...marginStyle },
       attrs: { 'aria-label': ariaLabel || null },
-      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
-      on: isBLink || isButton ? { click: this.onClick } : {}
+      props: button ? { variant, disabled, type } : link ? pluckProps(linkProps, this) : {},
+      on: button || link ? { click: this.onClick } : {}
     }
 
     return h(tag, componentData, [$content, $badge])

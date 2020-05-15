@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import {
@@ -27,8 +26,7 @@ const template = `
   </div>
 </div>
 `
-
-const App = Vue.extend({ template })
+const App = { template }
 
 describe('utils/dom', () => {
   it('isElement() works', async () => {
@@ -277,47 +275,47 @@ describe('utils/dom', () => {
 
   it('hasChildren() works', async () => {
     let currentChildren = null
-    const Base = Vue.extend({
+    const Base = {
       functional: true,
       render(h, { data, children }) {
         currentChildren = children
         return h('div', data, children)
       }
-    })
+    }
 
-    const Component1 = Vue.extend({
+    const Component1 = {
       components: { Base },
       template: '<Base></Base>'
-    })
+    }
     const wrapper1 = mount(Component1)
     expect(hasChildren(currentChildren)).toBe(false)
     wrapper1.destroy()
 
-    const Component2 = Vue.extend({
+    const Component2 = {
       components: { Base },
       template: '<Base> </Base>'
-    })
+    }
     const wrapper2 = mount(Component2)
     expect(hasChildren(currentChildren)).toBe(false)
     wrapper2.destroy()
 
-    const Component3 = Vue.extend({
+    const Component3 = {
       components: { Base },
       template: '<Base>&times;</Base>'
-    })
+    }
     const wrapper3 = mount(Component3)
     expect(hasChildren(currentChildren)).toBe(true)
     wrapper3.destroy()
 
-    const Component4 = Vue.extend({
+    const Component4 = {
       components: { Base },
       template: '<Base><span></span></Base>'
-    })
+    }
     const wrapper4 = mount(Component4)
     expect(hasChildren(currentChildren)).toBe(true)
     wrapper4.destroy()
 
-    const Component5 = Vue.extend({
+    const Component5 = {
       components: { Base },
       template: `
         <Base>
@@ -325,12 +323,12 @@ describe('utils/dom', () => {
           <span></span>
           <span></span>
         </Base>`
-    })
+    }
     const wrapper5 = mount(Component5)
     expect(hasChildren(currentChildren)).toBe(true)
     wrapper5.destroy()
 
-    const Component6 = Vue.extend({
+    const Component6 = {
       components: { Base },
       template: `
         <Base>
@@ -338,7 +336,7 @@ describe('utils/dom', () => {
 
         </Base>
       `
-    })
+    }
     const wrapper6 = mount(Component6)
     expect(hasChildren(currentChildren)).toBe(false)
     wrapper6.destroy()

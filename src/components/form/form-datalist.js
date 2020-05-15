@@ -16,12 +16,12 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const $options = this.formOptions.map((option, index) => {
-      const { value, html, text, disabled } = option
+      const { value, text, html, disabled } = option
 
       return h('option', {
-        key: `option_${index}_opt`,
-        attrs: { disabled },
-        domProps: { ...htmlOrText(html, text), value }
+        attrs: { value, disabled },
+        domProps: htmlOrText(html, text),
+        key: `option_${index}`
       })
     })
 

@@ -6,12 +6,12 @@ import {
 } from '../../constants/class-names'
 import { NAME_CARD_HEADER } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
-import copyProps from '../../utils/copy-props'
-import prefixPropName from '../../utils/prefix-prop-name'
 import { htmlOrText } from '../../utils/html'
+import { copyProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 
 // --- Props ---
+
 export const props = {
   ...copyProps(cardMixin.props, prefixPropName.bind(null, 'header')),
   header: {
@@ -35,6 +35,8 @@ export const BCardHeader = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { headerBgVariant, headerBorderVariant, headerTextVariant } = props
+
     return h(
       props.headerTag,
       mergeData(data, {
@@ -42,13 +44,14 @@ export const BCardHeader = /*#__PURE__*/ Vue.extend({
         class: [
           props.headerClass,
           {
-            [`${CLASS_NAME_BACKGROUND}-${props.headerBgVariant}`]: props.headerBgVariant,
-            [`${CLASS_NAME_BORDER}-${props.headerBorderVariant}`]: props.headerBorderVariant,
-            [`${CLASS_NAME_TEXT}-${props.headerTextVariant}`]: props.headerTextVariant
+            [`${CLASS_NAME_BACKGROUND}-${headerBgVariant}`]: headerBgVariant,
+            [`${CLASS_NAME_BORDER}-${headerBorderVariant}`]: headerBorderVariant,
+            [`${CLASS_NAME_TEXT}-${headerTextVariant}`]: headerTextVariant
           }
-        ]
+        ],
+        domProps: children ? {} : htmlOrText(props.headerHtml, props.header)
       }),
-      children || [h('div', { domProps: htmlOrText(props.headerHtml, props.header) })]
+      children
     )
   }
 })

@@ -1,13 +1,14 @@
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { hasChildren } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
+
 export const props = {
-  ...linkPropsFactory(),
   text: {
     type: String,
     default: null
@@ -19,7 +20,8 @@ export const props = {
   ariaCurrent: {
     type: String,
     default: 'location'
-  }
+  },
+  ...omit(BLinkProps, ['event', 'routerTag'])
 }
 
 // --- Main component ---
@@ -29,11 +31,12 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props: suppliedProps, data, children }) {
-    const tag = suppliedProps.active ? 'span' : BLink
+    const { active } = suppliedProps
+    const tag = active ? 'span' : BLink
 
-    const componentData = { props: pluckProps(props, suppliedProps) }
-    if (suppliedProps.active) {
-      componentData.attrs = { 'aria-current': suppliedProps.ariaCurrent }
+    const componentData = {
+      attrs: { 'aria-current': active ? suppliedProps.ariaCurrent : null },
+      props: pluckProps(props, suppliedProps)
     }
 
     if (!hasChildren(children)) {

@@ -1,10 +1,10 @@
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
-import suffixPropName from '../../utils/suffix-prop-name'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { assign, create, keys } from '../../utils/object'
+import { suffixPropName } from '../../utils/props'
 import { lowerCase } from '../../utils/string'
 import { mergeData } from '../../utils/vue'
 

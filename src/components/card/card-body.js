@@ -8,9 +8,7 @@ import {
 } from '../../constants/class-names'
 import { NAME_CARD_BODY } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
-import copyProps from '../../utils/copy-props'
-import pluckProps from '../../utils/pluck-props'
-import prefixPropName from '../../utils/prefix-prop-name'
+import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
 import { suffixClass } from '../../utils/string'
 import cardMixin from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'
@@ -39,15 +37,16 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
-    let cardTitle = h()
-    let cardSubTitle = h()
+    const { bodyBgVariant, bodyBorderVariant, bodyTextVariant } = props
 
+    let $cardTitle = h()
     if (props.title) {
-      cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
+      $cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
     }
 
+    let $cardSubTitle = h()
     if (props.subTitle) {
-      cardSubTitle = h(BCardSubTitle, {
+      $cardSubTitle = h(BCardSubTitle, {
         props: pluckProps(subTitleProps, props),
         class: CLASS_NAME_MARGIN_BOTTOM_2
       })
@@ -61,13 +60,13 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
           props.bodyClass,
           {
             [suffixClass(CLASS_NAME_CARD_IMG, 'overlay')]: props.overlay,
-            [`${CLASS_NAME_BACKGROUND}-${props.bodyBgVariant}`]: props.bodyBgVariant,
-            [`${CLASS_NAME_BORDER}-${props.bodyBorderVariant}`]: props.bodyBorderVariant,
-            [`${CLASS_NAME_TEXT}-${props.bodyTextVariant}`]: props.bodyTextVariant
+            [`${CLASS_NAME_BACKGROUND}-${bodyBgVariant}`]: bodyBgVariant,
+            [`${CLASS_NAME_BORDER}-${bodyBorderVariant}`]: bodyBorderVariant,
+            [`${CLASS_NAME_TEXT}-${bodyTextVariant}`]: bodyTextVariant
           }
         ]
       }),
-      [cardTitle, cardSubTitle, children]
+      [$cardTitle, $cardSubTitle, children]
     )
   }
 })

@@ -3,22 +3,24 @@ import { NAME_DROPDOWN_ITEM } from '../../constants/components'
 import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
 import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
+import { omit } from '../../utils/object'
 import { suffixClass } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
+
 export const props = {
-  ...linkPropsFactory(),
+  variant: {
+    type: String,
+    default: null
+  },
   linkClass: {
     type: [String, Array, Object],
     default: null
   },
-  variant: {
-    type: String,
-    default: null
-  }
+  ...omit(BLinkProps, ['event', 'routerTag'])
 }
 
 // --- Main component ---

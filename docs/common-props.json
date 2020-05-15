@@ -197,40 +197,49 @@
   "active": {
     "description": "When set to 'true', places the component in the active state with active styling"
   },
+  "href": {
+    "description": "<b-link> prop: Denotes the target URL of the link for standard a links"
+  },
   "rel": {
-    "description": "Sets the 'rel' attribute on the rendered link"
+    "description": "<b-link> prop: Sets the 'rel' attribute on the rendered link"
   },
   "target": {
-    "description": "Sets the 'target' attribute on the rendered link"
-  },
-  "href": {
-    "description": "Denotes the target URL of the link for standard a links"
+    "description": "<b-link> prop: Sets the 'target' attribute on the rendered link"
   },
   "to": {
-    "description": "router-link prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
+    "description": "<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
   },
   "replace": {
-    "description": "router-link prop: Setting the replace prop will call 'router.replace()' instead of 'router.push()' when clicked, so the navigation will not leave a history record"
+    "description": "<router-link> prop: Setting the replace prop will call 'router.replace()' instead of 'router.push()' when clicked, so the navigation will not leave a history record"
   },
   "append": {
-    "description": "router-link prop: Setting append prop always appends the relative path to the current path"
+    "description": "<router-link> prop: Setting append prop always appends the relative path to the current path"
   },
   "exact": {
-    "description": "router-link prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route"
+    "description": "<router-link> prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route"
   },
   "activeClass": {
-    "description": "router-link prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'"
+    "description": "<router-link> prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'"
   },
   "exactActiveClass": {
-    "description": "router-link prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
+    "description": "<router-link> prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
   },
   "routerTag": {
-    "description": "router-link prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
+    "description": "<router-link> prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
   },
   "event": {
-    "description": "router-link prop: Specify the event that triggers the link. In most cases you should leave this as the default"
+    "description": "<router-link> prop: Specify the event that triggers the link. In most cases you should leave this as the default"
+  },
+  "prefetch": {
+    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'prefetch' to 'true' or 'false' will overwrite the default value of 'router.prefetchLinks'",
+    "version": "2.15.0"
   },
   "noPrefetch": {
-    "description": "nuxt-link prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
+    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
+  },
+  "routerComponentName": {
+    "description": "<b-link> prop: BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome (note only `<router-link>` specific props are passed to the component)",
+    "version": "2.15.0",
+    "settings": true
   }
 }

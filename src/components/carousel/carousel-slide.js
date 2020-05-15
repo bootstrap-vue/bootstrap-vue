@@ -6,16 +6,17 @@ import {
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import { ROLE_LISTITEM } from '../../constants/roles'
 import Vue from '../../utils/vue'
-import identity from '../../utils/identity'
-import idMixin from '../../mixins/id'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
+import { pluckProps, unprefixPropName } from '../../utils/props'
 import { suffixClass } from '../../utils/string'
+import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BImg } from '../image/img'
 
 // --- Props ---
-export const props = {
+
+const imgProps = {
   imgSrc: {
     type: String
     // default: undefined
@@ -39,7 +40,11 @@ export const props = {
   imgBlankColor: {
     type: String,
     default: 'transparent'
-  },
+  }
+}
+
+export const props = {
+  ...imgProps,
   contentVisibleUp: {
     type: String
   },
@@ -103,52 +108,51 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const noDrag = !this.bvCarousel.noTouch && hasTouchSupport
+    let $img = this.normalizeSlot('img')
+    if (!$img && (this.imgSrc || this.imgBlank)) {
+      const on = {}
+      // Touch support event handler
+      /* istanbul ignore if: difficult to test in JSDOM */
+      if (!this.bvCarousel.noTouch && hasTouchSupport) {
+        on.dragstart = evt => {
+          evt.preventDefault()
+        }
+      }
 
-    let img = this.normalizeSlot('img')
-    if (!img && (this.imgSrc || this.imgBlank)) {
-      img = h(BImg, {
+      $img = h(BImg, {
         props: {
-          fluidGrow: true,
-          block: true,
-          src: this.imgSrc,
-          blank: this.imgBlank,
-          blankColor: this.imgBlankColor,
+          ...pluckProps(imgProps, this.$props, unprefixPropName.bind(null, 'img')),
           width: this.computedWidth,
           height: this.computedHeight,
-          alt: this.imgAlt
+          fluidGrow: true,
+          block: true
         },
-        // Touch support event handler
-        on: noDrag
-          ? /* istanbul ignore next */ {
-              dragstart /* istanbul ignore next */: e => {
-                /* istanbul ignore next: difficult to test in JSDOM */
-                e.preventDefault()
-              }
-            }
-          : {}
+        on
       })
     }
-    img = img || h()
 
-    let content = h()
-    const contentChildren = [
+    const $contentChildren = [
+      // Caption
       this.caption || this.captionHtml
         ? h(this.captionTag, { domProps: htmlOrText(this.captionHtml, this.caption) })
-        : null,
+        : false,
+      // Text
       this.text || this.textHtml
         ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
-        : null,
-      this.normalizeSlot('default')
+        : false,
+      // Children
+      this.normalizeSlot('default') || false
     ]
-    if (contentChildren.some(identity)) {
-      content = h(
+
+    let $content = h()
+    if ($contentChildren.some(Boolean)) {
+      $content = h(
         this.contentTag,
         {
           staticClass: suffixClass(CLASS_NAME_CAROUSEL, 'caption'),
           class: this.contentClasses
         },
-        contentChildren.map(i => i || h())
+        $contentChildren.map($child => $child || h())
       )
     }
 
@@ -159,7 +163,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
         style: { background: this.background || this.bvCarousel.background || null },
         attrs: { id: this.safeId(), role: ROLE_LISTITEM }
       },
-      [img, content]
+      [$img, $content]
     )
   }
 })

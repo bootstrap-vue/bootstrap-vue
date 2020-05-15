@@ -1,5 +1,5 @@
 import Vue, { mergeData } from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
+import { pluckProps } from '../../utils/props'
 import { props as BNavProps } from '../nav/nav'
 
 // -- Constants --

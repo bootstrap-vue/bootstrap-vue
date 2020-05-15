@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { mount, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BPaginationNav } from './pagination-nav'
 

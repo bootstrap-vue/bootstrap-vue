@@ -15,7 +15,7 @@ import { ROLE_MENU } from '../../constants/roles'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { stripTags } from '../../utils/html'
+import { htmlOrText } from '../../utils/html'
 import { suffixClass } from '../../utils/string'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
@@ -23,6 +23,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 
 // --- Props ---
+
 export const props = {
   text: {
     // Button label
@@ -34,13 +35,13 @@ export const props = {
     type: String
     // default: undefined
   },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'size')
-  },
   variant: {
     type: String,
     default: () => getComponentConfig(NAME_DROPDOWN, 'variant')
+  },
+  size: {
+    type: String,
+    default: () => getComponentConfig(NAME_DROPDOWN, 'size')
   },
   block: {
     type: Boolean,
@@ -103,6 +104,7 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BDropdown = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN,
@@ -110,6 +112,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     dropdownClasses() {
+      const { block, split, boundary } = this
       return [
         CLASS_NAME_BV_DROPDOWN,
         this.directionClass,
@@ -118,14 +121,14 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           // The 'btn-group' class is required in `split` mode for button alignment
           // It needs also to be applied when `block` is disabled to allow multiple
           // dropdowns to be aligned one line
-          [CLASS_NAME_BUTTON_GROUP]: this.split || !this.block,
+          [CLASS_NAME_BUTTON_GROUP]: split || !block,
           // When `block` is enabled and we are in `split` mode the 'd-flex' class
           // needs to be applied to allow the buttons to stretch to full width
-          [CLASS_NAME_DISPLAY_FLEX]: this.block && this.split,
+          [CLASS_NAME_DISPLAY_FLEX]: block && split,
           // Position `static` is needed to allow menu to "breakout" of the `scrollParent`
           // boundaries when boundary is anything other than `scrollParent`
           // See: https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-          [CLASS_NAME_POSITION_STATIC]: this.boundary !== 'scrollParent' || !this.boundary
+          [CLASS_NAME_POSITION_STATIC]: boundary !== 'scrollParent' || !boundary
         }
       ]
     },
@@ -139,31 +142,34 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       ]
     },
     toggleClasses() {
+      const { split } = this
       return [
         this.toggleClass,
         {
-          [suffixClass(CLASS_NAME_DROPDOWN_TOGGLE, 'split')]: this.split,
-          [suffixClass(CLASS_NAME_DROPDOWN_TOGGLE, 'no-caret')]: this.noCaret && !this.split
+          [suffixClass(CLASS_NAME_DROPDOWN_TOGGLE, 'split')]: split,
+          [suffixClass(CLASS_NAME_DROPDOWN_TOGGLE, 'no-caret')]: this.noCaret && !split
         }
       ]
     }
   },
   render(h) {
-    const { visible, split, variant, size, block, disabled, role, lazy } = this
+    const { visible, variant, size, block, disabled, split, role } = this
+    const commonProps = { variant, size, block, disabled }
 
-    const $buttonContent = this.normalizeSlot('button-content') || this.html || stripTags(this.text)
+    const $buttonContent = this.normalizeSlot('button-content')
+    const buttonContentProps = this.hasNormalizedSlot('button-content')
+      ? {}
+      : htmlOrText(this.html, this.text)
 
     let $split = h()
     if (split) {
-      const { splitVariant, splitTo, splitHref, splitButtonType } = this
+      const { splitTo, splitHref, splitButtonType } = this
       const btnProps = {
-        variant: splitVariant || variant,
-        size,
-        block,
-        disabled
+        ...commonProps,
+        variant: this.splitVariant || this.variant
       }
-      // We add these props as needed due to `<router-link>` issues
-      // with defined property with `undefined`/`null` values
+      // We add these as needed due to <router-link> issues with
+      // defined property with `undefined`/`null` values
       if (splitTo) {
         btnProps.to = splitTo
       } else if (splitHref) {
@@ -171,15 +177,15 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       } else if (splitButtonType) {
         btnProps.type = splitButtonType
       }
-
       $split = h(
         BButton,
         {
-          ref: 'button',
-          props: btnProps,
           class: this.splitClass,
           attrs: { id: this.safeId('_BV_button_') },
-          on: { click: this.onSplitClick }
+          props: btnProps,
+          domProps: buttonContentProps,
+          on: { click: this.onSplitClick },
+          ref: 'button'
         },
         [$buttonContent]
       )
@@ -188,26 +194,25 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const $toggle = h(
       BButton,
       {
-        ref: 'toggle',
         staticClass: CLASS_NAME_DROPDOWN_TOGGLE,
         class: this.toggleClasses,
-        props: {
-          tag: this.toggleTag,
-          variant,
-          size,
-          block: block && !split,
-          disabled
-        },
         attrs: {
           id: this.safeId('_BV_toggle_'),
           'aria-haspopup': ARIA_VALUE_TRUE,
           'aria-expanded': visible ? ARIA_VALUE_TRUE : ARIA_VALUE_FALSE
         },
+        props: {
+          ...commonProps,
+          tag: this.toggleTag,
+          block: block && !split
+        },
+        domProps: split ? {} : buttonContentProps,
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
           keydown: this.toggle // Handle ENTER, SPACE and DOWN
-        }
+        },
+        ref: 'toggle'
       },
       [split ? h('span', { class: CLASS_NAME_SR_ONLY }, [this.toggleText]) : $buttonContent]
     )
@@ -215,7 +220,6 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const $menu = h(
       'ul',
       {
-        ref: 'menu',
         staticClass: CLASS_NAME_DROPDOWN_MENU,
         class: this.menuClasses,
         attrs: {
@@ -225,9 +229,10 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onKeydown // Handle UP, DOWN and ESC
-        }
+        },
+        ref: 'menu'
       },
-      !lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      !this.lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
     )
 
     return h(

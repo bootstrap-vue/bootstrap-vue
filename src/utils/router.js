@@ -1,3 +1,4 @@
+import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import { toString } from './string'
@@ -87,14 +88,25 @@ export const parseQuery = query => {
   return parsed
 }
 
-export const isRouterLink = tag => toString(tag).toLowerCase() !== ANCHOR_TAG
+export const isLink = props => !!(props.href || props.to)
 
-export const computeTag = ({ to, disabled } = {}, thisOrParent) => {
-  return thisOrParent.$router && to && !disabled
-    ? thisOrParent.$nuxt
-      ? 'nuxt-link'
-      : 'router-link'
-    : ANCHOR_TAG
+export const isRouterLink = tag => !isTag(tag, ANCHOR_TAG)
+
+export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
+  const hasRouter = thisOrParent.$router
+  if (!hasRouter || (hasRouter && disabled) || (hasRouter && !to)) {
+    return ANCHOR_TAG
+  }
+
+  // TODO:
+  //   Check registered components for existence of user supplied router link component name
+  //   We would need to check PascalCase, kebab-case, and camelCase versions of name:
+  //   const name = routerComponentName
+  //   const names = [name, PascalCase(name), KebabCase(name), CamelCase(name)]
+  //   exists = names.some(name => !!thisOrParent.$options.components[name])
+  //   And may want to cache the result for performance or we just let the render fail
+  //   if the component is not registered
+  return routerComponentName || (thisOrParent.$nuxt ? 'nuxt-link' : 'router-link')
 }
 
 export const computeRel = ({ target, rel } = {}) => {
