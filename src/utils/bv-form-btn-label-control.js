@@ -190,7 +190,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idButton,
           type: 'button',
-          disabled: disabled,
+          disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false || (required && !value) ? 'true' : null,

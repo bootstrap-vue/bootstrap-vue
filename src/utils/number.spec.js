@@ -1,4 +1,4 @@
-import { isNumeric, toFixed, toFloat, toInteger } from './number'
+import { toFixed, toFloat, toInteger } from './number'
 
 describe('utils/number', () => {
   it('toInteger() works', async () => {
@@ -68,21 +68,5 @@ describe('utils/number', () => {
     expect(toFixed('1', undefined)).toBe('1')
     expect(toFixed('1 foo', null)).toBe('1')
     expect(toFixed('foo 1 bar', {})).toBe('NaN')
-  })
-
-  it('isNumeric() works', async () => {
-    expect(isNumeric(0)).toBe(true)
-    expect(isNumeric('0')).toBe(true)
-    expect(isNumeric(1)).toBe(true)
-    expect(isNumeric('1')).toBe(true)
-    expect(isNumeric(1e5)).toBe(true)
-    expect(isNumeric('1e5')).toBe(true)
-    expect(isNumeric('256 foobar')).toBe(true)
-    expect(isNumeric('foo 256bar')).toBe(false)
-    expect(isNumeric({})).toBe(false)
-    expect(isNumeric([])).toBe(false)
-    expect(isNumeric(new Date())).toBe(false)
-    expect(isNumeric(null)).toBe(false)
-    expect(isNumeric(undefined)).toBe(false)
   })
 })

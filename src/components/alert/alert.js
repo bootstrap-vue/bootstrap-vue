@@ -1,15 +1,18 @@
-import { ARIA_LIVE_POLITE } from '../../constants/aria'
+import { ARIA_LIVE_POLITE, ARIA_VALUE_TRUE } from '../../constants/aria'
+import { ATTR_ARIA_ATOMIC, ATTR_ARIA_LABEL, ATTR_ARIA_LIVE, ATTR_ROLE } from '../../constants/attrs'
 import { CLASS_NAME_ALERT } from '../../constants/class-names'
 import { NAME_ALERT } from '../../constants/components'
 import { EVENT_NAME_CLICK, EVENT_NAME_INPUT } from '../../constants/events'
 import { ROLE_ALERT } from '../../constants/roles'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import { TAG_DIV } from '../../constants/tags'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
+import { buildObject } from '../../utils/object'
 import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
@@ -144,32 +147,38 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     let $alert = h()
     if (this.localShow) {
       const { dismissible, variant } = this
+
       let $dismissBtn = h()
       if (dismissible) {
         $dismissBtn = h(
           BButtonClose,
-          { attrs: { 'aria-label': this.dismissLabel }, on: { [EVENT_NAME_CLICK]: this.dismiss } },
+          {
+            attrs: buildObject([[ATTR_ARIA_LABEL, this.dismissLabel]]),
+            on: buildObject([[EVENT_NAME_CLICK, this.dismiss]])
+          },
           [this.normalizeSlot('dismiss')]
         )
       }
+
       $alert = h(
-        'div',
+        TAG_DIV,
         {
           staticClass: CLASS_NAME_ALERT,
-          class: {
-            [suffixClass(CLASS_NAME_ALERT, 'dismissible')]: dismissible,
-            [suffixClass(CLASS_NAME_ALERT, variant)]: !!variant
-          },
-          attrs: {
-            role: ROLE_ALERT,
-            'aria-live': ARIA_LIVE_POLITE,
-            'aria-atomic': true
-          },
+          class: buildObject([
+            [suffixClass(CLASS_NAME_ALERT, 'dismissible'), dismissible],
+            [suffixClass(CLASS_NAME_ALERT, variant), variant]
+          ]),
+          attrs: buildObject([
+            [ATTR_ROLE, ROLE_ALERT],
+            [ATTR_ARIA_LIVE, ARIA_LIVE_POLITE],
+            [ATTR_ARIA_ATOMIC, ARIA_VALUE_TRUE]
+          ]),
           key: this._uid
         },
         [$dismissBtn, this.normalizeSlot(SLOT_NAME_DEFAULT)]
       )
     }
+
     return h(BVTransition, { props: { noFade: !this.fade } }, [$alert])
   }
 })

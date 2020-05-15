@@ -1,4 +1,13 @@
 import {
+  ATTR_ARIA_DISABLED,
+  ATTR_ARIA_PRESSED,
+  ATTR_AUTOCOMPLETE,
+  ATTR_DISABLED,
+  ATTR_ROLE,
+  ATTR_TABINDEX,
+  ATTR_TYPE
+} from '../../constants/attrs'
+import {
   CLASS_NAME_ACTIVE,
   CLASS_NAME_BUTTON,
   CLASS_NAME_DISABLED,
@@ -125,25 +134,25 @@ const computeAttrs = (props, data) => {
   }
   return {
     // Type only used for "real" buttons
-    type: button && !link ? props.type : null,
+    [ATTR_TYPE]: button && !link ? props.type : null,
     // Disabled only set on "real" buttons
-    disabled: button ? disabled : null,
+    [ATTR_DISABLED]: button ? disabled : null,
     // We add a role of button when the tag is not a link or button for ARIA
     // Don't bork any role provided in `data.attrs` when `isLink` or `isButton`
     // Except when link has `href` of `#`
-    role: nonStandardTag || hashLink ? ROLE_BUTTON : role,
+    [ATTR_ROLE]: nonStandardTag || hashLink ? ROLE_BUTTON : role,
     // We set the `aria-disabled` state for non-standard tags
-    'aria-disabled': nonStandardTag ? String(disabled) : null,
+    [ATTR_ARIA_DISABLED]: nonStandardTag ? String(disabled) : null,
     // For toggles, we need to set the pressed state for ARIA
-    'aria-pressed': toggle ? String(props.pressed) : null,
+    [ATTR_ARIA_PRESSED]: toggle ? String(props.pressed) : null,
     // `autocomplete="off"` is needed in toggle mode to prevent some browsers
     // from remembering the previous setting when using the back button
-    autocomplete: toggle ? 'off' : null,
+    [ATTR_AUTOCOMPLETE]: toggle ? 'off' : null,
     // `tabindex` is used when the component is not a button
     // Links are tabbable, but don't allow disabled, while non buttons or links
     // are not tabbable, so we mimic that functionality by disabling tabbing
     // when disabled, and adding a `tabindex="0"` to non buttons or non links
-    tabindex: disabled && !button ? '-1' : tabindex
+    [ATTR_TABINDEX]: disabled && !button ? '-1' : tabindex
   }
 }
 

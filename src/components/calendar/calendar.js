@@ -1,5 +1,17 @@
 import { ARIA_LIVE_POLITE, ARIA_VALUE_OFF, ARIA_VALUE_TRUE } from '../../constants/aria'
 import {
+  ATTR_ARIA_ATOMIC,
+  ATTR_ARIA_CONTROLS,
+  ATTR_ARIA_DISABLED,
+  ATTR_ARIA_HIDDEN,
+  ATTR_ARIA_LABEL,
+  ATTR_ARIA_LIVE,
+  ATTR_FOR,
+  ATTR_ROLE,
+  ATTR_TABINDEX,
+  ATTR_TITLE
+} from '../../constants/attrs'
+import {
   CLASS_NAME_ACTIVE,
   CLASS_NAME_BACKGROUND,
   CLASS_NAME_BORDER_BOTTOM,
@@ -874,16 +886,16 @@ export const BCalendar = Vue.extend({
         ],
         attrs: {
           id: valueId,
-          for: gridId,
-          role: ROLE_STATUS,
-          tabindex: this.disabled ? null : '-1',
+          [ATTR_FOR]: gridId,
+          [ATTR_ROLE]: ROLE_STATUS,
+          [ATTR_TABINDEX]: this.disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
           // We wait until after mount to enable `aria-live`
           // to prevent initial announcement on page render
-          'aria-live': isLive ? ARIA_LIVE_POLITE : ARIA_VALUE_OFF,
-          'aria-atomic': isLive ? ARIA_VALUE_TRUE : null
+          [ATTR_ARIA_LIVE]: isLive ? ARIA_LIVE_POLITE : ARIA_VALUE_OFF,
+          [ATTR_ARIA_ATOMIC]: isLive ? ARIA_VALUE_TRUE : null
         },
         on: {
           // Transfer focus/click to focus grid
@@ -949,15 +961,15 @@ export const BCalendar = Vue.extend({
             { disabled: btnDisabled }
           ],
           attrs: {
-            title: label || null,
-            type: 'button',
-            'aria-label': label || null,
-            'aria-disabled': btnDisabled ? ARIA_VALUE_TRUE : null,
+            [ATTR_TITLE]: label || null,
+            [ATTR_ROLE]: 'button',
+            [ATTR_ARIA_LABEL]: label || null,
+            [ATTR_ARIA_DISABLED]: btnDisabled ? ARIA_VALUE_TRUE : null,
             'aria-keyshortcuts': shortcut || null
           },
           on: btnDisabled ? {} : { [EVENT_NAME_CLICK]: handler }
         },
-        [h('div', { attrs: { 'aria-hidden': ARIA_VALUE_TRUE } }, [content])]
+        [h('div', { attrs: { [ATTR_ARIA_HIDDEN]: ARIA_VALUE_TRUE } }, [content])]
       )
     }
 
@@ -969,10 +981,10 @@ export const BCalendar = Vue.extend({
         class: CLASS_NAME_DISPLAY_FLEX,
         attrs: {
           id: navId,
-          role: ROLE_GROUP,
-          'aria-hidden': this.disabled ? ARIA_VALUE_TRUE : null,
-          'aria-label': this.labelNav || null,
-          'aria-controls': gridId
+          [ATTR_ROLE]: ROLE_GROUP,
+          [ATTR_ARIA_HIDDEN]: this.disabled ? ARIA_VALUE_TRUE : null,
+          [ATTR_ARIA_LABEL]: this.labelNav || null,
+          [ATTR_ARIA_CONTROLS]: gridId
         }
       },
       [

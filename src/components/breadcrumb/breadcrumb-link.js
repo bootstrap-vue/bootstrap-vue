@@ -1,3 +1,4 @@
+import { ATTR_ARIA_CURRENT } from '../../constants/attrs'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { hasChildren } from '../../utils/dom'
@@ -35,7 +36,7 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
     const tag = active ? 'span' : BLink
 
     const componentData = {
-      attrs: { 'aria-current': active ? suppliedProps.ariaCurrent : null },
+      attrs: { [ATTR_ARIA_CURRENT]: active ? suppliedProps.ariaCurrent : null },
       props: pluckProps(props, suppliedProps)
     }
 

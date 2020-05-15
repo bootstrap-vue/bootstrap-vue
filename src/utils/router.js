@@ -1,9 +1,8 @@
+import { TAG_ANCHOR } from '../constants/tags'
 import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import { toString } from './string'
-
-const ANCHOR_TAG = 'a'
 
 // Precompile RegExp
 const commaRE = /%2C/g
@@ -90,12 +89,12 @@ export const parseQuery = query => {
 
 export const isLink = props => !!(props.href || props.to)
 
-export const isRouterLink = tag => !isTag(tag, ANCHOR_TAG)
+export const isRouterLink = tag => !isTag(tag, TAG_ANCHOR)
 
 export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
   const hasRouter = thisOrParent.$router
   if (!hasRouter || (hasRouter && disabled) || (hasRouter && !to)) {
-    return ANCHOR_TAG
+    return TAG_ANCHOR
   }
 
   // TODO:
@@ -118,7 +117,7 @@ export const computeRel = ({ target, rel } = {}) => {
 
 export const computeHref = (
   { href, to } = {},
-  tag = ANCHOR_TAG,
+  tag = TAG_ANCHOR,
   fallback = '#',
   toFallback = '/'
 ) => {
