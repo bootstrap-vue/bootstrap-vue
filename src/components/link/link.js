@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -225,7 +226,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`
         [this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
     )
   }
 })

@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FIRST } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
@@ -135,7 +136,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
         directives: [{ name: 'model', value }],
         ref: 'input'
       },
-      [this.normalizeSlot('first'), $options, this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_FIRST), $options, this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
   }
 })

@@ -1,3 +1,4 @@
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps } from '../../utils/props'
@@ -8,6 +9,7 @@ import { props as BDropdownProps } from '../dropdown/dropdown'
 import { BLink } from '../link/link'
 
 // --- Props ---
+
 export const props = pluckProps(
   ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
   BDropdownProps
@@ -70,7 +72,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       },
       [
         // TODO: The `text` slot is deprecated in favor of the `button-content` slot
-        this.normalizeSlot(['button-content', 'text']) ||
+        this.normalizeSlot([SLOT_NAME_BUTTON_CONTENT, 'text']) ||
           h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
@@ -89,7 +91,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         },
         ref: 'menu'
       },
-      !this.lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      !this.lazy || visible ? this.normalizeSlot(SLOT_NAME_DEFAULT, { hide: this.hide }) : [h()]
     )
 
     return h(

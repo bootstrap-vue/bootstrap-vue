@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT, SLOT_NAME_LABEL } from '../../constants/slot-names'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
@@ -99,7 +100,7 @@ const renderHelpText = (h, ctx) => {
 
 const renderLabel = (h, ctx) => {
   // Render label/legend inside b-col if necessary
-  const content = ctx.normalizeSlot('label') || ctx.label
+  const content = ctx.normalizeSlot(SLOT_NAME_LABEL) || ctx.label
   const labelFor = ctx.labelFor
   const isLegend = !labelFor
   const isHorizontal = ctx.isHorizontal
@@ -302,7 +303,9 @@ export const BFormGroup = {
       return keys(this.labelColProps).length > 0
     },
     labelId() {
-      return this.hasNormalizedSlot('label') || this.label ? this.safeId('_BV_label_') : null
+      return this.hasNormalizedSlot(SLOT_NAME_LABEL) || this.label
+        ? this.safeId('_BV_label_')
+        : null
     },
     descriptionId() {
       return this.hasNormalizedSlot('description') || this.description
@@ -422,7 +425,7 @@ export const BFormGroup = {
         }
       },
       [
-        this.normalizeSlot('default') || h(),
+        this.normalizeSlot(SLOT_NAME_DEFAULT) || h(),
         renderInvalidFeedback(h, this),
         renderValidFeedback(h, this),
         renderHelpText(h, this)

@@ -1,4 +1,5 @@
 import { ESC } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
@@ -24,8 +25,9 @@ const NAME = 'BSidebar'
 const CLASS_NAME = 'b-sidebar'
 
 // --- Render methods ---
+
 const renderHeaderTitle = (h, ctx) => {
-  const title = ctx.normalizeSlot('title', ctx.slotScope) || toString(ctx.title) || null
+  const title = ctx.normalizeSlot(SLOT_NAME_TITLE, ctx.slotScope) || toString(ctx.title) || null
 
   // Render a empty `<span>` when to title was provided
   if (!title) {
@@ -80,12 +82,12 @@ const renderBody = (h, ctx) => {
       staticClass: `${CLASS_NAME}-body`,
       class: ctx.bodyClass
     },
-    [ctx.normalizeSlot('default', ctx.slotScope)]
+    [ctx.normalizeSlot(SLOT_NAME_DEFAULT, ctx.slotScope)]
   )
 }
 
 const renderFooter = (h, ctx) => {
-  const $footer = ctx.normalizeSlot('footer', ctx.slotScope)
+  const $footer = ctx.normalizeSlot(SLOT_NAME_FOOTER, ctx.slotScope)
   if (!$footer) {
     return h()
   }
@@ -264,7 +266,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     computedTile() {
-      return this.normalizeSlot('title', this.slotScope) || toString(this.title) || null
+      return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
     },
     titleId() {
       return this.computedTile ? this.safeId('__title__') : null

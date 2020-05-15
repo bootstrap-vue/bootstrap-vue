@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -58,7 +59,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
         on: { click: this.onClick }
       },
       [
-        this.normalizeSlot('default', { expanded }) ||
+        this.normalizeSlot(SLOT_NAME_DEFAULT, { expanded }) ||
           h('span', { staticClass: `${CLASS_NAME}-icon` })
       ]
     )

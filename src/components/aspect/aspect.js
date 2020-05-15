@@ -1,14 +1,12 @@
 import { CLASS_NAME_BV_ASPECT } from '../../constants/class-names'
 import { NAME_ASPECT } from '../../constants/components'
+import { RX_ASPECT, RX_ASPECT_SEPARATOR } from '../../constants/regex'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { mathAbs } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import { suffixClass } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-
-// --- Constants ---
-const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
-const RX_SEPARATOR = /[/:]/
 
 // --- Main component ---
 // @vue/component
@@ -32,9 +30,9 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       const aspect = this.aspect
       let ratio = 1
       if (RX_ASPECT.test(aspect)) {
-        // Width and/or Height can be a decimal value below `1`, so
+        // Width and/or height can be a decimal value below `1`, so
         // we only fallback to `1` if the value is `0` or `NaN`
-        const [width, height] = aspect.split(RX_SEPARATOR).map(v => toFloat(v) || 1)
+        const [width, height] = aspect.split(RX_ASPECT_SEPARATOR).map(v => toFloat(v) || 1)
         ratio = width / height
       } else {
         ratio = toFloat(aspect) || 1
@@ -55,7 +53,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
         class: ['flex-grow-1', 'w-100', 'mw-100'],
         style: { marginLeft: '-100%' }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
     return h(
       this.tag,

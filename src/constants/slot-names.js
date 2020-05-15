@@ -1,0 +1,7 @@
+export const SLOT_NAME_BUTTON_CONTENT = 'button-content'
+export const SLOT_NAME_DEFAULT = 'default'
+export const SLOT_NAME_FIRST = 'first'
+export const SLOT_NAME_FOOTER = 'footer'
+export const SLOT_NAME_HEADER = 'header'
+export const SLOT_NAME_LABEL = 'label'
+export const SLOT_NAME_TITLE = 'title'

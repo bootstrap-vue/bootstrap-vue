@@ -1,6 +1,7 @@
 import { CLASS_NAME_BV_AVATAR_GROUP } from '../../constants/class-names'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
 import { ROLE_GROUP } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
@@ -65,7 +66,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
         staticClass: suffixClass(CLASS_NAME_BV_AVATAR_GROUP, 'inner'),
         style: this.paddingStyle
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
 
     return h(

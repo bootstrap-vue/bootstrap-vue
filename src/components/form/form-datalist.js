@@ -1,4 +1,5 @@
 import { NAME_FORM_DATALIST } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import formOptionsMixin from '../../mixins/form-options'
@@ -25,6 +26,9 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
       })
     })
 
-    return h('datalist', { attrs: { id: this.id } }, [$options, this.normalizeSlot('default')])
+    return h('datalist', { attrs: { id: this.id } }, [
+      $options,
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
+    ])
   }
 })

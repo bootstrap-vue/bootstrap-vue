@@ -7,6 +7,7 @@ import {
   CLASS_NAME_TEXT
 } from '../../constants/class-names'
 import { NAME_CARD } from '../../constants/components'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
@@ -77,7 +78,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     }
 
     let $header = h()
-    const hasHeaderSlot = hasNormalizedSlot('header', $scopedSlots, $slots)
+    const hasHeaderSlot = hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots)
     if (hasHeaderSlot || header || headerHtml) {
       $header = h(
         BCardHeader,
@@ -85,11 +86,11 @@ export const BCard = /*#__PURE__*/ Vue.extend({
           props: pluckProps(headerProps, props),
           domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
         },
-        normalizeSlot('header', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots)
       )
     }
 
-    let $content = normalizeSlot('default', slotScope, $scopedSlots, $slots)
+    let $content = normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
 
     // Wrap content in <card-body> when `noBody` prop set
     if (!props.noBody) {
@@ -97,7 +98,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
     }
 
     let $footer = h()
-    const hasFooterSlot = hasNormalizedSlot('footer', $scopedSlots, $slots)
+    const hasFooterSlot = hasNormalizedSlot(SLOT_NAME_FOOTER, $scopedSlots, $slots)
     if (hasFooterSlot || footer || footerHtml) {
       $footer = h(
         BCardFooter,
@@ -105,7 +106,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
           props: pluckProps(footerProps, props),
           domProps: hasHeaderSlot ? {} : htmlOrText(footerHtml, footer)
         },
-        normalizeSlot('footer', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_FOOTER, slotScope, $scopedSlots, $slots)
       )
     }
 

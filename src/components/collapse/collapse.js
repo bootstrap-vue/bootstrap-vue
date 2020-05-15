@@ -7,6 +7,7 @@ import {
 } from '../../constants/class-names'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
@@ -238,7 +239,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       visible: this.show,
       close: () => (this.show = false)
     }
-    const content = h(
+
+    const $content = h(
       this.tag,
       {
         class: this.classObject,
@@ -246,8 +248,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot('default', scope)]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT, scope)]
     )
+
     return h(
       BVCollapse,
       {
@@ -259,7 +262,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
           afterLeave: this.onAfterLeave
         }
       },
-      [content]
+      [$content]
     )
   }
 })

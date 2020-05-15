@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -96,7 +97,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     return h(
       this.isTransitionGroup ? 'transition-group' : 'tbody',
       data,
-      this.normalizeSlot('default')
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
     )
   }
 })

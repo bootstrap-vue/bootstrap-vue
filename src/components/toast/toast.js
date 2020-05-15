@@ -1,5 +1,6 @@
 import { Portal, Wormhole } from 'portal-vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { BvEvent } from '../../utils/bv-event.class'
@@ -393,7 +394,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           props: link ? pluckProps(linkProps, this) : {},
           on: link ? { click: this.onLinkClick } : {}
         },
-        [this.normalizeSlot('default', this.slotScope) || h()]
+        [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope) || h()]
       )
       // Build the toast
       const $toast = h(

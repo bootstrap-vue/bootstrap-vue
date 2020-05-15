@@ -1,3 +1,4 @@
+import { SLOT_NAME_LABEL } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { normalizeSlot } from '../../utils/normalize-slot'
@@ -37,7 +38,7 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
-    let label = normalizeSlot('label', {}, $scopedSlots, $slots) || props.label
+    let label = normalizeSlot(SLOT_NAME_LABEL, {}, $scopedSlots, $slots) || props.label
     if (label) {
       label = h('span', { staticClass: 'sr-only' }, label)
     }

@@ -11,6 +11,7 @@ import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
 import { ROLE_BUTTON, ROLE_LIST, ROLE_REGION } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
@@ -527,7 +528,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           role: ROLE_LIST
         }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
 
     // Prev and next controls

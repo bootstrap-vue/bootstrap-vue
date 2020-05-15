@@ -12,6 +12,7 @@ import {
 } from '../../constants/class-names'
 import { NAME_DROPDOWN } from '../../constants/components'
 import { ROLE_MENU } from '../../constants/roles'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -156,8 +157,8 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const { visible, variant, size, block, disabled, split, role } = this
     const commonProps = { variant, size, block, disabled }
 
-    const $buttonContent = this.normalizeSlot('button-content')
-    const buttonContentProps = this.hasNormalizedSlot('button-content')
+    const $buttonContent = this.normalizeSlot(SLOT_NAME_BUTTON_CONTENT)
+    const buttonContentProps = this.hasNormalizedSlot(SLOT_NAME_BUTTON_CONTENT)
       ? {}
       : htmlOrText(this.html, this.text)
 
@@ -232,7 +233,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         },
         ref: 'menu'
       },
-      !this.lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      !this.lazy || visible ? this.normalizeSlot(SLOT_NAME_DEFAULT, { hide: this.hide }) : [h()]
     )
 
     return h(

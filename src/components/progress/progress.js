@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -58,9 +59,9 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let childNodes = this.normalizeSlot('default')
-    if (!childNodes) {
-      childNodes = h(BProgressBar, {
+    let $childNodes = this.normalizeSlot(SLOT_NAME_DEFAULT)
+    if (!$childNodes) {
+      $childNodes = h(BProgressBar, {
         props: {
           value: this.value,
           max: this.max,
@@ -73,6 +74,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
         }
       })
     }
-    return h('div', { class: ['progress'], style: this.progressHeight }, [childNodes])
+
+    return h('div', { class: ['progress'], style: this.progressHeight }, [$childNodes])
   }
 })

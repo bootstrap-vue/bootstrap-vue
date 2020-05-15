@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../../constants/slot-names'
 import identity from '../../../utils/identity'
 import { isBoolean } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
@@ -169,7 +170,7 @@ export default {
     const $content = []
 
     if (this.isTableSimple) {
-      $content.push(this.normalizeSlot('default'))
+      $content.push(this.normalizeSlot(SLOT_NAME_DEFAULT))
     } else {
       // Build the `<caption>` (from caption mixin)
       $content.push(this.renderCaption ? this.renderCaption() : null)

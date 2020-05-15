@@ -1,4 +1,5 @@
 import { DELETE } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
@@ -70,7 +71,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-tag-content flex-grow-1 text-truncate',
         attrs: { id: tagLabelId }
       },
-      this.normalizeSlot('default') || this.title || [h()]
+      this.normalizeSlot(SLOT_NAME_DEFAULT) || this.title || [h()]
     )
     return h(
       BBadge,

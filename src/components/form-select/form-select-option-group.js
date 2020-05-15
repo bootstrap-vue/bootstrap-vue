@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FIRST } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import formOptionsMixin from '../../mixins/form-options'
@@ -26,9 +27,9 @@ const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
     })
 
     return h('optgroup', { attrs: { label: this.label } }, [
-      this.normalizeSlot('first'),
+      this.normalizeSlot(SLOT_NAME_FIRST),
       $options,
-      this.normalizeSlot('default')
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
     ])
   }
 })

@@ -1,6 +1,7 @@
 import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class-names'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
 import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -79,7 +80,7 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
           on: { click: this.onClick },
           ref: 'button'
         },
-        this.normalizeSlot('default')
+        this.normalizeSlot(SLOT_NAME_DEFAULT)
       )
     ])
   }

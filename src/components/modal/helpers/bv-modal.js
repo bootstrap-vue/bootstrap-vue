@@ -1,5 +1,5 @@
 // Plugin for adding `$bvModal` property to all Vue instances
-import { BModal, props as modalProps } from '../modal'
+import { SLOT_NAME_DEFAULT } from '../../../constants/slot-names'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { isUndefined, isFunction } from '../../../utils/inspect'
@@ -14,6 +14,7 @@ import {
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
+import { BModal, props as modalProps } from '../modal'
 
 // --- Constants ---
 
@@ -34,7 +35,7 @@ const defaultResolver = () => {}
 
 // Map prop names to modal slot names
 const propsToSlots = {
-  msgBoxContent: 'default',
+  msgBoxContent: SLOT_NAME_DEFAULT,
   title: 'modal-title',
   okTitle: 'modal-ok',
   cancelTitle: 'modal-cancel'

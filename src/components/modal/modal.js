@@ -1,5 +1,6 @@
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { ESC } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
@@ -928,7 +929,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attrs: { id: this.modalBodyId },
           ref: 'body'
         },
-        this.normalizeSlot('default', this.slotScope)
+        this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)
       )
 
       // Modal footer

@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
@@ -178,7 +179,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-overlay-wrap position-relative',
         attrs: { 'aria-busy': this.show ? 'true' : null }
       },
-      this.noWrap ? [$overlay] : [this.normalizeSlot('default'), $overlay]
+      this.noWrap ? [$overlay] : [this.normalizeSlot(SLOT_NAME_DEFAULT), $overlay]
     )
   }
 })

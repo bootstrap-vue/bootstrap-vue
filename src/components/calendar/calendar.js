@@ -51,6 +51,7 @@ import {
   UP
 } from '../../constants/key-codes'
 import { ROLE_APPLICATION, ROLE_BUTTON, ROLE_GROUP, ROLE_STATUS } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -1220,7 +1221,7 @@ export const BCalendar = Vue.extend({
     )
 
     // Optional bottom slot
-    let $slot = this.normalizeSlot('default')
+    let $slot = this.normalizeSlot(SLOT_NAME_DEFAULT)
     $slot = $slot
       ? h('footer', { staticClass: suffixClass(CLASS_NAME_BV_CALENDAR, 'footer') }, $slot)
       : h()

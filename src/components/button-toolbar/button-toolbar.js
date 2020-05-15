@@ -9,6 +9,7 @@ import {
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import { ROLE_TOOLBAR } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { attemptFocus, isVisible, selectAll } from '../../utils/dom'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -120,7 +121,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
             }
           : {}
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
   }
 })

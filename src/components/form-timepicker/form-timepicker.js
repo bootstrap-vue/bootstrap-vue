@@ -1,3 +1,4 @@
+import { SLOT_NAME_BUTTON_CONTENT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
@@ -442,7 +443,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
+          [SLOT_NAME_BUTTON_CONTENT]:
+            this.$scopedSlots[SLOT_NAME_BUTTON_CONTENT] || this.defaultButtonFn
         }
       },
       [$time]

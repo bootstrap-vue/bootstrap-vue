@@ -6,6 +6,7 @@ import {
 } from '../../constants/class-names'
 import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
@@ -23,7 +24,6 @@ import { BIconPersonFill } from '../../icons/icons'
 // --- Constants ---
 
 const SLOT_BADGE = 'badge'
-const SLOT_DEFAULT = 'default'
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
@@ -216,10 +216,10 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const ariaLabel = this.ariaLabel || null
 
     let $content = null
-    if (this.hasNormalizedSlot(SLOT_DEFAULT)) {
+    if (this.hasNormalizedSlot(SLOT_NAME_DEFAULT)) {
       // Default slot overrides props
       $content = h('span', { staticClass: suffixClass(CLASS_NAME_BV_AVATAR, 'custom') }, [
-        this.normalizeSlot(SLOT_DEFAULT)
+        this.normalizeSlot(SLOT_NAME_DEFAULT)
       ])
     } else if (src) {
       $content = h('img', {

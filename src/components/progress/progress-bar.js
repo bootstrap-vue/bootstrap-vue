@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -126,8 +127,8 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
 
     let $content = h()
     let domProps = {}
-    if (this.hasNormalizedSlot('default')) {
-      $content = this.normalizeSlot('default')
+    if (this.hasNormalizedSlot(SLOT_NAME_DEFAULT)) {
+      $content = this.normalizeSlot(SLOT_NAME_DEFAULT)
     } else if (label || labelHtml) {
       domProps = htmlOrText(labelHtml, label)
     } else if (this.computedShowProgress) {

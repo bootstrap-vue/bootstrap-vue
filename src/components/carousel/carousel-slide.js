@@ -5,7 +5,9 @@ import {
 } from '../../constants/class-names'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import { ROLE_LISTITEM } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
+import identity from '../../utils/identity'
 import { hasTouchSupport } from '../../utils/env'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps, unprefixPropName } from '../../utils/props'
@@ -135,17 +137,17 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       // Caption
       this.caption || this.captionHtml
         ? h(this.captionTag, { domProps: htmlOrText(this.captionHtml, this.caption) })
-        : false,
+        : null,
       // Text
       this.text || this.textHtml
         ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
-        : false,
+        : null,
       // Children
-      this.normalizeSlot('default') || false
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
     ]
 
     let $content = h()
-    if ($contentChildren.some(Boolean)) {
+    if ($contentChildren.some(identity)) {
       $content = h(
         this.contentTag,
         {

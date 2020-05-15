@@ -2,6 +2,7 @@ import { ARIA_LIVE_POLITE } from '../../constants/aria'
 import { CLASS_NAME_ALERT } from '../../constants/class-names'
 import { NAME_ALERT } from '../../constants/components'
 import { ROLE_ALERT } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
@@ -165,7 +166,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
           },
           key: this._uid
         },
-        [$dismissBtn, this.normalizeSlot('default')]
+        [$dismissBtn, this.normalizeSlot(SLOT_NAME_DEFAULT)]
       )
     }
     return h(BVTransition, { props: { noFade: !this.fade } }, [$alert])

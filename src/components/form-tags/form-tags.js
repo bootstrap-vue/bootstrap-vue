@@ -2,6 +2,7 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
 import { RX_SPACES } from '../../constants/regex'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -716,7 +717,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
 
     // Generate the user interface
-    const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
+    const $content = this.normalizeSlot(SLOT_NAME_DEFAULT, scope) || this.defaultRender(scope)
 
     // Generate the `aria-live` region for the current value(s)
     const $output = h(

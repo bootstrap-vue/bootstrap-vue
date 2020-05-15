@@ -2,6 +2,7 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
+import { SLOT_NAME_DEFAULT } from '../../../constants/slot-names'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -32,7 +33,7 @@ const BASE_PROPS = ['id', ...keys(omit(toastProps, ['static', 'visible']))]
 
 // Map prop names to toast slot names
 const propsToSlots = {
-  toastContent: 'default',
+  toastContent: SLOT_NAME_DEFAULT,
   title: 'toast-title'
 }
 

@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -107,7 +108,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
         // Pass native listeners to child
         on: this.bvListeners
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot(SLOT_NAME_DEFAULT)
     )
   }
 })

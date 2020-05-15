@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FIRST } from '../constants/slot-names'
 import { htmlOrText } from '../utils/html'
 import normalizeSlotMixin from './normalize-slot'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
@@ -110,7 +111,7 @@ export default {
           'aria-invalid': this.computedAriaInvalid
         }
       },
-      [this.normalizeSlot('first'), $inputs, this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
   }
 }

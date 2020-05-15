@@ -1,7 +1,10 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { BMediaBody } from './media-body'
 import { BMediaAside } from './media-aside'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -22,22 +25,25 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BMedia = /*#__PURE__*/ Vue.extend({
   name: 'BMedia',
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots, children }) {
-    const childNodes = props.noBody ? children : []
+    const $childNodes = props.noBody ? children : []
 
     if (!props.noBody) {
       const $slots = slots()
       const $scopedSlots = scopedSlots || {}
-      const $aside = normalizeSlot('aside', {}, $scopedSlots, $slots)
-      const $default = normalizeSlot('default', {}, $scopedSlots, $slots)
+      const slotScope = {}
+
+      const $aside = normalizeSlot('aside', slotScope, $scopedSlots, $slots)
+      const $default = normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
 
       if ($aside && !props.rightAlign) {
-        childNodes.push(
+        $childNodes.push(
           h(
             BMediaAside,
             { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } },
@@ -46,10 +52,10 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
         )
       }
 
-      childNodes.push(h(BMediaBody, $default))
+      $childNodes.push(h(BMediaBody, $default))
 
       if ($aside && props.rightAlign) {
-        childNodes.push(
+        $childNodes.push(
           h(
             BMediaAside,
             { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } },
@@ -59,6 +65,6 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
       }
     }
 
-    return h(props.tag, mergeData(data, { staticClass: 'media' }), childNodes)
+    return h(props.tag, mergeData(data, { staticClass: 'media' }), $childNodes)
   }
 })

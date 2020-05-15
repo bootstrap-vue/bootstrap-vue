@@ -5,6 +5,7 @@ import {
 } from '../../constants/class-names'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
 import { ROLE_GROUP, ROLE_HEADING, ROLE_PRESENTATION } from '../../constants/roles'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
@@ -52,7 +53,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
 
     let headerId = null
     let $header = h()
-    if (hasNormalizedSlot('header', $scopedSlots, $slots) || props.header) {
+    if (hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots) || props.header) {
       headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
       $header = h(
         props.headerTag,
@@ -67,7 +68,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
             role: ROLE_HEADING
           }
         },
-        normalizeSlot('header', slotScope, $scopedSlots, $slots) || props.header
+        normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots) || props.header
       )
     }
 
@@ -89,7 +90,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
             'aria-describedby': ariaDescribedBy || null
           }
         },
-        normalizeSlot('default', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
       )
     ])
   }

@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -187,7 +188,8 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const content = [this.normalizeSlot('default')]
+    const $content = this.normalizeSlot(SLOT_NAME_DEFAULT)
+
     return h(
       this.tag,
       {
@@ -196,7 +198,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.bvListeners
       },
-      [this.isStackedCell ? h('div', [content]) : content]
+      [this.isStackedCell ? h('div', [$content]) : $content]
     )
   }
 })

@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
@@ -82,7 +83,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
           role: isTag(this.tag, 'nav') ? null : 'navigation'
         }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT)]
     )
   }
 })

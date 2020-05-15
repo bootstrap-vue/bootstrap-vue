@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
@@ -189,7 +190,7 @@ export default {
     }
   },
   render(h) {
-    const defaultSlot = this.normalizeSlot('default')
+    const defaultSlot = this.normalizeSlot(SLOT_NAME_DEFAULT)
 
     // Generate the input element
     const on = { change: this.handleChange }

@@ -17,6 +17,7 @@ import {
   CALENDAR_SHORT,
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
+import { SLOT_NAME_BUTTON_CONTENT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
@@ -599,7 +600,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': $scopedSlots['button-content'] || this.defaultButtonFn
+          [SLOT_NAME_BUTTON_CONTENT]: $scopedSlots[SLOT_NAME_BUTTON_CONTENT] || this.defaultButtonFn
         }
       },
       [$calendar]

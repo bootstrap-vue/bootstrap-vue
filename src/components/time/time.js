@@ -1,5 +1,6 @@
 // BTime control (not form input control)
 import { LEFT, RIGHT } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -616,7 +617,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     )
 
     // Optional bottom slot
-    let $slot = this.normalizeSlot('default')
+    let $slot = this.normalizeSlot(SLOT_NAME_DEFAULT)
     $slot = $slot ? h('footer', { staticClass: 'b-time-footer' }, $slot) : h()
 
     return h(

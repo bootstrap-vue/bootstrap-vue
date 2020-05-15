@@ -1,3 +1,4 @@
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -80,7 +81,7 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
           role: 'group'
         }
       }),
-      [$prepend, normalizeSlot('default', slotScope, $scopedSlots, $slots), $append]
+      [$prepend, normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots), $append]
     )
   }
 })

@@ -1,4 +1,5 @@
 import { DOWN, END, HOME, LEFT, RIGHT, SPACE, UP } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -132,7 +133,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
           keydown: this.handleEvt
         }
       },
-      [this.tab.normalizeSlot('title') || this.tab.title]
+      [this.tab.normalizeSlot(SLOT_NAME_TITLE) || this.tab.title]
     )
     return h(
       'li',
@@ -581,7 +582,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
     // For each <b-tab> found create the tab buttons
-    const buttons = tabs.map((tab, index) => {
+    const $buttons = tabs.map((tab, index) => {
       let tabIndex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
       if (!this.noKeyNav) {
@@ -620,7 +621,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     })
 
     // Nav
-    let nav = h(
+    let $nav = h(
       BNav,
       {
         ref: 'nav',
@@ -640,9 +641,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           cardHeader: this.card && !this.vertical
         }
       },
-      [this.normalizeSlot('tabs-start') || h(), buttons, this.normalizeSlot('tabs-end') || h()]
+      [this.normalizeSlot('tabs-start') || h(), $buttons, this.normalizeSlot('tabs-end') || h()]
     )
-    nav = h(
+    $nav = h(
       'div',
       {
         key: 'bv-tabs-nav',
@@ -655,12 +656,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           this.navWrapperClass
         ]
       },
-      [nav]
+      [$nav]
     )
 
-    let empty = h()
+    let $empty = h()
     if (!tabs || tabs.length === 0) {
-      empty = h(
+      $empty = h(
         'div',
         { key: 'bv-empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
         this.normalizeSlot('empty')
@@ -668,7 +669,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
 
     // Main content section
-    const content = h(
+    const $content = h(
       'div',
       {
         ref: 'tabsContainer',
@@ -677,7 +678,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      concat(this.normalizeSlot('default'), empty)
+      concat(this.normalizeSlot(SLOT_NAME_DEFAULT), $empty)
     )
 
     // Render final output
@@ -691,7 +692,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         },
         attrs: { id: this.safeId() }
       },
-      [this.end ? content : h(), [nav], this.end ? h() : content]
+      [this.end ? $content : h(), [$nav], this.end ? h() : $content]
     )
   }
 })

@@ -1,3 +1,17 @@
+/**
+ * BTransporterSingle/BTransporterTargetSingle:
+ *
+ * Single root node portaling of content, which retains parent/child hierarchy
+ * Unlike Portal-Vue where portaled content is no longer a descendent of its
+ * intended parent components
+ *
+ * Private components for use by Tooltips, Popovers and Modals
+ *
+ * Based on vue-simple-portal
+ * https://github.com/LinusBorg/vue-simple-portal
+ */
+
+import { SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import Vue from './vue'
 import identity from './identity'
 import { concat } from './array'
@@ -6,17 +20,6 @@ import { isBrowser } from './env'
 import { isFunction, isString } from './inspect'
 import { HTMLElement } from './safe-types'
 import normalizeSlotMixin from '../mixins/normalize-slot'
-
-// BTransporterSingle/BTransporterTargetSingle:
-//
-// Single root node portaling of content, which retains parent/child hierarchy
-// Unlike Portal-Vue where portaled content is no longer a descendent of its
-// intended parent components
-//
-// Private components for use by Tooltips, Popovers and Modals
-//
-// Based on vue-simple-portal
-// https://github.com/LinusBorg/vue-simple-portal
 
 // Transporter target used by BTransporterSingle
 // Supports only a single root element
@@ -131,7 +134,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
             parent: this,
             propsData: {
               // Initial nodes to be rendered
-              nodes: concat(this.normalizeSlot('default'))
+              nodes: concat(this.normalizeSlot(SLOT_NAME_DEFAULT))
             }
           })
         }
@@ -165,7 +168,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (this.disabled) {
-      const nodes = concat(this.normalizeSlot('default')).filter(identity)
+      const nodes = concat(this.normalizeSlot(SLOT_NAME_DEFAULT)).filter(identity)
       if (nodes.length > 0 && !nodes[0].text) {
         return nodes[0]
       }
