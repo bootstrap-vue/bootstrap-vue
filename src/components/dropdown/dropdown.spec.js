@@ -199,6 +199,52 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('renders button-content slot inside toggle button', async () => {
+    const wrapper = mount(BDropdown, {
+      attachTo: createContainer(),
+      slots: {
+        'button-content': 'foobar'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm).toBeDefined()
+
+    expect(wrapper.findAll('button').length).toBe(1)
+    expect(wrapper.findAll('.dropdown-toggle').length).toBe(1)
+    const $toggle = wrapper.find('.dropdown-toggle')
+    expect($toggle.text()).toEqual('foobar')
+
+    wrapper.destroy()
+  })
+
+  it('renders button-content slot inside split button', async () => {
+    const wrapper = mount(BDropdown, {
+      attachTo: createContainer(),
+      propsData: {
+        split: true
+      },
+      slots: {
+        'button-content': 'foobar'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm).toBeDefined()
+
+    expect(wrapper.findAll('button').length).toBe(2)
+    const $buttons = wrapper.findAll('button')
+    const $split = $buttons.at(0)
+    const $toggle = $buttons.at(1)
+
+    expect($split.text()).toEqual('foobar')
+    expect($toggle.classes()).toContain('dropdown-toggle')
+    // Toggle has `sr-only` hidden text
+    expect($toggle.text()).toEqual('Toggle Dropdown')
+
+    wrapper.destroy()
+  })
+
   it('does not render default slot inside menu when prop lazy set', async () => {
     const wrapper = mount(BDropdown, {
       attachTo: createContainer(),

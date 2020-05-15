@@ -1,5 +1,6 @@
 import identity from '../../../utils/identity'
 import KeyCodes from '../../../utils/key-codes'
+import noop from '../../../utils/noop'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
@@ -56,18 +57,30 @@ export default {
       const h = this.$createElement
       const fields = this.computedFields || []
 
+      // In always stacked mode, we don't bother rendering the head/foot
+      // Or if no field headings (empty table)
       if (this.isStackedAlways || fields.length === 0) {
-        // In always stacked mode, we don't bother rendering the head/foot
-        // Or if no field headings (empty table)
         return h()
       }
 
+      const {
+        isSortable,
+        isSelectable,
+        headVariant,
+        footVariant,
+        headRowVariant,
+        footRowVariant
+      } = this
+      const hasHeadClickListener = isSortable || this.hasListener('head-clicked')
+
       // Reference to `selectAllRows` and `clearSelected()`, if table is selectable
-      const selectAllRows = this.isSelectable ? this.selectAllRows : () => {}
-      const clearSelected = this.isSelectable ? this.clearSelected : () => {}
+      const selectAllRows = isSelectable ? this.selectAllRows : noop
+      const clearSelected = isSelectable ? this.clearSelected : noop
 
       // Helper function to generate a field <th> cell
       const makeCell = (field, colIndex) => {
+        const { label, labelHtml, variant, stickyColumn, key } = field
+
         let ariaLabel = null
         if (!field.label.trim() && !field.headerTitle) {
           // In case field's label and title are empty/blank
@@ -75,29 +88,27 @@ export default {
           /* istanbul ignore next */
           ariaLabel = startCase(field.key)
         }
-        const hasHeadClickListener = this.hasListener('head-clicked') || this.isSortable
-        const handlers = {}
+
+        const on = {}
         if (hasHeadClickListener) {
-          handlers.click = evt => {
+          on.click = evt => {
             this.headClicked(evt, field, isFoot)
           }
-          handlers.keydown = evt => {
+          on.keydown = evt => {
             const keyCode = evt.keyCode
             if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
               this.headClicked(evt, field, isFoot)
             }
           }
         }
-        const sortAttrs = this.isSortable ? this.sortTheadThAttrs(field.key, field, isFoot) : {}
-        const sortClass = this.isSortable ? this.sortTheadThClasses(field.key, field, isFoot) : null
-        const sortLabel = this.isSortable ? this.sortTheadThLabel(field.key, field, isFoot) : null
+
+        const sortAttrs = isSortable ? this.sortTheadThAttrs(key, field, isFoot) : {}
+        const sortClass = isSortable ? this.sortTheadThClasses(key, field, isFoot) : null
+        const sortLabel = isSortable ? this.sortTheadThLabel(key, field, isFoot) : null
+
         const data = {
-          key: field.key,
           class: [this.fieldClasses(field), sortClass],
-          props: {
-            variant: field.variant,
-            stickyColumn: field.stickyColumn
-          },
+          props: { variant, stickyColumn },
           style: field.thStyle || {},
           attrs: {
             // We only add a tabindex of 0 if there is a head-clicked listener
@@ -106,41 +117,42 @@ export default {
             title: field.headerTitle || null,
             'aria-colindex': colIndex + 1,
             'aria-label': ariaLabel,
-            ...this.getThValues(null, field.key, field.thAttr, isFoot ? 'foot' : 'head', {}),
+            ...this.getThValues(null, key, field.thAttr, isFoot ? 'foot' : 'head', {}),
             ...sortAttrs
           },
-          on: handlers
+          on,
+          key
         }
+
         // Handle edge case where in-document templates are used with new
         // `v-slot:name` syntax where the browser lower-cases the v-slot's
         // name (attributes become lower cased when parsed by the browser)
         // We have replaced the square bracket syntax with round brackets
         // to prevent confusion with dynamic slot names
-        let slotNames = [`head(${field.key})`, `head(${field.key.toLowerCase()})`, 'head()']
+        let slotNames = [`head(${key})`, `head(${key.toLowerCase()})`, 'head()']
+        // Footer will fallback to header slot names
         if (isFoot) {
-          // Footer will fallback to header slot names
-          slotNames = [
-            `foot(${field.key})`,
-            `foot(${field.key.toLowerCase()})`,
-            'foot()',
-            ...slotNames
-          ]
+          slotNames = [`foot(${key})`, `foot(${key.toLowerCase()})`, 'foot()', ...slotNames]
         }
+
         const scope = {
-          label: field.label,
-          column: field.key,
+          label,
+          column: key,
           field,
           isFoot,
           // Add in row select methods
           selectAllRows,
           clearSelected
         }
-        const content =
+
+        const $content =
           this.normalizeSlot(slotNames, scope) ||
-          (field.labelHtml ? h('div', { domProps: htmlOrText(field.labelHtml) }) : field.label)
-        const srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, ` (${sortLabel})`) : null
+          h('div', { domProps: htmlOrText(labelHtml, label) })
+
+        const $srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, ` (${sortLabel})`) : null
+
         // Return the header cell
-        return h(BTh, data, [content, srLabel].filter(identity))
+        return h(BTh, data, [$content, $srLabel].filter(identity))
       }
 
       // Generate the array of <th> cells
@@ -149,23 +161,39 @@ export default {
       // Generate the row(s)
       const $trs = []
       if (isFoot) {
-        const trProps = {
-          variant: isUndefinedOrNull(this.footRowVariant)
-            ? this.headRowVariant
-            : /* istanbul ignore next */ this.footRowVariant
-        }
-        $trs.push(h(BTr, { class: this.tfootTrClass, props: trProps }, $cells))
+        $trs.push(
+          h(
+            BTr,
+            {
+              class: this.tfootTrClass,
+              props: {
+                variant: isUndefinedOrNull(footRowVariant)
+                  ? headRowVariant
+                  : /* istanbul ignore next */ footRowVariant
+              }
+            },
+            $cells
+          )
+        )
       } else {
         const scope = {
           columns: fields.length,
-          fields: fields,
+          fields,
           // Add in row select methods
           selectAllRows,
           clearSelected
         }
         $trs.push(this.normalizeSlot('thead-top', scope) || h())
+
         $trs.push(
-          h(BTr, { class: this.theadTrClass, props: { variant: this.headRowVariant } }, $cells)
+          h(
+            BTr,
+            {
+              class: this.theadTrClass,
+              props: { variant: headRowVariant }
+            },
+            $cells
+          )
         )
       }
 
@@ -175,8 +203,8 @@ export default {
           key: isFoot ? 'bv-tfoot' : 'bv-thead',
           class: (isFoot ? this.tfootClass : this.theadClass) || null,
           props: isFoot
-            ? { footVariant: this.footVariant || this.headVariant || null }
-            : { headVariant: this.headVariant || null }
+            ? { footVariant: footVariant || headVariant || null }
+            : { headVariant: headVariant || null }
         },
         $trs
       )

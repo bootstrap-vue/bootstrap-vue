@@ -1,10 +1,10 @@
 import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
 import { BLink, props as BLinkProps } from '../link/link'
 

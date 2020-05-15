@@ -15,15 +15,19 @@ const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const $options = this.formOptions.map((option, index) => {
+      const { value, text, html, disabled } = option
+
+      return h(BFormSelectOption, {
+        attrs: { value, disabled },
+        domProps: htmlOrText(html, text),
+        key: `option_${index}`
+      })
+    })
+
     return h('optgroup', { attrs: { label: this.label } }, [
       this.normalizeSlot('first'),
-      this.formOptions.map((option, index) =>
-        h(BFormSelectOption, {
-          props: { value: option.value, disabled: option.disabled },
-          domProps: htmlOrText(option.html, option.text),
-          key: `option_${index}_opt`
-        })
-      ),
+      $options,
       this.normalizeSlot('default')
     ])
   }
