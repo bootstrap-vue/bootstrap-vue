@@ -4,6 +4,7 @@ import Vue, { mergeData } from '../../utils/vue'
 import { suffixClass } from '../../utils/string'
 
 // --- Props ---
+
 export const props = {
   id: {
     type: String
@@ -30,6 +31,8 @@ export const BForm = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { id, novalidate } = props
+
     return h(
       'form',
       mergeData(data, {
@@ -37,10 +40,7 @@ export const BForm = /*#__PURE__*/ Vue.extend({
           [suffixClass(CLASS_NAME_FORM, 'inline')]: props.inline,
           [CLASS_NAME_WAS_VALIDATED]: props.validated
         },
-        attrs: {
-          id: props.id,
-          novalidate: props.novalidate
-        }
+        attrs: { id, novalidate }
       }),
       children
     )
