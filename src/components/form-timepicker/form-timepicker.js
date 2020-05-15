@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK, EVENT_NAME_CONTEXT, EVENT_NAME_INPUT } from '../../constants/events'
 import { SLOT_NAME_BUTTON_CONTENT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
@@ -198,7 +199,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, propsMixin],
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   data() {
     return {
@@ -255,7 +256,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       // is open, to prevent cursor jumps when bound to a
       // text input in button only mode
       if (this.isVisible) {
-        this.$emit('input', newVal || '')
+        this.$emit(EVENT_NAME_INPUT, newVal || '')
       }
     }
   },
@@ -290,7 +291,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       this.formattedValue = formatted
       this.localHMS = value || ''
       // Re-emit the context event
-      this.$emit('context', ctx)
+      this.$emit(EVENT_NAME_CONTEXT, ctx)
     },
     onNowButton() {
       const now = new Date()
@@ -344,7 +345,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
             key: 'now-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.nowButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onNowButton }
+            on: { [EVENT_NAME_CLICK]: this.onNowButton }
           },
           label
         )
@@ -364,7 +365,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
             key: 'reset-btn',
             props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onResetButton }
+            on: { [EVENT_NAME_CLICK]: this.onResetButton }
           },
           label
         )
@@ -384,7 +385,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
             key: 'close-btn',
             props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onCloseButton }
+            on: { [EVENT_NAME_CLICK]: this.onCloseButton }
           },
           label
         )
@@ -414,8 +415,8 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-time-control',
         props: this.timeProps,
         on: {
-          input: this.onInput,
-          context: this.onContext
+          [EVENT_NAME_INPUT]: this.onInput,
+          [EVENT_NAME_CONTEXT]: this.onContext
         }
       },
       $footer

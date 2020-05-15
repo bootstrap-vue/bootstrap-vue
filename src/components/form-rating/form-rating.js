@@ -1,3 +1,10 @@
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_KEYDOWN
+} from '../../constants/events'
 import { LEFT, RIGHT, UP, DOWN } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
@@ -82,7 +89,7 @@ const BVFormRatingStar = Vue.extend({
           'b-rating-star-full': type === 'full'
         },
         attrs: { tabindex: !disabled && !readonly ? '-1' : null },
-        on: { click: this.onClick }
+        on: { [EVENT_NAME_CLICK]: this.onClick }
       },
       [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, slotScope)])]
     )
@@ -102,7 +109,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin],
   model: {
     prop: 'value',
-    event: 'change'
+    event: EVENT_NAME_CHANGE
   },
   props: {
     value: {
@@ -247,7 +254,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     localValue(newVal, oldVal) {
       if (newVal !== oldVal && newVal !== (this.value || 0)) {
-        this.$emit('change', newVal || null)
+        this.$emit(EVENT_NAME_CHANGE, newVal || null)
       }
     },
     disabled(newVal) {
@@ -353,7 +360,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
             staticClass: 'b-rating-star b-rating-star-clear flex-grow-1',
             class: { focused: hasFocus && computedRating === 0 },
             attrs: { tabindex: isInteractive ? '-1' : null },
-            on: { click: () => this.onSelected(null) },
+            on: { [EVENT_NAME_CLICK]: () => this.onSelected(null) },
             key: 'clear'
           },
           [$icon]
@@ -441,9 +448,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           'aria-valuenow': computedRating ? toString(computedRating) : null
         },
         on: {
-          keydown: this.onKeydown,
-          focus: this.onFocus,
-          blur: this.onFocus
+          [EVENT_NAME_KEYDOWN]: this.onKeydown,
+          [EVENT_NAME_FOCUS]: this.onFocus,
+          [EVENT_NAME_BLUR]: this.onFocus
         }
       },
       $content

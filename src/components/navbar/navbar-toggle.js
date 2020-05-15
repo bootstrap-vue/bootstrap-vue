@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
@@ -38,7 +39,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   methods: {
     onClick(evt) {
       // Emit courtesy `click` event
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
     },
     handleStateEvt(id, state) {
       // We listen for state events so that we can pass the
@@ -56,7 +57,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
         staticClass: CLASS_NAME,
         directives: [{ name: 'BToggle', value: this.target }],
         attrs: { type: 'button', 'aria-label': this.label },
-        on: { click: this.onClick }
+        on: { [EVENT_NAME_CLICK]: this.onClick }
       },
       [
         this.normalizeSlot(SLOT_NAME_DEFAULT, { expanded }) ||

@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK, EVENT_NAME_INPUT, EVENT_NAME_KEYDOWN } from '../constants/events'
 import { DOWN, LEFT, RIGHT, SPACE, UP } from '../constants/key-codes'
 import range from '../utils/range'
 import {
@@ -185,7 +186,7 @@ export default {
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props,
   data() {
@@ -337,7 +338,7 @@ export default {
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
         // Emit null if no page selected
-        this.$emit('input', newValue > 0 ? newValue : null)
+        this.$emit(EVENT_NAME_INPUT, newValue > 0 ? newValue : null)
       }
     },
     limit(newValue, oldValue) {
@@ -463,10 +464,10 @@ export default {
           on: isDisabled
             ? {}
             : {
-                '!click': evt => {
+                [`!${EVENT_NAME_CLICK}`]: evt => {
                   this.onClick(linkTo, evt)
                 },
-                keydown: onSpaceKey
+                [EVENT_NAME_KEYDOWN]: onSpaceKey
               }
         },
         [$btnContent]
@@ -549,10 +550,10 @@ export default {
           on: disabled
             ? {}
             : {
-                '!click': evt => {
+                [`!${EVENT_NAME_CLICK}`]: evt => {
                   this.onClick(page.number, evt)
                 },
-                keydown: onSpaceKey
+                [EVENT_NAME_KEYDOWN]: onSpaceKey
               }
         },
         [this.normalizeSlot('page', scope) || btnContent]
@@ -671,7 +672,7 @@ export default {
           'aria-label': isNav ? null : this.ariaLabel || null
         },
         // We disable keyboard left/right nav when `<b-pagination-nav>`
-        on: isNav ? {} : { keydown: this.handleKeyNav }
+        on: isNav ? {} : { [EVENT_NAME_KEYDOWN]: this.handleKeyNav }
       },
       buttons
     )

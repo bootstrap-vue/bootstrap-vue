@@ -1,3 +1,4 @@
+import { EVENT_NAME_MOUSEENTER, EVENT_NAME_MOUSELEAVE } from '../../../constants/events'
 import get from '../../../utils/get'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
@@ -251,8 +252,8 @@ export default {
             },
             on: {
               // Note: These events are not A11Y friendly!
-              mouseenter: this.rowHovered,
-              mouseleave: this.rowUnhovered
+              [EVENT_NAME_MOUSEENTER]: this.rowHovered,
+              [EVENT_NAME_MOUSELEAVE]: this.rowUnhovered
             }
           },
           $tds

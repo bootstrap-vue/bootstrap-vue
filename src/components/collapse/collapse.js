@@ -6,7 +6,11 @@ import {
   CLASS_NAME_SHOW
 } from '../../constants/class-names'
 import { NAME_COLLAPSE } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_CLICK,
+  EVENT_NAME_INPUT,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVCollapse } from '../../utils/bv-collapse'
@@ -37,7 +41,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     isNav: {
@@ -166,7 +170,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.$emit('hidden')
     },
     emitState() {
-      this.$emit('input', this.show)
+      this.$emit(EVENT_NAME_INPUT, this.show)
       // Let `v-b-toggle` know the state of this collapse
       this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
@@ -246,7 +250,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         class: this.classObject,
         directives: [{ name: 'show', value: this.show }],
         attrs: { id: this.safeId() },
-        on: { click: this.clickHandler }
+        on: { [EVENT_NAME_CLICK]: this.clickHandler }
       },
       [this.normalizeSlot(SLOT_NAME_DEFAULT, scope)]
     )

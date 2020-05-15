@@ -1,4 +1,5 @@
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../../constants/events'
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
@@ -69,7 +70,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     computedLocalChecked(newVal) {
-      this.$emit('input', newVal)
+      this.$emit(EVENT_NAME_INPUT, newVal)
       if (this.$refs && this.$refs.input) {
         this.$emit('update:indeterminate', this.$refs.input.indeterminate)
       }
@@ -103,10 +104,10 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       }
       this.computedLocalChecked = localChecked
       // Change is only emitted on user interaction
-      this.$emit('change', checked ? value : uncheckedValue)
+      this.$emit(EVENT_NAME_CHANGE, checked ? value : uncheckedValue)
       // If this is a child of <form-checkbox-group>, we emit a change event on it as well
       if (this.isGroup) {
-        this.bvGroup.$emit('change', localChecked)
+        this.bvGroup.$emit(EVENT_NAME_CHANGE, localChecked)
       }
       this.$emit('update:indeterminate', indeterminate)
     },

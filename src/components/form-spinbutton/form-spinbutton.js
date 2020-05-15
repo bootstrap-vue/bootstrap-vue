@@ -1,3 +1,13 @@
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_KEYDOWN,
+  EVENT_NAME_KEYUP,
+  EVENT_NAME_MOUSEDOWN,
+  EVENT_NAME_TOUCHSTART
+} from '../../constants/events'
 import { DOWN, END, HOME, PAGEUP, UP, PAGEDOWN } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
@@ -275,7 +285,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       this.localValue = toFloat(value, null)
     },
     localValue(value) {
-      this.$emit('input', value)
+      this.$emit(EVENT_NAME_INPUT, value)
     },
     disabled(disabled) {
       if (disabled) {
@@ -315,7 +325,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     // --- Private methods ---
     emitChange() {
-      this.$emit('change', this.localValue)
+      this.$emit(EVENT_NAME_CHANGE, this.localValue)
     },
     stepValue(direction) {
       // Sets a new incremented or decremented value, supporting optional wrapping
@@ -519,8 +529,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             'aria-keyshortcuts': shortcut || null
           },
           on: {
-            mousedown: handler,
-            touchstart: handler
+            [EVENT_NAME_MOUSEDOWN]: handler,
+            [EVENT_NAME_TOUCHSTART]: handler
           }
         },
         [h('div', [this.normalizeSlot(slotName, scope) || $icon])]
@@ -599,11 +609,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         },
         attrs: this.computedAttrs,
         on: {
-          keydown: this.onKeydown,
-          keyup: this.onKeyup,
+          [EVENT_NAME_KEYDOWN]: this.onKeydown,
+          [EVENT_NAME_KEYUP]: this.onKeyup,
           // We use capture phase (`!` prefix) since focus and blur do not bubble
-          '!focus': this.onFocusBlur,
-          '!blur': this.onFocusBlur
+          [`!${EVENT_NAME_FOCUS}`]: this.onFocusBlur,
+          [`!${EVENT_NAME_BLUR}`]: this.onFocusBlur
         }
       },
       vertical ? [$increment, $hidden, $spin, $decrement] : [$decrement, $hidden, $spin, $increment]

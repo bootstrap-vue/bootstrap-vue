@@ -1,3 +1,9 @@
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_KEYDOWN
+} from '../../constants/events'
 import { ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
@@ -49,7 +55,7 @@ const renderHeaderClose = (h, ctx) => {
     {
       ref: 'close-button',
       props: { ariaLabel: closeLabel, textVariant },
-      on: { click: hide }
+      on: { [EVENT_NAME_CLICK]: hide }
     },
     [ctx.normalizeSlot('header-close') || h(BIconX)]
   )
@@ -120,7 +126,7 @@ const renderBackdrop = (h, ctx) => {
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
-    on: { click: ctx.onBackdropClick }
+    on: { [EVENT_NAME_CLICK]: ctx.onBackdropClick }
   })
 }
 
@@ -133,7 +139,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   model: {
     prop: 'visible',
-    event: 'change'
+    event: EVENT_NAME_CHANGE
   },
   props: {
     title: {
@@ -293,7 +299,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     localShow(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.emitState(newVal)
-        this.$emit('change', newVal)
+        this.$emit(EVENT_NAME_CHANGE, newVal)
       }
     },
     /* istanbul ignore next */
@@ -438,11 +444,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     if (this.backdrop && this.localShow) {
       $tabTrapTop = h('div', {
         attrs: { tabindex: '0' },
-        on: { focus: this.onTopTrapFocus }
+        on: { [EVENT_NAME_FOCUS]: this.onTopTrapFocus }
       })
       $tabTrapBottom = h('div', {
         attrs: { tabindex: '0' },
-        on: { focus: this.onBottomTrapFocus }
+        on: { [EVENT_NAME_FOCUS]: this.onBottomTrapFocus }
       })
     }
 
@@ -452,7 +458,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-sidebar-outer',
         style: { zIndex: this.zIndex },
         attrs: { tabindex: '-1' },
-        on: { keydown: this.onKeydown }
+        on: { [EVENT_NAME_KEYDOWN]: this.onKeydown }
       },
       [$tabTrapTop, $sidebar, $tabTrapBottom, $backdrop]
     )

@@ -7,6 +7,7 @@ import {
   CLASS_NAME_JUSTIFY_CONTENT_BETWEEN
 } from '../../constants/class-names'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
+import { EVENT_NAME_FOCUSIN, EVENT_NAME_KEYDOWN } from '../../constants/events'
 import { DOWN, LEFT, RIGHT, UP } from '../../constants/key-codes'
 import { ROLE_TOOLBAR } from '../../constants/roles'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -116,8 +117,8 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
         },
         on: this.keyNav
           ? {
-              focusin: this.onFocusin,
-              keydown: this.onKeydown
+              [EVENT_NAME_FOCUSIN]: this.onFocusin,
+              [EVENT_NAME_KEYDOWN]: this.onKeydown
             }
           : {}
       },

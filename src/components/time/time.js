@@ -1,4 +1,12 @@
 // BTime control (not form input control)
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_CONTEXT,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_KEYDOWN
+} from '../../constants/events'
 import { LEFT, RIGHT } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -65,7 +73,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     value: {
@@ -310,12 +318,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     computedHMS(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit('input', newVal)
+        this.$emit(EVENT_NAME_INPUT, newVal)
       }
     },
     context(newVal, oldVal) {
       if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context', newVal)
+        this.$emit(EVENT_NAME_CONTEXT, newVal)
       }
     },
     modelAmpm(newVal, oldVal) {
@@ -340,7 +348,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
   },
   created() {
     this.$nextTick(() => {
-      this.$emit('context', this.context)
+      this.$emit(EVENT_NAME_CONTEXT, this.context)
     })
   },
   mounted() {
@@ -478,7 +486,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           // As the spinbutton will announce each value change
           // and we don't want the formatted time to be announced
           // on each value input if repeat is happening
-          change: handler
+          [EVENT_NAME_CHANGE]: handler
         }
       })
     }
@@ -572,8 +580,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': computedAriaLabelledby
         },
         on: {
-          keydown: this.onSpinLeftRight,
-          click /* istanbul ignore next */: evt => /* istanbul ignore next */ {
+          [EVENT_NAME_KEYDOWN]: this.onSpinLeftRight,
+          [EVENT_NAME_CLICK]: evt => /* istanbul ignore next */ {
             if (evt.target === evt.currentTarget) {
               this.focus()
             }
@@ -601,8 +609,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         on: {
           // Transfer focus/click to focus hours spinner
-          click: this.focus,
-          focus: this.focus
+          [EVENT_NAME_CLICK]: this.focus,
+          [EVENT_NAME_FOCUS]: this.focus
         }
       },
       [

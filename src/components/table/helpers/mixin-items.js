@@ -1,3 +1,4 @@
+import { EVENT_NAME_INPUT } from '../../../constants/events'
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { mathMax } from '../../../utils/math'
@@ -106,7 +107,7 @@ export default {
     },
     // Watch for changes on `computedItems` and update the `v-model`
     computedItems(newVal) {
-      this.$emit('input', newVal)
+      this.$emit(EVENT_NAME_INPUT, newVal)
     },
     // Watch for context changes
     context(newVal, oldVal) {
@@ -118,7 +119,7 @@ export default {
   },
   mounted() {
     // Initially update the `v-model` of displayed items
-    this.$emit('input', this.computedItems)
+    this.$emit(EVENT_NAME_INPUT, this.computedItems)
   },
   methods: {
     // Method to get the formatter method for a given field key

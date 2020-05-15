@@ -9,6 +9,7 @@ import {
   CLASS_NAME_DROPUP
 } from '../constants/class-names'
 import { NAME_DROPDOWN } from '../constants/components'
+import { EVENT_NAME_CLICK } from '../constants/events'
 import { DOWN, ENTER, ESC, SPACE, UP } from '../constants/key-codes'
 import {
   PLACEMENT_TOP_START,
@@ -381,7 +382,7 @@ export default {
         this.visible = false
         return
       }
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
     },
     // Shared hide handler between click-out and focus-in events
     hideHandler(evt) {

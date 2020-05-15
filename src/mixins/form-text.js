@@ -1,3 +1,4 @@
+import { EVENT_NAME_BLUR, EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../constants/events'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { isFunction } from '../utils/inspect'
 import { mathMax } from '../utils/math'
@@ -211,7 +212,7 @@ export default {
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue)
-      this.$emit('input', formattedValue)
+      this.$emit(EVENT_NAME_INPUT, formattedValue)
     },
     onChange(evt) {
       const value = evt.target.value
@@ -225,7 +226,7 @@ export default {
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue, true)
-      this.$emit('change', formattedValue)
+      this.$emit(EVENT_NAME_CHANGE, formattedValue)
     },
     onBlur(evt) {
       // Apply the `localValue` on blur to prevent cursor jumps
@@ -241,7 +242,7 @@ export default {
         this.updateValue(formattedValue, true)
       }
       // Emit native blur event
-      this.$emit('blur', evt)
+      this.$emit(EVENT_NAME_BLUR, evt)
     },
     focus() {
       // For external handler that may want a focus method

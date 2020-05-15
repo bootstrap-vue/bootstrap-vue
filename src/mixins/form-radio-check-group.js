@@ -1,3 +1,4 @@
+import { EVENT_NAME_INPUT } from '../constants/events'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FIRST } from '../constants/slot-names'
 import { htmlOrText } from '../utils/html'
 import normalizeSlotMixin from './normalize-slot'
@@ -9,7 +10,7 @@ export default {
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'checked',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     validated: {
@@ -72,7 +73,7 @@ export default {
       this.localChecked = newVal
     },
     localChecked(newVal) {
-      this.$emit('input', newVal)
+      this.$emit(EVENT_NAME_INPUT, newVal)
     }
   },
   render(h) {

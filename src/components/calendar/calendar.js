@@ -39,6 +39,13 @@ import {
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
 import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_CONTEXT,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_KEYDOWN
+} from '../../constants/events'
+import {
   DOWN,
   END,
   ENTER,
@@ -620,7 +627,7 @@ export const BCalendar = Vue.extend({
     },
     context(newVal, oldVal) {
       if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context', newVal)
+        this.$emit(EVENT_NAME_CONTEXT, newVal)
       }
     },
     hidden(newVal) {
@@ -634,7 +641,7 @@ export const BCalendar = Vue.extend({
   },
   created() {
     this.$nextTick(() => {
-      this.$emit('context', this.context)
+      this.$emit(EVENT_NAME_CONTEXT, this.context)
     })
   },
   mounted() {
@@ -881,8 +888,8 @@ export const BCalendar = Vue.extend({
         on: {
           // Transfer focus/click to focus grid
           // and focus active date (or today if no selection)
-          click: this.onHeaderClick,
-          focus: this.onHeaderClick
+          [EVENT_NAME_CLICK]: this.onHeaderClick,
+          [EVENT_NAME_FOCUS]: this.onHeaderClick
         }
       },
       this.selectedDate
@@ -948,7 +955,7 @@ export const BCalendar = Vue.extend({
             'aria-disabled': btnDisabled ? ARIA_VALUE_TRUE : null,
             'aria-keyshortcuts': shortcut || null
           },
-          on: btnDisabled ? {} : { click: handler }
+          on: btnDisabled ? {} : { [EVENT_NAME_CLICK]: handler }
         },
         [h('div', { attrs: { 'aria-hidden': ARIA_VALUE_TRUE } }, [content])]
       )
@@ -1113,7 +1120,7 @@ export const BCalendar = Vue.extend({
                 [CLASS_NAME_FONT_WEIGHT_BOLD]: (isSelected || day.isThisMonth) && !day.isDisabled
               }
             ],
-            on: { click: () => this.onClickDay(day) }
+            on: { [EVENT_NAME_CLICK]: () => this.onClickDay(day) }
           },
           day.day
         )
@@ -1212,9 +1219,9 @@ export const BCalendar = Vue.extend({
           'aria-activedescendant': activeId
         },
         on: {
-          keydown: this.onKeydownGrid,
-          focus: this.setGridFocusFlag,
-          blur: this.setGridFocusFlag
+          [EVENT_NAME_KEYDOWN]: this.onKeydownGrid,
+          [EVENT_NAME_FOCUS]: this.setGridFocusFlag,
+          [EVENT_NAME_BLUR]: this.setGridFocusFlag
         }
       },
       [$gridCaption, $gridWeekDays, $gridBody, $gridHelp]
@@ -1251,9 +1258,7 @@ export const BCalendar = Vue.extend({
             .filter(identity)
             .join(' ')
         },
-        on: {
-          keydown: this.onKeydownWrapper
-        }
+        on: { [EVENT_NAME_KEYDOWN]: this.onKeydownWrapper }
       },
       [$header, $nav, $grid, $slot]
     )

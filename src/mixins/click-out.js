@@ -1,4 +1,4 @@
-import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
+import { EVENT_NAME_CLICK, EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { contains } from '../utils/dom'
 import { eventOn, eventOff } from '../utils/events'
 
@@ -39,7 +39,7 @@ export default {
       this.clickOutElement = document
     }
     if (!this.clickOutEventName) {
-      this.clickOutEventName = 'click'
+      this.clickOutEventName = EVENT_NAME_CLICK
     }
     if (this.listenForClickOut) {
       eventOn(

@@ -1,4 +1,11 @@
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_KEYDOWN,
+  EVENT_NAME_MOUSEDOWN,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
@@ -281,7 +288,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   model: {
     prop: 'visible',
-    event: 'change'
+    event: EVENT_NAME_CHANGE
   },
   props,
   data() {
@@ -494,7 +501,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Private method to update the v-model
     updateModel(val) {
       if (val !== this.visible) {
-        this.$emit('change', val)
+        this.$emit(EVENT_NAME_CHANGE, val)
       }
     },
     // Private method to create a BvModalEvent object
@@ -776,7 +783,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     // Turn on/off focusin listener
     setEnforceFocus(on) {
-      this.listenDocument(on, 'focusin', this.focusHandler)
+      this.listenDocument(on, EVENT_NAME_FOCUSIN, this.focusHandler)
     },
     // Resize listener
     setResizeEvent(on) {
@@ -881,7 +888,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   ariaLabel: this.headerCloseLabel,
                   textVariant: this.headerCloseVariant || this.headerTextVariant
                 },
-                on: { click: this.onClose },
+                on: { [EVENT_NAME_CLICK]: this.onClose },
                 ref: 'close-button'
               },
               // TODO: Rename slot to `header-close` and deprecate `modal-header-close`
@@ -952,7 +959,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 domProps: this.hasNormalizedSlot('modal-cancel')
                   ? {}
                   : htmlOrText(this.cancelTitleHtml, this.cancelTitle),
-                on: { click: this.onCancel },
+                on: { [EVENT_NAME_CLICK]: this.onCancel },
                 ref: 'cancel-button'
               },
               // TODO: Rename slot to `cancel-button` and deprecate `modal-cancel`
@@ -972,7 +979,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
               domProps: this.hasNormalizedSlot('modal-ok')
                 ? {}
                 : htmlOrText(this.okTitleHtml, this.okTitle),
-              on: { click: this.onOk },
+              on: { [EVENT_NAME_CLICK]: this.onOk },
               ref: 'ok-button'
             },
             // TODO: Rename slot to `ok-button` and deprecate `modal-ok`
@@ -1024,7 +1031,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'modal-dialog',
           class: this.dialogClasses,
-          on: { mousedown: this.onDialogMousedown },
+          on: { [EVENT_NAME_MOUSEDOWN]: this.onDialogMousedown },
           ref: 'dialog'
         },
         [$tabTrapTop, $modalContent, $tabTrapBottom]
@@ -1038,7 +1045,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           class: this.modalClasses,
           style: this.modalStyles,
           attrs: this.computedModalAttrs,
-          on: { keydown: this.onEsc, click: this.onClickOut },
+          on: {
+            [EVENT_NAME_KEYDOWN]: this.onEsc,
+            [EVENT_NAME_CLICK]: this.onClickOut
+          },
           directives: [{ name: 'show', value: this.isVisible }],
           ref: 'modal'
         },

@@ -1,5 +1,9 @@
 // v-b-hover directive
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { isBrowser } from '../../utils/env'
 import { eventOnOff } from '../../utils/events'
 import { isFunction } from '../../utils/inspect'
@@ -7,22 +11,20 @@ import { isFunction } from '../../utils/inspect'
 // --- Constants ---
 
 const PROP = '__BV_hover_handler__'
-const MOUSEENTER = 'mouseenter'
-const MOUSELEAVE = 'mouseleave'
 
 // --- Utility methods ---
 
 const createListener = handler => {
   const listener = evt => {
-    handler(evt.type === MOUSEENTER, evt)
+    handler(evt.type === EVENT_NAME_MOUSEENTER, evt)
   }
   listener.fn = handler
   return listener
 }
 
 const updateListeners = (on, el, listener) => {
-  eventOnOff(on, el, MOUSEENTER, listener, EVENT_OPTIONS_NO_CAPTURE)
-  eventOnOff(on, el, MOUSELEAVE, listener, EVENT_OPTIONS_NO_CAPTURE)
+  eventOnOff(on, el, EVENT_NAME_MOUSEENTER, listener, EVENT_OPTIONS_NO_CAPTURE)
+  eventOnOff(on, el, EVENT_NAME_MOUSELEAVE, listener, EVENT_OPTIONS_NO_CAPTURE)
 }
 
 // --- Directive bind/unbind/update handler ---

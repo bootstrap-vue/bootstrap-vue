@@ -1,5 +1,11 @@
 import { Portal, Wormhole } from 'portal-vue'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
@@ -114,7 +120,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   model: {
     prop: 'visible',
-    event: 'change'
+    event: EVENT_NAME_CHANGE
   },
   props,
   data() {
@@ -173,7 +179,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     localShow(newVal) {
       if (newVal !== this.visible) {
-        this.$emit('change', newVal)
+        this.$emit(EVENT_NAME_CHANGE, newVal)
       }
     },
     /* istanbul ignore next */
@@ -301,8 +307,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     setHoverHandler(on) {
       const el = this.$refs['b-toast']
-      eventOnOff(on, el, 'mouseenter', this.onPause, EVENT_OPTIONS_NO_CAPTURE)
-      eventOnOff(on, el, 'mouseleave', this.onUnPause, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, el, EVENT_NAME_MOUSEENTER, this.onPause, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, el, EVENT_NAME_MOUSELEAVE, this.onUnPause, EVENT_OPTIONS_NO_CAPTURE)
     },
     onPause() {
       // Determine time remaining, and then pause timer
@@ -368,7 +374,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
             on: {
-              click: () => {
+              [EVENT_NAME_CLICK]: () => {
                 this.hide()
               }
             }
@@ -392,7 +398,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           staticClass: 'toast-body',
           class: this.bodyClass,
           props: link ? pluckProps(linkProps, this) : {},
-          on: link ? { click: this.onLinkClick } : {}
+          on: link ? { [EVENT_NAME_CLICK]: this.onLinkClick } : {}
         },
         [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope) || h()]
       )

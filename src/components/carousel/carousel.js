@@ -8,7 +8,16 @@ import {
   CLASS_NAME_SR_ONLY
 } from '../../constants/class-names'
 import { NAME_CAROUSEL } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_KEYDOWN,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
 import { ROLE_BUTTON, ROLE_LIST, ROLE_REGION } from '../../constants/roles'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -94,7 +103,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   },
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     labelPrev: {
@@ -305,7 +314,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       // Ensure the v-model is synched up if no-wrap is enabled
       // and user tried to slide pass either ends
       if (noWrap && this.index !== slide && this.index !== this.value) {
-        this.$emit('input', this.index)
+        this.$emit(EVENT_NAME_INPUT, this.index)
       }
     },
     // Previous slide
@@ -363,7 +372,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       }
       this.$emit('sliding-start', to)
       // Update v-model
-      this.$emit('input', this.index)
+      this.$emit(EVENT_NAME_INPUT, this.index)
       if (this.noAnimation) {
         addClass(nextSlide, CLASS_NAME_ACTIVE)
         removeClass(currentSlide, CLASS_NAME_ACTIVE)
@@ -562,8 +571,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               'aria-disabled': this.isSliding ? ARIA_VALUE_TRUE : null
             },
             on: {
-              click: prevHandler,
-              keydown: prevHandler
+              [EVENT_NAME_CLICK]: prevHandler,
+              [EVENT_NAME_KEYDOWN]: prevHandler
             }
           },
           [
@@ -585,8 +594,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
               'aria-disabled': this.isSliding ? ARIA_VALUE_TRUE : null
             },
             on: {
-              click: nextHandler,
-              keydown: nextHandler
+              [EVENT_NAME_CLICK]: nextHandler,
+              [EVENT_NAME_KEYDOWN]: nextHandler
             }
           },
           [
@@ -629,12 +638,12 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
             'aria-controls': this.safeId('_BV_inner_')
           },
           on: {
-            click: evt => {
+            [EVENT_NAME_CLICK]: evt => {
               this.handleClick(evt, () => {
                 this.setSlide(n)
               })
             },
-            keydown: evt => {
+            [EVENT_NAME_KEYDOWN]: evt => {
               this.handleClick(evt, () => {
                 this.setSlide(n)
               })
@@ -645,11 +654,11 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     )
 
     const on = {
-      mouseenter: this.noHoverPause ? noop : this.pause,
-      mouseleave: this.noHoverPause ? noop : this.restart,
-      focusin: this.pause,
-      focusout: this.restart,
-      keydown: evt => {
+      [EVENT_NAME_MOUSEENTER]: this.noHoverPause ? noop : this.pause,
+      [EVENT_NAME_MOUSELEAVE]: this.noHoverPause ? noop : this.restart,
+      [EVENT_NAME_FOCUSIN]: this.pause,
+      [EVENT_NAME_FOCUSOUT]: this.restart,
+      [EVENT_NAME_KEYDOWN]: evt => {
         if (/input|textarea/i.test(evt.target.tagName)) {
           /* istanbul ignore next */
           return

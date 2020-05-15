@@ -1,3 +1,4 @@
+import { EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../constants/events'
 import { SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
@@ -9,7 +10,7 @@ export default {
   inheritAttrs: false,
   model: {
     prop: 'checked',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     value: {
@@ -193,7 +194,7 @@ export default {
     const defaultSlot = this.normalizeSlot(SLOT_NAME_DEFAULT)
 
     // Generate the input element
-    const on = { change: this.handleChange }
+    const on = { [EVENT_NAME_CHANGE]: this.handleChange }
     if (this.isBtnMode) {
       // Handlers for focus styling when in button mode
       on.focus = on.blur = this.handleFocus

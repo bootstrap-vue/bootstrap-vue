@@ -1,3 +1,4 @@
+import { EVENT_NAME_CHANGE } from '../../constants/events'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
@@ -112,7 +113,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.currentPage = num
       // Emit event triggered by user interaction
-      this.$emit('change', this.currentPage)
+      this.$emit(EVENT_NAME_CHANGE, this.currentPage)
       this.$nextTick(() => {
         // Keep the current button focused if possible
         const target = evt.target

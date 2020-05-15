@@ -1,5 +1,6 @@
 import { CLASS_NAME_DROPDOWN_ITEM, CLASS_NAME_TEXT } from '../../constants/class-names'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { ROLE_MENUITEM, ROLE_PRESENTATION } from '../../constants/roles'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -52,7 +53,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
       })
     },
     onClick(evt) {
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
       this.closeDropdown()
     }
   },
@@ -71,7 +72,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
             }
           ],
           attrs: this.computedAttrs,
-          on: { click: this.onClick },
+          on: { [EVENT_NAME_CLICK]: this.onClick },
           ref: 'item'
         },
         this.normalizeSlot(SLOT_NAME_DEFAULT)

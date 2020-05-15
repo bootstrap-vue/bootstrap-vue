@@ -1,4 +1,5 @@
 import { ARIA_VALUE_FALSE, ARIA_VALUE_TRUE } from '../../constants/aria'
+import { EVENT_NAME_CLICK, EVENT_NAME_KEYDOWN } from '../../constants/events'
 import { ENTER, SPACE } from '../../constants/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -71,8 +72,8 @@ const getTargets = ({ modifiers, arg, value }) => {
 const removeClickListener = el => {
   const handler = el[BV_TOGGLE_CLICK_HANDLER]
   if (handler) {
-    eventOff(el, 'click', handler)
-    eventOff(el, 'keydown', handler)
+    eventOff(el, EVENT_NAME_CLICK, handler)
+    eventOff(el, EVENT_NAME_KEYDOWN, handler)
   }
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
@@ -90,9 +91,9 @@ const addClickListener = (el, vnode) => {
       }
     }
     el[BV_TOGGLE_CLICK_HANDLER] = handler
-    eventOn(el, 'click', handler)
+    eventOn(el, EVENT_NAME_CLICK, handler)
     if (isNonStandardTag(el)) {
-      eventOn(el, 'keydown', handler)
+      eventOn(el, EVENT_NAME_KEYDOWN, handler)
     }
   }
 }

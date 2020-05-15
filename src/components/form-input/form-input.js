@@ -1,3 +1,10 @@
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_WHEEL
+} from '../../constants/events'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { attemptBlur } from '../../utils/dom'
@@ -103,9 +110,9 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     computedListeners() {
       return {
         ...this.bvListeners,
-        input: this.onInput,
-        change: this.onChange,
-        blur: this.onBlur
+        [EVENT_NAME_INPUT]: this.onInput,
+        [EVENT_NAME_CHANGE]: this.onChange,
+        [EVENT_NAME_BLUR]: this.onBlur
       }
     }
   },
@@ -137,17 +144,17 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
     setWheelStopper(on) {
       const input = this.$el
       // We use native events, so that we don't interfere with propagation
-      eventOnOff(on, input, 'focus', this.onWheelFocus)
-      eventOnOff(on, input, 'blur', this.onWheelBlur)
+      eventOnOff(on, input, EVENT_NAME_FOCUS, this.onWheelFocus)
+      eventOnOff(on, input, EVENT_NAME_BLUR, this.onWheelBlur)
       if (!on) {
-        eventOff(document, 'wheel', this.stopWheel)
+        eventOff(document, EVENT_NAME_WHEEL, this.stopWheel)
       }
     },
     onWheelFocus() {
-      eventOn(document, 'wheel', this.stopWheel)
+      eventOn(document, EVENT_NAME_WHEEL, this.stopWheel)
     },
     onWheelBlur() {
-      eventOff(document, 'wheel', this.stopWheel)
+      eventOff(document, EVENT_NAME_WHEEL, this.stopWheel)
     },
     stopWheel(evt) {
       evt.preventDefault()

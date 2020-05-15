@@ -1,6 +1,7 @@
 import { ARIA_LIVE_POLITE } from '../../constants/aria'
 import { CLASS_NAME_ALERT } from '../../constants/class-names'
 import { NAME_ALERT } from '../../constants/components'
+import { EVENT_NAME_CLICK, EVENT_NAME_INPUT } from '../../constants/events'
 import { ROLE_ALERT } from '../../constants/roles'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
@@ -43,7 +44,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'show',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     variant: {
@@ -87,7 +88,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
         this.$emit('dismiss-count-down', newVal)
         if (this.show !== newVal) {
           // Update the v-model if needed
-          this.$emit('input', newVal)
+          this.$emit(EVENT_NAME_INPUT, newVal)
         }
         if (newVal > 0) {
           this.localShow = true
@@ -111,7 +112,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       }
       if (!isNumeric(this.show) && this.show !== newVal) {
         // Only emit booleans if we weren't passed a number via `this.show`
-        this.$emit('input', newVal)
+        this.$emit(EVENT_NAME_INPUT, newVal)
       }
     }
   },
@@ -147,7 +148,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       if (dismissible) {
         $dismissBtn = h(
           BButtonClose,
-          { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
+          { attrs: { 'aria-label': this.dismissLabel }, on: { [EVENT_NAME_CLICK]: this.dismiss } },
           [this.normalizeSlot('dismiss')]
         )
       }

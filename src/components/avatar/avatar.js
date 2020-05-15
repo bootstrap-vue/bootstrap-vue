@@ -5,6 +5,7 @@ import {
   CLASS_NAME_ROUNDED
 } from '../../constants/class-names'
 import { NAME_AVATAR } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { RX_NUMBER } from '../../constants/regex'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -190,7 +191,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       this.$emit('img-error', evt)
     },
     onClick(evt) {
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
     }
   },
   render(h) {
@@ -273,7 +274,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       style: { width: size, height: size, ...marginStyle },
       attrs: { 'aria-label': ariaLabel || null },
       props: button ? { variant, disabled, type } : link ? pluckProps(linkProps, this) : {},
-      on: button || link ? { click: this.onClick } : {}
+      on: button || link ? { [EVENT_NAME_CLICK]: this.onClick } : {}
     }
 
     return h(tag, componentData, [$content, $badge])

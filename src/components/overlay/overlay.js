@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVTransition } from '../../utils/bv-transition'
@@ -148,7 +149,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
             'position-fixed': this.noWrap && this.fixed
           },
           style: { ...positionCover, zIndex: this.zIndex || 10 },
-          on: { click: evt => this.$emit('click', evt) }
+          on: { [EVENT_NAME_CLICK]: evt => this.$emit(EVENT_NAME_CLICK, evt) }
         },
         [$background, $content]
       )

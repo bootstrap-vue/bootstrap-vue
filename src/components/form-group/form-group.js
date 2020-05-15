@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_LABEL } from '../../constants/slot-names'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
@@ -124,7 +125,7 @@ const renderLabel = (h, ctx) => {
     return h(
       isHorizontal ? BCol : labelTag,
       {
-        on: isLegend ? { click: ctx.legendClick } : {},
+        on: isLegend ? { [EVENT_NAME_CLICK]: ctx.legendClick } : {},
         props: isHorizontal ? { tag: labelTag, ...ctx.labelColProps } : {},
         attrs: {
           id: ctx.labelId,

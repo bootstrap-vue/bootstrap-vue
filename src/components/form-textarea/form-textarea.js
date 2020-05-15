@@ -1,3 +1,4 @@
+import { EVENT_NAME_BLUR, EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../../constants/events'
 import Vue from '../../utils/vue'
 import { getCS, isVisible, requestAF } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
@@ -114,9 +115,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     computedListeners() {
       return {
         ...this.bvListeners,
-        input: this.onInput,
-        change: this.onChange,
-        blur: this.onBlur
+        [EVENT_NAME_INPUT]: this.onInput,
+        [EVENT_NAME_CHANGE]: this.onChange,
+        [EVENT_NAME_BLUR]: this.onBlur
       }
     }
   },

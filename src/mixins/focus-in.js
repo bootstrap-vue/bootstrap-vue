@@ -1,4 +1,4 @@
-import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
+import { EVENT_NAME_FOCUSIN, EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
@@ -11,9 +11,19 @@ export default {
   watch: {
     listenForFocusIn(newValue, oldValue) {
       if (newValue !== oldValue) {
-        eventOff(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
+        eventOff(
+          this.focusInElement,
+          EVENT_NAME_FOCUSIN,
+          this._focusInHandler,
+          EVENT_OPTIONS_NO_CAPTURE
+        )
         if (newValue) {
-          eventOn(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(
+            this.focusInElement,
+            EVENT_NAME_FOCUSIN,
+            this._focusInHandler,
+            EVENT_OPTIONS_NO_CAPTURE
+          )
         }
       }
     }
@@ -27,11 +37,21 @@ export default {
       this.focusInElement = document
     }
     if (this.listenForFocusIn) {
-      eventOn(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
+      eventOn(
+        this.focusInElement,
+        EVENT_NAME_FOCUSIN,
+        this._focusInHandler,
+        EVENT_OPTIONS_NO_CAPTURE
+      )
     }
   },
   beforeDestroy() /* istanbul ignore next */ {
-    eventOff(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
+    eventOff(
+      this.focusInElement,
+      EVENT_NAME_FOCUSIN,
+      this._focusInHandler,
+      EVENT_OPTIONS_NO_CAPTURE
+    )
   },
   methods: {
     _focusInHandler(evt) {

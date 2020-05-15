@@ -11,6 +11,7 @@ import {
   CLASS_NAME_WIDTH_FULL
 } from '../../constants/class-names'
 import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
+import { EVENT_NAME_CLICK, EVENT_NAME_CONTEXT, EVENT_NAME_INPUT } from '../../constants/events'
 import {
   CALENDAR_LONG,
   CALENDAR_NARROW,
@@ -306,7 +307,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, propsMixin],
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   data() {
     return {
@@ -381,7 +382,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     localYMD(newVal) {
       // We only update the v-model when the datepicker is open
       if (this.isVisible) {
-        this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+        this.$emit(EVENT_NAME_INPUT, this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
       }
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
@@ -435,7 +436,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.localYMD = selectedYMD
       this.activeYMD = activeYMD
       // Re-emit the context event
-      this.$emit('context', ctx)
+      this.$emit(EVENT_NAME_CONTEXT, ctx)
     },
     onTodayButton() {
       // Set to today (or min/max if today is out of range)
@@ -488,7 +489,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled: disabled || readonly, variant: this.todayButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onTodayButton }
+            on: { [EVENT_NAME_CLICK]: this.onTodayButton }
           },
           label
         )
@@ -503,7 +504,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onResetButton }
+            on: { [EVENT_NAME_CLICK]: this.onResetButton }
           },
           label
         )
@@ -518,7 +519,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           {
             props: { size: 'sm', disabled, variant: this.closeButtonVariant },
             attrs: { 'aria-label': label || null },
-            on: { click: this.onCloseButton }
+            on: { [EVENT_NAME_CLICK]: this.onCloseButton }
           },
           label
         )
@@ -555,8 +556,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         props: this.calendarProps,
         on: {
           selected: this.onSelected,
-          input: this.onInput,
-          context: this.onContext
+          [EVENT_NAME_INPUT]: this.onInput,
+          [EVENT_NAME_CONTEXT]: this.onContext
         },
         scopedSlots: pick($scopedSlots, [
           'nav-prev-decade',

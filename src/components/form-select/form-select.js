@@ -1,3 +1,4 @@
+import { EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../../constants/events'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FIRST } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray } from '../../utils/array'
@@ -27,7 +28,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
   ],
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     value: {
@@ -80,7 +81,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
       this.localValue = newVal
     },
     localValue() {
-      this.$emit('input', this.localValue)
+      this.$emit(EVENT_NAME_INPUT, this.localValue)
     }
   },
   methods: {
@@ -97,7 +98,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
         .map(o => ('_value' in o ? o._value : o.value))
       this.localValue = target.multiple ? selectedVal : selectedVal[0]
       this.$nextTick(() => {
-        this.$emit('change', this.localValue)
+        this.$emit(EVENT_NAME_CHANGE, this.localValue)
       })
     }
   },
@@ -132,7 +133,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
           'aria-required': required ? 'true' : null,
           'aria-invalid': this.computedAriaInvalid
         },
-        on: { change: this.onChange },
+        on: { [EVENT_NAME_CHANGE]: this.onChange },
         directives: [{ name: 'model', value }],
         ref: 'input'
       },

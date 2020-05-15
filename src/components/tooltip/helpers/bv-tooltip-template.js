@@ -1,3 +1,9 @@
+import {
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE
+} from '../../../constants/events'
 import Vue from '../../../utils/vue'
 import scopedStyleAttrsMixin from '../../../mixins/scoped-style-attrs'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
@@ -62,21 +68,21 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     templateListeners() {
       // Used for hover/focus trigger listeners
       return {
-        mouseenter /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('mouseenter', evt)
+        /* istanbul ignore next: difficult to test in JSDOM */
+        [EVENT_NAME_MOUSEENTER]: evt => {
+          this.$emit(EVENT_NAME_MOUSEENTER, evt)
         },
-        mouseleave /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('mouseleave', evt)
+        /* istanbul ignore next: difficult to test in JSDOM */
+        [EVENT_NAME_MOUSELEAVE]: evt => {
+          this.$emit(EVENT_NAME_MOUSELEAVE, evt)
         },
-        focusin /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('focusin', evt)
+        /* istanbul ignore next: difficult to test in JSDOM */
+        [EVENT_NAME_FOCUSIN]: evt => {
+          this.$emit(EVENT_NAME_FOCUSIN, evt)
         },
-        focusout /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('focusout', evt)
+        /* istanbul ignore next: difficult to test in JSDOM */
+        [EVENT_NAME_FOCUSOUT]: evt => {
+          this.$emit(EVENT_NAME_FOCUSOUT, evt)
         }
       }
     }

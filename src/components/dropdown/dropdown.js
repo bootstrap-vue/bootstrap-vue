@@ -11,6 +11,7 @@ import {
   CLASS_NAME_SR_ONLY
 } from '../../constants/class-names'
 import { NAME_DROPDOWN } from '../../constants/components'
+import { EVENT_NAME_CLICK, EVENT_NAME_KEYDOWN, EVENT_NAME_MOUSEDOWN } from '../../constants/events'
 import { ROLE_MENU } from '../../constants/roles'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -185,7 +186,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           attrs: { id: this.safeId('_BV_button_') },
           props: btnProps,
           domProps: buttonContentProps,
-          on: { click: this.onSplitClick },
+          on: { [EVENT_NAME_CLICK]: this.onSplitClick },
           ref: 'button'
         },
         [$buttonContent]
@@ -209,9 +210,9 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         },
         domProps: split ? {} : buttonContentProps,
         on: {
-          mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle // Handle ENTER, SPACE and DOWN
+          [EVENT_NAME_MOUSEDOWN]: this.onMousedown,
+          [EVENT_NAME_CLICK]: this.toggle,
+          [EVENT_NAME_KEYDOWN]: this.toggle // Handle ENTER, SPACE and DOWN
         },
         ref: 'toggle'
       },
@@ -229,7 +230,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': this.safeId(split ? '_BV_button_' : '_BV_toggle_')
         },
         on: {
-          keydown: this.onKeydown // Handle UP, DOWN and ESC
+          [EVENT_NAME_KEYDOWN]: this.onKeydown // Handle UP, DOWN and ESC
         },
         ref: 'menu'
       },

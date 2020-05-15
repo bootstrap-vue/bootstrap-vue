@@ -1,3 +1,4 @@
+import { EVENT_NAME_CHANGE, EVENT_NAME_INPUT } from '../../constants/events'
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
@@ -45,7 +46,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   watch: {
     // Radio Groups can only have a single value, so our watchers are simple
     computedLocalChecked() {
-      this.$emit('input', this.computedLocalChecked)
+      this.$emit(EVENT_NAME_INPUT, this.computedLocalChecked)
     }
   },
   methods: {
@@ -53,10 +54,10 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
       const value = this.value
       this.computedLocalChecked = value
       // Change is only emitted on user interaction
-      this.$emit('change', checked ? value : null)
+      this.$emit(EVENT_NAME_CHANGE, checked ? value : null)
       // If this is a child of form-radio-group, we emit a change event on it as well
       if (this.isGroup) {
-        this.bvGroup.$emit('change', checked ? value : null)
+        this.bvGroup.$emit(EVENT_NAME_CHANGE, checked ? value : null)
       }
     }
   }

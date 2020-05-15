@@ -1,3 +1,9 @@
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_INPUT
+} from '../../constants/events'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { from as arrayFrom, isArray, concat } from '../../utils/array'
@@ -31,7 +37,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   inheritAttrs: false,
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     size: {
@@ -162,9 +168,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       if (!newVal && this.multiple) {
-        this.$emit('input', [])
+        this.$emit(EVENT_NAME_INPUT, [])
       } else {
-        this.$emit('input', newVal)
+        this.$emit(EVENT_NAME_INPUT, newVal)
       }
     },
     value(newVal) {
@@ -200,7 +206,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     onFileChange(evt) {
       // Always emit original event
-      this.$emit('change', evt)
+      this.$emit(EVENT_NAME_CHANGE, evt)
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting no-traverse
       const items = evt.dataTransfer && evt.dataTransfer.items
@@ -309,9 +315,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       ],
       attrs: this.computedAttrs,
       on: {
-        change: this.onFileChange,
-        focusin: this.focusHandler,
-        focusout: this.focusHandler,
+        [EVENT_NAME_CHANGE]: this.onFileChange,
+        [EVENT_NAME_FOCUSIN]: this.focusHandler,
+        [EVENT_NAME_FOCUSOUT]: this.focusHandler,
         reset: this.onReset
       }
     })

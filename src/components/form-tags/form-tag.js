@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK, EVENT_NAME_KEYDOWN } from '../../constants/events'
 import { DELETE } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -60,8 +61,8 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
           'aria-keyshortcuts': 'Delete'
         },
         on: {
-          click: this.onDelete,
-          keydown: this.onDelete
+          [EVENT_NAME_CLICK]: this.onDelete,
+          [EVENT_NAME_KEYDOWN]: this.onDelete
         }
       })
     }

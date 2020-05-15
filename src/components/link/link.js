@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
@@ -32,7 +33,7 @@ export const routerLinkProps = {
   },
   event: {
     type: [String, Array],
-    default: 'click'
+    default: EVENT_NAME_CLICK
   },
   activeClass: {
     type: String
@@ -170,7 +171,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         ...this.bvListeners,
         // We want to overwrite any click handler since our callback
         // will invoke the user supplied handler(s) if `!this.disabled`
-        click: this.onClick
+        [EVENT_NAME_CLICK]: this.onClick
       }
     }
   },
@@ -190,7 +191,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         if (isRouterLink && evt.currentTarget.__vue__) {
           // Router links do not emit instance `click` events, so we
           // add in an `$emit('click', evt)` on its Vue instance
-          evt.currentTarget.__vue__.$emit('click', evt)
+          evt.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, evt)
         }
         // Call the suppliedHandler(s), if any provided
         concat(suppliedHandler)

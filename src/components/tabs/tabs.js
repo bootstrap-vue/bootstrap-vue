@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK, EVENT_NAME_INPUT, EVENT_NAME_KEYDOWN } from '../../constants/events'
 import { DOWN, END, HOME, LEFT, RIGHT, SPACE, UP } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
@@ -72,15 +73,15 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       const type = evt.type
       const key = evt.keyCode
       const shift = evt.shiftKey
-      if (type === 'click') {
+      if (type === EVENT_NAME_CLICK) {
         stop()
-        this.$emit('click', evt)
+        this.$emit(EVENT_NAME_CLICK, evt)
       } else if (type === 'keydown' && key === SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
         stop()
-        this.$emit('click', evt)
+        this.$emit(EVENT_NAME_CLICK, evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if (key === UP || key === LEFT || key === HOME) {
@@ -129,8 +130,8 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
           'aria-controls': this.controls
         },
         on: {
-          click: this.handleEvt,
-          keydown: this.handleEvt
+          [EVENT_NAME_CLICK]: this.handleEvt,
+          [EVENT_NAME_KEYDOWN]: this.handleEvt
         }
       },
       [this.tab.normalizeSlot(SLOT_NAME_TITLE) || this.tab.title]
@@ -158,7 +159,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   },
   model: {
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     ...navProps,
@@ -259,7 +260,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       })
       // Update the v-model
-      this.$emit('input', index)
+      this.$emit(EVENT_NAME_INPUT, index)
     },
     value(newVal, oldVal) {
       if (newVal !== oldVal) {
@@ -498,7 +499,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Couldn't set tab, so ensure v-model is set to `this.currentTab`
       /* istanbul ignore next: should rarely happen */
       if (!result && this.currentTab !== this.value) {
-        this.$emit('input', this.currentTab)
+        this.$emit(EVENT_NAME_INPUT, this.currentTab)
       }
       return result
     },
@@ -523,7 +524,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // Emit a click event on a specified <b-tab> component instance
     emitTabClick(tab, evt) {
       if (isEvent(evt) && tab && tab.$emit && !tab.disabled) {
-        tab.$emit('click', evt)
+        tab.$emit(EVENT_NAME_CLICK, evt)
       }
     },
     // Click handler
@@ -609,7 +610,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           noKeyNav: this.noKeyNav
         },
         on: {
-          click: evt => {
+          [EVENT_NAME_CLICK]: evt => {
             this.clickTab(tab, evt)
           },
           first: this.firstTab,

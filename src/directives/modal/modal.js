@@ -1,4 +1,4 @@
-import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import { EVENT_NAME_CLICK, EVENT_NAME_KEYDOWN, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { ENTER, SPACE } from '../../constants/key-codes'
 import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
 import { eventOn, eventOff } from '../../utils/events'
@@ -56,11 +56,11 @@ const bind = (el, binding, vnode) => {
     // If element is not a button, we add `role="button"` for accessibility
     setRole(trigger)
     // Listen for click events
-    eventOn(trigger, 'click', handler, EVENT_OPTIONS_PASSIVE)
+    eventOn(trigger, EVENT_NAME_CLICK, handler, EVENT_OPTIONS_PASSIVE)
     if (trigger.tagName !== 'BUTTON' && getAttr(trigger, 'role') === 'button') {
       // If trigger isn't a button but has role button,
       // we also listen for `keydown.space` && `keydown.enter`
-      eventOn(trigger, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
+      eventOn(trigger, EVENT_NAME_KEYDOWN, handler, EVENT_OPTIONS_PASSIVE)
     }
   }
 }
@@ -70,10 +70,10 @@ const unbind = el => {
   const trigger = oldProp.trigger
   const handler = oldProp.handler
   if (trigger && handler) {
-    eventOff(trigger, 'click', handler, EVENT_OPTIONS_PASSIVE)
-    eventOff(trigger, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
-    eventOff(el, 'click', handler, EVENT_OPTIONS_PASSIVE)
-    eventOff(el, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(trigger, EVENT_NAME_CLICK, handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(trigger, EVENT_NAME_KEYDOWN, handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(el, EVENT_NAME_CLICK, handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(el, EVENT_NAME_KEYDOWN, handler, EVENT_OPTIONS_PASSIVE)
   }
   delete el[PROPERTY]
 }

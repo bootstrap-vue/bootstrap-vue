@@ -1,3 +1,4 @@
+import { EVENT_NAME_CHANGE } from '../../constants/events'
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import { getComponentConfig } from '../../utils/config'
@@ -139,7 +140,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         // Done in in requestAF() to allow browser to complete the
         // native browser click handling of a link
         this.currentPage = pageNum
-        this.$emit('change', pageNum)
+        this.$emit(EVENT_NAME_CHANGE, pageNum)
       })
       this.$nextTick(() => {
         // Emulate native link click page reloading behaviour by blurring the
@@ -264,7 +265,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
           }
         }
       }
-      // We set currentPage to 0 to trigger an $emit('input', null)
+      // We set `currentPage` to `0` to trigger an `$emit('input', null)`
       // As the default for this.currentPage is -1 when no value is specified
       // And valid page numbers are greater than 0
       this.currentPage = guess > 0 ? guess : 0

@@ -1,3 +1,4 @@
+import { EVENT_NAME_CLICK, EVENT_NAME_KEYDOWN, EVENT_NAME_MOUSEDOWN } from '../../constants/events'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
@@ -64,9 +65,9 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
           'aria-expanded': visible ? 'true' : 'false'
         },
         on: {
-          mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle // Handle ENTER, SPACE and DOWN
+          [EVENT_NAME_MOUSEDOWN]: this.onMousedown,
+          [EVENT_NAME_CLICK]: this.toggle,
+          [EVENT_NAME_KEYDOWN]: this.toggle // Handle ENTER, SPACE and DOWN
         },
         ref: 'toggle'
       },
@@ -87,7 +88,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
           'aria-labelledby': toggleId
         },
         on: {
-          keydown: this.onKeydown // Handle UP, DOWN and ESC
+          [EVENT_NAME_KEYDOWN]: this.onKeydown // Handle UP, DOWN and ESC
         },
         ref: 'menu'
       },

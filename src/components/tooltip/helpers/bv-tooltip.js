@@ -1,9 +1,18 @@
-// Tooltip "Class" (Built as a renderless Vue instance)
-//
-// Handles trigger events, etc.
-// Instantiates template on demand
+/**
+ * Tooltip "Class" (Built as a renderless Vue instance)
+ *
+ * Handles trigger events, etc.
+ * Instantiates template on demand
+ */
 
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
+import {
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../../constants/events'
 import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
@@ -317,10 +326,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Convenience events from template
       // To save us from manually adding/removing DOM
       // listeners to tip element when it is open
-      $tip.$on('focusin', this.handleEvent)
-      $tip.$on('focusout', this.handleEvent)
-      $tip.$on('mouseenter', this.handleEvent)
-      $tip.$on('mouseleave', this.handleEvent)
+      $tip.$on(EVENT_NAME_FOCUSIN, this.handleEvent)
+      $tip.$on(EVENT_NAME_FOCUSOUT, this.handleEvent)
+      $tip.$on(EVENT_NAME_MOUSEENTER, this.handleEvent)
+      $tip.$on(EVENT_NAME_MOUSELEAVE, this.handleEvent)
       // Mount (which triggers the `show`)
       $tip.$mount(container.appendChild(document.createElement('div')))
       // Template will automatically remove its markup from DOM when hidden
@@ -649,23 +658,29 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Set up our listeners on the target trigger element
       this.computedTriggers.forEach(trigger => {
         if (trigger === 'click') {
-          eventOn(el, 'click', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_CLICK, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'focus') {
-          eventOn(el, 'focusin', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
-          eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_FOCUSIN, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_FOCUSOUT, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'blur') {
           // Used to close $tip when element looses focus
           /* istanbul ignore next */
-          eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_FOCUSOUT, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'hover') {
-          eventOn(el, 'mouseenter', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
-          eventOn(el, 'mouseleave', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_MOUSEENTER, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+          eventOn(el, EVENT_NAME_MOUSELEAVE, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         }
       }, this)
     },
     unListen() /* istanbul ignore next */ {
       // Remove trigger event handlers
-      const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
+      const events = [
+        EVENT_NAME_CLICK,
+        EVENT_NAME_FOCUSIN,
+        EVENT_NAME_FOCUSOUT,
+        EVENT_NAME_MOUSEENTER,
+        EVENT_NAME_MOUSELEAVE
+      ]
       const target = this.getTarget()
 
       // Stop listening for global show/hide/enable/disable events

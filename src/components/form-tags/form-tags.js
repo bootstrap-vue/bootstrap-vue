@@ -1,5 +1,13 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_KEYDOWN
+} from '../../constants/events'
 import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
 import { RX_SPACES } from '../../constants/regex'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -57,7 +65,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Even though this is the default that Vue assumes, we need
     // to add it for the docs to reflect that this is the model
     prop: 'value',
-    event: 'input'
+    event: EVENT_NAME_INPUT
   },
   props: {
     inputId: {
@@ -212,9 +220,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        input: this.onInputInput,
-        change: this.onInputChange,
-        keydown: this.onInputKeydown
+        [EVENT_NAME_INPUT]: this.onInputInput,
+        [EVENT_NAME_CHANGE]: this.onInputChange,
+        [EVENT_NAME_KEYDOWN]: this.onInputKeydown
       }
     },
     computedSeparator() {
@@ -271,7 +279,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     tags(newVal, oldVal) {
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
-        this.$emit('input', newVal)
+        this.$emit(EVENT_NAME_INPUT, newVal)
       }
       if (!looseEqual(newVal, oldVal)) {
         newVal = concat(newVal).filter(identity)
@@ -592,7 +600,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           },
           style: { fontSize: '90%' },
           props: { variant: addButtonVariant, disabled: disableAddButton },
-          on: { click: () => addTag() }
+          on: { [EVENT_NAME_CLICK]: () => addTag() }
         },
         [this.normalizeSlot('add-button-text') || addButtonText]
       )
@@ -788,9 +796,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-describedby': this.safeId('_selected_')
         },
         on: {
-          focusin: this.onFocusin,
-          focusout: this.onFocusout,
-          click: this.onClick
+          [EVENT_NAME_FOCUSIN]: this.onFocusin,
+          [EVENT_NAME_FOCUSOUT]: this.onFocusout,
+          [EVENT_NAME_CLICK]: this.onClick
         }
       },
       concat($output, $removed, $content, $hidden)
