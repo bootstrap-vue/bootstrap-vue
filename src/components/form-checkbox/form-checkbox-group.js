@@ -8,6 +8,7 @@ import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
 // --- Props ---
+
 export const props = {
   switches: {
     // Custom switch styling
