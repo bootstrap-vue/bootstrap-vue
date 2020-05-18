@@ -88,7 +88,7 @@ const addClickListener = (el, vnode) => {
     const handler = evt => {
       const targets = el[BV_TOGGLE_TARGETS] || []
       const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
-      if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
+      if (!ignore && !isDisabled(el)) {
         targets.forEach(target => {
           vnode.context.$root.$emit(EVENT_TOGGLE, target)
         })
