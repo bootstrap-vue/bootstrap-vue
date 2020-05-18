@@ -82,7 +82,7 @@
           {
             "prop": "disabled",
             "version": "2.15.0",
-            "description": "When `true`, disables the navbar toggle button, and adds classname `disabled` to the button"
+            "description": "When `true`, disables the navbar toggle button, and adds class `disabled` to the button"
           }
         ],
         "events": [
