@@ -49,7 +49,7 @@ export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
-const keyDownEvents = [ENTER, SPACE]
+const KEYDOWN_KEY_CODES = [ENTER, SPACE]
 
 const RX_SPLIT_SEPARATOR = /\s+/
 
@@ -86,9 +86,11 @@ const addClickListener = (el, vnode) => {
   removeClickListener(el)
   if (vnode.context) {
     const handler = evt => {
-      const targets = el[BV_TOGGLE_TARGETS] || []
-      const ignore = evt.type === 'keydown' && !arrayIncludes(keyDownEvents, evt.keyCode)
-      if (!evt.defaultPrevented && !ignore && !isDisabled(el)) {
+      if (
+        !(evt.type === 'keydown' && !arrayIncludes(KEYDOWN_KEY_CODES, evt.keyCode)) &&
+        !isDisabled(el)
+      ) {
+        const targets = el[BV_TOGGLE_TARGETS] || []
         targets.forEach(target => {
           vnode.context.$root.$emit(EVENT_TOGGLE, target)
         })
