@@ -23,6 +23,10 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     target: {
       type: String,
       required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -36,8 +40,10 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     onClick(evt) {
-      // Emit courtesy `click` event
-      this.$emit('click', evt)
+      if (!this.disabled) {
+        // Emit courtesy `click` event
+        this.$emit('click', evt)
+      }
     },
     handleStateEvt(id, state) {
       // We listen for state events so that we can pass the
@@ -48,17 +54,23 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const expanded = this.toggleState
+    const { disabled } = this
+
     return h(
       'button',
       {
         staticClass: CLASS_NAME,
+        class: { disabled },
         directives: [{ name: 'BToggle', value: this.target }],
-        attrs: { type: 'button', 'aria-label': this.label },
+        attrs: {
+          type: 'button',
+          disabled,
+          'aria-label': this.label
+        },
         on: { click: this.onClick }
       },
       [
-        this.normalizeSlot('default', { expanded }) ||
+        this.normalizeSlot('default', { expanded: this.toggleState }) ||
           h('span', { staticClass: `${CLASS_NAME}-icon` })
       ]
     )
