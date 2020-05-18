@@ -54,19 +54,23 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { disabled, label, target, toggleState } = this
+    const { disabled } = this
 
     return h(
       'button',
       {
         staticClass: CLASS_NAME,
         class: { disabled },
-        directives: [{ name: 'BToggle', value: target }],
-        attrs: { type: 'button', disabled, 'aria-label': label },
+        directives: [{ name: 'BToggle', value: this.target }],
+        attrs: {
+          type: 'button',
+          disabled,
+          'aria-label': this.label
+        },
         on: { click: this.onClick }
       },
       [
-        this.normalizeSlot('default', { expanded: toggleState }) ||
+        this.normalizeSlot('default', { expanded: this.toggleState }) ||
           h('span', { staticClass: `${CLASS_NAME}-icon` })
       ]
     )
