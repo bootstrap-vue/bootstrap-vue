@@ -159,4 +159,22 @@ describe('navbar-toggle', () => {
 
     wrapper.destroy()
   })
+
+  it('disabled prop works', async () => {
+    const wrapper = mount(BNavbarToggle, {
+      propsData: {
+        target: 'target-9',
+        disabled: true
+      }
+    })
+
+    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.element.hasAttribute('disabled')).toBe(true)
+    expect(wrapper.classes()).toContain('disabled')
+
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('click')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
 })
