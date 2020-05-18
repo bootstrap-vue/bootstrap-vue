@@ -108,7 +108,7 @@
     "@nuxtjs/robots": "^2.4.2",
     "@nuxtjs/sitemap": "^2.3.0",
     "@testing-library/jest-dom": "^5.7.0",
-    "@vue/test-utils": "^1.0.2",
+    "@vue/test-utils": "^1.0.3",
     "autoprefixer": "^9.8.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
