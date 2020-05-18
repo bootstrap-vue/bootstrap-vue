@@ -55,7 +55,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     const { disabled, label, target, toggleState } = this
-    
+
     return h(
       'button',
       {
