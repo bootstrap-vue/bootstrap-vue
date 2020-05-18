@@ -93,8 +93,8 @@ trigger element when the target component is closed, and removed when open. As o
 ## Preventing the target from opening or closing
 
 To prevent the trigger element from toggling the target, set the `disabled` prop on `<button>`,
-`<b-button>`, or `<b-link>` (or components based on from `<b-link>`) and the toggle event will
-_not_ dispatched to the target(s).
+`<b-button>`, or `<b-link>` (or components based on from `<b-link>`) and the toggle event will _not_
+dispatched to the target(s).
 
 ## Accessibility
 
