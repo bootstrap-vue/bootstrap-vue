@@ -16,7 +16,7 @@ details and caveats.
 
 ## Directive syntax and usage
 
-The directive is applied to the element or component that triggers the visibility of hte target. The
+The directive is applied to the element or component that triggers the visibility of the target. The
 target component can be specified (via its ID) as either a directive modifier(s), the directive
 argument, or as a string/array passed to as the directive value:
 
@@ -34,7 +34,7 @@ argument, or as a string/array passed to as the directive value:
 
 Modifiers, argument, and the value can be used at the same time when targeting multiple components.
 
-### Example usage
+**Example usage:**
 
 ```html
 <template>
@@ -60,6 +60,44 @@ Modifiers, argument, and the value can be used at the same time when targeting m
 </template>
 
 <!-- v-b-toggle-directive.vue -->
+```
+
+## Usage on links
+
+<span class="badge badge-info small">2.15.0+</span>
+
+If placing the directive on a link (or a component that renders a link), the target ID can
+alternatively be specified via the `href` attribute.
+
+Note that the browser URL will change and the page may scroll the target into view. To prevent the
+URL from changing and the page from scrolling, add `@click.prevent` to the link.
+
+**Example usage:**
+
+```html
+<template>
+  <div>
+    <div class="mb-3">
+      <a v-b-toggle href="#example-collapse" @click.prevent>Toggle Collapse</a>
+      <b-button v-b-toggle href="#example-sidebar" @click.prevent>Toggle Sidebar</b-button>
+    </div>
+
+    <b-collapse id="example-collapse">
+      <b-card title="Collapsible card">
+        Hello world!
+      </b-card>
+    </b-collapse>
+
+    <b-sidebar id="example-sidebar" title="Sidebar" shadow>
+      <div class="px-3 py-2">
+        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+        in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+      </div>
+    </b-sidebar>
+  </div>
+</template>
+
+<!-- v-b-toggle-links.vue -->
 ```
 
 ## Hiding and showing content in the toggle trigger element
