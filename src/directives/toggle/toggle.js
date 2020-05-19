@@ -66,7 +66,7 @@ const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
 
-const isNonStandardTag = el => !arrayIncludes(['BUTTON', 'A'], el.tagName)
+const isNonStandardTag = el => !arrayIncludes(['button', 'a'], el.tagName.toLowerCase())
 
 const getTargets = ({ modifiers, arg, value }, el) => {
   // Any modifiers are considered target IDs
