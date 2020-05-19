@@ -64,7 +64,7 @@ const getTargets = ({ modifiers, arg, value }, el) => {
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
 
-  if (el.tagNaame.toLowerCase() === 'a' && el.href && /^#\[a-zA-Z]/.test(el.href)) {
+  if (el.tagName && el.tagName.toLowerCase() === 'a' && el.href && /^#\[a-zA-Z]/.test(el.href)) {
     targets.push(el.href.replace(/^#/, ''))
   }
 
