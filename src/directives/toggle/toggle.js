@@ -57,12 +57,16 @@ const RX_SPLIT_SEPARATOR = /\s+/
 
 const isNonStandardTag = el => !arrayIncludes(['BUTTON', 'A'], el.tagName)
 
-const getTargets = ({ modifiers, arg, value }) => {
+const getTargets = ({ modifiers, arg, value }, el) => {
   // Any modifiers are considered target IDs
   const targets = keys(modifiers || {})
 
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+
+  if (el.tagname.toLowerCase() === 'a' && el.href && /^#\[a-zA-Z]/.test(el.href)) {
+    targets.push(href.replace(/^#/, ''))
+  }
 
   // Add ID from `arg` (if provided), and support value
   // as a single string ID or an array of string IDs
@@ -172,7 +176,7 @@ const handleUpdate = (el, binding, vnode) => {
   setToggleState(el, el[BV_TOGGLE_STATE])
 
   // Parse list of target IDs
-  const targets = getTargets(binding)
+  const targets = getTargets(binding, el)
 
   /* istanbul ignore else */
   // Ensure the `aria-controls` hasn't been overwritten
