@@ -65,7 +65,7 @@ const getTargets = ({ modifiers, arg, value }, el) => {
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
 
   if (el.tagname.toLowerCase() === 'a' && el.href && /^#\[a-zA-Z]/.test(el.href)) {
-    targets.push(href.replace(/^#/, ''))
+    targets.push(el.href.replace(/^#/, ''))
   }
 
   // Add ID from `arg` (if provided), and support value
