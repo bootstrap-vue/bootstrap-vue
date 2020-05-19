@@ -1,7 +1,15 @@
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
-import { addClass, hasAttr, isDisabled, removeAttr, removeClass, setAttr } from '../../utils/dom'
+import {
+  addClass,
+  hasAttr,
+  isDisabled,
+  isTag,
+  removeAttr,
+  removeClass,
+  setAttr
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
@@ -51,6 +59,8 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 const KEYDOWN_KEY_CODES = [ENTER, SPACE]
 
+const RX_HASH = /^#/
+const RX_HASH_CONTENT = /^#\[a-zA-Z]/
 const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
@@ -64,8 +74,8 @@ const getTargets = ({ modifiers, arg, value }, el) => {
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
 
-  if (el.tagNaame.toLowerCase() === 'a' && el.href && /^#\[a-zA-Z]/.test(el.href)) {
-    targets.push(el.href.replace(/^#/, ''))
+  if (isTag(el.tagName, 'a') && RX_HASH_CONTENT.test(el.href || '')) {
+    targets.push(el.href.replace(RX_HASH, ''))
   }
 
   // Add ID from `arg` (if provided), and support value
