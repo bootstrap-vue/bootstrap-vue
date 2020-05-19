@@ -1,7 +1,16 @@
 import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
-import { addClass, hasAttr, isDisabled, removeAttr, removeClass, setAttr } from '../../utils/dom'
+import {
+  addClass,
+  getAttr,
+  hasAttr,
+  isDisabled,
+  isTag,
+  removeAttr,
+  removeClass,
+  setAttr
+} from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
@@ -51,18 +60,28 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
 const KEYDOWN_KEY_CODES = [ENTER, SPACE]
 
+const RX_HASH = /^#/
+const RX_HASH_ID = /^#[A-Za-z]+[\w\-:.]*$/
 const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
 
-const isNonStandardTag = el => !arrayIncludes(['BUTTON', 'A'], el.tagName)
+const isNonStandardTag = el => !arrayIncludes(['button', 'a'], el.tagName.toLowerCase())
 
-const getTargets = ({ modifiers, arg, value }) => {
+const getTargets = ({ modifiers, arg, value }, el) => {
   // Any modifiers are considered target IDs
   const targets = keys(modifiers || {})
 
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+
+  // Support target ID as link href (`href="#id"`)
+  if (isTag(el.tagName, 'a')) {
+    const href = getAttr(el, 'href') || ''
+    if (RX_HASH_ID.test(href)) {
+      targets.push(href.replace(RX_HASH, ''))
+    }
+  }
 
   // Add ID from `arg` (if provided), and support value
   // as a single string ID or an array of string IDs
@@ -172,7 +191,7 @@ const handleUpdate = (el, binding, vnode) => {
   setToggleState(el, el[BV_TOGGLE_STATE])
 
   // Parse list of target IDs
-  const targets = getTargets(binding)
+  const targets = getTargets(binding, el)
 
   /* istanbul ignore else */
   // Ensure the `aria-controls` hasn't been overwritten
