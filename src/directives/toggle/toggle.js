@@ -3,6 +3,7 @@ import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
   addClass,
+  getAttr,
   hasAttr,
   isDisabled,
   isTag,
@@ -60,7 +61,7 @@ export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 const KEYDOWN_KEY_CODES = [ENTER, SPACE]
 
 const RX_HASH = /^#/
-const RX_HASH_CONTENT = /^#\[a-zA-Z]/
+const RX_HASH_ID = /^#[A-Za-z]+[\w\-:.]*$/
 const RX_SPLIT_SEPARATOR = /\s+/
 
 // --- Helper methods ---
@@ -74,8 +75,12 @@ const getTargets = ({ modifiers, arg, value }, el) => {
   // If value is a string, split out individual targets (if space delimited)
   value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
 
-  if (isTag(el.tagName, 'a') && RX_HASH_CONTENT.test(el.href || '')) {
-    targets.push(el.href.replace(RX_HASH, ''))
+  // Support target ID as link href (`href="#id"`)
+  if (isTag(el.tagName, 'a')) {
+    const href = getAttr(el, 'href') || ''
+    if (RX_HASH_ID.test(href)) {
+      targets.push(href.replace(RX_HASH, ''))
+    }
   }
 
   // Add ID from `arg` (if provided), and support value
