@@ -198,12 +198,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     backdrop: {
-      // If true, shows a basic backdrop
+      // If `true`, shows a basic backdrop
       type: Boolean,
       default: false
     },
     backdropTransparent: {
-      // If true, makes the backdrop transparent
+      // If `true`, makes the backdrop transparent
       type: Boolean,
       default: false
     },
