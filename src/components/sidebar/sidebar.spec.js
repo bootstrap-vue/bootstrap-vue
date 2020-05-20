@@ -73,7 +73,7 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
-  it('shows backdrop when prop `backdrop` is true', async () => {
+  it('shows backdrop when prop `backdrop` is `true`', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
       propsData: {
@@ -116,7 +116,7 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
-  it('applies bg-transpanret to backdrop when prop `backdrop-transparent` is true', async () => {
+  it('applies "bg-transparent" class to backdrop when prop `backdrop-transparent` is `true`', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
       propsData: {
