@@ -118,6 +118,7 @@ const renderBackdrop = (h, ctx) => {
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
+    class: { 'bg-transparent': ctx.backdropTransparent },
     on: { click: ctx.onBackdropClick }
   })
 }
@@ -198,6 +199,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     backdrop: {
       // If true, shows a basic backdrop
+      type: Boolean,
+      default: false
+    },
+    backdropTransparent: {
+      // If true, makes the backdrop transparent
       type: Boolean,
       default: false
     },

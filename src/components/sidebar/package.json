@@ -77,6 +77,11 @@
             "description": "When `true`, shows a backdrop when the sidebar is open"
           },
           {
+            "prop": "backdropTransparent",
+            "version": "2.15.0",
+            "description": "When `true`, and the prop `backdrop` is true. Makes the backdrop transparent, but remains clickable"
+          },
+          {
             "prop": "lazy",
             "description": "When set to `true`, the content of the sidebar will only be rendered while the sidebar is open"
           },

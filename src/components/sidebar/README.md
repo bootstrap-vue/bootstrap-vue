@@ -270,6 +270,9 @@ Add a basic backdrop when the side bar is open via the `backdrop` prop. When set
 sidebar will show an opaque backdrop. Clicking on the backdrop will close the sidebar, unless the
 `no-close-on-backdrop` prop is set to `true`.
 
+Optionally you can add the `backdrop-transparent` prop. When added the backdrop will be transparent,
+but remain clickable. Allowing the user to still close the sidebar by clicking outside of it.
+
 ```html
 <template>
   <div>

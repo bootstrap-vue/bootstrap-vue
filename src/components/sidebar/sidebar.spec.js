@@ -116,6 +116,52 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
+  it('applies bg-transpanret to backdrop when prop `backdrop-transparent` is true', async () => {
+    const wrapper = mount(BSidebar, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'test-backdrop',
+        noCloseOnBackdrop: true,
+        visible: true,
+        backdrop: true,
+        backdropTransparent: true
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $sidebar = wrapper.find('.b-sidebar')
+    expect($sidebar.exists()).toBe(true)
+    const $backdrop = wrapper.find('.b-sidebar-backdrop')
+    expect($backdrop.exists()).toBe(true)
+
+    expect($backdrop.classes()).toContain('bg-transparent')
+
+    await $backdrop.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
+
+    await wrapper.setProps({ noCloseOnBackdrop: false })
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
+
+    await $backdrop.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).not.toBeVisible()
+    expect($backdrop.element).not.toBeVisible()
+
+    wrapper.destroy()
+  })
+
   it('shows and hides in response to v-b-toggle events', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
