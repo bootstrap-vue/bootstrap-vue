@@ -77,6 +77,7 @@ describe('sidebar', () => {
 
     const $backdrop = wrapper.find('.b-sidebar-backdrop')
     expect($backdrop.exists()).toBe(true)
+    expect($backdrop.classes()).toContain('bg-dark')
 
     await $backdrop.trigger('click')
     await waitRAF()
@@ -99,7 +100,7 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
-  it('applies "bg-transparent" class to backdrop when prop `backdrop-transparent` is `true`', async () => {
+  it('applies "bg-*" class to backdrop based on `backdrop-variant` prop', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
       propsData: {
@@ -107,7 +108,7 @@ describe('sidebar', () => {
         noCloseOnBackdrop: true,
         visible: true,
         backdrop: true,
-        backdropTransparent: true
+        backdropVariant: 'transparent'
       }
     })
 

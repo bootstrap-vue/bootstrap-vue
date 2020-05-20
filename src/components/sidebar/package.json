@@ -77,9 +77,9 @@
             "description": "When `true`, shows a backdrop when the sidebar is open"
           },
           {
-            "prop": "backdropTransparent",
+            "prop": "backdropVariant",
             "version": "2.15.0",
-            "description": "When `true`, makes the backdrop transparent, but remains clickable"
+            "description": "Theme variant color for the backdrop of the sidebar. Defaults to 'dark'"
           },
           {
             "prop": "lazy",
