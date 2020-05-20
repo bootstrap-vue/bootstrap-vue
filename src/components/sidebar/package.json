@@ -77,6 +77,11 @@
             "description": "When `true`, shows a backdrop when the sidebar is open"
           },
           {
+            "prop": "backdropVariant",
+            "version": "2.15.0",
+            "description": "Theme variant color for the backdrop of the sidebar. Defaults to 'dark'"
+          },
+          {
             "prop": "lazy",
             "description": "When set to `true`, the content of the sidebar will only be rendered while the sidebar is open"
           },

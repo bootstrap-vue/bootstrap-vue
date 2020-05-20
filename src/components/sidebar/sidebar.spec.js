@@ -16,11 +16,8 @@ describe('sidebar', () => {
         visible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
@@ -44,28 +41,17 @@ describe('sidebar', () => {
     expect($sidebar.find('.b-sidebar-body').exists()).toBe(true)
     expect($sidebar.find('.b-sidebar-footer').exists()).toBe(false)
 
-    await wrapper.setProps({
-      visible: false
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ visible: false })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
-
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.element).not.toBeVisible()
 
-    await wrapper.setProps({
-      visible: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ visible: true })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect(wrapper.element.tagName).toBe('DIV')
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.element).toBeVisible()
@@ -73,7 +59,7 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
-  it('shows backdrop when prop `backdrop` is true', async () => {
+  it('shows backdrop when prop `backdrop` is `true`', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
       propsData: {
@@ -85,15 +71,55 @@ describe('sidebar', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
+
     const $backdrop = wrapper.find('.b-sidebar-backdrop')
     expect($backdrop.exists()).toBe(true)
+    expect($backdrop.classes()).toContain('bg-dark')
+
+    await $backdrop.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
+
+    await wrapper.setProps({ noCloseOnBackdrop: false })
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).toBeVisible()
+    expect($backdrop.element).toBeVisible()
+
+    await $backdrop.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($sidebar.element).not.toBeVisible()
+    expect($backdrop.element).not.toBeVisible()
+
+    wrapper.destroy()
+  })
+
+  it('applies "bg-*" class to backdrop based on `backdrop-variant` prop', async () => {
+    const wrapper = mount(BSidebar, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'test-backdrop',
+        noCloseOnBackdrop: true,
+        visible: true,
+        backdrop: true,
+        backdropVariant: 'transparent'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+
+    const $sidebar = wrapper.find('.b-sidebar')
+    expect($sidebar.exists()).toBe(true)
+
+    const $backdrop = wrapper.find('.b-sidebar-backdrop')
+    expect($backdrop.exists()).toBe(true)
+    expect($backdrop.classes()).toContain('bg-transparent')
 
     await $backdrop.trigger('click')
     await waitRAF()
@@ -123,42 +149,32 @@ describe('sidebar', () => {
         id: 'test-toggle'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'foobar')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
@@ -172,24 +188,18 @@ describe('sidebar', () => {
         id: 'test-esc'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $sidebar = wrapper.find('.b-sidebar')
     expect($sidebar.exists()).toBe(true)
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
-
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).toBeVisible()
 
@@ -223,11 +233,12 @@ describe('sidebar', () => {
         visible: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
@@ -237,6 +248,7 @@ describe('sidebar', () => {
 
     rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test-sync')
     await waitNT(wrapper.vm)
+    await waitRAF()
     await waitRAF()
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
@@ -255,12 +267,8 @@ describe('sidebar', () => {
         noHeader: true
       }
     })
-    expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(false)
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
@@ -278,12 +286,8 @@ describe('sidebar', () => {
         noHeaderClose: true
       }
     })
-    expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-header .close').exists()).toBe(false)
@@ -302,23 +306,15 @@ describe('sidebar', () => {
         lazy: true
       }
     })
-    expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(false)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    await wrapper.setProps({
-      visible: true
-    })
-    await waitNT(wrapper.vm)
+    await wrapper.setProps({ visible: true })
     await waitRAF()
-    await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
@@ -339,12 +335,8 @@ describe('sidebar', () => {
         footer: '<span>FOOTER</span>'
       }
     })
-    expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
@@ -363,12 +355,8 @@ describe('sidebar', () => {
         title: 'TITLE'
       }
     })
-    expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
+    expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-header > strong').text()).toEqual('TITLE')
