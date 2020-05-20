@@ -270,8 +270,8 @@ Add a basic backdrop when the side bar is open via the `backdrop` prop. When set
 sidebar will show an opaque backdrop. Clicking on the backdrop will close the sidebar, unless the
 `no-close-on-backdrop` prop is set to `true`.
 
-Optionally (as of BootstrapVue v2.15.0+) you can use the `backdrop-variant` prop to control the theme
-color variant of the backdrop. The default backdrop variant is `dark`.
+Optionally (as of BootstrapVue v2.15.0+) you can use the `backdrop-variant` prop to control the
+theme color variant of the backdrop. The default backdrop variant is `dark`.
 
 ```html
 <template>
