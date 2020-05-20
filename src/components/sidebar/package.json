@@ -79,7 +79,7 @@
           {
             "prop": "backdropTransparent",
             "version": "2.15.0",
-            "description": "When `true`, and the prop `backdrop` is true. Makes the backdrop transparent, but remains clickable"
+            "description": "When `true`, makes the backdrop transparent, but remains clickable"
           },
           {
             "prop": "lazy",
