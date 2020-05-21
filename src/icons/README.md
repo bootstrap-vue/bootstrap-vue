@@ -9,8 +9,9 @@ BootstrapVue icon components are built from
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default. You do not need `bootstrap-icons` as a dependency.
 
-Icon components were added in BootstrapVue release `v2.2.0`. Bootstrap Icons `v1.0.0-alpha3` icons
-were added in BootstrapVue release `v2.8.0`.
+- Icon components were added in BootstrapVue release `v2.2.0`.
+- Bootstrap Icons `v1.0.0-alpha3` icons were added in BootstrapVue release `v2.8.0`.
+- Bootstrap Icons `v1.0.0-alpah4` icons were added in BootstrapVue release `v2.15.0`.
 
 <div class="alert alert-info small">
   <p class="mb-2">
@@ -18,18 +19,23 @@ were added in BootstrapVue release `v2.8.0`.
     <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap's Icon</a> SVGs
     are currently in the <b>alpha release stage</b>, and may be subject to sweeping changes.
   </p>
-  <p class="mb-0">
+  <p class="mb-2">
     <strong>Alpha 2 to alpha 3 changes:</strong> In addition to over 200 new icons, some icons have
     changed names &mdash; <code>document-*</code> icons renamed <code>file-*</code>;
     <code>alert-*</code> icons renamed <code>exclamation-*</code>; <code>columns-gutters</code>
     renamed <code>columns-gap</code> and <code>diamond</code> renamed <code>gem</code> (because of
     new <code>diamond-*</code> shape icons).
   </p>
+  <p class="mb-0">
+    <strong>Alpha 3 to alpha 4 changes:</strong> In addition to over 140 new icons, some icons have
+    changed names &mdash; <code>arrow-up-down</code> renamed <code>arrow-down-up</code>;
+    <code>people-circle</code> renamed <code>person-circle</code>.
+  </p>
 </div>
 
 ## Icons
 
-The library includes over 500 icons. Use the explorer below to search and browse the available
+The library includes over 670 icons. Use the explorer below to search and browse the available
 icons.
 
 <div>
