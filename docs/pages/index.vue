@@ -82,7 +82,7 @@
             <b-row class="mb-4">
               <b-col lg="10" offset-lg="1">
                 <p class="text-lg-center">
-                  With more than 85 components, over 45 available plugins, several directives, and 500+ icons,
+                  With more than 85 components, over 45 available plugins, several directives, and 670+ icons,
                   <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
                   comprehensive implementations of the
                   <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
