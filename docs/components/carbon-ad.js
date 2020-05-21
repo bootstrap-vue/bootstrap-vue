@@ -30,6 +30,14 @@ export default {
     }
   },
   mounted() {
+    // Remove any leftover Carbonads scripts from the `<head>`
+    const nodes = document.querySelectorAll('head > script[id="_carbonads_projs"]')
+    for (let node of nodes) {
+      try {
+        node.parentNode.removeChild(node)
+      } catch {}
+    }
+    // Show the new ad
     this.$nextTick(() => {
       requestAnimationFrame(() => {
         this.mounted = true
