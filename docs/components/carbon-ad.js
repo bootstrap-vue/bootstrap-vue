@@ -31,12 +31,13 @@ export default {
   },
   mounted() {
     // Remove any leftover Carbonads scripts from the `<head>`
-    const nodes = document.querySelectorAll('head > script[id="_carbonads_projs"]')
-    for (const node of nodes) {
+    const $nodes = document.querySelectorAll('head > script[id="_carbonads_projs"]')
+    for (const $node of $nodes) {
       try {
-        node.parentNode.removeChild(node)
+        $node.parentNode.removeChild($node)
       } catch {}
     }
+
     // Show the new ad
     this.$nextTick(() => {
       requestAnimationFrame(() => {
