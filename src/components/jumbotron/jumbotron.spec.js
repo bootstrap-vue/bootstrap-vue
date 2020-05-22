@@ -13,7 +13,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('renders with custom root element when props tag is set', async () => {
+  it('renders with custom root element when prop "tag" is set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         tag: 'article'
@@ -28,7 +28,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('has border when prop border-variant is set', async () => {
+  it('has border when prop "border-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         borderVariant: 'danger'
@@ -44,7 +44,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('has background variant when prop bg-variant is set', async () => {
+  it('has background variant when prop "bg-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         bgVariant: 'info'
@@ -59,7 +59,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('has text variant when prop text-variant is set', async () => {
+  it('has text variant when prop "text-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         textVariant: 'primary'
@@ -90,7 +90,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('renders default slot content inside container when fluid prop set', async () => {
+  it('renders default slot content inside container when "fluid" prop set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         fluid: true
@@ -113,7 +113,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('renders default slot content inside container-fluid when fluid prop and container-fluid set', async () => {
+  it('renders default slot content inside ".container-fluid" when props "fluid" and "container-fluid" set', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         fluid: true,
@@ -138,7 +138,7 @@ describe('jumbotron', () => {
     wrapper.destroy()
   })
 
-  it('renders header lead and content when using props', async () => {
+  it('renders header and lead content by props', async () => {
     const wrapper = mount(BJumbotron, {
       propsData: {
         header: 'foo',
@@ -153,25 +153,35 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)
-    expect(wrapper.find('h1').classes()).toContain('display-3')
-    expect(wrapper.find('h1').classes().length).toBe(1)
-    expect(wrapper.find('h1').text()).toEqual('foo')
     expect(wrapper.findAll('p').length).toBe(1)
-    expect(wrapper.find('p').classes()).toContain('lead')
-    expect(wrapper.find('p').classes().length).toBe(1)
-    expect(wrapper.find('p').text()).toEqual('bar')
     expect(wrapper.findAll('span').length).toBe(1)
-    expect(wrapper.find('span').text()).toEqual('baz')
     expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
+
+    const $header = wrapper.find('h1')
+    expect($header.classes()).toContain('display-3')
+    expect($header.classes().length).toBe(1)
+    expect($header.text()).toEqual('foo')
+
+    const $lead = wrapper.find('p')
+    expect($lead.classes()).toContain('lead')
+    expect($lead.classes().length).toBe(1)
+    expect($lead.text()).toEqual('bar')
+
+    expect(wrapper.find('span').text()).toEqual('baz')
 
     wrapper.destroy()
   })
 
-  it('renders header lead and content when using slots', async () => {
+  it('renders header and lead content by html props', async () => {
     const wrapper = mount(BJumbotron, {
-      slots: {
+      propsData: {
+        // We also pass non-html props to ensure html props have precedence
         header: 'foo',
+        headerHtml: '<strong>baz</strong>',
         lead: 'bar',
+        leadHtml: '<strong>bat</strong>'
+      },
+      slots: {
         default: '<span>baz</span>'
       }
     })
@@ -180,16 +190,64 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('jumbotron')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.findAll('h1').length).toBe(1)
-    expect(wrapper.find('h1').classes()).toContain('display-3')
-    expect(wrapper.find('h1').classes().length).toBe(1)
-    expect(wrapper.find('h1').text()).toEqual('foo')
     expect(wrapper.findAll('p').length).toBe(1)
-    expect(wrapper.find('p').classes()).toContain('lead')
-    expect(wrapper.find('p').classes().length).toBe(1)
-    expect(wrapper.find('p').text()).toEqual('bar')
     expect(wrapper.findAll('span').length).toBe(1)
-    expect(wrapper.find('span').text()).toEqual('baz')
     expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
+
+    const $header = wrapper.find('h1')
+    expect($header.classes()).toContain('display-3')
+    expect($header.classes().length).toBe(1)
+    expect($header.find('strong').exists()).toBe(true)
+    expect($header.text()).toEqual('baz')
+
+    const $lead = wrapper.find('p')
+    expect($lead.classes()).toContain('lead')
+    expect($lead.classes().length).toBe(1)
+    expect($lead.find('strong').exists()).toBe(true)
+    expect($lead.text()).toEqual('bat')
+
+    expect(wrapper.find('span').text()).toEqual('baz')
+
+    wrapper.destroy()
+  })
+
+  it('renders header and lead content by slots', async () => {
+    const wrapper = mount(BJumbotron, {
+      propsData: {
+        // We also pass as props to ensure slots have precedence
+        header: 'foo',
+        headerHtml: '<strong>baz</strong>',
+        lead: 'bar',
+        leadHtml: '<strong>bat</strong>'
+      },
+      slots: {
+        default: '<span>baz</span>',
+        header: '<small>foo</small>',
+        lead: '<small>bar</small>'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('jumbotron')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.findAll('h1').length).toBe(1)
+    expect(wrapper.findAll('p').length).toBe(1)
+    expect(wrapper.findAll('span').length).toBe(1)
+    expect(wrapper.find('.jumbotron > h1 + p + span').exists()).toBe(true)
+
+    const $header = wrapper.find('h1')
+    expect($header.classes()).toContain('display-3')
+    expect($header.classes().length).toBe(1)
+    expect($header.find('small').exists()).toBe(true)
+    expect($header.text()).toEqual('foo')
+
+    const $lead = wrapper.find('p')
+    expect($lead.classes()).toContain('lead')
+    expect($lead.classes().length).toBe(1)
+    expect($lead.find('small').exists()).toBe(true)
+    expect($lead.text()).toEqual('bar')
+
+    expect(wrapper.find('span').text()).toEqual('baz')
 
     wrapper.destroy()
   })

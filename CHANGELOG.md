@@ -2,6 +2,62 @@
 
 > All notable changes to this project will be documented in this file.
 
+<a name="2.15.0"></a>
+
+## [v2.15.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.14.0...v2.15.0)
+
+Released: 2020-05-22
+
+### Features v2.15.0
+
+- **css:** update Bootstrap to v4.5.0
+  ([#5395](https://github.com/bootstrap-vue/bootstrap-vue/issues/5395))
+  ([ba7a55e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ba7a55ea094049fd1e3ae492a5a95196252b1da9))
+- **icons:** upgrade to Bootstrap Icons 1.0.0-alpha4
+  ([#5420](https://github.com/bootstrap-vue/bootstrap-vue/issues/5420))
+  ([3208309](https://github.com/bootstrap-vue/bootstrap-vue/commit/3208309c649b4cce73c68643d7c911237a713ebc))
+- **b-sidebar:** add prop `backdrop-variant`
+  ([#5411](https://github.com/bootstrap-vue/bootstrap-vue/issues/5411))
+  ([4b0c163](https://github.com/bootstrap-vue/bootstrap-vue/commit/4b0c163156b6ac5be6c1b0a2801d7c169c87cb49))
+- **b-link:** add support 3rd party router links such as Gridsome's `<g-link>` (closes
+  [#2627](https://github.com/bootstrap-vue/bootstrap-vue/issues/2627))
+  ([#5358](https://github.com/bootstrap-vue/bootstrap-vue/issues/5358))
+  ([6d29e1c](https://github.com/bootstrap-vue/bootstrap-vue/commit/6d29e1cff6c4fd42b3f60f86bd017d8601de3956))
+- **b-navbar-toggle:** add `disabled` prop
+  ([#5397](https://github.com/bootstrap-vue/bootstrap-vue/issues/5397))
+  ([0b7082b](https://github.com/bootstrap-vue/bootstrap-vue/commit/0b7082b792ee49847ba7c99c61758c0d9fd6d222))
+- **v-b-toggle:** check for target ID via `href` if a link
+  ([#5398](https://github.com/bootstrap-vue/bootstrap-vue/issues/5398))
+  ([33e39b0](https://github.com/bootstrap-vue/bootstrap-vue/commit/33e39b007225ba86a0c84a66e3ee60b9d2f01fed))
+- **types:** create declarations for `<b-calendar>` and `<b-time>` context event objects (closes
+  [#5366](https://github.com/bootstrap-vue/bootstrap-vue/issues/5366))
+  ([#5374](https://github.com/bootstrap-vue/bootstrap-vue/issues/5374))
+  ([8f3ca30](https://github.com/bootstrap-vue/bootstrap-vue/commit/8f3ca30e4d51b5e97f9c4f301c31254a8b060980))
+- support `<nuxt-link>`'s `prefetch` property (closes
+  [#5125](https://github.com/bootstrap-vue/bootstrap-vue/issues/5125))
+  ([#5355](https://github.com/bootstrap-vue/bootstrap-vue/issues/5355))
+  ([b9416cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/b9416cb3824d680e297347af61a934b1536224de))
+
+### Bug Fixes v2.15.0
+
+- **v-b-toggle:** don't check for evt.defaultPrevened (closes
+  [#5391](https://github.com/bootstrap-vue/bootstrap-vue/issues/5391))
+  ([#5396](https://github.com/bootstrap-vue/bootstrap-vue/issues/5396))
+  ([a1543b2](https://github.com/bootstrap-vue/bootstrap-vue/commit/a1543b297040ea593306ec55d7de5f1e2e776bce))
+- **b-link:** default new `<nuxt-link>` prop `prefetch` to `null` for true tri-state prop
+  ([#5357](https://github.com/bootstrap-vue/bootstrap-vue/issues/5357))
+  ([3f41c91](https://github.com/bootstrap-vue/bootstrap-vue/commit/3f41c91961c29988ba13ca11f4dc8f81810e761f))
+- ensure all intervals/timeouts/observers are cleared when component is destroyed
+  ([#5362](https://github.com/bootstrap-vue/bootstrap-vue/issues/5362))
+  ([064cdf4](https://github.com/bootstrap-vue/bootstrap-vue/commit/064cdf4f7e7c6b779c1bd689a6d300efdf81bc0d))
+- properly handle HTML props render order (closes
+  [#5363](https://github.com/bootstrap-vue/bootstrap-vue/issues/5363))
+  ([#5365](https://github.com/bootstrap-vue/bootstrap-vue/issues/5365))
+  ([844ecda](https://github.com/bootstrap-vue/bootstrap-vue/commit/844ecda654a2db50d9b84c193f1ab031e291d024))
+- fix docs CodeSandbox integration
+  ([#5381](https://github.com/bootstrap-vue/bootstrap-vue/issues/5381))
+  ([a948846](https://github.com/bootstrap-vue/bootstrap-vue/commit/a948846400c37fca0fa3ed673b1c4684fc6f69e1))
+
 <a name="2.14.0"></a>
 
 ## [v2.14.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.13.1...v2.14.0)

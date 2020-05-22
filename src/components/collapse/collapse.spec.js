@@ -1,15 +1,6 @@
-import {
-  config as vtuConfig,
-  createLocalVue as CreateLocalVue,
-  createWrapper,
-  mount
-} from '@vue/test-utils'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 // Events collapse emits on $root
 const EVENT_STATE = 'bv::collapse::state'
@@ -381,8 +372,7 @@ describe('collapse', () => {
   })
 
   it('should close when clicking on contained nav-link prop is-nav is set', async () => {
-    const localVue = CreateLocalVue()
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
@@ -401,10 +391,9 @@ describe('collapse', () => {
           )
         ])
       }
-    })
+    }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -433,8 +422,7 @@ describe('collapse', () => {
   })
 
   it('should not close when clicking on nav-link prop is-nav is set & collapse is display block important', async () => {
-    const localVue = CreateLocalVue()
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
@@ -459,10 +447,9 @@ describe('collapse', () => {
           )
         ])
       }
-    })
+    }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()

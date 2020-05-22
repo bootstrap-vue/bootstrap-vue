@@ -1,12 +1,7 @@
-import { config as vtuConfig, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { PortalTarget } from 'portal-vue'
 import { BToaster } from './toaster'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs['transition-group'] = false
-vtuConfig.stubs.transition = false
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {

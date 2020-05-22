@@ -1,9 +1,14 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
+import { isTag } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
+
 const NAME = 'BNavbar'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -35,6 +40,7 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -73,7 +79,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
           this.breakpointClass
         ],
         attrs: {
-          role: this.tag === 'nav' ? null : 'navigation'
+          role: isTag(this.tag, 'nav') ? null : 'navigation'
         }
       },
       [this.normalizeSlot('default')]

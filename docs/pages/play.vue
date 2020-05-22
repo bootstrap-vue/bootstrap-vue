@@ -491,17 +491,24 @@ export default {
         '',
         "new Vue({ el: '#app', render: h => h(App) })"
       ].join('\r\n')
+      const scripts = {
+        serve: 'vue-cli-service serve',
+        build: 'vue-cli-service build'
+      }
       const dependencies = {
         bootstrap: bootstrapVersion,
         'bootstrap-vue': bootstrapVueVersion,
         vue: vueVersion
+      }
+      const devDependencies = {
+        '@vue/cli-service': '^4.3.0'
       }
       return getCodeSandboxParameters({
         files: {
           'App.vue': { content: vueContent },
           'index.html': { content: htmlContent },
           'index.js': { content: jsContent },
-          'package.json': { content: { dependencies } }
+          'package.json': { content: { scripts, dependencies, devDependencies } }
         }
       })
     },

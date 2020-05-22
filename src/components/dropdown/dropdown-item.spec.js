@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitRAF } from '../../../tests/utils'
 import { BDropdownItem } from './dropdown-item'
 
@@ -94,7 +94,7 @@ describe('dropdown-item', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = new CreateLocalVue()
+      const localVue = createLocalVue()
       localVue.use(VueRouter)
 
       const router = new VueRouter({
@@ -106,22 +106,22 @@ describe('dropdown-item', () => {
         ]
       })
 
-      const App = localVue.extend({
+      const App = {
         router,
         render(h) {
           return h('ul', [
-            // router-link
+            // <router-link>
             h(BDropdownItem, { props: { to: '/a' } }, ['to-a']),
-            // regular link
+            // Regular link
             h(BDropdownItem, { props: { href: '/a' } }, ['href-a']),
-            // router-link
+            // <router-link>
             h(BDropdownItem, { props: { to: { path: '/b' } } }, ['to-path-b']),
-            // regular link
+            // Regular link
             h(BDropdownItem, { props: { href: '/b' } }, ['href-a']),
             h('router-view')
           ])
         }
-      })
+      }
 
       const wrapper = mount(App, {
         localVue,

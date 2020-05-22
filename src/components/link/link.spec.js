@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
 
@@ -200,8 +200,6 @@ describe('b-link', () => {
   })
 
   describe('click handling', () => {
-    const localVue = new CreateLocalVue()
-
     it('should invoke click handler bound by Vue when clicked on', async () => {
       let called = 0
       let evt = null
@@ -281,15 +279,13 @@ describe('b-link', () => {
     })
 
     it('should emit "clicked::link" on $root when clicked on', async () => {
-      const App = localVue.extend({
+      const spy = jest.fn()
+      const App = {
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
-      })
-      const spy = jest.fn()
-      const wrapper = mount(App, {
-        localVue
-      })
+      }
+      const wrapper = mount(App)
       wrapper.vm.$root.$on('clicked::link', spy)
       await wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
@@ -298,15 +294,13 @@ describe('b-link', () => {
     })
 
     it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
-      const App = localVue.extend({
+      const spy = jest.fn()
+      const App = {
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
-      })
-      const spy = jest.fn()
-      const wrapper = mount(App, {
-        localVue
-      })
+      }
+      const wrapper = mount(App)
 
       expect(wrapper.vm).toBeDefined()
 
@@ -320,7 +314,7 @@ describe('b-link', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = new CreateLocalVue()
+      const localVue = createLocalVue()
       localVue.use(VueRouter)
 
       const router = new VueRouter({
@@ -332,7 +326,25 @@ describe('b-link', () => {
         ]
       })
 
-      const App = localVue.extend({
+      // Fake Gridsome `<g-link>` component
+      const GLink = {
+        name: 'GLink',
+        props: {
+          to: {
+            type: [String, Object],
+            default: ''
+          }
+        },
+        render(h) {
+          // We just us a simple A tag to render the
+          // fake `<g-link>` and assume `to` is a string
+          return h('a', { attrs: { href: this.to } }, [this.$slots.default])
+        }
+      }
+
+      localVue.component('GLink', GLink)
+
+      const App = {
         router,
         components: { BLink },
         render(h) {
@@ -345,10 +357,12 @@ describe('b-link', () => {
             h('b-link', { props: { to: { path: '/b' } } }, ['to-path-b']),
             // regular link
             h('b-link', { props: { href: '/b' } }, ['href-a']),
+            // g-link
+            h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['g-link-a']),
             h('router-view')
           ])
         }
-      })
+      }
 
       const wrapper = mount(App, {
         localVue,
@@ -358,7 +372,7 @@ describe('b-link', () => {
       expect(wrapper.vm).toBeDefined()
       expect(wrapper.element.tagName).toBe('MAIN')
 
-      expect(wrapper.findAll('a').length).toBe(4)
+      expect(wrapper.findAll('a').length).toBe(5)
 
       const $links = wrapper.findAll('a')
 
@@ -379,6 +393,11 @@ describe('b-link', () => {
       expect($links.at(3).vm).toBeDefined()
       expect($links.at(3).vm.$options.name).toBe('BLink')
       expect($links.at(3).vm.$children.length).toBe(0)
+
+      expect($links.at(4).vm).toBeDefined()
+      expect($links.at(4).vm.$options.name).toBe('BLink')
+      expect($links.at(4).vm.$children.length).toBe(1)
+      expect($links.at(4).vm.$children[0].$options.name).toBe('GLink')
 
       wrapper.destroy()
     })

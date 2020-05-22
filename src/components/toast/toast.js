@@ -1,12 +1,15 @@
-import Vue from '../../utils/vue'
 import { Portal, Wormhole } from 'portal-vue'
 import BVTransition from '../../utils/bv-transition'
+import Vue from '../../utils/vue'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
+import { pick } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { isLink } from '../../utils/router'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -14,7 +17,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BToaster } from './toaster'
 import { BButtonClose } from '../button/button-close'
-import { BLink } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
@@ -23,6 +26,8 @@ const NAME = 'BToast'
 const MIN_DURATION = 1000
 
 // --- Props ---
+
+const linkProps = pick(BLinkProps, ['href', 'to'])
 
 export const props = {
   id: {
@@ -92,19 +97,12 @@ export const props = {
     type: [String, Object, Array],
     default: () => getComponentConfig(NAME, 'bodyClass')
   },
-  href: {
-    type: String
-    // default: null
-  },
-  to: {
-    type: [String, Object]
-    // default: null
-  },
   static: {
     // Render the toast in place, rather than in a portal-target
     type: Boolean,
     default: false
-  }
+  },
+  ...linkProps
 }
 
 // @vue/component
@@ -385,14 +383,14 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         )
       }
       // Toast body
-      const isLink = this.href || this.to
+      const link = isLink(this)
       const $body = h(
-        isLink ? BLink : 'div',
+        link ? BLink : 'div',
         {
           staticClass: 'toast-body',
           class: this.bodyClass,
-          props: isLink ? { to: this.to, href: this.href } : {},
-          on: isLink ? { click: this.onLinkClick } : {}
+          props: link ? pluckProps(linkProps, this) : {},
+          on: link ? { click: this.onLinkClick } : {}
         },
         [this.normalizeSlot('default', this.slotScope) || h()]
       )

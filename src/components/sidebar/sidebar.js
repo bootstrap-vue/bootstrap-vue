@@ -108,6 +108,7 @@ const renderContent = (h, ctx) => {
   if (ctx.lazy && !ctx.isOpen) {
     return $header
   }
+
   return [$header, renderBody(h, ctx), renderFooter(h, ctx)]
 }
 
@@ -115,9 +116,13 @@ const renderBackdrop = (h, ctx) => {
   if (!ctx.backdrop) {
     return h()
   }
+
+  const { backdropVariant } = ctx
+
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
+    class: { [`bg-${backdropVariant}`]: !!backdropVariant },
     on: { click: ctx.onBackdropClick }
   })
 }
@@ -197,9 +202,13 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     backdrop: {
-      // If true, shows a basic backdrop
+      // If `true`, shows a basic backdrop
       type: Boolean,
       default: false
+    },
+    backdropVariant: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'backdropVariant')
     },
     noSlide: {
       type: Boolean,

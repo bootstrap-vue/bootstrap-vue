@@ -1,10 +1,12 @@
 import Vue from '../../utils/vue'
-import pluckProps from '../../utils/pluck-props'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { isLink } from '../../utils/router'
 import { BButton } from '../button/button'
-import { BLink } from '../link/link'
+import { BLink, props as BLinkProps } from '../link/link'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -25,52 +27,7 @@ const DEFAULT_SIZES = {
 }
 
 // --- Props ---
-const linkProps = {
-  href: {
-    type: String
-    // default: null
-  },
-  to: {
-    type: [String, Object]
-    // default: null
-  },
-  append: {
-    type: Boolean,
-    default: false
-  },
-  replace: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  rel: {
-    type: String
-    // default: null
-  },
-  target: {
-    type: String
-    // default: null
-  },
-  activeClass: {
-    type: String
-    // default: null
-  },
-  exact: {
-    type: Boolean,
-    default: false
-  },
-  exactActiveClass: {
-    type: String
-    // default: null
-  },
-  noPrefetch: {
-    type: Boolean,
-    default: false
-  }
-}
+const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 const props = {
   src: {
@@ -237,14 +194,14 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       fontStyle,
       marginStyle,
       computedSize: size,
-      button: isButton,
+      button,
       buttonType: type,
       badge,
       badgeVariant,
       badgeStyle
     } = this
-    const isBLink = !isButton && (this.href || this.to)
-    const tag = isButton ? BButton : isBLink ? BLink : 'span'
+    const link = !button && isLink(this)
+    const tag = button ? BButton : link ? BLink : 'span'
     const alt = this.alt || null
     const ariaLabel = this.ariaLabel || null
 
@@ -290,7 +247,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       staticClass: CLASS_NAME,
       class: {
         // We use badge styles for theme variants when not rendering `BButton`
-        [`badge-${variant}`]: !isButton && variant,
+        [`badge-${variant}`]: !button && variant,
         // Rounding/Square
         rounded: rounded === true,
         [`rounded-${rounded}`]: rounded && rounded !== true,
@@ -299,8 +256,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       },
       style: { width: size, height: size, ...marginStyle },
       attrs: { 'aria-label': ariaLabel || null },
-      props: isButton ? { variant, disabled, type } : isBLink ? pluckProps(linkProps, this) : {},
-      on: isBLink || isButton ? { click: this.onClick } : {}
+      props: button ? { variant, disabled, type } : link ? pluckProps(linkProps, this) : {},
+      on: button || link ? { click: this.onClick } : {}
     }
 
     return h(tag, componentData, [$content, $badge])

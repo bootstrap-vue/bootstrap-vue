@@ -144,12 +144,12 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     show(show, oldVal) {
-      if (show !== oldVal && show !== this.localShow && this.$_bv_toolpop) {
+      if (show !== oldVal && show !== this.localShow && this.$_toolpop) {
         if (show) {
-          this.$_bv_toolpop.show()
+          this.$_toolpop.show()
         } else {
           // We use `forceHide()` to override any active triggers
-          this.$_bv_toolpop.forceHide()
+          this.$_toolpop.forceHide()
         }
       }
     },
@@ -166,8 +166,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     templateData() {
       this.$nextTick(() => {
-        if (this.$_bv_toolpop) {
-          this.$_bv_toolpop.updateData(this.templateData)
+        if (this.$_toolpop) {
+          this.$_toolpop.updateData(this.templateData)
         }
       })
     },
@@ -177,8 +177,8 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    // Non reactive properties
-    this.$_bv_toolpop = null
+    // Create private non-reactive props
+    this.$_toolpop = null
   },
   updated() {
     // Update the `propData` object
@@ -192,8 +192,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     this.$off('disable', this.doDisable)
     this.$off('enable', this.doEnable)
     // Destroy the tip instance
-    this.$_bv_toolpop && this.$_bv_toolpop.$destroy()
-    this.$_bv_toolpop = null
+    if (this.$_toolpop) {
+      this.$_toolpop.$destroy()
+      this.$_toolpop = null
+    }
   },
   mounted() {
     // Instantiate a new BVTooltip instance
@@ -207,7 +209,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Pass down the scoped style attribute if available
       const scopeId = getScopId(this) || getScopId(this.$parent)
       // Create the instance
-      const $toolpop = (this.$_bv_toolpop = new Component({
+      const $toolpop = (this.$_toolpop = new Component({
         parent: this,
         // Pass down the scoped style ID
         _scopeId: scopeId || undefined
@@ -236,7 +238,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       this.$on('enable', this.doEnable)
       // Initially show tooltip?
       if (this.localShow) {
-        this.$_bv_toolpop && this.$_bv_toolpop.show()
+        $toolpop.show()
       }
     })
   },
@@ -307,16 +309,16 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     // --- Local event listeners ---
     doOpen() {
-      !this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.show()
+      !this.localShow && this.$_toolpop && this.$_toolpop.show()
     },
     doClose() {
-      this.localShow && this.$_bv_toolpop && this.$_bv_toolpop.hide()
+      this.localShow && this.$_toolpop && this.$_toolpop.hide()
     },
     doDisable() {
-      this.$_bv_toolpop && this.$_bv_toolpop.disable()
+      this.$_toolpop && this.$_toolpop.disable()
     },
     doEnable() {
-      this.$_bv_toolpop && this.$_bv_toolpop.enable()
+      this.$_toolpop && this.$_toolpop.enable()
     }
   },
   render(h) {

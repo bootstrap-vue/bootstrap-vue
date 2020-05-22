@@ -1,16 +1,14 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import listenOnDocumentMixin from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
-  const localVue = new CreateLocalVue()
-
   it('works', async () => {
     const spyClick1 = jest.fn()
     const spyClick2 = jest.fn()
     const spyFocusin = jest.fn()
 
-    const TestComponent = localVue.extend({
+    const TestComponent = {
       mixins: [listenOnDocumentMixin],
       props: {
         offClickOne: {
@@ -33,9 +31,9 @@ describe('mixins/listen-on-document', () => {
       render(h) {
         return h('div', this.$slots.default)
       }
-    })
+    }
 
-    const App = localVue.extend({
+    const App = {
       components: { TestComponent },
       props: {
         offClickOne: {
@@ -57,7 +55,7 @@ describe('mixins/listen-on-document', () => {
           this.destroy ? h() : h(TestComponent, { props }, 'test-component')
         ])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer(),

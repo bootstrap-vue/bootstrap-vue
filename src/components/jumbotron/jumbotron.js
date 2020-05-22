@@ -1,11 +1,15 @@
 import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
 import { getComponentConfig } from '../../utils/config'
-import { stripTags } from '../../utils/html'
+import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BContainer } from '../layout/container'
 
+// --- Constants ---
+
 const NAME = 'BJumbotron'
+
+// --- Props ---
 
 export const props = {
   fluid: {
@@ -62,70 +66,66 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BJumbotron = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
-    // The order of the conditionals matter.
-    // We are building the component markup in order.
-    let childNodes = []
-    const $slots = slots()
+    const { header, headerHtml, lead, leadHtml, textVariant, bgVariant, borderVariant } = props
     const $scopedSlots = scopedSlots || {}
+    const $slots = slots()
+    const slotScope = {}
 
-    // Header
-    if (props.header || hasNormalizedSlot('header', $scopedSlots, $slots) || props.headerHtml) {
-      childNodes.push(
-        h(
-          props.headerTag,
-          {
-            class: {
-              [`display-${props.headerLevel}`]: props.headerLevel
-            }
-          },
-          normalizeSlot('header', {}, $scopedSlots, $slots) ||
-            props.headerHtml ||
-            stripTags(props.header)
-        )
+    let $header = h()
+    const hasHeaderSlot = hasNormalizedSlot('header', $scopedSlots, $slots)
+    if (hasHeaderSlot || header || headerHtml) {
+      const { headerLevel } = props
+
+      $header = h(
+        props.headerTag,
+        {
+          class: { [`display-${headerLevel}`]: headerLevel },
+          domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
+        },
+        normalizeSlot('header', slotScope, $scopedSlots, $slots)
       )
     }
 
-    // Lead
-    if (props.lead || hasNormalizedSlot('lead', $scopedSlots, $slots) || props.leadHtml) {
-      childNodes.push(
-        h(
-          props.leadTag,
-          { staticClass: 'lead' },
-          normalizeSlot('lead', {}, $scopedSlots, $slots) || props.leadHtml || stripTags(props.lead)
-        )
+    let $lead = h()
+    const hasLeadSlot = hasNormalizedSlot('lead', $scopedSlots, $slots)
+    if (hasLeadSlot || lead || leadHtml) {
+      $lead = h(
+        props.leadTag,
+        {
+          staticClass: 'lead',
+          domProps: hasLeadSlot ? {} : htmlOrText(leadHtml, lead)
+        },
+        normalizeSlot('lead', slotScope, $scopedSlots, $slots)
       )
     }
 
-    // Default slot
-    if (hasNormalizedSlot('default', $scopedSlots, $slots)) {
-      childNodes.push(normalizeSlot('default', {}, $scopedSlots, $slots))
-    }
+    let $children = [$header, $lead, normalizeSlot('default', slotScope, $scopedSlots, $slots)]
 
-    // If fluid, wrap content in a container/container-fluid
+    // If fluid, wrap content in a container
     if (props.fluid) {
-      // Children become a child of a container
-      childNodes = [h(BContainer, { props: { fluid: props.containerFluid } }, childNodes)]
+      $children = [h(BContainer, { props: { fluid: props.containerFluid } }, $children)]
     }
-    // Return the jumbotron
+
     return h(
       props.tag,
       mergeData(data, {
         staticClass: 'jumbotron',
         class: {
           'jumbotron-fluid': props.fluid,
-          [`text-${props.textVariant}`]: props.textVariant,
-          [`bg-${props.bgVariant}`]: props.bgVariant,
-          [`border-${props.borderVariant}`]: props.borderVariant,
-          border: props.borderVariant
+          [`text-${textVariant}`]: textVariant,
+          [`bg-${bgVariant}`]: bgVariant,
+          [`border-${borderVariant}`]: borderVariant,
+          border: borderVariant
         }
       }),
-      childNodes
+      $children
     )
   }
 })

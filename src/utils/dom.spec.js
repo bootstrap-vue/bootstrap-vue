@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import {
@@ -26,8 +25,7 @@ const template = `
   </div>
 </div>
 `
-
-const App = Vue.extend({ template })
+const App = { template }
 
 describe('utils/dom', () => {
   it('isElement() works', async () => {

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
 import { BButton } from '../button/button'
@@ -82,7 +81,7 @@ describe('button-toolbar', () => {
     })
 
     // Test App for keynav
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(BButtonToolbar, { props: { keyNav: true } }, [
           h(BButtonGroup, [h(BButton, 'a'), h(BButton, 'b')]),
@@ -90,7 +89,7 @@ describe('button-toolbar', () => {
           h(BButtonGroup, [h(BButton, 'e'), h(BButton, 'f')])
         ])
       }
-    })
+    }
 
     it('has correct structure', async () => {
       const wrapper = mount(App, {

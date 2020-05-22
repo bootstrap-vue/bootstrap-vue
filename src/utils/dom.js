@@ -2,6 +2,7 @@ import { from as arrayFrom } from './array'
 import { hasWindowSupport, hasDocumentSupport } from './env'
 import { isFunction, isNull } from './inspect'
 import { toFloat } from './number'
+import { toString } from './string'
 
 // --- Constants ---
 
@@ -73,6 +74,9 @@ export const getActiveElement = (excludes = []) => {
   const activeElement = d.activeElement
   return activeElement && !excludes.some(el => el === activeElement) ? activeElement : null
 }
+
+// Returns `true` if a tag's name equals `name`
+export const isTag = (tag, name) => toString(tag).toLowerCase() === toString(name).toLowerCase()
 
 // Determine if an HTML element is the currently active element
 export const isActiveElement = el => isElement(el) && el === getActiveElement()

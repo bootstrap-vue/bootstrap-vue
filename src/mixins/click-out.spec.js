@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import { mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
 import clickOutMixin from './click-out'
 
 describe('utils/click-out', () => {
   it('works', async () => {
     let count = 0
-    const App = Vue.extend({
+    const localVue = createLocalVue()
+    const App = localVue.extend({
       mixins: [clickOutMixin],
       // `listenForClickOut` comes from the mixin data
       created() {
@@ -23,7 +23,8 @@ describe('utils/click-out', () => {
     })
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: createContainer(),
+      localVue
     })
 
     const clickEvt = new MouseEvent('click')

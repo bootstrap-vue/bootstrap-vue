@@ -78,6 +78,11 @@
             "prop": "label",
             "settings": true,
             "description": "String to place in the toggle's 'aria-label' attribute"
+          },
+          {
+            "prop": "disabled",
+            "version": "2.15.0",
+            "description": "When `true`, disables the navbar toggle button, and adds class `disabled` to the button"
           }
         ],
         "events": [

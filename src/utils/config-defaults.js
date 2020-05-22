@@ -183,6 +183,9 @@ export default deepFreeze({
     borderVariant: undefined,
     textVariant: undefined
   },
+  BLink: {
+    routerComponentName: undefined
+  },
   BListGroupItem: {
     variant: undefined
   },
@@ -238,7 +241,8 @@ export default deepFreeze({
     textVariant: 'dark',
     shadow: false,
     width: undefined,
-    tag: 'div'
+    tag: 'div',
+    backdropVariant: 'dark'
   },
   BTable: {
     selectedVariant: 'active',

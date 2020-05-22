@@ -7,8 +7,11 @@ import { toFixed, toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
+// --- Constants ---
+
 const NAME = 'BProgressBar'
 
+// --- Main component ---
 // @vue/component
 export const BProgressBar = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -119,16 +122,20 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let childNodes = h()
+    const { label, labelHtml, computedValue, computedPrecision } = this
+
+    let $content = h()
+    let domProps = {}
     if (this.hasNormalizedSlot('default')) {
-      childNodes = this.normalizeSlot('default')
-    } else if (this.label || this.labelHtml) {
-      childNodes = h('span', { domProps: htmlOrText(this.labelHtml, this.label) })
+      $content = this.normalizeSlot('default')
+    } else if (label || labelHtml) {
+      domProps = htmlOrText(labelHtml, label)
     } else if (this.computedShowProgress) {
-      childNodes = this.computedProgress
+      $content = this.computedProgress
     } else if (this.computedShowValue) {
-      childNodes = toFixed(this.computedValue, this.computedPrecision)
+      $content = toFixed(computedValue, computedPrecision)
     }
+
     return h(
       'div',
       {
@@ -139,10 +146,11 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
           role: 'progressbar',
           'aria-valuemin': '0',
           'aria-valuemax': toString(this.computedMax),
-          'aria-valuenow': toFixed(this.computedValue, this.computedPrecision)
-        }
+          'aria-valuenow': toFixed(computedValue, computedPrecision)
+        },
+        domProps
       },
-      [childNodes]
+      [$content]
     )
   }
 })

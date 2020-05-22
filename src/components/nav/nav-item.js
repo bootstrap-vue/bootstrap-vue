@@ -1,9 +1,13 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import Vue from '../../utils/vue'
+import { omit } from '../../utils/object'
+import { BLink, props as BLinkProps } from '../link/link'
 
-export const props = linkPropsFactory()
+// --- Props ---
 
+export const props = omit(BLinkProps, ['event', 'routerTag'])
+
+// --- Main component ---
 // @vue/component
 export const BNavItem = /*#__PURE__*/ Vue.extend({
   name: 'BNavItem',

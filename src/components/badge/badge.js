@@ -1,17 +1,22 @@
-import Vue from '../../utils/vue'
 import { mergeData } from 'vue-functional-data-merge'
+import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import pluckProps from '../../utils/pluck-props'
-import { BLink, propsFactory as linkPropsFactory } from '../link/link'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
+import { isLink } from '../../utils/router'
+import { BLink, props as BLinkProps } from '../link/link'
+
+// --- Constants ---
 
 const NAME = 'BBadge'
 
-const linkProps = linkPropsFactory()
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
 export const props = {
-  ...linkProps,
   tag: {
     type: String,
     default: 'span'
@@ -23,17 +28,19 @@ export const props = {
   pill: {
     type: Boolean,
     default: false
-  }
+  },
+  ...linkProps
 }
 
+// --- Main component ---
 // @vue/component
 export const BBadge = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props,
   render(h, { props, data, children }) {
-    const isBLink = props.href || props.to
-    const tag = isBLink ? BLink : props.tag
+    const link = isLink(props)
+    const tag = link ? BLink : props.tag
 
     const componentData = {
       staticClass: 'badge',
@@ -45,7 +52,7 @@ export const BBadge = /*#__PURE__*/ Vue.extend({
           disabled: props.disabled
         }
       ],
-      props: isBLink ? pluckProps(linkProps, props) : {}
+      props: link ? pluckProps(linkProps, props) : {}
     }
 
     return h(tag, mergeData(data, componentData), children)

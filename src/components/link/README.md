@@ -26,6 +26,17 @@ If your app is running under [Nuxt.js](https://nuxtjs.org), the
 `<router-link>`. The `<nuxt-link>` component supports all the same features as `<router-link>` (as
 it is a wrapper component for `<router-link>`) and more.
 
+### Third party rounter links
+
+BootstrapVue auto detects using `<router-link>` and `<nuxt-link>` link components. Some 3rd party
+frameworks also provide customized versions of `<router-link>`, such as
+[Gridsome's `<g-link>` component](https://gridsome.org/docs/linking/). `<b-link>` can support these
+third party `<router-link>` compatible components via the use of the `router-component-name` prop.
+All `vue-router` props (excluding `<nuxt-link>` specific props) will be passed to the specified
+router link component.
+
+Note that the 3rd party component will only be used when the `to` prop is set.
+
 ## Links with `href="#"`
 
 Typically `<a href="#">` will cause the document to scroll to the top of page when clicked.

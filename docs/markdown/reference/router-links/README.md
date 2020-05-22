@@ -10,7 +10,8 @@
 In the following sections, we are using the `<b-link>` component to render router links. `<b-link>`
 is the building block of most of BootstrapVue's _actionable_ components. You could use any other
 component that supports link generation such as [`<b-link>`](/docs/components/link),
-[`<b-button>`](/docs/components/button), [`<b-breadcrumb-item>`](/docs/components/breadcrumb),
+[`<b-button>`](/docs/components/button), [`<b-avatar>`](/docs/components/avatar),
+[`<b-breadcrumb-item>`](/docs/components/breadcrumb),
 [`<b-list-group-item>`](/docs/components/list-group), [`<b-nav-item>`](/docs/components/nav),
 [`<b-dropdown-item>`](/docs/components/dropdown), and
 [`<b-pagination-nav>`](/docs/components/pagination-nav). Note that not all props are available on
@@ -155,19 +156,21 @@ render a [`<nuxt-link>`](https://nuxtjs.org/api/components-nuxt-link) sub compon
 `<router-link>`. `<nuxt-link>` supports all of the above router link props, plus the following
 additional Nuxt.js specific props.
 
-### `no-prefetch`
+### `prefetch`
 
 - type: `boolean`
-- default: `false`
-- availability: Nuxt.js 2.4.0+
+- default: `null`
+- availability: Nuxt.js 2.10.0+ and BootstrapVue 2.15.0+
 
 To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
-the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will
-disabled this feature for the specific link.
+the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to
+`true` or `false` will overwrite the default value of `router.prefetchLinks` configured in the
+`nuxt.config.js` configuration file.
 
-**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration
-(`router: { prefetchLinks: false}`), or are using a version of Nuxt.js `< 2.4.0`, then this prop
-will have no effect.
+**Notes:**
+
+- If you have are using a version of Nuxt.js `< 2.10.0`, then this prop will have no effect.
+- Remember to `v-bind` the prop value (e.g. `:prefetch="true"` or `:prefetch="false"`).
 
 Prefetching support requires
 [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
@@ -187,3 +190,46 @@ export default {
   }
 }
 ```
+
+### `no-prefetch`
+
+- type: `boolean`
+- default: `false`
+- availability: Nuxt.js 2.4.0+
+
+To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within
+the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will
+disabled this feature for the specific link.
+
+**Note:** If you have prefetching disabled in your `nuxt.config.js` configuration
+(`router: { prefetchLinks: false }`), or are using a version of Nuxt.js `< 2.4.0`, then this prop
+will have no effect.
+
+## Third-party router link support
+
+<span class="badge badge-info small">v2.15.0+</span>
+
+BootstrapVue auto detects using `<router-link>` and `<nuxt-link>` link components. Some 3rd party
+frameworks also provide customized versions of `<router-link>`, such as
+[Gridsome's `<g-link>` component](https://gridsome.org/docs/linking/). BootstrapVue can support
+these third party `<router-link>` compatible components via the use of the `router-component-name`
+prop. All `vue-router` props (excluding `<nuxt-link>` specific props) will be passed to the
+specified router link component.
+
+**Notes:**
+
+- The 3rd party component will only be used when the `to` prop is set.
+- Not all 3rd party components support all props supported by `<router-link>`, nor do not support
+  fully qualified domain name URLs, nor hash only URLs. Refer to the 3rd party component
+  documentation for details.
+
+### `router-component-name`
+
+- type: `string`
+- default: `undefined`
+- availability: BootstrapVue 2.15.0+
+
+Set this prop to the name of the `<router-link>` compatible component, e.g. `'g-link'` for
+[Gridsome](https://gridsome.org/).
+
+If left at the default, BootstrapVue will automatically select `<router-link>` or `<nuxt-link>`.

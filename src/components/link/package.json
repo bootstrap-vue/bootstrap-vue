@@ -7,7 +7,20 @@
     "components": [
       {
         "component": "BLink",
-        "props": [],
+        "props": [
+          {
+            "prop": "href",
+            "description": "Denotes the target URL of the link for standard a links"
+          },
+          {
+            "prop": "rel",
+            "description": "Sets the 'rel' attribute on the rendered link"
+          },
+          {
+            "prop": "target",
+            "description": "Sets the 'target' attribute on the rendered link"
+          }
+        ],
         "events": [
           {
             "event": "click",

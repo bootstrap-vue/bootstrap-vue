@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
 import { BFormCheckboxGroup } from './form-checkbox-group'
@@ -241,7 +240,7 @@ describe('form-checkbox-group', () => {
   })
 
   it('button mode button variant works', async () => {
-    const App = Vue.extend({
+    const App = {
       render(h) {
         return h(
           BFormCheckboxGroup,
@@ -259,7 +258,7 @@ describe('form-checkbox-group', () => {
           ]
         )
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer()

@@ -1,20 +1,17 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
 import { BTransporterSingle } from './transporter'
 
 describe('utils/transporter component', () => {
-  const localVue = new CreateLocalVue()
-
   it('renders in-pace when disabled=true', async () => {
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h(BTransporterSingle, { props: { disabled: true } }, [h('div', 'content')])
       }
-    })
+    }
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -25,17 +22,16 @@ describe('utils/transporter component', () => {
   })
 
   it('does not render in-pace when disabled=false', async () => {
-    const App = localVue.extend({
+    const App = {
       render(h) {
         return h(BTransporterSingle, { props: { disabled: false } }, [
           h('div', { attrs: { id: 'foobar' } }, 'content')
         ])
       }
-    })
+    }
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: createContainer()
     })
 
     expect(wrapper.vm).toBeDefined()

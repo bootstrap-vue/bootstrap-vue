@@ -1,7 +1,7 @@
-import copyProps from './copy-props'
+import { copyProps } from './props'
 
-describe('utils/copyProps', () => {
-  it('works with array props', async () => {
+describe('utils/props', () => {
+  it('copyProps() works with array props', async () => {
     const props = ['a', 'b', 'c']
 
     expect(copyProps(props)).toEqual(props)
@@ -9,7 +9,7 @@ describe('utils/copyProps', () => {
     expect(copyProps(props)).not.toBe(props)
   })
 
-  it('works with object props', async () => {
+  it('copyProps() works with object props', async () => {
     const props = {
       a: { type: String, default: 'foobar' },
       b: { type: [Object, Array], default: null },

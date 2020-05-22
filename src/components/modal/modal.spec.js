@@ -1,11 +1,7 @@
-import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
-
-// Disable the use of the TransitionStub component
-// since it doesn't run transition hooks
-vtuConfig.stubs.transition = false
 
 // The default Z-INDEX for modal backdrop
 const DEFAULT_ZINDEX = 1040
@@ -339,14 +335,47 @@ describe('modal', () => {
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.text()).toContain('cancel')
       // `v-html` is applied to a span
-      expect($cancel.html()).toContain('<span><em>cancel</em></span>')
+      expect($cancel.html()).toContain('<em>cancel</em>')
 
       // OK button (right-most button)
       const $ok = $buttons.at(1)
       expect($ok.attributes('type')).toBe('button')
       expect($ok.text()).toContain('ok')
       // `v-html` is applied to a span
-      expect($ok.html()).toContain('<span><em>ok</em></span>')
+      expect($ok.html()).toContain('<em>ok</em>')
+
+      wrapper.destroy()
+    })
+
+    it('modal-ok and modal-cancel button content slots works', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true
+        },
+        slots: {
+          'modal-ok': '<em>bar ok</em>',
+          'modal-cancel': '<em>foo cancel</em>'
+        }
+      })
+      expect(wrapper).toBeDefined()
+
+      const $buttons = wrapper.findAll('footer button')
+      expect($buttons.length).toBe(2)
+
+      // Cancel button (left-most button)
+      const $cancel = $buttons.at(0)
+      expect($cancel.attributes('type')).toBe('button')
+      expect($cancel.text()).toContain('foo cancel')
+      // `v-html` is applied to a span
+      expect($cancel.html()).toContain('<em>foo cancel</em>')
+
+      // OK button (right-most button)
+      const $ok = $buttons.at(1)
+      expect($ok.attributes('type')).toBe('button')
+      expect($ok.text()).toContain('bar ok')
+      // `v-html` is applied to a span
+      expect($ok.html()).toContain('<em>bar ok</em>')
 
       wrapper.destroy()
     })
@@ -963,20 +992,17 @@ describe('modal', () => {
   })
 
   describe('focus management', () => {
-    const localVue = createLocalVue()
-
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
-      const App = localVue.extend({
+      const App = {
         render(h) {
           return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
-      })
+      }
       const wrapper = mount(App, {
-        attachTo: createContainer(),
-        localVue
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1040,7 +1066,7 @@ describe('modal', () => {
     })
 
     it('returns focus to element specified in toggle() method', async () => {
-      const App = localVue.extend({
+      const App = {
         render(h) {
           return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
@@ -1052,10 +1078,9 @@ describe('modal', () => {
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
-      })
+      }
       const wrapper = mount(App, {
-        attachTo: createContainer(),
-        localVue
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1126,17 +1151,16 @@ describe('modal', () => {
     })
 
     it('if focus leaves modal it returns to modal', async () => {
-      const App = localVue.extend({
+      const App = {
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
             h(BModal, { props: { static: true, id: 'test', visible: true } }, 'Modal content')
           ])
         }
-      })
+      }
       const wrapper = mount(App, {
-        attachTo: createContainer(),
-        localVue
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1208,7 +1232,7 @@ describe('modal', () => {
     })
 
     it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
-      const App = localVue.extend({
+      const App = {
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
@@ -1227,10 +1251,9 @@ describe('modal', () => {
             )
           ])
         }
-      })
+      }
       const wrapper = mount(App, {
-        attachTo: createContainer(),
-        localVue
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1277,7 +1300,7 @@ describe('modal', () => {
     })
 
     it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
-      const App = localVue.extend({
+      const App = {
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
@@ -1296,10 +1319,9 @@ describe('modal', () => {
             )
           ])
         }
-      })
+      }
       const wrapper = mount(App, {
-        attachTo: createContainer(),
-        localVue
+        attachTo: createContainer()
       })
 
       expect(wrapper.vm).toBeDefined()

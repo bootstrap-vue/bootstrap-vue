@@ -97,7 +97,7 @@
           },
           {
             "prop": "splitTo",
-            "description": "router-link prop: Denotes the target route of the split button. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
+            "description": "<router-link> prop: Denotes the target route of the split button. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
           },
           {
             "prop": "splitVariant",

@@ -59,6 +59,7 @@ The following router link specific props are supported:
 - `active-class`
 - `exact`
 - `exact-active-class`
+- `prefetch` (`<nuxt-link>` specific prop)
 - `no-prefetch` (`<nuxt-link>` specific prop)
 
 For details on the above props, refer to the [Router Link Support](/docs/reference/router-links)

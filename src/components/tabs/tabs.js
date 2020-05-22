@@ -312,8 +312,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
+    // Create private non-reactive props
+    this.$_observer = null
     this.currentTab = toInteger(this.value, -1)
-    this._bvObserver = null
     // For SSR and to make sure only a single tab is shown on mount
     // We wrap this in a `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
@@ -362,11 +363,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     unregisterTab(tab) {
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
+    // DOM observer is needed to detect changes in order of tabs
     setObserver(on) {
-      // DOM observer is needed to detect changes in order of tabs
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
       if (on) {
-        // Make sure no existing observer running
-        this.setObserver(false)
         const self = this
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */
         const handler = () => {
@@ -379,18 +380,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           })
         }
         // Watch for changes to <b-tab> sub components
-        this._bvObserver = observeDom(this.$refs.tabsContainer, handler, {
+        this.$_observer = observeDom(this.$refs.tabsContainer, handler, {
           childList: true,
           subtree: false,
           attributes: true,
           attributeFilter: ['id']
         })
-      } else {
-        /* istanbul ignore next */
-        if (this._bvObserver && this._bvObserver.disconnect) {
-          this._bvObserver.disconnect()
-        }
-        this._bvObserver = null
       }
     },
     getTabs() {

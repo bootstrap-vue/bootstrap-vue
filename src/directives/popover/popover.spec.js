@@ -1,4 +1,4 @@
-import { mount, createLocalVue as CreateLocalVue } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { VBPopover } from './popover'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
@@ -43,17 +43,15 @@ describe('v-b-popover directive', () => {
 
   it('should have BVPopover Vue instance', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bPopover: VBPopover
       },
       template: `<button v-b-popover="'content'" title="foobar">button</button>`
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 
@@ -80,17 +78,15 @@ describe('v-b-popover directive', () => {
 
   it('should work', async () => {
     jest.useFakeTimers()
-    const localVue = new CreateLocalVue()
 
-    const App = localVue.extend({
+    const App = {
       directives: {
         bPopover: VBPopover
       },
       template: `<button v-b-popover.click.html="'content'" title="<b>foobar</b>">button</button>`
-    })
+    }
 
     const wrapper = mount(App, {
-      localVue,
       attachTo: createContainer()
     })
 

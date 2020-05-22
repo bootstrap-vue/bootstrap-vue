@@ -2,11 +2,11 @@ import Vue from '../../utils/vue'
 import { from as arrayFrom, isArray } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
-import idMixin from '../../mixins/id'
+import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
-import formCustomMixin from '../../mixins/form-custom'
+import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import optionsMixin from './helpers/mixin-options'
 import { BFormSelectOption } from './form-select-option'
@@ -88,61 +88,54 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     },
     blur() {
       attemptBlur(this.$refs.input)
+    },
+    onChange(evt) {
+      const { target } = evt
+      const selectedVal = arrayFrom(target.options)
+        .filter(o => o.selected)
+        .map(o => ('_value' in o ? o._value : o.value))
+      this.localValue = target.multiple ? selectedVal : selectedVal[0]
+      this.$nextTick(() => {
+        this.$emit('change', this.localValue)
+      })
     }
   },
   render(h) {
+    const { name, disabled, required, computedSelectSize: size, localValue: value } = this
+
+    const $options = this.formOptions.map((option, index) => {
+      const { value, label, options, disabled } = option
+      const key = `option_${index}`
+
+      return isArray(options)
+        ? h(BFormSelectOptionGroup, { props: { label, options }, key })
+        : h(BFormSelectOption, {
+            props: { value, disabled },
+            domProps: htmlOrText(option.html, option.text),
+            key
+          })
+    })
+
     return h(
       'select',
       {
-        ref: 'input',
         class: this.inputClass,
-        directives: [
-          {
-            name: 'model',
-            rawName: 'v-model',
-            value: this.localValue,
-            expression: 'localValue'
-          }
-        ],
         attrs: {
           id: this.safeId(),
-          name: this.name,
+          name,
           form: this.form || null,
           multiple: this.multiple || null,
-          size: this.computedSelectSize,
-          disabled: this.disabled,
-          required: this.required,
-          'aria-required': this.required ? 'true' : null,
+          size,
+          disabled,
+          required,
+          'aria-required': required ? 'true' : null,
           'aria-invalid': this.computedAriaInvalid
         },
-        on: {
-          change: evt => {
-            const target = evt.target
-            const selectedVal = arrayFrom(target.options)
-              .filter(o => o.selected)
-              .map(o => ('_value' in o ? o._value : o.value))
-            this.localValue = target.multiple ? selectedVal : selectedVal[0]
-            this.$nextTick(() => {
-              this.$emit('change', this.localValue)
-            })
-          }
-        }
+        on: { change: this.onChange },
+        directives: [{ name: 'model', value }],
+        ref: 'input'
       },
-      [
-        this.normalizeSlot('first'),
-        this.formOptions.map((option, index) => {
-          const key = `option_${index}_opt`
-          const options = option.options
-          return isArray(options)
-            ? h(BFormSelectOptionGroup, { props: { label: option.label, options }, key })
-            : h(BFormSelectOption, {
-                props: { value: option.value, disabled: option.disabled },
-                domProps: htmlOrText(option.html, option.text),
-                key
-              })
-        }),
-        this.normalizeSlot('default')
-      ]
+      [this.normalizeSlot('first'), $options, this.normalizeSlot('default')]
     )
   }
 })

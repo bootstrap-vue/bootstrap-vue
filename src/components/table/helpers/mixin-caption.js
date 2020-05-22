@@ -2,7 +2,7 @@ import { htmlOrText } from '../../../utils/html'
 
 export default {
   props: {
-    // `caption-top` is part of table-redere mixin (styling)
+    // `caption-top` is part of table-render mixin (styling)
     // captionTop: {
     //   type: Boolean,
     //   default: false
@@ -24,21 +24,21 @@ export default {
   },
   methods: {
     renderCaption() {
+      const { caption, captionHtml } = this
       const h = this.$createElement
 
-      // Build the caption
-      const $captionSlot = this.normalizeSlot('table-caption')
       let $caption = h()
-
-      if ($captionSlot || this.caption || this.captionHtml) {
-        const data = {
-          key: 'caption',
-          attrs: { id: this.captionId }
-        }
-        if (!$captionSlot) {
-          data.domProps = htmlOrText(this.captionHtml, this.caption)
-        }
-        $caption = h('caption', data, [$captionSlot])
+      const hasCaptionSlot = this.hasNormalizedSlot('table-caption')
+      if (hasCaptionSlot || caption || captionHtml) {
+        $caption = h(
+          'caption',
+          {
+            key: 'caption',
+            attrs: { id: this.captionId },
+            domProps: hasCaptionSlot ? {} : htmlOrText(captionHtml, caption)
+          },
+          this.normalizeSlot('table-caption')
+        )
       }
 
       return $caption

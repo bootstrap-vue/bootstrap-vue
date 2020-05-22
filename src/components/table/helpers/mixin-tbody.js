@@ -17,6 +17,9 @@ const props = {
 export default {
   mixins: [tbodyRowMixin],
   props,
+  beforeDestroy() {
+    this.$_bodyFieldSlotNameCache = null
+  },
   methods: {
     // Helper methods
     getTbodyTrs() {
