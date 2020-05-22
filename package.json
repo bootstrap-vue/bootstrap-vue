@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.14.0",
-  "description": "BootstrapVue, with more than 85 custom components, over 45 plugins, several custom directives, and over 300 icons, provides one of the most comprehensive implementations of Bootstrap v4 components and grid system for Vue.js. With extensive and automated WAI-ARIA accessibility markup.",
+  "version": "2.15.0",
+  "description": "BootstrapVue, with more than 85 custom components, over 45 plugins, several custom directives, and over 670 icons, provides one of the most comprehensive implementations of Bootstrap v4 components and grid system for Vue.js. With extensive and automated WAI-ARIA accessibility markup.",
   "main": "dist/bootstrap-vue.common.js",
   "web": "dist/bootstrap-vue.js",
   "module": "esm/index.js",
