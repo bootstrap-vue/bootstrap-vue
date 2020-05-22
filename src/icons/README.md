@@ -11,7 +11,7 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
 
 - Icon components were added in BootstrapVue release `v2.2.0`.
 - Bootstrap Icons `v1.0.0-alpha3` icons were added in BootstrapVue release `v2.8.0`.
-- Bootstrap Icons `v1.0.0-alpah4` icons were added in BootstrapVue release `v2.15.0`.
+- Bootstrap Icons `v1.0.0-alpha4` icons were added in BootstrapVue release `v2.15.0`.
 
 <div class="alert alert-info small">
   <p class="mb-2">
