@@ -415,15 +415,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     // --- Wrapper event handlers ---
-    onClick(evt) {
+    onFocusin(evt) {
+      this.hasFocus = true
+
       if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
         this.$nextTick(() => {
           this.focus()
         })
       }
-    },
-    onFocusin() {
-      this.hasFocus = true
     },
     onFocusout() {
       this.hasFocus = false
@@ -793,8 +792,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         },
         on: {
           focusin: this.onFocusin,
-          focusout: this.onFocusout,
-          click: this.onClick
+          focusout: this.onFocusout
         }
       },
       concat($output, $removed, $content, $hidden)
