@@ -4981,10 +4981,10 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.0.0.tgz#c35dfd04a4372110bd78c69a8d79864273919a08"
-  integrity sha512-qY1cwdOxMONHJfGqw52UOpZDeqXy8xmD0u8CT6jIstil72jkhURC704W8CFyTPDPllz4z4lu0Ql1+07PG/XdIg==
+eslint@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.1.0.tgz#d9a1df25e5b7859b0a3d86bb05f0940ab676a851"
+  integrity sha512-DfS3b8iHMK5z/YLSme8K5cge168I8j8o1uiVmFCgnnjxZQbCGyraF8bMl7Ju4yfBmCuxD7shOF7eqGkcuIHfsA==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -11138,10 +11138,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.10.7:
-  version "2.10.7"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.10.7.tgz#7d1a9fa8de146615a098836480df6f8b31c2f058"
-  integrity sha512-rofUSH2i4GymWhQq6bfRaSiVbz4LEB4h/7+AhuXCaeOSwQqClD0hINjs59j8SyfQwcqe83NcVJAY2kjp0h33bQ==
+rollup@^2.10.9:
+  version "2.10.9"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.10.9.tgz#17dcc6753c619efcc1be2cf61d73a87827eebdf9"
+  integrity sha512-dY/EbjiWC17ZCUSyk14hkxATAMAShkMsD43XmZGWjLrgFj15M3Dw2kEkA9ns64BiLFm9PKN6vTQw8neHwK74eg==
   optionalDependencies:
     fsevents "~2.1.2"
 
