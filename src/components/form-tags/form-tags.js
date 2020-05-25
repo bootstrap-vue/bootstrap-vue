@@ -6,7 +6,7 @@ import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { attemptBlur, attemptFocus, matches, requestAF, select } from '../../utils/dom'
+import { attemptBlur, attemptFocus, closest, matches, requestAF, select } from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -415,14 +415,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     // --- Wrapper event handlers ---
-    onFocusin(evt) {
-      this.hasFocus = true
-
-      if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
+    onClick(evt) {
+      if (!this.disabled && !closest('.b-form-tag', evt.target, true)) {
         this.$nextTick(() => {
           this.focus()
         })
       }
+    },
+    onFocusin() {
+      this.hasFocus = true
     },
     onFocusout() {
       this.hasFocus = false
@@ -629,8 +630,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
           attrs: { id: tagListId }
         },
-        // `concat()` is faster than array spread when args are known to be arrays
-        concat($tags, $field)
+        [$tags, $field]
       )
 
       // Assemble the feedback
@@ -791,11 +791,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-describedby': this.safeId('_selected_')
         },
         on: {
+          click: this.onClick,
           focusin: this.onFocusin,
           focusout: this.onFocusout
         }
       },
-      concat($output, $removed, $content, $hidden)
+      [$output, $removed, $content, $hidden]
     )
   }
 })
