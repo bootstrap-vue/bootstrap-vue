@@ -6,7 +6,15 @@ import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { attemptBlur, attemptFocus, closest, matches, requestAF, select } from '../../utils/dom'
+import {
+  attemptBlur,
+  attemptFocus,
+  closest,
+  isActiveElement,
+  matches,
+  requestAF,
+  select
+} from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -178,6 +186,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    ignoreInputFocusSelector: {
+      type: [Array, String],
+      default: '.b-form-tag'
+    },
     value: {
       // The v-model prop
       type: Array,
@@ -244,6 +256,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // We append a space if the first separator is not a space
       const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
+    },
+    computeIgnoreInputFocusSelector() {
+      // Normalize to an single selector with selectors separated by `,`
+      return concat(this.ignoreInputFocusSelector)
+        .filter(identity)
+        .join(',')
+        .trim()
     },
     disableAddButton() {
       // If 'Add' button should be disabled
@@ -416,7 +435,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
-      if (!this.disabled && !closest('.b-form-tag', evt.target, true)) {
+      const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
+      if (
+        !this.disabled &&
+        !isActiveElement(this.getInput()) &&
+        (!ignoreFocusSelector || !closest(ignoreFocusSelector, evt.target, true))
+      ) {
         this.$nextTick(() => {
           this.focus()
         })
