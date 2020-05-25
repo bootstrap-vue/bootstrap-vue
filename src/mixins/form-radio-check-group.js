@@ -1,4 +1,5 @@
 import { htmlOrText } from '../utils/html'
+import looseEqual from '../utils/loose-equal'
 import normalizeSlotMixin from './normalize-slot'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
@@ -70,8 +71,10 @@ export default {
     checked(newVal) {
       this.localChecked = newVal
     },
-    localChecked(newVal) {
-      this.$emit('input', newVal)
+    localChecked(newVal, oldVal) {
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('input', newVal)
+      }
     }
   },
   render(h) {
