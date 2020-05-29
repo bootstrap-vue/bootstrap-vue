@@ -17,7 +17,7 @@
     <img src="https://flat.badgen.net/npm/v/bootstrap-vue" alt="Current version">
   </a>
   <a href="https://getbootstrap.com/docs">
-    <img src="https://flat.badgen.net/badge/bootstrap/4.3.x/563d7c" alt="Bootstrap version">
+    <img src="https://flat.badgen.net/badge/bootstrap/4.5.x/563d7c" alt="Bootstrap version">
   </a>
   <a href="https://vuejs.org">
     <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d" alt="Vue.js version">
