@@ -90,7 +90,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes()).toContain('bi-blank')
     expect(wrapper.classes().length).toBe(3)
-    expect(wrapper.find('svg > g').element).toBeEmptyDomElement()
+    expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
     wrapper.destroy()
   })
@@ -110,7 +110,7 @@ describe('icons', () => {
     expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
-    expect(wrapper.find('svg > g').element).toBeEmptyDomElement()
+    expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
     wrapper.destroy()
   })
@@ -131,7 +131,7 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
-    expect(wrapper.find('svg > g').element).toBeEmptyDomElement()
+    expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
     wrapper.destroy()
   })
