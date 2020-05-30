@@ -134,7 +134,6 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
     "esm": "^3.2.25",
-    "gh-pages": "^3.0.0",
     "highlight.js": "^9.18.1",
     "html-loader": "^1.1.0",
     "husky": "^4.2.5",
