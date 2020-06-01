@@ -257,7 +257,7 @@ the `<b-form-group>` _as well as_ the input.
 Feedback will be shown if the parent `<b-form>` component does _not_ have the `novalidate` prop set
 (or set to `false`) along with the `validated` prop set (and the input fails or passes native
 browser validation constraints such as `required`). Refer to Bootstrap v4's
-[Form component](https://getbootstrap.com/docs/4.4/components/forms/#validation) documentation for
+[Form component](https://getbootstrap.com/docs/4.5/components/forms/#validation) documentation for
 details on validation methods.
 
 You should always provide content via the `invalid-feedback` prop (or slot) to aid users using
