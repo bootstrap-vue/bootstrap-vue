@@ -295,7 +295,7 @@ width.
 
 Create equal-width columns that span multiple lines by inserting a `.w-100` where you want the
 columns to break to a new line. Make the breaks responsive by mixing `.w-100` with some
-[responsive display utilities](https://getbootstrap.com/docs/4.3/utilities/display/).
+[responsive display utilities](https://getbootstrap.com/docs/4.5/utilities/display/).
 
 There was a [Safari flexbox bug](https://github.com/philipwalton/flexbugs#flexbug-11) that prevented
 this from working without an explicit `flex-basis` or `border`. There are workarounds for older

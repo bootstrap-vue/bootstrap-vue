@@ -111,7 +111,7 @@ Steps you should do for testing:
 
 ## Additional resources
 
-- [Bootstrap v4 Accessibility Documentation](https://getbootstrap.com/docs/4.4/getting-started/accessibility/)
+- [Bootstrap v4 Accessibility Documentation](https://getbootstrap.com/docs/4.5/getting-started/accessibility/)
 - [Web Content Accessibility Guidelines (WCAG) 2.0](https://www.w3.org/TR/WCAG20/)
 - [The A11Y Project](https://a11yproject.com/)
 - [MDN accessibility documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
