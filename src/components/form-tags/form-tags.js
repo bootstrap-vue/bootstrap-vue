@@ -187,8 +187,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: false
     },
     ignoreInputFocusSelector: {
+      // Disable the input focus behavior when clicking
+      // on element matching the selector (or selectors)
       type: [Array, String],
-      default: '.b-form-tag'
+      default: () => ['.b-form-tag', 'button', 'input', 'select']
     },
     value: {
       // The v-model prop
