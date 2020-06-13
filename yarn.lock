@@ -4048,29 +4048,29 @@ codemirror@^5.54.0:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.54.0.tgz#82b6adf662b29eeb7b867fe7839d49e25e4a0b38"
   integrity sha512-Pgf3surv4zvw+KaW3doUU7pGjF0BPU8/sj7eglWJjzni46U/DDW8pu3nZY0QgQKUcICDXRkq8jZmq0y6KhxM3Q==
 
-codesandbox-import-util-types@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.9.tgz#24ba5ec3d966f51f18b78c48d32e6411da90aa74"
-  integrity sha512-Vc4qh+neVfHtS3RG+7wvaErMoEKdNTnLFnyj4Dcbn3NV7v9nlPj/z6MGhHp9S+vAjegWorFzxg9lKB1WGHTt5Q==
+codesandbox-import-util-types@^2.1.15:
+  version "2.1.15"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.1.15.tgz#c38b7aeedff7f2b2b285d02f828ba32f72bb9634"
+  integrity sha512-TNyIWbo2G+ytlQGgIy/LOECizWBwlUAkFPPI7GgGxhbSmz0ML00rEvxSVO5KsInzn/Nh4zDwY9G+cPn2TRR9hQ==
 
-codesandbox-import-utils@^2.1.14:
-  version "2.1.14"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.14.tgz#b8222d95208048173ddc754f00618dde5e892eda"
-  integrity sha512-IOV1lk/hEnp6KV4uuHvfjrdIbYSVx11WXr75ABjHPuBh117AgKEbujTduoAChDuEofevV6GwlIyl32EBNECE1Q==
+codesandbox-import-utils@^2.1.16:
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.1.16.tgz#0949327c4a45fb251c76972b72da7e73a9b3b9a5"
+  integrity sha512-5m3QVL27FPup6w0Mt3vFqphR0PoGK5dI99Bb+53onfwdlMLONKL4qXR2sOb+2G/IwPz7I/NjwznnPyNGmo+k1g==
   dependencies:
-    codesandbox-import-util-types "^2.1.9"
+    codesandbox-import-util-types "^2.1.15"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.1.14:
-  version "2.1.14"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.14.tgz#63a61773f20038af29107a3d2921e576016250fe"
-  integrity sha512-aVOFvUXvsX+a+oTZ7c+mHdWoo3L/C96SDL6iBMOBFB7a0TjjKM03aVmFgrssGdd1cAGCagolGe0zii6EwMS5hQ==
+codesandbox@^2.1.16:
+  version "2.1.16"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.1.16.tgz#0a6fedb7c71249e117daf4807885ffbc085941ce"
+  integrity sha512-oz0qUCLxbcuWP7q0+ypRsxMB7dd48D15y8N1QHeVVCHZ3qaIrNK2j0vbUdG2yzl0WzmFYXw7mY3yduVElBchHg==
   dependencies:
     axios "^0.18.1"
     chalk "^2.4.1"
-    codesandbox-import-util-types "^2.1.9"
-    codesandbox-import-utils "^2.1.14"
+    codesandbox-import-util-types "^2.1.15"
+    codesandbox-import-utils "^2.1.16"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
@@ -8520,10 +8520,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-lint-staged@^10.2.9:
-  version "10.2.9"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.9.tgz#6013ecfa80829cd422446b545fd30a96bca3098c"
-  integrity sha512-ziRAuXEqvJLSXg43ezBpHxRW8FOJCXISaXU//BWrxRrp5cBdRkIx7g5IsB3OI45xYGE0S6cOacfekSjDyDKF2g==
+lint-staged@^10.2.10:
+  version "10.2.10"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-10.2.10.tgz#f0f78bf8786bbe90e1775a0dc540f7f12b6a79b2"
+  integrity sha512-dgelFaNH6puUGAcU+OVMgbfpKSerNYsPSn6+nlbRDjovL0KigpsVpCu0PFZG6BJxX8gnHJqaZlR9krZamQsb0w==
   dependencies:
     chalk "^4.0.0"
     cli-truncate "2.1.0"
@@ -11791,10 +11791,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.15.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.15.0.tgz#1324633188c7f82138bd3bdc99416009ee541f48"
-  integrity sha512-HAk4kyXiV5sdNDnbKWk5zBPnkX/DAgx09Kbp8rRIRDVsTUVN3vnSowR7ZHkV6/lAiE6c2TQ8HtYb72aCPGW4Jw==
+rollup@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.16.0.tgz#f45ed04a2cafdb4d1b71a2a77b5673334d811a32"
+  integrity sha512-95NglykUQAhl+mTFZqVvGUWDoGHV4/XanOZBbR7LOwTKODde5yFNHfVDZEnERBMuQViDuYaxOlFW87i1GQMihA==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -13694,10 +13694,10 @@ vue-router@^3.1.6:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.6.tgz#45f5a3a3843e31702c061dd829393554e4328f89"
   integrity sha512-GYhn2ynaZlysZMkFE5oCHRUTqE8BWs/a9YbKpNLi0i7xD6KG1EzDqpHQmv1F5gXjr8kL5iIVS8EOtRaVUEXTqA==
 
-vue-router@^3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.3.2.tgz#0099de402edb2fe92f9711053ab5a2156f239cad"
-  integrity sha512-5sEbcfb7MW8mY8lbUVbF4kgcipGXsagkM/X+pb6n0MhjP+RorWIUTPAPSqgPaiPOxVCXgAItBl8Vwz8vq78faA==
+vue-router@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.3.3.tgz#92603966921f3f0c7e9ff3881cf0b7ab311533df"
+  integrity sha512-Qmzkurgmy9Muy8HItNQcMYAeANHi/NY4ppOJ/qhTWtrg4mFan+VLX+LEv5DqoYOX1XEabN3m3lLPOEEgUpRr0A==
 
 vue-server-renderer@^2.6.11:
   version "2.6.11"
