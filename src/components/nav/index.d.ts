@@ -23,5 +23,8 @@ export declare class BNavItemDropdown extends BvComponent {
   hide: (refocus?: boolean) => void
 }
 
+// Component: b-nav-item-dropdown-text
+export declare class BNavItemDropdownText extends BvComponent {}
+
 // Component: b-nav-text
 export declare class BNavText extends BvComponent {}

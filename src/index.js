@@ -249,6 +249,7 @@ export { BNav } from './components/nav/nav'
 export { BNavForm } from './components/nav/nav-form'
 export { BNavItem } from './components/nav/nav-item'
 export { BNavItemDropdown } from './components/nav/nav-item-dropdown'
+export { BNavItemDropdownText } from './components/nav/nav-item-dropdown-text'
 export { BNavText } from './components/nav/nav-text'
 
 // export * from './components/navbar'

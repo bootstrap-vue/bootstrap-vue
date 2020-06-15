@@ -203,6 +203,18 @@
             "description": "Emitted when toggle button is clicked."
           }
         ]
+      },
+      {
+        "component": "BNavItemDropdownText",
+        "aliases": [
+          "BNavDropdownText"
+        ],
+        "props": [
+          {
+            "prop": "text",
+            "description": "Text to place in the toggle button, or in the split button is split mode"
+          }
+        ]
       }
     ]
   }

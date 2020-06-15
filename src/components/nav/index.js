@@ -3,6 +3,7 @@ import { BNavItem } from './nav-item'
 import { BNavText } from './nav-text'
 import { BNavForm } from './nav-form'
 import { BNavItemDropdown } from './nav-item-dropdown'
+import { BNavItemDropdownText } from './nav-item-dropdown-text'
 import { DropdownPlugin } from '../dropdown'
 import { pluginFactory } from '../../utils/plugins'
 
@@ -13,6 +14,7 @@ const NavPlugin = /*#__PURE__*/ pluginFactory({
     BNavText,
     BNavForm,
     BNavItemDropdown,
+    BNavItemDropdownText,
     BNavItemDd: BNavItemDropdown,
     BNavDropdown: BNavItemDropdown,
     BNavDd: BNavItemDropdown
@@ -22,4 +24,4 @@ const NavPlugin = /*#__PURE__*/ pluginFactory({
   }
 })
 
-export { NavPlugin, BNav, BNavItem, BNavText, BNavForm, BNavItemDropdown }
+export { NavPlugin, BNav, BNavItem, BNavText, BNavForm, BNavItemDropdown, BNavItemDropdownText }
