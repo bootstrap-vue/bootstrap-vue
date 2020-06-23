@@ -89,7 +89,11 @@ export default {
           ariaLabel = startCase(field.key)
         }
 
-        const on = {}
+        const on = {
+          click: () => {},
+          keydown: () => {}
+        }
+
         if (hasHeadClickListener) {
           on.click = evt => {
             this.headClicked(evt, field, isFoot)
