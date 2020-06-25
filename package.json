@@ -84,10 +84,7 @@
   },
   "lint-staged": {
     "*{.js,.md,.vue}": "eslint --ext",
-    "**/*.{js,json,md,scss,ts,vue}": [
-      "prettier --write",
-      "git add"
-    ]
+    "**/*.{js,json,md,scss,ts,vue}": "prettier --write"
   },
   "dependencies": {
     "@nuxt/opencollective": "^0.3.0",
