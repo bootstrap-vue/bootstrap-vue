@@ -139,6 +139,7 @@ export default deepFreeze({
     addButtonVariant: 'outline-secondary',
     duplicateTagText: 'Duplicate tag(s)',
     invalidTagText: 'Invalid tag(s)',
+    limitTagText: 'Tag limit reached',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
     tagRemovedLabel: 'Tag removed',

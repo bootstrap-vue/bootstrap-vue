@@ -7,7 +7,7 @@ import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus, matches, requestAF, select } from '../../utils/dom'
-import { isEvent, isFunction, isString } from '../../utils/inspect'
+import { isEvent, isFunction, isString, isNumber } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -151,6 +151,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'invalidTagText')
     },
+    limitTagText: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'limitTagText')
+    },
+    limit: {
+      type: Number,
+      default: null
+    },
     separator: {
       // Character (or characters) that trigger adding tags
       type: [String, Array]
@@ -266,6 +274,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     hasInvalidTags() {
       return this.invalidTags.length > 0
+    },
+    isAtOrAboveLimit() {
+      return isNumber(this.limit) && this.tags.length >= this.limit
     }
   },
   watch: {
@@ -306,7 +317,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     addTag(newTag) {
       newTag = isString(newTag) ? newTag : this.newTag
       /* istanbul ignore next */
-      if (this.disabled || trim(newTag) === '') {
+      if (this.disabled || trim(newTag) === '' || this.isAtOrAboveLimit) {
         // Early exit
         return
       }
@@ -519,7 +530,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       placeholder,
       addButtonText,
       addButtonVariant,
-      disableAddButton
+      disableAddButton,
+      limitTagText,
+      isAtOrAboveLimit
     }) {
       const h = this.$createElement
 
@@ -554,11 +567,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const duplicateFeedbackId =
         duplicateTagText && isDuplicate ? this.safeId('__duplicate_feedback__') : null
 
+      const limitFeedbackId =
+        limitTagText && isAtOrAboveLimit ? this.safeId('__limit_feedback__') : null
+
       // Compute the `aria-describedby` attribute value
       const ariaDescribedby = [
         inputAttrs['aria-describedby'],
         invalidFeedbackId,
-        duplicateFeedbackId
+        duplicateFeedbackId,
+        limitFeedbackId
       ]
         .filter(identity)
         .join(' ')
@@ -595,7 +612,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             invisible: disableAddButton
           },
           style: { fontSize: '90%' },
-          props: { variant: addButtonVariant, disabled: disableAddButton },
+          props: { variant: addButtonVariant, disabled: disableAddButton || isAtOrAboveLimit },
           on: { click: () => addTag() }
         },
         [this.normalizeSlot('add-button-text') || addButtonText]
@@ -636,7 +653,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
       // Assemble the feedback
       let $feedback = h()
-      if (invalidTagText || duplicateTagText) {
+      if (invalidTagText || duplicateTagText || limitTagText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not disabled the messages
         const joiner = this.computedJoiner
@@ -667,13 +684,26 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           )
         }
 
+        // Duplicate tag feedback if needed (warning, not error)
+        let $limit = h()
+        if (limitFeedbackId) {
+          $limit = h(
+            BFormText,
+            {
+              key: '_tags_limit_feedback_',
+              props: { id: limitFeedbackId }
+            },
+            [limitTagText]
+          )
+        }
+
         $feedback = h(
           'div',
           {
             key: '_tags_feedback_',
             attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' }
           },
-          [$invalid, $duplicate]
+          [$invalid, $duplicate, $limit]
         )
       }
       // Return the content
@@ -717,7 +747,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       addButtonText: this.addButtonText,
       addButtonVariant: this.addButtonVariant,
       invalidTagText: this.invalidTagText,
-      duplicateTagText: this.duplicateTagText
+      duplicateTagText: this.duplicateTagText,
+      limitTagText: this.limitTagText,
+      isAtOrAboveLimit: this.isAtOrAboveLimit
     }
 
     // Generate the user interface

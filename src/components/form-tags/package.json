@@ -92,6 +92,17 @@
             "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
           },
           {
+            "prop": "limitTagText",
+            "version": "2.16.0",
+            "settings": true,
+            "description": "The message when the limit is reached. Set to an empty string to disable the message"
+          },
+          {
+            "prop": "limit",
+            "version": "2.16.0",
+            "description": "The maximum amount of tags that can be added"
+          },
+          {
             "prop": "separator",
             "description": "Separator character(s) that will trigger a tag to be created"
           },
