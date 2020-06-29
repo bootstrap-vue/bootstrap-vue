@@ -231,7 +231,7 @@ guide.
 
 Lazy loading images uses
 [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-if supported by the browser (or via a polyfill) to detect with the image should be shown. If
+if supported by the browser (or via a polyfill) to detect when the image should be shown. If
 `IntersectionObserver` support is _not detected_, then the image will _always_ be shown.
 
 ### Usage
