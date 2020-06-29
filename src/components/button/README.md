@@ -260,8 +260,6 @@ If using toggle button style for a radio or checkbox style interface, it is best
 Refer to the [`Router support`](/docs/reference/router-links) reference docs for the various
 supported `<router-link>` related props.
 
-Note the `<router-link>` prop `tag` is referred to as `router-tag` in `bootstrap-vue`.
-
 ## Accessibility
 
 When the `href` prop is set to `'#'`, `<b-button>` will render a link (`<a>`) element with attribute
