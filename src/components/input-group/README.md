@@ -100,6 +100,12 @@ wrapped in these components for proper styling.
       <b-button variant="outline-secondary">Button</b-button>
     </b-input-group-append>
   </b-input-group>
+  <b-input-group>
+    <b-input-group-prepend is-text>
+      <b-icon icon="person" />
+    </b-input-group-prepend>
+    <b-form-input placeholder="Write your name" />
+  </b-input-group>
 </div>
 
 <!-- b-input-group-addons-placement.vue -->
