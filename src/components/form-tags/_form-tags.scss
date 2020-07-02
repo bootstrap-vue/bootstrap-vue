@@ -32,6 +32,8 @@
   font-size: 75%;
   font-weight: normal;
   line-height: $input-line-height;
+  margin-right: 0.25rem;
+  margin-top: 0.25rem;
 
   &.disabled {
     opacity: 0.75;

@@ -530,7 +530,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BFormTag,
           {
             key: `li-tag__${tag}`,
-            staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
               // `BFormTag` will auto generate an ID
