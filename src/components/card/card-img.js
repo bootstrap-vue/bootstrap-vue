@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { isString } from '../../utils/inspect'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
@@ -69,7 +70,7 @@ export const BCardImg = /*#__PURE__*/ Vue.extend({
         class: [baseClass],
         attrs: {
           src: props.src || null,
-          alt: props.alt || null,
+          alt: isString(props.alt) ? props.alt : null,
           height: props.height || null,
           width: props.width || null
         }

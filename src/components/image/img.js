@@ -153,7 +153,7 @@ export const BImg = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         attrs: {
           src: src,
-          alt: props.alt || null,
+          alt: isString(props.alt) ? props.alt : null,
           width: width ? toString(width) : null,
           height: height ? toString(height) : null,
           srcset: srcset || null,
