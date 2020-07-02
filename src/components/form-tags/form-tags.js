@@ -530,7 +530,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BFormTag,
           {
             key: `li-tag__${tag}`,
-            staticClass: 'mt-auto',
             class: tagClass,
             props: {
               // `BFormTag` will auto generate an ID
@@ -612,7 +611,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'flex-grow-1 mt-1',
+          staticClass: 'flex-grow-1',
           attrs: {
             role: 'none',
             'aria-live': 'off',
@@ -627,7 +626,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'ul',
         {
           key: '_tags_list_',
-          staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
+          staticClass: 'list-unstyled mb-0 d-flex flex-wrap align-items-center',
           attrs: { id: tagListId }
         },
         // `concat()` is faster than array spread when args are known to be arrays
