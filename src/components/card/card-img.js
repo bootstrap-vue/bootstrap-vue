@@ -8,8 +8,8 @@ export const props = {
     required: true
   },
   alt: {
-    type: String
-    // default: null
+    type: String,
+    default: null
   },
   top: {
     type: Boolean,
@@ -70,7 +70,7 @@ export const BCardImg = /*#__PURE__*/ Vue.extend({
         class: [baseClass],
         attrs: {
           src: props.src || null,
-          alt: isString(props.alt) ? props.alt : null,
+          alt: props.alt,
           height: props.height || null,
           width: props.width || null
         }
