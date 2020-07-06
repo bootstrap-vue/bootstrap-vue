@@ -1,5 +1,4 @@
 import Vue from '../../utils/vue'
-import { isString } from '../../utils/inspect'
 import { mergeData } from 'vue-functional-data-merge'
 
 export const props = {
