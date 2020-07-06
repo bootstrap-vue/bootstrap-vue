@@ -317,4 +317,34 @@ describe('avatar', () => {
 
     wrapper2.destroy()
   })
+
+  it('should render `alt` attribute if `alt` prop is empty string', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        src: '/foo/bar',
+        alt: ''
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.find('img').exists()).toBe(true)
+    expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
+    expect(wrapper.find('img').attributes('alt')).toEqual('')
+
+    wrapper.destroy()
+  })
+
+  it('should not render `alt` attribute if `alt` prop is null', async () => {
+    const wrapper = mount(BAvatar, {
+      propsData: {
+        src: '/foo/bar',
+        alt: null
+      }
+    })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.find('img').exists()).toBe(true)
+    expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
+    expect(wrapper.find('img').attributes('alt')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
 })
