@@ -154,7 +154,7 @@ describe('card-image', () => {
     wrapper.destroy()
   })
 
-  it('has attribute alt when prop `alt` empty', async () => {
+  it('has attribute alt when prop `alt` is empty', async () => {
     const wrapper = mount(BCardImgLazy, {
       context: {
         props: {
