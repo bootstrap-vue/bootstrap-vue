@@ -105,8 +105,10 @@ export default {
       }
     },
     // Watch for changes on `computedItems` and update the `v-model`
-    computedItems(newVal) {
-      this.$emit('input', newVal)
+    computedItems(newVal, oldVal) {
+      if (!looseEqual(newVal, oldVal)) {
+        this.$emit('input', newVal)
+      }
     },
     // Watch for context changes
     context(newVal, oldVal) {
