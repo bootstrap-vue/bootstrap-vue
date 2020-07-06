@@ -30,6 +30,22 @@ describe('img', () => {
     wrapper.destroy()
   })
 
+  it('default does not have attributes alt, width, or height', async () => {
+    const wrapper = mount(BImg, {
+      context: {
+        props: {
+          src: 'https://picsum.photos/600/300/?image=25'
+        }
+      }
+    })
+
+    expect(wrapper.attributes('alt')).not.toBeDefined()
+    expect(wrapper.attributes('width')).not.toBeDefined()
+    expect(wrapper.attributes('height')).not.toBeDefined()
+
+    wrapper.destroy()
+  })
+
   it('should have class "img-fluid" when prop fluid set', async () => {
     const wrapper = mount(BImg, {
       propsData: {
@@ -220,6 +236,19 @@ describe('img', () => {
     expect(wrapper.attributes('src')).toEqual('/foo/bar')
     expect(wrapper.attributes('width')).toBe('300')
     expect(wrapper.attributes('height')).toBe('200')
+
+    wrapper.destroy()
+  })
+
+  it('should have alt attribute when `alt` prop is empty', async () => {
+    const wrapper = mount(BImg, {
+      propsData: {
+        alt: ''
+      }
+    })
+
+    expect(wrapper.attributes('alt')).toBeDefined()
+    expect(wrapper.attributes('alt')).toEqual('')
 
     wrapper.destroy()
   })

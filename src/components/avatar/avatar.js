@@ -202,7 +202,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     } = this
     const link = !button && isLink(this)
     const tag = button ? BButton : link ? BLink : 'span'
-    const alt = this.alt || null
+    const alt = this.alt
     const ariaLabel = this.ariaLabel || null
 
     let $content = null
