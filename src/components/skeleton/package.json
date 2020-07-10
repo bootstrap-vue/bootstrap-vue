@@ -1,0 +1,49 @@
+{
+  "name": "@bootstrap-vue/skeleton",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Skeleton",
+    "description": "The <b-skeleton> component can be used to scaffold a loading state, while your data is loading.",
+    "new": true,
+    "version": "2.16.0",
+    "slug": "skeleton",
+    "components": [
+      {
+        "component": "BSkeleton",
+        "props": [
+          {
+            "prop": "width",
+            "description": "Sets the width"
+          },
+          {
+            "prop": "height",
+            "description": "123"
+          },
+          {
+            "prop": "size",
+            "description": "123"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonWrapper",
+        "props": [
+          {
+            "prop": "loading",
+            "description": "Determines whether the loading slot should be displayed"
+          }
+        ],
+        "slots": [
+          {
+            "name": "loading",
+            "description": "Content to show when the `loading` prop is true"
+          },
+          {
+            "name": "default",
+            "description": "Content to show when the `loading` prop is false"
+          }
+        ]
+      }
+    ]
+  }
+}

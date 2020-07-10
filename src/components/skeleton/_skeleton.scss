@@ -1,0 +1,111 @@
+// Wrapper
+.b-skeleton-wrapper {
+  cursor: wait;
+}
+
+// Base
+.b-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.12);
+  cursor: wait;
+
+  // use before since :after is for the wave-animation
+  &:before {
+    content: "\00a0";
+  }
+}
+
+// Text
+.b-skeleton-text {
+  height: 10px;
+}
+
+// Button
+.b-skeleton-btn {
+  width: $b-skeleton-btn-width;
+  padding: $btn-padding-y $btn-padding-x;
+  font-size: $btn-font-size;
+  line-height: $btn-line-height;
+  border-radius: $btn-border-radius;
+}
+
+// Avatar
+.b-skeleton-avatar {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+}
+
+// wave animation
+.b-skeleton-animate-wave:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+
+  background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+  animation: b-skeleton-animate-wave $b-skeleton-animation-duration linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    background: none;
+    animation: none;
+  }
+}
+
+@keyframes b-skeleton-animate-wave {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+// fade animation
+.b-skeleton-animate-fade {
+  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration / 2) ease-in-out alternate
+    infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes b-skeleton-animate-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+// throb animation
+.b-skeleton-animate-throb {
+  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration / 2) ease-in alternate
+    infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes b-skeleton-animate-throb {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.975);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

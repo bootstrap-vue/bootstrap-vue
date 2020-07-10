@@ -236,6 +236,9 @@ export default deepFreeze({
   BSpinner: {
     variant: undefined
   },
+  BSkeleton: {
+    animation: 'wave'
+  },
   BSidebar: {
     bgVariant: 'light',
     textVariant: 'dark',
