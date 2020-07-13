@@ -124,14 +124,15 @@ $bv-enable-tooltip-variants: true !default;
 // Tooltip background variant level wrt theme color value
 $b-tooltip-bg-level: 0 !default;
 // --- Popovers ---
-
 // Flag to enable popover variant CSS generation
 $bv-enable-popover-variants: true !default;
-
 // Popover variant levels wrt theme color value
 $b-popover-bg-level: $alert-bg-level !default;
 $b-popover-border-level: $alert-border-level !default;
+
 $b-popover-color-level: $alert-color-level !default;
 // --- Skeleton ---
+$b-skeleton-background-color: rgba(0, 0, 0, 0.12);
+$b-skeleton-loading-cursor: wait;
 $b-skeleton-animation-duration: 1.75s;
 $b-skeleton-btn-width: 75px;

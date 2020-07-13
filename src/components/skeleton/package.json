@@ -12,16 +12,26 @@
         "component": "BSkeleton",
         "props": [
           {
+            "prop": "animation",
+            "setting": true,
+            "description": "Changes the loading animation, leave empty or null to disable the animation"
+          },
+          {
+            "prop": "type",
+            "default": "text",
+            "description": "Changes the type, refer to the [types](/#types) section"
+          },
+          {
             "prop": "width",
-            "description": "Sets the width"
+            "description": "Sets the `width` of the component"
           },
           {
             "prop": "height",
-            "description": "123"
+            "description": "Sets the `height` of the component"
           },
           {
             "prop": "size",
-            "description": "123"
+            "description": "Sets the `width` and `height` of the component"
           }
         ]
       },
@@ -41,6 +51,31 @@
           {
             "name": "default",
             "description": "Content to show when the `loading` prop is false"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonTable",
+        "props": [
+          {
+            "prop": "animation",
+            "description": "Animation used for the cells"
+          },
+          {
+            "prop": "rows",
+            "description": "Amount of rows to display"
+          },
+          {
+            "prop": "columns",
+            "description": "Amount of columns to display"
+          },
+          {
+            "prop": "showFooter",
+            "description": "Enables the footer of the table"
+          },
+          {
+            "prop": "tableProps",
+            "description": "Supports the same props as `b-table-simple`"
           }
         ]
       }

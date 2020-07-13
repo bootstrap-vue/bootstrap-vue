@@ -1,16 +1,16 @@
 // Wrapper
 .b-skeleton-wrapper {
-  cursor: wait;
+  cursor: $b-skeleton-loading-cursor;
 }
 
 // Base
 .b-skeleton {
   position: relative;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.12);
-  cursor: wait;
+  background-color: $b-skeleton-background-color;
+  cursor: $b-skeleton-loading-cursor;
 
-  // use before since :after is for the wave-animation
+  // use :before since :after is used for the wave-animation
   &:before {
     content: "\00a0";
   }
@@ -18,16 +18,20 @@
 
 // Text
 .b-skeleton-text {
-  height: 10px;
+  height: $font-size-base;
+  margin-bottom: 0.25rem;
 }
 
 // Button
-.b-skeleton-btn {
+.b-skeleton-button {
   width: $b-skeleton-btn-width;
   padding: $btn-padding-y $btn-padding-x;
   font-size: $btn-font-size;
   line-height: $btn-line-height;
-  border-radius: $btn-border-radius;
+
+  @if $enable-rounded {
+    border-radius: $btn-border-radius;
+  }
 }
 
 // Avatar
@@ -37,8 +41,27 @@
   border-radius: 50%;
 }
 
+// Input
+.b-skeleton-input {
+  height: $input-height;
+  padding: $input-padding-y $input-padding-x;
+  line-height: $input-line-height;
+  border: $input-border-color solid $input-border-width;
+
+  @if $enable-rounded {
+    border-radius: $input-border-radius;
+  }
+}
+
+// Image
+.b-skeleton-image {
+  height: 100%;
+  width: 100%;
+}
+
 // wave animation
 .b-skeleton-animate-wave:after {
+  content: "";
   position: absolute;
   top: 0;
   right: 0;

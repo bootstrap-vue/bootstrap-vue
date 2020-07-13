@@ -14,7 +14,8 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'animation')
     },
     type: {
-      type: String
+      type: String,
+      default: 'text'
     },
     width: {
       type: String
@@ -30,8 +31,6 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { data, props }) {
-    const type = props.type || 'text'
-
     return h(
       'div',
       mergeData(data, {
@@ -41,7 +40,7 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
           height: props.size || props.height
         },
         class: {
-          [`b-skeleton-${type}`]: true,
+          [`b-skeleton-${props.type}`]: true,
           [`b-skeleton-animate-${props.animation}`]: props.animation,
           [`bg-${props.variant}`]: props.variant
         }
