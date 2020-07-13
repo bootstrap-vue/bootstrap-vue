@@ -20,6 +20,10 @@
 .b-skeleton-text {
   height: $font-size-base;
   margin-bottom: 0.25rem;
+
+  @if $enable-rounded {
+    border-radius: 0.25rem;
+  }
 }
 
 // Button
