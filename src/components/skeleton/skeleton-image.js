@@ -46,7 +46,7 @@ export const BSkeletonImage = /*#__PURE__*/ Vue.extend({
         [`card-img-${props.cardImage}`]: props.cardImage
       }
     })
-    const $aspect = h(BAspect, { props: { aspect: props.aspect } }, [$image])
-    return props.noAspect ? $image : $aspect
+    if (props.noAspect) return $image
+    else return h(BAspect, { props: { aspect: props.aspect } }, [$image])
   }
 })
