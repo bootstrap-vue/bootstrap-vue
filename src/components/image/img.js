@@ -33,8 +33,8 @@ export const props = {
     // default: null
   },
   alt: {
-    type: String
-    // default: null
+    type: String,
+    default: null
   },
   width: {
     type: [Number, String]
@@ -153,7 +153,7 @@ export const BImg = /*#__PURE__*/ Vue.extend({
       mergeData(data, {
         attrs: {
           src: src,
-          alt: props.alt || null,
+          alt: props.alt,
           width: width ? toString(width) : null,
           height: height ? toString(height) : null,
           srcset: srcset || null,
