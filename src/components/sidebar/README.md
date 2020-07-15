@@ -59,7 +59,7 @@ additional details.
 
 ### Placement
 
-By default the sidebar will be placed on the left side fo the viewport. Set the `right` prop to
+By default the sidebar will be placed on the left side of the viewport. Set the `right` prop to
 `true` to have the sidebar appear on the right side of the viewport.
 
 ```html

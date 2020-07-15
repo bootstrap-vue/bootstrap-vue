@@ -154,6 +154,22 @@ describe('card-image', () => {
     wrapper.destroy()
   })
 
+  it('has attribute alt when prop `alt` is empty', async () => {
+    const wrapper = mount(BCardImgLazy, {
+      context: {
+        props: {
+          src: 'https://picsum.photos/600/300/?image=25',
+          alt: ''
+        }
+      }
+    })
+
+    expect(wrapper.attributes('alt')).toBeDefined()
+    expect(wrapper.attributes('alt')).toBe('')
+
+    wrapper.destroy()
+  })
+
   it('has attribute width when prop width set', async () => {
     const wrapper = mount(BCardImgLazy, {
       context: {
