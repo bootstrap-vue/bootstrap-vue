@@ -42,8 +42,8 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
 
 ## Icons
 
-The library includes over 1000 icons. Use the explorer below to search and browse the available
-icons.
+The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
+browse the available icons.
 
 <div>
   <!-- Component rendered by docs/pages/docs/icons.index.js -->
