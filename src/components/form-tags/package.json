@@ -110,6 +110,11 @@
           {
             "prop": "noOuterFocus",
             "description": "When set, disables the focus styling of the component root element"
+          },
+          {
+            "prop": "ignoreInputFocusSelector",
+            "version": "2.16.0",
+            "description": "Ignore certain elements from the click to focus input routine, specified by css selector(s)"
           }
         ],
         "slots": [
