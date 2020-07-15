@@ -12,6 +12,7 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
 - Icon components were added in BootstrapVue release `v2.2.0`.
 - Bootstrap Icons `v1.0.0-alpha3` icons were added in BootstrapVue release `v2.8.0`.
 - Bootstrap Icons `v1.0.0-alpha4` icons were added in BootstrapVue release `v2.15.0`.
+- Bootstrap Icons `v1.0.0-alpha5` icons were added in BootstrapVue release `v2.16.0`.
 
 <div class="alert alert-info small">
   <p class="mb-2">
@@ -32,12 +33,16 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
       names &mdash; <code>arrow-up-down</code> renamed <code>arrow-down-up</code> and
       <code>people-circle</code> renamed <code>person-circle</code>.
     </li>
+    <li>
+      <strong>Alpha 5 changes:</strong> In addition to over 300 new icons, some icons have changed
+      names &mdash; <code>camera</code> renamed <code>camera2</code>.
+    </li>
   </ul>
 </div>
 
 ## Icons
 
-The library includes over 670 icons. Use the explorer below to search and browse the available
+The library includes over 1000 icons. Use the explorer below to search and browse the available
 icons.
 
 <div>

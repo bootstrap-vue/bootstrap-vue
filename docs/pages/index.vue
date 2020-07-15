@@ -82,10 +82,10 @@
             <b-row class="mb-4">
               <b-col lg="10" offset-lg="1">
                 <p class="text-lg-center">
-                  With more than 85 components, over 45 available plugins, several directives, and 670+ icons,
+                  With more than 85 components, over 45 available plugins, several directives, and {{ bootstrapIconsCount }}+ icons,
                   <span class="bd-text-purple-bright">BootstrapVue</span> provides one of the most
                   comprehensive implementations of the
-                  <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMinor }}</span> component and grid system
+                  <span class="bd-text-purple-bright">Bootstrap v{{ bootstrapVersionMajor }}</span> component and grid system
                   available for <span class="bd-text-purple-bright">Vue.js v{{ vueVersionMinor }}</span>, complete with
                   extensive and automated
                   <b-link href="https://www.w3.org/WAI/standards-guidelines/aria/" target="_blank">
@@ -546,7 +546,13 @@ $bv-angle-padding-md: 6rem;
 </style>
 
 <script>
-import { version, bootstrapVersion, vueVersion } from '~/content'
+import {
+  bootstrapIconsCount,
+  bootstrapVersionMajor,
+  bootstrapVersionMinor,
+  version,
+  vueVersionMinor
+} from '~/content'
 import BvLogo from '~/components/bv-logo'
 import BVCarbonAd from '~/components/carbon-ad'
 import BVContributors from '~/components/contributors'
@@ -557,25 +563,12 @@ export default {
     BVCarbonAd,
     BVContributors
   },
-  data() {
-    return {
-      isIE: false,
-      showLogo: false
-    }
-  },
-  computed: {
-    version: () => version,
-    bootstrapVersionMinor: () => bootstrapVersion.replace(/\.\d+$/, ''),
-    vueVersionMinor: () => vueVersion.replace(/\.\d+$/, ''),
-    bootstrapUrl() {
-      return `https://getbootstrap.com/docs/${this.bootstrapVersionMinor}`
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
-      this.showLogo = true
-    })
+  created() {
+    this.bootstrapUrl = `https://getbootstrap.com/docs/${bootstrapVersionMinor}`
+    this.bootstrapVersionMajor = bootstrapVersionMajor
+    this.bootstrapIconsCount = bootstrapIconsCount
+    this.vueVersionMinor = vueVersionMinor
+    this.version = version
   }
 }
 </script>
