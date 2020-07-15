@@ -34,7 +34,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache node_modules
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('yarn.lock') }}
@@ -47,7 +47,7 @@ jobs:
         run: yarn install --check-files --frozen-lockfile --non-interactive
 
       - name: Cache workspace
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
@@ -71,7 +71,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
@@ -98,7 +98,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
@@ -125,7 +125,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
@@ -159,7 +159,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
@@ -192,7 +192,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Restore workspace cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
