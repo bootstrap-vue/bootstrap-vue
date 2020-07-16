@@ -100,7 +100,7 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/standalone": "^7.10.5",
-    "@nuxtjs/google-analytics": "^2.3.0",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "@nuxtjs/robots": "^2.4.2",
     "@nuxtjs/sitemap": "^2.4.0",
