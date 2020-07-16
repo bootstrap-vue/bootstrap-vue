@@ -40,17 +40,6 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
   </ul>
 </div>
 
-## Icons
-
-The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
-browse the available icons.
-
-<div>
-  <!-- Component rendered by docs/pages/docs/icons.index.js -->
-  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
-  <div is="IconsTable"></div>
-</div>
-
 ## Usage
 
 BootstrapVue icons are not automatically installed when using BootstrapVue in your project, you must
@@ -883,3 +872,12 @@ SVGs are awesome to work with, but they do have some known quirks to work around
   needed.
 - **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use the attribute
   `aria-hidden="true"` when using the icon and use CSS to visually hide the equivalent label.
+
+## Icons
+
+The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
+browse the available icons.
+
+<!-- Component rendered by `docs/pages/docs/icons.index.js` -->
+<!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
+<div is="IconsTable"></div>
