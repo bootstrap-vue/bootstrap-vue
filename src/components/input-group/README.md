@@ -97,7 +97,10 @@ wrapped in these components for proper styling.
 
     <b-input-group-append>
       <b-button variant="outline-secondary">Button</b-button>
-      <b-button variant="outline-secondary">Button</b-button>
+      <b-button variant="outline-primary">Button</b-button>
+      <b-input-group-text>
+        <b-icon icon="x" />
+      </b-input-group-text>
     </b-input-group-append>
   </b-input-group>
 </div>
@@ -107,7 +110,8 @@ wrapped in these components for proper styling.
 
 Set the `is-text` prop on `<b-input-group-prepend>` or `<b-input-group-append>` if the content is
 textual in nature to apply proper styling. Alternatively, place the `<b-input-group-text>`
-subcomponent inside of the `<b-input-group-prepend>` or `<b-input-group-append>`.
+subcomponent inside of the `<b-input-group-prepend>` or `<b-input-group-append>`. This also applies
+when you want to use on of [BootstrapVue's icons](/docs/icons).
 
 ## Supported form-controls
 

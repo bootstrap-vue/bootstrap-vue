@@ -12,6 +12,7 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
 - Icon components were added in BootstrapVue release `v2.2.0`.
 - Bootstrap Icons `v1.0.0-alpha3` icons were added in BootstrapVue release `v2.8.0`.
 - Bootstrap Icons `v1.0.0-alpha4` icons were added in BootstrapVue release `v2.15.0`.
+- Bootstrap Icons `v1.0.0-alpha5` icons were added in BootstrapVue release `v2.16.0`.
 
 <div class="alert alert-info small">
   <p class="mb-2">
@@ -32,18 +33,11 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
       names &mdash; <code>arrow-up-down</code> renamed <code>arrow-down-up</code> and
       <code>people-circle</code> renamed <code>person-circle</code>.
     </li>
+    <li>
+      <strong>Alpha 5 changes:</strong> In addition to over 300 new icons, some icons have changed
+      names &mdash; <code>camera</code> renamed <code>camera2</code>.
+    </li>
   </ul>
-</div>
-
-## Icons
-
-The library includes over 670 icons. Use the explorer below to search and browse the available
-icons.
-
-<div>
-  <!-- Component rendered by docs/pages/docs/icons.index.js -->
-  <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
-  <div is="IconsTable"></div>
 </div>
 
 ## Usage
@@ -878,3 +872,12 @@ SVGs are awesome to work with, but they do have some known quirks to work around
   needed.
 - **Safari skips `aria-label` when used on non-focusable SVGs.** As such, use the attribute
   `aria-hidden="true"` when using the icon and use CSS to visually hide the equivalent label.
+
+## Icons
+
+The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
+browse the available icons.
+
+<!-- Component rendered by `docs/pages/docs/icons.index.js` -->
+<!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
+<div is="IconsTable"></div>

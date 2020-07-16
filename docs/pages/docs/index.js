@@ -4,23 +4,29 @@ import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
 import {
+  bootstrapIconsCount,
   bootstrapVersion,
+  bootstrapVersionMajor,
+  bootstrapVersionMinor,
   defaultConfig,
   nuxtVersion,
+  nuxtVersionMajor,
+  nuxtVersionMinor,
   popperVersion,
+  popperVersionMajor,
+  popperVersionMinor,
   portalVueVersion,
+  portalVueVersionMajor,
+  portalVueVersionMinor,
   version,
-  vueVersion
+  vueVersion,
+  vueVersionMajor,
+  vueVersionMinor
 } from '~/content'
 import meta from '~/markdown/intro/meta.json'
 import readmeData from '~/markdown/intro/README.md'
 
 const { titleLead = '', body = '', baseTOC = {} } = readmeData
-
-// RegExp to grab the minor version from a full version
-const minorRE = /^(\d+\.\d+)(\..+)$/
-// RegExp to grab the major version from a full version
-const majorRE = /^(\d+)(\.\d+\..+)$/
 
 // @vue/component
 export default {
@@ -36,25 +42,26 @@ export default {
   data() {
     return {
       bootstrapVersion,
-      bootstrapVersionMinor: bootstrapVersion.replace(minorRE, '$1'),
-      bootstrapVersionMajor: bootstrapVersion.replace(majorRE, '$1'),
+      bootstrapVersionMinor,
+      bootstrapVersionMajor,
+      bootstrapIconsCount,
       defaultConfig,
       nuxtVersion,
-      nuxtVersionMinor: nuxtVersion.replace(minorRE, '$1'),
-      nuxtVersionMajor: nuxtVersion.replace(majorRE, '$1'),
+      nuxtVersionMinor,
+      nuxtVersionMajor,
       popperVersion,
-      popperVersionMinor: popperVersion.replace(minorRE, '$1'),
-      popperVersionMajor: popperVersion.replace(majorRE, '$1'),
+      popperVersionMinor,
+      popperVersionMajor,
       portalVueVersion,
-      portalVueVersionMinor: portalVueVersion.replace(minorRE, '$1'),
-      portalVueVersionMajor: portalVueVersion.replace(majorRE, '$1'),
+      portalVueVersionMinor,
+      portalVueVersionMajor,
       titleLead,
       body,
       baseTOC,
       version,
       vueVersion,
-      vueVersionMinor: vueVersion.replace(minorRE, '$1'),
-      vueVersionMajor: vueVersion.replace(majorRE, '$1')
+      vueVersionMinor,
+      vueVersionMajor
     }
   },
   computed: {
