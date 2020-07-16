@@ -37,9 +37,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-node-v${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('yarn.lock') }}
+            ${{ runner.os }}-node-v${{ matrix.node }}-yarn-
             ${{ runner.OS }}-node-v${{ matrix.node }}-
             ${{ runner.OS }}-
 
