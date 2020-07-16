@@ -626,7 +626,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'ul',
         {
           key: '_tags_list_',
-          staticClass: 'list-unstyled mb-0 d-flex flex-wrap align-items-center',
+          staticClass: 'b-form-tags-list list-unstyled mb-0 d-flex flex-wrap align-items-center',
           attrs: { id: tagListId }
         },
         // `concat()` is faster than array spread when args are known to be arrays
