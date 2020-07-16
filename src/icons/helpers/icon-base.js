@@ -52,7 +52,7 @@ const baseAttrs = {
   height: '1em',
   focusable: 'false',
   role: 'img',
-  alt: 'icon'
+  'aria-label': 'icon'
 }
 
 // Attributes that are nulled out when stacked
@@ -61,7 +61,7 @@ const stackedAttrs = {
   height: null,
   focusable: null,
   role: null,
-  alt: null
+  'aria-label': null
 }
 
 // Shared private base component to reduce bundle/runtime size
