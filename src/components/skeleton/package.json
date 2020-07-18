@@ -115,6 +115,19 @@
             "description": "If used as an card image, use this prop to set the position. Accepted values are `top`, `bottom`, `left` and `right`"
           }
         ]
+      },
+      {
+        "component": "BSkeletonIcon",
+        "props": [
+          {
+            "prop": "animation",
+            "description": "Animation used for the component, leave empty or null to disable the animation"
+          },
+          {
+            "prop": "iconProps",
+            "description": "Properties to pass on to the icon. Refer to `b-icon` property references"
+          }
+        ]
       }
     ]
   }
