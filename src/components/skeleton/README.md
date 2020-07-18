@@ -156,3 +156,16 @@ You can also utilize `<b-skeleton-image>` to represent images in `<b-card>`. Rem
 
 <!-- b-skeleton-helper-card-image.vue -->
 ```
+
+## Icons
+
+You can also utilize `<b-skeleton-icon>` as a placeholder for icons. If you need to use any icon
+props, you can pass the to the icon via the `icon-props` property.
+
+```html
+<b-skeleton-icon icon="person" :icon-props="{ fontScale: 2 }"></b-skeleton-icon>
+<b-skeleton-icon icon="person-fill" :icon-props="{ fontScale: 2, variant: 'dark' }"></b-skeleton-icon>
+<!-- b-skeleton-helper-card-icon.vue -->
+```
+
+**Note: the `throb` animation does not work with `b-skeleton-icon`**

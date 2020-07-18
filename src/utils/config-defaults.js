@@ -239,6 +239,9 @@ export default deepFreeze({
   BSkeleton: {
     animation: 'wave'
   },
+  BSkeletonIcon: {
+    animation: 'wave'
+  },
   BSidebar: {
     bgVariant: 'light',
     textVariant: 'dark',

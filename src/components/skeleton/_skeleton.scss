@@ -57,6 +57,14 @@
   }
 }
 
+// .b-skeleton-icon {
+//   color: $b-skeleton-background-color;
+// }
+
+.b-skeleton-icon-wrapper svg {
+  color: $b-skeleton-background-color;
+}
+
 // Image
 .b-skeleton-image {
   height: 100%;
