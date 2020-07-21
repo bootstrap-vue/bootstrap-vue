@@ -19,12 +19,10 @@
             <li><b-link to="/docs/reference" exact>Reference</b-link></li>
             <li><b-link to="/play" exact>Playground</b-link></li>
           </ul>
-          <!-- TODO: Uncomment when we have themes
           <h5 class="bd-text-purple-bright mb-1 mt-3">Themes</h5>
           <ul class="list-unstyled ml-3">
             <li><b-link to="/themes" exact>Themes and dashboards</b-link></li>
           </ul>
-          -->
         </b-col>
 
         <b-col cols="auto" class="text-left">

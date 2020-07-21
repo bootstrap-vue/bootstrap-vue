@@ -176,6 +176,32 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
+  it('sets "aria-describedby" even when special characters are used in IDs', async () => {
+    const wrapper = mount(BFormGroup, {
+      propsData: {
+        id: '/group-id',
+        label: 'test',
+        labelFor: '/input-id',
+        description: 'foo' // Description is needed to set "aria-describedby"
+      },
+      slots: {
+        default: '<input id="/input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+
+    // Auto ID is created after mounted
+    await waitNT(wrapper.vm)
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('aria-describedby')).toBeDefined()
+    expect($input.attributes('aria-describedby')).toEqual('/group-id__BV_description_')
+
+    wrapper.destroy()
+  })
+
   it('horizontal layout without prop label-for set has expected structure', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
