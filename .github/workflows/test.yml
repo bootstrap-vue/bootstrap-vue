@@ -11,9 +11,82 @@ on:
       - master
 
 jobs:
-  setup:
+  lint:
     runs-on: ${{ matrix.os }}
-    if: github.event_name == 'push' || !(github.base_ref == 'master' && github.head_ref == 'dev')
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ matrix.os }}-node-v${{ matrix.node }}-yarn-
+            ${{ matrix.os }}-node-v${{ matrix.node }}-
+            ${{ matrix.os }}-
+
+      - name: Install dependencies
+        run: yarn install --check-files --frozen-lockfile --non-interactive
+
+      - name: Lint
+        run: yarn run test:lint
+
+  audit:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [12]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ matrix.os }}-node-v${{ matrix.node }}-yarn-
+            ${{ matrix.os }}-node-v${{ matrix.node }}-
+            ${{ matrix.os }}-
+
+      - name: Install dependencies
+        run: yarn install --check-files --frozen-lockfile --non-interactive
+
+      - name: Audit
+        run: yarn run audit
+
+  test-unit:
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
@@ -46,90 +119,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile --non-interactive
 
-      - name: Cache workspace
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-  lint:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Lint
-        run: yarn run test:lint
-
-  audit:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Audit
-        run: yarn run audit
-
-  test-unit:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [10, 12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
       - name: Test unit
         run: yarn run test:unit --coverage --maxWorkers=2
 
@@ -139,71 +128,3 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
-
-  build:
-    needs: setup
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Build
-        run: yarn run build
-
-      - name: Upload build files
-        uses: actions/upload-artifact@v1
-        with:
-          name: build-files
-          path: dist
-
-  bundlewatch:
-    needs: build
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [12]
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Restore workspace cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-bootstrap-vue-${{ github.sha }}
-
-      - name: Download build files
-        uses: actions/download-artifact@v1
-        with:
-          name: build-files
-          path: dist
-
-      - name: BundleWatch
-        run: yarn run bundlewatch
-        env:
-          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
