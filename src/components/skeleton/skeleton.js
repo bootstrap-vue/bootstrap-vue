@@ -1,6 +1,6 @@
+import { mergeData } from 'vue-functional-data-merge'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { mergeData } from 'vue-functional-data-merge'
 
 const NAME = 'BSkeleton'
 
@@ -31,18 +31,20 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { data, props }) {
+    const { size, animation, variant } = props
+
     return h(
       'div',
       mergeData(data, {
         staticClass: 'b-skeleton',
         style: {
-          width: props.size || props.width,
-          height: props.size || props.height
+          width: size || props.width,
+          height: size || props.height
         },
         class: {
           [`b-skeleton-${props.type}`]: true,
-          [`b-skeleton-animate-${props.animation}`]: props.animation,
-          [`bg-${props.variant}`]: props.variant
+          [`b-skeleton-animate-${animation}`]: animation,
+          [`bg-${variant}`]: variant
         }
       })
     )
