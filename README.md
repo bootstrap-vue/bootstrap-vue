@@ -40,7 +40,7 @@
     <img src="https://flat.badgen.net/npm/dt/bootstrap-vue" alt="npm downloads">
   </a>
   <a href="https://www.npmjs.com/package/bootstrap-vue">
-    <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm monthly downloads">
+    <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm weekly downloads">
   </a>
   <br>
   <a href="https://opencollective.com/bootstrap-vue#sponsor">
