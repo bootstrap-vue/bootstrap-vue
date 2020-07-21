@@ -34,19 +34,19 @@ export const BSkeletonImage = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props }) {
+    const { aspect, width, height, animation, variant, cardImage } = props
+
     const $image = h(BSkeleton, {
       props: {
         type: 'image',
-        width: props.width,
-        height: props.height,
-        animation: props.animation,
-        variant: props.variant
+        width,
+        height,
+        animation,
+        variant
       },
-      class: {
-        [`card-img-${props.cardImage}`]: props.cardImage
-      }
+      class: { [`card-img-${cardImage}`]: cardImage }
     })
-    if (props.noAspect) return $image
-    else return h(BAspect, { props: { aspect: props.aspect } }, [$image])
+
+    return props.noAspect ? $image : h(BAspect, { props: { aspect } }, [$image])
   }
 })
