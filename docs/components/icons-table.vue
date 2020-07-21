@@ -42,18 +42,18 @@
       <transition-group
         tag="ul"
         name="flip-icon-list"
-        class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 list-unstyled mb-n3 position-relative"
+        class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-10 list-unstyled"
       >
         <b-col
           v-for="icon in filteredIcons"
           :key="`_icon_${icon.name}`"
           tag="li"
-          class="flip-icon-list-icon d-inline-flex flex-column mb-3 text-center"
+          class="flip-icon-list-icon d-inline-flex flex-column mb-4 text-center"
         >
-          <div class="card bg-light p-3" :title="icon.name">
+          <b-card bg-variant="light" class="px-3 py-4 border-0" no-body>
             <b-icon :icon="icon.name" class="mx-auto"></b-icon>
-          </div>
-          <b-form-text class="mt-1 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
+          </b-card>
+          <b-form-text class="mt-2 text-break" :title="icon.name">{{ icon.name }}</b-form-text>
         </b-col>
       </transition-group>
       <div aria-live="polite" aria-atomic="true">
@@ -120,6 +120,20 @@
 
 .flip-icon-list-leave-active {
   position: absolute;
+}
+
+@media (min-width: 1200px) {
+  .row-cols-xl-8 > * {
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .row-cols-xxl-10 > * {
+    flex: 0 0 10%;
+    max-width: 10%;
+  }
 }
 </style>
 

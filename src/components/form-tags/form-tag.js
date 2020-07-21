@@ -54,7 +54,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     let $remove = h()
     if (!this.disabled) {
       $remove = h(BButtonClose, {
-        staticClass: 'b-form-tag-remove ml-1',
+        staticClass: 'b-form-tag-remove',
         props: { ariaLabel: this.removeLabel },
         attrs: {
           'aria-controls': tagId,

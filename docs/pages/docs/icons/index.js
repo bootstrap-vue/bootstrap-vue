@@ -7,7 +7,7 @@ import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
-import { icons as iconsMeta, bootstrapIconsVersion } from '~/content'
+import { icons as iconsMeta, bootstrapIconsVersion, bootstrapIconsCount } from '~/content'
 import readmeData from '~/../src/icons/README.md'
 
 const { titleLead = '', body = '', baseTOC = {} } = readmeData
@@ -34,7 +34,8 @@ export default {
       baseTOC,
       // Key for icons meta is `''` (empty slug)
       meta: iconsMeta[''],
-      bootstrapIconsVersion
+      bootstrapIconsVersion,
+      bootstrapIconsCount
     }
   },
   computed: {
