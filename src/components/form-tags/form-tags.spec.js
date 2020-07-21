@@ -157,6 +157,40 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('applies "input-id" to the input', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        inputId: '1-tag-input',
+        value: ['apple', 'orange']
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+    expect($input.element.id).toEqual('1-tag-input')
+
+    $input.element.value = 'pear'
+    await $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    await wrapper.setProps({ addOnChange: true })
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+    await wrapper.setProps({ addOnChange: false })
+
+    wrapper.destroy()
+  })
+
   it('removes tags when user clicks remove on tag', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {

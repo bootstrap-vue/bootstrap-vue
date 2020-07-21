@@ -176,7 +176,7 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
-  it('must set "aria-describedby" even when special characters are used for ids', async () => {
+  it('sets "aria-describedby" even when special characters are used in IDs', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
         id: '/group-id',
