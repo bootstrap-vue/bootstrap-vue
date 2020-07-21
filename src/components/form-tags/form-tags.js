@@ -2,6 +2,7 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -523,7 +524,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     getInput() {
       // Returns the input element reference (or null if not found)
-      return select(`#${this.computedInputId}`, this.$el)
+      // We need to escape `computedInputId` since it can be user-provided
+      return select(`#${cssEscape(this.computedInputId)}`, this.$el)
     },
     // Default User Interface render
     defaultRender({
