@@ -4,7 +4,7 @@
       <header class="bd-content pb-4">
         <h1>Custom themes and dashboards</h1>
         <p class="lead">
-          With the below themes and dashboards built by our partners, you can build eye-catching
+          With the themes and dashboards built by our partners, you can build eye-catching
           apps and pages &mdash; all using BootstrapVue! The following items have been curated by
           the BootstrapVue team.
         </p>
@@ -26,8 +26,14 @@
       >
         <b-card no-body bg-variant="light">
           <b-row no-gutters>
-            <b-col md="6" lg="4" xl="4" aria-hidden="true">
-              <b-aspect aspect="4:3">
+            <b-col
+              md="6"
+              lg="4"
+              xl="4"
+              class="bg-dark"
+              aria-hidden="true"
+            >
+              <b-aspect aspect="4:3" class="h-100 align-items-center">
                 <b-card-img-lazy
                   :src="theme.img"
                   alt="Image"
@@ -39,24 +45,19 @@
             </b-col>
             <b-col class="d-flex flex-column p-4">
               <!-- We use `<h2>` for correct semantics, but `.h5` style -->
-              <h2 :id="`theme-label-${idx}`" class="h5">{{ theme.title }}</h2>
-              <b-card-text class="flex-grow-1">
-                {{ theme.description }}
-              </b-card-text>
+              <h2 :id="`theme-label-${idx}`" class="h5 mb-3">{{ theme.title }}</h2>
+              <b-card-text class="flex-grow-1">{{ theme.description }}</b-card-text>
               <b-card-text class="text-muted small">
-                <span class="d-block d-lg-inline-block mb-2 mb-lg-0">Category: {{ theme.category }}</span>
-                <span class="d-block d-lg-inline-block ml-lg-3"><i>Provided by: {{ theme.provider }}</i></span>
+                <span class="d-block d-lg-inline-block mb-2 mb-lg-0"><strong>Category:</strong> {{ theme.category }}</span>
+                <span class="d-block d-lg-inline-block ml-lg-3"><i><strong>Provided by:</strong> {{ theme.provider }}</i></span>
               </b-card-text>
               <b-card-text class="d-flex align-items-center">
                 <b-button :href="theme.href" target="_blank" variant="bd-primary">
                   Get {{ theme.type || 'theme' }}
                 </b-button>
-                <small v-if="theme.price" class="text-muted position-relative ml-3">
-                  Price: {{ theme.price }}
-                  <b-link href="#theme-notes" title="See notes" class="stretched-link">
-                    <b>*</b>
-                  </b-link>
-                </small>
+                <span v-if="theme.price" class="text-muted position-relative ml-3">
+                  <strong>Price:</strong> {{ theme.price }}<b-link href="#theme-notes" title="See notes">*</b-link>
+                </span>
               </b-card-text>
             </b-col>
           </b-row>
@@ -75,7 +76,7 @@
             site documentation for licensing information.
           </li>
           <li>
-            BootstrapVue does not guarantee that all coustom components provided by a theme are
+            BootstrapVue does not guarantee that all custom components provided by a theme are
             WIA-ARIA compliant. Refer to the provider documentation for details.
           </li>
           <li>
@@ -146,56 +147,22 @@ import BvLogo from '~/components/bv-logo'
 
 export default {
   components: { BvLogo },
-  data() {
+  async asyncData({ $content }) {
+    // Themes are stored as YAML files in `docs/content/themes`
+    // The theme preview image should be 800x400px (and 4:3 aspect ratio)
+    // Data structure:
+    //   title: 'Superduper Dashboard - PRO'
+    //   type: 'dashboard'
+    //   category: 'Admin & Dashboard'
+    //   img: 'https://picsum.photos/800/600/?image=84'
+    //   href: '#'
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    //   provider: 'Innovative Ivan'
+    //   price: '$100.00'
+    const themes = await $content('themes').fetch()
+
     return {
-      // This could be async data that comes from a JSON file
-      // Theme image preview should be 800x400px (and 4:3 aspect ratio)
-      themes: [
-        /*
-        {
-          title: 'Superduper Dashboard - PRO',
-          type: 'dashboard',
-          category: 'Admin & Dashboard',
-          img: 'https://picsum.photos/800/600/?image=84',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Innovative Ivan',
-          price: '$500.00'
-        },
-        {
-          title: 'Funky dashboard extreme',
-          type: 'dashboard',
-          category: 'Admin & Dashboard',
-          img: 'https://picsum.photos/800/600/?image=82',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Dashboards-R-Us',
-          price: 'Free'
-        },
-        {
-          title: 'Some mystery theme theatre',
-          img: 'https://picsum.photos/800/600/?image=54',
-          category: 'Landing & Corporate',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Cyberdyne Terminators',
-          price: '$75.00'
-        },
-        {
-          title: 'Shopper Style Galore',
-          img: 'https://picsum.photos/800/600/?image=90',
-          category: 'E-Commerce & Retail',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Cyberdyne Terminators',
-          price: '$75.00'
-        }
-        */
-      ]
+      themes
     }
   },
   computed: {

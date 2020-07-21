@@ -566,6 +566,7 @@ export default {
   created() {
     this.bootstrapUrl = `https://getbootstrap.com/docs/${bootstrapVersionMinor}`
     this.bootstrapVersionMajor = bootstrapVersionMajor
+    this.bootstrapVersionMinor = bootstrapVersionMinor
     this.bootstrapIconsCount = bootstrapIconsCount
     this.vueVersionMinor = vueVersionMinor
     this.version = version

@@ -27,10 +27,7 @@ The online documentation is comprised of the following sections:
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Playground](/play) - Online playground
-
-<!-- TODO: Uncomment when we have themes
 - [Themes](/themes) - Themes and dashboards
--->
 
 ## Prerequisites
 
