@@ -6,9 +6,10 @@
 <br>
 
 <p align="center">
-  BootstrapVue, with over 40 available plugins, more than 80 custom components, and over 670 icons,
-  provides one of the most comprehensive implementations of the Bootstrap v4 component and grid
-  system for Vue.js, complete with extensive and automated WAI-ARIA accessibility markup.
+  With more than 85 components, over 45 available plugins, several directives, and 1000+ icons,
+  BootstrapVue provides one of the most comprehensive implementations of the Bootstrap v4.5
+  component and grid system available for Vue.js v2.6, complete with extensive and automated
+  WAI-ARIA accessibility markup.
 </p>
 <br>
 

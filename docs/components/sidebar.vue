@@ -51,7 +51,6 @@
       </b-nav>
     </b-link>
 
-    <!-- TODO: Uncomment when we have themes
     <b-link
       to="/themes"
       router-tag="div"
@@ -69,7 +68,6 @@
         Themes
       </b-link>
     </b-link>
-    -->
 
     <b-link
       to="/play"

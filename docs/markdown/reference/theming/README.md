@@ -9,10 +9,8 @@ stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v
 using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, theme
 colors, etc) adjust the custom BootstrapVue css generation.
 
-<!-- TODO: Uncomment when we have themes
 For premium dashboards and themes, please refer to the [`Themes section`](/themes) of the
 documentation.
--->
 
 ## SASS variable defaults
 
@@ -283,10 +281,8 @@ a {
 
 ## See also
 
-<!-- TODO: Uncomment when we have themes
 - For premium dashboards and themes, please refer to the [`Themes section`](/themes) of the
 documentation.
--->
 
 - If you are defining custom breakpoint names, please see the
   [BootstrapVue settings](/docs/reference/settings) page on how to update BootstrapVue `<b-col>` and

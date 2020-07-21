@@ -2,6 +2,7 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -523,7 +524,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     getInput() {
       // Returns the input element reference (or null if not found)
-      return select(`#${this.computedInputId}`, this.$el)
+      // We need to escape `computedInputId` since it can be user-provided
+      return select(`#${cssEscape(this.computedInputId)}`, this.$el)
     },
     // Default User Interface render
     defaultRender({
@@ -557,7 +559,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BFormTag,
           {
             key: `li-tag__${tag}`,
-            staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
               // `BFormTag` will auto generate an ID
@@ -639,7 +640,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'flex-grow-1 mt-1',
+          staticClass: 'flex-grow-1',
           attrs: {
             role: 'none',
             'aria-live': 'off',
@@ -654,7 +655,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'ul',
         {
           key: '_tags_list_',
-          staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
+          staticClass: 'b-form-tags-list list-unstyled mb-0 d-flex flex-wrap align-items-center',
           attrs: { id: tagListId }
         },
         [$tags, $field]
