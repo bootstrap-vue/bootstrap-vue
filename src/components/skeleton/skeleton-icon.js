@@ -22,8 +22,10 @@ export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h, { props }) {
+    const { icon, animation } = props
+
     const $icon = h(BIcon, {
-      props: { icon: props.icon, ...props.iconProps },
+      props: { icon, ...props.iconProps },
       staticClass: 'b-skeleton-icon'
     })
 
@@ -31,9 +33,7 @@ export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-skeleton-icon-wrapper position-relative d-inline-block overflow-hidden',
-        class: {
-          [`b-skeleton-animate-${props.animation}`]: props.animation
-        }
+        class: { [`b-skeleton-animate-${animation}`]: animation }
       },
       [$icon]
     )
