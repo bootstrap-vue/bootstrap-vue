@@ -34,19 +34,19 @@
     },
     {
       "path": "./dist/bootstrap-vue.js",
-      "maxSize": "230 kB"
+      "maxSize": "235 kB"
     },
     {
       "path": "./dist/bootstrap-vue.min.js",
-      "maxSize": "100 kB"
+      "maxSize": "105 kB"
     },
     {
       "path": "./dist/bootstrap-vue.common.js",
-      "maxSize": "305 kB"
+      "maxSize": "310 kB"
     },
     {
       "path": "./dist/bootstrap-vue.common.min.js",
-      "maxSize": "190 kB"
+      "maxSize": "195 kB"
     },
     {
       "path": "./dist/bootstrap-vue.esm.js",
