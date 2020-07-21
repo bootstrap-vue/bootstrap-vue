@@ -147,7 +147,17 @@ import BvLogo from '~/components/bv-logo'
 export default {
   components: { BvLogo },
   async asyncData({ $content }) {
-    // Theme image preview should be 800x400px (and 4:3 aspect ratio)
+    // Themes are stored as YAML files in `docs/content/themes`
+    // The theme preview image should be 800x400px (and 4:3 aspect ratio)
+    // Data structure:
+    //   title: 'Superduper Dashboard - PRO'
+    //   type: 'dashboard'
+    //   category: 'Admin & Dashboard'
+    //   img: 'https://picsum.photos/800/600/?image=84'
+    //   href: '#'
+    //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    //   provider: 'Innovative Ivan'
+    //   price: '$100.00'
     const themes = await $content('themes').fetch()
 
     return {
