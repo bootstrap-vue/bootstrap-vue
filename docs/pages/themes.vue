@@ -4,7 +4,7 @@
       <header class="bd-content pb-4">
         <h1>Custom themes and dashboards</h1>
         <p class="lead">
-          With the below themes and dashboards built by our partners, you can build eye-catching
+          With the themes and dashboards built by our partners, you can build eye-catching
           apps and pages &mdash; all using BootstrapVue! The following items have been curated by
           the BootstrapVue team.
         </p>
