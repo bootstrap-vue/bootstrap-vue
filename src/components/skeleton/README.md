@@ -1,7 +1,7 @@
 # Skeleton
 
-> `<b-skeleton>` is a BootstrapVue custom component, that allows you to display a loading state
-> while your data is being fetched.
+> `<b-skeleton>` is a BootstrapVue custom component, that allows you to display a loading state for
+> several component types while your data is being fetched or computed.
 
 **Example: Basic usage**
 
@@ -20,7 +20,12 @@
       </template>
 
       <b-card>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nunc sapien, non rhoncus elit tincidunt vitae. Vestibulum maximus, ligula eu feugiat molestie, massa diam imperdiet odio, vitae viverra ligula est id nisi. Aliquam ut molestie est. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus at consequat dui. Aenean tristique sagittis quam, sit amet sollicitudin neque sodales in.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nunc sapien,
+        non rhoncus elit tincidunt vitae. Vestibulum maximus, ligula eu feugiat molestie,
+        massa diam imperdiet odio, vitae viverra ligula est id nisi. Aliquam ut molestie est.
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
+        turpis egestas. Phasellus at consequat dui. Aenean tristique sagittis quam,
+        sit amet sollicitudin neque sodales in.
       </b-card>
     </b-skeleton-wrapper>
   </div>
@@ -52,6 +57,7 @@ Description..
 <b-skeleton type="input"></b-skeleton>
 <h5>Button</h5>
 <b-skeleton type="button"></b-skeleton>
+
 <!-- b-skeleton-types.vue -->
 ```
 
@@ -69,12 +75,13 @@ the [settings](/docs/reference/settings).
 <b-skeleton animation="throb"></b-skeleton>
 <h5>None</h5>
 <b-skeleton animation></b-skeleton>
+
 <!-- b-skeleton-animations.vue -->
 ```
 
 ## Helper components
 
-Utilize `<b-skeleton>` helper components to quickly scaffold exisiting components like a `table`
+Utilize `<b-skeleton>` helper components to quickly scaffold existing components like a `table`.
 
 ### Table
 
@@ -82,6 +89,7 @@ Description...
 
 ```html
 <b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"}></b-skeleton-table>
+
 <!-- b-skeleton-helper-table.vue -->
 ```
 
@@ -103,6 +111,7 @@ props to set your own sizing.
     <b-skeleton-image no-aspect height="150px"></b-skeleton-image>
   </b-col>
 </b-row>
+
 <!-- b-skeleton-helper-image.vue -->
 ```
 
@@ -165,6 +174,7 @@ props, you can pass the to the icon via the `icon-props` property.
 ```html
 <b-skeleton-icon icon="person" :icon-props="{ fontScale: 2 }"></b-skeleton-icon>
 <b-skeleton-icon icon="person-fill" :icon-props="{ fontScale: 2, variant: 'dark' }"></b-skeleton-icon>
+
 <!-- b-skeleton-helper-card-icon.vue -->
 ```
 
