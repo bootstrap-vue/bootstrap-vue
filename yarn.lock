@@ -1202,7 +1202,7 @@
     rc9 "^1.0.0"
     std-env "^2.2.1"
 
-"@nuxt/content@1.4.1":
+"@nuxt/content@^1.4.1":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@nuxt/content/-/content-1.4.1.tgz#87da60a704a3fa15afe8027a785d95af524d91b9"
   integrity sha512-1mEJ/nV6Cu3pDUV0bKAwkqr/G1kb/LAz3xEH6mN3aPjF2mcKfDNYm3BmZhfXOIIYRljll7yqA42QHoOPAleZZA==
