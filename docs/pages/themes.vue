@@ -146,69 +146,12 @@ import BvLogo from '~/components/bv-logo'
 
 export default {
   components: { BvLogo },
-  data() {
+  async asyncData({ $content }) {
+    // Theme image preview should be 800x400px (and 4:3 aspect ratio)
+    const themes = await $content('themes').fetch()
+
     return {
-      // This could be async data that comes from a JSON file
-      // Theme image preview should be 800x400px (and 4:3 aspect ratio)
-      themes: [
-        {
-          title: 'BootstrapVue Argon Dashboard PRO',
-          type: 'dashboard',
-          category: 'Admin & Dashboard',
-          img:
-            'https://raw.githubusercontent.com/creativetimofficial/public-assets/master/bootstrap-vue-argon-dashboard-pro/opt_badp_thumbnail.jpg',
-          href:
-            'https://www.creative-tim.com/product/bootstrap-vue-argon-dashboard-pro?ref=bootstrap-vue.org',
-          description:
-            'BootstrapVue Argon Dashboard PRO is a completely new product built on our newest re-built from scratch framework structure that is meant to make our products more intuitive, more adaptive and, needless to say, so much easier to customize. Let Argon amaze you with its cool features and build tools and get your project to a whole new level.',
-          provider: 'Creative Tim',
-          price: '$89.00'
-        }
-        /*
-        {
-          title: 'Superduper Dashboard - PRO',
-          type: 'dashboard',
-          category: 'Admin & Dashboard',
-          img: 'https://picsum.photos/800/600/?image=84',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Innovative Ivan',
-          price: '$500.00'
-        },
-        {
-          title: 'Funky dashboard extreme',
-          type: 'dashboard',
-          category: 'Admin & Dashboard',
-          img: 'https://picsum.photos/800/600/?image=82',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Dashboards-R-Us',
-          price: 'Free'
-        },
-        {
-          title: 'Some mystery theme theatre',
-          img: 'https://picsum.photos/800/600/?image=54',
-          category: 'Landing & Corporate',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Cyberdyne Terminators',
-          price: '$75.00'
-        },
-        {
-          title: 'Shopper Style Galore',
-          img: 'https://picsum.photos/800/600/?image=90',
-          category: 'E-Commerce & Retail',
-          href: '#',
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          provider: 'Cyberdyne Terminators',
-          price: '$75.00'
-        }
-        */
-      ]
+      themes
     }
   },
   computed: {
