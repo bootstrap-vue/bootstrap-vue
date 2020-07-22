@@ -52,4 +52,4 @@ jobs:
         run: yarn run bundlewatch
         if: matrix.node == '12'
         env:
-          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_TOKEN }}"
+          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
