@@ -8,9 +8,15 @@
 ```html
 <template>
   <div>
-    <b-checkbox v-model="isLoading">Toggle loading</b-checkbox>
+    <div class="d-flex align-items-center mb-3">
+      <b-progress class="w-100" :max="maxLoadingTime" height="1.5rem">
+        <b-progress-bar :value="loadingTime" :label="`${((loadingTime / maxLoadingTime) * 100).toFixed(2)}%`"></b-progress-bar>
+      </b-progress>
 
-    <b-skeleton-wrapper :loading="isLoading">
+      <b-button class="ml-3" @click="startLoading()">Reload</b-button>
+    </div>
+
+    <b-skeleton-wrapper :loading="loading">
       <template v-slot:loading>
         <b-card>
           <b-skeleton width="85%"></b-skeleton>
@@ -35,7 +41,45 @@
   export default {
     data() {
       return {
-        isLoading: true
+        loading: false,
+        loadingTime: 0,
+        maxLoadingTime: 5
+      }
+    },
+    watch: {
+      loading(newVal, oldValue) {
+        if (newVal !== oldValue) {
+          this.clearLoadingTimeInterval()
+
+          if (newVal) {
+            this.$_loadingTimeInterval = setInterval(() => {
+              this.loadingTime++
+            }, 1000)
+          }
+        }
+      },
+      loadingTime(newVal, oldValue) {
+        if (newVal !== oldValue) {
+          if (newVal === this.maxLoadingTime) {
+            this.loading = false
+          }
+        }
+      }
+    },
+    created() {
+      this.$_loadingTimeInterval = null
+    },
+    mounted() {
+      this.startLoading()
+    },
+    methods: {
+      clearLoadingTimeInterval() {
+        clearInterval(this.$_loadingTimeInterval)
+        this.$_loadingTimeInterval = null
+      },
+      startLoading() {
+        this.loading = true
+        this.loadingTime = 0
       }
     }
   }
@@ -51,10 +95,13 @@ Description..
 ```html
 <h5>Text (default)</h5>
 <b-skeleton></b-skeleton>
+
 <h5>Avatar</h5>
 <b-skeleton type="avatar"></b-skeleton>
+
 <h5>Input</h5>
 <b-skeleton type="input"></b-skeleton>
+
 <h5>Button</h5>
 <b-skeleton type="button"></b-skeleton>
 
@@ -69,10 +116,13 @@ the [settings](/docs/reference/settings).
 ```html
 <h5>Wave (default)</h5>
 <b-skeleton animation="wave"></b-skeleton>
+
 <h5>Fade</h5>
 <b-skeleton animation="fade"></b-skeleton>
+
 <h5>Throb</h5>
 <b-skeleton animation="throb"></b-skeleton>
+
 <h5>None</h5>
 <b-skeleton animation></b-skeleton>
 
@@ -88,44 +138,48 @@ Utilize `<b-skeleton>` helper components to quickly scaffold existing components
 Description...
 
 ```html
-<b-skeleton-table :rows="5" :columns="4" :table-props="{ bordered: true, striped: true }"}></b-skeleton-table>
+<b-skeleton-table
+  :rows="5"
+  :columns="4"
+  :table-props="{ bordered: true, striped: true }"}
+></b-skeleton-table>
 
 <!-- b-skeleton-helper-table.vue -->
 ```
 
 ### Image
 
-Utilize `<b-skeleton-image>` to represent an image. It utilizes a 16:9 by default to have a
-responsive size. You can overwrite this by applying `no-aspect` and utilize the `height` and `width`
-props to set your own sizing.
+Utilize `<b-skeleton-img>` to represent an image. It utilizes a 16:9 by default to have a responsive
+size. You can overwrite this by applying `no-aspect` and utilize the `height` and `width` props to
+set your own sizing.
 
 ```html
 <b-row>
   <b-col>
-    <b-skeleton-image></b-skeleton-image>
+    <b-skeleton-img></b-skeleton-img>
   </b-col>
   <b-col>
-    <b-skeleton-image></b-skeleton-image>
+    <b-skeleton-img></b-skeleton-img>
   </b-col>
   <b-col cols="12" class="mt-3">
-    <b-skeleton-image no-aspect height="150px"></b-skeleton-image>
+    <b-skeleton-img no-aspect height="150px"></b-skeleton-img>
   </b-col>
 </b-row>
 
-<!-- b-skeleton-helper-image.vue -->
+<!-- b-skeleton-helper-img.vue -->
 ```
 
 #### Card Image
 
-You can also utilize `<b-skeleton-image>` to represent images in `<b-card>`. Remember to set the
-`card-image` prop to the position of the image. This will apply the proper border-radius.
+You can also utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remember to set the
+`card-img` prop to the position of the image. This will apply the proper border-radius.
 
 ```html
 <b-row>
   <b-col cols="12" md="6">
     <h5>Image top</h5>
     <b-card no-body img-top>
-      <b-skeleton-image card-image="top" aspect="3:1"></b-skeleton-image>
+      <b-skeleton-img card-img="top" aspect="3:1"></b-skeleton-img>
       <b-card-body>
         Some quick example text to build on the card and make up the bulk of the card's content.
       </b-card-body>
@@ -135,9 +189,9 @@ You can also utilize `<b-skeleton-image>` to represent images in `<b-card>`. Rem
     <h5>Image bottom</h5>
     <b-card no-body img-bottom>
       <b-card-body>
-      	Some quick example text to build on the card and make up the bulk of the card's content.
+        Some quick example text to build on the card and make up the bulk of the card's content.
       </b-card-body>
-      <b-skeleton-image card-image="bottom" aspect="3:1"></b-skeleton-image>
+      <b-skeleton-img card-img="bottom" aspect="3:1"></b-skeleton-img>
     </b-card>
   </b-col>
 </b-row>
@@ -146,24 +200,24 @@ You can also utilize `<b-skeleton-image>` to represent images in `<b-card>`. Rem
   <b-col cols="12" md="6">
     <h5>Image left</h5>
     <b-card no-body img-left>
-      <b-skeleton-image card-image="left" width="225px"></b-skeleton-image>
+      <b-skeleton-img card-img="left" width="225px"></b-skeleton-img>
       <b-card-body>
-      	Some quick example text to build on the card and make up the bulk of the card's content.
+        Some quick example text to build on the card and make up the bulk of the card's content.
       </b-card-body>
     </b-card>
   </b-col>
-	<b-col cols="12" md="6">
+  <b-col cols="12" md="6">
     <h5>Image right</h5>
     <b-card no-body img-right>
-      <b-skeleton-image card-image="right" width="225px"></b-skeleton-image>
+      <b-skeleton-img card-img="right" width="225px"></b-skeleton-img>
       <b-card-body>
-      	Some quick example text to build on the card and make up the bulk of the card's content.
+        Some quick example text to build on the card and make up the bulk of the card's content.
       </b-card-body>
     </b-card>
   </b-col>
 </b-row>
 
-<!-- b-skeleton-helper-card-image.vue -->
+<!-- b-skeleton-helper-card-img.vue -->
 ```
 
 ## Icons
@@ -172,10 +226,17 @@ You can also utilize `<b-skeleton-icon>` as a placeholder for icons. If you need
 props, you can pass the to the icon via the `icon-props` property.
 
 ```html
-<b-skeleton-icon icon="person" :icon-props="{ fontScale: 2 }"></b-skeleton-icon>
-<b-skeleton-icon icon="person-fill" :icon-props="{ fontScale: 2, variant: 'dark' }"></b-skeleton-icon>
+<b-skeleton-icon
+  icon="person"
+  :icon-props="{ fontScale: 2 }"
+></b-skeleton-icon>
+
+<b-skeleton-icon
+  icon="person-fill"
+  :icon-props="{ fontScale: 2, variant: 'dark' }"
+></b-skeleton-icon>
 
 <!-- b-skeleton-helper-card-icon.vue -->
 ```
 
-**Note: the `throb` animation does not work with `b-skeleton-icon`**
+**Note:** The `throb` animation does not work with `b-skeleton-icon`.

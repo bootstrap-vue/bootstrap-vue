@@ -2,10 +2,10 @@ import Vue from '../../utils/vue'
 import { BAspect } from '../aspect'
 import { BSkeleton } from './skeleton'
 
-const NAME = 'BSkeletonImage'
+const NAME = 'BSkeletonImg'
 
 // @vue/component
-export const BSkeletonImage = /*#__PURE__*/ Vue.extend({
+export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
   name: NAME,
   functional: true,
   props: {
@@ -29,24 +29,24 @@ export const BSkeletonImage = /*#__PURE__*/ Vue.extend({
     variant: {
       type: String
     },
-    cardImage: {
+    cardImg: {
       type: String
     }
   },
   render(h, { props }) {
-    const { aspect, width, height, animation, variant, cardImage } = props
+    const { aspect, width, height, animation, variant, cardImg } = props
 
-    const $image = h(BSkeleton, {
+    const $img = h(BSkeleton, {
       props: {
-        type: 'image',
+        type: 'img',
         width,
         height,
         animation,
         variant
       },
-      class: { [`card-img-${cardImage}`]: cardImage }
+      class: { [`card-img-${cardImg}`]: cardImg }
     })
 
-    return props.noAspect ? $image : h(BAspect, { props: { aspect } }, [$image])
+    return props.noAspect ? $img : h(BAspect, { props: { aspect } }, [$img])
   }
 })

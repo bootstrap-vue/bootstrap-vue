@@ -1,20 +1,18 @@
-import { BSkeleton } from './skeleton'
-import { BSkeletonWrapper } from './skeleton-wrapper'
-import { BSkeletonTable } from './skeleton-table'
-import { BSkeletonImage } from './skeleton-image'
-import { BSkeletonIcon } from './skeleton-icon'
-
 import { pluginFactory } from '../../utils/plugins'
+import { BSkeleton } from './skeleton'
+import { BSkeletonIcon } from './skeleton-icon'
+import { BSkeletonImg } from './skeleton-img'
+import { BSkeletonTable } from './skeleton-table'
+import { BSkeletonWrapper } from './skeleton-wrapper'
 
 const SkeletonPlugin = /*#__PURE__*/ pluginFactory({
-  components: { BSkeleton, BSkeletonWrapper, BSkeletonTable, BSkeletonImage, BSkeletonIcon }
+  components: {
+    BSkeleton,
+    BSkeletonWrapper,
+    BSkeletonTable,
+    BSkeletonImg,
+    BSkeletonIcon
+  }
 })
 
-export {
-  SkeletonPlugin,
-  BSkeleton,
-  BSkeletonWrapper,
-  BSkeletonTable,
-  BSkeletonImage,
-  BSkeletonIcon
-}
+export { SkeletonPlugin, BSkeleton, BSkeletonWrapper, BSkeletonTable, BSkeletonImg, BSkeletonIcon }

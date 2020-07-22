@@ -88,7 +88,7 @@
         ]
       },
       {
-        "component": "BSkeletonImage",
+        "component": "BSkeletonImg",
         "props": [
           {
             "prop": "animation",
@@ -111,7 +111,7 @@
             "description": "Removes the aspect wrapper around the skeleton"
           },
           {
-            "prop": "cardImage",
+            "prop": "cardImg",
             "description": "If used as an card image, use this prop to set the position. Accepted values are `top`, `bottom`, `left` and `right`"
           }
         ]
