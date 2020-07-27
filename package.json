@@ -129,7 +129,7 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.18.2",
+    "eslint-plugin-jest": "^23.19.0",
     "eslint-plugin-markdown": "^1.0.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
