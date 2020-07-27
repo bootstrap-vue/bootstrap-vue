@@ -282,7 +282,7 @@ a {
 ## See also
 
 - For premium dashboards and themes, please refer to the [`Themes section`](/themes) of the
-documentation.
+  documentation.
 
 - If you are defining custom breakpoint names, please see the
   [BootstrapVue settings](/docs/reference/settings) page on how to update BootstrapVue `<b-col>` and
