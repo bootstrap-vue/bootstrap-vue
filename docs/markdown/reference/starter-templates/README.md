@@ -95,7 +95,7 @@ references will be handy starting points:
 
 - BootstrapVue's [Theming](/docs/reference/theming) reference section
 - Official Bootstrap
-  [Theming Bootstrap ](https://getbootstrap.com/docs/4.3/getting-started/theming/) guide
+  [Theming Bootstrap ](https://getbootstrap.com/docs/4.5/getting-started/theming/) guide
 
 ## Individual component import
 

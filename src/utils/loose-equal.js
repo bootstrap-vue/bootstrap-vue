@@ -1,4 +1,4 @@
-import { keys } from './object'
+import { hasOwnProperty, keys } from './object'
 import { isArray, isDate, isObject } from './inspect'
 
 // Assumes both a and b are arrays!
@@ -46,10 +46,8 @@ const looseEqual = (a, b) => {
       return false
     }
     for (const key in a) {
-      // eslint-disable-next-line no-prototype-builtins
-      const aHasKey = a.hasOwnProperty(key)
-      // eslint-disable-next-line no-prototype-builtins
-      const bHasKey = b.hasOwnProperty(key)
+      const aHasKey = hasOwnProperty(a, key)
+      const bHasKey = hasOwnProperty(b, key)
       if ((aHasKey && !bHasKey) || (!aHasKey && bHasKey) || !looseEqual(a[key], b[key])) {
         return false
       }

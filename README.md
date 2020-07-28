@@ -6,9 +6,10 @@
 <br>
 
 <p align="center">
-  BootstrapVue, with over 40 available plugins, more than 80 custom components, and over 670 icons,
-  provides one of the most comprehensive implementations of the Bootstrap v4 component and grid
-  system for Vue.js, complete with extensive and automated WAI-ARIA accessibility markup.
+  With more than 85 components, over 45 available plugins, several directives, and 1000+ icons,
+  BootstrapVue provides one of the most comprehensive implementations of the Bootstrap v4.5
+  component and grid system available for Vue.js v2.6, complete with extensive and automated
+  WAI-ARIA accessibility markup.
 </p>
 <br>
 
@@ -17,7 +18,7 @@
     <img src="https://flat.badgen.net/npm/v/bootstrap-vue" alt="Current version">
   </a>
   <a href="https://getbootstrap.com/docs">
-    <img src="https://flat.badgen.net/badge/bootstrap/4.3.x/563d7c" alt="Bootstrap version">
+    <img src="https://flat.badgen.net/badge/bootstrap/4.5.x/563d7c" alt="Bootstrap version">
   </a>
   <a href="https://vuejs.org">
     <img src="https://flat.badgen.net/badge/vue.js/2.6.x/4fc08d" alt="Vue.js version">
@@ -35,11 +36,14 @@
   <a href="https://packagequality.com/#?package=bootstrap-vue">
     <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
   </a>
+  <a href="https://app.codacy.com/gh/bootstrap-vue/bootstrap-vue/dashboard">
+    <img src="https://flat.badgen.net/codacy/grade/8b19182d32514a83baac4dd0ccf5f35c" alt="Code quality">
+  </a>
   <a href="https://www.npmjs.com/package/bootstrap-vue">
     <img src="https://flat.badgen.net/npm/dt/bootstrap-vue" alt="npm downloads">
   </a>
   <a href="https://www.npmjs.com/package/bootstrap-vue">
-    <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm monthly downloads">
+    <img src="https://flat.badgen.net/npm/dw/bootstrap-vue" alt="npm weekly downloads">
   </a>
   <br>
   <a href="https://opencollective.com/bootstrap-vue#sponsor">

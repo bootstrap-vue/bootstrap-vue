@@ -280,13 +280,17 @@ module.exports = {
   plugins: ['~/plugins/bootstrap-vue.js', '~/plugins/play.js', '~/plugins/docs.js'],
 
   buildModules: ['@nuxtjs/google-analytics'],
-  modules: ['@nuxtjs/pwa', '@nuxtjs/robots', '@nuxtjs/sitemap'],
+  modules: ['@nuxt/content', '@nuxtjs/pwa', '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
-  'google-analytics': {
+  googleAnalytics: {
     id: GA_TRACKING_ID,
     autoTracking: {
       exception: true
     }
+  },
+
+  content: {
+    apiPrefix: 'api'
   },
 
   // We enable crawling in production docs only

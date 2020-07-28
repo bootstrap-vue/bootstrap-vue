@@ -370,9 +370,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           /* istanbul ignore if: transition events cant be tested in JSDOM */
           if (this.transitionEndEvent) {
             const events = this.transitionEndEvent.split(/\s+/)
-            events.forEach(evt =>
-              eventOff(currentSlide, evt, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE)
-            )
+            events.forEach(evt => eventOff(nextSlide, evt, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE))
           }
           this.clearAnimationTimeout()
           removeClass(nextSlide, dirClass)
@@ -394,9 +392,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore if: transition events cant be tested in JSDOM */
         if (this.transitionEndEvent) {
           const events = this.transitionEndEvent.split(/\s+/)
-          events.forEach(event =>
-            eventOn(currentSlide, event, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE)
-          )
+          events.forEach(event => eventOn(nextSlide, event, onceTransEnd, EVENT_OPTIONS_NO_CAPTURE))
         }
         // Fallback to setTimeout()
         this.$_animationTimeout = setTimeout(onceTransEnd, TRANS_DURATION)

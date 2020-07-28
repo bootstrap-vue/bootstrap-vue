@@ -3,10 +3,10 @@ import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
-  it('has div as root element', async () => {
+  it('has expected default structure', async () => {
     const wrapper = mount(BFormTags)
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-form-tags')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.attributes('role')).toBe('group')
@@ -21,6 +21,7 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
+
     expect(wrapper.element.tagName).toBe('DIV')
 
     const $tags = wrapper.findAll('.b-form-tag')
@@ -49,12 +50,10 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
+
     expect(wrapper.element.tagName).toBe('DIV')
 
-    await wrapper.setProps({
-      value: ['pear']
-    })
-
+    await wrapper.setProps({ value: ['pear'] })
     expect(wrapper.vm.tags).toEqual(['pear'])
 
     wrapper.destroy()
@@ -72,13 +71,14 @@ describe('form-tags', () => {
         }
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
+
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
+
     expect(scope).toBeDefined()
     expect(typeof scope).toBe('object')
-
     expect(Array.isArray(scope.tags)).toBe(true)
     expect(scope.tags).toEqual(['apple', 'orange'])
     expect(typeof scope.addTag).toBe('function')
@@ -104,11 +104,11 @@ describe('form-tags', () => {
         name: 'foo'
       }
     })
+
     expect(wrapper.element.tagName).toBe('DIV')
 
     const $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
-
     expect($hidden.at(0).attributes('value')).toEqual('apple')
     expect($hidden.at(0).attributes('name')).toEqual('foo')
     expect($hidden.at(1).attributes('value')).toEqual('orange')
@@ -123,13 +123,12 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
     expect($input.element.type).toBe('text')
@@ -158,20 +157,53 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('applies "input-id" to the input', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        inputId: '1-tag-input',
+        value: ['apple', 'orange']
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+    expect($input.element.id).toEqual('1-tag-input')
+
+    $input.element.value = 'pear'
+    await $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    await wrapper.setProps({ addOnChange: true })
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+    await wrapper.setProps({ addOnChange: false })
+
+    wrapper.destroy()
+  })
+
   it('removes tags when user clicks remove on tag', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
         value: ['apple', 'orange', 'pear', 'peach']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
     expect(wrapper.vm.newTag).toEqual('')
 
     let $tags = wrapper.findAll('.badge')
     expect($tags.length).toBe(4)
-
     expect($tags.at(1).attributes('title')).toEqual('orange')
 
     const $btn = $tags.at(1).find('button')
@@ -194,13 +226,12 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
 
@@ -234,13 +265,12 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
 
@@ -295,8 +325,8 @@ describe('form-tags', () => {
         value: ['one', 'two']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['one', 'two'])
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.duplicateTags).toEqual([])
@@ -306,7 +336,6 @@ describe('form-tags', () => {
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
 
@@ -465,16 +494,16 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
 
     const $input = wrapper.find('input')
-    const $button = wrapper.find('button.b-form-tags-button')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
+
+    const $button = wrapper.find('button.b-form-tags-button')
     expect($button.exists()).toBe(true)
     expect($button.classes()).toContain('invisible')
 
@@ -499,20 +528,18 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
+
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
-
     expect(wrapper.classes()).not.toContain('focus')
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
-
     expect(document.activeElement).not.toBe($input.element)
 
     await wrapper.trigger('click')
@@ -552,21 +579,25 @@ describe('form-tags', () => {
         value: ['apple', 'orange']
       }
     })
-    expect(wrapper.element.tagName).toBe('DIV')
+
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
     expect(wrapper.vm.newTag).toEqual('')
-
-    expect(wrapper.classes()).not.toContain('focus')
+    expect(wrapper.classes()).toContain('focus')
 
     const $input = wrapper.find('input')
-
     expect($input.exists()).toBe(true)
     expect($input.element.value).toBe('')
-
     expect(document.activeElement).toBe($input.element)
+
+    wrapper.vm.blur()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.classes()).not.toContain('focus')
+    expect(document.activeElement).not.toBe($input.element)
 
     wrapper.destroy()
   })

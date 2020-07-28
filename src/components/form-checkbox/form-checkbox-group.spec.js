@@ -363,6 +363,54 @@ describe('form-checkbox-group', () => {
     wrapper.destroy()
   })
 
+  it('does not emit "input" event when value loosely changes', async () => {
+    const value = ['one', 'two', 'three']
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: value.slice(),
+        checked: value.slice()
+      }
+    })
+    expect(wrapper.classes()).toBeDefined()
+    const checks = wrapper.findAll('input')
+    expect(checks.length).toBe(3)
+    expect(wrapper.vm.localChecked).toEqual(value)
+    expect(checks.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
+    expect(checks.at(0).element.checked).toBe(true)
+    expect(checks.at(1).element.checked).toBe(true)
+    expect(checks.at(2).element.checked).toBe(true)
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // Set internal value to new array reference
+    wrapper.vm.localChecked = value.slice()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.localChecked).toEqual(value)
+    expect(checks.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
+    expect(checks.at(0).element.checked).toBe(true)
+    expect(checks.at(1).element.checked).toBe(true)
+    expect(checks.at(2).element.checked).toBe(true)
+
+    expect(wrapper.emitted('input')).not.toBeDefined()
+
+    // Set internal value to new array (reversed order)
+    wrapper.vm.localChecked = value.slice().reverse()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.localChecked).toEqual(value.slice().reverse())
+    expect(checks.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
+    expect(checks.at(0).element.checked).toBe(true)
+    expect(checks.at(1).element.checked).toBe(true)
+    expect(checks.at(2).element.checked).toBe(true)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toBe(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(value.slice().reverse())
+
+    wrapper.destroy()
+  })
+
   it('checkboxes reflect group checked v-model', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),

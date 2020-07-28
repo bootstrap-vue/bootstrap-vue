@@ -27,10 +27,7 @@ The online documentation is comprised of the following sections:
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Playground](/play) - Online playground
-
-<!-- TODO: Uncomment when we have themes
 - [Themes](/themes) - Themes and dashboards
--->
 
 ## Prerequisites
 
@@ -110,7 +107,7 @@ Learn more about [box model and sizing at CSS Tricks](https://css-tricks.com/box
 ### Style reboot
 
 For improved cross-browser rendering, Bootstrap v{{ bootstrapVersionMinor }} uses
-[Reboot](https://getbootstrap.com/docs/4.3/content/reboot/) to correct inconsistencies across
+[Reboot](https://getbootstrap.com/docs/4.5/content/reboot/) to correct inconsistencies across
 browsers and devices while providing slightly more opinionated resets to common
 <abbr title="Hyper Text markup Language">HTML</abbr> elements.
 
@@ -768,7 +765,7 @@ you may need to make to your project:
 ### CSS
 
 BootstrapVue is to be used with Bootstrap v{{bootstrapVersionMinor}} CSS/SCSS. Please see
-<b-link :href="hrefBootstrapBrowserDevices" target="_blank">Browsers and devices</b-link> for more
+<b-link :href="bootstrapBrowserDevicesHref" target="_blank">Browsers and devices</b-link> for more
 information about browsers currently supported by Bootstrap v{{bootstrapVersionMajor}}.
 
 ### JS

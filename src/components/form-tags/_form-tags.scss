@@ -1,4 +1,12 @@
 .b-form-tags {
+  .b-form-tags-list {
+    margin-top: -0.25rem;
+
+    .b-form-tag {
+      margin-top: 0.25rem;
+    }
+  }
+
   &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -32,6 +40,7 @@
   font-size: 75%;
   font-weight: normal;
   line-height: $input-line-height;
+  margin-right: 0.25rem;
 
   &.disabled {
     opacity: 0.75;
@@ -43,6 +52,7 @@
     font-size: 125%;
     line-height: 1;
     float: none;
+    margin-left: 0.25rem;
   }
 }
 
