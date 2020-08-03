@@ -161,23 +161,24 @@ export default {
       if (lazy && !force) {
         return
       }
+      // Make sure to always clear the debounce when `updateValue()`
+      // is called, even when the v-model hasn't changed
+      this.clearDebounce()
       value = this.modifyValue(value)
-      const debounce = this.computedDebounce
-      if (debounce > 0 && !lazy && !force) {
+      if (value !== this.vModelValue) {
+        const doUpdate = () => {
+          this.vModelValue = value
+          this.$emit('update', value)
+        }
+        const debounce = this.computedDebounce
         // Only debounce the value update when a value greater than `0`
         // is set and we are not in lazy mode or this is a forced update
-        this.clearDebounce()
-        const doUpdate = () => {
-          if (value !== this.vModelValue) {
-            this.vModelValue = value
-            this.$emit('update', value)
-          }
+        if (debounce > 0 && !lazy && !force) {
+          this.$_inputDebounceTimer = setTimeout(doUpdate, debounce)
+        } else {
+          // Immediately update the v-model
+          doUpdate()
         }
-        this.$_inputDebounceTimer = setTimeout(doUpdate, debounce)
-      } else if (value !== this.vModelValue) {
-        // Immediately update the v-model
-        this.vModelValue = value
-        this.$emit('update', value)
       } else if (this.hasFormatter) {
         // When the `vModelValue` hasn't changed but the actual input value
         // is out of sync, make sure to change it to the given one
