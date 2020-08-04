@@ -148,7 +148,7 @@
     "lodash": "^4.17.19",
     "marked": "^1.1.1",
     "node-sass": "^4.14.1",
-    "nuxt": "^2.14.0",
+    "nuxt": "^2.14.1",
     "postcss-cli": "^7.1.1",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
