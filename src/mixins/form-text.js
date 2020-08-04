@@ -161,35 +161,39 @@ export default {
       if (lazy && !force) {
         return
       }
-      value = this.modifyValue(value)
-      if (value !== this.vModelValue) {
-        this.clearDebounce()
-        const doUpdate = () => {
+      // Make sure to always clear the debounce when `updateValue()`
+      // is called, even when the v-model hasn't changed
+      this.clearDebounce()
+      // Define the shared update logic in a method to be able to use
+      // it for immediate and debounced value changes
+      const doUpdate = () => {
+        value = this.modifyValue(value)
+        if (value !== this.vModelValue) {
           this.vModelValue = value
           this.$emit('update', value)
+        } else if (this.hasFormatter) {
+          // When the `vModelValue` hasn't changed but the actual input value
+          // is out of sync, make sure to change it to the given one
+          // Usually caused by browser autocomplete and how it triggers the
+          // change or input event, or depending on the formatter function
+          // https://github.com/bootstrap-vue/bootstrap-vue/issues/2657
+          // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
+          /* istanbul ignore next: hard to test */
+          const $input = this.$refs.input
+          /* istanbul ignore if: hard to test out of sync value */
+          if ($input && value !== $input.value) {
+            $input.value = value
+          }
         }
-        const debounce = this.computedDebounce
-        // Only debounce the value update when a value greater than `0`
-        // is set and we are not in lazy mode or this is a forced update
-        if (debounce > 0 && !lazy && !force) {
-          this.$_inputDebounceTimer = setTimeout(doUpdate, debounce)
-        } else {
-          // Immediately update the v-model
-          doUpdate()
-        }
-      } else if (this.hasFormatter) {
-        // When the `vModelValue` hasn't changed but the actual input value
-        // is out of sync, make sure to change it to the given one
-        // Usually caused by browser autocomplete and how it triggers the
-        // change or input event, or depending on the formatter function
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/2657
-        // https://github.com/bootstrap-vue/bootstrap-vue/issues/3498
-        /* istanbul ignore next: hard to test */
-        const $input = this.$refs.input
-        /* istanbul ignore if: hard to test out of sync value */
-        if ($input && value !== $input.value) {
-          $input.value = value
-        }
+      }
+      // Only debounce the value update when a value greater than `0`
+      // is set and we are not in lazy mode or this is a forced update
+      const debounce = this.computedDebounce
+      if (debounce > 0 && !lazy && !force) {
+        this.$_inputDebounceTimer = setTimeout(doUpdate, debounce)
+      } else {
+        // Immediately update the v-model
+        doUpdate()
       }
     },
     onInput(evt) {
