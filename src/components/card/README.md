@@ -333,7 +333,7 @@ Then, specify a dark background variant.
 ## Background and border variants
 
 Cards include their own variant style for quickly changing the background-color and of a card via
-the `bg-variant` and `border-variant` props. Darker solid variants my require setting the prop
+the `bg-variant` and `border-variant` props. Darker solid variants may require setting the prop
 `text-variant` to adjust the text color.
 
 ### Solid
