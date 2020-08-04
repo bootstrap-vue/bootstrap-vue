@@ -33,6 +33,9 @@
   <a href="https://codecov.io/gh/bootstrap-vue/bootstrap-vue">
     <img src="https://flat.badgen.net/codecov/c/github/bootstrap-vue/bootstrap-vue" alt="Coverage">
   </a>
+  <a href="https://packagequality.com/#?package=bootstrap-vue">
+    <img src="https://npm.packagequality.com/shield/bootstrap-vue.svg?style=flat-square" alt="Package quality">
+  </a>
   <a href="https://app.codacy.com/gh/bootstrap-vue/bootstrap-vue/dashboard">
     <img src="https://flat.badgen.net/codacy/grade/8b19182d32514a83baac4dd0ccf5f35c" alt="Code quality">
   </a>
