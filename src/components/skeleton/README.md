@@ -88,7 +88,7 @@
 <!-- b-skeleton.vue -->
 ```
 
-## Skeleton types
+## Types
 
 Description..
 
@@ -187,7 +187,7 @@ set your own sizing.
 
 #### Card Image
 
-You can also utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remember to set the
+You can utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remember to set the
 `card-img` prop to the position of the image. This will apply the proper border-radius.
 
 ```html
@@ -238,8 +238,8 @@ You can also utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remem
 
 ## Icons
 
-You can also utilize `<b-skeleton-icon>` as a placeholder for icons. If you need to use any icon
-props, you can pass the to the icon via the `icon-props` property.
+You can utilize `<b-skeleton-icon>` as a placeholder for icons. If you need to use any icon
+props, you can pass them via the `icon-props` property.
 
 ```html
 <b-skeleton-icon
