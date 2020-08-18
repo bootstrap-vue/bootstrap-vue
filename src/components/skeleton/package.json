@@ -5,7 +5,7 @@
     "title": "Skeleton",
     "description": "The <b-skeleton> component can be used to scaffold a loading state, while your data is loading.",
     "new": true,
-    "version": "2.16.0",
+    "version": "2.17.0",
     "slug": "skeleton",
     "components": [
       {
@@ -104,11 +104,11 @@
           },
           {
             "prop": "height",
-            "description": "Removes the aspect wrapper around the skeleton"
+            "description": "Sets the height of the image. Best used with `no-aspect` set to true"
           },
           {
             "prop": "width",
-            "description": "Removes the aspect wrapper around the skeleton"
+            "description": "Sets the width of the image. Best used with `no-aspect` set to true"
           },
           {
             "prop": "cardImg",
@@ -122,6 +122,10 @@
           {
             "prop": "animation",
             "description": "Animation used for the component, leave empty or null to disable the animation"
+          },
+          {
+            "prop": "icon",
+            "description": "Icon to display"
           },
           {
             "prop": "iconProps",
