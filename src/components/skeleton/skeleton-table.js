@@ -41,13 +41,13 @@ export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
 
     const $th = h('th', [h(BSkeleton, { props: { animation } })])
     const $thTr = h('tr', createAndFillArray(columns, $th))
-    const $thead = h('thead', [!props.hideHeader ? $thTr : h()])
 
     const $td = h('td', [h(BSkeleton, { props: { width: '75%', animation } })])
     const $tdTr = h('tr', createAndFillArray(columns, $td))
     const $tbody = h('tbody', createAndFillArray(props.rows, $tdTr))
 
-    const $tfoot = h('tfoot', [props.showFooter ? $thTr : h()])
+    const $thead = !props.hideHeader ? h('thead', [$thTr]) : h()
+    const $tfoot = props.showFooter ? h('tfoot', [$thTr]) : h()
 
     return h(BTableSimple, { props: { ...props.tableProps } }, [$thead, $tbody, $tfoot])
   }
