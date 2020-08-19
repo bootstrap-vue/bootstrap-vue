@@ -90,7 +90,7 @@
 
 ## Types
 
-Description..
+`<b-skeleton>` supports various basic types, to represent various components in your project.
 
 ```html
 <h5>Text (default)</h5>
@@ -147,17 +147,21 @@ the [settings](/docs/reference/settings).
 
 ## Helper components
 
-Utilize `<b-skeleton>` helper components to quickly scaffold existing components like a `table`.
+Utilize `<b-skeleton>` helper components to quickly scaffold existing components.
 
 ### Table
 
-Description...
+`<b-skeleton-table>` allows you to scaffold a basic table structure by utilizing the `rows` and
+`columns` props to define the size of the table. You can pass props directly to the table via the
+`table-props` property, which supports the same props as `<b-table-simple>`. Refer to the
+`<b-table-simple>` [documentation](/docs/components/table#comp-ref-b-table-simple) for a complete
+list.
 
 ```html
 <b-skeleton-table
   :rows="5"
   :columns="4"
-  :table-props="{ bordered: true, striped: true }"}
+  :table-props="{ bordered: true, striped: true }"
 ></b-skeleton-table>
 
 <!-- b-skeleton-helper-table.vue -->
@@ -165,9 +169,9 @@ Description...
 
 ### Image
 
-Utilize `<b-skeleton-img>` to represent an image. It utilizes a 16:9 by default to have a responsive
-size. You can overwrite this by applying `no-aspect` and utilize the `height` and `width` props to
-set your own sizing.
+Utilize `<b-skeleton-img>` to represent images. It utilizes a 16:9 aspect ratio by default, for a
+responsive sizing. You can overwrite this by applying `no-aspect` and utilize the `height` and
+`width` props to set your own sizing.
 
 ```html
 <b-row>
@@ -187,8 +191,8 @@ set your own sizing.
 
 #### Card Image
 
-You can utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remember to set the
-`card-img` prop to the position of the image. This will apply the proper border-radius.
+Use `<b-skeleton-img>` to represent images in `<b-card>`. Remember to set the `card-img` prop to the
+position of the image. This will apply the proper border-radius.
 
 ```html
 <b-row>
@@ -238,8 +242,8 @@ You can utilize `<b-skeleton-img>` to represent images in `<b-card>`. Remember t
 
 ## Icons
 
-You can utilize `<b-skeleton-icon>` as a placeholder for icons. If you need to use any icon
-props, you can pass them via the `icon-props` property.
+`<b-skeleton-icon>` can be used placeholder for icons. If you need to use any icon props, you can
+pass them via the `icon-props` property.
 
 ```html
 <b-skeleton-icon
@@ -256,3 +260,13 @@ props, you can pass them via the `icon-props` property.
 ```
 
 **Note:** The `throb` animation does not work with `b-skeleton-icon`.
+
+## Styling and customization
+
+Our `<b-skeleton>` component and helper components utilizes Bootstrap SCSS variables, as much as
+possible to best match the styling and sizing of the native components. This means if you've
+customized Bootstrap SCSS, the skeleton components should adapt to fit your custom theming.
+
+We've also provided a few custom SCSS varibles, that can be used to further customize the styling of
+the various `<b-skeleton>` components. You can read more about how to change these variables in the
+[theming section](/docs/reference/theming#bootstrapvue-sass-variables)
