@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { BSkeletonWrapper } from './skeleton-wrapper'
 
 describe('skeleton-wrapper', () => {
-  it('element has default layout', async () => {
+  it('`loading` slot renders when `loading` prop is true', async () => {
     const wrapper = mount(BSkeletonWrapper, {
       propsData: {
         loading: true
@@ -19,6 +19,20 @@ describe('skeleton-wrapper', () => {
     expect(wrapper.find('span').exists()).toBe(true)
     expect(wrapper.find('span').text()).toBe('Loading state')
     wrapper.destroy()
+  })
+
+  it('`default` slot renders when `loading` prop is false', async () => {
+    const wrapper = mount(BSkeletonWrapper, {
+      propsData: {
+        loading: false
+      },
+      slots: {
+        default: '<button>Action</button>'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('BUTTON')
+    expect(wrapper.text()).toBe('Action')
   })
 
   it('root element has correct aria attributes in loading state', async () => {
