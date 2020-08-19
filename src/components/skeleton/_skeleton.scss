@@ -19,7 +19,7 @@
 // Text
 .b-skeleton-text {
   height: $font-size-base;
-  margin-bottom: 0.25rem;
+  margin-bottom: $b-skeleton-text-spacing;
 
   @if $enable-rounded {
     border-radius: 0.25rem;

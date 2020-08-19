@@ -38,7 +38,6 @@ $b-custom-switch-indicator-size-lg: calc(
 $b-custom-switch-indicator-size-sm: calc(
   #{$b-custom-control-indicator-size-sm} - #{$custom-control-indicator-border-width * 4}
 ) !default;
-
 // Custom file sizes
 $b-custom-file-font-size-lg: $input-font-size-lg !default;
 $b-custom-file-font-size-sm: $input-font-size-sm !default;
@@ -58,11 +57,8 @@ $b-custom-file-height-inner-lg: calc(
 $b-custom-file-height-inner-sm: calc(
   #{$b-custom-file-line-height-sm * 1em} + #{$b-custom-file-padding-y-sm * 2}
 ) !default;
-
 // --- Icons ---
-
 $b-icon-vertical-offset: -0.15em;
-
 // Animations
 $b-icon-animation-cylon-duration: 0.75s !default;
 $b-icon-animation-cylon-vertical-duration: $b-icon-animation-cylon-duration !default;
@@ -72,21 +68,16 @@ $b-icon-animation-spin-reverse-duration: $b-icon-animation-spin-duration !defaul
 $b-icon-animation-spin-pulse-duration: 1s !default;
 $b-icon-animation-spin-reverse-pulse-duration: $b-icon-animation-spin-pulse-duration !default;
 $b-icon-animation-throb-duration: 0.75s !default;
-
 // --- Sidebar ---
-
 $b-sidebar-width: 320px !default;
 $b-sidebar-transition-duration: 0.3s !default;
 $b-sidebar-zindex: calc(#{$zindex-fixed} + 5) !default;
 $b-sidebar-header-font-size: 1.5rem !default;
 $b-sidebar-header-padding-y: $navbar-padding-y !default;
 $b-sidebar-header-padding-x: $navbar-padding-x !default;
-
 // --- Tables ---
-
 // Table busy state
 $b-table-busy-opacity: 0.55 !default;
-
 // Table sorting
 $b-table-sort-icon-bg-width: 0.65em !default;
 $b-table-sort-icon-bg-height: 1em !default;
@@ -99,50 +90,39 @@ $b-table-sort-icon-bg-descending: url("data:image/svg+xml,<svg xmlns='http://www
 $b-table-sort-icon-bg-dark-not-sorted: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22zM51 101l25-23 24-22H1l25 22z'/></svg>") !default;
 $b-table-sort-icon-bg-dark-ascending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' d='M51 1l25 23 24 22H1l25-22z'/><path fill='white' opacity='.3' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
 $b-table-sort-icon-bg-dark-descending: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='101' height='101' view-box='0 0 101 101' preserveAspectRatio='none'><path fill='white' opacity='.3' d='M51 1l25 23 24 22H1l25-22z'/><path fill='white' d='M51 101l25-23 24-22H1l25 22z'/></svg>") !default;
-
 // Flag to enable sticky table header and column CSS generation
 $bv-enable-table-sticky: true !default;
 // Default max-height for tables with sticky headers
 $b-table-sticky-header-max-height: 300px !default;
-
 // Flag to enable table stacked CSS generation
 $bv-enable-table-stacked: true !default;
 // Table stacked defaults
 $b-table-stacked-heading-width: 40% !default;
 $b-table-stacked-gap: 1rem !default;
-
 // Bootstrap v4.3 is missing the "active" variant for dark tables
 // Which translates to `bg-active`, but only for tables
 $table-dark-active-bg: $table-dark-hover-bg !default;
-
 // --- Toasts ---
-
 // Toaster defaults
 $b-toaster-zindex: 1100 !default;
 $b-toaster-offset-top: 0.5rem !default;
 $b-toaster-offset-bottom: $b-toaster-offset-top !default;
 $b-toaster-offset-left: $b-toaster-offset-top !default;
 $b-toaster-offset-right: $b-toaster-offset-top !default;
-
 // Default toast opacity
 // Value from 0 to 1, or 0% to 100%
 // Bootstrap default is 0.85 (extracted from the `$toast-background-color` value)
 // Bootstrap does not have this as a variable, so we add it in.
 $b-toast-background-opacity: alpha($toast-background-color) !default;
-
 // Toast variant levels wrt theme color value
 $b-toast-bg-level: $alert-bg-level !default;
 $b-toast-border-level: $alert-border-level !default;
 $b-toast-color-level: $alert-color-level !default;
-
 // --- Tooltips ---
-
 // Flag to enable tooltip variant CSS generation
 $bv-enable-tooltip-variants: true !default;
-
 // Tooltip background variant level wrt theme color value
 $b-tooltip-bg-level: 0 !default;
-
 // --- Popovers ---
 
 // Flag to enable popover variant CSS generation
@@ -152,10 +132,9 @@ $bv-enable-popover-variants: true !default;
 $b-popover-bg-level: $alert-bg-level !default;
 $b-popover-border-level: $alert-border-level !default;
 $b-popover-color-level: $alert-color-level !default;
-
 // --- Skeleton ---
-
-$b-skeleton-background-color: rgba(0, 0, 0, 0.12);
-$b-skeleton-loading-cursor: wait;
-$b-skeleton-animation-duration: 1.75s;
-$b-skeleton-btn-width: 75px;
+$b-skeleton-background-color: rgba(0, 0, 0, 0.12) !default;
+$b-skeleton-loading-cursor: wait !default;
+$b-skeleton-animation-duration: 1.75s !default;
+$b-skeleton-text-spacing: map-get($spacers, 1) !default;
+$b-skeleton-btn-width: 75px !default;
