@@ -2,11 +2,20 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
+import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { attemptBlur, attemptFocus, matches, requestAF, select } from '../../utils/dom'
+import {
+  attemptBlur,
+  attemptFocus,
+  closest,
+  isActiveElement,
+  matches,
+  requestAF,
+  select
+} from '../../utils/dom'
 import { isEvent, isFunction, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -178,6 +187,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    ignoreInputFocusSelector: {
+      // Disable the input focus behavior when clicking
+      // on element matching the selector (or selectors)
+      type: [Array, String],
+      default: () => ['.b-form-tag', 'button', 'input', 'select']
+    },
     value: {
       // The v-model prop
       type: Array,
@@ -244,6 +259,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // We append a space if the first separator is not a space
       const joiner = this.computedSeparator.charAt(0)
       return joiner !== ' ' ? `${joiner} ` : joiner
+    },
+    computeIgnoreInputFocusSelector() {
+      // Normalize to an single selector with selectors separated by `,`
+      return concat(this.ignoreInputFocusSelector)
+        .filter(identity)
+        .join(',')
+        .trim()
     },
     disableAddButton() {
       // If 'Add' button should be disabled
@@ -416,7 +438,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(evt) {
-      if (!this.disabled && isEvent(evt) && evt.target === evt.currentTarget) {
+      const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
+      const { target } = evt
+      if (
+        !this.disabled &&
+        !isActiveElement(target) &&
+        (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true))
+      ) {
         this.$nextTick(() => {
           this.focus()
         })
@@ -496,7 +524,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     getInput() {
       // Returns the input element reference (or null if not found)
-      return select(`#${this.computedInputId}`, this.$el)
+      // We need to escape `computedInputId` since it can be user-provided
+      return select(`#${cssEscape(this.computedInputId)}`, this.$el)
     },
     // Default User Interface render
     defaultRender({
@@ -530,7 +559,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           BFormTag,
           {
             key: `li-tag__${tag}`,
-            staticClass: 'mt-1 mr-1',
             class: tagClass,
             props: {
               // `BFormTag` will auto generate an ID
@@ -612,7 +640,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'flex-grow-1 mt-1',
+          staticClass: 'flex-grow-1',
           attrs: {
             role: 'none',
             'aria-live': 'off',
@@ -627,11 +655,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'ul',
         {
           key: '_tags_list_',
-          staticClass: 'list-unstyled mt-n1 mb-0 d-flex flex-wrap align-items-center',
+          staticClass: 'b-form-tags-list list-unstyled mb-0 d-flex flex-wrap align-items-center',
           attrs: { id: tagListId }
         },
-        // `concat()` is faster than array spread when args are known to be arrays
-        concat($tags, $field)
+        [$tags, $field]
       )
 
       // Assemble the feedback
@@ -792,12 +819,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           'aria-describedby': this.safeId('_selected_')
         },
         on: {
+          click: this.onClick,
           focusin: this.onFocusin,
-          focusout: this.onFocusout,
-          click: this.onClick
+          focusout: this.onFocusout
         }
       },
-      concat($output, $removed, $content, $hidden)
+      [$output, $removed, $content, $hidden]
     )
   }
 })

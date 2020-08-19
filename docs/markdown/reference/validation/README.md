@@ -64,8 +64,8 @@ Vue.use(VeeValidate, {
 
 ## VeeValidate v3
 
-[VeeValidate](https://logaretm.github.io/vee-validate/) is a plugin for Vue.js that allows you to validate
-input fields and display errors. It has full support for
+[VeeValidate](https://logaretm.github.io/vee-validate/) is a plugin for Vue.js that allows you to
+validate input fields and display errors. It has full support for
 [Vue I18n](https://kazupon.github.io/vue-i18n/) and provides fairly good out of the box error
 messages.
 

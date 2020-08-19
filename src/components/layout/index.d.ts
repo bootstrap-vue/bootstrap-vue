@@ -13,7 +13,7 @@ export declare class BContainer extends BvComponent {}
 // Component: b-row
 export declare class BRow extends BvComponent {}
 
-// Component: b-container
+// Component: b-col
 export declare class BCol extends BvComponent {}
 
 // Component: b-form-row
