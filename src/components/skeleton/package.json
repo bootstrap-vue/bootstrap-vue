@@ -14,7 +14,7 @@
           {
             "prop": "animation",
             "setting": true,
-            "description": "Changes the component animation, leave empty or null to disable the animation"
+            "description": "Changes the component animation, leave empty or `null` to disable the animation"
           },
           {
             "prop": "type",
@@ -46,11 +46,11 @@
         "slots": [
           {
             "name": "loading",
-            "description": "Content to show when the `loading` prop is true"
+            "description": "Content to show when the `loading` prop is `true`"
           },
           {
             "name": "default",
-            "description": "Content to show when the `loading` prop is false"
+            "description": "Content to show when the `loading` prop is `false`"
           }
         ]
       },
@@ -59,7 +59,7 @@
         "props": [
           {
             "prop": "animation",
-            "description": "Animation used for the component in each cell, leave empty or null to disable the animation"
+            "description": "Animation used for the component in each cell, leave empty or `null` to disable the animation"
           },
           {
             "prop": "rows",
@@ -92,7 +92,7 @@
         "props": [
           {
             "prop": "animation",
-            "description": "Animation used for the component, leave empty or null to disable the animation"
+            "description": "Animation used for the component, leave empty or `null` to disable the animation"
           },
           {
             "prop": "aspect",
@@ -104,11 +104,11 @@
           },
           {
             "prop": "height",
-            "description": "Sets the height of the image. Best used with `no-aspect` set to true"
+            "description": "Sets the height of the image. Best used with `no-aspect` set to `true`"
           },
           {
             "prop": "width",
-            "description": "Sets the width of the image. Best used with `no-aspect` set to true"
+            "description": "Sets the width of the image. Best used with `no-aspect` set to `true`"
           },
           {
             "prop": "cardImg",
@@ -121,7 +121,7 @@
         "props": [
           {
             "prop": "animation",
-            "description": "Animation used for the component, leave empty or null to disable the animation"
+            "description": "Animation used for the component, leave empty or `null` to disable the animation"
           },
           {
             "prop": "icon",
