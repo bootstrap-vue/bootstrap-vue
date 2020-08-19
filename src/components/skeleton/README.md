@@ -267,6 +267,6 @@ Our `<b-skeleton>` component and helper components utilizes Bootstrap SCSS varia
 possible to best match the styling and sizing of the native components. This means if you've
 customized Bootstrap SCSS, the skeleton components should adapt to fit your custom theming.
 
-We've also provided a few custom SCSS varibles, that can be used to further customize the styling of
-the various `<b-skeleton>` components. You can read more about how to change these variables in the
-[theming section](/docs/reference/theming#bootstrapvue-sass-variables)
+We've also provided a few custom SCSS variables, that can be used to further customize the styling
+of the various `<b-skeleton>` components. You can read more about how to change these variables in
+the [theming section](/docs/reference/theming#bootstrapvue-sass-variables)
