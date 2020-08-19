@@ -93,7 +93,7 @@
   },
   "dependencies": {
     "@nuxt/opencollective": "^0.3.0",
-    "bootstrap": ">=4.5.0 <5.0.0",
+    "bootstrap": ">=4.5.2 <5.0.0",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue-functional-data-merge": "^3.1.0"
