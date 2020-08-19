@@ -79,7 +79,7 @@
           },
           {
             "prop": "tableProps",
-            "description": "Supports the same props as `b-table-simple`"
+            "description": "Supports the same props as `<b-table-simple>`"
           },
           {
             "prop": "variant",
@@ -129,7 +129,7 @@
           },
           {
             "prop": "iconProps",
-            "description": "Properties to pass on to the icon. Refer to `b-icon` property references"
+            "description": "Properties to pass on to the icon. Refer to `<b-icon>` property references"
           }
         ]
       }
