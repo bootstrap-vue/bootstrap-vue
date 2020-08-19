@@ -4,7 +4,6 @@
   "meta": {
     "title": "Form Rating",
     "version": "2.12.0",
-    "new": true,
     "description": "BootstrapVue custom star rating form control for ratings entry or aggregated display",
     "components": [
       {
