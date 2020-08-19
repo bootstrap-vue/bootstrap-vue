@@ -7086,10 +7086,10 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-html-loader@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/html-loader/-/html-loader-1.2.0.tgz#828485a8d75470d805d51263e480a7af50ae1de2"
-  integrity sha512-/T2MmGeK+xbXT0YLHoKj6Od5KuCpMF5/9chUJO0GAy6O4+KEluUgzJ3SKfbtTA4Zb1a5BLefC+nOZ1Elkp4WtQ==
+html-loader@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/html-loader/-/html-loader-1.2.1.tgz#d564cde016d17fe8a2992a64fea314e09fed7fe3"
+  integrity sha512-oE92tLmSnWIjM0190s8+MiwNAKValkddHSVphSR37MrwcP3iy/rbbw4N7hSLG+m3OiuVRwVHJYFcIYfN2xqUHQ==
   dependencies:
     html-minifier-terser "^5.1.1"
     htmlparser2 "^4.1.0"
