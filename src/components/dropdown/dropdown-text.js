@@ -13,6 +13,10 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
     variant: {
       type: String
       // default: null
+    },
+    textClass: {
+      type: [String, Array, Object],
+      default: null
     }
   },
   render(h, { props, data, children }) {
@@ -23,9 +27,12 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
         props.tag,
         {
           staticClass: 'b-dropdown-text',
-          class: {
-            [`text-${props.variant}`]: props.variant
-          },
+          class: [
+            props.textClass,
+            {
+              [`text-${props.variant}`]: props.variant
+            }
+          ],
           props,
           attrs: $attrs,
           ref: 'text'
