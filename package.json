@@ -159,11 +159,11 @@
     "sass-loader": "^9.0.3",
     "standard-version": "^9.0.0",
     "terser": "^5.2.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-jest": "^3.0.6",
     "vue-router": "^3.4.3",
-    "vue-server-renderer": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "vue-server-renderer": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
   },
   "standard-version": {
     "scripts": {
