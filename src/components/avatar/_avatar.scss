@@ -57,6 +57,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    mask-image: radial-gradient(white, black);
   }
 
   .b-avatar-text {
@@ -79,6 +80,7 @@
     height: 100%;
     max-height: auto;
     border-radius: inherit;
+    object-fit: cover;
   }
 
   .b-avatar-badge {
