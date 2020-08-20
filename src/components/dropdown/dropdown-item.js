@@ -51,20 +51,17 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const { linkClass, variant, active, disabled, onClick } = this
+
     return h('li', { attrs: { role: 'presentation' } }, [
       h(
         BLink,
         {
-          props: this.$props,
           staticClass: 'dropdown-item',
-          class: [
-            this.linkClass,
-            {
-              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
-            }
-          ],
+          class: [linkClass, { [`text-${variant}`]: variant && !(active || disabled) }],
+          props: this.$props,
           attrs: this.computedAttrs,
-          on: { click: this.onClick },
+          on: { click: onClick },
           ref: 'item'
         },
         this.normalizeSlot('default')
