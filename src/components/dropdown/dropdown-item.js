@@ -20,12 +20,12 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
   props: {
     ...props,
     linkClass: {
-      type: [String, Array, Object],
-      default: null
+      type: [String, Array, Object]
+      // default: null
     },
     variant: {
-      type: String,
-      default: null
+      type: String
+      // default: null
     }
   },
   computed: {
