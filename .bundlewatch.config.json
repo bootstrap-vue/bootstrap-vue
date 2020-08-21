@@ -50,7 +50,7 @@
     },
     {
       "path": "./dist/bootstrap-vue.esm.js",
-      "maxSize": "305 kB"
+      "maxSize": "310 kB"
     },
     {
       "path": "./dist/bootstrap-vue.esm.min.js",

@@ -39,4 +39,21 @@ describe('dropdown-text', () => {
 
     wrapper.destroy()
   })
+
+  it('adds classes from `text-class` prop to child', async () => {
+    const wrapper = mount(BDropdownText, {
+      context: {
+        props: { textClass: 'some-custom-class' }
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('LI')
+
+    const text = wrapper.find('p')
+    expect(text.element.tagName).toBe('P')
+    expect(text.classes()).toContain('b-dropdown-text')
+    expect(text.classes()).toContain('some-custom-class')
+
+    wrapper.destroy()
+  })
 })

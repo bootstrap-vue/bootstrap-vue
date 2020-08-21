@@ -10,24 +10,29 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
       type: String,
       default: 'p'
     },
+    textClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
     variant: {
       type: String
       // default: null
     }
   },
   render(h, { props, data, children }) {
-    const $attrs = data.attrs || {}
+    const { tag, textClass, variant } = props
+
+    const attrs = data.attrs || {}
     data.attrs = {}
+
     return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
       h(
-        props.tag,
+        tag,
         {
           staticClass: 'b-dropdown-text',
-          class: {
-            [`text-${props.variant}`]: props.variant
-          },
+          class: [textClass, { [`text-${variant}`]: variant }],
           props,
-          attrs: $attrs,
+          attrs,
           ref: 'text'
         },
         children
