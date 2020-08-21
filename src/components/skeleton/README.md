@@ -43,7 +43,7 @@
       return {
         loading: false,
         loadingTime: 0,
-        maxLoadingTime: 5
+        maxLoadingTime: 3
       }
     },
     watch: {
