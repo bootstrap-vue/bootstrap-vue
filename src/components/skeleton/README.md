@@ -110,8 +110,8 @@
 
 ## Skeleton animations
 
-`<b-skeleton>` supports various animations. You can set them per component or change it globally in
-the [settings](/docs/reference/settings).
+`<b-skeleton>` supports different animations. You can set them per component or change it globally
+in the [settings](/docs/reference/settings).
 
 ```html
 <h5>Wave (default)</h5>
@@ -201,7 +201,8 @@ position of the image. This will apply the proper border-radius.
     <b-card no-body img-top>
       <b-skeleton-img card-img="top" aspect="3:1"></b-skeleton-img>
       <b-card-body>
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas viverra nunc sapien,
+        non rhoncus elit tincidunt vitae.
       </b-card-body>
     </b-card>
   </b-col>
@@ -209,7 +210,8 @@ position of the image. This will apply the proper border-radius.
     <h5>Image bottom</h5>
     <b-card no-body img-bottom>
       <b-card-body>
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        Vestibulum maximus, ligula eu feugiat molestie, massa diam imperdiet odio, vitae viverra
+        ligula est id nisi. Aliquam ut molestie est.
       </b-card-body>
       <b-skeleton-img card-img="bottom" aspect="3:1"></b-skeleton-img>
     </b-card>
@@ -222,7 +224,8 @@ position of the image. This will apply the proper border-radius.
     <b-card no-body img-left>
       <b-skeleton-img card-img="left" width="225px"></b-skeleton-img>
       <b-card-body>
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. Phasellus at consequat dui.
       </b-card-body>
     </b-card>
   </b-col>
@@ -231,7 +234,7 @@ position of the image. This will apply the proper border-radius.
     <b-card no-body img-right>
       <b-skeleton-img card-img="right" width="225px"></b-skeleton-img>
       <b-card-body>
-        Some quick example text to build on the card and make up the bulk of the card's content.
+        Aenean tristique sagittis quam, sit amet sollicitudin neque sodales in.
       </b-card-body>
     </b-card>
   </b-col>
@@ -242,8 +245,8 @@ position of the image. This will apply the proper border-radius.
 
 ## Icons
 
-`<b-skeleton-icon>` can be used placeholder for icons. If you need to use any icon props, you can
-pass them via the `icon-props` property.
+`<b-skeleton-icon>` can also be used as placeholder for icons. If you need to use any icon props,
+you can pass them via the `icon-props` property.
 
 ```html
 <b-skeleton-icon
@@ -263,10 +266,10 @@ pass them via the `icon-props` property.
 
 ## Styling and customization
 
-Our `<b-skeleton>` component and helper components utilizes Bootstrap SCSS variables, as much as
+The `<b-skeleton>` component and helper components utilizes Bootstrap SCSS variables, as much as
 possible to best match the styling and sizing of the native components. This means if you've
 customized Bootstrap SCSS, the skeleton components should adapt to fit your custom theming.
 
 We've also provided a few custom SCSS variables, that can be used to further customize the styling
 of the various `<b-skeleton>` components. You can read more about how to change these variables in
-the [theming section](/docs/reference/theming#bootstrapvue-sass-variables)
+the [theming section](/docs/reference/theming#bootstrapvue-sass-variables).
