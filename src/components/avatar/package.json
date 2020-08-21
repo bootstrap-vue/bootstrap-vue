@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Avatar",
-    "new": true,
     "version": "2.8.0",
     "description": "Avatars are typically used to display a user profile as a picture, an icon, or short text.",
     "components": [

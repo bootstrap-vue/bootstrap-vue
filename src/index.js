@@ -283,6 +283,10 @@ export { BProgressBar } from './components/progress/progress-bar'
 export { SidebarPlugin } from './components/sidebar'
 export { BSidebar } from './components/sidebar/sidebar'
 
+// export * from './components/skeleton'
+export { SkeletonPlugin } from './components/skeleton'
+export { BSkeleton } from './components/skeleton'
+
 // export * from './components/spinner'
 export { SpinnerPlugin } from './components/spinner'
 export { BSpinner } from './components/spinner/spinner'
