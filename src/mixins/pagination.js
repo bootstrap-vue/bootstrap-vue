@@ -223,12 +223,14 @@ export default {
     },
     paginationParams() {
       // Determine if we should show the the ellipsis
-      const limit = this.localLimit
-      const numberOfPages = this.localNumberOfPages
-      const currentPage = this.computedCurrentPage
-      const hideEllipsis = this.hideEllipsis
-      const firstNumber = this.firstNumber
-      const lastNumber = this.lastNumber
+      const {
+        localLimit: limit,
+        localNumberOfPages: numberOfPages,
+        computedCurrentPage: currentPage,
+        hideEllipsis,
+        firstNumber,
+        lastNumber
+      } = this
       let showFirstDots = false
       let showLastDots = false
       let numberOfLinks = limit
@@ -252,7 +254,7 @@ export default {
       } else {
         // We are somewhere in the middle of the page list
         if (limit > ELLIPSIS_THRESHOLD) {
-          numberOfLinks = limit - 2
+          numberOfLinks = limit - (hideEllipsis ? 0 : 2)
           showFirstDots = !!(!hideEllipsis || firstNumber)
           showLastDots = !!(!hideEllipsis || lastNumber)
         }
