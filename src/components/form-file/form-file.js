@@ -248,7 +248,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting `no-traverse`
-      const { items } = evt.dataTransfer
+      const { files, items } = evt.dataTransfer || {}
       /* istanbul ignore next: not supported in JSDOM */
       if (items && !this.noTraverse) {
         getAllFileEntries(items).then(files => {
@@ -256,7 +256,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
       } else {
         // Normal handling
-        this.setFiles(evt.target.files || evt.dataTransfer.files)
+        this.setFiles(evt.target.files || files)
       }
     },
     setFiles(files) {
