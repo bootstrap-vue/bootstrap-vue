@@ -58,7 +58,7 @@ const readAllDirectoryEntries = async directoryReader => {
 // Wrap `.readEntries()` in a promise to make working with it easier
 // `.readEntries()` will return only some of the entries in a directory
 // (e.g. Chrome returns at most 100 entries at a time)
-async function readEntriesPromise(directoryReader) {
+const readEntriesPromise = async directoryReader => {
   try {
     return await new Promise((resolve, reject) => {
       directoryReader.readEntries(resolve, reject)
