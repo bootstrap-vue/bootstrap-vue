@@ -25,6 +25,7 @@ const VALUE_EMPTY_DEPRECATED_MSG =
 const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 
 // Drop handler function to get all files
+/* istanbul ignore next: not supported in JSDOM */
 const getAllFileEntries = async dataTransferItemList => {
   const fileEntries = []
   const queue = []
@@ -45,6 +46,7 @@ const getAllFileEntries = async dataTransferItemList => {
 
 // Get all the entries (files or sub-directories) in a directory
 // by calling `.readEntries()` until it returns empty array
+/* istanbul ignore next: not supported in JSDOM */
 const readAllDirectoryEntries = async directoryReader => {
   const entries = []
   let readEntries = await readEntriesPromise(directoryReader)
@@ -58,6 +60,7 @@ const readAllDirectoryEntries = async directoryReader => {
 // Wrap `.readEntries()` in a promise to make working with it easier
 // `.readEntries()` will return only some of the entries in a directory
 // (e.g. Chrome returns at most 100 entries at a time)
+/* istanbul ignore next: not supported in JSDOM */
 const readEntriesPromise = async directoryReader => {
   try {
     return await new Promise((resolve, reject) => {
@@ -245,7 +248,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
       // Can be disabled by setting `no-traverse`
-      const items = evt.dataTransfer && evt.dataTransfer.items
+      const { items } = evt.dataTransfer
       /* istanbul ignore next: not supported in JSDOM */
       if (items && !this.noTraverse) {
         getAllFileEntries(items).then(files => {
