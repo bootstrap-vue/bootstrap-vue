@@ -151,6 +151,7 @@
     "nuxt": "^2.14.3",
     "postcss-cli": "^7.1.1",
     "prettier": "1.14.3",
+    "regenerator-runtime": "^0.13.7",
     "require-context": "^1.1.0",
     "rollup": "^2.26.5",
     "rollup-plugin-babel": "^4.4.0",

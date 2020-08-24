@@ -1,4 +1,5 @@
 // Creates a web-types.json, tags.json and attributes.json files and places them in /dist
+require('regenerator-runtime/runtime')
 const path = require('path')
 const fs = require('fs')
 const requireContext = require('require-context')
