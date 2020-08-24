@@ -2091,7 +2091,7 @@ done) and the filter searches that stringified data (excluding any of the specia
 begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
 in the presented columns.
 
-With the default built-in filter function, The `filter` prop value can either be a string or a
+With the default built-in filter function, the `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
 
 If the stringified row contains the provided string value or matches the RegExp expression then it
