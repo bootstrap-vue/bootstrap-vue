@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BNavbarToggle } from './navbar-toggle'
 
 describe('navbar-toggle', () => {
@@ -106,6 +106,10 @@ describe('navbar-toggle', () => {
         target: 'target-7'
       }
     })
+
+    await waitRAF()
+    await waitNT(wrapper.vm)
+
     let rootClicked = false
     const onRootClick = () => {
       rootClicked = true
