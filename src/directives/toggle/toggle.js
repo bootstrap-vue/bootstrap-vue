@@ -9,10 +9,11 @@ import {
   isTag,
   removeAttr,
   removeClass,
+  requestAF,
   setAttr
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { eventOn, eventOff } from '../../utils/events'
+import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
@@ -95,8 +96,8 @@ const getTargets = ({ modifiers, arg, value }, el) => {
 const removeClickListener = el => {
   const handler = el[BV_TOGGLE_CLICK_HANDLER]
   if (handler) {
-    eventOff(el, 'click', handler)
-    eventOff(el, 'keydown', handler)
+    eventOff(el, 'click', handler, EVENT_OPTIONS_PASSIVE)
+    eventOff(el, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
   }
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
@@ -116,9 +117,9 @@ const addClickListener = (el, vnode) => {
       }
     }
     el[BV_TOGGLE_CLICK_HANDLER] = handler
-    eventOn(el, 'click', handler)
+    eventOn(el, 'click', handler, EVENT_OPTIONS_PASSIVE)
     if (isNonStandardTag(el)) {
-      eventOn(el, 'keydown', handler)
+      eventOn(el, 'keydown', handler, EVENT_OPTIONS_PASSIVE)
     }
   }
 }
@@ -203,7 +204,11 @@ const handleUpdate = (el, binding, vnode) => {
   }
 
   // Add/Update our click listener(s)
-  addClickListener(el, vnode)
+  // Wrap in a `requestAF()` to allow any previous
+  // click handling to occur first
+  requestAF(() => {
+    addClickListener(el, vnode)
+  })
 
   // If targets array has changed, update
   if (!looseEqual(targets, el[BV_TOGGLE_TARGETS])) {
