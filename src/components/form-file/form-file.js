@@ -24,6 +24,51 @@ const VALUE_EMPTY_DEPRECATED_MSG =
 
 const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 
+// Drop handler function to get all files
+/* istanbul ignore next: not supported in JSDOM */
+const getAllFileEntries = async dataTransferItemList => {
+  const fileEntries = []
+  const queue = []
+  // Unfortunately `dataTransferItemList` is not iterable i.e. no `.forEach()`
+  for (let i = 0; i < dataTransferItemList.length; i++) {
+    queue.push(dataTransferItemList[i].webkitGetAsEntry())
+  }
+  while (queue.length > 0) {
+    const entry = queue.shift()
+    if (entry.isFile) {
+      fileEntries.push(entry)
+    } else if (entry.isDirectory) {
+      queue.push(...(await readAllDirectoryEntries(entry.createReader())))
+    }
+  }
+  return fileEntries
+}
+
+// Get all the entries (files or sub-directories) in a directory
+// by calling `.readEntries()` until it returns empty array
+/* istanbul ignore next: not supported in JSDOM */
+const readAllDirectoryEntries = async directoryReader => {
+  const entries = []
+  let readEntries = await readEntriesPromise(directoryReader)
+  while (readEntries.length > 0) {
+    entries.push(...readEntries)
+    readEntries = await readEntriesPromise(directoryReader)
+  }
+  return entries
+}
+
+// Wrap `.readEntries()` in a promise to make working with it easier
+// `.readEntries()` will return only some of the entries in a directory
+// (e.g. Chrome returns at most 100 entries at a time)
+/* istanbul ignore next: not supported in JSDOM */
+const readEntriesPromise = async directoryReader => {
+  try {
+    return await new Promise((resolve, reject) => {
+      directoryReader.readEntries(resolve, reject)
+    })
+  } catch {}
+}
+
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME,
@@ -202,40 +247,23 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Always emit original event
       this.$emit('change', evt)
       // Check if special `items` prop is available on event (drop mode)
-      // Can be disabled by setting no-traverse
-      const items = evt.dataTransfer && evt.dataTransfer.items
+      // Can be disabled by setting `no-traverse`
+      const { files, items } = evt.dataTransfer || {}
       /* istanbul ignore next: not supported in JSDOM */
       if (items && !this.noTraverse) {
-        const queue = []
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i].webkitGetAsEntry()
-          if (item) {
-            queue.push(this.traverseFileTree(item))
-          }
-        }
-        Promise.all(queue).then(filesArr => {
-          this.setFiles(arrayFrom(filesArr))
+        getAllFileEntries(items).then(files => {
+          this.setFiles(files)
         })
-        return
-      }
-      // Normal handling
-      this.setFiles(evt.target.files || evt.dataTransfer.files)
-    },
-    setFiles(files = []) {
-      if (!files) {
-        /* istanbul ignore next: this will probably not happen */
-        this.selectedFile = null
-      } else if (this.multiple) {
-        // Convert files to array
-        const filesArray = []
-        for (let i = 0; i < files.length; i++) {
-          filesArray.push(files[i])
-        }
-        // Return file(s) as array
-        this.selectedFile = filesArray
       } else {
-        // Return single file object
-        this.selectedFile = files[0] || null
+        // Normal handling
+        this.setFiles(evt.target.files || files)
+      }
+    },
+    setFiles(files) {
+      if (this.multiple) {
+        this.selectedFile = arrayFrom(files || [])
+      } else {
+        this.selectedFile = files ? files[0] || null : null
       }
     },
     onReset() {
@@ -265,39 +293,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return
       }
       this.dragging = false
-      if (evt.dataTransfer.files && evt.dataTransfer.files.length > 0) {
-        this.onFileChange(evt)
-      }
-    },
-    /* istanbul ignore next: not supported in JSDOM */
-    traverseFileTree(item, path) /* istanbul ignore next */ {
-      // Based on https://stackoverflow.com/questions/3590058
-      return new Promise(resolve => {
-        path = path || ''
-        if (item.isFile) {
-          // Get file
-          item.file(file => {
-            file.$path = path // Inject $path to file obj
-            resolve(file)
-          })
-        } else if (item.isDirectory) {
-          // Get folder contents
-          item.createReader().readEntries(entries => {
-            const queue = []
-            for (let i = 0; i < entries.length; i++) {
-              queue.push(this.traverseFileTree(entries[i], path + item.name + '/'))
-            }
-            Promise.all(queue).then(filesArr => {
-              resolve(arrayFrom(filesArr))
-            })
-          })
-        }
-      })
+      this.onFileChange(evt)
     }
   },
   render(h) {
     // Form Input
-    const input = h('input', {
+    const $input = h('input', {
       ref: 'input',
       class: [
         {
@@ -317,11 +318,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     })
 
     if (this.plain) {
-      return input
+      return $input
     }
 
     // Overlay Labels
-    const label = h(
+    const $label = h(
       'label',
       {
         staticClass: 'custom-file-label',
@@ -352,7 +353,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           drop: this.onDrop
         }
       },
-      [input, label]
+      [$input, $label]
     )
   }
 })
