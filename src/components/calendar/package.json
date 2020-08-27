@@ -177,6 +177,11 @@
             "prop": "weekdayHeaderFormat",
             "version": "2.12.0",
             "description": "Format to use for the calendar weekday headings. Possible values are `long`, `short` (default), or `narrow`"
+          },
+          {
+            "prop": "navButtonVariant",
+            "version": "2.17.0",
+            "description": "Changes the theme variant of the navigation buttons"
           }
         ],
         "events": [

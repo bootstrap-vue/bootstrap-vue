@@ -82,7 +82,8 @@ export default deepFreeze({
     labelNoDateSelected: 'No date selected',
     labelCalendar: 'Calendar',
     labelNav: 'Calendar navigation',
-    labelHelp: 'Use cursor keys to navigate calendar dates'
+    labelHelp: 'Use cursor keys to navigate calendar dates',
+    navButtonVariant: 'outline-secondary'
   },
   BCardSubTitle: {
     // `<b-card>` and `<b-card-body>` also inherit this prop

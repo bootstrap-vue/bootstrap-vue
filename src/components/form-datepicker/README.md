@@ -219,6 +219,8 @@ default. To specify a different theme color to use for today's date, use the `to
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
+Variant of the navigation buttons can be changed via the `nav-button-variant` prop.
+
 ### Control sizing
 
 Fancy a smaller or larger `<b-form-datepicker>` control? Set the `size` prop to `'sm'` for a smaller

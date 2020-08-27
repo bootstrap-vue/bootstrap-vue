@@ -262,6 +262,10 @@ const propsMixin = {
       default: STR_SHORT,
       validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     },
+    navButtonVariant: {
+      type: String,
+      default: () => getConfigFallback('navButtonVariant')
+    },
     // Dark mode
     dark: {
       type: Boolean,
@@ -343,7 +347,8 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelNav: self.labelNav,
         labelHelp: self.labelHelp,
         dateFormatOptions: self.dateFormatOptions,
-        weekdayHeaderFormat: self.weekdayHeaderFormat
+        weekdayHeaderFormat: self.weekdayHeaderFormat,
+        navButtonVariant: self.navButtonVariant
       }
     },
     computedLang() {

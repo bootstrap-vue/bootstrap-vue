@@ -254,6 +254,10 @@ export const BCalendar = Vue.extend({
       // Although some locales may override this (i.e `ar`, etc)
       default: STR_SHORT,
       validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
+    },
+    navButtonVariant: {
+      type: String,
+      default: getComponentConfig(NAME, 'navButtonVariant')
     }
   },
   data() {
@@ -809,7 +813,8 @@ export const BCalendar = Vue.extend({
       isRTL,
       activeYMD,
       selectedYMD,
-      safeId
+      safeId,
+      navButtonVariant
     } = this
     const hideDecadeNav = !this.showDecadeNav
     const todayYMD = formatYMD(this.getToday())
@@ -889,8 +894,8 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
-          class: { disabled: btnDisabled },
+          staticClass: 'btn btn-sm border-0 flex-fill',
+          class: { disabled: btnDisabled, [`btn-${navButtonVariant}`]: true },
           attrs: {
             title: label || null,
             type: 'button',
