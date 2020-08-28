@@ -218,6 +218,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // v-model
       type: Number,
       default: null
+    },
+    transition: {
+      type: [Object, null],
+      default: null
     }
   },
   data() {

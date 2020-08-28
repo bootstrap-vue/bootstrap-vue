@@ -80,6 +80,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     computedNoFade() {
       return !(this.bvTabs.fade || false)
     },
+    computedTransition() {
+      return this.bvTabs.transition
+    },
     computedLazy() {
       return this.bvTabs.lazy || this.lazy
     },
@@ -187,6 +190,11 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       // Render content lazily if requested
       [this.localActive || !this.computedLazy ? this.normalizeSlot('default') : h()]
     )
+
+    // Custom Transition
+    if (this.computedTransition)
+      return h('transition', { props: this.computedTransition }, [content])
+
     return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [content])
   }
 })

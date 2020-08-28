@@ -79,6 +79,10 @@
           {
             "prop": "value",
             "description": "Currently visible tab index (zero-based)"
+          },
+          {
+            "prop": "transition",
+            "description": "transition component's attribute as object"
           }
         ],
         "events": [
