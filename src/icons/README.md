@@ -23,23 +23,23 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
   </p>
   <ul class="mb-0">
     <li>
-      <strong>`v1.0.0-alpha3` changes:</strong> In addition to over 200 new icons, some icons have
-      changed names &mdash; <code>document-*</code> icons renamed <code>file-*</code>;
+      <strong><code>v1.0.0-alpha3</code> changes:</strong> In addition to over 200 new icons,
+      some icons have changed names &mdash; <code>document-*</code> icons renamed <code>file-*</code>;
       <code>alert-*</code> icons renamed <code>exclamation-*</code>; <code>columns-gutters</code>
       renamed <code>columns-gap</code> and <code>diamond</code> renamed <code>gem</code> (because of
       new <code>diamond-*</code> shape icons).
     </li>
     <li>
-      <strong>`v1.0.0-alpha4` changes:</strong> In addition to over 140 new icons, some icons have changed
-      names &mdash; <code>arrow-up-down</code> renamed <code>arrow-down-up</code> and
-      <code>people-circle</code> renamed <code>person-circle</code>.
+      <strong><code>v1.0.0-alpha4</code> changes:</strong> In addition to over 140 new icons,
+      some icons have changed names &mdash; <code>arrow-up-down</code> renamed
+      <code>arrow-down-up</code> and <code>people-circle</code> renamed <code>person-circle</code>.
     </li>
     <li>
-      <strong>`v1.0.0-alpha5` changes:</strong> In addition to over 300 new icons, some icons have changed
-      names &mdash; <code>camera</code> renamed <code>camera2</code>.
+      <strong><code>v1.0.0-alpha5</code> changes:</strong> In addition to over 300 new icons,
+      some icons have changed names &mdash; <code>camera</code> renamed <code>camera2</code>.
     </li>
     <li>
-      <strong>`v1.0.0` changes:</strong> Over 90 new icons were added and over 400 redrawn.
+      <strong><code>v1.0.0</code> changes:</strong> Over 90 new icons were added and over 400 redrawn.
     </li>
   </ul>
 </div>
