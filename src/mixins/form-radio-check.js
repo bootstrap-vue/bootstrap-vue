@@ -1,3 +1,4 @@
+import looseEqual from '../utils/loose-equal'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
@@ -160,8 +161,10 @@ export default {
     }
   },
   watch: {
-    checked(newVal) {
-      this.computedLocalChecked = newVal
+    checked(newValue) {
+      if (!looseEqual(newValue, this.computedLocalChecked)) {
+        this.computedLocalChecked = newValue
+      }
     }
   },
   methods: {

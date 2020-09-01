@@ -52,13 +52,8 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     isChecked() {
-      const checked = this.computedLocalChecked
-      const value = this.value
-      if (isArray(checked)) {
-        return looseIndexOf(checked, value) > -1
-      } else {
-        return looseEqual(checked, value)
-      }
+      const { value, computedLocalChecked: checked } = this
+      return isArray(checked) ? looseIndexOf(checked, value) > -1 : looseEqual(checked, value)
     },
     isRadio() {
       return false
@@ -68,10 +63,14 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    computedLocalChecked(newVal) {
-      this.$emit('input', newVal)
-      if (this.$refs && this.$refs.input) {
-        this.$emit('update:indeterminate', this.$refs.input.indeterminate)
+    computedLocalChecked(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit('input', newValue)
+
+        const $input = this.$refs.input
+        if ($input) {
+          this.$emit('update:indeterminate', $input.indeterminate)
+        }
       }
     },
     indeterminate(newVal) {
@@ -84,30 +83,33 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     handleChange({ target: { checked, indeterminate } }) {
+      const { value, uncheckedValue } = this
+
+      // Update `computedLocalChecked`
       let localChecked = this.computedLocalChecked
-      const value = this.value
-      const isArr = isArray(localChecked)
-      const uncheckedValue = isArr ? null : this.uncheckedValue
-      // Update computedLocalChecked
-      if (isArr) {
-        const idx = looseIndexOf(localChecked, value)
-        if (checked && idx < 0) {
+      if (isArray(localChecked)) {
+        const index = looseIndexOf(localChecked, value)
+        if (checked && index < 0) {
           // Add value to array
           localChecked = localChecked.concat(value)
-        } else if (!checked && idx > -1) {
+        } else if (!checked && index > -1) {
           // Remove value from array
-          localChecked = localChecked.slice(0, idx).concat(localChecked.slice(idx + 1))
+          localChecked = localChecked.slice(0, index).concat(localChecked.slice(index + 1))
         }
       } else {
         localChecked = checked ? value : uncheckedValue
       }
       this.computedLocalChecked = localChecked
+
       // Change is only emitted on user interaction
-      this.$emit('change', checked ? value : uncheckedValue)
-      // If this is a child of form-checkbox-group, we emit a change event on it as well
+      this.$emit('change', localChecked)
+
+      // If this is a child of `<form-checkbox-group>`,
+      // we emit a change event on it as well
       if (this.isGroup) {
         this.bvGroup.$emit('change', localChecked)
       }
+
       this.$emit('update:indeterminate', indeterminate)
     },
     setIndeterminate(state) {
@@ -115,8 +117,10 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       if (isArray(this.computedLocalChecked)) {
         state = false
       }
-      if (this.$refs && this.$refs.input) {
-        this.$refs.input.indeterminate = state
+
+      const $input = this.$refs.input
+      if ($input) {
+        $input.indeterminate = state
         // Emit update event to prop
         this.$emit('update:indeterminate', state)
       }
