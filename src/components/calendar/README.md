@@ -200,11 +200,16 @@ default. To specify a different theme color to use for today's date, use the `to
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
-Variant of the navigation buttons can be changed via the `nav-button-variant` prop.
+The navigation buttons default to the `'secondary'` theme variant. You can change this via the
+`nav-button-variant` prop.
 
 ```html
 <template>
-  <b-calendar selected-variant="success" today-variant="info" nav-button-variant="outline-primary"></b-calendar>
+  <b-calendar
+    selected-variant="success"
+    today-variant="info"
+    nav-button-variant="primary"
+  ></b-calendar>
 </template>
 
 <!-- b-calendar-variants.vue -->

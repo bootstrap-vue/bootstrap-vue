@@ -133,12 +133,17 @@ const propsMixin = {
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: 'primary'
+      default: () => getConfigFallback('selectedVariant')
     },
     todayVariant: {
-      // Variant color to use for today's date (defaults to `variant`)
-      type: String
-      // default: null
+      // Variant color to use for today's date (defaults to `selectedVariant`)
+      type: String,
+      default: () => getConfigFallback('todayVariant')
+    },
+    navButtonVariant: {
+      // Variant color to use for the navigation buttons
+      type: String,
+      default: () => getConfigFallback('navButtonVariant')
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -262,10 +267,6 @@ const propsMixin = {
       default: STR_SHORT,
       validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     },
-    navButtonVariant: {
-      type: String,
-      default: () => getConfigFallback('navButtonVariant')
-    },
     // Dark mode
     dark: {
       type: Boolean,
@@ -329,6 +330,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         dateDisabledFn: self.dateDisabledFn,
         selectedVariant: self.selectedVariant,
         todayVariant: self.todayVariant,
+        navButtonVariant: self.navButtonVariant,
         dateInfoFn: self.dateInfoFn,
         hideHeader: self.hideHeader,
         showDecadeNav: self.showDecadeNav,
@@ -347,8 +349,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         labelNav: self.labelNav,
         labelHelp: self.labelHelp,
         dateFormatOptions: self.dateFormatOptions,
-        weekdayHeaderFormat: self.weekdayHeaderFormat,
-        navButtonVariant: self.navButtonVariant
+        weekdayHeaderFormat: self.weekdayHeaderFormat
       }
     },
     computedLang() {

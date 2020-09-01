@@ -64,11 +64,15 @@ export default deepFreeze({
   },
   BButtonClose: {
     content: '&times;',
-    // `textVariant` is `null` to inherit the current text color
+    // `textVariant` is `undefined` to inherit the current text color
     textVariant: undefined,
     ariaLabel: 'Close'
   },
   BCalendar: {
+    selectedVariant: 'primary',
+    // Defaults to `selectedVariant`
+    todayVariant: undefined,
+    navButtonVariant: 'secondary',
     // BFormDate will choose these first if not provided in BFormDate section
     labelPrevDecade: 'Previous decade',
     labelPrevYear: 'Previous year',
@@ -82,8 +86,7 @@ export default deepFreeze({
     labelNoDateSelected: 'No date selected',
     labelCalendar: 'Calendar',
     labelNav: 'Calendar navigation',
-    labelHelp: 'Use cursor keys to navigate calendar dates',
-    navButtonVariant: 'outline-secondary'
+    labelHelp: 'Use cursor keys to navigate calendar dates'
   },
   BCardSubTitle: {
     // `<b-card>` and `<b-card-body>` also inherit this prop
@@ -103,6 +106,9 @@ export default deepFreeze({
   },
   BFormDatepicker: {
     // BFormDatepicker will choose from BCalendar first if not provided here
+    selectedVariant: undefined,
+    todayVariant: undefined,
+    navButtonVariant: undefined,
     labelPrevDecade: undefined,
     labelPrevYear: undefined,
     labelPrevMonth: undefined,

@@ -344,7 +344,7 @@ describe('calendar', () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
       propsData: {
-        navButtonVariant: 'outline-primary'
+        navButtonVariant: 'primary'
       }
     })
 
