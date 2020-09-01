@@ -46,11 +46,19 @@
           },
           {
             "prop": "selectedVariant",
+            "settings": true,
             "description": "Theme color variant to use for the selected date button"
           },
           {
             "prop": "todayVariant",
-            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
+            "settings": true,
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `selectedVariant` prop"
+          },
+          {
+            "prop": "navButtonVariant",
+            "version": "2.17.0",
+            "settings": true,
+            "description": "Theme color variant to use for the navigation buttons"
           },
           {
             "prop": "noHighlightToday",

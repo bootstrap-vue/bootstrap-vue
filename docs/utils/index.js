@@ -7,16 +7,14 @@ export const kebabCase = str => {
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
-  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+)/)
-  const matchesCount = matches.length
-  return matchesCount > 0 ? matches[matchesCount - 1] : ''
+  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+)/) || []
+  return matches.length > 0 ? matches[0] : ''
 }
 
-// Parse a fully qualified version from a string (including alpha/beta/etc
+// Parse a fully qualified version from a string (including alpha/beta/etc.)
 export const parseFullVersion = version => {
-  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(?:-[a-z]+[.-]?[0-9]+))/)
-  const matchesCount = matches.length
-  return matchesCount > 0 ? matches[matchesCount - 1] : ''
+  const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(-[a-z]+[.-]?[0-9]+)?)/) || []
+  return matches.length > 0 ? matches[0] : ''
 }
 
 export const parseUrl = value => {
