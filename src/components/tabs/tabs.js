@@ -220,8 +220,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       default: null
     },
     transition: {
-      type: [Object, null],
-      default: null
+      type: Object,
+      default: () => {}
     }
   },
   data() {
