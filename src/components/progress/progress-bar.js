@@ -124,16 +124,16 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
   render(h) {
     const { label, labelHtml, computedValue, computedPrecision } = this
 
-    let $content = h()
+    let $children
     let domProps = {}
     if (this.hasNormalizedSlot('default')) {
-      $content = this.normalizeSlot('default')
+      $children = this.normalizeSlot('default')
     } else if (label || labelHtml) {
       domProps = htmlOrText(labelHtml, label)
     } else if (this.computedShowProgress) {
-      $content = this.computedProgress
+      $children = this.computedProgress
     } else if (this.computedShowValue) {
-      $content = toFixed(computedValue, computedPrecision)
+      $children = toFixed(computedValue, computedPrecision)
     }
 
     return h(
@@ -150,7 +150,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
         },
         domProps
       },
-      [$content]
+      $children
     )
   }
 })

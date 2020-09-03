@@ -900,7 +900,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   : htmlOrText(this.titleHtml, this.title)
               },
               // TODO: Rename slot to `title` and deprecate `modal-title`
-              [this.normalizeSlot('modal-title', this.slotScope)]
+              this.normalizeSlot('modal-title', this.slotScope)
             ),
             $closeButton
           ]
