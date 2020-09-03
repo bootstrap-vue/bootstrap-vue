@@ -236,7 +236,7 @@ override the `pointer-events` on the disabled element.
 
 ### Noninteractive tooltips
 
-BootstrapVue's tooltips are user-interactive by default for accessability reasons. To restore
+BootstrapVue's tooltips are user-interactive by default for accessibility reasons. To restore
 Bootstraps default behavior apply the `noninteractive` prop:
 
 ```html
