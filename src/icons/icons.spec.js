@@ -502,4 +502,46 @@ describe('icons', () => {
 
     wrapper.destroy()
   })
+
+  it('b-icon title prop works', async () => {
+    const wrapper = mount(BIcon, {
+      localVue,
+      propsData: {
+        icon: 'circle-fill',
+        title: 'Circle'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-circle-fill')
+
+    const $title = wrapper.find('title')
+    expect($title.exists()).toBe(true)
+    expect($title.text()).toBe('Circle')
+
+    wrapper.destroy()
+  })
+
+  it('b-icon <title> should not render when title is undefined', async () => {
+    const wrapper = mount(BIcon, {
+      localVue,
+      propsData: {
+        icon: 'circle-fill'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('bi')
+    expect(wrapper.classes()).toContain('bi-circle-fill')
+
+    const $title = wrapper.find('title')
+    expect($title.exists()).toBe(false)
+
+    wrapper.destroy()
+  })
 })
