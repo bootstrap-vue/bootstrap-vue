@@ -7,6 +7,9 @@ import { toFloat } from '../../utils/number'
 
 // Common icon props (should be cloned/spread before using)
 export const commonIconProps = {
+  title: {
+    type: String
+  },
   variant: {
     type: String,
     default: null
@@ -132,6 +135,8 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       $inner = h('g', {}, [$inner])
     }
 
+    const $title = props.title ? h('title', props.title) : null
+
     return h(
       'svg',
       mergeData(
@@ -156,7 +161,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
           }
         }
       ),
-      [$inner]
+      [$title, $inner]
     )
   }
 })
