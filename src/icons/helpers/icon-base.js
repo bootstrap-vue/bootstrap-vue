@@ -9,6 +9,7 @@ import { toFloat } from '../../utils/number'
 export const commonIconProps = {
   title: {
     type: String
+    //default: null
   },
   variant: {
     type: String,
