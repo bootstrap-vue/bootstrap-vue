@@ -499,6 +499,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         },
         this.stateClass
       ],
+      // With IE 11, the input gets in the "way" of the drop events,
+      // so we move it out of the way by putting it behind the label
+      // Bootstrap v4 has it in front
+      style: custom ? { zIndex: -5 } : {},
       attrs: this.computedAttrs,
       on: {
         change: this.onChange,
@@ -517,8 +521,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'label',
       {
         staticClass: 'custom-file-label',
-        // We add `overflow-hidden` to prevent filenames from breaking out of the input
-        class: ['overflow-hidden', { dragging }],
+        class: { dragging },
         attrs: {
           for: this.safeId(),
           // This goes away in Bootstrap v5
@@ -530,7 +533,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           'span',
           {
             staticClass: 'd-block form-file-text',
-            // `pointer-events: none` is used to make sure the drag events fire only on the label
+            // `pointer-events: none` is used to make sure
+            // the drag events fire only on the label
             style: { pointerEvents: 'none' }
           },
           [this.labelContent]
