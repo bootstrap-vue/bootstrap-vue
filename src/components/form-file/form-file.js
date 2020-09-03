@@ -36,6 +36,8 @@ const stopEvent = evt => {
   evt.stopPropagation()
 }
 
+// Helper method to "safely" get the entry from a data-transfer item
+/* istanbul ignore next: not supported in JSDOM */
 const getDataTransferItemEntry = item =>
   isFunction(item.getAsEntry)
     ? item.getAsEntry()
