@@ -565,7 +565,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
               // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
-              disabled: disabled,
+              disabled,
               variant: tagVariant,
               pill: tagPills,
               removeLabel: tagRemoveLabel

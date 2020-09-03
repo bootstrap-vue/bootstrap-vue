@@ -131,7 +131,8 @@ export default deepFreeze({
     browseText: 'Browse',
     // Chrome default file prompt
     placeholder: 'No file chosen',
-    dropPlaceholder: 'Drop files here'
+    dropPlaceholder: 'Drop files here',
+    noDropPlaceholder: 'Not allowed'
   },
   BFormRating: {
     variant: null,

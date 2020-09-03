@@ -1,10 +1,14 @@
 import Vue from '../../utils/vue'
+import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
-import { from as arrayFrom, isArray, concat } from '../../utils/array'
+import looseEqual from '../../utils/loose-equal'
+import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isFile, isFunction, isUndefinedOrNull } from '../../utils/inspect'
+import { closest } from '../../utils/dom'
+import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
+import { isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
-import { toString } from '../../utils/string'
+import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import attrsMixin from '../../mixins/attrs'
 import formCustomMixin from '../../mixins/form-custom'
@@ -20,54 +24,92 @@ const NAME = 'BFormFile'
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
 
+const RX_EXTENSION = /^\..+/
+const RX_STAR = /\/\*$/
+
 // --- Helper methods ---
 
 const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
 
+const stopEvent = evt => {
+  evt.preventDefault()
+  evt.stopPropagation()
+}
+
+const getDataTransferItemEntry = item =>
+  isFunction(item.getAsEntry)
+    ? item.getAsEntry()
+    : isFunction(item.webkitGetAsEntry)
+      ? item.webkitGetAsEntry()
+      : null
+
 // Drop handler function to get all files
 /* istanbul ignore next: not supported in JSDOM */
-const getAllFileEntries = async dataTransferItemList => {
-  const fileEntries = []
-  const queue = []
-  // Unfortunately `dataTransferItemList` is not iterable i.e. no `.forEach()`
-  for (let i = 0; i < dataTransferItemList.length; i++) {
-    queue.push(dataTransferItemList[i].webkitGetAsEntry())
-  }
-  while (queue.length > 0) {
-    const entry = queue.shift()
-    if (entry.isFile) {
-      fileEntries.push(entry)
-    } else if (entry.isDirectory) {
-      queue.push(...(await readAllDirectoryEntries(entry.createReader())))
+const getAllFileEntries = (dataTransferItemList, traverseDirectories = true) =>
+  Promise.all(
+    arrayFrom(dataTransferItemList)
+      .filter(item => item.kind === 'file')
+      .map(item => {
+        const entry = getDataTransferItemEntry(item)
+        if (entry) {
+          if (entry.isDirectory && traverseDirectories) {
+            return getAllFileEntriesInDirectory(entry.createReader())
+          } else if (entry.isFile) {
+            return new Promise(resolve => {
+              entry.file(file => {
+                file.$path = ''
+                resolve(file)
+              })
+            })
+          }
+        }
+        return null
+      })
+      .filter(identity)
+  )
+
+// Get all the file entries (recursive) in a directory
+/* istanbul ignore next: not supported in JSDOM */
+const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
+  new Promise(resolve => {
+    const entryPromises = []
+    const readDirectoryEntries = () => {
+      directoryReader.readEntries(entries => {
+        if (entries.length === 0) {
+          resolve(Promise.all(entryPromises))
+        } else {
+          entryPromises.push(
+            Promise.all(
+              entries
+                .map(entry => {
+                  if (entry) {
+                    if (entry.isDirectory) {
+                      return getAllFileEntriesInDirectory(
+                        entry.createReader(),
+                        `${path}${entry.name}/`
+                      )
+                    } else if (entry.isFile) {
+                      return new Promise(resolve => {
+                        entry.file(file => {
+                          file.$path = path
+                          resolve(file)
+                        })
+                      })
+                    }
+                  }
+                  return null
+                })
+                .filter(identity)
+            )
+          )
+
+          readDirectoryEntries()
+        }
+      })
     }
-  }
-  return fileEntries
-}
 
-// Get all the entries (files or sub-directories) in a directory
-// by calling `.readEntries()` until it returns empty array
-/* istanbul ignore next: not supported in JSDOM */
-const readAllDirectoryEntries = async directoryReader => {
-  const entries = []
-  let readEntries = await readEntriesPromise(directoryReader)
-  while (readEntries.length > 0) {
-    entries.push(...readEntries)
-    readEntries = await readEntriesPromise(directoryReader)
-  }
-  return entries
-}
-
-// Wrap `.readEntries()` in a promise to make working with it easier
-// `.readEntries()` will return only some of the entries in a directory
-// (e.g. Chrome returns at most 100 entries at a time)
-/* istanbul ignore next: not supported in JSDOM */
-const readEntriesPromise = async directoryReader => {
-  try {
-    return await new Promise((resolve, reject) => {
-      directoryReader.readEntries(resolve, reject)
-    })
-  } catch {}
-}
+    readDirectoryEntries()
+  })
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -116,6 +158,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'dropPlaceholder')
     },
+    noDropPlaceholder: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'noDropPlaceholder')
+    },
     multiple: {
       type: Boolean,
       default: false
@@ -139,96 +185,172 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   data() {
     return {
-      selectedFile: null,
+      files: [],
       dragging: false,
+      // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`,
+      // so we handle it ourselves as well
+      // https://stackoverflow.com/a/46915971/2744776
+      dropAllowed: !this.noDrop,
       hasFocus: false
     }
   },
   computed: {
-    selectLabel() {
-      // Draging active
-      if (this.dragging && this.dropPlaceholder) {
-        return this.dropPlaceholder
+    // Convert `accept` to an array of `[{ RegExpr, isMime }, ...]`
+    computedAccept() {
+      let { accept } = this
+      accept = (accept || '')
+        .trim()
+        .split(/[,\s]+/)
+        .filter(Boolean)
+
+      // Allow any file type/extension
+      if (accept.length === 0) {
+        return null
       }
 
-      // No file chosen
-      if (!this.selectedFile || this.selectedFile.length === 0) {
-        return this.placeholder
-      }
-
-      // Convert selectedFile to an array (if not already one)
-      const files = concat(this.selectedFile).filter(identity)
-
-      if (this.hasNormalizedSlot('file-name')) {
-        // There is a slot for formatting the files/names
-        return [
-          this.normalizeSlot('file-name', {
-            files: files,
-            names: files.map(f => f.name)
-          })
-        ]
-      } else {
-        // Use the user supplied formatter, or the built in one.
-        return isFunction(this.fileNameFormatter)
-          ? toString(this.fileNameFormatter(files))
-          : files.map(file => file.name).join(', ')
-      }
+      return accept.map(extOrType => {
+        let prop = 'name'
+        let startMatch = '^'
+        let endMatch = '$'
+        if (RX_EXTENSION.test(extOrType)) {
+          // File extension /\.ext$/
+          startMatch = ''
+        } else {
+          // MIME type /^mime\/.+$/ or /^mime\/type$/
+          prop = 'type'
+          if (RX_STAR.test(extOrType)) {
+            endMatch = '.+$'
+            // Remove trailing `*`
+            extOrType = extOrType.slice(0, -1)
+          }
+        }
+        // Escape all RegExp special chars
+        extOrType = escapeRegExp(extOrType)
+        const rx = new RegExp(`${startMatch}${extOrType}${endMatch}`)
+        return { rx, prop }
+      })
+    },
+    computedCapture() {
+      const { capture } = this
+      return capture === true || capture === '' ? true : capture || null
     },
     computedAttrs() {
+      const { name, disabled, required, form, computedCapture, accept, multiple, directory } = this
       return {
         ...this.bvAttrs,
         type: 'file',
         id: this.safeId(),
-        name: this.name,
-        disabled: this.disabled,
-        required: this.required,
-        form: this.form || null,
-        capture: this.capture || null,
-        accept: this.accept || null,
-        multiple: this.multiple,
-        webkitdirectory: this.directory,
-        'aria-required': this.required ? 'true' : null
+        name,
+        disabled,
+        required,
+        form: form || null,
+        capture: computedCapture,
+        accept: accept || null,
+        multiple,
+        webkitdirectory: directory,
+        'aria-required': required ? 'true' : null
       }
+    },
+    clonedFiles() {
+      return cloneDeep(this.files)
+    },
+    flattenedFiles() {
+      return flattenDeep(this.files)
+    },
+    fileNames() {
+      return this.flattenedFiles.map(file => file.name)
+    },
+    labelContent() {
+      const h = this.$createElement
+
+      // Draging active
+      /* istanbul ignore next: used by drag/drop which can't be tested easily */
+      if (this.dragging && !this.noDrop) {
+        return (
+          // TODO: Add additional scope with file count, and other not-allowed reasons
+          this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
+          (this.dropAllowed
+            ? this.dropPlaceholder
+            : h('span', { staticClass: 'text-danger' }, this.noDropPlaceholder))
+        )
+      }
+
+      // No file chosen
+      if (this.files.length === 0) {
+        return this.normalizeSlot('placeholder') || this.placeholder
+      }
+
+      // There is a slot for formatting the files/names
+      if (this.hasNormalizedSlot('file-name')) {
+        return this.normalizeSlot('file-name', {
+          files: this.flattenedFiles,
+          filesTraversed: this.clonedFiles,
+          names: this.fileNames
+        })
+      }
+
+      // Use the user supplied formatter, or the built in one
+      return isFunction(this.fileNameFormatter)
+        ? String(this.fileNameFormatter(this.flattenedFiles, this.clonedFiles))
+        : this.fileNames.join(', ')
     }
   },
   watch: {
-    selectedFile(newVal, oldVal) {
-      // The following test is needed when the file input is "reset" or the
-      // exact same file(s) are selected to prevent an infinite loop.
-      // When in `multiple` mode we need to check for two empty arrays or
-      // two arrays with identical files
-      if (
-        newVal === oldVal ||
-        (isArray(newVal) &&
-          isArray(oldVal) &&
-          newVal.length === oldVal.length &&
-          newVal.every((v, i) => v === oldVal[i]))
-      ) {
-        return
-      }
-      if (!newVal && this.multiple) {
-        this.$emit('input', [])
-      } else {
-        this.$emit('input', newVal)
+    value(newValue) {
+      if (!newValue || (isArray(newValue) && newValue.length === 0)) {
+        this.reset()
       }
     },
-    value(newVal) {
-      if (!newVal || (isArray(newVal) && newVal.length === 0)) {
-        this.reset()
+    files(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        const files = this.noTraverse ? flattenDeep(newValue) : newValue
+        this.$emit('input', this.multiple ? files : files[0] || null)
       }
     }
   },
+  mounted() {
+    // Listen for form reset events, to reset the file input
+    const $form = closest('form', this.$el)
+    if ($form) {
+      eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      this.$on('hook:beforeDestroy', () => {
+        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      })
+    }
+  },
   methods: {
-    focusHandler(evt) {
-      // Bootstrap v4 doesn't have focus styling for custom file input
-      // Firefox has a '[type=file]:focus ~ sibling' selector issue,
-      // so we add a 'focus' class to get around these bugs
-      if (this.plain || evt.type === 'focusout') {
-        this.hasFocus = false
-      } else {
-        // Add focus styling for custom file input
-        this.hasFocus = true
+    isFileValid(file) {
+      if (!file) {
+        return false
       }
+      const accept = this.computedAccept
+      return accept ? accept.some(a => a.rx.test(file[a.prop])) : true
+    },
+    isFilesArrayValid(files) {
+      return isArray(files) ? files.every(file => this.isFileValid(file)) : this.isFileValid(files)
+    },
+    setFiles(files) {
+      // Reset the dragging flags
+      this.dropAllowed = !this.noDrop
+      this.dragging = false
+      // Set the selected files
+      this.files = this.multiple
+        ? this.directory
+          ? files
+          : flattenDeep(files)
+        : flattenDeep(files).slice(0, 1)
+    },
+    setInputFiles(files) /* istanbul ignore next: used by Drag/Drop */ {
+      // Try an set the file input files array so that `required`
+      // constraint works for dropped files (will fail in IE11 though)
+      // To be used only when dropping files
+      try {
+        // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
+        const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
+        // Add flattened files to temp `dataTransfer` object to get a true `FileList` array
+        flattenDeep(files).forEach(file => dataTransfer.items.add(file))
+        this.$refs.input.files = dataTransfer.files
+      } catch {}
     },
     reset() {
       // IE 11 doesn't support setting `$input.value` to `''` or `null`
@@ -240,80 +362,149 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         $input.value = ''
         $input.type = ''
         $input.type = 'file'
-      } catch (e) {}
-      this.selectedFile = this.multiple ? [] : null
+      } catch {}
+      this.files = []
     },
-    onFileChange(evt) {
+    focusHandler(evt) {
+      // Bootstrap v4 doesn't have focus styling for custom file input
+      // Firefox has a `[type=file]:focus ~ sibling` selector issue,
+      // so we add a `focus` class to get around these bugs
+      if (this.plain || evt.type === 'focusout') {
+        this.hasFocus = false
+      } else {
+        // Add focus styling for custom file input
+        this.hasFocus = true
+      }
+    },
+    onChange(evt) {
+      const { type, target, dataTransfer = {} } = evt
+      const traverseDirectories = this.directory
+      const isDrop = type === 'drop'
       // Always emit original event
       this.$emit('change', evt)
-      // Check if special `items` prop is available on event (drop mode)
-      // Can be disabled by setting `no-traverse`
-      const { files, items } = evt.dataTransfer || {}
-      /* istanbul ignore next: not supported in JSDOM */
-      if (items && !this.noTraverse) {
-        getAllFileEntries(items).then(files => {
-          this.setFiles(files)
+
+      // Drop handling for modern browsers
+      const items = arrayFrom(dataTransfer.items || [])
+      /* istanbul ignore if: not supported in JSDOM */
+      if (
+        isDrop &&
+        dataTransfer &&
+        items.length > 0 &&
+        !isNull(getDataTransferItemEntry(items[0]))
+      ) {
+        getAllFileEntries(items, traverseDirectories).then(files => {
+          const filteredFiles = files.filter(this.isFilesArrayValid)
+          // Only set the files if there are files
+          if (filteredFiles.length > 0) {
+            this.setFiles(filteredFiles)
+            // Try an set the file input's files array so that `required`
+            // constraint works for dropped files (will fail in IE11 though)
+            this.setInputFiles(filteredFiles)
+          }
         })
-      } else {
-        // Normal handling
-        this.setFiles(evt.target.files || files)
-      }
-    },
-    setFiles(files) {
-      if (this.multiple) {
-        this.selectedFile = arrayFrom(files || [])
-      } else {
-        this.selectedFile = files ? files[0] || null : null
-      }
-    },
-    onReset() {
-      // Triggered when the parent form (if any) is reset
-      this.selectedFile = this.multiple ? [] : null
-    },
-    onDragover(evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-      if (this.noDrop || !this.custom) {
         return
       }
+
+      // Input `change` event handling on modern browsers (that usually support directory mode)
+      // when dropping files (or directories) directly on the native input (when in plain mode)
+      // Supported by Chrome, Firefox, Edge, and Safari
+      const entries = arrayFrom(target.webkitEntries || [])
+      if (!isDrop && entries.length > 0) {
+        Promise.all(entries.map(entry => getAllFileEntries(entry, traverseDirectories))).then(
+          files => {
+            this.setFiles(files.filter(this.isFilesArrayValid))
+          }
+        )
+        return
+      }
+
+      // Standard file input handling (native file input change event),
+      // or fallback drop mode (IE 11 / Opera) which don't support directory mode
+      let files = arrayFrom(target.files || dataTransfer.files || [])
+      // Add custom `$path` property to each file (to be consistent with drop mode)
+      files.forEach(file => (file.$path = ''))
+      /* istanbul ignore if: drop mode not easily tested in JSDOM */
+      if (isDrop) {
+        files = files.filter(this.isFileValid)
+        // Set the v-model
+        this.setFiles(files)
+        // Ensure the input's files array is updated (if we can)
+        this.setInputFiles(files)
+      } else {
+        this.setFiles(files)
+      }
+    },
+    onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      stopEvent(evt)
       this.dragging = true
-      try {
-        evt.dataTransfer.dropEffect = 'copy'
-      } catch {}
-    },
-    onDragleave(evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-      this.dragging = false
-    },
-    onDrop(evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-      if (this.noDrop) {
+      const { dataTransfer = {} } = evt
+      // Early exit when the input or dropping is disabled
+      if (this.noDrop || this.disabled || !this.dropAllowed) {
+        // Show deny feedback
+        dataTransfer.dropEffect = 'none'
+        this.dropAllowed = false
         return
       }
+      dataTransfer.dropEffect = 'copy'
+    },
+    // Note this event fires repeatedly while the mouse is over the dropzone at
+    // intervals in the milliseconds, so avoid doing much processing in here
+    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      stopEvent(evt)
+      this.dragging = true
+      const { dataTransfer = {} } = evt
+      // Early exit when the input or dropping is disabled
+      if (this.noDrop || this.disabled || !this.dropAllowed) {
+        // Show deny feedback
+        dataTransfer.dropEffect = 'none'
+        this.dropAllowed = false
+        return
+      }
+      dataTransfer.dropEffect = 'copy'
+    },
+    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      stopEvent(evt)
+      this.$nextTick(() => {
+        this.dragging = false
+        // Reset `dropAllowed` to default
+        this.dropAllowed = !this.noDrop
+      })
+    },
+    // Triggered by a file drop onto drop target
+    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+      stopEvent(evt)
       this.dragging = false
-      this.onFileChange(evt)
+      // Early exit when the input or dropping is disabled
+      if (this.noDrop || this.disabled || !this.dropAllowed) {
+        this.$nextTick(() => {
+          // Reset `dropAllowed` to default
+          this.dropAllowed = !this.noDrop
+        })
+        return
+      }
+      this.onChange(evt)
     }
   },
   render(h) {
+    const { custom, size, dragging } = this
+
     // Form Input
     const $input = h('input', {
       ref: 'input',
       class: [
         {
           'form-control-file': this.plain,
-          'custom-file-input': this.custom,
-          focus: this.custom && this.hasFocus
+          'custom-file-input': custom,
+          focus: custom && this.hasFocus
         },
         this.stateClass
       ],
       attrs: this.computedAttrs,
       on: {
-        change: this.onFileChange,
+        change: this.onChange,
         focusin: this.focusHandler,
         focusout: this.focusHandler,
-        reset: this.onReset
+        reset: this.reset
       }
     })
 
@@ -321,18 +512,30 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       return $input
     }
 
-    // Overlay Labels
+    // Overlay label
     const $label = h(
       'label',
       {
         staticClass: 'custom-file-label',
-        class: [this.dragging ? 'dragging' : null],
+        // We add `overflow-hidden` to prevent filenames from breaking out of the input
+        class: ['overflow-hidden', { dragging }],
         attrs: {
           for: this.safeId(),
+          // This goes away in Bootstrap v5
           'data-browse': this.browseText || null
         }
       },
-      this.selectLabel
+      [
+        h(
+          'span',
+          {
+            staticClass: 'd-block form-file-text',
+            // `pointer-events: none` is used to make sure the drag events fire only on the label
+            style: { pointerEvents: 'none' }
+          },
+          [this.labelContent]
+        )
+      ]
     )
 
     // Return rendered custom file input
@@ -343,11 +546,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         class: [
           this.stateClass,
           {
-            [`b-custom-control-${this.size}`]: this.size
+            [`b-custom-control-${size}`]: size
           }
         ],
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
+          dragenter: this.onDragenter,
           dragover: this.onDragover,
           dragleave: this.onDragleave,
           drop: this.onDrop

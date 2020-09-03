@@ -171,10 +171,10 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       }
 
       return {
-        colspan: colspan,
-        rowspan: rowspan,
-        role: role,
-        scope: scope,
+        colspan,
+        rowspan,
+        role,
+        scope,
         // Allow users to override role/scope plus add other attributes
         ...this.bvAttrs,
         // Add in the stacked cell label data-attribute if in

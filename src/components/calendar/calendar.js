@@ -382,14 +382,14 @@ export const BCalendar = Vue.extend({
       const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
-        selectedYMD: selectedYMD,
-        selectedDate: selectedDate,
+        selectedYMD,
+        selectedDate,
         selectedFormatted: selectedDate
           ? this.formatDateString(selectedDate)
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
-        activeYMD: activeYMD,
-        activeDate: activeDate,
+        activeYMD,
+        activeDate,
         activeFormatted: activeDate ? this.formatDateString(activeDate) : '',
         // `true` if the date is disabled (when using keyboard navigation)
         disabled: this.dateDisabled(activeDate),

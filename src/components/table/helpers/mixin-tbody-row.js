@@ -144,9 +144,9 @@ export default {
         }
       }
       const slotScope = {
-        item: item,
+        item,
         index: rowIndex,
-        field: field,
+        field,
         unformatted: get(item, key, ''),
         value: formatted,
         toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item),
@@ -262,9 +262,9 @@ export default {
       // Row Details slot
       if (rowShowDetails) {
         const detailsScope = {
-          item: item,
+          item,
           index: rowIndex,
-          fields: fields,
+          fields,
           toggleDetails: this.toggleDetailsFactory(hasDetailsSlot, item)
         }
         // If table supports selectable mode, then add in the following scope

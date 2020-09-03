@@ -54,24 +54,61 @@ files are selected the return value will be an array of JavaScript
 
 ## Directory mode
 
-By adding `directory` prop, the user can select directories instead of files. When a directory is
+<div class="alert alert-warning small mb-3">
+  <p class="mb-0">
+    <strong>CAUTION:</strong> Directory mode is a <em>non-standard</em> feature, while being
+    supported by all modern browsers, and should not be relied for production.
+    Read more on <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">MDN</a>
+    and <a class="alert-link" href="https://caniuse.com/#feat=input-file-directory">Can I use</a>.
+  </p>
+</div>
+
+By adding the `directory` prop, a user can select directories instead of files. When a directory is
 selected, the directory and its entire hierarchy of contents are included in the set of selected
-items. The selected file system entries can be obtained using the `webkitEntries` property.
+items.
 
-**CAUTION** This is a non standard feature while being supported by latest Firefox and Chrome
-versions, and should not be relied for production.
-[Read more on MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory)
+When in `directory` mode, files are returned in a nested array format by default. i.e.
 
-Directory mode is not supported when the file input is in plain mode.
+```
+dirA/
+  - fileA1
+  - fileA2
+  - dirB/
+    - fileB1
+  - dirC/
+    - fileC1
+    - fileC2
+dirD/
+  - fileD1
+```
+
+will be returned as (or similar, file/directory order may vary):
+
+```
+[[fileA1, fileA2, [fileB1], [fileC1, fileC2]], [fileD1]]
+```
+
+If you set the `no-traverse` prop, the array will be flattened:
+
+```
+[fileA1, fileA2, fileB1, fileC1, fileC2, fileD1]
+```
+
+Each file entry will have a special prop `$path` that will contain the relative path of each file.
+
+Directory mode is also supported when the file input is in plain mode on **most** modern browsers.
 
 ## Drag and Drop support
 
-Drop mode is enabled by default. It can disabled by setting the `no-drop` prop. `no-drop`has no
-effect in plain mode.
+Drop mode is enabled by default. It can disabled by setting the `no-drop` prop. `no-drop` has no
+effect in plain mode (some browsers support dropping files onto a plain input file).
 
 You can optionally set a different placeholder while dragging via the `drop-placeholder` prop. The
 default is no drop placeholder text. Only plain text is supported. HTML and components are not
-supported. The `drop-placeholder` prop has no effect if `no-drop`is set or in `plain` mode,
+supported. The `drop-placeholder` prop has no effect if `no-drop` is set or in `plain` mode.
+
+Note that native browser constraints (such as `required`) will not work with drop mode, as the
+hidden file input does not handle the drag and drop functionality and will have zero files selected.
 
 ## Limiting to certain file types
 
@@ -98,6 +135,9 @@ Refer to [IANA Media Types](https://www.iana.org/assignments/media-types/) for a
 standard media types.
 
 **Note:** Not all browsers support or respect the `accept` attribute on file inputs.
+
+For drag and drop, BootstrapVue uses an internal file type checking routine and will filter out
+files that do not have the correct IANA media type or extension.
 
 ## Customizing
 
@@ -158,8 +198,8 @@ Set the prop `file-name-formatter` to a function that accepts a single argument 
 a single formatted string (HTML is not supported). The formatter will not be called if no files are
 selected.
 
-Regardless of if the prop `multiple` is set or not, the argument to the formatter will always be an
-array.
+Regardless of if the prop `multiple` is set or not, the argument to the formatter will **always** be
+an array. When in `directory` mode, the passed files array will be flattened.
 
 ```html
 <template>
@@ -188,10 +228,10 @@ array.
 Alternatively, you can use the scoped slot `file-name` to render the file names. The scoped slot
 will receive the following properties:
 
-| Property | Type  | Description             |
-| -------- | ----- | ----------------------- |
-| `files`  | Array | Array of `File` objects |
-| `names`  | Array | Array of file names     |
+| Property | Type  | Description                                                                                |
+| -------- | ----- | ------------------------------------------------------------------------------------------ |
+| `files`  | Array | Array of `File` objects (array of arrays for directory mode when `no-traverse` is not set) |
+| `names`  | Array | Array of file names (flattened)                                                            |
 
 Both properties are always arrays, regardless of the setting of the `multiple` prop.
 
@@ -210,8 +250,8 @@ Both properties are always arrays, regardless of the setting of the `multiple` p
 <!-- file-formatter-slot.vue -->
 ```
 
-When using the `file-name` slot, the `file-name-formatter` prop is ignored. Also, the slot will not
-be rendered when there are no file(s) selected.
+When using the `file-name` slot, the `file-name-formatter` prop is ignored. The slot **will not** be
+rendered when there are no file(s) selected.
 
 ## Non custom file input
 
@@ -289,8 +329,8 @@ input. To take advantage of the `reset()` method, you will need to obtain a refe
 <!-- b-form-file-reset.vue -->
 ```
 
-**Implementation note:** As not all browsers allow setting a value of a file input (even to null or
-an empty string), `b-form-input` employs a technique that works cross-browser that involves changing
-the input type to `null` and then immediately back to type `file`.
+**Implementation note:** As not all browsers allow setting a value of a file input (even to `null`
+or an empty string), `b-form-input` employs a technique that works cross-browser that involves
+changing the input type to `null` and then immediately back to type `file`.
 
 <!-- Component reference added automatically from component package.json -->

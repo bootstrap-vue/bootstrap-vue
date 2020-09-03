@@ -36,7 +36,12 @@
           {
             "prop": "dropPlaceholder",
             "settings": true,
-            "description": "Text to display as the placeholder when fies are being dragged"
+            "description": "Text to display as the placeholder when files are being dragged and it's allowed to drop them"
+          },
+          {
+            "prop": "noDropPlaceholder",
+            "settings": true,
+            "description": "Text to display as the placeholder when files are being dragged and it isn't allowed to drop them"
           },
           {
             "prop": "multiple",
@@ -61,18 +66,38 @@
         ],
         "slots": [
           {
+            "name": "placeholder",
+            "description": "Placeholder content, when no files selected. Defaults to `placeholder` prop value"
+          },
+          {
+            "name": "drop-placeholder",
+            "description": "Placeholder content when files are about to be dropped. Defaults to value of `drop-placeholder` prop",
+            "scope": [
+              {
+                "prop": "allowed",
+                "type": "Boolean",
+                "description": "Wether its currently allowed to drop files"
+              }
+            ]
+          },
+          {
             "name": "file-name",
             "description": "Scoped slot for formatting the file names",
             "scope": [
               {
                 "prop": "files",
                 "type": "Array",
-                "description": "Array of File objects"
+                "description": "Flat array of `File` objects"
+              },
+              {
+                "prop": "filesTraversed",
+                "type": "Array",
+                "description": "Array of arrays of `File` objects when in directory mode"
               },
               {
                 "prop": "names",
                 "type": "Array",
-                "description": "Array of file names (strings)"
+                "description": "Flat array of file names (strings)"
               }
             ]
           }

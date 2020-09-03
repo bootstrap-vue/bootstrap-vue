@@ -204,8 +204,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = resolved.hourCycle || (hour12 ? 'h12' : 'h23')
       return {
         locale: resolved.locale,
-        hour12: hour12,
-        hourCycle: hourCycle
+        hour12,
+        hourCycle
       }
     },
     computedLocale() {
@@ -457,12 +457,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const id = this.safeId(`_spinbutton_${key}_`) || null
       spinIds.push(id)
       return h(BFormSpinbutton, {
-        key: key,
+        key,
         ref: 'spinners',
         refInFor: true,
         class: classes,
         props: {
-          id: id,
+          id,
           placeholder: '--',
           vertical: true,
           required: true,

@@ -229,7 +229,7 @@ export default {
         const fallbackUrl = slug ? `https://opencollective.com/${slug}` : null
         // Return the normalized result
         return {
-          slug: slug,
+          slug,
           name: entry.fromAccount.name,
           // type: 'ORGANIZATION', 'INDIVIDUAL'
           type: entry.fromAccount.type,
@@ -245,10 +245,10 @@ export default {
           status: entry.status,
           // For recurring donations, this is the installment amount
           // For one time donations, this is the donation amount (most recent)
-          amount: amount,
+          amount,
           // For recurring donations, this is the total amount donated
           // For users that donate multiple times, this will be the total of all one time donations
-          totalAmount: totalAmount,
+          totalAmount,
           // For recurring donations, this is how often the donation is received
           frequency: entry.frequency,
           // We now have sponsor tiers, but some appear as

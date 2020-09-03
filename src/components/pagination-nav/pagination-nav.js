@@ -210,12 +210,12 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         // Remove link from document
         document.body.removeChild(link)
         // Return the location in a route-like object
-        return { path: pathname, hash: hash, query: parseQuery(search) }
+        return { path: pathname, hash, query: parseQuery(search) }
       } catch (e) {
         /* istanbul ignore next */
         try {
           link && link.parentNode && link.parentNode.removeChild(link)
-        } catch (e) {}
+        } catch {}
         /* istanbul ignore next */
         return {}
       }
