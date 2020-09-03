@@ -16,6 +16,7 @@ export const makeIcon = (name, content) => {
   const kebabName = kebabCase(name)
   const iconName = `BIcon${pascalCase(name)}`
   const iconNameClass = `bi-${kebabName}`
+  const iconTitle = kebabName.replace(/-/g, ' ')
   const svgContent = trim(content || '')
   // Return the icon component definition
   return /*#__PURE__*/ Vue.extend({
@@ -31,11 +32,20 @@ export const makeIcon = (name, content) => {
     render(h, { data, props }) {
       return h(
         BVIconBase,
-        mergeData(data, {
-          staticClass: iconNameClass,
-          props: { ...props, content: svgContent },
-          attrs: { 'aria-label': kebabName.replace(/-/g, ' ') }
-        })
+        mergeData(
+          // Defaults
+          {
+            props: { title: iconTitle },
+            attrs: { 'aria-label': iconTitle }
+          },
+          // User data
+          data,
+          // Required data
+          {
+            staticClass: iconNameClass,
+            props: { ...props, content: svgContent }
+          }
+        )
       )
     }
   })
