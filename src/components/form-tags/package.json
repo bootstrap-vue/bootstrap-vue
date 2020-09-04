@@ -93,14 +93,14 @@
           },
           {
             "prop": "limitTagText",
-            "version": "2.16.0",
+            "version": "2.17.0",
             "settings": true,
             "description": "The message when the limit is reached. Set to an empty string to disable the message"
           },
           {
             "prop": "limit",
-            "version": "2.16.0",
-            "description": "The maximum amount of tags that can be added"
+            "version": "2.17.0",
+            "description": "The maximum amount of tags that can be added. The limit can still be exceeded if manipulated outside of the component."
           },
           {
             "prop": "separator",
