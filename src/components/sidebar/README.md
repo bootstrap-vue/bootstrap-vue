@@ -371,6 +371,10 @@ When the sidebar is opened, the entire sidebar will receive focus, which is desi
 reader and keyboard-only users. When the sidebar is closed, the element that previously had focus
 before the sidebar was opened will be re-focused.
 
+In some circumstances, you may need to disable the enforce focus feature completely. You can do this
+by setting the prop `no-enforce-focus`, although this is generally discouraged for accessibility
+reasons.
+
 When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`. with the backdrop enabled, you can use the prop
 `no-close-on-backdrop` to disable the close on backdrop click feature.
