@@ -16,7 +16,7 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { isEvent, isFunction, isString } from '../../utils/inspect'
+import { isEvent, isFunction, isString, isNumber } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
