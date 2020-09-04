@@ -234,6 +234,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    noEnforceFocus: {
+      type: Boolean,
+      default: false
+    },
     lazy: {
       type: Boolean,
       default: false
@@ -369,12 +373,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore next */
     onTopTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
-      attemptFocus(tabables.reverse()[0])
+      this.enforceFocus(tabables.reverse()[0])
     },
     /* istanbul ignore next */
     onBottomTrapFocus() /* istanbul ignore next */ {
       const tabables = getTabables(this.$refs.content)
-      attemptFocus(tabables[0])
+      this.enforceFocus(tabables[0])
     },
     onBeforeEnter() {
       // Returning focus to `document.body` may cause unwanted scrolls,
@@ -385,16 +389,21 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onAfterEnter(el) {
       if (!contains(el, getActiveElement())) {
-        attemptFocus(el)
+        this.enforceFocus(el)
       }
       this.$emit('shown')
     },
     onAfterLeave() {
-      attemptFocus(this.$_returnFocusEl)
+      this.enforceFocus(this.$_returnFocusEl)
       this.$_returnFocusEl = null
       // Trigger lazy render
       this.isOpen = false
       this.$emit('hidden')
+    },
+    enforceFocus(el) {
+      if (!this.noEnforceFocus) {
+        attemptFocus(el)
+      }
     }
   },
   render(h) {
