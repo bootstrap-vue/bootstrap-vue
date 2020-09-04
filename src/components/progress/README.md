@@ -96,7 +96,7 @@ Need more control over the label? Provide your own label by using the default sl
     <h5>Custom label via default slot</h5>
     <b-progress :max="max" height="2rem">
       <b-progress-bar :value="value">
-        Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong>
+        <span>Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span>
       </b-progress-bar>
     </b-progress>
 
