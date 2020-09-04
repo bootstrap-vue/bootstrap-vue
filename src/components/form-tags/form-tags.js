@@ -16,7 +16,7 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { isEvent, isFunction, isString, isNumber } from '../../utils/inspect'
+import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -160,9 +160,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'invalidTagText')
     },
-    limitTagText: {
+    limitTagsText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'limitTagText')
+      default: () => getComponentConfig(NAME, 'limitTagsText')
     },
     limit: {
       type: Number,
@@ -297,7 +297,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     hasInvalidTags() {
       return this.invalidTags.length > 0
     },
-    isAtOrAboveLimit() {
+    isLimitReached() {
       return isNumber(this.limit) && this.tags.length >= this.limit
     }
   },
@@ -339,7 +339,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     addTag(newTag) {
       newTag = isString(newTag) ? newTag : this.newTag
       /* istanbul ignore next */
-      if (this.disabled || trim(newTag) === '' || this.isAtOrAboveLimit) {
+      if (this.disabled || trim(newTag) === '' || this.isLimitReached) {
         // Early exit
         return
       }
@@ -553,15 +553,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       tagRemoveLabel,
       invalidTagText,
       duplicateTagText,
+      limitTagsText,
       isInvalid,
       isDuplicate,
+      isLimitReached,
       disabled,
       placeholder,
       addButtonText,
       addButtonVariant,
-      disableAddButton,
-      limitTagText,
-      isAtOrAboveLimit
+      disableAddButton
     }) {
       const h = this.$createElement
 
@@ -594,9 +594,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         invalidTagText && isInvalid ? this.safeId('__invalid_feedback__') : null
       const duplicateFeedbackId =
         duplicateTagText && isDuplicate ? this.safeId('__duplicate_feedback__') : null
-
       const limitFeedbackId =
-        limitTagText && isAtOrAboveLimit ? this.safeId('__limit_feedback__') : null
+        limitTagsText && isLimitReached ? this.safeId('__limit_feedback__') : null
 
       // Compute the `aria-describedby` attribute value
       const ariaDescribedby = [
@@ -640,7 +639,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             invisible: disableAddButton
           },
           style: { fontSize: '90%' },
-          props: { variant: addButtonVariant, disabled: disableAddButton || isAtOrAboveLimit },
+          props: { variant: addButtonVariant, disabled: disableAddButton || isLimitReached },
           on: { click: () => addTag() }
         },
         [this.normalizeSlot('add-button-text') || addButtonText]
@@ -680,7 +679,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
       // Assemble the feedback
       let $feedback = h()
-      if (invalidTagText || duplicateTagText || limitTagText) {
+      if (invalidTagText || duplicateTagText || limitTagsText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not disabled the messages
         const joiner = this.computedJoiner
@@ -711,7 +710,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           )
         }
 
-        // Duplicate tag feedback if needed (warning, not error)
+        // Limit tags feedback if needed (warning, not error)
         let $limit = h()
         if (limitFeedbackId) {
           $limit = h(
@@ -720,7 +719,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
               key: '_tags_limit_feedback_',
               props: { id: limitFeedbackId }
             },
-            [limitTagText]
+            [limitTagsText]
           )
         }
 
@@ -758,6 +757,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       isInvalid: this.hasInvalidTags,
       duplicateTags: this.duplicateTags.slice(),
       isDuplicate: this.hasDuplicateTags,
+      isLimitReached: this.isLimitReached,
       // If the 'Add' button should be disabled
       disableAddButton: this.disableAddButton,
       // Pass-though values
@@ -775,8 +775,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       addButtonVariant: this.addButtonVariant,
       invalidTagText: this.invalidTagText,
       duplicateTagText: this.duplicateTagText,
-      limitTagText: this.limitTagText,
-      isAtOrAboveLimit: this.isAtOrAboveLimit
+      limitTagsText: this.limitTagsText
     }
 
     // Generate the user interface
