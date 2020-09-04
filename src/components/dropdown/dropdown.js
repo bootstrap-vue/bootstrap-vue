@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
+import { toString } from '../../utils/string'
 import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -15,14 +16,12 @@ const NAME = 'BDropdown'
 
 export const props = {
   text: {
-    // Button label
-    type: String,
-    default: ''
+    type: String
+    // default: null
   },
   html: {
-    // Button label
     type: String
-    // default: undefined
+    // default: null
   },
   variant: {
     type: String,
@@ -141,11 +140,12 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { variant, size, block, disabled, split, role } = this
+    const { visible, variant, size, block, disabled, split, role, hide, toggle } = this
     const commonProps = { variant, size, block, disabled }
 
-    const $buttonContent = this.normalizeSlot('button-content')
-    const buttonContentProps = this.hasNormalizedSlot('button-content')
+    const buttonContentSlotName = 'button-content'
+    let $buttonChildren = this.normalizeSlot(buttonContentSlotName)
+    let buttonContentDomProps = this.hasNormalizedSlot(buttonContentSlotName)
       ? {}
       : htmlOrText(this.html, this.text)
 
@@ -154,8 +154,9 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       const { splitTo, splitHref, splitButtonType } = this
       const btnProps = {
         ...commonProps,
-        variant: this.splitVariant || this.variant
+        variant: this.splitVariant || variant
       }
+
       // We add these as needed due to <router-link> issues with
       // defined property with `undefined`/`null` values
       if (splitTo) {
@@ -165,18 +166,23 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       } else if (splitButtonType) {
         btnProps.type = splitButtonType
       }
+
       $split = h(
         BButton,
         {
           class: this.splitClass,
           attrs: { id: this.safeId('_BV_button_') },
           props: btnProps,
-          domProps: buttonContentProps,
+          domProps: buttonContentDomProps,
           on: { click: this.onSplitClick },
           ref: 'button'
         },
-        [$buttonContent]
+        $buttonChildren
       )
+
+      // Overwrite button content for the toggle when in `split` mode
+      $buttonChildren = [h('span', { class: ['sr-only'] }, [this.toggleText])]
+      buttonContentDomProps = {}
     }
 
     const $toggle = h(
@@ -187,22 +193,22 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: this.safeId('_BV_toggle_'),
           'aria-haspopup': 'true',
-          'aria-expanded': this.visible ? 'true' : 'false'
+          'aria-expanded': toString(visible)
         },
         props: {
           ...commonProps,
           tag: this.toggleTag,
           block: block && !split
         },
-        domProps: split ? {} : buttonContentProps,
+        domProps: buttonContentDomProps,
         on: {
           mousedown: this.onMousedown,
-          click: this.toggle,
-          keydown: this.toggle // Handle ENTER, SPACE and DOWN
+          click: toggle,
+          keydown: toggle // Handle ENTER, SPACE and DOWN
         },
         ref: 'toggle'
       },
-      [split ? h('span', { class: ['sr-only'] }, [this.toggleText]) : $buttonContent]
+      $buttonChildren
     )
 
     const $menu = h(
@@ -220,7 +226,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         },
         ref: 'menu'
       },
-      !this.lazy || this.visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      [!this.lazy || visible ? this.normalizeSlot('default', { hide }) : h()]
     )
 
     return h(
