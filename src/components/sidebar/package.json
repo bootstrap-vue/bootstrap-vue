@@ -104,6 +104,11 @@
           {
             "prop": "noCloseOnRouteChange",
             "description": "When set to `true`, disables closing of the sidebar on route change"
+          },
+          {
+            "prop": "noEnforceFocus",
+            "version": "2.17.0",
+            "description": "Disables the enforce focus routine which maintains focus inside the sidebar"
           }
         ],
         "events": [
