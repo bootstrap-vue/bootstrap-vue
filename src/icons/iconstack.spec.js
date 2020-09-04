@@ -12,7 +12,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('role')).toBe('img')
-    expect(wrapper.attributes('alt')).toBe('icon')
+    expect(wrapper.attributes('aria-label')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.attributes('xmlns')).toBe('http://www.w3.org/2000/svg')
     expect(wrapper.attributes('width')).toBe('1em')
@@ -43,7 +43,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.classes()).toContain('text-danger')
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.attributes('role')).toBe('img')
-    expect(wrapper.attributes('alt')).toBe('icon')
+    expect(wrapper.attributes('aria-label')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
@@ -65,7 +65,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.classes()).toContain('bi')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('role')).toBe('img')
-    expect(wrapper.attributes('alt')).toBe('icon')
+    expect(wrapper.attributes('aria-label')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.element.style.fontSize).toEqual('125%')
@@ -115,6 +115,46 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').attributes('transform')).toEqual(
       'translate(8 8) scale(1.5 1.5) translate(-8 -8)'
     )
+
+    wrapper.destroy()
+  })
+
+  it('b-iconstack title prop works', async () => {
+    const wrapper = mount(BIconstack, {
+      propsData: {
+        icon: 'circle-fill',
+        title: 'Circle'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('b-iconstack')
+    expect(wrapper.classes()).toContain('bi')
+
+    const $title = wrapper.find('title')
+    expect($title.exists()).toBe(true)
+    expect($title.text()).toBe('Circle')
+
+    wrapper.destroy()
+  })
+
+  it('b-iconstack <title> should not render when title is undefined', async () => {
+    const wrapper = mount(BIconstack, {
+      propsData: {
+        icon: 'circle-fill'
+      }
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('svg')
+    expect(wrapper.classes()).toContain('b-icon')
+    expect(wrapper.classes()).toContain('b-iconstack')
+    expect(wrapper.classes()).toContain('bi')
+
+    const $title = wrapper.find('title')
+    expect($title.exists()).toBe(false)
 
     wrapper.destroy()
   })

@@ -7,6 +7,10 @@ import { toFloat } from '../../utils/number'
 
 // Common icon props (should be cloned/spread before using)
 export const commonIconProps = {
+  title: {
+    type: String
+    // default: null
+  },
   variant: {
     type: String,
     default: null
@@ -52,7 +56,7 @@ const baseAttrs = {
   height: '1em',
   focusable: 'false',
   role: 'img',
-  alt: 'icon'
+  'aria-label': 'icon'
 }
 
 // Attributes that are nulled out when stacked
@@ -61,7 +65,7 @@ const stackedAttrs = {
   height: null,
   focusable: null,
   role: null,
-  alt: null
+  'aria-label': null
 }
 
 // Shared private base component to reduce bundle/runtime size
@@ -132,6 +136,8 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       $inner = h('g', {}, [$inner])
     }
 
+    const $title = props.title ? h('title', props.title) : null
+
     return h(
       'svg',
       mergeData(
@@ -156,7 +162,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
           }
         }
       ),
-      [$inner]
+      [$title, $inner]
     )
   }
 })

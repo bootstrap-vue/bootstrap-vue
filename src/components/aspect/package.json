@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Aspect",
-    "new": true,
     "version": "2.9.0",
     "description": "The `<b-aspect>` component can be used to maintain a minimum responsive aspect ratio for content.",
     "components": [

@@ -56,6 +56,9 @@ const CONTAINER_SELECTOR = [MODAL_SELECTOR, SIDEBAR_SELECTOR].join(', ')
 const DROPDOWN_CLASS = 'dropdown'
 const DROPDOWN_OPEN_SELECTOR = '.dropdown-menu.show'
 
+// Data attribute to temporary store the `title` attribute's value
+const DATA_TITLE_ATTR = 'data-original-title'
+
 // Data specific to popper and template
 // We don't use props, as we need reactivity (we can't pass reactive props)
 const templateData = {
@@ -200,8 +203,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // ensure that the template updates accordingly
       this.handleTemplateUpdate()
     },
-    disabled(newVal) {
-      newVal ? this.disable() : this.enable()
+    title(newValue, oldValue) {
+      // Make sure to hide the tooltip when the title is set empty
+      if (newValue !== oldValue && !newValue) {
+        this.hide()
+      }
+    },
+    disabled(newValue) {
+      if (newValue) {
+        this.disable()
+      } else {
+        this.enable()
+      }
     }
   },
   created() {
@@ -272,10 +285,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           }
         }
       })
+      // If the title has updated, we may need to handle the `title`
+      // attribute on the trigger target
+      // We only do this while the template is open
       if (titleUpdated && this.localShow) {
-        // If the title has updated, we may need to handle the title
-        // attribute on the trigger target. We only do this while the
-        // template is open
         this.fixTitle()
       }
     },
@@ -594,22 +607,19 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     fixTitle() {
-      // If the target has a title attribute, null it out and
-      // store on data-title
+      // If the target has a `title` attribute, remove it and store it on a data attribute
       const target = this.getTarget()
-      if (target && getAttr(target, 'title')) {
-        // We only update title attribute if it has a value
-        setAttr(target, 'data-original-title', getAttr(target, 'title') || '')
+      if (target && hasAttr(target, 'title')) {
+        setAttr(target, DATA_TITLE_ATTR, getAttr(target, 'title') || '')
         setAttr(target, 'title', '')
       }
     },
     restoreTitle() {
-      // If target had a title, restore the title attribute
-      // and remove the data-title attribute
+      // If the target had a title, restore it and remove the data attribute
       const target = this.getTarget()
-      if (target && hasAttr(target, 'data-original-title')) {
-        setAttr(target, 'title', getAttr(target, 'data-original-title') || '')
-        removeAttr(target, 'data-original-title')
+      if (target && hasAttr(target, DATA_TITLE_ATTR)) {
+        setAttr(target, 'title', getAttr(target, DATA_TITLE_ATTR) || '')
+        removeAttr(target, DATA_TITLE_ATTR)
       }
     },
     // --- BvEvent helpers ---

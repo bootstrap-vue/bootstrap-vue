@@ -871,6 +871,33 @@ describe('form-input', () => {
     // `input` event should not have emitted new event
     expect(wrapper.emitted('input').length).toBe(4)
 
+    $input.element.value = 'abc'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abc')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toBe(2)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(5)
+    expect(wrapper.emitted('input')[4][0]).toBe('abc')
+
+    $input.element.value = 'abcd'
+    await $input.trigger('input')
+    expect($input.element.value).toBe('abcd')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toBe(2)
+    // `input` event should be emitted
+    expect(wrapper.emitted('input').length).toBe(6)
+    expect(wrapper.emitted('input')[5][0]).toBe('abcd')
+
+    // Advance timer
+    jest.runOnlyPendingTimers()
+    // Should update the v-model
+    expect($input.element.value).toBe('abcd')
+    // `v-model` update event should not have emitted new event
+    expect(wrapper.emitted('update').length).toBe(2)
+    // `input` event should not have emitted new event
+    expect(wrapper.emitted('input').length).toBe(6)
+
     wrapper.destroy()
   })
 

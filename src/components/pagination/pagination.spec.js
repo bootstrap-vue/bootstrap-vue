@@ -374,6 +374,25 @@ describe('pagination', () => {
     wrapper.destroy()
   })
 
+  it('has correct number of links when `hide-ellipsis` is enabled', async () => {
+    const wrapper = mount(BPagination, {
+      propsData: {
+        hideEllipsis: true,
+        totalRows: 100,
+        perPage: 10,
+        value: 1
+      }
+    })
+    expect(wrapper.element.tagName).toBe('UL')
+    expect(wrapper.findAll('li').length).toBe(9)
+
+    await wrapper.setProps({ value: 5 })
+    await waitNT(wrapper.vm)
+    expect(wrapper.findAll('li').length).toBe(9)
+
+    wrapper.destroy()
+  })
+
   it('has attribute aria-controls on page links when prop aria-controls is set', async () => {
     const wrapper = mount(BPagination, {
       propsData: {

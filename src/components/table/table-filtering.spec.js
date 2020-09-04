@@ -207,6 +207,34 @@ describe('table > filtering', () => {
     wrapper.destroy()
   })
 
+  it('should filter for formatted values for keys which are not present in row', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        items: [{ a: 'A', b: 'B' }],
+        fields: [
+          { key: 'a' },
+          {
+            key: 'b',
+            formatter: () => 'Foo',
+            filterByFormatted: true
+          },
+          {
+            key: 'c',
+            formatter: () => 'Bar',
+            filterByFormatted: true
+          }
+        ],
+        filter: 'Bar'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.findAll('tbody > tr').length).toBe(1)
+
+    wrapper.destroy()
+  })
+
   it('should show empty filtered message when no matches and show-empty=true', async () => {
     const wrapper = mount(BTable, {
       propsData: {

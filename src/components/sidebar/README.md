@@ -328,9 +328,9 @@ elements outside of the sidebar.
 
 ### `v-b-toggle` directive
 
-Using the [`v-b-toggle` directive](/docs/directive/toggle) is the preferred method for _opening_ the
-sidebar, as it automatically handles applying the `aria-controls` and `aria-expanded` accessibility
-attributes on the trigger element.
+Using the [`v-b-toggle` directive](/docs/directives/toggle) is the preferred method for _opening_
+the sidebar, as it automatically handles applying the `aria-controls` and `aria-expanded`
+accessibility attributes on the trigger element.
 
 The majority of examples on this page use the `v-b-toggle` directive.
 

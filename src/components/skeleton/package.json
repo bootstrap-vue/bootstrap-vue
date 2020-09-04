@@ -1,0 +1,138 @@
+{
+  "name": "@bootstrap-vue/skeleton",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Skeleton",
+    "description": "The <b-skeleton> component can be used to scaffold a loading state, while your data is loading.",
+    "new": true,
+    "version": "2.17.0",
+    "slug": "skeleton",
+    "components": [
+      {
+        "component": "BSkeleton",
+        "props": [
+          {
+            "prop": "animation",
+            "setting": true,
+            "description": "Changes the component animation, leave empty or `null` to disable the animation"
+          },
+          {
+            "prop": "type",
+            "default": "text",
+            "description": "Changes the type, refer to the [types](/#types) section"
+          },
+          {
+            "prop": "width",
+            "description": "Sets the `width` of the component"
+          },
+          {
+            "prop": "height",
+            "description": "Sets the `height` of the component"
+          },
+          {
+            "prop": "size",
+            "description": "Sets the `width` and `height` of the component"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonWrapper",
+        "props": [
+          {
+            "prop": "loading",
+            "description": "Determines whether the loading slot should be displayed"
+          }
+        ],
+        "slots": [
+          {
+            "name": "loading",
+            "description": "Content to show when the `loading` prop is `true`"
+          },
+          {
+            "name": "default",
+            "description": "Content to show when the `loading` prop is `false`"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonTable",
+        "props": [
+          {
+            "prop": "animation",
+            "description": "Animation used for the component in each cell, leave empty or `null` to disable the animation"
+          },
+          {
+            "prop": "rows",
+            "description": "Amount of rows to display"
+          },
+          {
+            "prop": "columns",
+            "description": "Amount of columns to display"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "Hides the header of the table"
+          },
+          {
+            "prop": "showFooter",
+            "description": "Enables the footer of the table"
+          },
+          {
+            "prop": "tableProps",
+            "description": "Supports the same props as `<b-table-simple>`"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component in each cell"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonImg",
+        "props": [
+          {
+            "prop": "animation",
+            "description": "Animation used for the component, leave empty or `null` to disable the animation"
+          },
+          {
+            "prop": "aspect",
+            "description": "Control the aspect ratio of the image"
+          },
+          {
+            "prop": "noAspect",
+            "description": "Removes the aspect wrapper around the skeleton"
+          },
+          {
+            "prop": "height",
+            "description": "Sets the height of the image. Best used with `no-aspect` set to `true`"
+          },
+          {
+            "prop": "width",
+            "description": "Sets the width of the image. Best used with `no-aspect` set to `true`"
+          },
+          {
+            "prop": "cardImg",
+            "description": "If used as an card image, use this prop to set the position. Accepted values are `top`, `bottom`, `left` and `right`"
+          }
+        ]
+      },
+      {
+        "component": "BSkeletonIcon",
+        "props": [
+          {
+            "prop": "animation",
+            "description": "Animation used for the component, leave empty or `null` to disable the animation"
+          },
+          {
+            "prop": "icon",
+            "description": "Icon to display"
+          },
+          {
+            "prop": "iconProps",
+            "description": "Properties to pass on to the icon. Refer to `<b-icon>` property references"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+import cssEscape from '../../utils/css-escape'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
@@ -379,7 +380,8 @@ export const BFormGroup = {
       // Optionally accepts a string of IDs to remove as the second parameter.
       // Preserves any aria-describedby value(s) user may have on input.
       if (this.labelFor && isBrowser) {
-        const input = select(`#${this.labelFor}`, this.$refs.content)
+        // We need to escape `labelFor` since it can be user-provided
+        const input = select(`#${cssEscape(this.labelFor)}`, this.$refs.content)
         if (input) {
           const adb = 'aria-describedby'
           let ids = (getAttr(input, adb) || '').split(/\s+/)

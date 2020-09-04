@@ -113,8 +113,8 @@ When creating custom variants, follow the Bootstrap v4 variant CSS class naming 
 become available to the various components that use that scheme (i.e. create a custom CSS class
 `btn-purple` and `purple` becomes a valid variant to use on `<b-button>`).
 
-Alternatively, you can create new variant theme colors by supplying custom Bootstrap SCSS them color
-maps. The default theme color map is (from `bootstrap/scss/_variables.scss`):
+Alternatively, you can create new variant theme colors by supplying custom Bootstrap SCSS theme
+color maps. The default theme color map is (from `bootstrap/scss/_variables.scss`):
 
 ```scss
 // Base grayscale colors definitions

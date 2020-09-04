@@ -292,6 +292,12 @@
       },
       {
         "component": "BDropdownText",
+        "props": [
+          {
+            "prop": "textClass",
+            "description": "Class or classes to apply to the inner element"
+          }
+        ],
         "aliases": [
           "BDdText"
         ]

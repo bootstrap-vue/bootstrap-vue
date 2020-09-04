@@ -13,8 +13,10 @@ import { commonIconProps, BVIconBase } from './icon-base'
 export const makeIcon = (name, content) => {
   // For performance reason we pre-compute some values, so that
   // they are not computed on each render of the icon component
+  const kebabName = kebabCase(name)
   const iconName = `BIcon${pascalCase(name)}`
-  const iconNameClass = `bi-${kebabCase(name)}`
+  const iconNameClass = `bi-${kebabName}`
+  const iconTitle = kebabName.replace(/-/g, ' ')
   const svgContent = trim(content || '')
   // Return the icon component definition
   return /*#__PURE__*/ Vue.extend({
@@ -30,7 +32,20 @@ export const makeIcon = (name, content) => {
     render(h, { data, props }) {
       return h(
         BVIconBase,
-        mergeData(data, { staticClass: iconNameClass, props: { ...props, content: svgContent } })
+        mergeData(
+          // Defaults
+          {
+            props: { title: iconTitle },
+            attrs: { 'aria-label': iconTitle }
+          },
+          // User data
+          data,
+          // Required data
+          {
+            staticClass: iconNameClass,
+            props: { ...props, content: svgContent }
+          }
+        )
       )
     }
   })

@@ -1119,7 +1119,7 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
-    expect(document.getElementById(`adb`)).toBe(null)
+    expect(document.getElementById('adb')).toBe(null)
 
     // Try and show element via root event (using ID of trigger button)
     // Note that this generates a console warning
@@ -1153,6 +1153,70 @@ describe('b-tooltip', () => {
 
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('closes when title is set to empty', async () => {
+    jest.useFakeTimers()
+    const wrapper = mount(App, {
+      attachTo: createContainer(),
+      propsData: {
+        show: true,
+        title: 'hello'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('ARTICLE')
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('title')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // <b-tooltip> wrapper
+    const $tipHolder = wrapper.findComponent(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+    expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    const $tip = createWrapper(tip)
+    expect($tip.element.tagName).toBe('DIV')
+    expect($tip.classes()).toContain('tooltip')
+    expect($tip.classes()).toContain('b-tooltip')
+    // Should contain our title prop value
+    expect($tip.text()).toContain('hello')
+
+    // Change the title prop
+    await wrapper.setProps({ title: '' })
+    await waitRAF()
+    await waitRAF()
+
+    // Tooltip element should not be in the document
+    expect(document.body.contains(tip)).toBe(false)
+    expect(document.getElementById('adb')).toBe(null)
 
     wrapper.destroy()
   })

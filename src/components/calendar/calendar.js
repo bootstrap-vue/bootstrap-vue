@@ -123,12 +123,17 @@ export const BCalendar = Vue.extend({
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: 'primary'
+      default: getComponentConfig(NAME, 'selectedVariant')
     },
     todayVariant: {
-      // Variant color to use for today's date (defaults to `variant`)
-      type: String
-      // default: null
+      // Variant color to use for today's date (defaults to `selectedVariant`)
+      type: String,
+      default: getComponentConfig(NAME, 'todayVariant')
+    },
+    navButtonVariant: {
+      // Variant color to use for the navigation buttons
+      type: String,
+      default: getComponentConfig(NAME, 'navButtonVariant')
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -354,6 +359,9 @@ export const BCalendar = Vue.extend({
     },
     computedTodayVariant() {
       return `btn-outline-${this.todayVariant || this.selectedVariant || 'primary'}`
+    },
+    computedNavButtonVariant() {
+      return `btn-outline-${this.navButtonVariant || 'primary'}`
     },
     isRTL() {
       // `true` if the language requested is RTL
@@ -889,8 +897,8 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
-          class: { disabled: btnDisabled },
+          staticClass: 'btn btn-sm border-0 flex-fill',
+          class: [this.computedNavButtonVariant, { disabled: btnDisabled }],
           attrs: {
             title: label || null,
             type: 'button',

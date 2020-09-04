@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBToggle } from './toggle'
 
 // Emitted control event for collapse (emitted to collapse)
@@ -28,6 +28,9 @@ describe('v-b-toggle directive', () => {
     }
 
     const wrapper = mount(App)
+
+    await waitRAF()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -72,6 +75,9 @@ describe('v-b-toggle directive', () => {
 
     const wrapper = mount(App)
 
+    await waitRAF()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(spy).not.toHaveBeenCalled()
@@ -113,6 +119,9 @@ describe('v-b-toggle directive', () => {
 
     const wrapper = mount(App)
 
+    await waitRAF()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(spy).not.toHaveBeenCalled()
@@ -153,6 +162,9 @@ describe('v-b-toggle directive', () => {
     }
 
     const wrapper = mount(App)
+
+    await waitRAF()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('A')
@@ -206,6 +218,9 @@ describe('v-b-toggle directive', () => {
         target: 'test1'
       }
     })
+
+    await waitRAF()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
@@ -278,6 +293,9 @@ describe('v-b-toggle directive', () => {
     }
 
     const wrapper = mount(App)
+
+    await waitRAF()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')

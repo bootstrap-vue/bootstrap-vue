@@ -62,12 +62,36 @@ export const nav = [
   }
 ]
 
+// RegExp to grab the minor version from a full version
+const minorRE = /^(\d+\.\d+)(\..+)$/
+// RegExp to grab the major version from a full version
+const majorRE = /^(\d+)(\.\d+\..+)$/
+
 export const bootstrapVersion = parseVersion(dependencies.bootstrap)
+export const bootstrapVersionMinor = bootstrapVersion.replace(minorRE, '$1')
+export const bootstrapVersionMajor = bootstrapVersion.replace(majorRE, '$1')
+
 export const bootstrapIconsVersion = parseFullVersion(devDependencies['bootstrap-icons'])
+export const bootstrapIconsVersionMinor = bootstrapIconsVersion.replace(minorRE, '$1')
+export const bootstrapIconsVersionMajor = bootstrapIconsVersion.replace(majorRE, '$1')
+export const bootstrapIconsCount = 1100
+
 export const popperVersion = parseVersion(dependencies['popper.js'])
+export const popperVersionMinor = popperVersion.replace(minorRE, '$1')
+export const popperVersionMajor = popperVersion.replace(majorRE, '$1')
+
 export const portalVueVersion = parseVersion(dependencies['portal-vue'])
+export const portalVueVersionMinor = portalVueVersion.replace(minorRE, '$1')
+export const portalVueVersionMajor = portalVueVersion.replace(majorRE, '$1')
+
 export const nuxtVersion = parseVersion(devDependencies.nuxt)
+export const nuxtVersionMinor = nuxtVersion.replace(minorRE, '$1')
+export const nuxtVersionMajor = nuxtVersion.replace(majorRE, '$1')
+
 export const vueVersion = parseVersion(devDependencies.vue)
+export const vueVersionMinor = vueVersion.replace(minorRE, '$1')
+export const vueVersionMajor = vueVersion.replace(majorRE, '$1')
+
 export const defaultConfig = DEFAULT_CONFIG
 export const bvDescription = description
 
