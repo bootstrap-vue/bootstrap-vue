@@ -21,8 +21,8 @@ button will only appear when the user has entered a new tag value.
 <template>
   <div>
     <label for="tags-basic">Type a new tag and press enter</label>
-    <b-form-tags input-id="tags-basic" v-model="value" class="mb-2"></b-form-tags>
-    <p>Value: {{ value }}</p>
+    <b-form-tags input-id="tags-basic" v-model="value"></b-form-tags>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -63,9 +63,8 @@ are typed:
       separator=" ,;"
       placeholder="Enter new tags separated by space, comma or semicolon"
       no-add-on-enter
-      class="mb-2"
     ></b-form-tags>
-    <p>Value: {{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -99,9 +98,8 @@ When the prop `remove-on-delete` is set, and the user presses <kbd>Backspace</kb
       placeholder="Enter new tags separated by space"
       remove-on-delete
       no-add-on-enter
-      class="mb-2"
     ></b-form-tags>
-    <b-form-text id="tags-remove-on-delete-help">
+    <b-form-text id="tags-remove-on-delete-help" class="mt-2">
       Press <kbd>Backspace</kbd> to remove the last tag entered
     </b-form-text>
     <p>Value: {{ value }}</p>
@@ -150,9 +148,8 @@ The focus and validation state styling of the component relies upon BootstrapVue
       size="lg"
       separator=" "
       placeholder="Enter new tags separated by space"
-      class="mb-2"
     ></b-form-tags>
-    <p>Value: {{ value }}</p>
+    <p class="mt-2">Value: {{ value }}</p>
   </div>
 </template>
 
@@ -186,7 +183,7 @@ duplicate tag, and will provide integrated feedback to the user.
 You can optionally provide a tag validator method via the `tag-validator` prop. The validator
 function will receive one argument which is the tag being added, and should return either `true` if
 the tag passes validation and can be added, or `false` if the tag fails validation (in which case it
-is not added to the array of tags). integrated feedback will be provided to the user listing the
+is not added to the array of tags). Integrated feedback will be provided to the user listing the
 invalid tag(s) that could not be added.
 
 Tag validation occurs only for tags added via user input. Changes to the tags via the `v-model` are
@@ -318,6 +315,38 @@ to either an empty string (`''`) or `null`.
 <!-- b-form-tags-tags-state-event.vue -->
 ```
 
+## Limiting tags
+
+If you want to limit the amount of tags the user is able to add use the `limit` prop. Adding more
+tags than the `limit` allows is only possible by the `v-model`.
+
+When the limit is reached, a message is shown to give the user feedback. This message is
+configurable by the `limit-tags-text` prop. Setting the prop to either an empty string (`''`) or
+`null` will disable the feedback from being shown.
+
+```html
+<template>
+  <div>
+    <label for="tags-limit">Enter tags</label>
+    <b-form-tags input-id="tags-limit" v-model="value" :limit="limit" remove-on-delete></b-form-tags>
+    <p class="mt-2">Value: {{ value }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: [],
+        limit: 5
+      }
+    }
+  }
+</script>
+
+<!-- b-form-tags-limit.vue -->
+```
+
 ## Custom rendering with default scoped slot
 
 If you fancy a different look and feel for the tags control, you can provide your own custom
@@ -344,17 +373,23 @@ The default slot scope properties are as follows:
 | `invalidTags`      | Array                    | Array of the invalid tag(s) the user has entered                                                                                                       |
 | `isDuplicate`      | Boolean                  | `true` if the user input contains duplicate tag(s)                                                                                                     |
 | `duplicateTags`    | Array                    | Array of the duplicate tag(s) the user has entered                                                                                                     |
+| `isLimitReached`   | Boolean                  | <span class="badge badge-secondary">v2.17.0+</span> `true` if a `limit` is configured and the amount of tags has reached the limit                     |
 | `disableAddButton` | Boolean                  | Will be `true` if the tag(s) in the input cannot be added (all invalid and/or duplicates)                                                              |
 | `disabled`         | Boolean                  | `true` if the component is in the disabled state. Value of the `disabled` prop                                                                         |
 | `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
 | `size`             | String                   | The value of the `size` prop                                                                                                                           |
+| `limit`            | String                   | <span class="badge badge-secondary">v2.17.0+</span> The value of the `limit` prop                                                                      |
 | `separator`        | String                   | The value of the `separator` prop                                                                                                                      |
 | `placeholder`      | String                   | The value of the `placeholder` prop                                                                                                                    |
 | `tagRemoveLabel`   | String                   | Value of the `tag-remove-label` prop. Used as the `aria-label` attribute on the remove button of tags                                                  |
 | `tagVariant`       | String                   | The value of the `tag-variant` prop                                                                                                                    |
+| `tagPills`         | Boolean                  | The value of the `tag-pills` prop                                                                                                                      |
 | `tagClass`         | String, Array, or Object | The value of the `tag-variant` prop. Class (or classes) to apply to the tag elements                                                                   |
 | `addButtonText`    | String                   | The value of the `add-button-text` prop                                                                                                                |
 | `addButtonVariant` | String                   | The value of the `add-button-variant` prop                                                                                                             |
+| `invalidTagText`   | String                   | The value of the `invalid-tag-text` prop                                                                                                               |
+| `duplicateTagText` | String                   | The value of the `duplicate-tag-text` prop                                                                                                             |
+| `limitTagsText`    | String                   | <span class="badge badge-secondary">v2.17.0+</span> The value of the `limit-tags-text` prop                                                            |
 
 #### `inputAttrs` object properties
 

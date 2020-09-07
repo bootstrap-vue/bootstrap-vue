@@ -165,8 +165,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME, 'limitTagsText')
     },
     limit: {
-      type: Number,
-      default: null
+      type: Number
+      // default: null
     },
     separator: {
       // Character (or characters) that trigger adding tags
@@ -298,7 +298,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return this.invalidTags.length > 0
     },
     isLimitReached() {
-      return isNumber(this.limit) && this.tags.length >= this.limit
+      const { limit } = this
+      return isNumber(limit) && limit >= 0 && this.tags.length >= limit
     }
   },
   watch: {
@@ -541,27 +542,27 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Default User Interface render
     defaultRender({
       tags,
-      addTag,
-      removeTag,
-      inputType,
       inputAttrs,
+      inputType,
       inputHandlers,
-      inputClass,
-      tagClass,
-      tagVariant,
-      tagPills,
-      tagRemoveLabel,
-      invalidTagText,
-      duplicateTagText,
-      limitTagsText,
+      removeTag,
+      addTag,
       isInvalid,
       isDuplicate,
       isLimitReached,
+      disableAddButton,
       disabled,
       placeholder,
+      inputClass,
+      tagRemoveLabel,
+      tagVariant,
+      tagPills,
+      tagClass,
       addButtonText,
       addButtonVariant,
-      disableAddButton
+      invalidTagText,
+      duplicateTagText,
+      limitTagsText
     }) {
       const h = this.$createElement
 
@@ -741,30 +742,31 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     const scope = {
       // Array of tags (shallow copy to prevent mutations)
       tags: this.tags.slice(),
+      // <input> v-bind:inputAttrs
+      inputAttrs: this.computedInputAttrs,
+      // We don't include this in the attrs, as users may want to override this
+      inputType: this.computedInputType,
+      // <input> v-on:inputHandlers
+      inputHandlers: this.computedInputHandlers,
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
-      // We don't include this in the attrs, as users may want to override this
-      inputType: this.computedInputType,
-      // <input> v-bind:inputAttrs
-      inputAttrs: this.computedInputAttrs,
-      // <input> v-on:inputHandlers
-      inputHandlers: this.computedInputHandlers,
       // <input> :id="inputId"
       inputId: this.computedInputId,
       // Invalid/Duplicate state information
-      invalidTags: this.invalidTags.slice(),
       isInvalid: this.hasInvalidTags,
-      duplicateTags: this.duplicateTags.slice(),
+      invalidTags: this.invalidTags.slice(),
       isDuplicate: this.hasDuplicateTags,
+      duplicateTags: this.duplicateTags.slice(),
       isLimitReached: this.isLimitReached,
       // If the 'Add' button should be disabled
       disableAddButton: this.disableAddButton,
       // Pass-though values
-      state: this.state,
-      separator: this.separator,
       disabled: this.disabled,
+      state: this.state,
       size: this.size,
+      limit: this.limit,
+      separator: this.separator,
       placeholder: this.placeholder,
       inputClass: this.inputClass,
       tagRemoveLabel: this.tagRemoveLabel,
