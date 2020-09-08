@@ -268,6 +268,89 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('emits input event when files changed in directory mode', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        multiple: true,
+        directory: true
+      }
+    })
+
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['bar'], 'bar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
+    })
+    const file3 = new File(['baz'], 'baz.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 2000
+    })
+    const files = [[file1, file2], file3]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+
+    // Setting to same array of files should not emit event
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+
+    // Setting to new array of same files should not emit event
+    wrapper.vm.setFiles([[file1, file2], file3])
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toEqual(1)
+
+    // Setting to array of new files should emit event
+    wrapper.vm.setFiles(files.slice().reverse())
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
+
+    wrapper.destroy()
+  })
+
+  it('emits flat files array when `no-traverse` prop set', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        multiple: true,
+        directory: true,
+        noTraverse: true
+      }
+    })
+
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['bar'], 'bar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
+    })
+    const file3 = new File(['baz'], 'baz.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 2000
+    })
+    const files = [[file1, file2], file3]
+
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual([file1, file2, file3])
+
+    wrapper.destroy()
+  })
+
   it('native change event works', async () => {
     const wrapper = mount(BFormFile, {
       propsData: {
