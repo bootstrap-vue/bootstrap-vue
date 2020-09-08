@@ -414,6 +414,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (hasPromiseSupport && items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
         // Drop handling for modern browsers
         // Supports nested directory structures in `directory` mode
+        /* istanbul ignore next: not supported in JSDOM */
         getAllFileEntries(items, this.directory).then(files => this.filesHandler(files, isDrop))
       } else {
         // Standard file input handling (native file input change event),
