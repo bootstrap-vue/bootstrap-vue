@@ -41,25 +41,21 @@ describe('table > sorting', () => {
     wrapper.destroy()
   })
 
-  it('should emit field.sortKey if specified and no local sorting', async () => {
-    const testFieldsWithSortKey = [
-      ...testFields,
-      { key: 'd', label: 'D', sortable: true, sortKey: 'non-local' }
-    ]
-
+  it('should emit `field.sortKey` if specified and no local sorting', async () => {
     const wrapper = mount(BTable, {
       propsData: {
-        fields: testFieldsWithSortKey,
+        fields: [...testFields, { key: 'd', label: 'D', sortable: true, sortKey: 'non-local' }],
         items: testItems,
         noLocalSorting: true
       }
     })
+
     expect(wrapper).toBeDefined()
+
     await wrapper
       .findAll('thead > tr > th')
       .at(3)
       .trigger('keydown.enter')
-
     expect(wrapper.emitted('sort-changed').length).toBe(1)
     expect(wrapper.emitted('sort-changed')[0][0].sortBy).toEqual('non-local')
   })
