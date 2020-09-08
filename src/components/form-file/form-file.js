@@ -483,18 +483,18 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { custom, size, dragging } = this
+    const { custom, plain, size, dragging, stateClass } = this
 
     // Form Input
     const $input = h('input', {
       ref: 'input',
       class: [
         {
-          'form-control-file': this.plain,
+          'form-control-file': plain,
           'custom-file-input': custom,
           focus: custom && this.hasFocus
         },
-        this.stateClass
+        stateClass
       ],
       // With IE 11, the input gets in the "way" of the drop events,
       // so we move it out of the way by putting it behind the label
@@ -509,7 +509,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     })
 
-    if (this.plain) {
+    if (plain) {
       return $input
     }
 
@@ -544,12 +544,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'custom-file b-form-file',
-        class: [
-          this.stateClass,
-          {
-            [`b-custom-control-${size}`]: size
-          }
-        ],
+        class: [{ [`b-custom-control-${size}`]: size }, stateClass],
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragenter: this.onDragenter,
