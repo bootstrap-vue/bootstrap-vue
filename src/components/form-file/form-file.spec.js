@@ -584,6 +584,10 @@ describe('form-file', () => {
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
+    await wrapper.trigger('dragenter')
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROP_HERE')
+
     await wrapper.trigger('dragover')
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
@@ -600,6 +604,10 @@ describe('form-file', () => {
     await wrapper.setProps({ noDrop: false })
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
+
+    await wrapper.trigger('dragenter')
+    expect($label.text()).not.toContain('PLACEHOLDER')
+    expect($label.text()).toContain('NO_DROP_HERE')
 
     await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')

@@ -429,7 +429,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         }
       })
     },
-    onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragenter(evt) {
       stopEvent(evt)
       this.dragging = true
       const { dataTransfer = {} } = evt
@@ -444,7 +444,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     // Note this event fires repeatedly while the mouse is over the dropzone at
     // intervals in the milliseconds, so avoid doing much processing in here
-    onDragover(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragover(evt) {
       stopEvent(evt)
       this.dragging = true
       const { dataTransfer = {} } = evt
@@ -457,7 +457,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
       dataTransfer.dropEffect = 'copy'
     },
-    onDragleave(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDragleave(evt) {
       stopEvent(evt)
       this.$nextTick(() => {
         this.dragging = false
@@ -466,7 +466,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     // Triggered by a file drop onto drop target
-    onDrop(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
+    onDrop(evt) {
       stopEvent(evt)
       this.dragging = false
       // Early exit when the input or dropping is disabled
