@@ -618,6 +618,7 @@ describe('form-file', () => {
         files: [file]
       }
     })
+    await waitNT(wrapper.vm)
     expect($label.text()).not.toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).toContain(file.name)
