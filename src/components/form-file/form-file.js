@@ -436,10 +436,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Early exit when the input or dropping is disabled
       if (this.noDrop || this.disabled || !this.dropAllowed) {
         // Show deny feedback
+        /* istanbul ignore next: not supported in JSDOM */
         dataTransfer.dropEffect = 'none'
         this.dropAllowed = false
         return
       }
+      /* istanbul ignore next: not supported in JSDOM */
       dataTransfer.dropEffect = 'copy'
     },
     // Note this event fires repeatedly while the mouse is over the dropzone at
@@ -451,10 +453,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       // Early exit when the input or dropping is disabled
       if (this.noDrop || this.disabled || !this.dropAllowed) {
         // Show deny feedback
+        /* istanbul ignore next: not supported in JSDOM */
         dataTransfer.dropEffect = 'none'
         this.dropAllowed = false
         return
       }
+      /* istanbul ignore next: not supported in JSDOM */
       dataTransfer.dropEffect = 'copy'
     },
     onDragleave(evt) {
