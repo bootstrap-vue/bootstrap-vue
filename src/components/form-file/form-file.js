@@ -5,6 +5,7 @@ import looseEqual from '../../utils/loose-equal'
 import { from as arrayFrom, flatten, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { closest } from '../../utils/dom'
+import { hasPromiseSupport } from '../../utils/env'
 import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff, stopEvent } from '../../utils/events'
 import { isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
@@ -375,6 +376,22 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } catch {}
       this.files = []
     },
+    filesHandler(files, isDrop = false) {
+      if (isDrop) {
+        // When dropped, make sure to filter files with the internal `accept` logic
+        const filteredFiles = files.filter(this.isFilesArrayValid)
+        // Only update files when we have any after filtering
+        if (filteredFiles.length > 0) {
+          this.setFiles(filteredFiles)
+          // Try an set the file input's files array so that `required`
+          // constraint works for dropped files (will fail in IE 11 though)
+          this.setInputFiles(filteredFiles)
+        }
+      } else {
+        // We always update the files from the `change` event
+        this.setFiles(files)
+      }
+    },
     focusHandler(evt) {
       // Bootstrap v4 doesn't have focus styling for custom file input
       // Firefox has a `[type=file]:focus ~ sibling` selector issue,
@@ -387,47 +404,27 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     onChange(evt) {
+      const { type, target, dataTransfer = {} } = evt
+      const isDrop = type === 'drop'
+
       // Always emit original event
       this.$emit('change', evt)
 
-      const { type, target, dataTransfer = {} } = evt
       const items = arrayFrom(dataTransfer.items || [])
-      let filesPromise
-
-      /* istanbul ignore if: not supported in JSDOM */
-      if (items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
+      if (hasPromiseSupport && items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
         // Drop handling for modern browsers
         // Supports nested directory structures in `directory` mode
-        filesPromise = getAllFileEntries(items, this.directory)
+        getAllFileEntries(items, this.directory).then(files => this.filesHandler(files, isDrop))
       } else {
         // Standard file input handling (native file input change event),
         // or fallback drop mode (IE 11 / Opera) which don't support `directory` mode
-        filesPromise = Promise.resolve(
-          arrayFrom(target.files || dataTransfer.files || []).map(file => {
-            // Add custom `$path` property to each file (to be consistent with drop mode)
-            file.$path = file.webkitRelativePath || ''
-            return file
-          })
-        )
+        const files = arrayFrom(target.files || dataTransfer.files || []).map(file => {
+          // Add custom `$path` property to each file (to be consistent with drop mode)
+          file.$path = file.webkitRelativePath || ''
+          return file
+        })
+        this.filesHandler(files, isDrop)
       }
-
-      // Wait for the files to resolve and process them
-      filesPromise.then(files => {
-        if (type === 'drop') {
-          // When dropped, make sure to filter files with the internal `accept` logic
-          const filteredFiles = files.filter(this.isFilesArrayValid)
-          // Only update files when we have any after filtering
-          if (filteredFiles.length > 0) {
-            this.setFiles(filteredFiles)
-            // Try an set the file input's files array so that `required`
-            // constraint works for dropped files (will fail in IE 11 though)
-            this.setInputFiles(filteredFiles)
-          }
-        } else {
-          // We always update the files from the `change` event
-          this.setFiles(files)
-        }
-      })
     },
     onDragenter(evt) {
       stopEvent(evt)
