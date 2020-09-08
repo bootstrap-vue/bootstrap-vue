@@ -1,6 +1,7 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
@@ -12,13 +13,6 @@ const ITEM_SELECTOR = [
   'input[type="checkbox"]:not(.disabled)',
   'input[type="radio"]:not(.disabled)'
 ].join(',')
-
-// --- Utility methods ---
-
-const stopEvent = evt => {
-  evt.preventDefault()
-  evt.stopPropagation()
-}
 
 // --- Main component ---
 

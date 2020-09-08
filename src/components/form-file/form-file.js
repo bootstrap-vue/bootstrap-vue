@@ -5,7 +5,7 @@ import looseEqual from '../../utils/loose-equal'
 import { from as arrayFrom, flatten, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { closest } from '../../utils/dom'
-import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
+import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff, stopEvent } from '../../utils/events'
 import { isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
@@ -30,11 +30,6 @@ const RX_STAR = /\/\*$/
 // --- Helper methods ---
 
 const isValidValue = value => isFile(value) || (isArray(value) && value.every(v => isValidValue(v)))
-
-const stopEvent = evt => {
-  evt.preventDefault()
-  evt.stopPropagation()
-}
 
 // Helper method to "safely" get the entry from a data-transfer item
 /* istanbul ignore next: not supported in JSDOM */

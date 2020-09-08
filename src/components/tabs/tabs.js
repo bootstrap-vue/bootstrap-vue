@@ -7,6 +7,7 @@ import stableSort from '../../utils/stable-sort'
 import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { attemptFocus, requestAF, selectAll } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isEvent } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -24,11 +25,6 @@ const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
 
 // Filter function to filter out disabled tabs
 const notDisabled = tab => !tab.disabled
-
-const stopEvent = evt => {
-  evt.preventDefault()
-  evt.stopPropagation()
-}
 
 // --- Helper components ---
 

@@ -1,4 +1,5 @@
 import { attemptBlur, attemptFocus } from '../utils/dom'
+import { stopEvent } from '../utils/events'
 import { isFunction } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
@@ -210,7 +211,7 @@ export default {
       // or prevented the input event
       /* istanbul ignore next */
       if (formattedValue === false || evt.defaultPrevented) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         return
       }
       this.localValue = formattedValue
@@ -224,7 +225,7 @@ export default {
       // or prevented the input event
       /* istanbul ignore next */
       if (formattedValue === false || evt.defaultPrevented) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         return
       }
       this.localValue = formattedValue

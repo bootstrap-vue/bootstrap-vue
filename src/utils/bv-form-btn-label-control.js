@@ -3,6 +3,7 @@
 //
 import Vue from './vue'
 import { attemptBlur, attemptFocus } from './dom'
+import { stopEvent } from './events'
 import { toString } from './string'
 import dropdownMixin, { commonProps } from '../mixins/dropdown'
 import idMixin from '../mixins/id'
@@ -139,10 +140,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     },
     handleHover(hovered) {
       this.isHovered = hovered
-    },
-    /* istanbul ignore next */
-    stopEvent(evt) /* istanbul ignore next */ {
-      evt.stopPropagation()
     }
   },
   render(h) {
@@ -267,7 +264,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          '!click': this.stopEvent
+          '!click': stopEvent
         }
       },
       [

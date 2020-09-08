@@ -8,6 +8,7 @@ import {
   isVisible,
   selectAll
 } from '../utils/dom'
+import { stopEvent } from '../utils/events'
 import { isFunction, isNull } from '../utils/inspect'
 import { mathFloor, mathMax, mathMin } from '../utils/math'
 import { toInteger } from '../utils/number'
@@ -49,9 +50,8 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 // functionality via this handler
 const onSpaceKey = evt => {
   if (evt.keyCode === KeyCodes.SPACE) {
-    evt.preventDefault() // Stop page from scrolling
-    evt.stopImmediatePropagation()
-    evt.stopPropagation()
+    // Stop page from scrolling
+    stopEvent(evt, { immediatePropagation: true })
     // Trigger the click event on the link
     evt.currentTarget.click()
     return false
@@ -366,10 +366,10 @@ export default {
         return
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         shiftKey ? this.focusLast() : this.focusNext()
       }
     },

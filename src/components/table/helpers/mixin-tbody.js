@@ -1,6 +1,7 @@
 import KeyCodes from '../../../utils/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
+import { stopEvent } from '../../../utils/events'
 import { props as tbodyProps, BTbody } from '../tbody'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
@@ -74,8 +75,7 @@ export default {
       const keyCode = evt.keyCode
       if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
         // Emulated click for keyboard users, transfer to click handler
-        evt.stopPropagation()
-        evt.preventDefault()
+        stopEvent(evt)
         this.onTBodyRowClicked(evt)
       } else if (
         arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
@@ -83,8 +83,7 @@ export default {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
-          evt.stopPropagation()
-          evt.preventDefault()
+          stopEvent(evt)
           const trs = this.getTbodyTrs()
           const shift = evt.shiftKey
           if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {

@@ -8,6 +8,7 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { attemptBlur, attemptFocus, contains, getActiveElement, requestAF } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
@@ -420,8 +421,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     onSpinLeftRight(evt = {}) {
       const { type, keyCode } = evt
       if (!this.disabled && type === 'keydown' && (keyCode === LEFT || keyCode === RIGHT)) {
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         const spinners = this.$refs.spinners || []
         let index = spinners.map(cmp => !!cmp.hasFocus).indexOf(true)
         index = index + (keyCode === LEFT ? -1 : 1)

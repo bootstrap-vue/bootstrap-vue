@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax, mathMin } from '../../utils/math'
@@ -60,7 +61,7 @@ const BVFormRatingStar = Vue.extend({
   methods: {
     onClick(evt) {
       if (!this.disabled && !this.readonly) {
-        evt.preventDefault()
+        stopEvent(evt)
         this.$emit('selected', this.star)
       }
     }
@@ -275,7 +276,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     onKeydown(evt) {
       const { keyCode } = evt
       if (this.isInteractive && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
-        evt.preventDefault()
+        stopEvent(evt)
         const value = toInteger(this.localValue, 0)
         const min = this.showClear ? 0 : 1
         const stars = this.computedStars

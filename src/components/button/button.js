@@ -4,6 +4,7 @@ import KeyCodes from '../../utils/key-codes'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -163,15 +164,14 @@ export const BButton = /*#__PURE__*/ Vue.extend({
         // Add SPACE handler for `href="#"` and ENTER handler for non-standard tags
         if (keyCode === KeyCodes.SPACE || (keyCode === KeyCodes.ENTER && nonStandardTag)) {
           const target = evt.currentTarget || evt.target
-          evt.preventDefault()
+          stopEvent(evt, { propagation: false })
           target.click()
         }
       },
       click(evt) {
         /* istanbul ignore if: blink/button disabled should handle this */
         if (props.disabled && isEvent(evt)) {
-          evt.stopPropagation()
-          evt.preventDefault()
+          stopEvent(evt)
         } else if (toggle && listeners && listeners['update:pressed']) {
           // Send `.sync` updates to any "pressed" prop (if `.sync` listeners)
           // `concat()` will normalize the value to an array without
