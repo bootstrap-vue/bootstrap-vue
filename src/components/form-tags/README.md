@@ -317,12 +317,15 @@ to either an empty string (`''`) or `null`.
 
 ## Limiting tags
 
-If you want to limit the amount of tags the user is able to add use the `limit` prop. Adding more
-tags than the `limit` allows is only possible by the `v-model`.
+If you want to limit the amount of tags the user is able to add use the `limit` prop. When
+configured, adding more tags than the `limit` allows is only possible by the `v-model`.
 
-When the limit is reached, a message is shown to give the user feedback. This message is
-configurable by the `limit-tags-text` prop. Setting the prop to either an empty string (`''`) or
-`null` will disable the feedback from being shown.
+When the limit of tags is reached, the user is still able to type but adding more tags is disabled.
+A message is shown to give the user feedback about the reached limit. This message can be configured
+by the `limit-tags-text` prop. Setting it to either an empty string (`''`) or `null` will disable
+the feedback.
+
+Removing tags is unaffected by the `limit` prop.
 
 ```html
 <template>
