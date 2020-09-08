@@ -209,12 +209,13 @@ export default {
         }
       }
       if (field.sortable) {
-        if (key === this.localSortBy) {
+        const sortKey = !this.localSorting && field.sortKey ? field.sortKey : key
+        if (this.localSortBy === sortKey) {
           // Change sorting direction on current column
           this.localSortDesc = !this.localSortDesc
         } else {
           // Start sorting this column ascending
-          this.localSortBy = key
+          this.localSortBy = sortKey
           // this.localSortDesc = false
           toggleLocalSortDesc()
         }
