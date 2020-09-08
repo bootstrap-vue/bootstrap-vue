@@ -2,7 +2,7 @@ import Vue from '../../utils/vue'
 import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
-import { from as arrayFrom, flattenDeep, isArray } from '../../utils/array'
+import { from as arrayFrom, flatten, flattenDeep, isArray } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
@@ -55,7 +55,7 @@ const getAllFileEntries = (dataTransferItemList, traverseDirectories = true) =>
         const entry = getDataTransferItemEntry(item)
         if (entry) {
           if (entry.isDirectory && traverseDirectories) {
-            return getAllFileEntriesInDirectory(entry.createReader())
+            return getAllFileEntriesInDirectory(entry.createReader(), `${entry.name}/`)
           } else if (entry.isFile) {
             return new Promise(resolve => {
               entry.file(file => {
@@ -78,7 +78,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
     const readDirectoryEntries = () => {
       directoryReader.readEntries(entries => {
         if (entries.length === 0) {
-          resolve(Promise.all(entryPromises))
+          resolve(Promise.all(entryPromises).then(entries => flatten(entries)))
         } else {
           entryPromises.push(
             Promise.all(
@@ -93,7 +93,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
                     } else if (entry.isFile) {
                       return new Promise(resolve => {
                         entry.file(file => {
-                          file.$path = path
+                          file.$path = `${path}${file.name}`
                           resolve(file)
                         })
                       })
@@ -172,6 +172,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     },
+    // TODO:
+    //   Should we deprecate this and only support flat file structures?
+    //   Nested file structures are only supported when files are dropped
+    //   A Chromium "bug" prevents `webkitEntries` from being populated
+    //   on the file input's `change` event and is marked as "WontFix"
+    //   Mozilla implemented the behavior the same way as Chromium
+    //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
+    //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
     noTraverse: {
       type: Boolean,
       default: false
@@ -249,6 +257,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         capture: computedCapture,
         accept: accept || null,
         multiple,
+        directory,
         webkitdirectory: directory,
         'aria-required': required ? 'true' : null
       }
@@ -305,8 +314,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     files(newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        const files = this.noTraverse ? flattenDeep(newValue) : newValue
-        this.$emit('input', this.multiple ? files : files[0] || null)
+        const { multiple, noTraverse } = this
+        const files = !multiple || noTraverse ? flattenDeep(newValue) : newValue
+        this.$emit('input', multiple ? files : files[0] || null)
       }
     }
   },
@@ -350,7 +360,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
         const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
         // Add flattened files to temp `dataTransfer` object to get a true `FileList` array
-        flattenDeep(files).forEach(file => dataTransfer.items.add(file))
+        flattenDeep(files.splice()).forEach(file => {
+          delete file.$path
+          dataTransfer.items.add(file)
+        })
         this.$refs.input.files = dataTransfer.files
       } catch {}
     },
@@ -379,62 +392,47 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     onChange(evt) {
-      const { type, target, dataTransfer = {} } = evt
-      const traverseDirectories = this.directory
-      const isDrop = type === 'drop'
       // Always emit original event
       this.$emit('change', evt)
 
-      // Drop handling for modern browsers
+      const { type, target, dataTransfer = {} } = evt
       const items = arrayFrom(dataTransfer.items || [])
+      let filesPromise
+
       /* istanbul ignore if: not supported in JSDOM */
-      if (
-        isDrop &&
-        dataTransfer &&
-        items.length > 0 &&
-        !isNull(getDataTransferItemEntry(items[0]))
-      ) {
-        getAllFileEntries(items, traverseDirectories).then(files => {
+      if (items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
+        // Drop handling for modern browsers
+        // Supports nested directory structures in `directory` mode
+        filesPromise = getAllFileEntries(items, this.directory)
+      } else {
+        // Standard file input handling (native file input change event),
+        // or fallback drop mode (IE 11 / Opera) which don't support `directory` mode
+        filesPromise = Promise.resolve(
+          arrayFrom(target.files || dataTransfer.files || []).map(file => {
+            // Add custom `$path` property to each file (to be consistent with drop mode)
+            file.$path = file.webkitRelativePath || ''
+            return file
+          })
+        )
+      }
+
+      // Wait for the files to resolve and process them
+      filesPromise.then(files => {
+        if (type === 'drop') {
+          // When dropped, make sure to filter files with the internal `accept` logic
           const filteredFiles = files.filter(this.isFilesArrayValid)
-          // Only set the files if there are files
+          // Only update files when we have any after filtering
           if (filteredFiles.length > 0) {
             this.setFiles(filteredFiles)
             // Try an set the file input's files array so that `required`
-            // constraint works for dropped files (will fail in IE11 though)
+            // constraint works for dropped files (will fail in IE 11 though)
             this.setInputFiles(filteredFiles)
           }
-        })
-        return
-      }
-
-      // Input `change` event handling on modern browsers (that usually support directory mode)
-      // when dropping files (or directories) directly on the native input (when in plain mode)
-      // Supported by Chrome, Firefox, Edge, and Safari
-      const entries = arrayFrom(target.webkitEntries || [])
-      if (!isDrop && entries.length > 0) {
-        Promise.all(entries.map(entry => getAllFileEntries(entry, traverseDirectories))).then(
-          files => {
-            this.setFiles(files.filter(this.isFilesArrayValid))
-          }
-        )
-        return
-      }
-
-      // Standard file input handling (native file input change event),
-      // or fallback drop mode (IE 11 / Opera) which don't support directory mode
-      let files = arrayFrom(target.files || dataTransfer.files || [])
-      // Add custom `$path` property to each file (to be consistent with drop mode)
-      files.forEach(file => (file.$path = ''))
-      /* istanbul ignore if: drop mode not easily tested in JSDOM */
-      if (isDrop) {
-        files = files.filter(this.isFileValid)
-        // Set the v-model
-        this.setFiles(files)
-        // Ensure the input's files array is updated (if we can)
-        this.setInputFiles(files)
-      } else {
-        this.setFiles(files)
-      }
+        } else {
+          // We always update the files from the `change` event
+          this.setFiles(files)
+        }
+      })
     },
     onDragenter(evt) /* istanbul ignore next: difficult to test in JSDOM */ {
       stopEvent(evt)

@@ -8,12 +8,12 @@
   <div>
     <!-- Styled -->
     <b-form-file
-      v-model="file"
-      :state="Boolean(file)"
+      v-model="file1"
+      :state="Boolean(file1)"
       placeholder="Choose a file or drop it here..."
       drop-placeholder="Drop file here..."
     ></b-form-file>
-    <div class="mt-3">Selected file: {{ file ? file.name : '' }}</div>
+    <div class="mt-3">Selected file: {{ file1 ? file1.name : '' }}</div>
 
     <!-- Plain mode -->
     <b-form-file v-model="file2" class="mt-3" plain></b-form-file>
@@ -25,7 +25,7 @@
   export default {
     data() {
       return {
-        file: null,
+        file1: null,
         file2: null
       }
     }
@@ -41,8 +41,8 @@ replacement for the default file input.
 
 ## Single file (default)
 
-On single file mode, when no file is selected or user cancels Browse dialog, `v-model` is `null`
-indicating no file selected. When a file is selected the return value will be a JavaScript
+On single file mode, when no file is selected or user cancels the "Browse" dialog, `v-model` is
+`null` indicating no file selected. When a file is selected the return value will be a JavaScript
 [`File`](https://developer.mozilla.org/en/docs/Web/API/File) object instance.
 
 ## Multiple files
@@ -98,10 +98,18 @@ Each file entry will have a special prop `$path` that will contain the relative 
 
 Directory mode is also supported when the file input is in plain mode on **most** modern browsers.
 
+**Note:** Due to a
+["bug" in Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=138987), nested file
+structures are currently only supported when directories are [dropped](#drag-and-drop-support) on
+the file input. When selecting them via the "Browse" dialog they will always be in the flattened
+array structure. Mozilla implemented the behavior
+[the same way as Chromium.](https://bugzilla.mozilla.org/show_bug.cgi?id=1326031)
+
 ## Drag and Drop support
 
 Drop mode is enabled by default. It can disabled by setting the `no-drop` prop. `no-drop` has no
-effect in plain mode (some browsers support dropping files onto a plain input file).
+effect in [`plain` mode](#non-custom-file-input) (some browsers support dropping files onto a plain
+input file).
 
 You can optionally set a different placeholder while dragging via the `drop-placeholder` prop. The
 default is no drop placeholder text. Only plain text is supported. HTML and components are not
@@ -128,7 +136,7 @@ type(s). To specify more than one type, separate the values with a comma.
 </div>
 ```
 
-To accept any file type, leave `accept` as null (default). You can mix and match IANA media types
+To accept any file type, leave `accept` as `null` (default). You can mix and match IANA media types
 and extensions.
 
 Refer to [IANA Media Types](https://www.iana.org/assignments/media-types/) for a complete list of

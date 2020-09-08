@@ -45,7 +45,7 @@
           },
           {
             "prop": "multiple",
-            "description": "When set, will allow multiple files to be selected. v-model will be an array"
+            "description": "When set, will allow multiple files to be selected. `v-model` will be an array"
           },
           {
             "prop": "directory",
@@ -105,10 +105,10 @@
         "events": [
           {
             "event": "change",
-            "description": "original native change event on input",
+            "description": "Original change event of the input",
             "args": [
               {
-                "arg": "event",
+                "arg": "evt",
                 "type": "Event",
                 "description": "Native change event object"
               }
@@ -116,7 +116,7 @@
           },
           {
             "event": "input",
-            "description": "Updates the v-model value (see docs for more details)",
+            "description": "Updates the `v-model` value (see docs for more details)",
             "args": [
               {
                 "arg": "file",
