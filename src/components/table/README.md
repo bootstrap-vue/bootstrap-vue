@@ -242,6 +242,7 @@ The following field properties are recognized:
 | `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                                                                                               |
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. The formatter will be called with the syntax `formatter(value, key, item)`. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                   |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                         |
+| `sortKey`           | String                      | <span class="badge badge-secondary">v2.17.0+</span> Set the value of `sortBy` for the column in the emitted context when `no-local-sorting` is `true`.                                                                                                                                                                                                                                                                            |
 | `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
 | `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for sorting purposes only. Refer to the [Sorting](#sorting) Section for more details.                                                                                  |
 | `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for filtering purposes only. Refer to the [Filtering](#filtering) section for more details.                                                                          |
@@ -2048,7 +2049,7 @@ function toString(value) {
 ### Disable local sorting
 
 If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
-by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
+by setting the prop `no-local-sorting` to `true`, while still maintaining the sortable header
 functionality (via `sort-changed` or `context-changed` events as well as syncable props).
 
 You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
@@ -2059,7 +2060,7 @@ with a single argument containing the context object of `<b-table>`. See the
 [Detection of sorting change](#detection-of-sorting-change) section below for details about the
 sort-changed event and the context object.
 
-When `no-local-sorting` is true, the `sort-compare` prop has no effect.
+When `no-local-sorting` is `true`, the `sort-compare` prop has no effect.
 
 ### Change initial sort direction
 
