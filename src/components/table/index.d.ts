@@ -24,6 +24,7 @@ export declare class BTable extends BvComponent {
   fields?: BvTableFieldArray
   primaryKey?: string
   sortBy?: string | null
+  sortKey?: string
   sortDesc?: boolean
   sortDirection?: BvTableSortDirection
   sortCompare?: BvTableSortCompareCallback
