@@ -92,6 +92,17 @@
             "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
           },
           {
+            "prop": "limitTagsText",
+            "version": "2.17.0",
+            "settings": true,
+            "description": "The message when the limit is reached. Set to an empty string to disable the message"
+          },
+          {
+            "prop": "limit",
+            "version": "2.17.0",
+            "description": "The maximum amount of tags that can be added. The limit can still be exceeded if manipulated outside of the component"
+          },
+          {
             "prop": "separator",
             "description": "Separator character(s) that will trigger a tag to be created"
           },
