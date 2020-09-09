@@ -63,18 +63,17 @@ const plugin = Vue => {
       }
     },
     mounted() {
-      const self = this
       // Self destruct handler
       const handleDestroy = () => {
         // Ensure the toast has been force hidden
-        self.localShow = false
-        self.doRender = false
-        self.$nextTick(() => {
-          self.$nextTick(() => {
+        this.localShow = false
+        this.doRender = false
+        this.$nextTick(() => {
+          this.$nextTick(() => {
             // In a `requestAF()` to release control back to application
             // and to allow the portal-target time to remove the content
             requestAF(() => {
-              self.$destroy()
+              this.$destroy()
             })
           })
         })
@@ -86,7 +85,7 @@ const plugin = Vue => {
       // Self destruct when toaster is destroyed
       this.listenOnRoot('bv::toaster::destroyed', toaster => {
         /* istanbul ignore next: hard to test */
-        if (toaster === self.toaster) {
+        if (toaster === this.toaster) {
           handleDestroy()
         }
       })

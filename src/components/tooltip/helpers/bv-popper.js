@@ -7,7 +7,7 @@
 
 import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
-import { getCS, select } from '../../../utils/dom'
+import { getCS, requestAF, select } from '../../../utils/dom'
 import { toFloat } from '../../../utils/number'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
@@ -139,12 +139,19 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     this.$on('show', el => {
       this.popperCreate(el)
     })
-    // Self destruct once hidden
-    this.$on('hidden', () => {
-      this.$nextTick(this.$destroy)
-    })
-    // If parent is destroyed, ensure we are destroyed
-    this.$parent.$once('hook:destroyed', this.$destroy)
+    // Self destruct handler
+    const handleDestroy = () => {
+      this.$nextTick(() => {
+        // In a `requestAF()` to release control back to application
+        requestAF(() => {
+          this.$destroy()
+        })
+      })
+    }
+    // Self destruct if parent destroyed
+    this.$parent.$once('hook:destroyed', handleDestroy)
+    // Self destruct after hidden
+    this.$once('hidden', handleDestroy)
   },
   beforeMount() {
     // Ensure that the attachment position is correct before mounting
