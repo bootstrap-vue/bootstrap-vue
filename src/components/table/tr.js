@@ -96,9 +96,6 @@ export const BTr = /*#__PURE__*/ Vue.extend({
     },
     trAttrs() {
       return { role: 'row', ...this.bvAttrs }
-    },
-    trListeners() {
-      return { ...this.bvListeners }
     }
   },
   render(h) {
@@ -107,7 +104,8 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       {
         class: this.trClasses,
         attrs: this.trAttrs,
-        on: this.trListeners
+        // Pass native listeners to child
+        on: this.bvListeners
       },
       this.normalizeSlot('default')
     )

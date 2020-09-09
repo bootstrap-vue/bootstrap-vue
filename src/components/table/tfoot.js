@@ -71,9 +71,6 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
     },
     tfootAttrs() {
       return { role: 'rowgroup', ...this.bvAttrs }
-    },
-    tfootListeners() {
-      return { ...this.bvListeners }
     }
   },
   render(h) {
@@ -82,7 +79,8 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       {
         class: this.tfootClasses,
         attrs: this.tfootAttrs,
-        on: this.tfootListeners
+        // Pass down any native listeners
+        on: this.bvListeners
       },
       this.normalizeSlot('default')
     )
