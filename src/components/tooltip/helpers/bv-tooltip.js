@@ -21,6 +21,7 @@ import {
   isElement,
   isVisible,
   removeAttr,
+  requestAF,
   select,
   setAttr
 } from '../../../utils/dom'
@@ -228,7 +229,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
-      this.$parent.$once('hook:beforeDestroy', this.$destroy)
+      this.$parent.$once('hook:beforeDestroy', () => {
+        this.$nextTick(() => {
+          // In a `requestAF()` to release control back to application
+          requestAF(() => {
+            this.$destroy()
+          })
+        })
+      })
     }
 
     this.$nextTick(() => {
