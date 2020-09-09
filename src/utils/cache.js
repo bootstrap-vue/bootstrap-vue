@@ -10,7 +10,7 @@ export const makePropWatcher = propName => ({
       return
     }
     if (isEmpty(newValue) || isEmpty(oldValue)) {
-      this[propName] = cloneDeep(newValue || {})
+      this[propName] = cloneDeep(newValue)
       return
     }
     for (const key in oldValue) {
@@ -26,7 +26,7 @@ export const makePropWatcher = propName => ({
 
 export const makePropCacheMixin = (propName, proxyPropName) => ({
   data() {
-    return { [proxyPropName]: cloneDeep(this[propName] || {}) }
+    return { [proxyPropName]: cloneDeep(this[propName]) }
   },
   watch: {
     // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
