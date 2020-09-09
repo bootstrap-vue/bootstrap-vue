@@ -298,7 +298,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
 
       // Use the user supplied formatter, or the built in one
       return isFunction(this.fileNameFormatter)
-        ? String(this.fileNameFormatter(this.flattenedFiles))
+        ? String(this.fileNameFormatter(this.flattenedFiles, this.clonedFiles))
         : this.fileNames.join(', ')
     }
   },
@@ -356,7 +356,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Firefox < 62 workaround exploiting https://bugzilla.mozilla.org/show_bug.cgi?id=1422655
         const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
         // Add flattened files to temp `dataTransfer` object to get a true `FileList` array
-        flattenDeep(files.splice()).forEach(file => {
+        flattenDeep(cloneDeep(files)).forEach(file => {
+          // Make sure to remove the custom `$path` attribute
           delete file.$path
           dataTransfer.items.add(file)
         })
