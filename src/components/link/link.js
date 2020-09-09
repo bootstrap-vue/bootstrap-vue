@@ -203,7 +203,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'
       if (evtIsEvent && !isRouterLink && this.computedHref === '#') {
-        stopEvent(evt)
+        stopEvent(evt, { propagation: false })
       }
     },
     focus() {

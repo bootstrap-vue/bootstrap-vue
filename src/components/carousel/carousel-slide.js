@@ -109,7 +109,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       // Touch support event handler
       /* istanbul ignore if: difficult to test in JSDOM */
       if (!this.bvCarousel.noTouch && hasTouchSupport) {
-        on.dragstart = stopEvent
+        on.dragstart = evt => stopEvent(evt, { propagation: false })
       }
 
       $img = h(BImg, {

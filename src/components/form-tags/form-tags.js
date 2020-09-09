@@ -437,7 +437,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore else: testing to be added later */
       if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
-        stopEvent(evt)
+        stopEvent(evt, { propagation: false })
         this.addTag()
       } else if (
         this.removeOnDelete &&
@@ -445,7 +445,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
-        stopEvent(evt)
+        stopEvent(evt, { propagation: false })
         this.tags = this.tags.slice(0, -1)
       }
     },

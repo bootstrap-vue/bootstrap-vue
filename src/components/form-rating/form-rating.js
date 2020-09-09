@@ -61,7 +61,7 @@ const BVFormRatingStar = Vue.extend({
   methods: {
     onClick(evt) {
       if (!this.disabled && !this.readonly) {
-        stopEvent(evt)
+        stopEvent(evt, { propagation: false })
         this.$emit('selected', this.star)
       }
     }
@@ -276,7 +276,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     onKeydown(evt) {
       const { keyCode } = evt
       if (this.isInteractive && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
-        stopEvent(evt)
+        stopEvent(evt, { propagation: false })
         const value = toInteger(this.localValue, 0)
         const min = this.showClear ? 0 : 1
         const stars = this.computedStars
