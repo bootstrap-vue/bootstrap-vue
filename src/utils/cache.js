@@ -1,6 +1,7 @@
 import { hasOwnProperty } from './object'
 
 export const makePropWatcher = propName => ({
+  immediate: true,
   handler(newVal, oldVal) {
     for (const key in oldVal) {
       if (!hasOwnProperty(newVal, key)) {
@@ -15,15 +16,10 @@ export const makePropWatcher = propName => ({
 
 export const makePropCacheMixin = (propName, proxyPropName) => ({
   data() {
-    return {
-      [proxyPropName]: {}
-    }
+    return { [proxyPropName]: {} }
   },
   watch: {
     // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
     [propName]: makePropWatcher(proxyPropName)
-  },
-  created() {
-    this[proxyPropName] = { ...this[propName] }
   }
 })

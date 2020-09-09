@@ -184,19 +184,21 @@ export const BTd = /*#__PURE__*/ Vue.extend({
             ? /* istanbul ignore next */ toString(this.stackedHeading)
             : null
       }
+    },
+    cellListeners() {
+      return { ...this.bvListeners }
     }
   },
   render(h) {
-    const content = [this.normalizeSlot('default')]
+    const $content = this.normalizeSlot('default')
     return h(
       this.tag,
       {
         class: this.cellClasses,
         attrs: this.cellAttrs,
-        // Transfer any native listeners
-        on: this.bvListeners
+        on: this.cellListeners
       },
-      [this.isStackedCell ? h('div', [content]) : content]
+      this.isStackedCell ? [h('div', $content)] : $content
     )
   }
 })

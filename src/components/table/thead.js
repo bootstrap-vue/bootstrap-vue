@@ -74,6 +74,9 @@ export const BThead = /*#__PURE__*/ Vue.extend({
     },
     theadAttrs() {
       return { role: 'rowgroup', ...this.bvAttrs }
+    },
+    theadListeners() {
+      return { ...this.bvListeners }
     }
   },
   render(h) {
@@ -82,8 +85,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       {
         class: this.theadClasses,
         attrs: this.theadAttrs,
-        // Pass down any native listeners
-        on: this.bvListeners
+        on: this.theadListeners
       },
       this.normalizeSlot('default')
     )
