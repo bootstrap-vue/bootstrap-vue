@@ -118,7 +118,7 @@
     "babel-jest": "^26.3.0",
     "babel-plugin-istanbul": "^6.0.0",
     "bootstrap-icons": "^1.0.0",
-    "bundlewatch": "^0.2.7",
+    "bundlewatch": "^0.3.0",
     "clean-css-cli": "^4.3.0",
     "codemirror": "^5.57.0",
     "codesandbox": "^2.1.16",
