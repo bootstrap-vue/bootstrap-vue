@@ -298,7 +298,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
 
       // Use the user supplied formatter, or the built in one
       return isFunction(this.fileNameFormatter)
-        ? String(this.fileNameFormatter(this.flattenedFiles, this.clonedFiles))
+        ? String(this.fileNameFormatter(this.flattenedFiles))
         : this.fileNames.join(', ')
     }
   },
