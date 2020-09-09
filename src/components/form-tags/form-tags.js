@@ -657,7 +657,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         'li',
         {
           key: '__li-input__',
-          staticClass: 'flex-grow-1 b-form-tags-input-li',
+          staticClass: 'flex-grow-1 b-form-tags-li-input',
           attrs: {
             role: 'none',
             'aria-live': 'off',
