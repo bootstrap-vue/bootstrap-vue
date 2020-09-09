@@ -377,7 +377,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       } catch {}
       this.files = []
     },
-    filesHandler(files, isDrop = false) {
+    handleFiles(files, isDrop = false) {
       if (isDrop) {
         // When dropped, make sure to filter files with the internal `accept` logic
         const filteredFiles = files.filter(this.isFilesArrayValid)
@@ -416,7 +416,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         // Drop handling for modern browsers
         // Supports nested directory structures in `directory` mode
         /* istanbul ignore next: not supported in JSDOM */
-        getAllFileEntries(items, this.directory).then(files => this.filesHandler(files, isDrop))
+        getAllFileEntries(items, this.directory).then(files => this.handleFiles(files, isDrop))
       } else {
         // Standard file input handling (native file input change event),
         // or fallback drop mode (IE 11 / Opera) which don't support `directory` mode
@@ -425,7 +425,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           file.$path = file.webkitRelativePath || ''
           return file
         })
-        this.filesHandler(files, isDrop)
+        this.handleFiles(files, isDrop)
       }
     },
     onDragenter(evt) {
