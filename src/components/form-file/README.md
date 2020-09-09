@@ -56,8 +56,8 @@ files are selected the return value will be an array of JavaScript
 
 <div class="alert alert-warning small mb-3">
   <p class="mb-0">
-    <strong>CAUTION:</strong> Directory mode is a <em>non-standard</em> feature, while being
-    supported by all modern browsers, and should not be relied for production.
+    <strong>CAUTION:</strong> Directory mode is a <em>non-standard</em> feature. While being
+    supported by all modern browsers, it should not be relied on for production.
     Read more on <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">MDN</a>
     and <a class="alert-link" href="https://caniuse.com/#feat=input-file-directory">Can I use</a>.
   </p>
@@ -96,7 +96,7 @@ If you set the `no-traverse` prop, the array will be flattened:
 
 Each file entry will have a special `$path` prop that will contain the relative path of each file.
 For nested directory structures, BootstrapVue uses its own routine to determine the relative path,
-otherwise it relies one
+otherwise it relies on
 [`File.webkitRelativePath`](https://developer.mozilla.org/en-US/docs/Web/API/File/webkitRelativePath).
 
 Directory mode is also supported when the file input is in [`plain` mode](#non-custom-file-input) on
