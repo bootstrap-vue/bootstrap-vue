@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.",
+    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload",
     "components": [
       {
         "component": "BFormFile",
@@ -13,16 +13,16 @@
         "props": [
           {
             "prop": "value",
-            "description": "The current value of the file input. Will be a single File object or an array of File objects (if multiple or directory is set). Can be set to null, or an empty array to reset the file input"
+            "description": "The current value of the file input. Will be a single `File` object or an array of `File` objects (if `multiple` or `directory` is set). Can be set to `null`, or an empty array to reset the file input"
           },
           {
             "prop": "placeholder",
             "settings": true,
-            "description": "Sets the 'placeholder' attribute value on the form control"
+            "description": "Sets the `placeholder` attribute value on the form control"
           },
           {
             "prop": "accept",
-            "description": "Value to set on the file input's 'accept' attribute"
+            "description": "Value to set on the file input's `accept` attribute"
           },
           {
             "prop": "capture",
@@ -49,11 +49,11 @@
           },
           {
             "prop": "directory",
-            "description": "Enable directory drop mode (on browsers that support directory mode)"
+            "description": "Enable `directory` mode (on browsers that support it)"
           },
           {
             "prop": "noTraverse",
-            "description": "For directory drop mode: returns files as a flat array"
+            "description": "Wether to returns files as a flat array when in `directory` mode"
           },
           {
             "prop": "noDrop",
@@ -92,7 +92,7 @@
               {
                 "prop": "filesTraversed",
                 "type": "Array",
-                "description": "Array of arrays of `File` objects when in directory mode"
+                "description": "Array of arrays of `File` objects when in `directory` mode"
               },
               {
                 "prop": "names",
