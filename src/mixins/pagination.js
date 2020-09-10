@@ -528,9 +528,9 @@ export default {
           : `${this.labelPage} ${page.number}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,
-        'aria-posinset': page.number,
-        'aria-setsize': numberOfPages,
-        // ARIA "roving tabindex" method (except in isNav mode)
+        'aria-posinset': isNav ? null : page.number,
+        'aria-setsize': isNav ? null : numberOfPages,
+        // ARIA "roving tabindex" method (except in `isNav` mode)
         tabindex: isNav ? null : tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
