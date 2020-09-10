@@ -1,4 +1,5 @@
 import Vue from '../../utils/vue'
+import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -87,8 +88,8 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       this.currentPage = currentPage
     } else {
       this.$nextTick(() => {
-        // If this value parses to NaN or a value less than 1
-        // Trigger an initial emit of 'null' if no page specified
+        // If this value parses to `NaN` or a value less than `1`
+        // trigger an initial emit of `null` if no page specified
         this.currentPage = 0
       })
     }
@@ -99,23 +100,34 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // These methods are used by the render function
-    onClick(num, evt) {
-      // Handle edge cases where number of pages has changed (i.e. if perPage changes)
-      // This should normally not happen, but just in case.
-      if (num > this.numberOfPages) {
-        /* istanbul ignore next */
-        num = this.numberOfPages
-      } else if (num < 1) {
-        /* istanbul ignore next */
-        num = 1
+    onClick(evt, pageNumber) {
+      // Dont do anything if clicking the current active page
+      if (pageNumber === this.currentPage) {
+        return
       }
-      // Update the v-model
-      this.currentPage = num
+
+      const { target } = evt
+
+      // Emit a user-cancelable `page-click` event
+      const clickEvt = new BvEvent('page-click', {
+        cancelable: true,
+        vueTarget: this,
+        target
+      })
+      this.$emit(clickEvt.type, clickEvt, pageNumber)
+      if (clickEvt.defaultPrevented) {
+        return
+      }
+
+      console.log(evt, pageNumber)
+
+      // Update the `v-model`
+      this.currentPage = pageNumber
       // Emit event triggered by user interaction
       this.$emit('change', this.currentPage)
+
+      // Keep the current button focused if possible
       this.$nextTick(() => {
-        // Keep the current button focused if possible
-        const target = evt.target
         if (isVisible(target) && this.$el.contains(target)) {
           attemptFocus(target)
         } else {

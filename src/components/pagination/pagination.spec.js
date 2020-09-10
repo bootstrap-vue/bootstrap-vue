@@ -661,54 +661,84 @@ describe('pagination', () => {
   })
 
   it('clicking buttons updates the v-model', async () => {
-    const wrapper = mount(BPagination, {
-      propsData: {
-        totalRows: 3,
-        perPage: 1,
-        value: 1
+    const App = {
+      methods: {
+        onPageClick(bvEvt, page) {
+          // Prevent 3rd page from being selected
+          if (page === 3) {
+            bvEvt.preventDefault()
+          }
+        }
+      },
+      render(h) {
+        return h(BPagination, {
+          props: {
+            totalRows: 5,
+            perPage: 1,
+            value: 1
+          },
+          on: { 'page-click': this.onPageClick }
+        })
       }
-    })
-    expect(wrapper.element.tagName).toBe('UL')
+    }
+
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    const pagination = wrapper.findComponent(BPagination)
+    expect(pagination).toBeDefined()
+    expect(pagination.element.tagName).toBe('UL')
 
     // Grab the page buttons
-    const lis = wrapper.findAll('li')
-    expect(lis.length).toBe(7)
+    const lis = pagination.findAll('li')
+    expect(lis.length).toBe(9)
 
-    expect(wrapper.vm.computedCurrentPage).toBe(1)
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(pagination.vm.computedCurrentPage).toBe(1)
+    expect(pagination.emitted('input')).not.toBeDefined()
+    expect(pagination.emitted('change')).not.toBeDefined()
 
     // Click on 2nd button
-    await wrapper
-      .findAll('li')
+    await lis
       .at(3)
       .find('button')
       .trigger('click')
-    expect(wrapper.vm.computedCurrentPage).toBe(2)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toBe(2)
-    expect(wrapper.emitted('change')[0][0]).toBe(2)
+    expect(pagination.vm.computedCurrentPage).toBe(2)
+    expect(pagination.emitted('input')).toBeDefined()
+    expect(pagination.emitted('change')).toBeDefined()
+    expect(pagination.emitted('page-click')).toBeDefined()
+    expect(pagination.emitted('input')[0][0]).toBe(2)
+    expect(pagination.emitted('change')[0][0]).toBe(2)
+    expect(pagination.emitted('page-click').length).toBe(1)
 
     // Click goto last button
-    await wrapper
-      .findAll('li')
-      .at(6)
+    await lis
+      .at(8)
       .find('button')
       .trigger('keydown.space') // Generates a click event
-    expect(wrapper.vm.computedCurrentPage).toBe(3)
-    expect(wrapper.emitted('input')[1][0]).toBe(3)
-    expect(wrapper.emitted('change')[1][0]).toBe(3)
+    expect(pagination.vm.computedCurrentPage).toBe(5)
+    expect(pagination.emitted('input')[1][0]).toBe(5)
+    expect(pagination.emitted('change')[1][0]).toBe(5)
+    expect(pagination.emitted('page-click').length).toBe(2)
 
     // Click prev button
-    await wrapper
-      .findAll('li')
+    await lis
       .at(1)
       .find('button')
       .trigger('click')
-    expect(wrapper.vm.computedCurrentPage).toBe(2)
-    expect(wrapper.emitted('input')[2][0]).toBe(2)
-    expect(wrapper.emitted('change')[2][0]).toBe(2)
+    expect(pagination.vm.computedCurrentPage).toBe(4)
+    expect(pagination.emitted('input')[2][0]).toBe(4)
+    expect(pagination.emitted('change')[2][0]).toBe(4)
+    expect(pagination.emitted('page-click').length).toBe(3)
+
+    // Click on 3rd button (prevented)
+    await lis
+      .at(4)
+      .find('button')
+      .trigger('click')
+    expect(pagination.vm.computedCurrentPage).toBe(4)
+    expect(pagination.emitted('input').length).toBe(3)
+    expect(pagination.emitted('change').length).toBe(3)
+    expect(pagination.emitted('page-click').length).toBe(4)
 
     wrapper.destroy()
   })
