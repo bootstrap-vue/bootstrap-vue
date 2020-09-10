@@ -338,7 +338,7 @@ export default {
     },
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
-        // Emit null if no page selected
+        // Emit `null` if no page selected
         this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
@@ -466,7 +466,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(linkTo, evt)
+                  this.onClick(evt, linkTo)
                 },
                 keydown: onSpaceKey
               }
@@ -528,9 +528,9 @@ export default {
           : `${this.labelPage} ${page.number}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,
-        'aria-posinset': page.number,
-        'aria-setsize': numberOfPages,
-        // ARIA "roving tabindex" method (except in isNav mode)
+        'aria-posinset': isNav ? null : page.number,
+        'aria-setsize': isNav ? null : numberOfPages,
+        // ARIA "roving tabindex" method (except in `isNav` mode)
         tabindex: isNav ? null : tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
@@ -552,7 +552,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(page.number, evt)
+                  this.onClick(evt, page.number)
                 },
                 keydown: onSpaceKey
               }
