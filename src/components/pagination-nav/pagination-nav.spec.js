@@ -443,6 +443,18 @@ describe('pagination-nav', () => {
     expect(paginationNav.vm.computedCurrentPage).toBe(1)
     expect(paginationNav.emitted('input')).not.toBeDefined()
     expect(paginationNav.emitted('change')).not.toBeDefined()
+    expect(paginationNav.emitted('page-click')).not.toBeDefined()
+
+    // Click on current (1st) page link (does nothing)
+    await lis
+      .at(2)
+      .find('a')
+      .trigger('click')
+    await waitRAF()
+    expect(paginationNav.vm.computedCurrentPage).toBe(1)
+    expect(paginationNav.emitted('input')).not.toBeDefined()
+    expect(paginationNav.emitted('change')).not.toBeDefined()
+    expect(paginationNav.emitted('page-click')).not.toBeDefined()
 
     // Click on 2nd page link
     await lis
