@@ -22,6 +22,7 @@ module.exports = {
         ignoreRestSiblings: false
       }
     ],
+    'object-shorthand': ['error', 'properties'],
     'spaced-comment': 'off', // needed to ignore `/*#__PURE__*/` comments
     'vue/html-self-closing': [
       'error',

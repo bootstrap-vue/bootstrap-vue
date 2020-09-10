@@ -8,6 +8,7 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { attemptBlur, attemptFocus, contains, getActiveElement, requestAF } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
@@ -204,8 +205,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const hourCycle = resolved.hourCycle || (hour12 ? 'h12' : 'h23')
       return {
         locale: resolved.locale,
-        hour12: hour12,
-        hourCycle: hourCycle
+        hour12,
+        hourCycle
       }
     },
     computedLocale() {
@@ -420,8 +421,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     onSpinLeftRight(evt = {}) {
       const { type, keyCode } = evt
       if (!this.disabled && type === 'keydown' && (keyCode === LEFT || keyCode === RIGHT)) {
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         const spinners = this.$refs.spinners || []
         let index = spinners.map(cmp => !!cmp.hasFocus).indexOf(true)
         index = index + (keyCode === LEFT ? -1 : 1)
@@ -457,12 +457,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       const id = this.safeId(`_spinbutton_${key}_`) || null
       spinIds.push(id)
       return h(BFormSpinbutton, {
-        key: key,
+        key,
         ref: 'spinners',
         refInFor: true,
         class: classes,
         props: {
-          id: id,
+          id,
           placeholder: '--',
           vertical: true,
           required: true,

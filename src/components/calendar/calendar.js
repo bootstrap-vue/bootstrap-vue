@@ -22,6 +22,7 @@ import {
   resolveLocale
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
@@ -382,14 +383,14 @@ export const BCalendar = Vue.extend({
       const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
-        selectedYMD: selectedYMD,
-        selectedDate: selectedDate,
+        selectedYMD,
+        selectedDate,
         selectedFormatted: selectedDate
           ? this.formatDateString(selectedDate)
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
-        activeYMD: activeYMD,
-        activeDate: activeDate,
+        activeYMD,
+        activeDate,
         activeFormatted: activeDate ? this.formatDateString(activeDate) : '',
         // `true` if the date is disabled (when using keyboard navigation)
         disabled: this.dateDisabled(activeDate),
@@ -675,8 +676,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
+      stopEvent(evt)
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
@@ -739,8 +739,7 @@ export const BCalendar = Vue.extend({
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
       if (keyCode === ENTER || keyCode === SPACE) {
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
           this.selectedYMD = formatYMD(activeDate)
           this.emitSelected(activeDate)

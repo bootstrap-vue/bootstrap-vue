@@ -524,37 +524,37 @@ export default {
         oWarn = window.console.warn
         oError = window.console.error
         oClear = window.console.clear
-      } catch (e) {}
+      } catch {}
       return {
-        info: function() {
+        info() {
           try {
             logger('info', ...arguments)
             oInfo.apply(oConsole, arguments)
-          } catch (e) {}
+          } catch {}
         },
-        log: function() {
+        log() {
           try {
             logger('info', ...arguments)
             oLog.apply(oConsole, arguments)
-          } catch (e) {}
+          } catch {}
         },
-        warn: function() {
+        warn() {
           try {
             logger('warning', ...arguments)
             oWarn.apply(oConsole, arguments)
-          } catch (e) {}
+          } catch {}
         },
-        error: function() {
+        error() {
           try {
             logger('danger', ...arguments)
             oError.apply(oConsole, arguments)
-          } catch (e) {}
+          } catch {}
         },
-        clear: function() {
+        clear() {
           try {
             clear()
             oClear.apply(oConsole)
-          } catch (e) {}
+          } catch {}
         }
       }
     }
@@ -651,10 +651,10 @@ export default {
           vm.$destroy()
           removeNode(vm.$el)
           vm.$el.innerHTML = ''
-        } catch (err) {}
+        } catch {}
         try {
           parent.$destroy()
-        } catch (err) {}
+        } catch {}
       }
       this.playVM = vm = null
       this.$refs.result.innerHTML = ''

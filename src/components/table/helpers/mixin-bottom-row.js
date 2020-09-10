@@ -30,7 +30,7 @@ export default {
             ? /* istanbul ignore next */ this.tbodyTrAttr(null, 'row-bottom')
             : this.tbodyTrAttr
         },
-        this.normalizeSlot(slotName, { columns: fields.length, fields: fields })
+        this.normalizeSlot(slotName, { columns: fields.length, fields })
       )
     }
   }

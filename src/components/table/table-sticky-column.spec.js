@@ -16,8 +16,8 @@ describe('table > sticky columns', () => {
       propsData: {
         responsive: true,
         footClone: true,
-        items: items,
-        fields: fields
+        items,
+        fields
       }
     })
 
@@ -141,8 +141,8 @@ describe('table > sticky columns', () => {
         responsive: false,
         stickyHeader: true,
         footClone: true,
-        items: items,
-        fields: fields
+        items,
+        fields
       }
     })
 
@@ -267,8 +267,8 @@ describe('table > sticky columns', () => {
         responsive: false,
         stickyHeader: false,
         footClone: true,
-        items: items,
-        fields: fields
+        items,
+        fields
       }
     })
 

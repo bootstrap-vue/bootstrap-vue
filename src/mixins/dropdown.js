@@ -2,6 +2,7 @@ import Popper from 'popper.js'
 import KeyCodes from '../utils/key-codes'
 import { BvEvent } from '../utils/bv-event.class'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
+import { stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
 import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
@@ -330,8 +331,7 @@ export default {
         return
       }
       this.$emit('toggle', evt)
-      evt.preventDefault()
-      evt.stopPropagation()
+      stopEvent(evt)
       // Toggle visibility
       if (this.visible) {
         this.hide(true)
@@ -350,7 +350,7 @@ export default {
       // The 'click' event will still be fired and we handle closing
       // other dropdowns there too
       // See https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
-      evt.preventDefault()
+      stopEvent(evt, { propagation: false })
     },
     // Called from dropdown menu context
     onKeydown(evt) {
@@ -370,8 +370,7 @@ export default {
     onEsc(evt) {
       if (this.visible) {
         this.visible = false
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         // Return focus to original trigger button
         this.$once('hidden', this.focusToggler)
       }
@@ -408,8 +407,7 @@ export default {
         /* istanbul ignore next: should never happen */
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
+      stopEvent(evt)
       this.$nextTick(() => {
         const items = this.getItems()
         if (items.length < 1) {

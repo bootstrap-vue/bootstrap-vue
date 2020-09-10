@@ -16,6 +16,7 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
@@ -436,7 +437,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore else: testing to be added later */
       if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         this.addTag()
       } else if (
         this.removeOnDelete &&
@@ -444,7 +445,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         this.tags = this.tags.slice(0, -1)
       }
     },
@@ -578,7 +579,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
               // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
-              disabled: disabled,
+              disabled,
               variant: tagVariant,
               pill: tagPills,
               removeLabel: tagRemoveLabel
