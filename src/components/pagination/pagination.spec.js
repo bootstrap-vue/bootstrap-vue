@@ -696,6 +696,17 @@ describe('pagination', () => {
     expect(pagination.vm.computedCurrentPage).toBe(1)
     expect(pagination.emitted('input')).not.toBeDefined()
     expect(pagination.emitted('change')).not.toBeDefined()
+    expect(pagination.emitted('page-click')).not.toBeDefined()
+
+    // Click on current (1st) page button (does nothing)
+    await lis
+      .at(2)
+      .find('button')
+      .trigger('click')
+    expect(pagination.vm.computedCurrentPage).toBe(1)
+    expect(pagination.emitted('input')).not.toBeDefined()
+    expect(pagination.emitted('change')).not.toBeDefined()
+    expect(pagination.emitted('page-click')).not.toBeDefined()
 
     // Click on 2nd button
     await lis
