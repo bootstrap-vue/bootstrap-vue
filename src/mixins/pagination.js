@@ -338,7 +338,7 @@ export default {
     },
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
-        // Emit null if no page selected
+        // Emit `null` if no page selected
         this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
@@ -466,7 +466,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(linkTo, evt)
+                  this.onClick(evt, linkTo)
                 },
                 keydown: onSpaceKey
               }
@@ -552,7 +552,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(page.number, evt)
+                  this.onClick(evt, page.number)
                 },
                 keydown: onSpaceKey
               }
