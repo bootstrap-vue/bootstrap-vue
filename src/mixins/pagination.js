@@ -8,6 +8,7 @@ import {
   isVisible,
   selectAll
 } from '../utils/dom'
+import { stopEvent } from '../utils/events'
 import { isFunction, isNull } from '../utils/inspect'
 import { mathFloor, mathMax, mathMin } from '../utils/math'
 import { toInteger } from '../utils/number'
@@ -49,9 +50,8 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 // functionality via this handler
 const onSpaceKey = evt => {
   if (evt.keyCode === KeyCodes.SPACE) {
-    evt.preventDefault() // Stop page from scrolling
-    evt.stopImmediatePropagation()
-    evt.stopPropagation()
+    // Stop page from scrolling
+    stopEvent(evt, { immediatePropagation: true })
     // Trigger the click event on the link
     evt.currentTarget.click()
     return false
@@ -338,7 +338,7 @@ export default {
     },
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
-        // Emit null if no page selected
+        // Emit `null` if no page selected
         this.$emit('input', newValue > 0 ? newValue : null)
       }
     },
@@ -366,10 +366,10 @@ export default {
         return
       }
       if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         shiftKey ? this.focusLast() : this.focusNext()
       }
     },
@@ -466,7 +466,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(linkTo, evt)
+                  this.onClick(evt, linkTo)
                 },
                 keydown: onSpaceKey
               }
@@ -528,9 +528,9 @@ export default {
           : `${this.labelPage} ${page.number}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,
-        'aria-posinset': page.number,
-        'aria-setsize': numberOfPages,
-        // ARIA "roving tabindex" method (except in isNav mode)
+        'aria-posinset': isNav ? null : page.number,
+        'aria-setsize': isNav ? null : numberOfPages,
+        // ARIA "roving tabindex" method (except in `isNav` mode)
         tabindex: isNav ? null : tabIndex
       }
       const btnContent = toString(this.makePage(page.number))
@@ -552,7 +552,7 @@ export default {
             ? {}
             : {
                 '!click': evt => {
-                  this.onClick(page.number, evt)
+                  this.onClick(evt, page.number)
                 },
                 keydown: onSpaceKey
               }

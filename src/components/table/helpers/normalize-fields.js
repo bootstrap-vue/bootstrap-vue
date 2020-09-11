@@ -9,17 +9,17 @@ const processField = (key, value) => {
   let field = null
   if (isString(value)) {
     // Label shortcut
-    field = { key: key, label: value }
+    field = { key, label: value }
   } else if (isFunction(value)) {
     // Formatter shortcut
-    field = { key: key, formatter: value }
+    field = { key, formatter: value }
   } else if (isObject(value)) {
     field = clone(value)
     field.key = field.key || key
   } else if (value !== false) {
     // Fallback to just key
     /* istanbul ignore next */
-    field = { key: key }
+    field = { key }
   }
   return field
 }

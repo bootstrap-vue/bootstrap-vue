@@ -4,7 +4,7 @@ import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { eventOnOff } from '../../utils/events'
+import { eventOnOff, stopEvent } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
@@ -369,7 +369,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
       if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         /* istanbul ignore if */
         if (this.$_keyIsDown) {
           // Keypress is already in progress
@@ -406,9 +406,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         return
       }
       if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
+        stopEvent(evt, { propagation: false })
         this.resetTimers()
         this.$_keyIsDown = false
-        evt.preventDefault()
         this.emitChange()
       }
     },
@@ -449,7 +449,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         // Ignore non left button (main === 0) mouse button click
         return
       }
-      evt.preventDefault()
+      stopEvent(evt, { propagation: false })
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -497,7 +497,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       const scope = { hasFocus: this.hasFocus }
       const handler = evt => {
         if (!disabled && !readonly) {
-          evt.preventDefault()
+          stopEvent(evt, { propagation: false })
           this.setMouseup(true)
           // Since we `preventDefault()`, we must manually focus the button
           attemptFocus(evt.currentTarget)

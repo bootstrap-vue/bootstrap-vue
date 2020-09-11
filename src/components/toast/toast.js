@@ -422,7 +422,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       Portal,
       {
         props: {
-          name: name,
+          name,
           to: this.computedToaster,
           order: this.order,
           slim: true,

@@ -2,6 +2,7 @@ import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
@@ -180,10 +181,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       const suppliedHandler = this.bvListeners.click
       if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
-        evt.stopPropagation()
         // Kill the event loop attached to this specific `EventTarget`
         // Needed to prevent `vue-router` for doing its thing
-        evt.stopImmediatePropagation()
+        stopEvent(evt, { immediatePropagation: true })
       } else {
         /* istanbul ignore next: difficult to test, but we know it works */
         if (isRouterLink && evt.currentTarget.__vue__) {
@@ -202,8 +202,8 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       }
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'
-      if (evtIsEvent && (this.disabled || (!isRouterLink && this.computedHref === '#'))) {
-        evt.preventDefault()
+      if (evtIsEvent && !isRouterLink && this.computedHref === '#') {
+        stopEvent(evt, { propagation: false })
       }
     },
     focus() {

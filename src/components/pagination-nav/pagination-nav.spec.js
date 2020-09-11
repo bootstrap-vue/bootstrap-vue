@@ -407,61 +407,101 @@ describe('pagination-nav', () => {
   })
 
   it('clicking buttons updates the v-model', async () => {
-    const wrapper = mount(BPaginationNav, {
-      propsData: {
-        baseUrl: '#', // needed to prevent JSDOM errors
-        numberOfPages: 3,
-        value: 1,
-        limit: 10
+    const App = {
+      methods: {
+        onPageClick(bvEvt, page) {
+          // Prevent 3rd page from being selected
+          if (page === 3) {
+            bvEvt.preventDefault()
+          }
+        }
+      },
+      render(h) {
+        return h(BPaginationNav, {
+          props: {
+            baseUrl: '#', // Needed to prevent JSDOM errors
+            numberOfPages: 5,
+            value: 1,
+            limit: 10
+          },
+          on: { 'page-click': this.onPageClick }
+        })
       }
-    })
-    expect(wrapper.element.tagName).toBe('NAV')
+    }
 
-    expect(wrapper.findAll('li').length).toBe(7)
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
 
-    expect(wrapper.vm.computedCurrentPage).toBe(1)
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    const paginationNav = wrapper.findComponent(BPaginationNav)
+    expect(paginationNav).toBeDefined()
+    expect(paginationNav.element.tagName).toBe('NAV')
 
-    // Click on current page button (does nothing)
-    await wrapper
-      .findAll('li')
+    // Grab the page links
+    const lis = paginationNav.findAll('li')
+    expect(lis.length).toBe(9)
+
+    expect(paginationNav.vm.computedCurrentPage).toBe(1)
+    expect(paginationNav.emitted('input')).not.toBeDefined()
+    expect(paginationNav.emitted('change')).not.toBeDefined()
+    expect(paginationNav.emitted('page-click')).not.toBeDefined()
+
+    // Click on current (1st) page link (does nothing)
+    await lis
       .at(2)
       .find('a')
       .trigger('click')
     await waitRAF()
-    expect(wrapper.vm.computedCurrentPage).toBe(1)
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(paginationNav.vm.computedCurrentPage).toBe(1)
+    expect(paginationNav.emitted('input')).not.toBeDefined()
+    expect(paginationNav.emitted('change')).not.toBeDefined()
+    expect(paginationNav.emitted('page-click')).not.toBeDefined()
 
-    // Click on 2nd page button
-    await wrapper
-      .findAll('li')
+    // Click on 2nd page link
+    await lis
       .at(3)
       .find('a')
       .trigger('click')
     await waitRAF()
-    expect(wrapper.vm.computedCurrentPage).toBe(2)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toBe(2)
+    expect(paginationNav.vm.computedCurrentPage).toBe(2)
+    expect(paginationNav.emitted('input')).toBeDefined()
+    expect(paginationNav.emitted('change')).toBeDefined()
+    expect(paginationNav.emitted('page-click')).toBeDefined()
+    expect(paginationNav.emitted('input')[0][0]).toBe(2)
+    expect(paginationNav.emitted('change')[0][0]).toBe(2)
+    expect(paginationNav.emitted('page-click').length).toBe(1)
 
-    // Click goto last button
-    await wrapper
-      .findAll('li')
-      .at(6)
+    // Click goto last page link
+    await lis
+      .at(8)
       .find('a')
-      .trigger('keydown.space') // Generates a click event
+      .trigger('click')
     await waitRAF()
-    expect(wrapper.vm.computedCurrentPage).toBe(3)
-    expect(wrapper.emitted('input')[1][0]).toBe(3)
+    expect(paginationNav.vm.computedCurrentPage).toBe(5)
+    expect(paginationNav.emitted('input')[1][0]).toBe(5)
+    expect(paginationNav.emitted('change')[1][0]).toBe(5)
+    expect(paginationNav.emitted('page-click').length).toBe(2)
 
-    // Click prev button
-    await wrapper
-      .findAll('li')
+    // Click prev page link
+    await lis
       .at(1)
       .find('a')
       .trigger('click')
     await waitRAF()
-    expect(wrapper.vm.computedCurrentPage).toBe(2)
-    expect(wrapper.emitted('input')[2][0]).toBe(2)
+    expect(paginationNav.vm.computedCurrentPage).toBe(4)
+    expect(paginationNav.emitted('input')[2][0]).toBe(4)
+    expect(paginationNav.emitted('change')[2][0]).toBe(4)
+    expect(paginationNav.emitted('page-click').length).toBe(3)
+
+    // Click on 3rd page link (prevented)
+    await lis
+      .at(4)
+      .find('a')
+      .trigger('click')
+    await waitRAF()
+    expect(paginationNav.vm.computedCurrentPage).toBe(4)
+    expect(paginationNav.emitted('input').length).toBe(3)
+    expect(paginationNav.emitted('change').length).toBe(3)
+    expect(paginationNav.emitted('page-click').length).toBe(4)
 
     wrapper.destroy()
   })

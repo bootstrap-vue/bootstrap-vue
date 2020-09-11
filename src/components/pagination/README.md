@@ -364,6 +364,19 @@ By default the pagination component is left aligned. Change the alignment to `ce
 <!-- b-pagination-alignment.vue -->
 ```
 
+## Preventing a page from being selected
+
+You can listen for the `page-click` event, which provides an option to prevent the page from being
+selected. The event is emitted with two arguments:
+
+- `bvEvent`: The `BvEvent` object. Call `bvEvt.preventDefault()` to cancel page selection
+- `page`: Page number to select (starting with `1`)
+
+For accessibility reasons, when using the `page-click` event to prevent a page from being selected,
+you should provide some means of notification to the user as to why the page is not able to be
+selected. It is recommended to use the `disabled` attribute on the `<b-pagination>` component
+instead of using the `page-click` event (as `disabled` is more intuitive for screen reader users).
+
 ## Accessibility
 
 The `<b-pagination>` component provides many features to support assistive technology users, such as

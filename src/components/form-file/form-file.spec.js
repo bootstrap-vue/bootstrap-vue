@@ -15,20 +15,20 @@ describe('form-file', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foo__BV_file_outer_')
 
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
-    expect(input.classes()).toContain('custom-file-input')
-    expect(input.attributes('type')).toBeDefined()
-    expect(input.attributes('type')).toBe('file')
-    expect(input.attributes('id')).toBeDefined()
-    expect(input.attributes('id')).toBe('foo')
-    expect(input.attributes('multiple')).not.toBeDefined()
-    expect(input.attributes('disabled')).not.toBeDefined()
-    expect(input.attributes('required')).not.toBeDefined()
-    expect(input.attributes('aria-required')).not.toBeDefined()
-    expect(input.attributes('capture')).not.toBeDefined()
-    expect(input.attributes('accept')).not.toBeDefined()
-    expect(input.attributes('name')).not.toBeDefined()
+    const $input = wrapper.find('input')
+    expect($input).toBeDefined()
+    expect($input.classes()).toContain('custom-file-input')
+    expect($input.attributes('type')).toBeDefined()
+    expect($input.attributes('type')).toBe('file')
+    expect($input.attributes('id')).toBeDefined()
+    expect($input.attributes('id')).toBe('foo')
+    expect($input.attributes('multiple')).not.toBeDefined()
+    expect($input.attributes('disabled')).not.toBeDefined()
+    expect($input.attributes('required')).not.toBeDefined()
+    expect($input.attributes('aria-required')).not.toBeDefined()
+    expect($input.attributes('capture')).not.toBeDefined()
+    expect($input.attributes('accept')).not.toBeDefined()
+    expect($input.attributes('name')).not.toBeDefined()
 
     const label = wrapper.find('label')
     expect(label).toBeDefined()
@@ -47,8 +47,8 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('multiple')).toBeDefined()
+    const $input = wrapper.find('input')
+    expect($input.attributes('multiple')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -61,10 +61,10 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('required')).toBeDefined()
-    expect(input.attributes('aria-required')).toBeDefined()
-    expect(input.attributes('aria-required')).toBe('true')
+    const $input = wrapper.find('input')
+    expect($input.attributes('required')).toBeDefined()
+    expect($input.attributes('aria-required')).toBeDefined()
+    expect($input.attributes('aria-required')).toBe('true')
 
     wrapper.destroy()
   })
@@ -77,8 +77,8 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('disabled')).toBeDefined()
+    const $input = wrapper.find('input')
+    expect($input.attributes('disabled')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -91,8 +91,8 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('capture')).toBeDefined()
+    const $input = wrapper.find('input')
+    expect($input.attributes('capture')).toBeDefined()
 
     wrapper.destroy()
   })
@@ -105,9 +105,9 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('accept')).toBeDefined()
-    expect(input.attributes('accept')).toBe('image/*')
+    const $input = wrapper.find('input')
+    expect($input.attributes('accept')).toBeDefined()
+    expect($input.attributes('accept')).toBe('image/*')
 
     wrapper.destroy()
   })
@@ -120,9 +120,9 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('name')).toBeDefined()
-    expect(input.attributes('name')).toBe('bar')
+    const $input = wrapper.find('input')
+    expect($input.attributes('name')).toBeDefined()
+    expect($input.attributes('name')).toBe('bar')
 
     wrapper.destroy()
   })
@@ -135,9 +135,9 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('form')).toBeDefined()
-    expect(input.attributes('form')).toBe('bar')
+    const $input = wrapper.find('input')
+    expect($input.attributes('form')).toBeDefined()
+    expect($input.attributes('form')).toBe('bar')
 
     wrapper.destroy()
   })
@@ -150,9 +150,9 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input.attributes('foo')).toBeDefined()
-    expect(input.attributes('foo')).toEqual('bar')
+    const $input = wrapper.find('input')
+    expect($input.attributes('foo')).toBeDefined()
+    expect($input.attributes('foo')).toEqual('bar')
 
     wrapper.destroy()
   })
@@ -164,16 +164,15 @@ describe('form-file', () => {
       }
     })
 
-    const input = wrapper.find('input')
-    expect(input).toBeDefined()
+    const $input = wrapper.find('input')
+    expect($input).toBeDefined()
+    expect($input.classes()).not.toContain('focus')
 
-    expect(input.classes()).not.toContain('focus')
+    await $input.trigger('focusin')
+    expect($input.classes()).toContain('focus')
 
-    await input.trigger('focusin')
-    expect(input.classes()).toContain('focus')
-
-    await input.trigger('focusout')
-    expect(input.classes()).not.toContain('focus')
+    await $input.trigger('focusout')
+    expect($input.classes()).not.toContain('focus')
 
     wrapper.destroy()
   })
@@ -266,10 +265,88 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
-    // Internally setting `selectedFile` to `null` should emit empty array
-    await wrapper.setData({ selectedFile: null })
-    expect(wrapper.emitted('input').length).toEqual(3)
-    expect(wrapper.emitted('input')[2][0]).toEqual([])
+    wrapper.destroy()
+  })
+
+  it('emits input event when files changed in directory mode', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        multiple: true,
+        directory: true
+      }
+    })
+
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['bar'], 'bar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
+    })
+    const file3 = new File(['baz'], 'baz.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 2000
+    })
+    const files = [[file1, file2], file3]
+
+    // Emulate the files array
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+
+    // Setting to same array of files should not emit event
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+
+    // Setting to new array of same files should not emit event
+    wrapper.vm.setFiles([[file1, file2], file3])
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toEqual(1)
+
+    // Setting to array of new files should emit event
+    wrapper.vm.setFiles(files.slice().reverse())
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input').length).toEqual(2)
+    expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
+
+    wrapper.destroy()
+  })
+
+  it('emits flat files array when `no-traverse` prop set', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo',
+        multiple: true,
+        directory: true,
+        noTraverse: true
+      }
+    })
+
+    const file1 = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+    const file2 = new File(['bar'], 'bar.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 1000
+    })
+    const file3 = new File(['baz'], 'baz.txt', {
+      type: 'text/plain',
+      lastModified: Date.now() - 2000
+    })
+    const files = [[file1, file2], file3]
+
+    wrapper.vm.setFiles(files)
+    await waitNT(wrapper.vm)
+    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('input')[0][0]).toEqual([file1, file2, file3])
 
     wrapper.destroy()
   })
@@ -294,9 +371,9 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file1)
 
-    const input = wrapper.find('input')
-    input.element.value = ''
-    await input.trigger('change')
+    const $input = wrapper.find('input')
+    $input.element.value = ''
+    await $input.trigger('change')
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
@@ -461,20 +538,56 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('form native reset event triggers BFormFile reset', async () => {
+    const App = {
+      render(h) {
+        return h('form', {}, [h(BFormFile, { id: 'foo' })])
+      }
+    }
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    const file = new File(['foo'], 'foo.txt', {
+      type: 'text/plain',
+      lastModified: Date.now()
+    })
+
+    expect(wrapper.element.tagName).toBe('FORM')
+    const formFile = wrapper.findComponent(BFormFile)
+    expect(formFile.exists()).toBe(true)
+
+    // Emulate the files array
+    formFile.vm.setFiles([file])
+    await waitNT(wrapper.vm)
+    expect(formFile.emitted('input')).toBeDefined()
+    expect(formFile.emitted('input').length).toEqual(1)
+    expect(formFile.emitted('input')[0][0]).toEqual(file)
+
+    // Trigger form's native reset event
+    wrapper.find('form').trigger('reset')
+    await waitNT(wrapper.vm)
+    expect(formFile.emitted('input').length).toEqual(2)
+    expect(formFile.emitted('input')[1][0]).toEqual(null)
+
+    wrapper.destroy()
+  })
+
   it('file-name-formatter works', async () => {
     let called = false
-    let filesIsArray = false
+    let filesArray = null
+    let filesTraversedArray = null
     const wrapper = mount(BFormFile, {
       propsData: {
         id: 'foo',
-        fileNameFormatter: files => {
+        fileNameFormatter: (files, filesTraversed) => {
           called = true
-          filesIsArray = Array.isArray(files)
-          return 'foobar'
+          filesArray = files
+          filesTraversedArray = filesTraversed
+          return 'some files'
         }
       }
     })
-
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -487,11 +600,14 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
-    // Formatter should have been called, and passed an array
+    // Formatter should have been called, and passed two arrays
     expect(called).toBe(true)
-    expect(filesIsArray).toBe(true)
+    expect(Array.isArray(filesArray)).toBe(true)
+    expect(filesArray).toEqual([file])
+    expect(Array.isArray(filesTraversedArray)).toBe(true)
+    expect(filesTraversedArray).toEqual([file])
     // Should have our custom formatted "filename"
-    expect(wrapper.find('label').text()).toContain('foobar')
+    expect(wrapper.find('label').text()).toContain('some files')
 
     wrapper.destroy()
   })
@@ -509,7 +625,6 @@ describe('form-file', () => {
         }
       }
     })
-
     const file = new File(['foo'], 'foo.txt', {
       type: 'text/plain',
       lastModified: Date.now()
@@ -523,7 +638,7 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual(file)
 
     // Scoped slot should have been called, with expected scope
-    expect(slotScope).toEqual({ files: [file], names: [file.name] })
+    expect(slotScope).toEqual({ files: [file], filesTraversed: [file], names: [file.name] })
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')
 
@@ -536,6 +651,7 @@ describe('form-file', () => {
         id: 'foo',
         placeholder: 'PLACEHOLDER',
         dropPlaceholder: 'DROP_HERE',
+        noDropPlaceholder: 'NO_DROP_HERE',
         noDrop: true
       }
     })
@@ -548,6 +664,10 @@ describe('form-file', () => {
     expect(wrapper.vm).toBeDefined()
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
+    expect($label.text()).toContain('PLACEHOLDER')
+    expect($label.text()).not.toContain('DROP_HERE')
+
+    await wrapper.trigger('dragenter')
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
@@ -568,9 +688,13 @@ describe('form-file', () => {
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
+    await wrapper.trigger('dragenter')
+    expect($label.text()).not.toContain('PLACEHOLDER')
+    expect($label.text()).toContain('NO_DROP_HERE')
+
     await wrapper.trigger('dragover')
     expect($label.text()).not.toContain('PLACEHOLDER')
-    expect($label.text()).toContain('DROP_HERE')
+    expect($label.text()).toContain('NO_DROP_HERE')
 
     await wrapper.trigger('dragleave')
     expect($label.text()).toContain('PLACEHOLDER')
@@ -585,6 +709,7 @@ describe('form-file', () => {
         files: [file]
       }
     })
+    await waitNT(wrapper.vm)
     expect($label.text()).not.toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).toContain(file.name)
@@ -626,10 +751,133 @@ describe('form-file', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      const input = wrapper.find('input')
-      expect(input.exists()).toBe(true)
+      const $input = wrapper.find('input')
+      expect($input.exists()).toBe(true)
       expect(document).toBeDefined()
-      expect(document.activeElement).toBe(input.element)
+      expect(document.activeElement).toBe($input.element)
+
+      wrapper.destroy()
+    })
+  })
+
+  describe('accept methods', () => {
+    // Faked files (needs name and type properties only)
+    const fileText = { name: 'file.txt', type: 'text/plain' }
+    const fileHtml = { name: 'file.html', type: 'text/html' }
+    const fileJson = { name: 'file.json', type: 'application/json' }
+    const filePng = { name: 'file.png', type: 'image/png' }
+
+    it('isFileValid() works with accept not set', async () => {
+      const wrapper = mount(BFormFile)
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(true)
+      expect(vm.isFileValid(fileJson)).toBe(true)
+      expect(vm.isFileValid(filePng)).toBe(true)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to single extension', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.txt'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(false)
+      expect(vm.isFileValid(fileJson)).toBe(false)
+      expect(vm.isFileValid(filePng)).toBe(false)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to multiple extensions', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.txt,.html, .png'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(true)
+      expect(vm.isFileValid(fileJson)).toBe(false)
+      expect(vm.isFileValid(filePng)).toBe(true)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to single mime type', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/plain'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(false)
+      expect(vm.isFileValid(fileJson)).toBe(false)
+      expect(vm.isFileValid(filePng)).toBe(false)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to single wildcard mime type', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/*'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(true)
+      expect(vm.isFileValid(fileJson)).toBe(false)
+      expect(vm.isFileValid(filePng)).toBe(false)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to multiple mime types', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: 'text/*, application/json'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(true)
+      expect(vm.isFileValid(fileHtml)).toBe(true)
+      expect(vm.isFileValid(fileJson)).toBe(true)
+      expect(vm.isFileValid(filePng)).toBe(false)
+      expect(vm.isFileValid()).toBe(false)
+
+      wrapper.destroy()
+    })
+
+    it('isFileValid() works with accept set to mime and extension', async () => {
+      const wrapper = mount(BFormFile, {
+        propsData: {
+          accept: '.png, application/json'
+        }
+      })
+
+      const vm = wrapper.vm
+      expect(vm.isFileValid(fileText)).toBe(false)
+      expect(vm.isFileValid(fileHtml)).toBe(false)
+      expect(vm.isFileValid(fileJson)).toBe(true)
+      expect(vm.isFileValid(filePng)).toBe(true)
+      expect(vm.isFileValid()).toBe(false)
 
       wrapper.destroy()
     })

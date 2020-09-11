@@ -1,7 +1,7 @@
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { attemptBlur } from '../../utils/dom'
-import { eventOn, eventOff, eventOnOff } from '../../utils/events'
+import { eventOn, eventOff, eventOnOff, stopEvent } from '../../utils/events'
 import formMixin from '../../mixins/form'
 import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin from '../../mixins/form-size'
@@ -150,7 +150,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
       eventOff(document, 'wheel', this.stopWheel)
     },
     stopWheel(evt) {
-      evt.preventDefault()
+      stopEvent(evt, { propagation: false })
       attemptBlur(this.$el)
     }
   },
