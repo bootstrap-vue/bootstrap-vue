@@ -28,7 +28,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       return true
     },
     dropdownClasses() {
-      return [this.directionClass, { show: this.visible }]
+      return [this.directionClass, this.boundaryClass, { show: this.visible }]
     },
     menuClasses() {
       return [

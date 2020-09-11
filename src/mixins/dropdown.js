@@ -4,6 +4,7 @@ import { BvEvent } from '../utils/bv-event.class'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
+import { mergeDeep } from '../utils/object'
 import { HTMLElement } from '../utils/safe-types'
 import { warn } from '../utils/warn'
 import clickOutMixin from './click-out'
@@ -68,17 +69,17 @@ export const commonProps = {
     default: false
   },
   offset: {
-    // Number of pixels to offset menu, or a CSS unit value (i.e. 1px, 1rem, etc)
+    // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
     type: [Number, String],
     default: 0
   },
   noFlip: {
-    // Disable auto-flipping of menu from bottom<=>top
+    // Disable auto-flipping of menu from bottom <=> top
     type: Boolean,
     default: false
   },
   popperOpts: {
-    // type: Object,
+    type: Object,
     default: () => {}
   },
   boundary: {
@@ -128,6 +129,13 @@ export default {
         return 'dropleft'
       }
       return ''
+    },
+    boundaryClass() {
+      // Position `static` is needed to allow menu to "breakout" of the `scrollParent`
+      // boundaries when boundary is anything other than `scrollParent`
+      // See: https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
+      const { boundary } = this
+      return boundary !== 'scrollParent' || !boundary ? 'position-static' : ''
     }
   },
   watch: {
@@ -267,10 +275,11 @@ export default {
           flip: { enabled: !this.noFlip }
         }
       }
-      if (this.boundary) {
-        popperConfig.modifiers.preventOverflow = { boundariesElement: this.boundary }
+      const boundariesElement = this.boundary
+      if (boundariesElement) {
+        popperConfig.modifiers.preventOverflow = { boundariesElement }
       }
-      return { ...popperConfig, ...(this.popperOpts || {}) }
+      return mergeDeep(popperConfig, this.popperOpts || {})
     },
     // Turn listeners on/off while open
     whileOpenListen(isOpen) {

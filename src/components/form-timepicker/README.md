@@ -205,8 +205,8 @@ keep these labels short.
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
 control the positioning of the popup calendar.
 
-Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
-and usage of these props.
+Refer to the [`<b-dropdown>` positioning section](/docs/components/dropdown#positioning) for details
+on the effects and usage of these props.
 
 ### Button only mode
 

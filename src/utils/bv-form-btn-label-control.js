@@ -281,6 +281,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-btn-label-control dropdown',
         class: [
           this.directionClass,
+          this.boundaryClass,
           {
             'btn-group': buttonOnly,
             'form-control': !buttonOnly,

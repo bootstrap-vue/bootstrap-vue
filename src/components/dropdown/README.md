@@ -133,7 +133,7 @@ Like to move your menu away from the toggle buttons a bit? Then use the `offset`
 number of pixels to push right (or left when negative) from the toggle button:
 
 - Specified as a number of pixels: positive for right shift, negative for left shift.
-- Specify the distance in CSS units (i.e. `0.3rem`, `4px`, `1.2em`, etc) passed as a string.
+- Specify the distance in CSS units (i.e. `0.3rem`, `4px`, `1.2em`, etc.) passed as a string.
 
 ```html
 <div>
@@ -156,11 +156,22 @@ specify a boundary element via the `boundary` prop. Supported values are `'scrol
 default), `'viewport'`, `'window'` or a reference to an HTML element. The boundary value is passed
 directly to Popper.js's `boundariesElement` configuration option.
 
-**Note:** when `boundary` is any value other than the default of `'scrollParent'`, the style
+**Note:** When `boundary` is any value other than the default of `'scrollParent'`, the style
 `position: static` is applied to to the dropdown component's root element in order to allow the menu
 to "break-out" of its scroll container. In some situations this may affect your layout or
 positioning of the dropdown trigger button. In these cases you may need to wrap your dropdown inside
 another element.
+
+### Advanced Popper.js configuration
+
+If you need some advanced Popper.js configuration to make dropdowns behave to your needs, you can
+use the `popper-opts` prop to pass down a custom configuration object which will be deeply merged
+with the BootstrapVue defaults.
+
+Head to the [Popper.js docs](https://popper.js.org/docs/v1/) to see all the configuration options.
+
+**Note**: The props `offset`, `boundary` and `no-flip` may loose their effect when you overwrite the
+Popper.js configuration.
 
 ## Split button support
 
