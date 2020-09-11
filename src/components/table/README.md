@@ -182,7 +182,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ### Fields as an array of objects
 
 Fields can be a an array of objects, providing additional control over the fields (such as sorting,
-formatting, etc). Only columns (keys) that appear in the fields array will be shown:
+formatting, etc.). Only columns (keys) that appear in the fields array will be shown:
 
 **Example: Using array of objects fields definition**
 
@@ -1306,7 +1306,7 @@ available horizontal space.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
-  that this may cause double width borders when using features such as `bordered`, etc).
+  that this may cause double width borders when using features such as `bordered`, etc.).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
   Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
@@ -1401,7 +1401,7 @@ set.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
   when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
-  (note that this may cause double width borders when using features such as `bordered`, etc).
+  (note that this may cause double width borders when using features such as `bordered`, etc.).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
   Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
@@ -2514,7 +2514,7 @@ sticky. See below for more information on using [sticky columns](#simple-tables-
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
-sorting, pagination, filtering, foot-clone, items, fields, etc).
+sorting, pagination, filtering, foot-clone, items, fields, etc.).
 
 ```html
 <div>
@@ -2782,7 +2782,7 @@ markup. Components `<b-table>` and `<b-table-lite>` use these helper components 
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
-elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
+elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc.) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
 helper components. Note that there are no helper components for `<caption>`, `<colgroup>` or
 `<col>`, so you may these three HTML5 elements directly in `<b-table-simple>`.

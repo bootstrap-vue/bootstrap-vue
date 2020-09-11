@@ -146,7 +146,7 @@ overrides.
 ### Width
 
 By default the width of `<b-sidebar>` is set to `320px` (100% on 'xs' screens). Simply provide a
-value via the `width` prop (i.e. `'180px'`, `'20em'`, etc) to override this default. The max width
+value via the `width` prop (i.e. `'180px'`, `'20em'`, etc.) to override this default. The max width
 is set to `100%` via CSS.
 
 ### Padding

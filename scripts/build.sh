@@ -38,7 +38,7 @@ echo ''
 
 echo 'Minify JS...'
 # We instruct terser to preserve our `Bv*Event` class names and
-# safe types (i.e. `Element`, etc) when mangling top level names
+# safe types (i.e. `Element`, etc.) when mangling top level names
 terser dist/bootstrap-vue.js \
        --compress typeofs=false \
        --mangle reserved=['BvEvent','BvModalEvent','Element','HTMLElement','SVGElement'] \

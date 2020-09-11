@@ -93,7 +93,7 @@ rendered and a console warning will be issued.
   Use the `number` or `trim` props instead.
 - Older version of Firefox may not support `readonly` for `range` type inputs.
 - Input types that do not support `min`, `max` and `step` (i.e. `text`, `password`, `tel`, `email`,
-  `url`, etc) will silently ignore these values (although they will still be rendered on the input
+  `url`, etc.) will silently ignore these values (although they will still be rendered on the input
   markup) if values are provided.
 
 **Caveats with predictive text entry and IME composition entry:**
@@ -101,7 +101,7 @@ rendered and a console warning will be issued.
 - When using predictive text auto-suggested words, the `v-model` will not update until the
   auto-suggested word is selected (or a space is typed). If an auto suggested word is not selected,
   the v-model will update with the current _displayed text_ of the input when the input is blurred.
-- When using IME composition (ie. Chinese, Japanese, etc), the `v-model` will not update until the
+- When using IME composition (ie. Chinese, Japanese, etc.), the `v-model` will not update until the
   IME composition is completed.
 
 ### Range type input
@@ -404,9 +404,10 @@ Formatting does not occur if a `formatter` is not provided.
 <!-- b-form-input-formatter.vue -->
 ```
 
-**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, `number`, `email` etc),
-ensure that your formatter function returns the value in the expected format for the input type. The
-formatter **must** return the value as a _string_.
+**Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, `number`, `email` etc.),
+ensure that your formatter function returns the value in the expected format (`date` ->
+'2000-06-01', color -> '#ff0000', etc.) for the input type. The formatter **must** return the value
+as a _string_.
 
 **Note:** With non-lazy formatting, if the cursor is not at the end of the input value, the cursor
 may jump to the end _after_ a character is typed. You can use the provided event object and the

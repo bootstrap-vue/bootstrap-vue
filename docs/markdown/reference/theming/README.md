@@ -4,10 +4,10 @@
 > stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
 
 While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
-stacked tables, etc). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
+stacked tables, etc.). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
 `bootstrap-vue/dist/bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables. By
 using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, theme
-colors, etc) adjust the custom BootstrapVue css generation.
+colors, etc.) adjust the custom BootstrapVue css generation.
 
 For premium dashboards and themes, please refer to the [`Themes section`](/themes) of the
 documentation.
@@ -149,7 +149,7 @@ your project, which you can include in your main app `app.vue` file:
 
 The `custom-vars.scss` file, which needs to be loaded before Bootstrap's SCSS and BootstrapVue's
 SCSS, will include your Bootstrap v4 variable overrides (i.e. colors, shadows, font sizes,
-breakpoints, etc).
+breakpoints, etc.).
 
 **Via app main entry point:**
 

@@ -44,7 +44,7 @@ enable adding a tag on the input's `change` event via the `add-on-change` prop.
 
 ## Tag creation using separators
 
-To auto create tags when a separator character is typed (i.e. <kbd>Space</kbd>, <kbd>,</kbd>, etc),
+To auto create tags when a separator character is typed (i.e. <kbd>Space</kbd>, <kbd>,</kbd>, etc.),
 set the `separator` prop to the character that will trigger the tag to be added. If multiple
 separator characters are needed, then include them as a single string (i.e. `' ,;'`), or an array of
 characters (i.e. `[' ', ',', ';']`), which will trigger a new tag to be added when <kbd>Space</kbd>,

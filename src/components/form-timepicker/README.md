@@ -267,7 +267,7 @@ Internationalization of the time interface is provided via
 [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat)
 and
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat),
-except for the labels applied to elements of the time control (aria-labels, selected status, etc).
+except for the labels applied to elements of the time control (aria-labels, selected status, etc.).
 You must provide your own translations for these labels. The available locales will be browser
 dependent (not all browsers support all locales).
 

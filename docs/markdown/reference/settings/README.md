@@ -55,7 +55,7 @@ The values provided as the config option to `Vue.use` will be merged with the de
 **Note:** When defining custom breakpoints, keep the names short (2 to 3 characters). At least two
 breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined
 in your custom Bootstrap SCSS. Breakpoint names must not conflict with non-breakpoint prop names
-used on various components (i.e. avoid `to`, `col`, etc)
+used on various components (i.e. avoid `to`, `col`, etc.)
 
 ### Setting config via individual component group plugin imports
 
