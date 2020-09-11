@@ -406,8 +406,8 @@ Formatting does not occur if a `formatter` is not provided.
 
 **Note:** When using a non-text-like input (i.e. `color`, `range`, `date`, `number`, `email` etc.),
 ensure that your formatter function returns the value in the expected format (`date` ->
-'2000-06-01', color -> '#ff0000', etc.) for the input type. The formatter **must** return the value
-as a _string_.
+'2000-06-01', `color` -> '#ff0000', etc.) for the input type. The formatter **must** return the
+value as a _string_.
 
 **Note:** With non-lazy formatting, if the cursor is not at the end of the input value, the cursor
 may jump to the end _after_ a character is typed. You can use the provided event object and the
