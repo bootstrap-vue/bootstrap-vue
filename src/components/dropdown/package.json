@@ -13,12 +13,10 @@
         "props": [
           {
             "prop": "size",
-            "settings": true,
             "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           },
           {
             "prop": "variant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
@@ -63,7 +61,6 @@
           },
           {
             "prop": "toggleText",
-            "settings": true,
             "description": "ARIA label (sr-only) to set on the toggle when in split mode"
           },
           {
@@ -101,7 +98,6 @@
           },
           {
             "prop": "splitVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the split button. Defaults to the 'variant' prop value"
           },
           {

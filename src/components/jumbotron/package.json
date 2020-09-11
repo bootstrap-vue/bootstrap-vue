@@ -10,17 +10,14 @@
         "props": [
           {
             "prop": "bgVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the background"
           },
           {
             "prop": "borderVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the border"
           },
           {
             "prop": "textVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the text"
           },
           {

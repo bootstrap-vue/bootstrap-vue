@@ -15,7 +15,6 @@
         "props": [
           {
             "prop": "variant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
@@ -76,7 +75,6 @@
           },
           {
             "prop": "label",
-            "settings": true,
             "description": "String to place in the toggle's 'aria-label' attribute"
           },
           {

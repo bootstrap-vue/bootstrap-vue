@@ -122,7 +122,6 @@
           },
           {
             "prop": "subTitleTextVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the sub title text"
           }
         ]
