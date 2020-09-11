@@ -153,7 +153,6 @@ export default {
         form: this.getForm,
         disabled: this.isDisabled,
         required: this.isRequired,
-        autocomplete: 'off',
         'aria-required': this.isRequired || null,
         'aria-label': this.ariaLabel || null,
         'aria-labelledby': this.ariaLabelledby || null
