@@ -72,4 +72,5 @@ export const getEnv = (key, fallback = null) => {
   return env[key] || fallback
 }
 
-export const getNoWarn = () => getEnv('BOOTSTRAP_VUE_NO_WARN')
+export const getNoWarn = () =>
+  getEnv('BOOTSTRAP_VUE_NO_WARN') || getEnv('NODE_ENV') === 'production'
