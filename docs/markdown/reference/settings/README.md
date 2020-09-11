@@ -182,6 +182,6 @@ process.env.BOOTSTRAP_VUE_NO_WARN = true
 ```
 
 By ignoring warnings, you may find that your project fails/breaks when using future releases of
-bootstrapVue where deprecated props have been removed.
+BootstrapVue where deprecated props have been removed.
 
 **Warnings should be corrected before moving your project into production!**

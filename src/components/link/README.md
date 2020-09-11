@@ -26,7 +26,7 @@ If your app is running under [Nuxt.js](https://nuxtjs.org), the
 `<router-link>`. The `<nuxt-link>` component supports all the same features as `<router-link>` (as
 it is a wrapper component for `<router-link>`) and more.
 
-### Third party rounter links
+### Third party router links
 
 BootstrapVue auto detects using `<router-link>` and `<nuxt-link>` link components. Some 3rd party
 frameworks also provide customized versions of `<router-link>`, such as
