@@ -45,7 +45,7 @@ const observeDom = (
 
       // Detect whether a change happened based on type and target
       if (type === 'characterData' && target.nodeType === Node.TEXT_NODE) {
-        // We ignore nodes that are not TEXT (i.e. comments, etc)
+        // We ignore nodes that are not TEXT (i.e. comments, etc.)
         // as they don't change layout
         changed = true
       } else if (type === 'attributes') {

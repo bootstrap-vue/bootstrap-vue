@@ -257,7 +257,7 @@ export const BCalendar = Vue.extend({
       // `short` is typically a 3 letter abbreviation,
       // `narrow` is typically a single letter
       // `long` is the full week day name
-      // Although some locales may override this (i.e `ar`, etc)
+      // Although some locales may override this (i.e `ar`, etc.)
       default: STR_SHORT,
       validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     }

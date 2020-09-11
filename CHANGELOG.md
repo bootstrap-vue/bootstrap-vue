@@ -1153,7 +1153,7 @@ Read the following migration guide for more details.
 - `b-table`: the `filter` prop will no longer accept a function reference (previously deprecated).
   Instead, pass a function to the `filter-function` prop when using a custom filter function. The
   prop `filter` is only to be used for the filter's _criteria_ (i.e. the search value, search
-  `RegExpr`, etc).
+  `RegExpr`, etc.).
 - `b-table`: passing an object as a `fields` definition will no longer work. Use the _array of
   strings_ or _array of objects_ (or a combination of the two) fields definition format instead.
 - `b-table`: sorting icon SASS variables have been changed to handle the new SVG backgrounds. If you

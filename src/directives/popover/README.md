@@ -24,7 +24,7 @@ Things to know when using the popover directive:
 - Popovers require BootstrapVue's custom SCSS/CSS in order to function correctly, and for variants.
 - If both title and content is not provided (or are an empty string), the popover will not show.
 - Specify container: 'body' (default) to avoid rendering problems in more complex components (like
-  input groups, button groups, etc).
+  input groups, button groups, etc.).
 - Triggering popovers on hidden elements will not work.
 - Popovers for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, popovers will be centered. Use

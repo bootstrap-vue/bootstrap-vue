@@ -40,7 +40,7 @@ describe('modal', () => {
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
 
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
+      // Main outer wrapper (has z-index, etc.)... The stacker <div>
       expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
@@ -120,7 +120,7 @@ describe('modal', () => {
       expect(wrapper.vm).toBeDefined()
       await waitRAF()
 
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
+      // Main outer wrapper (has z-index, etc.)... The stacker <div>
       expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')
@@ -205,7 +205,7 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      // Main outer wrapper (has z-index, etc)... The stacker <div>
+      // Main outer wrapper (has z-index, etc.)... The stacker <div>
       expect(wrapper.element.tagName).toBe('DIV')
       expect(wrapper.classes().length).toBe(0)
       expect(wrapper.element.style.position).toEqual('absolute')

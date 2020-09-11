@@ -552,7 +552,7 @@ between `0` and `1`, where `0` means no overlap and `1` means 100% overlap.
 
 Use the `aria-label` prop to provide an accessible, screen reader friendly, label for your avatar.
 If you have a badge, it is recommended to add inforation to your aria-label regarding the badge
-purpose or content (i.g. `'3 messages'`, `'online'`, etc)).
+purpose or content (i.g. `'3 messages'`, `'online'`, etc.).
 
 While the `click` event is emitted regardless if the `button`, `href`, or `to` props are set, it is
 highly recommended to use the `button` prop when the click event should trigger an action (or use

@@ -169,7 +169,7 @@ classes.
 ```
 
 The height of the progress bar can be controlled with the `height` prop. The height value should be
-a standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
+a standard CSS dimension (`px`, `rem`, `em`, etc.). The default height is `1rem`.
 
 ```html
 <template>

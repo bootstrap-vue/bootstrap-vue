@@ -28,7 +28,7 @@ Things to know when using tooltip component:
 - Tooltips require BootstrapVue's custom SCSS/CSS in order to function correctly, and for variants.
 - Triggering tooltips on hidden elements will not work.
 - Specify `container` as `null` (default, appends to `<body>`) to avoid rendering problems in more
-  complex components (like input groups, button groups, etc). You can use container to optionally
+  complex components (like input groups, button groups, etc.). You can use container to optionally
   specify a different element to append the rendered tooltip to.
 - Tooltips for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use

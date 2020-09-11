@@ -99,7 +99,7 @@ named slot `first`.
 
 If both `html` and `text` are provided, `html` will take precedence. Only basic/native HTML is
 supported in the `html` field (components will not work). Note that not all browsers will render
-inline html (i.e. `<i>`, `<strong>`, etc) inside `<option>` elements of a `<select>`.
+inline html (i.e. `<i>`, `<strong>`, etc.) inside `<option>` elements of a `<select>`.
 
 <p class="alert alert-danger">
   <strong>Be cautious</strong> of placing user supplied content in the <code>html</code> field,
