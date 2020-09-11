@@ -40,52 +40,42 @@
           },
           {
             "prop": "labelNoTimeSelected",
-            "settings": true,
             "description": "String to show when no time is selected"
           },
           {
             "prop": "labelSelected",
-            "settings": true,
             "description": "Hidden sr-only string when a time is selected"
           },
           {
             "prop": "labelIncrement",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
           },
           {
             "prop": "labelDecrement",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the spinbuttons `-` button"
           },
           {
             "prop": "labelHours",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the `Hours` spinbutton"
           },
           {
             "prop": "labelMinutes",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the `Minutes` spinbutton"
           },
           {
             "prop": "labelSeconds",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the `Seconds` spinbutton"
           },
           {
             "prop": "labelAmpm",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on the `AM/PM` spinbutton"
           },
           {
             "prop": "labelAm",
-            "settings": true,
             "description": "Text to display in the AM/PM spinbutton when 'AM' is selected"
           },
           {
             "prop": "labelPm",
-            "settings": true,
             "description": "Text to display in the AM/PM spinbutton when 'PM' is selected"
           }
         ],

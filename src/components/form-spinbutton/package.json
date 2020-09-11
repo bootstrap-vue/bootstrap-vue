@@ -75,12 +75,10 @@
           },
           {
             "prop": "labelIncrement",
-            "settings": true,
             "description": "Text to be used for the `aria-label` attribute on the increment button"
           },
           {
             "prop": "labelDecrement",
-            "settings": true,
             "description": "Text to be used for the `aria-label` attribute on the decrement button"
           },
           {
