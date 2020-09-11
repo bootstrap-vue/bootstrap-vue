@@ -168,12 +168,13 @@ the config object to the Nuxt.js plugin module.
 
 ## Disabling BootstrapVue console warnings
 
-BootstrapVue will warn (via `console.warn`) when you try and use a deprecated prop, or pass an
+BootstrapVue will warn (via `console.warn()`) when you try and use a deprecated prop, or pass an
 invalid value to certain props. These warnings are provided to help you ensure that your application
 is using the correct props and values.
 
-In some cases, you may want to disable these warnings (not recommended). You can do so by setting
-the following process environment variable:
+BootstrapVue automatically disables warnings in production mode (`NODE_ENV=production`). If you want
+to disable the warnings in other scenarios (not recommended), you can do so by setting the following
+process environment variable:
 
 <!-- eslint-disable no-unused-vars -->
 
