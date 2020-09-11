@@ -119,8 +119,6 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
         return
       }
 
-      console.log(evt, pageNumber)
-
       // Update the `v-model`
       this.currentPage = pageNumber
       // Emit event triggered by user interaction

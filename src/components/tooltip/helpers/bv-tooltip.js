@@ -248,7 +248,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.listen()
       } else {
         /* istanbul ignore next */
-        warn('Unable to find target element in document.', this.templateType)
+        warn(
+          isString(this.target)
+            ? `Unable to find target element by ID "#${this.target}" in document.`
+            : 'The provided target is no valid HTML element.',
+          this.templateType
+        )
       }
     })
   },
@@ -513,13 +518,14 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     // --- Utility methods ---
     getTarget() {
-      // Handle case where target may be a component ref
-      let target = this.target ? this.target.$el || this.target : null
-      // If an ID
-      target = isString(target) ? getById(target.replace(/^#/, '')) : target
-      // If a function
-      target = isFunction(target) ? target() : target
-      // If an element ref
+      let { target } = this
+      if (isString(target)) {
+        target = getById(target.replace(/^#/, ''))
+      } else if (isFunction(target)) {
+        target = target()
+      } else if (target) {
+        target = target.$el || target
+      }
       return isElement(target) ? target : null
     },
     getPlacementTarget() {

@@ -7,6 +7,7 @@ const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 // Our test application
 const App = {
   props: [
+    'target',
     'triggers',
     'show',
     'noninteractive',
@@ -22,7 +23,7 @@ const App = {
   ],
   render(h) {
     const tipProps = {
-      target: 'foo',
+      target: this.target || 'foo',
       triggers: this.triggers,
       show: this.show,
       noninteractive: this.noninteractive || false,
@@ -47,7 +48,8 @@ const App = {
             type: 'button',
             disabled: this.btnDisabled || null,
             title: this.titleAttr || null
-          }
+          },
+          ref: 'target'
         },
         'text'
       ),
@@ -279,6 +281,68 @@ describe('b-tooltip', () => {
     expect($tip.classes()).toContain('b-tooltip')
     // Should contain the new updated content
     expect($tip.text()).toContain('world')
+
+    wrapper.destroy()
+  })
+
+  it('providing the trigger element by function works', async () => {
+    jest.useFakeTimers()
+    const container = createContainer()
+    const wrapper = mount(App, {
+      attachTo: container,
+      propsData: {
+        target: () => wrapper.vm.$refs.target,
+        triggers: 'click',
+        show: false
+      },
+      slots: {
+        default: 'title'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+
+    expect(wrapper.element.tagName).toBe('ARTICLE')
+    expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('id')).toEqual('wrapper')
+
+    // The trigger button
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('aria-describedby')).not.toBeDefined()
+
+    // <b-tooltip> wrapper
+    const $tipHolder = wrapper.findComponent(BTooltip)
+    expect($tipHolder.exists()).toBe(true)
+
+    // Activate tooltip by trigger
+    await $button.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($button.attributes('id')).toBeDefined()
+    expect($button.attributes('id')).toEqual('foo')
+    expect($button.attributes('aria-describedby')).toBeDefined()
+    // ID of the tooltip that will be in the body
+    const adb = $button.attributes('aria-describedby')
+
+    // Find the tooltip element in the document
+    const tip = document.getElementById(adb)
+    expect(tip).not.toBe(null)
+    expect(tip).toBeInstanceOf(HTMLElement)
+    expect(tip.tagName).toEqual('DIV')
+    expect(tip.classList.contains('tooltip')).toBe(true)
+    expect(tip.classList.contains('b-tooltip')).toBe(true)
 
     wrapper.destroy()
   })
