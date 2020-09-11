@@ -239,7 +239,6 @@
   },
   "routerComponentName": {
     "description": "<b-link> prop: BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome (note only `<router-link>` specific props are passed to the component)",
-    "version": "2.15.0",
-    "settings": true
+    "version": "2.15.0"
   }
 }
