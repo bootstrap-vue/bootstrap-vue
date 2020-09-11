@@ -246,8 +246,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.scopeId = getScopId(this.$parent)
         // Set up all trigger handlers and listeners
         this.listen()
-      } else {
-        /* istanbul ignore next */
+      } /* istanbul ignore next */ else {
         warn(
           isString(this.target)
             ? `Unable to find target element by ID "#${this.target}" in document.`
