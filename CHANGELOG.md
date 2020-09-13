@@ -1,10 +1,128 @@
 # Changelog
 
-> All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See
+[standard-version](https://github.com/conventional-changelog/standard-version) for commit
+guidelines.
+
+<a name="2.17.0"></a>
+
+## [v2.17.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.16.0...v2.17.0) (2020-09-13)
+
+Released: 2020-09-13
+
+### Features v2.17.0
+
+- **b-avatar:** add size classes for `sm` and `lg` sizes (closes
+  [#5592](https://github.com/bootstrap-vue/bootstrap-vue/issues/5592))
+  ([#5768](https://github.com/bootstrap-vue/bootstrap-vue/issues/5768))
+  ([942bf31](https://github.com/bootstrap-vue/bootstrap-vue/commit/942bf31546179abce8f0bb8252f8716c85c6de86))
+- **b-calendar:** add `nav-button-variant` prop (closes
+  [#5702](https://github.com/bootstrap-vue/bootstrap-vue/issues/5702))
+  ([#5705](https://github.com/bootstrap-vue/bootstrap-vue/issues/5705))
+  ([aa291fc](https://github.com/bootstrap-vue/bootstrap-vue/commit/aa291fce6df52df4d2396b9499c964ce0ac5962b))
+- **b-form-file:** improved drag and drop handling (closes
+  [#3673](https://github.com/bootstrap-vue/bootstrap-vue/issues/3673))
+  ([#5727](https://github.com/bootstrap-vue/bootstrap-vue/issues/5727))
+  ([3b12a73](https://github.com/bootstrap-vue/bootstrap-vue/commit/3b12a73d3856a0b14f630d45d236570698b75e50))
+- **b-icon:** add proper `title` support (closes
+  [#5711](https://github.com/bootstrap-vue/bootstrap-vue/issues/5711))
+  ([#5724](https://github.com/bootstrap-vue/bootstrap-vue/issues/5724))
+  ([3756b2c](https://github.com/bootstrap-vue/bootstrap-vue/commit/3756b2c0e07fc85f73769ea312ede8917d1e1de5))
+- **b-pagination/b-pagination-nav:** allow page change to be prevented (closes
+  [#5679](https://github.com/bootstrap-vue/bootstrap-vue/issues/5679))
+  ([#5755](https://github.com/bootstrap-vue/bootstrap-vue/issues/5755))
+  ([7e18c61](https://github.com/bootstrap-vue/bootstrap-vue/commit/7e18c615fec871fb99a947ca5e247bcef04b7c6f))
+- **b-sidebar:** add `noEnforceFocus` prop (closes
+  [#5707](https://github.com/bootstrap-vue/bootstrap-vue/issues/5707))
+  ([#5734](https://github.com/bootstrap-vue/bootstrap-vue/issues/5734))
+  ([c11c237](https://github.com/bootstrap-vue/bootstrap-vue/commit/c11c237143230f533404af75933d86a2de7bfb56))
+- **b-skeleton:** add skeleton components (closes
+  [#5413](https://github.com/bootstrap-vue/bootstrap-vue/issues/5413))
+  ([#5575](https://github.com/bootstrap-vue/bootstrap-vue/issues/5575))
+  ([31c06b5](https://github.com/bootstrap-vue/bootstrap-vue/commit/31c06b5fa697b5f13cc888a1d72effae21eb5e73))
+- **b-table:** add `sortKey` option for `no-local-sorting` events
+  ([#5746](https://github.com/bootstrap-vue/bootstrap-vue/issues/5746))
+  ([f847dae](https://github.com/bootstrap-vue/bootstrap-vue/commit/f847daeb797b84ed80b49a31294a5088fc32b59d))
+- **b-tags:** add `limit` prop ([#5543](https://github.com/bootstrap-vue/bootstrap-vue/issues/5543))
+  ([caa0f1a](https://github.com/bootstrap-vue/bootstrap-vue/commit/caa0f1a2e6d96637c216eb306c77a67254af1caf))
+- **docs:** auto-detect settings props in component reference
+  ([#5761](https://github.com/bootstrap-vue/bootstrap-vue/issues/5761))
+  ([0ddb2e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/0ddb2e051c0ce42bdd599415ba93e82e1a6584f1))
+
+### Bug Fixes v2.17.0
+
+- **b-avatar:** image fit and scale (closes
+  [#5610](https://github.com/bootstrap-vue/bootstrap-vue/issues/5610),
+  [#5655](https://github.com/bootstrap-vue/bootstrap-vue/issues/5655))
+  ([#5675](https://github.com/bootstrap-vue/bootstrap-vue/issues/5675))
+  ([9812248](https://github.com/bootstrap-vue/bootstrap-vue/commit/9812248ea686e339f32604c0020a1714bb228d75))
+- **b-button-toolbar:** allow focus to leave toolbar by keyboard
+  ([#5737](https://github.com/bootstrap-vue/bootstrap-vue/issues/5737))
+  ([f54e427](https://github.com/bootstrap-vue/bootstrap-vue/commit/f54e4275881947cfb504235aa9330c03444e08bb))
+- **b-form-checkbox:** `change` event value when in multiple mode
+  ([#5716](https://github.com/bootstrap-vue/bootstrap-vue/issues/5716))
+  ([5150b94](https://github.com/bootstrap-vue/bootstrap-vue/commit/5150b943f25ff6b2f331aaef64321973bd60dd0e))
+- **b-form-checkbox/b-form-radio:** remove `autocomplete="off"` attribute
+  ([#5764](https://github.com/bootstrap-vue/bootstrap-vue/issues/5764))
+  ([443aaf1](https://github.com/bootstrap-vue/bootstrap-vue/commit/443aaf1afc38dc029e0b142c11a39d360bbc98d2))
+- **b-form-datepicker/b-form-timepicker/b-nav-item-dropdown:** dropdown positioning handling (closes
+  [#5700](https://github.com/bootstrap-vue/bootstrap-vue/issues/5700),
+  [#5630](https://github.com/bootstrap-vue/bootstrap-vue/issues/5630))
+  ([#5765](https://github.com/bootstrap-vue/bootstrap-vue/issues/5765))
+  ([7ec2205](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ec2205a96e0d14772f1ed6c047a9808a32fbf82))
+- **b-form-file:** drop handling for huge amounts of files (closes
+  [#5615](https://github.com/bootstrap-vue/bootstrap-vue/issues/5615))
+  ([#5685](https://github.com/bootstrap-vue/bootstrap-vue/issues/5685))
+  ([d54b240](https://github.com/bootstrap-vue/bootstrap-vue/commit/d54b240adeb6eadfe8736f4926384a5c4d351bde))
+- **b-form-input:** fix debounce when value does not change
+  ([#5632](https://github.com/bootstrap-vue/bootstrap-vue/issues/5632))
+  ([111ca65](https://github.com/bootstrap-vue/bootstrap-vue/commit/111ca65240ab6941e2173ca44806aa0a75691c95))
+- **b-form-tags:** ensure same height with or without tags
+  ([#5752](https://github.com/bootstrap-vue/bootstrap-vue/issues/5752))
+  ([07102f9](https://github.com/bootstrap-vue/bootstrap-vue/commit/07102f988cfe8e8290189e73f50790f70bbb4639))
+- **b-form-textarea:** `setStyle()` util usage
+  ([bf7a65f](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf7a65f87caf0d725033c35ee85c1e32ced82adc))
+- **b-pagination:** properly calculate number of links with `hide-ellipsis` option (closes
+  [#5514](https://github.com/bootstrap-vue/bootstrap-vue/issues/5514))
+  ([#5678](https://github.com/bootstrap-vue/bootstrap-vue/issues/5678))
+  ([98e17ca](https://github.com/bootstrap-vue/bootstrap-vue/commit/98e17ca85588b858f5d74e217c48fa82f11f487f))
+- **bv-tooltip:** hide the tooltip when the title is set to empty (closes
+  [#5648](https://github.com/bootstrap-vue/bootstrap-vue/issues/5648))
+  ([#5677](https://github.com/bootstrap-vue/bootstrap-vue/issues/5677))
+  ([5363a31](https://github.com/bootstrap-vue/bootstrap-vue/commit/5363a3132df898cb5f0cac172c0510aead62d66e))
+- **perf:** reactivity issues with `bvAttrs` and `bvListeners` (closes
+  [#5520](https://github.com/bootstrap-vue/bootstrap-vue/issues/5520))
+  ([#5753](https://github.com/bootstrap-vue/bootstrap-vue/issues/5753))
+  ([d83a2b1](https://github.com/bootstrap-vue/bootstrap-vue/commit/d83a2b179cac2f7449a7138fce71e07139e18c94))
+- **v-b-toggle:** prevent scroll anchoring behavior (closes
+  [#5715](https://github.com/bootstrap-vue/bootstrap-vue/issues/5715))
+  ([#5769](https://github.com/bootstrap-vue/bootstrap-vue/issues/5769))
+  ([390a5c7](https://github.com/bootstrap-vue/bootstrap-vue/commit/390a5c7045432c98999ae8bf9259fb9ae03bcb19))
+- component destroy handling on parent destroy
+  ([#5749](https://github.com/bootstrap-vue/bootstrap-vue/issues/5749))
+  ([e67d341](https://github.com/bootstrap-vue/bootstrap-vue/commit/e67d34190358cb5e9d3e6d45ec74f045bf20caef))
+- don't display BootstrapVue warning messages when in production
+  ([bf8966f](https://github.com/bootstrap-vue/bootstrap-vue/commit/bf8966f6de725bf2828ca4609056c27dd4a96399))
+- don't display warning messages when in production (closes
+  [#5598](https://github.com/bootstrap-vue/bootstrap-vue/issues/5598))
+  ([#5763](https://github.com/bootstrap-vue/bootstrap-vue/issues/5763))
+  ([4b5d916](https://github.com/bootstrap-vue/bootstrap-vue/commit/4b5d9162b8a6531c0ada66f646498b0ba40a0e9b))
+- **b-table:** make sure to apply all formatters of field configuration (closes
+  [#5672](https://github.com/bootstrap-vue/bootstrap-vue/issues/5672))
+  ([#5674](https://github.com/bootstrap-vue/bootstrap-vue/issues/5674))
+  ([c7c14ea](https://github.com/bootstrap-vue/bootstrap-vue/commit/c7c14ea1d023b26af8a12c12dbc2c3d8220b7f67))
+- **ssr:** avoid tree missmatches by either using `domProps` or `children` (closes
+  [#5453](https://github.com/bootstrap-vue/bootstrap-vue/issues/5453),
+  [#5557](https://github.com/bootstrap-vue/bootstrap-vue/issues/5557))
+  ([#5723](https://github.com/bootstrap-vue/bootstrap-vue/issues/5723))
+  ([5e8dad8](https://github.com/bootstrap-vue/bootstrap-vue/commit/5e8dad84c094ff1f7810f69293418b81e676af26))
+- **v-b-toggle:** handle component updates on click listeners
+  ([#5690](https://github.com/bootstrap-vue/bootstrap-vue/issues/5690))
+  ([156b1d6](https://github.com/bootstrap-vue/bootstrap-vue/commit/156b1d6a3a1ebb6548ea0dbfac346d61a92f6ed9))
 
 <a name="2.16.0"></a>
 
-## [2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0) (2020-07-27)
+## [v2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0) (2020-07-27)
 
 Released: 2020-07-27
 
