@@ -6,7 +6,7 @@ guidelines.
 
 <a name="2.17.0"></a>
 
-## [v2.17.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.16.0...v2.17.0) (2020-09-13)
+## [v2.17.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.16.0...v2.17.0)
 
 Released: 2020-09-13
 
@@ -122,7 +122,7 @@ Released: 2020-09-13
 
 <a name="2.16.0"></a>
 
-## [v2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0) (2020-07-27)
+## [v2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0)
 
 Released: 2020-07-27
 
@@ -165,7 +165,7 @@ Released: 2020-07-27
 
 <a name="2.16.0"></a>
 
-## [2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0) (2020-07-27)
+## [2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0)
 
 Released: 2020-07-27
 
