@@ -1,6 +1,6 @@
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-import { isNumber, isString, isUndefinedOrNull } from '../../utils/inspect'
+import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
