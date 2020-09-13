@@ -88,7 +88,7 @@ export const isVisible = el => {
     // are not a direct descendant of document.body
     return false
   }
-  if (el.style.display === 'none') {
+  if (getStyle(el, 'display') === 'none') {
     // We do this check to help with vue-test-utils when using v-show
     /* istanbul ignore next */
     return false
