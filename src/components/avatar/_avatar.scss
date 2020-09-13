@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  width: $b-avatar-size;
+  height: $b-avatar-size;
   font-size: inherit;
   font-weight: 400;
   line-height: 1;
@@ -97,6 +99,32 @@
     font-size: 70%;
     font-weight: 700;
     z-index: 5;
+  }
+}
+
+.b-avatar-sm {
+  width: $b-avatar-size-sm;
+  height: $b-avatar-size-sm;
+
+  .b-avatar-text {
+    font-size: calc(#{$b-avatar-size-sm * $b-avatar-font-size-scale});
+  }
+
+  .b-avatar-badge {
+    font-size: calc(#{$b-avatar-size-sm * $b-avatar-badge-font-size-scale});
+  }
+}
+
+.b-avatar-lg {
+  width: $b-avatar-size-lg;
+  height: $b-avatar-size-lg;
+
+  .b-avatar-text {
+    font-size: calc(#{$b-avatar-size-lg * $b-avatar-font-size-scale});
+  }
+
+  .b-avatar-badge {
+    font-size: calc(#{$b-avatar-size-lg * $b-avatar-badge-font-size-scale});
   }
 }
 

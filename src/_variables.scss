@@ -153,6 +153,14 @@ $b-popover-bg-level: $alert-bg-level !default;
 $b-popover-border-level: $alert-border-level !default;
 $b-popover-color-level: $alert-color-level !default;
 
+// --- Avatar ---
+
+$b-avatar-size: 2.5rem !default;
+$b-avatar-size-sm: 1.5rem !default;
+$b-avatar-size-lg: 3.5rem !default;
+$b-avatar-font-size-scale: 0.4 !default;
+$b-avatar-badge-font-size-scale: $b-avatar-font-size-scale * 0.7 !default;
+
 // --- Skeleton ---
 
 $b-skeleton-background-color: rgba(0, 0, 0, 0.12) !default;
