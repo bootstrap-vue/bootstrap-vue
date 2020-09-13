@@ -185,7 +185,7 @@ Use `<b-nav-item-dropdown>` to place dropdown items within your nav.
   </b-nav>
 </div>
 
-<!-- b-nav-dropdown.vue -->
+<!-- b-nav-item-dropdown.vue -->
 ```
 
 Sometimes you want to add your own class names to the generated dropdown toggle button, that by
@@ -222,6 +222,14 @@ By default, `<b-nav-item-dropdown>` renders the menu contents in the DOM even wh
 shown. When there are a large number of dropdowns rendered on the same page, performance could be
 impacted due to larger overall memory utilization. You can instruct `<b-nav-item-dropdown>` to
 render the menu contents only when it is shown by setting the `lazy` prop to true.
+
+### Dropdown placement
+
+Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
+control the positioning of `<b-nav-item-dropdown>`.
+
+Refer to the [`<b-dropdown>` positioning section](/docs/components/dropdown#positioning) for details
+on the effects and usage of these props.
 
 ### Dropdown implementation note
 
@@ -438,7 +446,7 @@ add the role to the `<b-nav>` itself, as this would prevent it from being announ
 list by assistive technologies.
 
 When using a `<b-nav-item-dropdown>` in your `<b-nav>`, be sure to assign a unique `id` prop value
-to the `<b-nav-dropdown>` so that the appropriate `aria-*` attributes can be automatically
+to the `<b-nav-item-dropdown>` so that the appropriate `aria-*` attributes can be automatically
 generated.
 
 ### Tabbed interface accessibility

@@ -42,8 +42,13 @@ export const eventOnOff = (on, ...args) => {
 }
 
 // Utility method to prevent the default event handling and propagation
-export const stopEvent = (evt, { propagation = true, immediatePropagation = false } = {}) => {
-  evt.preventDefault()
+export const stopEvent = (
+  evt,
+  { preventDefault = true, propagation = true, immediatePropagation = false } = {}
+) => {
+  if (preventDefault) {
+    evt.preventDefault()
+  }
   if (propagation) {
     evt.stopPropagation()
   }

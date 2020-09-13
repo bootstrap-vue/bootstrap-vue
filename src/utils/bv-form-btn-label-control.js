@@ -264,7 +264,10 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          '!click': stopEvent
+
+          '!click': /* istanbul ignore next */ evt => {
+            stopEvent(evt, { preventDefault: false })
+          }
         }
       },
       [
@@ -281,6 +284,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-btn-label-control dropdown',
         class: [
           this.directionClass,
+          this.boundaryClass,
           {
             'btn-group': buttonOnly,
             'form-control': !buttonOnly,

@@ -100,9 +100,10 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     dropdownClasses() {
-      const { block, split, boundary } = this
+      const { block, split } = this
       return [
         this.directionClass,
+        this.boundaryClass,
         {
           show: this.visible,
           // The 'btn-group' class is required in `split` mode for button alignment
@@ -111,11 +112,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           'btn-group': split || !block,
           // When `block` is enabled and we are in `split` mode the 'd-flex' class
           // needs to be applied to allow the buttons to stretch to full width
-          'd-flex': block && split,
-          // Position `static` is needed to allow menu to "breakout" of the `scrollParent`
-          // boundaries when boundary is anything other than `scrollParent`
-          // See: https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
-          'position-static': boundary !== 'scrollParent' || !boundary
+          'd-flex': block && split
         }
       ]
     },
