@@ -187,6 +187,14 @@ export const removeAttr = (el, attr) => {
   }
 }
 
+// Get an attribute value from an element
+// Returns `null` if not found
+export const getAttr = (el, attr) => (attr && isElement(el) ? el.getAttribute(attr) : null)
+
+// Determine if an attribute exists on an element
+// Returns `true` or `false`, or `null` if element not found
+export const hasAttr = (el, attr) => (attr && isElement(el) ? el.hasAttribute(attr) : null)
+
 // Set an style property on an element
 export const setStyle = (el, prop, value) => {
   if (prop && isElement(el)) {
@@ -201,13 +209,9 @@ export const removeStyle = (el, prop) => {
   }
 }
 
-// Get an attribute value from an element
+// Get an style property value from an element
 // Returns `null` if not found
-export const getAttr = (el, attr) => (attr && isElement(el) ? el.getAttribute(attr) : null)
-
-// Determine if an attribute exists on an element
-// Returns `true` or `false`, or `null` if element not found
-export const hasAttr = (el, attr) => (attr && isElement(el) ? el.hasAttribute(attr) : null)
+export const getStyle = (el, prop) => (prop && isElement(el) ? el.style[prop] || null : null)
 
 // Return the Bounding Client Rect of an element
 // Returns `null` if not an element
