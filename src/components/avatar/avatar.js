@@ -118,17 +118,17 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   computed: {
     computedSize() {
       // Always use the avatar group size
-      return computeSize(this.bvAvatarGroup ? this.bvAvatarGroup.size : this.size)
+      const { bvAvatarGroup } = this
+      return computeSize(bvAvatarGroup ? bvAvatarGroup.size : this.size)
     },
     computedVariant() {
-      // Prefer avatar-group variant if provided
-      const avatarGroup = this.bvAvatarGroup
-      return avatarGroup && avatarGroup.variant ? avatarGroup.variant : this.variant
+      const { bvAvatarGroup } = this
+      return bvAvatarGroup && bvAvatarGroup.variant ? bvAvatarGroup.variant : this.variant
     },
     computedRounded() {
-      const avatarGroup = this.bvAvatarGroup
-      const square = avatarGroup && avatarGroup.square ? true : this.square
-      const rounded = avatarGroup && avatarGroup.rounded ? avatarGroup.rounded : this.rounded
+      const { bvAvatarGroup } = this
+      const square = bvAvatarGroup && bvAvatarGroup.square ? true : this.square
+      const rounded = bvAvatarGroup && bvAvatarGroup.rounded ? bvAvatarGroup.rounded : this.rounded
       return square ? '0' : rounded === '' ? true : rounded || 'circle'
     },
     fontStyle() {
@@ -243,7 +243,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         // Other classes
         disabled
       },
-      style: { width: size, height: size, ...marginStyle },
+      style: { ...marginStyle, width: size, height: size },
       attrs: { 'aria-label': ariaLabel || null },
       props: button ? { variant, disabled, type } : link ? pluckProps(linkProps, this) : {},
       on: button || link ? { click: this.onClick } : {}
