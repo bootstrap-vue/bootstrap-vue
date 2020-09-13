@@ -163,49 +163,6 @@ Released: 2020-07-27
   ([#5544](https://github.com/bootstrap-vue/bootstrap-vue/issues/5544))
   ([e0de687](https://github.com/bootstrap-vue/bootstrap-vue/commit/e0de6871640db405e7b0bfa23f3c33f348894cea))
 
-<a name="2.16.0"></a>
-
-## [2.16.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.15.0...v2.16.0)
-
-Released: 2020-07-27
-
-### Features v2.16.0
-
-- **b-form-tags:** add `ignoreInputFocusSelector` prop to make input focus behavior configurable
-  (closes [#5425](https://github.com/bootstrap-vue/bootstrap-vue/issues/5425))
-  ([#5429](https://github.com/bootstrap-vue/bootstrap-vue/issues/5429))
-  ([26d5953](https://github.com/bootstrap-vue/bootstrap-vue/commit/26d5953f834684d36b0af99da912dba08fd37bd8))
-- **docs:** launch themes page with first BootstrapVue theme
-  ([#5549](https://github.com/bootstrap-vue/bootstrap-vue/issues/5549))
-  ([ec51ef0](https://github.com/bootstrap-vue/bootstrap-vue/commit/ec51ef062f7ed39339cde59b2d9d4cee40347dcc))
-
-### Bug Fixes v2.16.0
-
-- properly handle special characters in user-provided IDs (closes
-  [#4927](https://github.com/bootstrap-vue/bootstrap-vue/issues/4927),
-  [#5561](https://github.com/bootstrap-vue/bootstrap-vue/issues/5561))
-  ([#5564](https://github.com/bootstrap-vue/bootstrap-vue/issues/5564))
-  ([1fabd68](https://github.com/bootstrap-vue/bootstrap-vue/commit/1fabd68bb44b28a9127810f35bd07e1fdf3d12ec))
-- **b-form-checkbox-group:** only emit `input` when value loosely changes
-  ([#5432](https://github.com/bootstrap-vue/bootstrap-vue/issues/5432))
-  ([e76d408](https://github.com/bootstrap-vue/bootstrap-vue/commit/e76d40874bd2a42126162101e94bb18e9042840b))
-- **b-form-tags:** unit test ([#5586](https://github.com/bootstrap-vue/bootstrap-vue/issues/5586))
-  ([f4d509a](https://github.com/bootstrap-vue/bootstrap-vue/commit/f4d509af647eaf87e2b635d08ff9431b25150650))
-- **b-icon:** use `aria-label` attribute instead of `alt`
-  ([#5581](https://github.com/bootstrap-vue/bootstrap-vue/issues/5581))
-  ([72a1363](https://github.com/bootstrap-vue/bootstrap-vue/commit/72a13635b94aedfab1fb6800f2a297fa306f63ef))
-- **b-img:** Allow empty `alt` prop (fixes
-  [#5524](https://github.com/bootstrap-vue/bootstrap-vue/issues/5524))
-  ([#5545](https://github.com/bootstrap-vue/bootstrap-vue/issues/5545))
-  ([b22829d](https://github.com/bootstrap-vue/bootstrap-vue/commit/b22829d064b6e3820ef66168ec766a57520f31eb))
-- **b-table:** prevent endless reevaluation when using v-model and object/array literal prop values
-  ([#5554](https://github.com/bootstrap-vue/bootstrap-vue/issues/5554))
-  ([f127d91](https://github.com/bootstrap-vue/bootstrap-vue/commit/f127d916d1ddd3a3da37bcb081150f86b356a7a4))
-- **b-tags:** replace spacing utility with static CSS (fixes
-  [#5523](https://github.com/bootstrap-vue/bootstrap-vue/issues/5523))
-  ([#5544](https://github.com/bootstrap-vue/bootstrap-vue/issues/5544))
-  ([e0de687](https://github.com/bootstrap-vue/bootstrap-vue/commit/e0de6871640db405e7b0bfa23f3c33f348894cea))
-
 <a name="2.15.0"></a>
 
 ## [v2.15.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.14.0...v2.15.0)
