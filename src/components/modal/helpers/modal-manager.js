@@ -5,16 +5,18 @@
 
 import Vue from '../../../utils/vue'
 import {
-  getAttr,
-  hasAttr,
-  removeAttr,
-  setAttr,
   addClass,
-  removeClass,
+  getAttr,
   getBCR,
   getCS,
+  getStyle,
+  hasAttr,
+  removeAttr,
+  removeClass,
+  requestAF,
   selectAll,
-  requestAF
+  setAttr,
+  setStyle
 } from '../../../utils/dom'
 import { isBrowser } from '../../../utils/env'
 import { isNull } from '../../../utils/inspect'
@@ -101,8 +103,9 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
       if (isNull(this.baseZIndex) && isBrowser) {
         // Create a temporary `div.modal-backdrop` to get computed z-index
         const div = document.createElement('div')
-        div.className = 'modal-backdrop d-none'
-        div.style.display = 'none'
+        addClass(div, 'modal-backdrop')
+        addClass(div, 'd-none')
+        setStyle(div, 'display', 'none')
         document.body.appendChild(div)
         this.baseZIndex = toInteger(getCS(div).zIndex, DEFAULT_ZINDEX)
         document.body.removeChild(div)
@@ -113,7 +116,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
       if (isNull(this.scrollbarWidth) && isBrowser) {
         // Create a temporary `div.measure-scrollbar` to get computed z-index
         const div = document.createElement('div')
-        div.className = 'modal-scrollbar-measure'
+        addClass(div, 'modal-scrollbar-measure')
         document.body.appendChild(div)
         this.scrollbarWidth = getBCR(div).width - div.clientWidth
         document.body.removeChild(div)
@@ -156,31 +159,31 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         // Adjust fixed content padding
         /* istanbul ignore next: difficult to test in JSDOM */
         selectAll(Selector.FIXED_CONTENT).forEach(el => {
-          const actualPadding = el.style.paddingRight
+          const actualPadding = getStyle(el, 'paddingRight')
           setAttr(el, 'data-padding-right', actualPadding)
-          el.style.paddingRight = `${toFloat(getCS(el).paddingRight, 0) + scrollbarWidth}px`
+          setStyle(el, 'paddingRight', `${toFloat(getCS(el).paddingRight, 0) + scrollbarWidth}px`)
           body._paddingChangedForModal.push(el)
         })
         // Adjust sticky content margin
         /* istanbul ignore next: difficult to test in JSDOM */
         selectAll(Selector.STICKY_CONTENT).forEach(el => /* istanbul ignore next */ {
-          const actualMargin = el.style.marginRight
+          const actualMargin = getStyle(el, 'marginRight')
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${toFloat(getCS(el).marginRight, 0) - scrollbarWidth}px`
+          setStyle(el, 'marginRight', `${toFloat(getCS(el).marginRight, 0) - scrollbarWidth}px`)
           body._marginChangedForModal.push(el)
         })
         // Adjust <b-navbar-toggler> margin
         /* istanbul ignore next: difficult to test in JSDOM */
         selectAll(Selector.NAVBAR_TOGGLER).forEach(el => /* istanbul ignore next */ {
-          const actualMargin = el.style.marginRight
+          const actualMargin = getStyle(el, 'marginRight')
           setAttr(el, 'data-margin-right', actualMargin)
-          el.style.marginRight = `${toFloat(getCS(el).marginRight, 0) + scrollbarWidth}px`
+          setStyle(el, 'marginRight', `${toFloat(getCS(el).marginRight, 0) + scrollbarWidth}px`)
           body._marginChangedForModal.push(el)
         })
         // Adjust body padding
-        const actualPadding = body.style.paddingRight
+        const actualPadding = getStyle(body, 'paddingRight')
         setAttr(body, 'data-padding-right', actualPadding)
-        body.style.paddingRight = `${toFloat(getCS(body).paddingRight, 0) + scrollbarWidth}px`
+        setStyle(body, 'paddingRight', `${toFloat(getCS(body).paddingRight, 0) + scrollbarWidth}px`)
       }
     },
     resetScrollbar() {
@@ -190,7 +193,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         body._paddingChangedForModal.forEach(el => {
           /* istanbul ignore next: difficult to test in JSDOM */
           if (hasAttr(el, 'data-padding-right')) {
-            el.style.paddingRight = getAttr(el, 'data-padding-right') || ''
+            setStyle(el, 'paddingRight', getAttr(el, 'data-padding-right') || '')
             removeAttr(el, 'data-padding-right')
           }
         })
@@ -200,7 +203,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         body._marginChangedForModal.forEach(el => {
           /* istanbul ignore next: difficult to test in JSDOM */
           if (hasAttr(el, 'data-margin-right')) {
-            el.style.marginRight = getAttr(el, 'data-margin-right') || ''
+            setStyle(el, 'marginRight', getAttr(el, 'data-margin-right') || '')
             removeAttr(el, 'data-margin-right')
           }
         })
@@ -209,7 +212,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
       body._marginChangedForModal = null
       // Restore body padding
       if (hasAttr(body, 'data-padding-right')) {
-        body.style.paddingRight = getAttr(body, 'data-padding-right') || ''
+        setStyle(body, 'paddingRight', getAttr(body, 'data-padding-right') || '')
         removeAttr(body, 'data-padding-right')
       }
     }
