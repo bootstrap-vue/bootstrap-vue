@@ -2,6 +2,7 @@
 import { BModal, props as modalProps } from '../modal'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
+import { requestAF } from '../../../utils/dom'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -69,10 +70,11 @@ const plugin = Vue => {
     mounted() {
       // Self destruct handler
       const handleDestroy = () => {
-        const self = this
         this.$nextTick(() => {
-          // In a `setTimeout()` to release control back to application
-          setTimeout(() => self.$destroy(), 0)
+          // In a `requestAF()` to release control back to application
+          requestAF(() => {
+            this.$destroy()
+          })
         })
       }
       // Self destruct if parent destroyed

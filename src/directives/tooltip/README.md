@@ -22,7 +22,7 @@ Things to know when using the tooltip directive:
 - Tooltips require BootstrapVue's custom SCSS/CSS in order to function correctly, and for variants.
 - If a title is not provided (or is an empty string), the tooltip will not show.
 - Specify container: 'body' (the default) to avoid rendering problems in more complex components
-  (like input groups, button groups, etc).
+  (like input groups, button groups, etc.).
 - Triggering tooltips on hidden elements will not work.
 - Tooltips for `disabled` elements must be triggered on a wrapper element.
 - When triggered from hyperlinks that span multiple lines, tooltips will be centered. Use

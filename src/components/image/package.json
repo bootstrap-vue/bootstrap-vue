@@ -38,7 +38,6 @@
           },
           {
             "prop": "blankColor",
-            "settings": true,
             "description": "Sets the color of the blank image to the CSS color value specified"
           },
           {
@@ -102,7 +101,6 @@
           },
           {
             "prop": "blankColor",
-            "settings": true,
             "description": "Sets the color of the blank placeholder image to the CSS color value specified"
           },
           {

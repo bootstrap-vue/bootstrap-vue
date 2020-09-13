@@ -67,7 +67,6 @@
           },
           {
             "prop": "size",
-            "settings": true,
             "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
           },
           {
@@ -154,21 +153,37 @@
         "events": [
           {
             "event": "input",
-            "description": "when page changes via user interaction or programmatically",
+            "description": "Emitted when page changes via user interaction or programmatically",
             "args": [
               {
                 "arg": "page",
-                "description": "Selected page number (starting with 1), or null if no page found"
+                "description": "Selected page number (starting with `1`), or `null` if no page found"
               }
             ]
           },
           {
             "event": "change",
-            "description": "when page changes via user interaction",
+            "description": "Emitted when page changes via user interaction",
             "args": [
               {
                 "arg": "page",
-                "description": "Selected page number (starting with 1)"
+                "description": "Selected page number (starting with `1`)"
+              }
+            ]
+          },
+          {
+            "event": "page-click",
+            "description": "Emitted when a page button was clicked. Cancelable",
+            "version": "2.17.0",
+            "args": [
+              {
+                "arg": "bvEvt",
+                "type": "BvEvent",
+                "description": "The `BvEvent` object. Call `bvEvt.preventDefault()` to cancel page selection"
+              },
+              {
+                "arg": "page",
+                "description": "Page number to select (starting with `1`)"
               }
             ]
           }

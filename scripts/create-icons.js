@@ -176,7 +176,7 @@ const processFile = (file, data) =>
           // Remove leading/trailing whitespace
           .trim()
         // Add to the iconsData object
-        data.icons[componentName] = { name: name, content: content }
+        data.icons[componentName] = { name, content }
         data.componentNames.push(componentName)
         // Resolve
         resolve()

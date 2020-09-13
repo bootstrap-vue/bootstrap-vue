@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import { hasTouchSupport } from '../../utils/env'
+import { stopEvent } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps, unprefixPropName } from '../../utils/props'
 import idMixin from '../../mixins/id'
@@ -108,9 +109,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       // Touch support event handler
       /* istanbul ignore if: difficult to test in JSDOM */
       if (!this.bvCarousel.noTouch && hasTouchSupport) {
-        on.dragstart = evt => {
-          evt.preventDefault()
-        }
+        on.dragstart = evt => stopEvent(evt, { propagation: false })
       }
 
       $img = h(BImg, {

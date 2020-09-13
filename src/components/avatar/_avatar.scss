@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  width: $b-avatar-size;
+  height: $b-avatar-size;
   font-size: inherit;
   font-weight: 400;
   line-height: 1;
@@ -57,6 +59,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b
+    mask-image: radial-gradient(white, black);
   }
 
   .b-avatar-text {
@@ -79,6 +83,9 @@
     height: 100%;
     max-height: auto;
     border-radius: inherit;
+    // This is not supported in IE11 and Edge <16
+    // https://caniuse.com/#feat=object-fit
+    object-fit: cover;
   }
 
   .b-avatar-badge {
@@ -92,6 +99,32 @@
     font-size: 70%;
     font-weight: 700;
     z-index: 5;
+  }
+}
+
+.b-avatar-sm {
+  width: $b-avatar-size-sm;
+  height: $b-avatar-size-sm;
+
+  .b-avatar-text {
+    font-size: calc(#{$b-avatar-size-sm * $b-avatar-font-size-scale});
+  }
+
+  .b-avatar-badge {
+    font-size: calc(#{$b-avatar-size-sm * $b-avatar-badge-font-size-scale});
+  }
+}
+
+.b-avatar-lg {
+  width: $b-avatar-size-lg;
+  height: $b-avatar-size-lg;
+
+  .b-avatar-text {
+    font-size: calc(#{$b-avatar-size-lg * $b-avatar-font-size-scale});
+  }
+
+  .b-avatar-badge {
+    font-size: calc(#{$b-avatar-size-lg * $b-avatar-badge-font-size-scale});
   }
 }
 

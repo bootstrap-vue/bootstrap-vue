@@ -26,7 +26,7 @@ export default {
           ],
           attrs: isFunction(this.tbodyTrAttr) ? this.tbodyTrAttr(null, 'row-top') : this.tbodyTrAttr
         },
-        [this.normalizeSlot(slotName, { columns: fields.length, fields: fields })]
+        [this.normalizeSlot(slotName, { columns: fields.length, fields })]
       )
     }
   }

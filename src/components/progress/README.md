@@ -96,7 +96,7 @@ Need more control over the label? Provide your own label by using the default sl
     <h5>Custom label via default slot</h5>
     <b-progress :max="max" height="2rem">
       <b-progress-bar :value="value">
-        Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong>
+        <span>Progress: <strong>{{ value.toFixed(2) }} / {{ max }}</strong></span>
       </b-progress-bar>
     </b-progress>
 
@@ -169,7 +169,7 @@ classes.
 ```
 
 The height of the progress bar can be controlled with the `height` prop. The height value should be
-a standard CSS dimension (`px`, `rem`, `em`, etc). The default height is `1rem`.
+a standard CSS dimension (`px`, `rem`, `em`, etc.). The default height is `1rem`.
 
 ```html
 <template>

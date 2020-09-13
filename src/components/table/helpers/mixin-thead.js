@@ -3,6 +3,7 @@ import KeyCodes from '../../../utils/key-codes'
 import noop from '../../../utils/noop'
 import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
+import { stopEvent } from '../../../utils/events'
 import { htmlOrText } from '../../../utils/html'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import filterEvent from './filter-event'
@@ -49,8 +50,7 @@ export default {
         /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
-      evt.stopPropagation()
-      evt.preventDefault()
+      stopEvent(evt)
       this.$emit('head-clicked', field.key, field, evt, isFoot)
     },
     renderThead(isFoot = false) {

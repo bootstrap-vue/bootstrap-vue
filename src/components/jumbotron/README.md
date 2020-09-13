@@ -80,7 +80,7 @@ other appropriate element by setting the `tag` prop to the desired element tag n
 ## Variants
 
 Control the overall background variant with the `bg-variant` prop ( set to `info`, `danger`,
-`warning`, `light`, `dark`, etc), the border variant with the `border-variant` prop, and the text
+`warning`, `light`, `dark`, etc.), the border variant with the `border-variant` prop, and the text
 variant with `text-variant` prop. All three props default to `null`, which will instruct the
 jumbotron to use the default styling.
 

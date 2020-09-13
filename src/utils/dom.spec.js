@@ -1,22 +1,23 @@
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import {
-  isElement,
-  isDisabled,
-  contains,
   closest,
+  contains,
+  getAttr,
+  getStyle,
+  hasAttr,
+  hasClass,
+  isDisabled,
+  isElement,
   matches,
   select,
-  selectAll,
-  hasAttr,
-  getAttr,
-  hasClass
+  selectAll
 } from './dom'
 
 const template = `
 <div id="a" class="foo">
   <div class="bar">
-    <span class="barspan foobar"></span>
+    <span class="barspan foobar" style="color: red;"></span>
   </div>
   <div class="baz">
     <button id="button1" aria-label="label">btn 1</button>
@@ -193,6 +194,23 @@ describe('utils/dom', () => {
     expect(getAttr(null, 'role')).toBe(null)
     expect(getAttr($btns.at(0).element, '')).toBe(null)
     expect(getAttr($btns.at(0).element, undefined)).toBe(null)
+
+    wrapper.destroy()
+  })
+
+  it('getStyle() works', async () => {
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    expect(wrapper).toBeDefined()
+
+    const $span = wrapper.find('span.barspan')
+    expect($span).toBeDefined()
+    expect($span.exists()).toBe(true)
+    expect(getStyle($span.element, 'color')).toBe('red')
+    expect(getStyle($span.element, 'width')).toBe(null)
+    expect(getStyle(null, 'color')).toBe(null)
 
     wrapper.destroy()
   })

@@ -219,6 +219,9 @@ default. To specify a different theme color to use for today's date, use the `to
 
 To disable highlighting of today's date altogether, set the `no-highlight-today` prop.
 
+The navigation buttons default to the `'secondary'` theme variant. You can change this via the
+`nav-button-variant` prop.
+
 ### Control sizing
 
 Fancy a smaller or larger `<b-form-datepicker>` control? Set the `size` prop to `'sm'` for a smaller
@@ -297,8 +300,8 @@ either `min` or `max` (depending on which is closes to today's date).
 Use the dropdown props `right`, `dropup`, `dropright`, `dropleft`, `no-flip`, and `offset` to
 control the positioning of the popup calendar.
 
-Refer to the [`<b-dropdown>` documentation](/docs/components/dropdown) for details on the effects
-and usage of these props.
+Refer to the [`<b-dropdown>` positioning section](/docs/components/dropdown#positioning) for details
+on the effects and usage of these props.
 
 ### Initial open calendar date
 

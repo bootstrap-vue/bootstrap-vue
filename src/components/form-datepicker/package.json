@@ -50,7 +50,12 @@
           },
           {
             "prop": "todayVariant",
-            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `variant` prop"
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `selectedVariant` prop"
+          },
+          {
+            "prop": "navButtonVariant",
+            "version": "2.17.0",
+            "description": "Theme color variant to use for the navigation buttons"
           },
           {
             "prop": "noHighlightToday",
@@ -185,83 +190,67 @@
           {
             "prop": "labelPrevDecade",
             "version": "2.11.0",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
           },
           {
             "prop": "labelPrevYear",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
           },
           {
             "prop": "labelPrevMonth",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
           },
           {
             "prop": "labelCurrentMonth",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
           },
           {
             "prop": "labelNextMonth",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Month` navigation button"
           },
           {
             "prop": "labelNextYear",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
           },
           {
             "prop": "labelNextDecade",
             "version": "2.11.0",
-            "settings": true,
             "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
           },
           {
             "prop": "labelSelected",
-            "settings": true,
             "description": "Value of the `aria-label` attribute set on the calendar grid date button that is selected"
           },
           {
             "prop": "labelToday",
-            "settings": true,
             "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
           },
           {
             "prop": "labelNoDateSelected",
-            "settings": true,
             "description": "Label to use when no date is currently selected"
           },
           {
             "prop": "labelCalendar",
-            "settings": true,
             "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
           },
           {
             "prop": "labelNav",
-            "settings": true,
             "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
           },
           {
             "prop": "labelHelp",
-            "settings": true,
             "description": "help text that appears at the bottom of the calendar grid"
           },
           {
             "prop": "labelTodayButton",
-            "settings": true,
             "description": "Content for the optional `Select today` button"
           },
           {
             "prop": "labelResetButton",
-            "settings": true,
             "description": "Content for the optional `Reset` button"
           },
           {
             "prop": "labelCloseButton",
-            "settings": true,
             "description": "Content for the optional `Close` button"
           },
           {

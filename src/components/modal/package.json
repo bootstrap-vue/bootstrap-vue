@@ -60,7 +60,6 @@
           },
           {
             "prop": "size",
-            "settings": true,
             "description": "Set the size of the modal's width. 'sm', 'md' (default), 'lg', or 'xl'"
           },
           {
@@ -73,52 +72,42 @@
           },
           {
             "prop": "titleTag",
-            "settings": true,
             "description": "Specify the HTML tag to render instead of the default tag for the title"
           },
           {
             "prop": "headerBgVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the header background"
           },
           {
             "prop": "headerBorderVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the header border"
           },
           {
             "prop": "headerTextVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the header text"
           },
           {
             "prop": "bodyBgVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the body background"
           },
           {
             "prop": "bodyTextVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the body text"
           },
           {
             "prop": "footerBgVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the footer background"
           },
           {
             "prop": "footerBorderVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the footer border"
           },
           {
             "prop": "footerTextVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the footer text"
           },
           {
             "prop": "headerCloseVariant",
-            "settings": true,
             "description": "Text theme color variant to apply to the header close button"
           },
           {
@@ -188,13 +177,11 @@
           },
           {
             "prop": "headerCloseContent",
-            "settings": true,
             "version": "2.3.0",
             "description": "Content of the header close button"
           },
           {
             "prop": "headerCloseLabel",
-            "settings": true,
             "description": "Value of the 'aria-label' on the header close button"
           },
           {
@@ -203,7 +190,6 @@
           },
           {
             "prop": "cancelTitle",
-            "settings": true,
             "description": "Text string to place in the default footer Cancel button"
           },
           {
@@ -212,7 +198,6 @@
           },
           {
             "prop": "okTitle",
-            "settings": true,
             "description": "Text string to place in the default footer OK button"
           },
           {
@@ -221,12 +206,10 @@
           },
           {
             "prop": "cancelVariant",
-            "settings": true,
             "description": "Button color theme variant to apply to the default footer Cancel button"
           },
           {
             "prop": "okVariant",
-            "settings": true,
             "description": "Button color theme variant to apply to the default footer OK button"
           },
           {

@@ -7,32 +7,32 @@
 //   in-place after the transition completes
 import Vue from './vue'
 import { mergeData } from 'vue-functional-data-merge'
-import { getBCR, reflow, requestAF } from './dom'
+import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
 
 // Transition event handler helpers
 const onEnter = el => {
-  el.style.height = 0
-  // Animaton frame delay needed for `appear` to work
+  setStyle(el, 'height', 0)
+  // In a `requestAF()` for `appear` to work
   requestAF(() => {
     reflow(el)
-    el.style.height = `${el.scrollHeight}px`
+    setStyle(el, 'height', `${el.scrollHeight}px`)
   })
 }
 
 const onAfterEnter = el => {
-  el.style.height = null
+  removeStyle(el, 'height')
 }
 
 const onLeave = el => {
-  el.style.height = 'auto'
-  el.style.display = 'block'
-  el.style.height = `${getBCR(el).height}px`
+  setStyle(el, 'height', 'auto')
+  setStyle(el, 'display', 'block')
+  setStyle(el, 'height', `${getBCR(el).height}px`)
   reflow(el)
-  el.style.height = 0
+  setStyle(el, 'height', 0)
 }
 
 const onAfterLeave = el => {
-  el.style.height = null
+  removeStyle(el, 'height')
 }
 
 // Default transition props

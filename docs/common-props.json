@@ -1,6 +1,6 @@
 {
   "id": {
-    "description": "Used to set the 'id' attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
+    "description": "Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
   },
   "variant": {
     "description": "Applies one of the Bootstrap theme color variants to the component"
@@ -114,22 +114,22 @@
     "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
   },
   "required": {
-    "description": "Adds the 'required' attribute to the form control"
+    "description": "Adds the `required` attribute to the form control"
   },
   "form": {
-    "description": "ID of the form that the form control belongs to. Sets the 'form' attribute on the control"
+    "description": "ID of the form that the form control belongs to. Sets the `form` attribute on the control"
   },
   "name": {
-    "description": "Sets the value of the 'name' attribute on the form control"
+    "description": "Sets the value of the `name` attribute on the form control"
   },
   "placeholder": {
-    "description": "Sets the 'placeholder' attribute value on the form control"
+    "description": "Sets the `placeholder` attribute value on the form control"
   },
   "disabled": {
     "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
   },
   "readonly": {
-    "description": "Sets the 'readonly' attribute on the form control"
+    "description": "Sets the `readonly` attribute on the form control"
   },
   "plaintext": {
     "description": "Set the form control as readonly and renders the control to look like plain text (no borders)"
@@ -138,25 +138,25 @@
     "description": "Sets the 'autocomplete' attribute value on the form control"
   },
   "autofocus": {
-    "description": "When set to 'true', attempts to auto-focus the control when it is mounted, or re-activated when in a keep-alive. Does not set the 'autofocus' attribute on the control"
+    "description": "When set to `true`, attempts to auto-focus the control when it is mounted, or re-activated when in a keep-alive. Does not set the `autofocus` attribute on the control"
   },
   "state": {
-    "description": "Controls the validation state appearance of the component. 'true' for valid, 'false' for invalid', or 'null' for no validation state"
+    "description": "Controls the validation state appearance of the component. `true` for valid, `false` for invalid, or `null` for no validation state"
   },
   "options": {
     "description": "Array of items to render in the component"
   },
   "valueField": {
-    "description": "Field name in the 'options' array that should be used for the value"
+    "description": "Field name in the `options` array that should be used for the value"
   },
   "textField": {
-    "description": "Field name in the 'options' array that should be used for the text label"
+    "description": "Field name in the `options` array that should be used for the text label"
   },
   "htmlField": {
-    "description": "Field name in the 'options' array that should be used for the html label instead of text field. Use with caution."
+    "description": "Field name in the `options` array that should be used for the html label instead of text field. Use with caution"
   },
   "disabledField": {
-    "description": "Field name in the 'options' array that should be used for the disabled state"
+    "description": "Field name in the `options` array that should be used for the disabled state"
   },
   "plain": {
     "description": "Render the form control in plain mode, rather than custom styled mode"
@@ -165,52 +165,52 @@
     "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
   },
   "src": {
-    "description": "URL to set for the 'src' attribute"
+    "description": "URL to set for the `src` attribute"
   },
   "alt": {
-    "description": "Value to set for the 'alt' attribute"
+    "description": "Value to set for the `alt` attribute"
   },
   "role": {
-    "description": "Sets the ARIA attribute 'role' to a specific value"
+    "description": "Sets the ARIA attribute `role` to a specific value"
   },
   "ariaRole": {
-    "description": "Sets the ARIA attribute 'role' to a specific value"
+    "description": "Sets the ARIA attribute `role` to a specific value"
   },
   "ariaLabel": {
-    "description": "Sets the value of 'aria-label' attribute on the rendered element"
+    "description": "Sets the value of `aria-label` attribute on the rendered element"
   },
   "ariaLabelledby": {
-    "description": "The ID of the element that provides a label for this component. Used as the value for the 'aria-labelledby' attribute"
+    "description": "The ID of the element that provides a label for this component. Used as the value for the `aria-labelledby` attribute"
   },
   "ariaDescribedby": {
-    "description": "The ID of the element that provides additional context for this component. Used as the value for the 'aria-describedby' attribute"
+    "description": "The ID of the element that provides additional context for this component. Used as the value for the `aria-describedby` attribute"
   },
   "ariaLive": {
-    "description": "When the rendered element is an aria-live region (for screen reader users), set to either 'polite' or 'assertive'"
+    "description": "When the rendered element is an `aria-live` region (for screen reader users), set to either 'polite' or 'assertive'"
   },
   "fade": {
-    "description": "When set to 'true', enables the fade animation/transition on the component"
+    "description": "When set to `true`, enables the fade animation/transition on the component"
   },
   "noFade": {
-    "description": "When set to 'true', disables the fade animation/transition on the component"
+    "description": "When set to `true`, disables the fade animation/transition on the component"
   },
   "active": {
-    "description": "When set to 'true', places the component in the active state with active styling"
+    "description": "When set to `true`, places the component in the active state with active styling"
   },
   "href": {
     "description": "<b-link> prop: Denotes the target URL of the link for standard a links"
   },
   "rel": {
-    "description": "<b-link> prop: Sets the 'rel' attribute on the rendered link"
+    "description": "<b-link> prop: Sets the `rel` attribute on the rendered link"
   },
   "target": {
-    "description": "<b-link> prop: Sets the 'target' attribute on the rendered link"
+    "description": "<b-link> prop: Sets the `target` attribute on the rendered link"
   },
   "to": {
-    "description": "<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to router.push() internally, so the value can be either a string or a Location descriptor object"
+    "description": "<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to `router.push()` internally, so the value can be either a string or a Location descriptor object"
   },
   "replace": {
-    "description": "<router-link> prop: Setting the replace prop will call 'router.replace()' instead of 'router.push()' when clicked, so the navigation will not leave a history record"
+    "description": "<router-link> prop: Setting the replace prop will call `router.replace()` instead of `router.push()` when clicked, so the navigation will not leave a history record"
   },
   "append": {
     "description": "<router-link> prop: Setting append prop always appends the relative path to the current path"
@@ -225,21 +225,20 @@
     "description": "<router-link> prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
   },
   "routerTag": {
-    "description": "<router-link> prop: Specify which tag to render, and it will still listen to click events for navigation. 'router-tag' translates to the tag prop on the final rendered router-link. Typically you should use the default value"
+    "description": "<router-link> prop: Specify which tag to render, and it will still listen to click events for navigation. `router-tag` translates to the tag prop on the final rendered `<router-link>`. Typically you should use the default value"
   },
   "event": {
     "description": "<router-link> prop: Specify the event that triggers the link. In most cases you should leave this as the default"
   },
   "prefetch": {
-    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'prefetch' to 'true' or 'false' will overwrite the default value of 'router.prefetchLinks'",
+    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to `true` or `false` will overwrite the default value of `router.prefetchLinks`",
     "version": "2.15.0"
   },
   "noPrefetch": {
-    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting 'no-prefetch' will disabled this feature for the specific link"
+    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled this feature for the specific link"
   },
   "routerComponentName": {
     "description": "<b-link> prop: BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome (note only `<router-link>` specific props are passed to the component)",
-    "version": "2.15.0",
-    "settings": true
+    "version": "2.15.0"
   }
 }

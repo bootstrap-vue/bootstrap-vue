@@ -22,6 +22,7 @@ import {
   resolveLocale
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
@@ -123,12 +124,17 @@ export const BCalendar = Vue.extend({
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: 'primary'
+      default: getComponentConfig(NAME, 'selectedVariant')
     },
     todayVariant: {
-      // Variant color to use for today's date (defaults to `variant`)
-      type: String
-      // default: null
+      // Variant color to use for today's date (defaults to `selectedVariant`)
+      type: String,
+      default: getComponentConfig(NAME, 'todayVariant')
+    },
+    navButtonVariant: {
+      // Variant color to use for the navigation buttons
+      type: String,
+      default: getComponentConfig(NAME, 'navButtonVariant')
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -251,7 +257,7 @@ export const BCalendar = Vue.extend({
       // `short` is typically a 3 letter abbreviation,
       // `narrow` is typically a single letter
       // `long` is the full week day name
-      // Although some locales may override this (i.e `ar`, etc)
+      // Although some locales may override this (i.e `ar`, etc.)
       default: STR_SHORT,
       validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
     }
@@ -355,6 +361,9 @@ export const BCalendar = Vue.extend({
     computedTodayVariant() {
       return `btn-outline-${this.todayVariant || this.selectedVariant || 'primary'}`
     },
+    computedNavButtonVariant() {
+      return `btn-outline-${this.navButtonVariant || 'primary'}`
+    },
     isRTL() {
       // `true` if the language requested is RTL
       const dir = toString(this.direction).toLowerCase()
@@ -374,14 +383,14 @@ export const BCalendar = Vue.extend({
       const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
-        selectedYMD: selectedYMD,
-        selectedDate: selectedDate,
+        selectedYMD,
+        selectedDate,
         selectedFormatted: selectedDate
           ? this.formatDateString(selectedDate)
           : this.labelNoDateSelected,
         // Which date cell is considered active due to navigation
-        activeYMD: activeYMD,
-        activeDate: activeDate,
+        activeYMD,
+        activeDate,
         activeFormatted: activeDate ? this.formatDateString(activeDate) : '',
         // `true` if the date is disabled (when using keyboard navigation)
         disabled: this.dateDisabled(activeDate),
@@ -667,8 +676,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return
       }
-      evt.preventDefault()
-      evt.stopPropagation()
+      stopEvent(evt)
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
@@ -731,8 +739,7 @@ export const BCalendar = Vue.extend({
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
       if (keyCode === ENTER || keyCode === SPACE) {
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
           this.selectedYMD = formatYMD(activeDate)
           this.emitSelected(activeDate)
@@ -889,8 +896,8 @@ export const BCalendar = Vue.extend({
       return h(
         'button',
         {
-          staticClass: 'btn btn-sm btn-outline-secondary border-0 flex-fill',
-          class: { disabled: btnDisabled },
+          staticClass: 'btn btn-sm border-0 flex-fill',
+          class: [this.computedNavButtonVariant, { disabled: btnDisabled }],
           attrs: {
             title: label || null,
             type: 'button',

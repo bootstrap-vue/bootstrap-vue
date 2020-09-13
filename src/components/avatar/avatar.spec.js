@@ -180,19 +180,22 @@ describe('avatar', () => {
 
   it('`size` prop should work as expected', async () => {
     const wrapper1 = mount(BAvatar)
-    expect(wrapper1.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper1.attributes('style')).toEqual(undefined)
     wrapper1.destroy()
 
     const wrapper2 = mount(BAvatar, { propsData: { size: 'sm' } })
-    expect(wrapper2.attributes('style')).toEqual('width: 1.5em; height: 1.5em;')
+    expect(wrapper2.attributes('style')).toEqual(undefined)
+    expect(wrapper2.classes()).toContain('b-avatar-sm')
     wrapper2.destroy()
 
     const wrapper3 = mount(BAvatar, { propsData: { size: 'md' } })
-    expect(wrapper3.attributes('style')).toEqual('width: 2.5em; height: 2.5em;')
+    expect(wrapper3.attributes('style')).toEqual(undefined)
+    expect(wrapper3.classes()).not.toContain('b-avatar-md')
     wrapper3.destroy()
 
     const wrapper4 = mount(BAvatar, { propsData: { size: 'lg' } })
-    expect(wrapper4.attributes('style')).toEqual('width: 3.5em; height: 3.5em;')
+    expect(wrapper4.attributes('style')).toEqual(undefined)
+    expect(wrapper4.classes()).toContain('b-avatar-lg')
     wrapper4.destroy()
 
     const wrapper5 = mount(BAvatar, { propsData: { size: 20 } })
@@ -255,7 +258,8 @@ describe('avatar', () => {
     expect(wrapper1.element.tagName).toBe('SPAN')
     expect(wrapper1.classes()).toContain('b-avatar')
     expect(wrapper1.classes()).toContain('badge-secondary')
-    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+    // Uses avatar group size (default)
+    expect(wrapper1.attributes('style')).toBe(undefined)
 
     wrapper1.destroy()
 
@@ -272,7 +276,8 @@ describe('avatar', () => {
     expect(wrapper2.classes()).toContain('b-avatar')
     expect(wrapper2.classes()).toContain('badge-danger')
     expect(wrapper2.classes()).not.toContain('badge-secondary')
-    expect(wrapper2.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+    // Uses avatar group size (default)
+    expect(wrapper2.attributes('style')).toBe(undefined)
 
     wrapper2.destroy()
   })
@@ -293,7 +298,7 @@ describe('avatar', () => {
     expect(wrapper1.classes()).toContain('b-avatar')
     expect(wrapper1.classes()).toContain('badge-secondary')
     // Uses avatar group size (default)
-    expect(wrapper1.attributes('style')).toContain('width: 2.5em; height: 2.5em;')
+    expect(wrapper1.attributes('style')).toBe(undefined)
 
     wrapper1.destroy()
 

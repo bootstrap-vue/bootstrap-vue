@@ -62,6 +62,26 @@ export const omit = (obj, props) =>
     .reduce((result, key) => ({ ...result, [key]: obj[key] }), {})
 
 /**
+ * Merges two object deeply together
+ * @link https://gist.github.com/Salakar/1d7137de9cb8b704e48a
+ */
+export const mergeDeep = (target, source) => {
+  if (isObject(target) && isObject(source)) {
+    keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!target[key] || !isObject(target[key])) {
+          target[key] = source[key]
+        }
+        mergeDeep(target[key], source[key])
+      } else {
+        assign(target, { [key]: source[key] })
+      }
+    })
+  }
+  return target
+}
+
+/**
  * Convenience method to create a read-only descriptor
  */
 export const readonlyDescriptor = () => ({ enumerable: true, configurable: false, writable: false })

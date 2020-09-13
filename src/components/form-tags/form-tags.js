@@ -16,7 +16,8 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { isEvent, isFunction, isString } from '../../utils/inspect'
+import { stopEvent } from '../../utils/events'
+import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -160,6 +161,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       type: String,
       default: () => getComponentConfig(NAME, 'invalidTagText')
     },
+    limitTagsText: {
+      type: String,
+      default: () => getComponentConfig(NAME, 'limitTagsText')
+    },
+    limit: {
+      type: Number
+      // default: null
+    },
     separator: {
       // Character (or characters) that trigger adding tags
       type: [String, Array]
@@ -288,6 +297,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     hasInvalidTags() {
       return this.invalidTags.length > 0
+    },
+    isLimitReached() {
+      const { limit } = this
+      return isNumber(limit) && limit >= 0 && this.tags.length >= limit
     }
   },
   watch: {
@@ -328,7 +341,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     addTag(newTag) {
       newTag = isString(newTag) ? newTag : this.newTag
       /* istanbul ignore next */
-      if (this.disabled || trim(newTag) === '') {
+      if (this.disabled || trim(newTag) === '' || this.isLimitReached) {
         // Early exit
         return
       }
@@ -424,7 +437,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore else: testing to be added later */
       if (!this.noAddOnEnter && keyCode === ENTER) {
         // Attempt to add the tag when user presses enter
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         this.addTag()
       } else if (
         this.removeOnDelete &&
@@ -432,7 +445,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
-        evt.preventDefault()
+        stopEvent(evt, { propagation: false })
         this.tags = this.tags.slice(0, -1)
       }
     },
@@ -530,25 +543,27 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // Default User Interface render
     defaultRender({
       tags,
-      addTag,
-      removeTag,
-      inputType,
       inputAttrs,
+      inputType,
       inputHandlers,
-      inputClass,
-      tagClass,
-      tagVariant,
-      tagPills,
-      tagRemoveLabel,
-      invalidTagText,
-      duplicateTagText,
+      removeTag,
+      addTag,
       isInvalid,
       isDuplicate,
+      isLimitReached,
+      disableAddButton,
       disabled,
       placeholder,
+      inputClass,
+      tagRemoveLabel,
+      tagVariant,
+      tagPills,
+      tagClass,
       addButtonText,
       addButtonVariant,
-      disableAddButton
+      invalidTagText,
+      duplicateTagText,
+      limitTagsText
     }) {
       const h = this.$createElement
 
@@ -558,19 +573,19 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         return h(
           BFormTag,
           {
-            key: `li-tag__${tag}`,
             class: tagClass,
             props: {
               // `BFormTag` will auto generate an ID
               // so we do not need to set the ID prop
               tag: 'li',
               title: tag,
-              disabled: disabled,
+              disabled,
               variant: tagVariant,
               pill: tagPills,
               removeLabel: tagRemoveLabel
             },
-            on: { remove: () => removeTag(tag) }
+            on: { remove: () => removeTag(tag) },
+            key: `tags_${tag}`
           },
           tag
         )
@@ -581,12 +596,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         invalidTagText && isInvalid ? this.safeId('__invalid_feedback__') : null
       const duplicateFeedbackId =
         duplicateTagText && isDuplicate ? this.safeId('__duplicate_feedback__') : null
+      const limitFeedbackId =
+        limitTagsText && isLimitReached ? this.safeId('__limit_feedback__') : null
 
       // Compute the `aria-describedby` attribute value
       const ariaDescribedby = [
         inputAttrs['aria-describedby'],
         invalidFeedbackId,
-        duplicateFeedbackId
+        duplicateFeedbackId,
+        limitFeedbackId
       ]
         .filter(identity)
         .join(' ')
@@ -623,47 +641,59 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             invisible: disableAddButton
           },
           style: { fontSize: '90%' },
-          props: { variant: addButtonVariant, disabled: disableAddButton },
+          props: {
+            variant: addButtonVariant,
+            disabled: disableAddButton || isLimitReached
+          },
           on: { click: () => addTag() }
         },
         [this.normalizeSlot('add-button-text') || addButtonText]
       )
 
-      // ID of the tags+input `<ul>` list
-      // Note we could concatenate inputAttrs.id with `__TAG__LIST__`
-      // But note that the inputID may be null until after mount
-      // `safeId` returns `null`, if no user provided ID, until after
-      // mount when a unique ID is generated
-      const tagListId = this.safeId('__TAG__LIST__')
+      // ID of the tags + input `<ul>` list
+      // Note we could concatenate `inputAttrs.id` with '__tag_list__'
+      // but `inputId` may be `null` until after mount
+      // `safeId()` returns `null`, if no user provided ID,
+      // until after mount when a unique ID is generated
+      const tagListId = this.safeId('__tag_list__')
 
       const $field = h(
         'li',
         {
-          key: '__li-input__',
-          staticClass: 'flex-grow-1',
+          staticClass: 'b-from-tags-field flex-grow-1',
           attrs: {
             role: 'none',
             'aria-live': 'off',
             'aria-controls': tagListId
-          }
+          },
+          key: 'tags_field'
         },
-        [h('div', { staticClass: 'd-flex', attrs: { role: 'group' } }, [$input, $button])]
+        [
+          h(
+            'div',
+            {
+              staticClass: 'd-flex',
+              attrs: { role: 'group' }
+            },
+            [$input, $button]
+          )
+        ]
       )
 
       // Wrap in an unordered list element (we use a list for accessibility)
       const $ul = h(
         'ul',
         {
-          key: '_tags_list_',
           staticClass: 'b-form-tags-list list-unstyled mb-0 d-flex flex-wrap align-items-center',
-          attrs: { id: tagListId }
+          attrs: { id: tagListId },
+          key: 'tags_list'
         },
         [$tags, $field]
       )
 
       // Assemble the feedback
       let $feedback = h()
-      if (invalidTagText || duplicateTagText) {
+      if (invalidTagText || duplicateTagText || limitTagsText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not disabled the messages
         const joiner = this.computedJoiner
@@ -674,8 +704,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $invalid = h(
             BFormInvalidFeedback,
             {
-              key: '_tags_invalid_feedback_',
-              props: { id: invalidFeedbackId, forceShow: true }
+              props: { id: invalidFeedbackId, forceShow: true },
+              key: 'tags_invalid_feedback'
             },
             [this.invalidTagText, ': ', this.invalidTags.join(joiner)]
           )
@@ -687,20 +717,36 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $duplicate = h(
             BFormText,
             {
-              key: '_tags_duplicate_feedback_',
-              props: { id: duplicateFeedbackId }
+              props: { id: duplicateFeedbackId },
+              key: 'tags_duplicate_feedback'
             },
             [this.duplicateTagText, ': ', this.duplicateTags.join(joiner)]
+          )
+        }
+
+        // Limit tags feedback if needed (warning, not error)
+        let $limit = h()
+        if (limitFeedbackId) {
+          $limit = h(
+            BFormText,
+            {
+              props: { id: limitFeedbackId },
+              key: 'tags_limit_feedback'
+            },
+            [limitTagsText]
           )
         }
 
         $feedback = h(
           'div',
           {
-            key: '_tags_feedback_',
-            attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' }
+            attrs: {
+              'aria-live': 'polite',
+              'aria-atomic': 'true'
+            },
+            key: 'tags_feedback'
           },
-          [$invalid, $duplicate]
+          [$invalid, $duplicate, $limit]
         )
       }
       // Return the content
@@ -712,29 +758,31 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     const scope = {
       // Array of tags (shallow copy to prevent mutations)
       tags: this.tags.slice(),
+      // <input> v-bind:inputAttrs
+      inputAttrs: this.computedInputAttrs,
+      // We don't include this in the attrs, as users may want to override this
+      inputType: this.computedInputType,
+      // <input> v-on:inputHandlers
+      inputHandlers: this.computedInputHandlers,
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
-      // We don't include this in the attrs, as users may want to override this
-      inputType: this.computedInputType,
-      // <input> v-bind:inputAttrs
-      inputAttrs: this.computedInputAttrs,
-      // <input> v-on:inputHandlers
-      inputHandlers: this.computedInputHandlers,
       // <input> :id="inputId"
       inputId: this.computedInputId,
       // Invalid/Duplicate state information
-      invalidTags: this.invalidTags.slice(),
       isInvalid: this.hasInvalidTags,
-      duplicateTags: this.duplicateTags.slice(),
+      invalidTags: this.invalidTags.slice(),
       isDuplicate: this.hasDuplicateTags,
+      duplicateTags: this.duplicateTags.slice(),
+      isLimitReached: this.isLimitReached,
       // If the 'Add' button should be disabled
       disableAddButton: this.disableAddButton,
       // Pass-though values
-      state: this.state,
-      separator: this.separator,
       disabled: this.disabled,
+      state: this.state,
       size: this.size,
+      limit: this.limit,
+      separator: this.separator,
       placeholder: this.placeholder,
       inputClass: this.inputClass,
       tagRemoveLabel: this.tagRemoveLabel,
@@ -744,7 +792,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       addButtonText: this.addButtonText,
       addButtonVariant: this.addButtonVariant,
       invalidTagText: this.invalidTagText,
-      duplicateTagText: this.duplicateTagText
+      duplicateTagText: this.duplicateTagText,
+      limitTagsText: this.limitTagsText
     }
 
     // Generate the user interface
@@ -756,7 +805,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'sr-only',
         attrs: {
-          id: this.safeId('_selected-tags_'),
+          id: this.safeId('__selected_tags__'),
           role: 'status',
           for: this.computedInputId,
           'aria-live': this.hasFocus ? 'polite' : 'off',
@@ -773,7 +822,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'sr-only',
         attrs: {
-          id: this.safeId('_removed-tags_'),
+          id: this.safeId('__removed_tags__'),
           role: 'status',
           'aria-live': this.hasFocus ? 'assertive' : 'off',
           'aria-atomic': 'true'
@@ -789,13 +838,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // for native submission of forms
       $hidden = this.tags.map(tag => {
         return h('input', {
-          key: tag,
           attrs: {
             type: 'hidden',
             value: tag,
             name: this.name,
             form: this.form || null
-          }
+          },
+          key: `tag_input_${tag}`
         })
       })
     }
@@ -816,7 +865,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           id: this.safeId(),
           role: 'group',
           tabindex: this.disabled || this.noOuterFocus ? null : '-1',
-          'aria-describedby': this.safeId('_selected_')
+          'aria-describedby': this.safeId('__selected_tags__')
         },
         on: {
           click: this.onClick,

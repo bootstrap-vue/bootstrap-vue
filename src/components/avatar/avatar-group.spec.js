@@ -55,4 +55,20 @@ describe('avatar-group', () => {
 
     wrapper.destroy()
   })
+
+  it('overlap props work', async () => {
+    const wrapper = mount(BAvatarGroup, {
+      propsData: {
+        overlap: 0.65
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.overlap).toBe(0.65)
+    expect(wrapper.vm.overlapScale).toBe(0.325)
+
+    wrapper.destroy()
+  })
 })

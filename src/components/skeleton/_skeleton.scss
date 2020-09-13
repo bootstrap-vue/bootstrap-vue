@@ -1,0 +1,139 @@
+// Wrapper
+.b-skeleton-wrapper {
+  cursor: $b-skeleton-loading-cursor;
+}
+
+// Base
+.b-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: $b-skeleton-background-color;
+  cursor: $b-skeleton-loading-cursor;
+
+  // Use `::before` since `::after` is used for the wave-animation
+  &::before {
+    content: "\00a0";
+  }
+}
+
+// Text
+.b-skeleton-text {
+  height: $font-size-base;
+  margin-bottom: $b-skeleton-text-spacing;
+
+  @if $enable-rounded {
+    border-radius: 0.25rem;
+  }
+}
+
+// Button
+.b-skeleton-button {
+  width: $b-skeleton-btn-width;
+  padding: $btn-padding-y $btn-padding-x;
+  font-size: $btn-font-size;
+  line-height: $btn-line-height;
+
+  @if $enable-rounded {
+    border-radius: $btn-border-radius;
+  }
+}
+
+// Avatar
+.b-skeleton-avatar {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+}
+
+// Input
+.b-skeleton-input {
+  height: $input-height;
+  padding: $input-padding-y $input-padding-x;
+  line-height: $input-line-height;
+  border: $input-border-color solid $input-border-width;
+
+  @if $enable-rounded {
+    border-radius: $input-border-radius;
+  }
+}
+
+// Icon
+.b-skeleton-icon-wrapper {
+  svg {
+    color: $b-skeleton-background-color;
+  }
+}
+
+// Image
+.b-skeleton-img {
+  height: 100%;
+  width: 100%;
+}
+
+// Wave animation
+.b-skeleton-animate-wave {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+
+    background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+    animation: b-skeleton-animate-wave $b-skeleton-animation-duration linear infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      background: none;
+      animation: none;
+    }
+  }
+}
+
+@keyframes b-skeleton-animate-wave {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+// Fade animation
+.b-skeleton-animate-fade {
+  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration / 2) ease-in-out alternate
+    infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes b-skeleton-animate-fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+// Throb animation
+.b-skeleton-animate-throb {
+  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration / 2) ease-in alternate
+    infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes b-skeleton-animate-throb {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.975);
+  }
+}

@@ -4,7 +4,6 @@
   "meta": {
     "title": "Form Rating",
     "version": "2.12.0",
-    "new": true,
     "description": "BootstrapVue custom star rating form control for ratings entry or aggregated display",
     "components": [
       {
@@ -24,12 +23,10 @@
           },
           {
             "prop": "variant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
             "prop": "color",
-            "settings": true,
             "description": "CSS color to use instead of variant. Accepts either a HEX or RGB/RGBA string"
           },
           {

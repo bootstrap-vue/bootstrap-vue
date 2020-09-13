@@ -7,6 +7,7 @@ import stableSort from '../../utils/stable-sort'
 import { arrayIncludes, concat } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { attemptFocus, requestAF, selectAll } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import { isEvent } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -16,11 +17,11 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink } from '../link/link'
 import { BNav, props as BNavProps } from '../nav/nav'
 
-// -- Constants --
+// --- Constants ---
 
 const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
 
-// -- Utils --
+// --- Helper methods ---
 
 // Filter function to filter out disabled tabs
 const notDisabled = tab => !tab.disabled
@@ -60,38 +61,32 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       attemptFocus(this.$refs.link)
     },
     handleEvt(evt) {
-      const stop = () => {
-        evt.preventDefault()
-        evt.stopPropagation()
-      }
       if (this.tab.disabled) {
         /* istanbul ignore next */
         return
       }
-      const type = evt.type
-      const key = evt.keyCode
-      const shift = evt.shiftKey
+      const { type, keyCode, shiftKey } = evt
       if (type === 'click') {
-        stop()
+        stopEvent(evt)
         this.$emit('click', evt)
-      } else if (type === 'keydown' && key === KeyCodes.SPACE) {
+      } else if (type === 'keydown' && keyCode === KeyCodes.SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
-        stop()
+        stopEvent(evt)
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
-        if (key === KeyCodes.UP || key === KeyCodes.LEFT || key === KeyCodes.HOME) {
-          stop()
-          if (shift || key === KeyCodes.HOME) {
+        if ([KeyCodes.UP, KeyCodes.LEFT, KeyCodes.HOME].indexOf(keyCode) !== -1) {
+          stopEvent(evt)
+          if (shiftKey || keyCode === KeyCodes.HOME) {
             this.$emit('first', evt)
           } else {
             this.$emit('prev', evt)
           }
-        } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT || key === KeyCodes.END) {
-          stop()
-          if (shift || key === KeyCodes.END) {
+        } else if ([KeyCodes.DOWN, KeyCodes.RIGHT, KeyCodes.END].indexOf(keyCode) !== -1) {
+          stopEvent(evt)
+          if (shiftKey || keyCode === KeyCodes.END) {
             this.$emit('last', evt)
           } else {
             this.$emit('next', evt)
@@ -101,47 +96,58 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const link = h(
+    const { id, tabIndex, setSize, posInSet, controls, handleEvt } = this
+    const {
+      title,
+      localActive,
+      disabled,
+      titleItemClass,
+      titleLinkClass,
+      titleLinkAttributes
+    } = this.tab
+
+    const $link = h(
       BLink,
       {
         ref: 'link',
         staticClass: 'nav-link',
         class: [
           {
-            active: this.tab.localActive && !this.tab.disabled,
-            disabled: this.tab.disabled
+            active: localActive && !disabled,
+            disabled
           },
-          this.tab.titleLinkClass,
+          titleLinkClass,
           // Apply <b-tabs> `activeNavItemClass` styles when the tab is active
-          this.tab.localActive ? this.bvTabs.activeNavItemClass : null
+          localActive ? this.bvTabs.activeNavItemClass : null
         ],
-        props: { disabled: this.tab.disabled },
+        props: { disabled },
         attrs: {
-          ...this.tab.titleLinkAttributes,
+          ...titleLinkAttributes,
           role: 'tab',
-          id: this.id,
+          id,
           // Roving tab index when keynav enabled
-          tabindex: this.tabIndex,
-          'aria-selected': this.tab.localActive && !this.tab.disabled ? 'true' : 'false',
-          'aria-setsize': this.setSize,
-          'aria-posinset': this.posInSet,
-          'aria-controls': this.controls
+          tabindex: tabIndex,
+          'aria-selected': localActive && !disabled ? 'true' : 'false',
+          'aria-setsize': setSize,
+          'aria-posinset': posInSet,
+          'aria-controls': controls
         },
         on: {
-          click: this.handleEvt,
-          keydown: this.handleEvt
+          click: handleEvt,
+          keydown: handleEvt
         }
       },
-      [this.tab.normalizeSlot('title') || this.tab.title]
+      [this.tab.normalizeSlot('title') || title]
     )
+
     return h(
       'li',
       {
         staticClass: 'nav-item',
-        class: [this.tab.titleItemClass],
+        class: [titleItemClass],
         attrs: { role: 'presentation' }
       },
-      [link]
+      [$link]
     )
   }
 })
@@ -389,36 +395,35 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      // We use registeredTabs as the source of truth for child tab components. And we
-      // filter out any BTab components that are extended BTab with a root child BTab.
-      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
+      // We use `registeredTabs` as the source of truth for child tab components
+      // We also filter out any `<b-tab>` components that are extended
+      // `<b-tab>` with a root child `<b-tab>`
+      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
       const tabs = this.registeredTabs.filter(
         tab => tab.$children.filter(t => t._isTab).length === 0
       )
       // DOM Order of Tabs
       let order = []
       if (this.isMounted && tabs.length > 0) {
-        // We rely on the DOM when mounted to get the 'true' order of the b-tab children.
-        // querySelectorAll(...) always returns elements in document order, regardless of
-        // order specified in the selector.
+        // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
+        // `querySelectorAll()` always returns elements in document order, regardless of
+        // order specified in the selector
         const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
         order = selectAll(selector, this.$el)
           .map(el => el.id)
           .filter(identity)
       }
-      // Stable sort keeps the original order if not found in the
-      // `order` array, which will be an empty array before mount.
-      return stableSort(tabs, (a, b) => {
-        return order.indexOf(a.safeId()) - order.indexOf(b.safeId())
-      })
+      // Stable sort keeps the original order if not found in the `order` array,
+      // which will be an empty array before mount
+      return stableSort(tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
     },
-    // Update list of <b-tab> children
+    // Update list of `<b-tab>` children
     updateTabs() {
       // Probe tabs
       const tabs = this.getTabs()
 
       // Find *last* active non-disabled tab in current tabs
-      // We trust tab state over currentTab, in case tabs were added/removed/re-ordered
+      // We trust tab state over `currentTab`, in case tabs were added/removed/re-ordered
       let tabIndex = tabs.indexOf(
         tabs
           .slice()
@@ -426,7 +431,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           .find(tab => tab.localActive && !tab.disabled)
       )
 
-      // Else try setting to currentTab
+      // Else try setting to `currentTab`
       if (tabIndex < 0) {
         const currentTab = this.currentTab
         if (currentTab >= tabs.length) {
@@ -475,8 +480,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         button.$forceUpdate()
       }
     },
-    // Activate a tab given a <b-tab> instance
-    // Also accessed by <b-tab>
+    // Activate a tab given a `<b-tab>` instance
+    // Also accessed by `<b-tab>`
     activateTab(tab) {
       let result = false
       if (tab) {
@@ -572,7 +577,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const tabs = this.tabs
+    const { tabs, noKeyNav, firstTab, previousTab, nextTab, lastTab } = this
 
     // Currently active tab
     const activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
@@ -580,11 +585,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
-    // For each <b-tab> found create the tab buttons
+    // For each `<b-tab>` found create the tab buttons
     const buttons = tabs.map((tab, index) => {
       let tabIndex = null
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
-      if (!this.noKeyNav) {
+      if (!noKeyNav) {
         // Buttons are not in tab index unless active, or a fallback tab
         tabIndex = -1
         if (activeTab === tab || (!activeTab && fallbackTab === tab)) {
@@ -598,23 +603,23 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         // Needed to make `this.$refs.buttons` an array
         refInFor: true,
         props: {
-          tab: tab,
-          tabs: tabs,
+          tab,
+          tabs,
           id: tab.controlledBy || (tab.safeId ? tab.safeId(`_BV_tab_button_`) : null),
           controls: tab.safeId ? tab.safeId() : null,
           tabIndex,
           setSize: tabs.length,
           posInSet: index + 1,
-          noKeyNav: this.noKeyNav
+          noKeyNav
         },
         on: {
           click: evt => {
             this.clickTab(tab, evt)
           },
-          first: this.firstTab,
-          prev: this.previousTab,
-          next: this.nextTab,
-          last: this.lastTab
+          first: firstTab,
+          prev: previousTab,
+          next: nextTab,
+          last: lastTab
         }
       })
     })

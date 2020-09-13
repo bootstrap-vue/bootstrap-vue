@@ -62,4 +62,4 @@ The width will always be 100% of the available width in the parent element/compo
 
 ## See also
 
-- [`<b-embed>` component](/docs/components/embed) for responsive embeds (videos, iframes, etc)
+- [`<b-embed>` component](/docs/components/embed) for responsive embeds (videos, iframes, etc.)

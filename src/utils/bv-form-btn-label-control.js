@@ -3,6 +3,7 @@
 //
 import Vue from './vue'
 import { attemptBlur, attemptFocus } from './dom'
+import { stopEvent } from './events'
 import { toString } from './string'
 import dropdownMixin, { commonProps } from '../mixins/dropdown'
 import idMixin from '../mixins/id'
@@ -139,10 +140,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     },
     handleHover(hovered) {
       this.isHovered = hovered
-    },
-    /* istanbul ignore next */
-    stopEvent(evt) /* istanbul ignore next */ {
-      evt.stopPropagation()
     }
   },
   render(h) {
@@ -181,7 +178,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         attrs: {
           id: idButton,
           type: 'button',
-          disabled: disabled,
+          disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': visible ? 'true' : 'false',
           'aria-invalid': state === false || (required && !value) ? 'true' : null,
@@ -211,7 +208,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           type: 'hidden',
           name: this.name || null,
           form: this.form || null,
-          value: value
+          value
         }
       })
     }
@@ -267,7 +264,10 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          '!click': this.stopEvent
+
+          '!click': /* istanbul ignore next */ evt => {
+            stopEvent(evt, { preventDefault: false })
+          }
         }
       },
       [
@@ -284,6 +284,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-btn-label-control dropdown',
         class: [
           this.directionClass,
+          this.boundaryClass,
           {
             'btn-group': buttonOnly,
             'form-control': !buttonOnly,

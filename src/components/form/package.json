@@ -41,7 +41,6 @@
         "props": [
           {
             "prop": "textVariant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the text"
           },
           {

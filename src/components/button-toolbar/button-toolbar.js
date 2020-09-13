@@ -1,7 +1,10 @@
 import Vue from '../../utils/vue'
 import KeyCodes from '../../utils/key-codes'
-import { attemptFocus, isVisible, selectAll } from '../../utils/dom'
+import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Constants ---
 
 const ITEM_SELECTOR = [
   '.btn:not(.disabled):not([disabled]):not(.dropdown-item)',
@@ -10,6 +13,8 @@ const ITEM_SELECTOR = [
   'input[type="checkbox"]:not(.disabled)',
   'input[type="radio"]:not(.disabled)'
 ].join(',')
+
+// --- Main component ---
 
 // @vue/component
 export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
@@ -26,37 +31,20 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     }
   },
   mounted() {
+    // Pre-set the tabindexes if the markup does not include
+    // `tabindex="-1"` on the toolbar items
     if (this.keyNav) {
-      // Pre-set the tabindexes if the markup does not include tabindex="-1" on the toolbar items
       this.getItems()
     }
   },
   methods: {
-    onFocusin(evt) {
-      if (evt.target === this.$el) {
-        evt.preventDefault()
-        evt.stopPropagation()
-        this.focusFirst(evt)
-      }
-    },
-    stop(evt) {
-      evt.preventDefault()
-      evt.stopPropagation()
-    },
-    onKeydown(evt) {
-      if (!this.keyNav) {
-        /* istanbul ignore next: should never happen */
-        return
-      }
-      const key = evt.keyCode
-      const shift = evt.shiftKey
-      if (key === KeyCodes.UP || key === KeyCodes.LEFT) {
-        this.stop(evt)
-        shift ? this.focusFirst(evt) : this.focusPrev(evt)
-      } else if (key === KeyCodes.DOWN || key === KeyCodes.RIGHT) {
-        this.stop(evt)
-        shift ? this.focusLast(evt) : this.focusNext(evt)
-      }
+    getItems() {
+      const items = selectAll(ITEM_SELECTOR, this.$el)
+      // Ensure `tabindex="-1"` is set on every item
+      items.forEach(item => {
+        item.tabIndex = -1
+      })
+      return items.filter(el => isVisible(el))
     },
     focusFirst() {
       const items = this.getItems()
@@ -82,13 +70,22 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       const items = this.getItems().reverse()
       attemptFocus(items[0])
     },
-    getItems() {
-      const items = selectAll(ITEM_SELECTOR, this.$el)
-      items.forEach(item => {
-        // Ensure tabfocus is -1 on any new elements
-        item.tabIndex = -1
-      })
-      return items.filter(el => isVisible(el))
+    onFocusin(evt) {
+      const { $el } = this
+      if (evt.target === $el && !contains($el, evt.relatedTarget)) {
+        stopEvent(evt)
+        this.focusFirst(evt)
+      }
+    },
+    onKeydown(evt) {
+      const { keyCode, shiftKey } = evt
+      if (keyCode === KeyCodes.UP || keyCode === KeyCodes.LEFT) {
+        stopEvent(evt)
+        shiftKey ? this.focusFirst(evt) : this.focusPrev(evt)
+      } else if (keyCode === KeyCodes.DOWN || keyCode === KeyCodes.RIGHT) {
+        stopEvent(evt)
+        shiftKey ? this.focusLast(evt) : this.focusNext(evt)
+      }
     }
   },
   render(h) {

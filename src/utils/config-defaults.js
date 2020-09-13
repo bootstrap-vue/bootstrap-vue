@@ -64,11 +64,15 @@ export default deepFreeze({
   },
   BButtonClose: {
     content: '&times;',
-    // `textVariant` is `null` to inherit the current text color
+    // `textVariant` is `undefined` to inherit the current text color
     textVariant: undefined,
     ariaLabel: 'Close'
   },
   BCalendar: {
+    selectedVariant: 'primary',
+    // Defaults to `selectedVariant`
+    todayVariant: undefined,
+    navButtonVariant: 'secondary',
     // BFormDate will choose these first if not provided in BFormDate section
     labelPrevDecade: 'Previous decade',
     labelPrevYear: 'Previous year',
@@ -102,6 +106,9 @@ export default deepFreeze({
   },
   BFormDatepicker: {
     // BFormDatepicker will choose from BCalendar first if not provided here
+    selectedVariant: undefined,
+    todayVariant: undefined,
+    navButtonVariant: undefined,
     labelPrevDecade: undefined,
     labelPrevYear: undefined,
     labelPrevMonth: undefined,
@@ -124,7 +131,8 @@ export default deepFreeze({
     browseText: 'Browse',
     // Chrome default file prompt
     placeholder: 'No file chosen',
-    dropPlaceholder: 'Drop files here'
+    dropPlaceholder: 'Drop files here',
+    noDropPlaceholder: 'Not allowed'
   },
   BFormRating: {
     variant: null,
@@ -139,6 +147,7 @@ export default deepFreeze({
     addButtonVariant: 'outline-secondary',
     duplicateTagText: 'Duplicate tag(s)',
     invalidTagText: 'Invalid tag(s)',
+    limitTagsText: 'Tag limit reached',
     placeholder: 'Add tag...',
     tagRemoveLabel: 'Remove tag',
     tagRemovedLabel: 'Tag removed',
@@ -235,6 +244,12 @@ export default deepFreeze({
   },
   BSpinner: {
     variant: undefined
+  },
+  BSkeleton: {
+    animation: 'wave'
+  },
+  BSkeletonIcon: {
+    animation: 'wave'
   },
   BSidebar: {
     bgVariant: 'light',

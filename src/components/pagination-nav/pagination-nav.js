@@ -1,5 +1,6 @@
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
+import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
@@ -129,23 +130,37 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         this.guessCurrentPage()
       })
     },
-    onClick(pageNum, evt) {
+    onClick(evt, pageNumber) {
       // Dont do anything if clicking the current active page
-      if (pageNum === this.currentPage) {
+      if (pageNumber === this.currentPage) {
         return
       }
-      requestAF(() => {
-        // Update the v-model
-        // Done in in requestAF() to allow browser to complete the
-        // native browser click handling of a link
-        this.currentPage = pageNum
-        this.$emit('change', pageNum)
+
+      const target = evt.currentTarget || evt.target
+
+      // Emit a user-cancelable `page-click` event
+      const clickEvt = new BvEvent('page-click', {
+        cancelable: true,
+        vueTarget: this,
+        target
       })
+      this.$emit(clickEvt.type, clickEvt, pageNumber)
+      if (clickEvt.defaultPrevented) {
+        return
+      }
+
+      // Update the `v-model`
+      // Done in in requestAF() to allow browser to complete the
+      // native browser click handling of a link
+      requestAF(() => {
+        this.currentPage = pageNumber
+        this.$emit('change', pageNumber)
+      })
+
+      // Emulate native link click page reloading behaviour by blurring the
+      // paginator and returning focus to the document
+      // Done in a `nextTick()` to ensure rendering complete
       this.$nextTick(() => {
-        // Emulate native link click page reloading behaviour by blurring the
-        // paginator and returning focus to the document
-        // Done in a `nextTick()` to ensure rendering complete
-        const target = evt.currentTarget || evt.target
         attemptBlur(target)
       })
     },
@@ -210,12 +225,12 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
         // Remove link from document
         document.body.removeChild(link)
         // Return the location in a route-like object
-        return { path: pathname, hash: hash, query: parseQuery(search) }
+        return { path: pathname, hash, query: parseQuery(search) }
       } catch (e) {
         /* istanbul ignore next */
         try {
           link && link.parentNode && link.parentNode.removeChild(link)
-        } catch (e) {}
+        } catch {}
         /* istanbul ignore next */
         return {}
       }

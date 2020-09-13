@@ -64,7 +64,7 @@ describe('table/helpers/normalize-fields', () => {
     const formatter = value => value
     const arr1 = [{ foo: formatter }]
 
-    expect(normalizeFields(arr1, [])).toEqual([{ key: 'foo', label: 'Foo', formatter: formatter }])
+    expect(normalizeFields(arr1, [])).toEqual([{ key: 'foo', label: 'Foo', formatter }])
   })
 
   it('handles when "key: false" shortcut', async () => {

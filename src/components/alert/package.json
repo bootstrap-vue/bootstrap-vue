@@ -10,7 +10,6 @@
         "props": [
           {
             "prop": "variant",
-            "settings": true,
             "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
@@ -19,7 +18,6 @@
           },
           {
             "prop": "dismissLabel",
-            "settings": true,
             "description": "Value for the 'aria-label' attribute on the dismiss button"
           },
           {

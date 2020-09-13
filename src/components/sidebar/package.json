@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "meta": {
     "title": "Sidebar",
-    "new": true,
     "version": "2.10.0",
     "description": "The `<b-sidebar>` component creates a fixed viewport, left or right, sliding popout drawer.",
     "plugins": [
@@ -105,6 +104,11 @@
           {
             "prop": "noCloseOnRouteChange",
             "description": "When set to `true`, disables closing of the sidebar on route change"
+          },
+          {
+            "prop": "noEnforceFocus",
+            "version": "2.17.0",
+            "description": "Disables the enforce focus routine which maintains focus inside the sidebar"
           }
         ],
         "events": [

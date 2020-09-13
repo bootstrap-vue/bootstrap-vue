@@ -320,8 +320,8 @@ ul.component-ref-mini-toc:empty {
 
 <script>
 import Vue from 'vue'
-// Fallback descriptions for common props (mainly router-link props)
 import commonProps from '../common-props.json'
+import { defaultConfig } from '../content'
 import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
@@ -448,10 +448,15 @@ export default {
     propsItems() {
       const props = this.componentProps
       const propsMetaObj = this.componentPropsMetaObj
+      const componentSettings = defaultConfig[this.componentOptions.name] || {}
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
-        const meta = propsMetaObj[prop] || {}
+        const meta = {
+          // Fallback descriptions for common props
+          ...(commonProps[prop] || {}),
+          ...(propsMetaObj[prop] || {})
+        }
 
         // Describe type
         let type = p.type
@@ -475,24 +480,16 @@ export default {
             ? ''
             : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
-        const fallbackMeta = commonProps[prop] || {}
-        const description =
-          typeof meta.description === 'undefined' ? fallbackMeta.description : meta.description
-        // TODO:
-        //   Can we auto-detect this by doing a lookup in the
-        //   default settings or determine if the prop default
-        //   value came from the settings?
-        const settings = meta.settings || false
-        const version = typeof meta.version === 'undefined' ? fallbackMeta.version : meta.version
+        const settings = Object.prototype.hasOwnProperty.call(componentSettings, prop)
 
         return {
           prop: kebabCase(prop),
           type,
           defaultValue,
           required: p.required || false,
-          description: description || '',
+          description: meta.description || '',
+          version: meta.version || '',
           settings,
-          version,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,

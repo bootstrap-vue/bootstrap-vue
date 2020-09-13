@@ -601,4 +601,59 @@ describe('form-tags', () => {
 
     wrapper.destroy()
   })
+
+  it('`limit` prop works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange'],
+        limit: 3
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+
+    const $button = wrapper.find('button.b-form-tags-button')
+    expect($button.exists()).toBe(true)
+    expect($button.classes()).toContain('invisible')
+
+    expect(wrapper.find('small.form-text').exists()).toBe(false)
+
+    // Add new tag
+    $input.element.value = 'pear'
+    await $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('pear')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange'])
+    expect($button.classes()).not.toContain('invisible')
+
+    await $button.trigger('click')
+    expect($button.classes()).toContain('invisible')
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+
+    const $feedback = wrapper.find('small.form-text')
+    expect($feedback.exists()).toBe(true)
+    expect($feedback.text()).toContain('Tag limit reached')
+
+    // Attempt to add new tag
+    $input.element.value = 'lemon'
+    await $input.trigger('input')
+    expect(wrapper.vm.newTag).toEqual('lemon')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+    expect($button.classes()).not.toContain('invisible')
+
+    await $button.trigger('click')
+    expect($button.classes()).not.toContain('invisible')
+    expect(wrapper.vm.newTag).toEqual('lemon')
+    expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+    expect($feedback.exists()).toBe(true)
+    expect($feedback.text()).toContain('Tag limit reached')
+
+    wrapper.destroy()
+  })
 })

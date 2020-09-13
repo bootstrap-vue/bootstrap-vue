@@ -1,10 +1,10 @@
 import Vue from '../../utils/vue'
-import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
 import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
 export const props = {
   switches: {

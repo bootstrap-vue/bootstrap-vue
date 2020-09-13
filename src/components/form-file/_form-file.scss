@@ -1,5 +1,13 @@
 // Adds in sizes for custom-file
 
+// Prevent file names from overflowing the file input
+// These styles can be removed when the related Bootstrap bug gets fixed:
+// https://github.com/twbs/bootstrap/issues/31577
+.custom-file-label {
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
 .b-custom-control-lg,
 .input-group-lg {
   &.custom-file,

@@ -165,7 +165,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
         name: propName,
         value: {
           kind: 'expression',
-          type: type
+          type
         },
         default: computePropDefault($prop),
         'doc-url': docUrl
@@ -211,7 +211,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
       }
       if (Array.isArray(eventObj.args)) {
         event.arguments = eventObj.args.map((arg, index) => {
-          arg = typeof arg === 'object' ? arg : { arg: arg }
+          arg = typeof arg === 'object' ? arg : { arg }
           const name = arg.arg || (arg.type ? computePropType(arg) : undefined) || 'arg' + index
           const argument = {
             name: name.charAt(0).toLowerCase() + name.slice(1),
@@ -447,7 +447,7 @@ try {
       const type = (attrObj.value || { type: 'any' }).type
       veturAttributes[`${tag}/${kebabCase(attrObj.name)}`] = {
         description: attrObj.description || `One of: ${type.split('|').join(' or ')}`,
-        type: type
+        type
       }
     })
   })

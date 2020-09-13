@@ -1,3 +1,4 @@
+import { stopEvent } from '../../../utils/events'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
 import { BTd } from '../td'
@@ -33,8 +34,7 @@ export default {
     stopIfBusy(evt) {
       if (this.computedBusy) {
         // If table is busy (via provider) then don't propagate
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         return true
       }
       return false

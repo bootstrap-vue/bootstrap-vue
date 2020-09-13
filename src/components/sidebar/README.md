@@ -146,7 +146,7 @@ overrides.
 ### Width
 
 By default the width of `<b-sidebar>` is set to `320px` (100% on 'xs' screens). Simply provide a
-value via the `width` prop (i.e. `'180px'`, `'20em'`, etc) to override this default. The max width
+value via the `width` prop (i.e. `'180px'`, `'20em'`, etc.) to override this default. The max width
 is set to `100%` via CSS.
 
 ### Padding
@@ -328,9 +328,9 @@ elements outside of the sidebar.
 
 ### `v-b-toggle` directive
 
-Using the [`v-b-toggle` directive](/docs/directive/toggle) is the preferred method for _opening_ the
-sidebar, as it automatically handles applying the `aria-controls` and `aria-expanded` accessibility
-attributes on the trigger element.
+Using the [`v-b-toggle` directive](/docs/directives/toggle) is the preferred method for _opening_
+the sidebar, as it automatically handles applying the `aria-controls` and `aria-expanded`
+accessibility attributes on the trigger element.
 
 The majority of examples on this page use the `v-b-toggle` directive.
 
@@ -370,6 +370,10 @@ the sidebar changes.
 When the sidebar is opened, the entire sidebar will receive focus, which is desirable for screen
 reader and keyboard-only users. When the sidebar is closed, the element that previously had focus
 before the sidebar was opened will be re-focused.
+
+In some circumstances, you may need to disable the enforce focus feature completely. You can do this
+by setting the prop `no-enforce-focus`, although this is generally discouraged for accessibility
+reasons.
 
 When the sidebar is open, users can press <kbd>Esc</kbd> to close the sidebar. To disable this
 feature, set the `no-close-on-esc` prop to `true`. with the backdrop enabled, you can use the prop

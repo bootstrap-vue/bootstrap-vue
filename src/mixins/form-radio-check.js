@@ -1,3 +1,4 @@
+import looseEqual from '../utils/loose-equal'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
@@ -152,7 +153,6 @@ export default {
         form: this.getForm,
         disabled: this.isDisabled,
         required: this.isRequired,
-        autocomplete: 'off',
         'aria-required': this.isRequired || null,
         'aria-label': this.ariaLabel || null,
         'aria-labelledby': this.ariaLabelledby || null
@@ -160,8 +160,10 @@ export default {
     }
   },
   watch: {
-    checked(newVal) {
-      this.computedLocalChecked = newVal
+    checked(newValue) {
+      if (!looseEqual(newValue, this.computedLocalChecked)) {
+        this.computedLocalChecked = newValue
+      }
     }
   },
   methods: {

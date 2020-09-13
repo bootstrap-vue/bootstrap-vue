@@ -9,7 +9,7 @@ describe('img-lazy', () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
       propsData: {
-        src: src
+        src
       }
     })
     expect(wrapper.element.tagName).toBe('IMG')
@@ -21,7 +21,7 @@ describe('img-lazy', () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
       propsData: {
-        src: src,
+        src,
         show: true
       }
     })
@@ -37,7 +37,7 @@ describe('img-lazy', () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
       propsData: {
-        src: src,
+        src,
         show: false
       }
     })

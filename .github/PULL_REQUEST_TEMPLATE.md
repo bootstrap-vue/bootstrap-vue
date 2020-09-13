@@ -25,7 +25,7 @@ A clear and concise description of what the pull request does.
 - [ ] It's submitted to the `dev` branch, **not** the `master` branch
 - [ ] When resolving a specific issue, it's referenced in the PR's title (i.e. `[...] (fixes #xxx[,#xxx])`, where "xxx" is the issue number)
 - [ ] It should address only one issue or feature. If adding multiple features or fixing a bug and adding a new feature, break them into separate PRs if at all possible.
-- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples`, `chore(docs): fix typo in README`, etc). **This is very important, as the `CHANGELOG` is generated from these messages, and determines the next version type (patch or minor).**
+- [ ] The title should follow the [**Conventional Commits**](https://www.conventionalcommits.org/) naming convention (i.e. `fix(alert): not alerting during SSR render`, `docs(badge): update pill examples`, `chore(docs): fix typo in README`, etc.). **This is very important, as the `CHANGELOG` is generated from these messages, and determines the next version type (patch or minor).**
 
 **If new features/enhancement/fixes are added or changed:**
 

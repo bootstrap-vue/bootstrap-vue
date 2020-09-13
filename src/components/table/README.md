@@ -182,7 +182,7 @@ Fields can be a simple array, for defining the order of the columns, and which c
 ### Fields as an array of objects
 
 Fields can be a an array of objects, providing additional control over the fields (such as sorting,
-formatting, etc). Only columns (keys) that appear in the fields array will be shown:
+formatting, etc.). Only columns (keys) that appear in the fields array will be shown:
 
 **Example: Using array of objects fields definition**
 
@@ -242,6 +242,7 @@ The following field properties are recognized:
 | `class`             | String or Array             | Class name (or array of class names) to add to `<th>` **and** `<td>` in the column.                                                                                                                                                                                                                                                                                                                                               |
 | `formatter`         | String or Function          | A formatter callback function or name of a method in your component, can be used instead of (or in conjunction with) scoped field slots. The formatter will be called with the syntax `formatter(value, key, item)`. Refer to [Custom Data Rendering](#custom-data-rendering) for more details.                                                                                                                                   |
 | `sortable`          | Boolean                     | Enable sorting on this column. Refer to the [Sorting](#sorting) Section for more details.                                                                                                                                                                                                                                                                                                                                         |
+| `sortKey`           | String                      | <span class="badge badge-secondary">v2.17.0+</span> Set the value of `sortBy` for the column in the emitted context when `no-local-sorting` is `true`.                                                                                                                                                                                                                                                                            |
 | `sortDirection`     | String                      | Set the initial sort direction on this column when it becomes sorted. Refer to the [Change initial sort direction](#change-initial-sort-direction) Section for more details.                                                                                                                                                                                                                                                      |
 | `sortByFormatted`   | Boolean or Function         | Sort the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for sorting purposes only. Refer to the [Sorting](#sorting) Section for more details.                                                                                  |
 | `filterByFormatted` | Boolean or Function         | Filter the column by the result of the field's `formatter` callback function when set to `true`. Default is `false`. Boolean has no effect if the field does not have a `formatter`. Optionally accepts a formatter function _reference_ to format the value for filtering purposes only. Refer to the [Filtering](#filtering) section for more details.                                                                          |
@@ -1305,7 +1306,7 @@ available horizontal space.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents the
   borders on the sticky header from "sticking" to the header, and hence the borders will scroll when
   the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table (note
-  that this may cause double width borders when using features such as `bordered`, etc).
+  that this may cause double width borders when using features such as `bordered`, etc.).
 - The sticky header feature uses CSS style `position: sticky` to position the headings. Internet
   Explorer does not support `position: sticky`, hence for IE 11 the table headings will scroll with
   the table body.
@@ -1400,7 +1401,7 @@ set.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
   when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
-  (note that this may cause double width borders when using features such as `bordered`, etc).
+  (note that this may cause double width borders when using features such as `bordered`, etc.).
 - BootstrapVue's custom CSS is required in order to support sticky columns.
 - The sticky column feature uses CSS style `position: sticky` to position the column cells. Internet
   Explorer does not support `position: sticky`, hence for IE 11 the sticky column will scroll with
@@ -2048,7 +2049,7 @@ function toString(value) {
 ### Disable local sorting
 
 If you want to handle sorting entirely in your app, you can disable the local sorting in `<b-table>`
-by setting the prop `no-local-sorting` to true, while still maintaining the sortable header
+by setting the prop `no-local-sorting` to `true`, while still maintaining the sortable header
 functionality (via `sort-changed` or `context-changed` events as well as syncable props).
 
 You can use the syncable props `sort-by.sync` and `sort-desc.sync` to detect changes in sorting
@@ -2059,7 +2060,7 @@ with a single argument containing the context object of `<b-table>`. See the
 [Detection of sorting change](#detection-of-sorting-change) section below for details about the
 sort-changed event and the context object.
 
-When `no-local-sorting` is true, the `sort-compare` prop has no effect.
+When `no-local-sorting` is `true`, the `sort-compare` prop has no effect.
 
 ### Change initial sort direction
 
@@ -2091,7 +2092,7 @@ done) and the filter searches that stringified data (excluding any of the specia
 begin with an underscore `'_'`). The stringification also, by default, includes any data not shown
 in the presented columns.
 
-With the default built-in filter function, The `filter` prop value can either be a string or a
+With the default built-in filter function, the `filter` prop value can either be a string or a
 `RegExp` object (regular expressions should _not_ have the `/g` global flag set).
 
 If the stringified row contains the provided string value or matches the RegExp expression then it
@@ -2513,7 +2514,7 @@ sticky. See below for more information on using [sticky columns](#simple-tables-
 
 Since `b-table-simple` is just a wrapper component, of which you will need to render content inside,
 it does not provide any of the advanced features of `<b-table>` (i.e. row events, head events,
-sorting, pagination, filtering, foot-clone, items, fields, etc).
+sorting, pagination, filtering, foot-clone, items, fields, etc.).
 
 ```html
 <div>
@@ -2781,7 +2782,7 @@ markup. Components `<b-table>` and `<b-table-lite>` use these helper components 
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
 `<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
-elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc) within `<b-table-simple>`, and the named slots
+elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc.) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
 helper components. Note that there are no helper components for `<caption>`, `<colgroup>` or
 `<col>`, so you may these three HTML5 elements directly in `<b-table-simple>`.

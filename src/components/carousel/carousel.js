@@ -12,7 +12,7 @@ import {
   setAttr
 } from '../../utils/dom'
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
+import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff, stopEvent } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
 import { mathAbs, mathFloor, mathMax, mathMin } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -434,8 +434,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     handleClick(evt, fn) {
       const keyCode = evt.keyCode
       if (evt.type === 'click' || keyCode === KeyCodes.SPACE || keyCode === KeyCodes.ENTER) {
-        evt.preventDefault()
-        evt.stopPropagation()
+        stopEvent(evt)
         fn()
       }
     },
@@ -518,7 +517,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         if (!this.isSliding) {
           this.handleClick(evt, this.prev)
         } else {
-          evt.preventDefault()
+          stopEvent(evt, { propagation: false })
         }
       }
       const nextHandler = evt => {
@@ -526,7 +525,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         if (!this.isSliding) {
           this.handleClick(evt, this.next)
         } else {
-          evt.preventDefault()
+          stopEvent(evt, { propagation: false })
         }
       }
       controls = [
@@ -629,8 +628,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         }
         const keyCode = evt.keyCode
         if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.RIGHT) {
-          evt.preventDefault()
-          evt.stopPropagation()
+          stopEvent(evt)
           this[keyCode === KeyCodes.LEFT ? 'prev' : 'next']()
         }
       }

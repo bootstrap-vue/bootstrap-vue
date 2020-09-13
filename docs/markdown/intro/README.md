@@ -232,7 +232,7 @@ module.exports = {
 
 **Note:** If your project has multiple webpack config files (i.e. `webpack.config.js`,
 `webpack.renderer.config.js`, `webpack.vendor.config.js`, `webpack.server.config.js`,
-`webpack.client.config.js`, etc), you will need to set the appropriate alias in _all_ of them.
+`webpack.client.config.js`, etc.), you will need to set the appropriate alias in _all_ of them.
 
 See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),

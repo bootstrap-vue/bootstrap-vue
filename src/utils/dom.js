@@ -88,7 +88,7 @@ export const isVisible = el => {
     // are not a direct descendant of document.body
     return false
   }
-  if (el.style.display === 'none') {
+  if (getStyle(el, 'display') === 'none') {
     // We do this check to help with vue-test-utils when using v-show
     /* istanbul ignore next */
     return false
@@ -174,9 +174,9 @@ export const hasClass = (el, className) => {
 }
 
 // Set an attribute on an element
-export const setAttr = (el, attr, val) => {
+export const setAttr = (el, attr, value) => {
   if (attr && isElement(el)) {
-    el.setAttribute(attr, val)
+    el.setAttribute(attr, value)
   }
 }
 
@@ -194,6 +194,24 @@ export const getAttr = (el, attr) => (attr && isElement(el) ? el.getAttribute(at
 // Determine if an attribute exists on an element
 // Returns `true` or `false`, or `null` if element not found
 export const hasAttr = (el, attr) => (attr && isElement(el) ? el.hasAttribute(attr) : null)
+
+// Set an style property on an element
+export const setStyle = (el, prop, value) => {
+  if (prop && isElement(el)) {
+    el.style[prop] = value
+  }
+}
+
+// Remove an style property from an element
+export const removeStyle = (el, prop) => {
+  if (prop && isElement(el)) {
+    el.style[prop] = ''
+  }
+}
+
+// Get an style property value from an element
+// Returns `null` if not found
+export const getStyle = (el, prop) => (prop && isElement(el) ? el.style[prop] || null : null)
 
 // Return the Bounding Client Rect of an element
 // Returns `null` if not an element

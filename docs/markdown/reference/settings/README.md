@@ -55,7 +55,7 @@ The values provided as the config option to `Vue.use` will be merged with the de
 **Note:** When defining custom breakpoints, keep the names short (2 to 3 characters). At least two
 breakpoint names must be defined. The breakpoint names **must** match the breakpoint names defined
 in your custom Bootstrap SCSS. Breakpoint names must not conflict with non-breakpoint prop names
-used on various components (i.e. avoid `to`, `col`, etc)
+used on various components (i.e. avoid `to`, `col`, etc.)
 
 ### Setting config via individual component group plugin imports
 
@@ -168,12 +168,13 @@ the config object to the Nuxt.js plugin module.
 
 ## Disabling BootstrapVue console warnings
 
-BootstrapVue will warn (via `console.warn`) when you try and use a deprecated prop, or pass an
+BootstrapVue will warn (via `console.warn()`) when you try and use a deprecated prop, or pass an
 invalid value to certain props. These warnings are provided to help you ensure that your application
 is using the correct props and values.
 
-In some cases, you may want to disable these warnings (not recommended). You can do so by setting
-the following process environment variable:
+BootstrapVue automatically disables warnings in production mode (`NODE_ENV=production`). If you want
+to disable the warnings in other scenarios (not recommended), you can do so by setting the following
+process environment variable:
 
 <!-- eslint-disable no-unused-vars -->
 
@@ -182,6 +183,6 @@ process.env.BOOTSTRAP_VUE_NO_WARN = true
 ```
 
 By ignoring warnings, you may find that your project fails/breaks when using future releases of
-bootstrapVue where deprecated props have been removed.
+BootstrapVue where deprecated props have been removed.
 
 **Warnings should be corrected before moving your project into production!**

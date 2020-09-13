@@ -163,7 +163,7 @@ module.exports = {
     // https://zeit.co/docs/v2/build-step#system-environment-variables
     // - `true` if on Zeit Now (dev or PR)
     VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT,
-    // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc)
+    // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc.)
     VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF,
     // - The Commit SHA hash
     VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA,
