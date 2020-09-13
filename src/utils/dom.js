@@ -174,9 +174,9 @@ export const hasClass = (el, className) => {
 }
 
 // Set an attribute on an element
-export const setAttr = (el, attr, val) => {
+export const setAttr = (el, attr, value) => {
   if (attr && isElement(el)) {
-    el.setAttribute(attr, val)
+    el.setAttribute(attr, value)
   }
 }
 
@@ -184,6 +184,20 @@ export const setAttr = (el, attr, val) => {
 export const removeAttr = (el, attr) => {
   if (attr && isElement(el)) {
     el.removeAttribute(attr)
+  }
+}
+
+// Set an style property on an element
+export const setStyle = (el, prop, value) => {
+  if (prop && isElement(el)) {
+    el.style[prop] = value
+  }
+}
+
+// Remove an style property from an element
+export const removeStyle = (el, prop) => {
+  if (prop && isElement(el)) {
+    el.style[prop] = ''
   }
 }
 
