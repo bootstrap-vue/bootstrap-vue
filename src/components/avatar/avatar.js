@@ -15,16 +15,12 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 const NAME = 'BAvatar'
 const CLASS_NAME = 'b-avatar'
 
+const SIZES = ['sm', null, 'lg']
+
 const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
-
-const DEFAULT_SIZES = {
-  sm: '1.5em',
-  md: '2.5em',
-  lg: '3.5em'
-}
 
 // --- Props ---
 const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
@@ -99,18 +95,10 @@ const props = {
 
 // --- Utility methods ---
 export const computeSize = value => {
-  // Default to `md` size when `null`, or parse to
-  // number when value is a float-like string
-  value =
-    isUndefinedOrNull(value) || value === ''
-      ? 'md'
-      : isString(value) && RX_NUMBER.test(value)
-        ? toFloat(value, 0)
-        : value
+  // Parse to number when value is a float-like string
+  value = isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
   // Convert all numbers to pixel values
-  // Handle default sizes when `sm`, `md` or `lg`
-  // Or use value as is
-  return isNumber(value) ? `${value}px` : DEFAULT_SIZES[value] || value
+  return isNumber(value) ? `${value}px` : value || null
 }
 
 // --- Main component ---
@@ -144,14 +132,13 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return square ? '0' : rounded === '' ? true : rounded || 'circle'
     },
     fontStyle() {
-      let fontSize = this.computedSize
-      fontSize = fontSize ? `calc(${fontSize} * ${FONT_SIZE_SCALE})` : null
+      const { computedSize: size } = this
+      const fontSize = SIZES.indexOf(size) === -1 ? `calc(${size} * ${FONT_SIZE_SCALE})` : null
       return fontSize ? { fontSize } : {}
     },
     marginStyle() {
-      const avatarGroup = this.bvAvatarGroup
+      const { computedSize: size, bvAvatarGroup: avatarGroup } = this
       const overlapScale = avatarGroup ? avatarGroup.overlapScale : 0
-      const size = this.computedSize
       const value = size && overlapScale ? `calc(${size} * -${overlapScale})` : null
       return value ? { marginLeft: value, marginRight: value } : {}
     },
@@ -159,7 +146,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       const { computedSize: size, badgeTop, badgeLeft, badgeOffset } = this
       const offset = badgeOffset || '0px'
       return {
-        fontSize: size ? `calc(${size} * ${BADGE_FONT_SIZE_SCALE} )` : null,
+        fontSize: SIZES.indexOf(size) === -1 ? `calc(${size} * ${BADGE_FONT_SIZE_SCALE} )` : null,
         top: badgeTop ? offset : null,
         bottom: badgeTop ? null : offset,
         left: badgeLeft ? offset : null,
@@ -246,6 +233,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const componentData = {
       staticClass: CLASS_NAME,
       class: {
+        // Apply size class
+        [`${CLASS_NAME}-${size}`]: size && SIZES.indexOf(size) !== -1,
         // We use badge styles for theme variants when not rendering `BButton`
         [`badge-${variant}`]: !button && variant,
         // Rounding/Square
