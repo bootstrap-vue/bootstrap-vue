@@ -137,8 +137,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       return fontSize ? { fontSize } : {}
     },
     marginStyle() {
-      const { computedSize: size, bvAvatarGroup: avatarGroup } = this
-      const overlapScale = avatarGroup ? avatarGroup.overlapScale : 0
+      const { computedSize: size, bvAvatarGroup } = this
+      const overlapScale = bvAvatarGroup ? bvAvatarGroup.overlapScale : 0
       const value = size && overlapScale ? `calc(${size} * -${overlapScale})` : null
       return value ? { marginLeft: value, marginRight: value } : {}
     },
