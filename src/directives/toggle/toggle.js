@@ -9,8 +9,10 @@ import {
   isTag,
   removeAttr,
   removeClass,
+  removeStyle,
   requestAF,
-  setAttr
+  setAttr,
+  setStyle
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
@@ -45,6 +47,9 @@ const ATTR_ARIA_CONTROLS = 'aria-controls'
 const ATTR_ARIA_EXPANDED = 'aria-expanded'
 const ATTR_ROLE = 'role'
 const ATTR_TABINDEX = 'tabindex'
+
+// Commonly used style properties
+const STYLE_OVERFLOW_ANCHOR = 'overflow-anchor'
 
 // Emitted control event for collapse (emitted to collapse)
 export const EVENT_TOGGLE = 'bv::toggle::collapse'
@@ -194,13 +199,17 @@ const handleUpdate = (el, binding, vnode) => {
   // Parse list of target IDs
   const targets = getTargets(binding, el)
 
-  /* istanbul ignore else */
   // Ensure the `aria-controls` hasn't been overwritten
   // or removed when vnode updates
-  if (targets.length) {
+  // Also ensure to set `overflow-anchor` to `none` to prevent
+  // the browser's scroll anchoring behavior
+  /* istanbul ignore else */
+  if (targets.length > 0) {
     setAttr(el, ATTR_ARIA_CONTROLS, targets.join(' '))
+    setStyle(el, STYLE_OVERFLOW_ANCHOR, 'none')
   } else {
     removeAttr(el, ATTR_ARIA_CONTROLS)
+    removeStyle(el, STYLE_OVERFLOW_ANCHOR)
   }
 
   // Add/Update our click listener(s)
@@ -248,11 +257,12 @@ export const VBToggle = {
     resetProp(el, BV_TOGGLE_CLICK_HANDLER)
     resetProp(el, BV_TOGGLE_STATE)
     resetProp(el, BV_TOGGLE_TARGETS)
-    // Reset classes/attrs
+    // Reset classes/attrs/styles
     removeClass(el, CLASS_BV_TOGGLE_COLLAPSED)
     removeClass(el, CLASS_BV_TOGGLE_NOT_COLLAPSED)
     removeAttr(el, ATTR_ARIA_EXPANDED)
     removeAttr(el, ATTR_ARIA_CONTROLS)
     removeAttr(el, ATTR_ROLE)
+    removeStyle(el, STYLE_OVERFLOW_ANCHOR)
   }
 }
