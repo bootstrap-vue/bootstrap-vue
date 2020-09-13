@@ -264,8 +264,10 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
-          /* istanbul ignore next */
-          '!click': evt => stopEvent(evt, { preventDefault: false })
+
+          '!click': /* istanbul ignore next */ evt => {
+            stopEvent(evt, { preventDefault: false })
+          }
         }
       },
       [
