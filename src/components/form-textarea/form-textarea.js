@@ -173,11 +173,11 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       // Get the current style height (with `px` units)
       const oldHeight = getStyle(el, 'height') || computedStyle.height
       // Probe scrollHeight by temporarily changing the height to `auto`
-      setStyle(el, 'auto')
+      setStyle(el, 'height', 'auto')
       const scrollHeight = el.scrollHeight
       // Place the original old height back on the element, just in case `computedProp`
       // returns the same value as before
-      setStyle(el, oldHeight)
+      setStyle(el, 'height', oldHeight)
 
       // Calculate content height in 'rows' (scrollHeight includes padding but not border)
       const contentRows = mathMax((scrollHeight - padding) / lineHeight, 2)
