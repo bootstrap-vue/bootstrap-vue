@@ -181,7 +181,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
           body._marginChangedForModal.push(el)
         })
         // Adjust body padding
-        const actualPadding = getStyle(body, 'paddingRight')
+        const actualPadding = getStyle(body, 'paddingRight') || ''
         setAttr(body, 'data-padding-right', actualPadding)
         setStyle(body, 'paddingRight', `${toFloat(getCS(body).paddingRight, 0) + scrollbarWidth}px`)
       }

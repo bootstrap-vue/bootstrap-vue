@@ -210,7 +210,8 @@ export const removeStyle = (el, prop) => {
 }
 
 // Get an style property value from an element
-export const getStyle = (el, prop) => (prop && isElement(el) ? el.style[prop] : null)
+// Returns `null` if not found
+export const getStyle = (el, prop) => (prop && isElement(el) ? el.style[prop] || null : null)
 
 // Return the Bounding Client Rect of an element
 // Returns `null` if not an element
