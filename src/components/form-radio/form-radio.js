@@ -1,3 +1,4 @@
+import { NAME_FORM_RADIO } from '../../constants/components'
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
@@ -8,7 +9,7 @@ import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
 export const BFormRadio = /*#__PURE__*/ Vue.extend({
-  name: 'BFormRadio',
+  name: NAME_FORM_RADIO,
   mixins: [
     idMixin,
     formRadioCheckMixin, // Includes shared render function

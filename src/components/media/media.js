@@ -1,3 +1,5 @@
+import { NAME_MEDIA } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { BMediaBody } from './media-body'
@@ -24,7 +26,7 @@ export const props = {
 
 // @vue/component
 export const BMedia = /*#__PURE__*/ Vue.extend({
-  name: 'BMedia',
+  name: NAME_MEDIA,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots, children }) {
@@ -34,7 +36,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
       const $slots = slots()
       const $scopedSlots = scopedSlots || {}
       const $aside = normalizeSlot('aside', {}, $scopedSlots, $slots)
-      const $default = normalizeSlot('default', {}, $scopedSlots, $slots)
+      const $default = normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
 
       if ($aside && !props.rightAlign) {
         childNodes.push(

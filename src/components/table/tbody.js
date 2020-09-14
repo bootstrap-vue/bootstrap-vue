@@ -1,3 +1,4 @@
+import { NAME_TBODY } from '../../constants/components'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -19,7 +20,7 @@ export const props = {
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTbody = /*#__PURE__*/ Vue.extend({
-  name: 'BTbody',
+  name: NAME_TBODY,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -93,10 +94,6 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       // Otherwise we place any listeners on the tbody element
       data.on = this.bvListeners
     }
-    return h(
-      this.isTransitionGroup ? 'transition-group' : 'tbody',
-      data,
-      this.normalizeSlot('default')
-    )
+    return h(this.isTransitionGroup ? 'transition-group' : 'tbody', data, this.normalizeSlot())
   }
 })

@@ -1,3 +1,4 @@
+import { NAME_CARD_IMG_LAZY } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
@@ -47,7 +48,7 @@ export const props = {
 
 // @vue/component
 export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
-  name: 'BCardImgLazy',
+  name: NAME_CARD_IMG_LAZY,
   functional: true,
   props,
   render(h, { props, data }) {

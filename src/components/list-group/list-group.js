@@ -1,3 +1,4 @@
+import { NAME_LIST_GROUP } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { isString } from '../../utils/inspect'
 
@@ -18,7 +19,7 @@ export const props = {
 
 // @vue/component
 export const BListGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BListGroup',
+  name: NAME_LIST_GROUP,
   functional: true,
   props,
   render(h, { props, data, children }) {

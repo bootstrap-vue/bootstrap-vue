@@ -1,3 +1,4 @@
+import { NAME_LINK } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -9,10 +10,6 @@ import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/r
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-
-// --- Constants ---
-
-const NAME = 'BLink'
 
 // --- Props ---
 
@@ -100,14 +97,14 @@ export const props = {
   // such as not supporting FQDN URLs or hash only URLs
   routerComponentName: {
     type: String,
-    default: () => getComponentConfig(NAME, 'routerComponentName')
+    default: () => getComponentConfig(NAME_LINK, 'routerComponentName')
   }
 }
 
 // --- Main component ---
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
-  name: 'BLink',
+  name: NAME_LINK,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -225,7 +222,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`
         [this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot()
     )
   }
 })

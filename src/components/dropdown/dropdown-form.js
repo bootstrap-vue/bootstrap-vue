@@ -1,9 +1,10 @@
+import { NAME_DROPDOWN_FORM } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { BForm, props as formProps } from '../form/form'
 
 // @vue/component
 export const BDropdownForm = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownForm',
+  name: NAME_DROPDOWN_FORM,
   functional: true,
   props: {
     ...formProps,

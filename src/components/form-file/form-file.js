@@ -1,3 +1,6 @@
+import { NAME_FORM_FILE } from '../../constants/components'
+import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
@@ -6,7 +9,7 @@ import { from as arrayFrom, flatten, flattenDeep } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
-import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff, stopEvent } from '../../utils/events'
+import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
@@ -20,13 +23,8 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
 
-const NAME = 'BFormFile'
-
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
-
-const RX_EXTENSION = /^\..+/
-const RX_STAR = /\/\*$/
 
 // --- Helper methods ---
 
@@ -111,7 +109,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_FILE,
   mixins: [attrsMixin, idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
@@ -129,7 +127,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       validator: value => {
         /* istanbul ignore next */
         if (value === '') {
-          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME)
+          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
           return true
         }
         return isUndefinedOrNull(value) || isValidValue(value)
@@ -146,19 +144,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       type: String,
-      default: () => getComponentConfig(NAME, 'placeholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'placeholder')
     },
     browseText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'browseText')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'browseText')
     },
     dropPlaceholder: {
       type: String,
-      default: () => getComponentConfig(NAME, 'dropPlaceholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'dropPlaceholder')
     },
     noDropPlaceholder: {
       type: String,
-      default: () => getComponentConfig(NAME, 'noDropPlaceholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'noDropPlaceholder')
     },
     multiple: {
       type: Boolean,

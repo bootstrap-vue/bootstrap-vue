@@ -1,3 +1,4 @@
+import { NAME_PROGRESS_BAR } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -7,14 +8,9 @@ import { toFixed, toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-// --- Constants ---
-
-const NAME = 'BProgressBar'
-
-// --- Main component ---
 // @vue/component
 export const BProgressBar = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_PROGRESS_BAR,
   mixins: [normalizeSlotMixin],
   inject: {
     bvProgress: {
@@ -47,7 +43,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
     },
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_PROGRESS_BAR, 'variant')
     },
     striped: {
       type: Boolean,
@@ -126,8 +122,8 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
 
     let $children
     let domProps = {}
-    if (this.hasNormalizedSlot('default')) {
-      $children = this.normalizeSlot('default')
+    if (this.hasNormalizedSlot()) {
+      $children = this.normalizeSlot()
     } else if (label || labelHtml) {
       domProps = htmlOrText(labelHtml, label)
     } else if (this.computedShowProgress) {

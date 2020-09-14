@@ -1,6 +1,8 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
+import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import Vue from './vue'
 import { attemptBlur, attemptFocus } from './dom'
 import { stopEvent } from './events'
@@ -16,7 +18,7 @@ export const dropdownProps = commonProps
 
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
-  name: 'BVFormBtnLabelControl',
+  name: NAME_FORM_BUTTON_LABEL_CONTROL,
   directives: {
     BHover: VBHover
   },
@@ -194,8 +196,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         }
       },
       [
-        this.hasNormalizedSlot('button-content')
-          ? this.normalizeSlot('button-content', btnScope)
+        this.hasNormalizedSlot(SLOT_NAME_BUTTON_CONTENT)
+          ? this.normalizeSlot(SLOT_NAME_BUTTON_CONTENT, btnScope)
           : /* istanbul ignore next */ h(BIconChevronDown, { props: { scale: 1.25 } })
       ]
     )
@@ -237,7 +239,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           keydown: this.onKeydown // Handle ESC
         }
       },
-      [this.normalizeSlot('default', { opened: visible })]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT, { opened: visible })]
     )
 
     // Value label

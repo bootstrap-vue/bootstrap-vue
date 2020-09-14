@@ -191,7 +191,7 @@ export default {
     }
   },
   render(h) {
-    const defaultSlot = this.normalizeSlot('default')
+    const defaultSlot = this.normalizeSlot()
 
     // Generate the input element
     const on = { change: this.handleChange }

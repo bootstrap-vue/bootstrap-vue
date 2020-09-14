@@ -1,3 +1,4 @@
+import { NAME_TH } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { BTd } from './td'
 
@@ -6,7 +7,7 @@ import { BTd } from './td'
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTh = /*#__PURE__*/ Vue.extend({
-  name: 'BTh',
+  name: NAME_TH,
   extends: BTd,
   computed: {
     tag() {

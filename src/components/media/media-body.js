@@ -1,3 +1,4 @@
+import { NAME_MEDIA_BODY } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
@@ -9,7 +10,7 @@ export const props = {
 
 // @vue/component
 export const BMediaBody = /*#__PURE__*/ Vue.extend({
-  name: 'BMediaBody',
+  name: NAME_MEDIA_BODY,
   functional: true,
   props,
   render(h, { props, data, children }) {

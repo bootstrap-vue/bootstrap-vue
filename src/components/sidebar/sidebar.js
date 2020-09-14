@@ -1,4 +1,6 @@
-import { ESC } from '../../constants/key-codes'
+import { NAME_SIDEBAR } from '../../constants/components'
+import { CODE_ESC } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
@@ -20,14 +22,12 @@ import { BIconX } from '../../icons/icons'
 
 // --- Constants ---
 
-const NAME = 'BSidebar'
 const CLASS_NAME = 'b-sidebar'
 
 // --- Render methods ---
 const renderHeaderTitle = (h, ctx) => {
-  const title = ctx.normalizeSlot('title', ctx.slotScope) || toString(ctx.title) || null
-
   // Render a empty `<span>` when to title was provided
+  const title = ctx.computedTile
   if (!title) {
     return h('span')
   }
@@ -80,12 +80,12 @@ const renderBody = (h, ctx) => {
       staticClass: `${CLASS_NAME}-body`,
       class: ctx.bodyClass
     },
-    [ctx.normalizeSlot('default', ctx.slotScope)]
+    [ctx.normalizeSlot(SLOT_NAME_DEFAULT, ctx.slotScope)]
   )
 }
 
 const renderFooter = (h, ctx) => {
-  const $footer = ctx.normalizeSlot('footer', ctx.slotScope)
+  const $footer = ctx.normalizeSlot(SLOT_NAME_FOOTER, ctx.slotScope)
   if (!$footer) {
     return h()
   }
@@ -130,7 +130,7 @@ const renderBackdrop = (h, ctx) => {
 // --- Main component ---
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SIDEBAR,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -149,19 +149,19 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     bgVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'bgVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'bgVariant')
     },
     textVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'textVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'textVariant')
     },
     shadow: {
       type: [Boolean, String],
-      default: () => getComponentConfig(NAME, 'shadow')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'shadow')
     },
     width: {
       type: String,
-      default: () => getComponentConfig(NAME, 'width')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'width')
     },
     zIndex: {
       type: [Number, String]
@@ -183,7 +183,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     tag: {
       type: String,
-      default: () => getComponentConfig(NAME, 'tag')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'tag')
     },
     sidebarClass: {
       type: [String, Array, Object]
@@ -208,7 +208,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     backdropVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'backdropVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'backdropVariant')
     },
     noSlide: {
       type: Boolean,
@@ -277,7 +277,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     computedTile() {
-      return this.normalizeSlot('title', this.slotScope) || toString(this.title) || null
+      return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
     },
     titleId() {
       return this.computedTile ? this.safeId('__title__') : null
@@ -361,7 +361,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode } = evt
-      if (!this.noCloseOnEsc && keyCode === ESC && this.localShow) {
+      if (!this.noCloseOnEsc && keyCode === CODE_ESC && this.localShow) {
         this.hide()
       }
     },

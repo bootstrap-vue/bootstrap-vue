@@ -1,3 +1,4 @@
+import { NAME_BREADCRUMB } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
@@ -12,7 +13,7 @@ export const props = {
 
 // @vue/component
 export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
-  name: 'BBreadcrumb',
+  name: NAME_BREADCRUMB,
   functional: true,
   props,
   render(h, { props, data, children }) {

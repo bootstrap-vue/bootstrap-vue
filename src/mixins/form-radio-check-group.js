@@ -1,3 +1,4 @@
+import { SLOT_NAME_FIRST } from '../constants/slot-names'
 import looseEqual from '../utils/loose-equal'
 import normalizeSlotMixin from './normalize-slot'
 import { htmlOrText } from '../utils/html'
@@ -115,7 +116,7 @@ export default {
           'aria-invalid': this.computedAriaInvalid
         }
       },
-      [this.normalizeSlot('first'), $inputs, this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot()]
     )
   }
 }

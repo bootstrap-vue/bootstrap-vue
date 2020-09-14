@@ -1,13 +1,10 @@
+import { NAME_BADGE } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
 import { BLink, props as BLinkProps } from '../link/link'
-
-// --- Constants ---
-
-const NAME = 'BBadge'
 
 // --- Props ---
 
@@ -22,7 +19,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_BADGE, 'variant')
   },
   pill: {
     type: Boolean,
@@ -34,7 +31,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BBadge = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BADGE,
   functional: true,
   props,
   render(h, { props, data, children }) {

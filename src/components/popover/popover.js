@@ -1,13 +1,12 @@
+import { NAME_POPOVER } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'
 import { BVPopover } from './helpers/bv-popover'
 
-const NAME = 'BPopover'
-
 export const BPopover = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_POPOVER,
   extends: BTooltip,
   inheritAttrs: false,
   props: {
@@ -29,26 +28,26 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
     },
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_POPOVER, 'variant')
     },
     customClass: {
       type: String,
-      default: () => getComponentConfig(NAME, 'customClass')
+      default: () => getComponentConfig(NAME_POPOVER, 'customClass')
     },
     delay: {
       type: [Number, Object, String],
-      default: () => getComponentConfig(NAME, 'delay')
+      default: () => getComponentConfig(NAME_POPOVER, 'delay')
     },
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
       // Object: Vue component
       type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME, 'boundary')
+      default: () => getComponentConfig(NAME_POPOVER, 'boundary')
     },
     boundaryPadding: {
       type: [Number, String],
-      default: () => getComponentConfig(NAME, 'boundaryPadding')
+      default: () => getComponentConfig(NAME_POPOVER, 'boundaryPadding')
     }
   },
   methods: {

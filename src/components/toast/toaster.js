@@ -1,12 +1,11 @@
+import { NAME_TOASTER } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
 import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
 import { warn } from '../../utils/warn'
 
-// --- Constants ---
-
-const NAME = 'BToaster'
+// --- Props ---
 
 export const props = {
   name: {
@@ -15,16 +14,16 @@ export const props = {
   },
   ariaLive: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaLive')
+    default: () => getComponentConfig(NAME_TOASTER, 'ariaLive')
   },
   ariaAtomic: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaAtomic') // Allowed: 'true' or 'false' or null
+    default: () => getComponentConfig(NAME_TOASTER, 'ariaAtomic') // Allowed: 'true' or 'false' or null
   },
   role: {
     // Aria role
     type: String,
-    default: () => getComponentConfig(NAME, 'role')
+    default: () => getComponentConfig(NAME_TOASTER, 'role')
   }
   /*
   transition: {
@@ -68,7 +67,7 @@ export const DefaultTransition = /*#__PURE__*/ Vue.extend({
 
 // @vue/component
 export const BToaster = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_TOASTER,
   props,
   data() {
     return {
@@ -85,7 +84,7 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
     if (Wormhole.hasTarget(this.staticName)) {
       warn(
         `A "<portal-target>" with name "${this.name}" already exists in the document.`,
-        'BToaster'
+        NAME_TOASTER
       )
       this.dead = true
     } else {

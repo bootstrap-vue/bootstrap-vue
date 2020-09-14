@@ -1,8 +1,7 @@
+import { NAME_CARD_SUB_TITLE } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
-
-const NAME = 'BCardSubTitle'
 
 export const props = {
   subTitle: {
@@ -15,13 +14,13 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'subTitleTextVariant')
+    default: () => getComponentConfig(NAME_CARD_SUB_TITLE, 'subTitleTextVariant')
   }
 }
 
 // @vue/component
 export const BCardSubTitle = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_CARD_SUB_TITLE,
   functional: true,
   props,
   render(h, { props, data, children }) {

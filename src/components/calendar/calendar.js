@@ -1,14 +1,23 @@
+import { NAME_CALENDAR } from '../../constants/components'
 import {
-  DOWN,
-  END,
-  ENTER,
-  HOME,
-  LEFT,
-  PAGEDOWN,
-  PAGEUP,
-  RIGHT,
-  SPACE,
-  UP
+  CALENDAR_GREGORY,
+  CALENDAR_LONG,
+  CALENDAR_NARROW,
+  CALENDAR_SHORT,
+  DATE_FORMAT_2_DIGIT,
+  DATE_FORMAT_NUMERIC
+} from '../../constants/date'
+import {
+  CODE_DOWN,
+  CODE_END,
+  CODE_ENTER,
+  CODE_HOME,
+  CODE_LEFT,
+  CODE_PAGEDOWN,
+  CODE_PAGEUP,
+  CODE_RIGHT,
+  CODE_SPACE,
+  CODE_UP
 } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
@@ -49,23 +58,11 @@ import {
   BIconCircleFill
 } from '../../icons/icons'
 
-// --- Constants ---
-
-const NAME = 'BCalendar'
-
-// Common calendar option value strings
-export const STR_GREGORY = 'gregory'
-export const STR_NUMERIC = 'numeric'
-export const STR_2_DIGIT = '2-digit'
-export const STR_LONG = 'long'
-export const STR_SHORT = 'short'
-export const STR_NARROW = 'narrow'
-
 // --- BCalendar component ---
 
 // @vue/component
 export const BCalendar = Vue.extend({
-  name: NAME,
+  name: NAME_CALENDAR,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   model: {
@@ -132,17 +129,17 @@ export const BCalendar = Vue.extend({
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: getComponentConfig(NAME, 'selectedVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'selectedVariant')
     },
     todayVariant: {
       // Variant color to use for today's date (defaults to `selectedVariant`)
       type: String,
-      default: getComponentConfig(NAME, 'todayVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'todayVariant')
     },
     navButtonVariant: {
       // Variant color to use for the navigation buttons
       type: String,
-      default: getComponentConfig(NAME, 'navButtonVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant')
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -197,65 +194,65 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keyboard shortcuts
     labelPrevDecade: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade')
     },
     labelPrevYear: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear')
     },
     labelPrevMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrevMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth')
     },
     labelCurrentMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCurrentMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth')
     },
     labelNextMonth: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth')
     },
     labelNextYear: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear')
     },
     labelNextDecade: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNextDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade')
     },
     labelToday: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelToday')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday')
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected')
     },
     labelNoDateSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNoDateSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected')
     },
     labelCalendar: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCalendar')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar')
     },
     labelNav: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNav')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav')
     },
     labelHelp: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelHelp')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelHelp')
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
       // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        day: STR_NUMERIC,
-        weekday: STR_LONG
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        day: DATE_FORMAT_NUMERIC,
+        weekday: CALENDAR_LONG
       })
     },
     weekdayHeaderFormat: {
@@ -266,8 +263,8 @@ export const BCalendar = Vue.extend({
       // `narrow` is typically a single letter
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc.)
-      default: STR_SHORT,
-      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
+      default: CALENDAR_SHORT,
+      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     }
   },
   data() {
@@ -329,18 +326,18 @@ export const BCalendar = Vue.extend({
     },
     computedLocale() {
       // Returns the resolved locale used by the calendar
-      return resolveLocale(concat(this.locale).filter(identity), STR_GREGORY)
+      return resolveLocale(concat(this.locale).filter(identity), CALENDAR_GREGORY)
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
       // and IE 11 (and some other browsers) do not support the `calendar` option
       // And we currently only support the gregorian calendar
-      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: STR_GREGORY })
+      const fmt = new Intl.DateTimeFormat(this.computedLocale, { calendar: CALENDAR_GREGORY })
       const calendar = fmt.resolvedOptions().calendar
       let locale = fmt.resolvedOptions().locale
       /* istanbul ignore if: mainly for IE 11 and a few other browsers, hard to test in JSDOM */
-      if (calendar !== STR_GREGORY) {
+      if (calendar !== CALENDAR_GREGORY) {
         // Ensure the locale requests the gregorian calendar
         // Mainly for IE 11, and currently we can't handle non-gregorian calendars
         // TODO: Should we always return this value?
@@ -445,9 +442,9 @@ export const BCalendar = Vue.extend({
         // Ensure we have year, month, day shown for screen readers/ARIA
         // If users really want to leave one of these out, they can
         // pass `undefined` for the property value
-        year: STR_NUMERIC,
-        month: STR_2_DIGIT,
-        day: STR_2_DIGIT,
+        year: DATE_FORMAT_NUMERIC,
+        month: DATE_FORMAT_2_DIGIT,
+        day: DATE_FORMAT_2_DIGIT,
         // Merge in user supplied options
         ...this.dateFormatOptions,
         // Ensure hours/minutes/seconds are not shown
@@ -456,30 +453,30 @@ export const BCalendar = Vue.extend({
         minute: undefined,
         second: undefined,
         // Ensure calendar is gregorian
-        calendar: STR_GREGORY
+        calendar: CALENDAR_GREGORY
       })
     },
     formatYearMonth() {
       // Returns a date formatter function
       return createDateFormatter(this.calendarLocale, {
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        calendar: STR_GREGORY
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatWeekdayName() {
       // Long weekday name for weekday header aria-label
       return createDateFormatter(this.calendarLocale, {
-        weekday: STR_LONG,
-        calendar: STR_GREGORY
+        weekday: CALENDAR_LONG,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatWeekdayNameShort() {
       // Weekday header cell format
       // defaults to 'short' 3 letter days, where possible
       return createDateFormatter(this.calendarLocale, {
-        weekday: this.weekdayHeaderFormat || STR_SHORT,
-        calendar: STR_GREGORY
+        weekday: this.weekdayHeaderFormat || CALENDAR_SHORT,
+        calendar: CALENDAR_GREGORY
       })
     },
     formatDay() {
@@ -680,7 +677,21 @@ export const BCalendar = Vue.extend({
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
       const { altKey, ctrlKey, keyCode } = evt
-      if (!arrayIncludes([PAGEUP, PAGEDOWN, END, HOME, LEFT, UP, RIGHT, DOWN], keyCode)) {
+      if (
+        !arrayIncludes(
+          [
+            CODE_PAGEUP,
+            CODE_PAGEDOWN,
+            CODE_END,
+            CODE_HOME,
+            CODE_LEFT,
+            CODE_UP,
+            CODE_RIGHT,
+            CODE_DOWN
+          ],
+          keyCode
+        )
+      ) {
         /* istanbul ignore next */
         return
       }
@@ -690,13 +701,13 @@ export const BCalendar = Vue.extend({
       const day = activeDate.getDate()
       const constrainedToday = this.constrainDate(this.getToday())
       const isRTL = this.isRTL
-      if (keyCode === PAGEUP) {
+      if (keyCode === CODE_PAGEUP) {
         // PAGEUP - Previous month/year
         activeDate = (altKey ? (ctrlKey ? oneDecadeAgo : oneYearAgo) : oneMonthAgo)(activeDate)
         // We check the first day of month to be in rage
         checkDate = createDate(activeDate)
         checkDate.setDate(1)
-      } else if (keyCode === PAGEDOWN) {
+      } else if (keyCode === CODE_PAGEDOWN) {
         // PAGEDOWN - Next month/year
         activeDate = (altKey ? (ctrlKey ? oneDecadeAhead : oneYearAhead) : oneMonthAhead)(
           activeDate
@@ -705,31 +716,31 @@ export const BCalendar = Vue.extend({
         checkDate = createDate(activeDate)
         checkDate.setMonth(checkDate.getMonth() + 1)
         checkDate.setDate(0)
-      } else if (keyCode === LEFT) {
+      } else if (keyCode === CODE_LEFT) {
         // LEFT - Previous day (or next day for RTL)
         activeDate.setDate(day + (isRTL ? 1 : -1))
         activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
-      } else if (keyCode === RIGHT) {
+      } else if (keyCode === CODE_RIGHT) {
         // RIGHT - Next day (or previous day for RTL)
         activeDate.setDate(day + (isRTL ? -1 : 1))
         activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
-      } else if (keyCode === UP) {
+      } else if (keyCode === CODE_UP) {
         // UP - Previous week
         activeDate.setDate(day - 7)
         activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
-      } else if (keyCode === DOWN) {
+      } else if (keyCode === CODE_DOWN) {
         // DOWN - Next week
         activeDate.setDate(day + 7)
         activeDate = this.constrainDate(activeDate)
         checkDate = activeDate
-      } else if (keyCode === HOME) {
+      } else if (keyCode === CODE_HOME) {
         // HOME - Today
         activeDate = constrainedToday
         checkDate = activeDate
-      } else if (keyCode === END) {
+      } else if (keyCode === CODE_END) {
         // END - Selected date, or today if no selected date
         activeDate = parseYMD(this.selectedDate) || constrainedToday
         checkDate = activeDate
@@ -746,7 +757,7 @@ export const BCalendar = Vue.extend({
       // Pressing enter/space on grid to select active date
       const keyCode = evt.keyCode
       const activeDate = this.activeDate
-      if (keyCode === ENTER || keyCode === SPACE) {
+      if (keyCode === CODE_ENTER || keyCode === CODE_SPACE) {
         stopEvent(evt)
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
           this.selectedYMD = formatYMD(activeDate)
@@ -1152,7 +1163,7 @@ export const BCalendar = Vue.extend({
     )
 
     // Optional bottom slot
-    let $slot = this.normalizeSlot('default')
+    let $slot = this.normalizeSlot()
     $slot = $slot ? h('footer', { staticClass: 'b-calendar-footer' }, $slot) : h()
 
     const $widget = h(

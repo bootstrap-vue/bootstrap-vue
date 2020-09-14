@@ -1,3 +1,4 @@
+import { NAME_IMG_LAZY } from '../../constants/components'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
@@ -6,8 +7,6 @@ import { hasIntersectionObserverSupport } from '../../utils/env'
 import { toInteger } from '../../utils/number'
 import { VBVisible } from '../../directives/visible/visible'
 import { BImg } from './img'
-
-const NAME = 'BImgLazy'
 
 export const props = {
   src: {
@@ -41,7 +40,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getComponentConfig(NAME, 'blankColor')
+    default: () => getComponentConfig(NAME_IMG_LAZY, 'blankColor')
   },
   blankWidth: {
     type: [Number, String]
@@ -97,7 +96,7 @@ export const props = {
 
 // @vue/component
 export const BImgLazy = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_IMG_LAZY,
   directives: {
     bVisible: VBVisible
   },

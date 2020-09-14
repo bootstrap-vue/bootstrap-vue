@@ -1,3 +1,4 @@
+import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -9,8 +10,6 @@ import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
-const NAME = 'BListGroupItem'
-
 const actionTags = ['a', 'router-link', 'button', 'b-link']
 
 // --- Props ---
@@ -20,6 +19,7 @@ delete linkProps.href.default
 delete linkProps.to.default
 
 export const props = {
+  ...linkProps,
   tag: {
     type: String,
     default: 'div'
@@ -34,15 +34,14 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
-  },
-  ...linkProps
+    default: () => getComponentConfig(NAME_LIST_GROUP_ITEM, 'variant')
+  }
 }
 
 // --- Main component ---
 // @vue/component
 export const BListGroupItem = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_LIST_GROUP_ITEM,
   functional: true,
   props,
   render(h, { props, data, children }) {

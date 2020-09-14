@@ -1,3 +1,4 @@
+import { NAME_THEAD } from '../../constants/components'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -16,7 +17,7 @@ export const props = {
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BThead = /*#__PURE__*/ Vue.extend({
-  name: 'BThead',
+  name: NAME_THEAD,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -85,7 +86,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
         // Pass down any native listeners
         on: this.bvListeners
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot()
     )
   }
 })

@@ -1,3 +1,4 @@
+import { NAME_INPUT_GROUP_TEXT } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
@@ -9,7 +10,7 @@ export const props = {
 
 // @vue/component
 export const BInputGroupText = /*#__PURE__*/ Vue.extend({
-  name: 'BInputGroupText',
+  name: NAME_INPUT_GROUP_TEXT,
   functional: true,
   props,
   render(h, { props, data, children }) {

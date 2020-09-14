@@ -1,7 +1,15 @@
-import { escapeRegExp, kebabCase, lowerFirst, pascalCase, toString, upperFirst } from './string'
+import {
+  escapeRegExp,
+  kebabCase,
+  lowerFirst,
+  pascalCase,
+  startCase,
+  toString,
+  upperFirst
+} from './string'
 
 describe('utils/string', () => {
-  it('kebabCase works', async () => {
+  it('kebabCase() works', async () => {
     expect(kebabCase('foo')).toBe('foo')
     expect(kebabCase('Foo')).toBe('foo')
     expect(kebabCase('fooBar')).toBe('foo-bar')
@@ -9,7 +17,7 @@ describe('utils/string', () => {
     expect(kebabCase('XFooBar')).toBe('x-foo-bar')
   })
 
-  it('pascalCase works', async () => {
+  it('pascalCase() works', async () => {
     expect(pascalCase('foo')).toBe('Foo')
     expect(pascalCase('Foo')).toBe('Foo')
     expect(pascalCase('fooBar')).toBe('FooBar')
@@ -19,7 +27,15 @@ describe('utils/string', () => {
     expect(pascalCase('xFooBar')).toBe('XFooBar')
   })
 
-  it('lowerFirst works', async () => {
+  it('startCase() works', async () => {
+    expect(startCase('foobar')).toBe('Foobar')
+    expect(startCase('Foobar')).toBe('Foobar')
+    expect(startCase('foo_bar')).toBe('Foo Bar')
+    expect(startCase('foo bar')).toBe('Foo Bar')
+    expect(startCase('fooBar')).toBe('Foo Bar')
+  })
+
+  it('lowerFirst() works', async () => {
     expect(lowerFirst('Upper')).toBe('upper')
     expect(lowerFirst(' Upper ')).toBe('upper')
     expect(lowerFirst('Upper case')).toBe('upper case')
@@ -30,7 +46,7 @@ describe('utils/string', () => {
     expect(lowerFirst(['Foo', 'bar'])).toBe('foo,bar')
   })
 
-  it('upperFirst works', async () => {
+  it('upperFirst() works', async () => {
     expect(upperFirst('lower')).toBe('Lower')
     expect(upperFirst(' lower ')).toBe('Lower')
     expect(upperFirst('lower case')).toBe('Lower case')
@@ -41,7 +57,7 @@ describe('utils/string', () => {
     expect(upperFirst(['foo', 'bar'])).toBe('Foo,bar')
   })
 
-  it('escapeRegExp works', async () => {
+  it('escapeRegExp() works', async () => {
     expect(escapeRegExp('Hello?')).toBe('Hello\\?')
     expect(escapeRegExp('$100')).toBe('\\$100')
     expect(escapeRegExp('10 * 5')).toBe('10 \\* 5')
@@ -50,7 +66,7 @@ describe('utils/string', () => {
     )
   })
 
-  it('toString works', async () => {
+  it('toString() works', async () => {
     expect(toString(null)).toBe('')
     expect(toString(undefined)).toBe('')
     expect(toString(true)).toBe('true')

@@ -1,3 +1,4 @@
+import { NAME_FORM } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
@@ -21,7 +22,7 @@ export const props = {
 
 // @vue/component
 export const BForm = /*#__PURE__*/ Vue.extend({
-  name: 'BForm',
+  name: NAME_FORM,
   functional: true,
   props,
   render(h, { props, data, children }) {

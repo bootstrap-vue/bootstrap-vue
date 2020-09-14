@@ -1,4 +1,5 @@
-import { LEFT, RIGHT, UP, DOWN } from '../../constants/key-codes'
+import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
+import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -16,14 +17,13 @@ import { BIcon } from '../../icons/icon'
 import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 // --- Constants ---
-const NAME = 'BFormRating'
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
 
 // --- Private helper component ---
 // @vue/component
 const BVFormRatingStar = Vue.extend({
-  name: 'BVFormRatingStar',
+  name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
   props: {
     rating: {
@@ -98,7 +98,7 @@ const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 // --- BFormRating ---
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
   mixins: [idMixin],
   model: {
@@ -117,12 +117,12 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_FORM_RATING, 'variant')
     },
     color: {
       // CSS color string (overrides variant)
       type: String,
-      default: () => getComponentConfig(NAME, 'color')
+      default: () => getComponentConfig(NAME_FORM_RATING, 'color')
     },
     showValue: {
       type: Boolean,
@@ -273,20 +273,23 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     // --- Private methods ---
     onKeydown(evt) {
       const { keyCode } = evt
-      if (this.isInteractive && arrayIncludes([LEFT, DOWN, RIGHT, UP], keyCode)) {
+      if (
+        this.isInteractive &&
+        arrayIncludes([CODE_LEFT, CODE_DOWN, CODE_RIGHT, CODE_UP], keyCode)
+      ) {
         stopEvent(evt, { propagation: false })
         const value = toInteger(this.localValue, 0)
         const min = this.showClear ? 0 : 1
         const stars = this.computedStars
         // In RTL mode, LEFT/RIGHT are swapped
         const amountRtl = this.isRTL ? -1 : 1
-        if (keyCode === LEFT) {
+        if (keyCode === CODE_LEFT) {
           this.localValue = clampValue(value - amountRtl, min, stars) || null
-        } else if (keyCode === RIGHT) {
+        } else if (keyCode === CODE_RIGHT) {
           this.localValue = clampValue(value + amountRtl, min, stars)
-        } else if (keyCode === DOWN) {
+        } else if (keyCode === CODE_DOWN) {
           this.localValue = clampValue(value - 1, min, stars) || null
-        } else if (keyCode === UP) {
+        } else if (keyCode === CODE_UP) {
           this.localValue = clampValue(value + 1, min, stars)
         }
       }

@@ -1,3 +1,5 @@
+import { NAME_DROPDOWN_GROUP } from '../../constants/components'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import identity from '../../utils/identity'
@@ -31,7 +33,7 @@ export const props = {
 
 // @vue/component
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownGroup',
+  name: NAME_DROPDOWN_GROUP,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
@@ -42,7 +44,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
     let header
     let headerId = null
 
-    if (hasNormalizedSlot('header', $scopedSlots, $slots) || props.header) {
+    if (hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots) || props.header) {
       headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
       header = h(
         props.headerTag,
@@ -54,7 +56,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
             role: 'heading'
           }
         },
-        normalizeSlot('header', {}, $scopedSlots, $slots) || props.header
+        normalizeSlot(SLOT_NAME_HEADER, {}, $scopedSlots, $slots) || props.header
       )
     }
 
@@ -76,7 +78,7 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
             'aria-describedby': adb || null
           }
         },
-        normalizeSlot('default', {}, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
       )
     ])
   }

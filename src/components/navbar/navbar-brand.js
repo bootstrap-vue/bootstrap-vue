@@ -1,3 +1,4 @@
+import { NAME_NAVBAR_BRAND } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -20,7 +21,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
-  name: 'BNavbarBrand',
+  name: NAME_NAVBAR_BRAND,
   functional: true,
   props,
   render(h, { props, data, children }) {

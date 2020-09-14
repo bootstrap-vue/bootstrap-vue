@@ -1,3 +1,5 @@
+import { NAME_COL } from '../../constants/components'
+import { RX_COL_CLASS } from '../../constants/regex'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
@@ -7,8 +9,6 @@ import { assign, create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase } from '../../utils/string'
 import { mergeData } from '../../utils/vue'
-
-const RX_COL_CLASS = /^col-/
 
 // Generates a prop object with a type of `[Boolean, String, Number]`
 const boolStrNum = () => ({
@@ -117,7 +117,7 @@ const generateProps = () => {
 // immediately, which we do not want to happen
 // @vue/component
 export const BCol = {
-  name: 'BCol',
+  name: NAME_COL,
   functional: true,
   get props() {
     // Allow props to be lazy evaled on first access and

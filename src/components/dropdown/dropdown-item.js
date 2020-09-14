@@ -1,3 +1,4 @@
+import { NAME_DROPDOWN_ITEM } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
@@ -9,7 +10,7 @@ export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownItem',
+  name: NAME_DROPDOWN_ITEM,
   mixins: [attrsMixin, normalizeSlotMixin],
   inheritAttrs: false,
   inject: {
@@ -64,7 +65,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
           on: { click: onClick },
           ref: 'item'
         },
-        this.normalizeSlot('default')
+        this.normalizeSlot()
       )
     ])
   }

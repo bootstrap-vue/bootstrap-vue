@@ -1,7 +1,6 @@
+import { NAME_FORM_TEXT } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-
-const NAME = 'BFormText'
 
 export const props = {
   id: {
@@ -14,7 +13,7 @@ export const props = {
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => getComponentConfig(NAME_FORM_TEXT, 'textVariant')
   },
   inline: {
     type: Boolean,
@@ -24,7 +23,7 @@ export const props = {
 
 // @vue/component
 export const BFormText = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_TEXT,
   functional: true,
   props,
   render(h, { props, data, children }) {

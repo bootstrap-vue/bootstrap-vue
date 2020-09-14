@@ -1,13 +1,12 @@
+import { NAME_PROGRESS } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BProgressBar } from './progress-bar'
 
-const NAME = 'BProgress'
-
 // @vue/component
 export const BProgress = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_PROGRESS,
   mixins: [normalizeSlotMixin],
   provide() {
     return { bvProgress: this }
@@ -16,7 +15,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
     // These props can be inherited via the child b-progress-bar(s)
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_PROGRESS, 'variant')
     },
     striped: {
       type: Boolean,
@@ -58,7 +57,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let childNodes = this.normalizeSlot('default')
+    let childNodes = this.normalizeSlot()
     if (!childNodes) {
       childNodes = h(BProgressBar, {
         props: {

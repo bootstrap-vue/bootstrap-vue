@@ -1,3 +1,4 @@
+import { NAME_TABLE } from '../../../constants/components'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import range from '../../../utils/range'
@@ -20,7 +21,7 @@ export default {
     },
     selectedVariant: {
       type: String,
-      default: () => getComponentConfig('BTable', 'selectedVariant')
+      default: () => getComponentConfig(NAME_TABLE, 'selectedVariant')
     },
     noSelectOnClick: {
       // Disable use of click handlers for row selection

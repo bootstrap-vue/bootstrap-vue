@@ -1,4 +1,5 @@
-import { ENTER, SPACE } from '../../constants/key-codes'
+import { NAME_BUTTON } from '../../constants/components'
+import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import Vue, { mergeData } from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -9,10 +10,6 @@ import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { isLink as isLinkStrict } from '../../utils/router'
 import { BLink, props as BLinkProps } from '../link/link'
-
-// --- Constants ---
-
-const NAME = 'BButton'
 
 // --- Props ---
 
@@ -31,11 +28,11 @@ const btnProps = {
   },
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_BUTTON, 'size')
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_BUTTON, 'variant')
   },
   type: {
     type: String,
@@ -90,7 +87,7 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
 const computeClass = props => [
-  `btn-${props.variant || getComponentConfig(NAME, 'variant')}`,
+  `btn-${props.variant || getComponentConfig(NAME_BUTTON, 'variant')}`,
   {
     [`btn-${props.size}`]: props.size,
     'btn-block': props.block,
@@ -143,7 +140,7 @@ const computeAttrs = (props, data) => {
 // --- Main component ---
 // @vue/component
 export const BButton = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BUTTON,
   functional: true,
   props,
   render(h, { props, data, listeners, children }) {
@@ -154,14 +151,14 @@ export const BButton = /*#__PURE__*/ Vue.extend({
     const on = {
       keydown(evt) {
         // When the link is a `href="#"` or a non-standard tag (has `role="button"`),
-        // we add a keydown handlers for SPACE/ENTER
+        // we add a keydown handlers for CODE_SPACE/CODE_ENTER
         /* istanbul ignore next */
         if (props.disabled || !(nonStandardTag || hashLink)) {
           return
         }
         const { keyCode } = evt
-        // Add SPACE handler for `href="#"` and ENTER handler for non-standard tags
-        if (keyCode === SPACE || (keyCode === ENTER && nonStandardTag)) {
+        // Add CODE_SPACE handler for `href="#"` and CODE_ENTER handler for non-standard tags
+        if (keyCode === CODE_SPACE || (keyCode === CODE_ENTER && nonStandardTag)) {
           const target = evt.currentTarget || evt.target
           stopEvent(evt, { propagation: false })
           target.click()

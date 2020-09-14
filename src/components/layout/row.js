@@ -1,3 +1,4 @@
+import { NAME_ROW } from '../../constants/components'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -78,7 +79,7 @@ const generateProps = () => {
 // immediately, which we do not want to happen
 // @vue/component
 export const BRow = {
-  name: 'BRow',
+  name: NAME_ROW,
   functional: true,
   get props() {
     // Allow props to be lazy evaled on first access and

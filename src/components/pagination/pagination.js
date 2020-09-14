@@ -1,3 +1,4 @@
+import { NAME_PAGINATION } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
@@ -9,15 +10,13 @@ import paginationMixin from '../../mixins/pagination'
 
 // --- Constants ---
 
-const NAME = 'BPagination'
-
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
 
 const props = {
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_PAGINATION, 'size')
   },
   perPage: {
     type: [Number, String],
@@ -44,7 +43,7 @@ const sanitizeTotalRows = val => mathMax(toInteger(val) || DEFAULT_TOTAL_ROWS, 0
 // The render function is brought in via the `paginationMixin`
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_PAGINATION,
   mixins: [paginationMixin],
   props,
   computed: {

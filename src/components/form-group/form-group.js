@@ -1,3 +1,5 @@
+import { NAME_FORM_GROUP } from '../../constants/components'
+import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slot-names'
 import cssEscape from '../../utils/css-escape'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
@@ -26,8 +28,6 @@ import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
 import { BFormValidFeedback } from '../form/form-valid-feedback'
 
 // --- Constants ---
-// Component name
-const NAME = 'BFormGroup'
 
 // Selector for finding first input in the form-group
 const SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
@@ -81,7 +81,7 @@ const renderValidFeedback = (h, ctx) => {
 
 const renderHelpText = (h, ctx) => {
   // Form help text (description)
-  const content = ctx.normalizeSlot('description') || ctx.description
+  const content = ctx.normalizeSlot(SLOT_NAME_DESCRIPTION) || ctx.description
   let description = h()
   if (content) {
     description = h(
@@ -100,7 +100,7 @@ const renderHelpText = (h, ctx) => {
 
 const renderLabel = (h, ctx) => {
   // Render label/legend inside b-col if necessary
-  const content = ctx.normalizeSlot('label') || ctx.label
+  const content = ctx.normalizeSlot(SLOT_NAME_LABEL) || ctx.label
   const labelFor = ctx.labelFor
   const isLegend = !labelFor
   const isHorizontal = ctx.isHorizontal
@@ -166,10 +166,10 @@ const makePropName = memoize((breakpoint = '', prefix) => {
 
 // BFormGroup prop generator for lazy generation of props
 const generateProps = () => {
-  const BREAKPOINTS = getBreakpointsUpCached()
+  const CODE_BREAKPOINTS = getBreakpointsUpCached()
 
   // Generate the labelCol breakpoint props
-  const bpLabelColProps = BREAKPOINTS.reduce((props, breakpoint) => {
+  const bpLabelColProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
     // i.e. label-cols, label-cols-sm, label-cols-md, ...
     props[makePropName(breakpoint, 'labelCols')] = {
       type: [Number, String, Boolean],
@@ -179,7 +179,7 @@ const generateProps = () => {
   }, create(null))
 
   // Generate the labelAlign breakpoint props
-  const bpLabelAlignProps = BREAKPOINTS.reduce((props, breakpoint) => {
+  const bpLabelAlignProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
     // label-align, label-align-sm, label-align-md, ...
     props[makePropName(breakpoint, 'labelAlign')] = {
       type: String // left, right, center
@@ -249,7 +249,7 @@ const generateProps = () => {
 // immediately, which we do not want to happen
 // @vue/component
 export const BFormGroup = {
-  name: NAME,
+  name: NAME_FORM_GROUP,
   mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {
     // Allow props to be lazy evaled on first access and
@@ -303,10 +303,12 @@ export const BFormGroup = {
       return keys(this.labelColProps).length > 0
     },
     labelId() {
-      return this.hasNormalizedSlot('label') || this.label ? this.safeId('_BV_label_') : null
+      return this.hasNormalizedSlot(SLOT_NAME_LABEL) || this.label
+        ? this.safeId('_BV_label_')
+        : null
     },
     descriptionId() {
-      return this.hasNormalizedSlot('description') || this.description
+      return this.hasNormalizedSlot(SLOT_NAME_DESCRIPTION) || this.description
         ? this.safeId('_BV_description_')
         : null
     },
@@ -424,7 +426,7 @@ export const BFormGroup = {
         }
       },
       [
-        this.normalizeSlot('default') || h(),
+        this.normalizeSlot() || h(),
         renderInvalidFeedback(h, this),
         renderValidFeedback(h, this),
         renderHelpText(h, this)

@@ -1,3 +1,4 @@
+import { NAME_FORM_INVALID_FEEDBACK } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
@@ -34,7 +35,7 @@ export const props = {
 
 // @vue/component
 export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
-  name: 'BFormInvalidFeedback',
+  name: NAME_FORM_INVALID_FEEDBACK,
   functional: true,
   props,
   render(h, { props, data, children }) {

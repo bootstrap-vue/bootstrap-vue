@@ -1,3 +1,4 @@
+import { NAME_FORM_SPINBUTTON, NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
@@ -8,14 +9,12 @@ import { BButton } from '../button/button'
 import { BTime } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
 
-const NAME = 'BFormTimepicker'
-
 // Fallback to BTime/BFormSpinbutton prop if no value found
 const getConfigFallback = prop => {
   return (
-    getComponentConfig(NAME, prop) ||
-    getComponentConfig('BTime', prop) ||
-    getComponentConfig('BFormSpinbutton', prop)
+    getComponentConfig(NAME_FORM_TIMEPICKER, prop) ||
+    getComponentConfig(NAME_TIME, prop) ||
+    getComponentConfig(NAME_FORM_SPINBUTTON, prop)
   )
 }
 
@@ -106,7 +105,7 @@ const propsMixin = {
     },
     labelNowButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNowButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelNowButton')
     },
     nowButtonVariant: {
       type: String,
@@ -118,7 +117,7 @@ const propsMixin = {
     },
     labelResetButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelResetButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelResetButton')
     },
     resetButtonVariant: {
       type: String,
@@ -130,7 +129,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelCloseButton')
     },
     closeButtonVariant: {
       type: String,
@@ -192,7 +191,7 @@ const propsMixin = {
 
 // @vue/component
 export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_TIMEPICKER,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin],
   model: {

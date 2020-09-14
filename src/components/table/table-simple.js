@@ -1,19 +1,16 @@
+import { NAME_TABLE_SIMPLE } from '../../constants/components'
 import Vue from '../../utils/vue'
-
-// Mixins
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-// Main table renderer mixin
-import tableRendererMixin from './helpers/mixin-table-renderer'
-
-// Feature miins
+// Table mixins
 import stackedMixin from './helpers/mixin-stacked'
+import tableRendererMixin from './helpers/mixin-table-renderer'
 
 // b-table-simple component definition
 // @vue/component
 export const BTableSimple = /*#__PURE__*/ Vue.extend({
-  name: 'BTableSimple',
+  name: NAME_TABLE_SIMPLE,
   // Order of mixins is important!
   // They are merged from first to last, followed by this component.
   mixins: [

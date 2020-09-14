@@ -1,6 +1,9 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import { BACKSPACE, DELETE, ENTER } from '../../constants/key-codes'
+import { NAME_FORM_TAGS } from '../../constants/components'
+import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import { RX_SPACES } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
@@ -28,13 +31,8 @@ import { BFormTag } from './form-tag'
 
 // --- Constants ---
 
-const NAME = 'BFormTags'
-
 // Supported input types (for built in input)
 const TYPES = ['text', 'email', 'tel', 'url', 'number']
-
-// Pre-compiled regular expressions for performance reasons
-const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
 // --- Utility methods ---
 
@@ -62,7 +60,7 @@ const cleanTagsState = () => ({
 
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_TAGS,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     // Even though this is the default that Vue assumes, we need
@@ -77,7 +75,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       type: String,
-      default: () => getComponentConfig(NAME, 'placeholder')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'placeholder')
     },
     disabled: {
       type: Boolean,
@@ -120,15 +118,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     addButtonText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'addButtonText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonText')
     },
     addButtonVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'addButtonVariant')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonVariant')
     },
     tagVariant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'tagVariant')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagVariant')
     },
     tagClass: {
       type: [String, Array, Object]
@@ -140,11 +138,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     tagRemoveLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'tagRemoveLabel')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemoveLabel')
     },
     tagRemovedLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'tagRemovedLabel')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemovedLabel')
     },
     tagValidator: {
       type: Function
@@ -152,15 +150,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     duplicateTagText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'duplicateTagText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'duplicateTagText')
     },
     invalidTagText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'invalidTagText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'invalidTagText')
     },
     limitTagsText: {
       type: String,
-      default: () => getComponentConfig(NAME, 'limitTagsText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'limitTagsText')
     },
     limit: {
       type: Number
@@ -172,7 +170,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // default: null
     },
     removeOnDelete: {
-      // Enable deleting last tag in list when BACKSPACE is
+      // Enable deleting last tag in list when CODE_BACKSPACE is
       // pressed and input is empty
       type: Boolean,
       default: false
@@ -432,13 +430,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const keyCode = evt.keyCode
       const value = evt.target.value || ''
       /* istanbul ignore else: testing to be added later */
-      if (!this.noAddOnEnter && keyCode === ENTER) {
+      if (!this.noAddOnEnter && keyCode === CODE_ENTER) {
         // Attempt to add the tag when user presses enter
         stopEvent(evt, { propagation: false })
         this.addTag()
       } else if (
         this.removeOnDelete &&
-        (keyCode === BACKSPACE || keyCode === DELETE) &&
+        (keyCode === CODE_BACKSPACE || keyCode === CODE_DELETE) &&
         value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
@@ -794,7 +792,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
 
     // Generate the user interface
-    const $content = this.normalizeSlot('default', scope) || this.defaultRender(scope)
+    const $content = this.normalizeSlot(SLOT_NAME_DEFAULT, scope) || this.defaultRender(scope)
 
     // Generate the `aria-live` region for the current value(s)
     const $output = h(

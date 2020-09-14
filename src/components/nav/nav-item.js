@@ -1,3 +1,4 @@
+import { NAME_NAV_ITEM } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
@@ -9,7 +10,7 @@ export const props = omit(BLinkProps, ['event', 'routerTag'])
 // --- Main component ---
 // @vue/component
 export const BNavItem = /*#__PURE__*/ Vue.extend({
-  name: 'BNavItem',
+  name: NAME_NAV_ITEM,
   functional: true,
   props: {
     ...props,

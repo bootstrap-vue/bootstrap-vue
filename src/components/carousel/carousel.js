@@ -1,4 +1,6 @@
-import { ENTER, LEFT, RIGHT, SPACE } from '../../constants/key-codes'
+import { NAME_CAROUSEL } from '../../constants/components'
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
@@ -12,14 +14,12 @@ import {
   setAttr
 } from '../../utils/dom'
 import { isBrowser, hasTouchSupport, hasPointerEventSupport } from '../../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff, stopEvent } from '../../utils/events'
+import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { isUndefined } from '../../utils/inspect'
 import { mathAbs, mathFloor, mathMax, mathMin } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-
-const NAME = 'BCarousel'
 
 // Slide directional classes
 const DIRECTION = {
@@ -70,7 +70,7 @@ const getTransitionEndEvent = el => {
 
 // @vue/component
 export const BCarousel = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_CAROUSEL,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
@@ -82,19 +82,19 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   props: {
     labelPrev: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPrev')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev')
     },
     labelNext: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNext')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext')
     },
     labelGotoSlide: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelGotoSlide')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide')
     },
     labelIndicators: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelIndicators')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelIndicators')
     },
     interval: {
       type: Number,
@@ -433,7 +433,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     },
     handleClick(evt, fn) {
       const keyCode = evt.keyCode
-      if (evt.type === 'click' || keyCode === SPACE || keyCode === ENTER) {
+      if (evt.type === 'click' || keyCode === CODE_SPACE || keyCode === CODE_ENTER) {
         stopEvent(evt)
         fn()
       }
@@ -506,7 +506,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           role: 'list'
         }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot()]
     )
 
     // Prev and next controls
@@ -627,9 +627,9 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
           return
         }
         const keyCode = evt.keyCode
-        if (keyCode === LEFT || keyCode === RIGHT) {
+        if (keyCode === CODE_LEFT || keyCode === CODE_RIGHT) {
           stopEvent(evt)
-          this[keyCode === LEFT ? 'prev' : 'next']()
+          this[keyCode === CODE_LEFT ? 'prev' : 'next']()
         }
       }
     }

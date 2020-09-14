@@ -1,3 +1,4 @@
+import { NAME_CARD_HEADER } from '../../constants/components'
 import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
@@ -24,7 +25,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BCardHeader = /*#__PURE__*/ Vue.extend({
-  name: 'BCardHeader',
+  name: NAME_CARD_HEADER,
   functional: true,
   props,
   render(h, { props, data, children }) {

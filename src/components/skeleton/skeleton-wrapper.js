@@ -1,11 +1,11 @@
+import { NAME_SKELETON_WRAPPER } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue, { mergeData } from '../../utils/vue'
 import { normalizeSlot } from '../../utils/normalize-slot'
 
-const NAME = 'BSkeletonWrapper'
-
 // @vue/component
 export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SKELETON_WRAPPER,
   functional: true,
   props: {
     loading: {
@@ -34,6 +34,6 @@ export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    return normalizeSlot('default', slotScope, $scopedSlots, $slots) || h()
+    return normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots) || h()
   }
 })

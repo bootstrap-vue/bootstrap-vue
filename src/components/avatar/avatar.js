@@ -1,3 +1,5 @@
+import { NAME_AVATAR } from '../../constants/components'
+import { RX_NUMBER } from '../../constants/regex'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
@@ -12,12 +14,9 @@ import { BIconPersonFill } from '../../icons/icons'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
-const NAME = 'BAvatar'
 const CLASS_NAME = 'b-avatar'
 
 const SIZES = ['sm', null, 'lg']
-
-const RX_NUMBER = /^[0-9]*\.?[0-9]+$/
 
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
@@ -44,7 +43,7 @@ const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_AVATAR, 'variant')
   },
   size: {
     type: [Number, String],
@@ -72,7 +71,7 @@ const props = {
   },
   badgeVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'badgeVariant')
+    default: () => getComponentConfig(NAME_AVATAR, 'badgeVariant')
   },
   badgeTop: {
     type: Boolean,
@@ -104,7 +103,7 @@ export const computeSize = value => {
 // --- Main component ---
 // @vue/component
 export const BAvatar = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_AVATAR,
   mixins: [normalizeSlotMixin],
   inject: {
     bvAvatarGroup: { default: null }
@@ -193,9 +192,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     const ariaLabel = this.ariaLabel || null
 
     let $content = null
-    if (this.hasNormalizedSlot('default')) {
+    if (this.hasNormalizedSlot()) {
       // Default slot overrides props
-      $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot('default')])
+      $content = h('span', { staticClass: 'b-avatar-custom' }, [this.normalizeSlot()])
     } else if (src) {
       $content = h('img', {
         style: variant ? {} : { width: '100%', height: '100%' },
