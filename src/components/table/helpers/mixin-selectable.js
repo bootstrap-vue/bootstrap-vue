@@ -1,9 +1,9 @@
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import range from '../../../utils/range'
-import { isArray, arrayIncludes } from '../../../utils/array'
+import { arrayIncludes } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
-import { isNumber } from '../../../utils/inspect'
+import { isArray, isNumber } from '../../../utils/inspect'
 import { mathMax, mathMin } from '../../../utils/math'
 import sanitizeRow from './sanitize-row'
 

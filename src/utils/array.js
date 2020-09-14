@@ -1,7 +1,6 @@
 // --- Static ---
 
 export const from = (...args) => Array.from(...args)
-export const isArray = val => Array.isArray(val)
 
 // --- Instance ---
 
