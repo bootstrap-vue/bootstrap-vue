@@ -160,7 +160,7 @@
     "standard-version": "^9.0.0",
     "terser": "^5.3.1",
     "vue": "^2.6.12",
-    "vue-jest": "^3.0.6",
+    "vue-jest": "^3.0.7",
     "vue-router": "^3.4.3",
     "vue-server-renderer": "^2.6.12",
     "vue-template-compiler": "^2.6.12"
