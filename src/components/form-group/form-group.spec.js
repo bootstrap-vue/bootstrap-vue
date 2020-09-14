@@ -253,6 +253,43 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
+  it('horizontal layout without label content has expected structure', async () => {
+    const wrapper = mount(BFormGroup, {
+      propsData: {
+        labelCols: 1
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+
+    // Auto ID is created after mounted
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.element.tagName).toBe('FIELDSET')
+    expect(wrapper.element.tagName).not.toBe('DIV')
+    expect(wrapper.find('legend').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
+    expect(wrapper.classes()).toContain('form-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.find('legend').classes()).toContain('col-form-label')
+    expect(wrapper.find('legend').classes()).toContain('col-1')
+    expect(wrapper.find('legend').classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.find('legend').text()).toEqual('')
+    expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
+    expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
+    expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
+
+    wrapper.destroy()
+  })
+
   it('validation and help text works', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
