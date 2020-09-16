@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.17.1"></a>
+
+### [v2.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.0...v2.17.1)
+
+Released: 2020-09-16
+
+### Bug Fixes v2.17.1
+
+- **b-modal:** solve body padding not being removed
+  ([#5771](https://github.com/bootstrap-vue/bootstrap-vue/issues/5771))
+  ([78d51f1](https://github.com/bootstrap-vue/bootstrap-vue/commit/78d51f1e7146cbed756853003a93b991c9f0d8bc))
+- **b-table:** properly handle empty included/excluded filter fields (closes
+  [#5775](https://github.com/bootstrap-vue/bootstrap-vue/issues/5775))
+  ([#5780](https://github.com/bootstrap-vue/bootstrap-vue/issues/5780))
+  ([78ac383](https://github.com/bootstrap-vue/bootstrap-vue/commit/78ac383c0c727be4f970874e73bf05e3f23b1a3b))
+
 <a name="2.17.0"></a>
 
 ## [v2.17.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.16.0...v2.17.0)
