@@ -49,10 +49,10 @@ export default {
   },
   computed: {
     computedFilterIgnored() {
-      return this.filterIgnoredFields ? concat(this.filterIgnoredFields).filter(identity) : null
+      return concat(this.filterIgnoredFields || []).filter(identity)
     },
     computedFilterIncluded() {
-      return this.filterIncludedFields ? concat(this.filterIncludedFields).filter(identity) : null
+      return concat(this.filterIncludedFields || []).filter(identity)
     },
     computedFilterDebounce() {
       const ms = toInteger(this.filterDebounce, 0)
