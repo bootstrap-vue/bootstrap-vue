@@ -1,13 +1,12 @@
+import { NAME_ALERT } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
-import { isBoolean } from '../../utils/inspect'
+import { isBoolean, isNumeric } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import BVTransition from '../../utils/bv-transition'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
-
-const NAME = 'BAlert'
 
 // Convert `show` value to a number
 const parseCountDown = show => {
@@ -30,12 +29,9 @@ const parseShow = show => {
   return !!show
 }
 
-// Is a value number like (i.e. a number or a number as string)
-const isNumericLike = value => !isNaN(toInteger(value))
-
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_ALERT,
   mixins: [normalizeSlotMixin],
   model: {
     prop: 'show',
@@ -44,7 +40,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_ALERT, 'variant')
     },
     dismissible: {
       type: Boolean,
@@ -52,7 +48,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     },
     dismissLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'dismissLabel')
+      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel')
     },
     show: {
       type: [Boolean, Number, String],
@@ -78,7 +74,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     },
     countDown(newVal) {
       this.clearCountDownInterval()
-      if (isNumericLike(this.show)) {
+      if (isNumeric(this.show)) {
         // Ignore if this.show transitions to a boolean value.
         this.$emit('dismiss-count-down', newVal)
         if (this.show !== newVal) {
@@ -101,11 +97,11 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       }
     },
     localShow(newVal) {
-      if (!newVal && (this.dismissible || isNumericLike(this.show))) {
+      if (!newVal && (this.dismissible || isNumeric(this.show))) {
         // Only emit dismissed events for dismissible or auto dismissing alerts
         this.$emit('dismissed')
       }
-      if (!isNumericLike(this.show) && this.show !== newVal) {
+      if (!isNumeric(this.show) && this.show !== newVal) {
         // Only emit booleans if we weren't passed a number via `this.show`
         this.$emit('input', newVal)
       }
@@ -158,7 +154,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
         },
-        [$dismissBtn, this.normalizeSlot('default')]
+        [$dismissBtn, this.normalizeSlot()]
       )
       $alert = [$alert]
     }

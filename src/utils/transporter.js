@@ -1,3 +1,4 @@
+import { NAME_TRANSPORTER_SINGLE, NAME_TRANSPORTER_TARGET_SINGLE } from '../constants/components'
 import Vue from './vue'
 import identity from './identity'
 import { concat } from './array'
@@ -26,7 +27,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
   abstract: true,
-  name: 'BTransporterTargetSingle',
+  name: NAME_TRANSPORTER_TARGET_SINGLE,
   props: {
     nodes: {
       // Even though we only support a single root element,
@@ -59,7 +60,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
 // This component has no root element, so only a single VNode is allowed
 // @vue/component
 export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
-  name: 'BTransporterSingle',
+  name: NAME_TRANSPORTER_SINGLE,
   mixins: [normalizeSlotMixin],
   props: {
     disabled: {
@@ -131,7 +132,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
             parent: this,
             propsData: {
               // Initial nodes to be rendered
-              nodes: concat(this.normalizeSlot('default'))
+              nodes: concat(this.normalizeSlot())
             }
           })
         }
@@ -165,7 +166,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     if (this.disabled) {
-      const nodes = concat(this.normalizeSlot('default')).filter(identity)
+      const nodes = concat(this.normalizeSlot()).filter(identity)
       if (nodes.length > 0 && !nodes[0].text) {
         return nodes[0]
       }

@@ -1,9 +1,9 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_DROPDOWN_TEXT } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 // @vue/component
 export const BDropdownText = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownText',
+  name: NAME_DROPDOWN_TEXT,
   functional: true,
   props: {
     tag: {

@@ -1,7 +1,10 @@
+import { NAME_FORM_SELECT } from '../../constants/components'
+import { SLOT_NAME_FIRST } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
-import { from as arrayFrom, isArray } from '../../utils/array'
+import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
+import { isArray } from '../../utils/inspect'
 import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
@@ -14,7 +17,7 @@ import { BFormSelectOptionGroup } from './form-select-option-group'
 
 // @vue/component
 export const BFormSelect = /*#__PURE__*/ Vue.extend({
-  name: 'BFormSelect',
+  name: NAME_FORM_SELECT,
   mixins: [
     idMixin,
     normalizeSlotMixin,
@@ -135,7 +138,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
         directives: [{ name: 'model', value }],
         ref: 'input'
       },
-      [this.normalizeSlot('first'), $options, this.normalizeSlot('default')]
+      [this.normalizeSlot(SLOT_NAME_FIRST), $options, this.normalizeSlot()]
     )
   }
 })

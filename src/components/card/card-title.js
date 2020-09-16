@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_CARD_TITLE } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { toString } from '../../utils/string'
 
 export const props = {
@@ -15,7 +15,7 @@ export const props = {
 
 // @vue/component
 export const BCardTitle = /*#__PURE__*/ Vue.extend({
-  name: 'BCardTitle',
+  name: NAME_CARD_TITLE,
   functional: true,
   props,
   render(h, { props, data, children }) {

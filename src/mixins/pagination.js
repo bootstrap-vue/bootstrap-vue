@@ -1,4 +1,5 @@
-import KeyCodes from '../utils/key-codes'
+import { NAME_PAGINATION } from '../constants/components'
+import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_SPACE, CODE_UP } from '../constants/key-codes'
 import range from '../utils/range'
 import {
   attemptFocus,
@@ -49,7 +50,7 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 // Links don't normally respond to SPACE, so we add that
 // functionality via this handler
 const onSpaceKey = evt => {
-  if (evt.keyCode === KeyCodes.SPACE) {
+  if (evt.keyCode === CODE_SPACE) {
     // Stop page from scrolling
     stopEvent(evt, { immediatePropagation: true })
     // Trigger the click event on the link
@@ -69,7 +70,7 @@ export const props = {
     default: null,
     validator(value) /* istanbul ignore next */ {
       if (!isNull(value) && toInteger(value, 0) < 1) {
-        warn('"v-model" value must be a number greater than "0"', 'BPagination')
+        warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
         return false
       }
       return true
@@ -80,7 +81,7 @@ export const props = {
     default: DEFAULT_LIMIT,
     validator(value) /* istanbul ignore next */ {
       if (toInteger(value, 0) < 1) {
-        warn('Prop "limit" must be a number greater than "0"', 'BPagination')
+        warn('Prop "limit" must be a number greater than "0"', NAME_PAGINATION)
         return false
       }
       return true
@@ -365,10 +366,10 @@ export default {
         // We disable left/right keyboard navigation in `<b-pagination-nav>`
         return
       }
-      if (keyCode === KeyCodes.LEFT || keyCode === KeyCodes.UP) {
+      if (keyCode === CODE_LEFT || keyCode === CODE_UP) {
         stopEvent(evt, { propagation: false })
         shiftKey ? this.focusFirst() : this.focusPrev()
-      } else if (keyCode === KeyCodes.RIGHT || keyCode === KeyCodes.DOWN) {
+      } else if (keyCode === CODE_RIGHT || keyCode === CODE_DOWN) {
         stopEvent(evt, { propagation: false })
         shiftKey ? this.focusLast() : this.focusNext()
       }

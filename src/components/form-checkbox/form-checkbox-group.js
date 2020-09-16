@@ -1,3 +1,4 @@
+import { NAME_FORM_CHECKBOX_GROUP } from '../../constants/components'
 import Vue from '../../utils/vue'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
@@ -20,7 +21,7 @@ export const props = {
 
 // @vue/component
 export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BFormCheckboxGroup',
+  name: NAME_FORM_CHECKBOX_GROUP,
   mixins: [
     idMixin,
     formMixin,

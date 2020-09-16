@@ -1,5 +1,3 @@
-import { isArray } from './array'
-import { isObject, isPlainObject } from './object'
 import { File } from './safe-types'
 
 // --- Convenience inspection utilities ---
@@ -28,7 +26,22 @@ export const isString = val => toType(val) === 'string'
 
 export const isNumber = val => toType(val) === 'number'
 
+// Is a value number like (i.e. a number or a number as string)
+export const isNumeric = value => !isNaN(parseInt(value, 10))
+
 export const isPrimitive = val => isBoolean(val) || isString(val) || isNumber(val)
+
+export const isArray = val => Array.isArray(val)
+
+// Quick object check
+// This is primarily used to tell Objects from primitive values
+// when we know the value is a JSON-compliant type
+// Note object could be a complex type like array, Date, etc.
+export const isObject = obj => obj !== null && typeof obj === 'object'
+
+// Strict object type check
+// Only returns true for plain JavaScript objects
+export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 
 export const isDate = val => val instanceof Date
 
@@ -40,6 +53,3 @@ export const isRegExp = val => toRawType(val) === 'RegExp'
 
 export const isPromise = val =>
   !isUndefinedOrNull(val) && isFunction(val.then) && isFunction(val.catch)
-
-// Extra convenience named re-exports
-export { isArray, isObject, isPlainObject }

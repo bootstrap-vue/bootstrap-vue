@@ -1,3 +1,9 @@
+import { NAME_NAV_ITEM_DROPDOWN } from '../../constants/components'
+import {
+  SLOT_NAME_BUTTON_CONTENT,
+  SLOT_NAME_DEFAULT,
+  SLOT_NAME_TEXT
+} from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps } from '../../utils/props'
@@ -16,7 +22,7 @@ export const props = pluckProps(
 // --- Main component ---
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
-  name: 'BNavItemDropdown',
+  name: NAME_NAV_ITEM_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
@@ -70,7 +76,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       },
       [
         // TODO: The `text` slot is deprecated in favor of the `button-content` slot
-        this.normalizeSlot(['button-content', 'text']) ||
+        this.normalizeSlot([SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_TEXT]) ||
           h('span', { domProps: htmlOrText(this.html, this.text) })
       ]
     )
@@ -89,7 +95,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         },
         ref: 'menu'
       },
-      !this.lazy || visible ? this.normalizeSlot('default', { hide: this.hide }) : [h()]
+      !this.lazy || visible ? this.normalizeSlot(SLOT_NAME_DEFAULT, { hide: this.hide }) : [h()]
     )
 
     return h(

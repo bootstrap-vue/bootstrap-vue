@@ -1,17 +1,16 @@
+import { NAME_SKELETON_ICON } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { BIcon } from '../../icons'
 
-const NAME = 'BSkeletonIcon'
-
 // @vue/component
 export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SKELETON_ICON,
   functional: true,
   props: {
     animation: {
       type: String,
-      default: () => getComponentConfig(NAME, 'animation')
+      default: () => getComponentConfig(NAME_SKELETON_ICON, 'animation')
     },
     icon: {
       type: String

@@ -1,4 +1,5 @@
 // Localization utilities
+import { RX_STRIP_LOCALE_MODS } from '../constants/regex'
 import { arrayIncludes } from './array'
 import { toString } from './string'
 
@@ -20,15 +21,12 @@ const RTL_LANGS = [
   'yi'
 ].map(locale => locale.toLowerCase())
 
-// Precompile RegExpr
-const RX_STRIP_MODS = /-u-.+/
-
 // Returns true if the locale is RTL
 export const isLocaleRTL = locale => {
   // Determines if the locale is RTL (only single locale supported)
   const parts = toString(locale)
     .toLowerCase()
-    .replace(RX_STRIP_MODS, '')
+    .replace(RX_STRIP_LOCALE_MODS, '')
     .split('-')
   const locale1 = parts.slice(0, 2).join('-')
   const locale2 = parts[0]

@@ -1,5 +1,14 @@
 import Popper from 'popper.js'
-import KeyCodes from '../utils/key-codes'
+import { NAME_DROPDOWN } from '../constants/components'
+import { CODE_DOWN, CODE_ENTER, CODE_ESC, CODE_SPACE, CODE_UP } from '../constants/key-codes'
+import {
+  PLACEMENT_TOP_START,
+  PLACEMENT_TOP_END,
+  PLACEMENT_BOTTOM_START,
+  PLACEMENT_BOTTOM_END,
+  PLACEMENT_RIGHT_START,
+  PLACEMENT_LEFT_START
+} from '../constants/popper'
 import { BvEvent } from '../utils/bv-event.class'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { stopEvent } from '../utils/events'
@@ -11,41 +20,25 @@ import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
 import idMixin from './id'
 
+// --- Constants ---
+
+// Root dropdown event names
+const ROOT_EVENT_PREFIX = 'bv::dropdown::'
+const ROOT_EVENT_SHOWN = `${ROOT_EVENT_PREFIX}shown`
+const ROOT_EVENT_HIDDEN = `${ROOT_EVENT_PREFIX}hidden`
+
+// CSS selectors
+const SELECTOR_FORM_CHILD = '.dropdown form'
+const SELECTOR_ITEM = ['.dropdown-item', '.b-dropdown-form']
+  .map(selector => `${selector}:not(.disabled):not([disabled])`)
+  .join(', ')
+
+// --- Utility methods ---
+
 // Return an array of visible items
 const filterVisibles = els => (els || []).filter(isVisible)
 
-// Root dropdown event names
-const ROOT_DROPDOWN_PREFIX = 'bv::dropdown::'
-const ROOT_DROPDOWN_SHOWN = `${ROOT_DROPDOWN_PREFIX}shown`
-const ROOT_DROPDOWN_HIDDEN = `${ROOT_DROPDOWN_PREFIX}hidden`
-
-// Dropdown item CSS selectors
-const Selector = {
-  FORM_CHILD: '.dropdown form',
-  ITEM_SELECTOR: ['.dropdown-item', '.b-dropdown-form']
-    .map(selector => `${selector}:not(.disabled):not([disabled])`)
-    .join(', ')
-}
-
-// Popper attachment positions
-const AttachmentMap = {
-  // Dropup left align
-  TOP: 'top-start',
-  // Dropup right align
-  TOPEND: 'top-end',
-  // Dropdown left align
-  BOTTOM: 'bottom-start',
-  // Dropdown right align
-  BOTTOMEND: 'bottom-end',
-  // Dropright left align
-  RIGHT: 'right-start',
-  // Dropright right align
-  RIGHTEND: 'right-end',
-  // Dropleft left align
-  LEFT: 'left-start',
-  // Dropleft right align
-  LEFTEND: 'left-end'
-}
+// --- Props ---
 
 export const commonProps = {
   dropup: {
@@ -100,11 +93,11 @@ export default {
     bvNavbar: { default: null }
   },
   props: {
+    ...commonProps,
     disabled: {
       type: Boolean,
       default: false
-    },
-    ...commonProps
+    }
   },
   data() {
     return {
@@ -198,7 +191,7 @@ export default {
     emitEvent(bvEvt) {
       const { type } = bvEvt
       this.$emit(type, bvEvt)
-      this.$root.$emit(`${ROOT_DROPDOWN_PREFIX}${type}`, bvEvt)
+      this.$root.$emit(`${ROOT_EVENT_PREFIX}${type}`, bvEvt)
     },
     showMenu() {
       if (this.disabled) {
@@ -210,7 +203,7 @@ export default {
       if (!this.inNavbar) {
         if (typeof Popper === 'undefined') {
           /* istanbul ignore next */
-          warn('Popper.js not found. Falling back to CSS positioning', 'BDropdown')
+          warn('Popper.js not found. Falling back to CSS positioning', NAME_DROPDOWN)
         } else {
           // For dropup with alignment we use the parent element as popper container
           let el = (this.dropup && this.right) || this.split ? this.$el : this.$refs.toggle
@@ -222,7 +215,7 @@ export default {
       }
 
       // Ensure other menus are closed
-      this.$root.$emit(ROOT_DROPDOWN_SHOWN, this)
+      this.$root.$emit(ROOT_EVENT_SHOWN, this)
 
       // Enable listeners
       this.whileOpenListen(true)
@@ -237,7 +230,7 @@ export default {
     },
     hideMenu() {
       this.whileOpenListen(false)
-      this.$root.$emit(ROOT_DROPDOWN_HIDDEN, this)
+      this.$root.$emit(ROOT_EVENT_HIDDEN, this)
       this.$emit('hidden')
       this.destroyPopper()
     },
@@ -258,15 +251,15 @@ export default {
       } catch {}
     },
     getPopperConfig() {
-      let placement = AttachmentMap.BOTTOM
+      let placement = PLACEMENT_BOTTOM_START
       if (this.dropup) {
-        placement = this.right ? AttachmentMap.TOPEND : AttachmentMap.TOP
+        placement = this.right ? PLACEMENT_TOP_END : PLACEMENT_TOP_START
       } else if (this.dropright) {
-        placement = AttachmentMap.RIGHT
+        placement = PLACEMENT_RIGHT_START
       } else if (this.dropleft) {
-        placement = AttachmentMap.LEFT
+        placement = PLACEMENT_LEFT_START
       } else if (this.right) {
-        placement = AttachmentMap.BOTTOMEND
+        placement = PLACEMENT_BOTTOM_END
       }
       const popperConfig = {
         placement,
@@ -289,7 +282,7 @@ export default {
       this.listenForFocusIn = isOpen
       // Hide the dropdown when another dropdown is opened
       const method = isOpen ? '$on' : '$off'
-      this.$root[method](ROOT_DROPDOWN_SHOWN, this.rootCloseListener)
+      this.$root[method](ROOT_EVENT_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {
@@ -326,10 +319,7 @@ export default {
       const { type, keyCode } = evt
       if (
         type !== 'click' &&
-        !(
-          type === 'keydown' &&
-          [KeyCodes.ENTER, KeyCodes.SPACE, KeyCodes.DOWN].indexOf(keyCode) !== -1
-        )
+        !(type === 'keydown' && [CODE_ENTER, CODE_SPACE, CODE_DOWN].indexOf(keyCode) !== -1)
       ) {
         /* istanbul ignore next */
         return
@@ -364,13 +354,13 @@ export default {
     // Called from dropdown menu context
     onKeydown(evt) {
       const { keyCode } = evt
-      if (keyCode === KeyCodes.ESC) {
+      if (keyCode === CODE_ESC) {
         // Close on ESC
         this.onEsc(evt)
-      } else if (keyCode === KeyCodes.DOWN) {
+      } else if (keyCode === CODE_DOWN) {
         // Down Arrow
         this.focusNext(evt, false)
-      } else if (keyCode === KeyCodes.UP) {
+      } else if (keyCode === CODE_UP) {
         // Up Arrow
         this.focusNext(evt, true)
       }
@@ -412,7 +402,7 @@ export default {
     focusNext(evt, up) {
       // Ignore key up/down on form elements
       const { target } = evt
-      if (!this.visible || (evt && closest(Selector.FORM_CHILD, target))) {
+      if (!this.visible || (evt && closest(SELECTOR_FORM_CHILD, target))) {
         /* istanbul ignore next: should never happen */
         return
       }
@@ -442,7 +432,7 @@ export default {
     },
     getItems() {
       // Get all items
-      return filterVisibles(selectAll(Selector.ITEM_SELECTOR, this.$refs.menu))
+      return filterVisibles(selectAll(SELECTOR_ITEM, this.$refs.menu))
     },
     focusMenu() {
       attemptFocus(this.$refs.menu)

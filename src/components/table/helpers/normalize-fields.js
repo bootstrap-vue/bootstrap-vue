@@ -1,7 +1,7 @@
 import identity from '../../../utils/identity'
-import startCase from '../../../utils/startcase'
 import { isArray, isFunction, isObject, isString } from '../../../utils/inspect'
 import { clone, keys } from '../../../utils/object'
+import { startCase } from '../../../utils/string'
 import { IGNORED_FIELD_KEYS } from './constants'
 
 // Private function to massage field entry into common object format

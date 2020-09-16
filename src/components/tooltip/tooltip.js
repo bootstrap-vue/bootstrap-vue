@@ -1,16 +1,15 @@
+import { NAME_TOOLTIP } from '../../constants/components'
 import Vue from '../../utils/vue'
 import getScopId from '../../utils/get-scope-id'
-import { isArray, arrayIncludes } from '../../utils/array'
+import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isString, isUndefinedOrNull } from '../../utils/inspect'
+import { isArray, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement, SVGElement } from '../../utils/safe-types'
 import { BVTooltip } from './helpers/bv-tooltip'
 
-const NAME = 'BTooltip'
-
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_TOOLTIP,
   props: {
     title: {
       type: String
@@ -47,26 +46,26 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'variant')
     },
     customClass: {
       type: String,
-      default: () => getComponentConfig(NAME, 'customClass')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'customClass')
     },
     delay: {
       type: [Number, Object, String],
-      default: () => getComponentConfig(NAME, 'delay')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'delay')
     },
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
       // Object: Vue component
       type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME, 'boundary')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'boundary')
     },
     boundaryPadding: {
       type: [Number, String],
-      default: () => getComponentConfig(NAME, 'boundaryPadding')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'boundaryPadding')
     },
     offset: {
       type: [Number, String],

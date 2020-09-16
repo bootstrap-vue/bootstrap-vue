@@ -1,5 +1,5 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import { NAME_CARD_BODY } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'
@@ -22,7 +22,7 @@ export const props = {
 
 // @vue/component
 export const BCardBody = /*#__PURE__*/ Vue.extend({
-  name: 'BCardBody',
+  name: NAME_CARD_BODY,
   functional: true,
   props,
   render(h, { props, data, children }) {

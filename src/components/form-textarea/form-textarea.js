@@ -1,3 +1,4 @@
+import { NAME_FORM_TEXTAREA } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
@@ -16,7 +17,7 @@ import { VBVisible } from '../../directives/visible/visible'
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
-  name: 'BFormTextarea',
+  name: NAME_FORM_TEXTAREA,
   directives: {
     'b-visible': VBVisible
   },

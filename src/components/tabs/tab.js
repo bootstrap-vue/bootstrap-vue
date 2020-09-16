@@ -1,3 +1,5 @@
+import { NAME_TAB } from '../../constants/components'
+import { SLOT_NAME_TITLE } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -5,7 +7,7 @@ import BVTransition from '../../utils/bv-transition'
 
 // @vue/component
 export const BTab = /*#__PURE__*/ Vue.extend({
-  name: 'BTab',
+  name: NAME_TAB,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvTabs: {
@@ -128,7 +130,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
     const { updateButton } = this.bvTabs
-    if (updateButton && this.hasNormalizedSlot('title')) {
+    if (updateButton && this.hasNormalizedSlot(SLOT_NAME_TITLE)) {
       updateButton(this)
     }
   },
@@ -189,7 +191,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
         }
       },
       // Render content lazily if requested
-      [localActive || !this.computedLazy ? this.normalizeSlot('default') : h()]
+      [localActive || !this.computedLazy ? this.normalizeSlot() : h()]
     )
     return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [$content])
   }

@@ -1,5 +1,5 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import { NAME_BREADCRUMB_LINK } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -26,7 +26,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
-  name: 'BBreadcrumbLink',
+  name: NAME_BREADCRUMB_LINK,
   functional: true,
   props,
   render(h, { props: suppliedProps, data, children }) {

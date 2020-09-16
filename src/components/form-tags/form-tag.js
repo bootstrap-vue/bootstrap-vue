@@ -1,20 +1,19 @@
+import { NAME_FORM_TAG } from '../../constants/components'
+import { CODE_DELETE } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BBadge } from '../badge/badge'
 import { BButtonClose } from '../button/button-close'
 
-const NAME = 'BFormTag'
-
 export const BFormTag = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_TAG,
   mixins: [idMixin, normalizeSlotMixin],
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME, 'variant')
+      default: () => getComponentConfig(NAME_FORM_TAG, 'variant')
     },
     disabled: {
       type: Boolean,
@@ -30,7 +29,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     },
     removeLabel: {
       type: String,
-      default: () => getComponentConfig(NAME, 'removeLabel')
+      default: () => getComponentConfig(NAME_FORM_TAG, 'removeLabel')
     },
     tag: {
       type: String,
@@ -40,10 +39,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
   methods: {
     onDelete(evt) {
       const { type, keyCode } = evt
-      if (
-        !this.disabled &&
-        (type === 'click' || (type === 'keydown' && keyCode === KeyCodes.DELETE))
-      ) {
+      if (!this.disabled && (type === 'click' || (type === 'keydown' && keyCode === CODE_DELETE))) {
         this.$emit('remove')
       }
     }
@@ -73,7 +69,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-tag-content flex-grow-1 text-truncate',
         attrs: { id: tagLabelId }
       },
-      this.normalizeSlot('default') || this.title || [h()]
+      this.normalizeSlot() || this.title || [h()]
     )
     return h(
       BBadge,

@@ -356,7 +356,7 @@ const STORAGE_KEYS = {
 // Maximum age of localStorage before we revert back to defaults
 const STORAGE_MAX_RETENTION = 7 * 24 * 60 * 60 * 1000 // 7 days
 
-// --- Helper functions ---
+// --- Helper methods ---
 
 // Remove a node from its parent's children
 const removeNode = node => node && node.parentNode && node.parentNode.removeChild(node)

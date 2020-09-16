@@ -1,13 +1,15 @@
 // String utilities
+import {
+  RX_HYPHENATE,
+  RX_LOWER_UPPER,
+  RX_REGEXP_REPLACE,
+  RX_START_SPACE_WORD,
+  RX_TRIM_LEFT,
+  RX_TRIM_RIGHT,
+  RX_UNDERSCORE,
+  RX_UN_KEBAB
+} from '../constants/regex'
 import { isArray, isPlainObject, isString, isUndefinedOrNull } from './inspect'
-
-// --- Constants ---
-
-const RX_TRIM_LEFT = /^\s+/
-const RX_TRIM_RIGHT = /\s+$/
-const RX_REGEXP_REPLACE = /[-/\\^$*+?.()|[\]{}]/g
-const RX_UN_KEBAB = /-(\w)/g
-const RX_HYPHENATE = /\B([A-Z])/g
 
 // --- Utilities ---
 
@@ -21,6 +23,15 @@ export const pascalCase = str => {
   str = kebabCase(str).replace(RX_UN_KEBAB, (_, c) => (c ? c.toUpperCase() : ''))
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+// Converts a string, including strings in camelCase or snake_case, into Start Case
+// It keeps original single quote and hyphen in the word
+// https://github.com/UrbanCompass/to-start-case
+export const startCase = str =>
+  str
+    .replace(RX_UNDERSCORE, ' ')
+    .replace(RX_LOWER_UPPER, (str, $1, $2) => $1 + ' ' + $2)
+    .replace(RX_START_SPACE_WORD, (str, $1, $2) => $1 + $2.toUpperCase())
 
 // Lowercases the first letter of a string and returns a new string
 export const lowerFirst = str => {

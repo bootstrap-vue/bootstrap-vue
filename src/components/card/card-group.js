@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_CARD_GROUP } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   tag: {
@@ -18,7 +18,7 @@ export const props = {
 
 // @vue/component
 export const BCardGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BCardGroup',
+  name: NAME_CARD_GROUP,
   functional: true,
   props,
   render(h, { props, data, children }) {

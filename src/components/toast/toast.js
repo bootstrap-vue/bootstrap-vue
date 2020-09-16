@@ -1,10 +1,13 @@
 import { Portal, Wormhole } from 'portal-vue'
+import { NAME_TOAST } from '../../constants/components'
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import Vue from '../../utils/vue'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
+import { eventOnOff } from '../../utils/events'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { pick } from '../../utils/object'
@@ -20,8 +23,6 @@ import { BButtonClose } from '../button/button-close'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
-
-const NAME = 'BToast'
 
 const MIN_DURATION = 1000
 
@@ -42,7 +43,7 @@ export const props = {
   },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME, 'toaster')
+    default: () => getComponentConfig(NAME_TOAST, 'toaster')
   },
   visible: {
     type: Boolean,
@@ -50,7 +51,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_TOAST, 'variant')
   },
   isStatus: {
     // Switches role to 'status' and aria-live to 'polite'
@@ -67,7 +68,7 @@ export const props = {
   },
   autoHideDelay: {
     type: [Number, String],
-    default: () => getComponentConfig(NAME, 'autoHideDelay')
+    default: () => getComponentConfig(NAME_TOAST, 'autoHideDelay')
   },
   noCloseButton: {
     type: Boolean,
@@ -87,15 +88,15 @@ export const props = {
   },
   toastClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'toastClass')
+    default: () => getComponentConfig(NAME_TOAST, 'toastClass')
   },
   headerClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'headerClass')
+    default: () => getComponentConfig(NAME_TOAST, 'headerClass')
   },
   bodyClass: {
     type: [String, Object, Array],
-    default: () => getComponentConfig(NAME, 'bodyClass')
+    default: () => getComponentConfig(NAME_TOAST, 'bodyClass')
   },
   static: {
     // Render the toast in place, rather than in a portal-target
@@ -107,7 +108,7 @@ export const props = {
 
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_TOAST,
   mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
   model: {
@@ -392,7 +393,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           props: link ? pluckProps(linkProps, this) : {},
           on: link ? { click: this.onLinkClick } : {}
         },
-        [this.normalizeSlot('default', this.slotScope) || h()]
+        [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope) || h()]
       )
       // Build the toast
       const $toast = h(

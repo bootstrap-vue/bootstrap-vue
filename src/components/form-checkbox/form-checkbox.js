@@ -1,3 +1,4 @@
+import { NAME_FORM_CHECKBOX } from '../../constants/components'
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
@@ -10,7 +11,7 @@ import idMixin from '../../mixins/id'
 
 // @vue/component
 export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
-  name: 'BFormCheckbox',
+  name: NAME_FORM_CHECKBOX,
   mixins: [
     formRadioCheckMixin, // Includes shared render function
     idMixin,

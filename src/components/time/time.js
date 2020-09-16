@@ -1,8 +1,9 @@
 // BTime control (not form input control)
+import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
+import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
+import { RX_TIME } from '../../constants/regex'
 import Vue from '../../utils/vue'
-// Utilities
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -13,29 +14,20 @@ import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
-// Mixins
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-// Sub components used
 import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 
 // --- Constants ---
 
-const NAME = 'BTime'
-
 const NUMERIC = 'numeric'
-
-const { LEFT, RIGHT } = KeyCodes
-
-// Time string RegExpr (optional seconds)
-const RE_TIME = /^([0-1]?[0-9]|2[0-3]):[0-5]?[0-9](:[0-5]?[0-9])?$/
 
 // --- Helpers ---
 
 // Fallback to BFormSpinbutton prop if no value found
 const getConfigFallback = prop => {
-  return getComponentConfig(NAME, prop) || getComponentConfig('BFormSpinbutton', prop)
+  return getComponentConfig(NAME_TIME, prop) || getComponentConfig(NAME_FORM_SPINBUTTON, prop)
 }
 
 const padLeftZeros = num => {
@@ -45,7 +37,7 @@ const padLeftZeros = num => {
 const parseHMS = hms => {
   hms = toString(hms)
   let [hh, mm, ss] = [null, null, null]
-  if (RE_TIME.test(hms)) {
+  if (RX_TIME.test(hms)) {
     ;[hh, mm, ss] = hms.split(':').map(v => toInteger(v, null))
   }
   return {
@@ -66,7 +58,7 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
 
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_TIME,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
@@ -120,35 +112,35 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     labelNoTimeSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelNoTimeSelected')
+      default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected')
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelSelected')
+      default: () => getComponentConfig(NAME_TIME, 'labelSelected')
     },
     labelHours: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelHours')
+      default: () => getComponentConfig(NAME_TIME, 'labelHours')
     },
     labelMinutes: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelMinutes')
+      default: () => getComponentConfig(NAME_TIME, 'labelMinutes')
     },
     labelSeconds: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelSeconds')
+      default: () => getComponentConfig(NAME_TIME, 'labelSeconds')
     },
     labelAmpm: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelAmpm')
+      default: () => getComponentConfig(NAME_TIME, 'labelAmpm')
     },
     labelAm: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelAm')
+      default: () => getComponentConfig(NAME_TIME, 'labelAm')
     },
     labelPm: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelPm')
+      default: () => getComponentConfig(NAME_TIME, 'labelPm')
     },
     // Passed to the spin buttons
     labelIncrement: {
@@ -420,11 +412,15 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     onSpinLeftRight(evt = {}) {
       const { type, keyCode } = evt
-      if (!this.disabled && type === 'keydown' && (keyCode === LEFT || keyCode === RIGHT)) {
+      if (
+        !this.disabled &&
+        type === 'keydown' &&
+        (keyCode === CODE_LEFT || keyCode === CODE_RIGHT)
+      ) {
         stopEvent(evt)
         const spinners = this.$refs.spinners || []
         let index = spinners.map(cmp => !!cmp.hasFocus).indexOf(true)
-        index = index + (keyCode === LEFT ? -1 : 1)
+        index = index + (keyCode === CODE_LEFT ? -1 : 1)
         index = index >= spinners.length ? 0 : index < 0 ? spinners.length - 1 : index
         attemptFocus(spinners[index])
       }
@@ -621,7 +617,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     )
 
     // Optional bottom slot
-    let $slot = this.normalizeSlot('default')
+    let $slot = this.normalizeSlot()
     $slot = $slot ? h('footer', { staticClass: 'b-time-footer' }, $slot) : h()
 
     return h(

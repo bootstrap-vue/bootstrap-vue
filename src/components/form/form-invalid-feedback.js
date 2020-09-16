@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_FORM_INVALID_FEEDBACK } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   id: {
@@ -19,7 +19,7 @@ export const props = {
     default: false
   },
   state: {
-    // Tri-stste prop: `true`, `false`, or `null`
+    // Tri-state prop: `true`, `false`, or `null`
     type: Boolean,
     default: null
   },
@@ -35,7 +35,7 @@ export const props = {
 
 // @vue/component
 export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
-  name: 'BFormInvalidFeedback',
+  name: NAME_FORM_INVALID_FEEDBACK,
   functional: true,
   props,
   render(h, { props, data, children }) {

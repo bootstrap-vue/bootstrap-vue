@@ -35,6 +35,7 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').exists()).toBe(false)
     expect(wrapper.find('legend').exists()).toBe(false)
     expect(wrapper.find('div').exists()).toBe(true)
@@ -83,6 +84,7 @@ describe('form-group', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
 
     wrapper.destroy()
@@ -111,6 +113,7 @@ describe('form-group', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('legend').exists()).toBe(false)
     expect(wrapper.find('label').exists()).toBe(true)
     expect(wrapper.find('label').classes()).toContain('d-block')
@@ -159,6 +162,7 @@ describe('form-group', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').exists()).toBe(true)
     expect(wrapper.find('label').classes()).toContain('col-form-label')
     expect(wrapper.find('label').classes()).toContain('col-1')
@@ -239,6 +243,43 @@ describe('form-group', () => {
     expect(wrapper.find('legend').classes()).toContain('bv-no-focus-ring')
     expect(wrapper.find('legend').classes().length).toBe(7)
     expect(wrapper.find('legend').text()).toEqual('test')
+    expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
+    expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
+    expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
+    expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
+
+    wrapper.destroy()
+  })
+
+  it('horizontal layout without label content has expected structure', async () => {
+    const wrapper = mount(BFormGroup, {
+      propsData: {
+        labelCols: 1
+      },
+      slots: {
+        default: '<input id="input-id" type="text">'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+
+    // Auto ID is created after mounted
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.element.tagName).toBe('FIELDSET')
+    expect(wrapper.element.tagName).not.toBe('DIV')
+    expect(wrapper.find('legend').exists()).toBe(true)
+    expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
+    expect(wrapper.classes()).toContain('form-group')
+    expect(wrapper.classes().length).toBe(1)
+    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.find('legend').classes()).toContain('col-form-label')
+    expect(wrapper.find('legend').classes()).toContain('col-1')
+    expect(wrapper.find('legend').classes()).toContain('bv-no-focus-ring')
+    expect(wrapper.find('legend').text()).toEqual('')
     expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
     expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
     expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')

@@ -1,3 +1,5 @@
+import { NAME_DROPDOWN } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -7,10 +9,6 @@ import dropdownMixin from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
-
-// --- Constants ---
-
-const NAME = 'BDropdown'
 
 // --- Props ---
 
@@ -25,11 +23,11 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'variant')
   },
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'size')
   },
   block: {
     type: Boolean,
@@ -46,7 +44,7 @@ export const props = {
   toggleText: {
     // This really should be toggleLabel
     type: String,
-    default: () => getComponentConfig(NAME, 'toggleText')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'toggleText')
   },
   toggleClass: {
     type: [String, Array, Object]
@@ -70,7 +68,7 @@ export const props = {
   },
   splitVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'splitVariant')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'splitVariant')
   },
   splitClass: {
     type: [String, Array, Object]
@@ -95,7 +93,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BDropdown = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
   computed: {
@@ -223,7 +221,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         },
         ref: 'menu'
       },
-      [!this.lazy || visible ? this.normalizeSlot('default', { hide }) : h()]
+      [!this.lazy || visible ? this.normalizeSlot(SLOT_NAME_DEFAULT, { hide }) : h()]
     )
 
     return h(

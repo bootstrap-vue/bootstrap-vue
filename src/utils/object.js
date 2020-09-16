@@ -1,4 +1,4 @@
-import { isArray } from './array'
+import { isArray, isObject, isPlainObject } from './inspect'
 
 // --- Static ---
 
@@ -22,20 +22,6 @@ export const hasOwnProperty = (obj, prop) => Object.prototype.hasOwnProperty.cal
 export const toString = obj => Object.prototype.toString.call(obj)
 
 // --- Utilities ---
-
-/**
- * Quick object check - this is primarily used to tell
- * Objects from primitive values when we know the value
- * is a JSON-compliant type.
- * Note object could be a complex type like array, date, etc.
- */
-export const isObject = obj => obj !== null && typeof obj === 'object'
-
-/**
- * Strict object type check. Only returns true
- * for plain JavaScript objects.
- */
-export const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]'
 
 /**
  * Shallow copy an object. If the passed in object
@@ -87,11 +73,11 @@ export const mergeDeep = (target, source) => {
 export const readonlyDescriptor = () => ({ enumerable: true, configurable: false, writable: false })
 
 /**
- * Deep-freezes and object, making it immutable / read-only.
- * Returns the same object passed-in, but frozen.
- * Freezes inner object/array/values first.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
- * Note: this method will not work for property values using Symbol() as a key
+ * Deep-freezes and object, making it immutable / read-only
+ * Returns the same object passed-in, but frozen
+ * Freezes inner object/array/values first
+ * Note: This method will not work for property values using `Symbol()` as a key
+ * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
  */
 export const deepFreeze = obj => {
   // Retrieve the property names defined on object/array

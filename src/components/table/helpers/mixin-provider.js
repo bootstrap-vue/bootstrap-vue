@@ -1,3 +1,4 @@
+import { NAME_TABLE } from '../../../constants/components'
 import looseEqual from '../../../utils/loose-equal'
 import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import { clone } from '../../../utils/object'
@@ -164,7 +165,7 @@ export default {
               /* istanbul ignore next */
               warn(
                 "Provider function didn't request callback and did not return a promise or data.",
-                'BTable'
+                NAME_TABLE
               )
               this.localBusy = false
             }
@@ -172,7 +173,7 @@ export default {
         } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
           // and clear the busy state
-          warn(`Provider function error [${e.name}] ${e.message}.`, 'BTable')
+          warn(`Provider function error [${e.name}] ${e.message}.`, NAME_TABLE)
           this.localBusy = false
           this.$off('refreshed', this.refresh)
         }

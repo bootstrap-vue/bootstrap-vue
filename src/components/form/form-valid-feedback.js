@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   id: {
@@ -35,7 +35,7 @@ export const props = {
 
 // @vue/component
 export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
-  name: 'BFormValidFeedback',
+  name: NAME_FORM_VALID_FEEDBACK,
   functional: true,
   props,
   render(h, { props, data, children }) {

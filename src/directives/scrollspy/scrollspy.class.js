@@ -2,6 +2,8 @@
  * ScrollSpy class definition
  */
 
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { RX_HREF } from '../../constants/regex'
 import observeDom from '../../utils/observe-dom'
 import {
   addClass,
@@ -18,7 +20,7 @@ import {
   select,
   selectAll
 } from '../../utils/dom'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
+import { eventOn, eventOff } from '../../utils/events'
 import { isString, isUndefined } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -31,6 +33,20 @@ import { warn } from '../../utils/warn'
 
 const NAME = 'v-b-scrollspy'
 const ACTIVATE_EVENT = 'bv::scrollspy::activate'
+
+const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item'
+const CLASS_NAME_ACTIVE = 'active'
+
+const SELECTOR_NAV_LIST_GROUP = '.nav, .list-group'
+const SELECTOR_NAV_LINKS = '.nav-link'
+const SELECTOR_NAV_ITEMS = '.nav-item'
+const SELECTOR_LIST_ITEMS = '.list-group-item'
+const SELECTOR_DROPDOWN = '.dropdown, .dropup'
+const SELECTOR_DROPDOWN_ITEMS = '.dropdown-item'
+const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle'
+
+const METHOD_OFFSET = 'offset'
+const METHOD_POSITION = 'position'
 
 const Default = {
   element: 'body',
@@ -45,32 +61,6 @@ const DefaultType = {
   method: 'string',
   throttle: 'number'
 }
-
-const ClassName = {
-  DROPDOWN_ITEM: 'dropdown-item',
-  ACTIVE: 'active'
-}
-
-const Selector = {
-  ACTIVE: '.active',
-  NAV_LIST_GROUP: '.nav, .list-group',
-  NAV_LINKS: '.nav-link',
-  NAV_ITEMS: '.nav-item',
-  LIST_ITEMS: '.list-group-item',
-  DROPDOWN: '.dropdown, .dropup',
-  DROPDOWN_ITEMS: '.dropdown-item',
-  DROPDOWN_TOGGLE: '.dropdown-toggle'
-}
-
-const OffsetMethod = {
-  OFFSET: 'offset',
-  POSITION: 'position'
-}
-
-// HREFs must end with a hash followed by at least one non-hash character.
-// HREFs in the links are assumed to point to non-external links.
-// Comparison to the current page base URL is not performed!
-const HREF_REGEX = /^.*(#[^#]+)$/
 
 // Transition Events
 const TransitionEndEvents = [
@@ -128,7 +118,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     // The element we activate links in
     this.$el = element
     this.$scroller = null
-    this.$selector = [Selector.NAV_LINKS, Selector.LIST_ITEMS, Selector.DROPDOWN_ITEMS].join(',')
+    this.$selector = [SELECTOR_NAV_LINKS, SELECTOR_LIST_ITEMS, SELECTOR_DROPDOWN_ITEMS].join(',')
     this.$offsets = []
     this.$targets = []
     this.$activeTarget = null
@@ -290,10 +280,10 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     if (!scroller) {
       return
     }
-    const autoMethod = scroller !== scroller.window ? OffsetMethod.POSITION : OffsetMethod.OFFSET
+    const autoMethod = scroller !== scroller.window ? METHOD_POSITION : METHOD_OFFSET
     const method = this.$config.method === 'auto' ? autoMethod : this.$config.method
-    const methodFn = method === OffsetMethod.POSITION ? position : offset
-    const offsetBase = method === OffsetMethod.POSITION ? this.getScrollTop() : 0
+    const methodFn = method === METHOD_POSITION ? position : offset
+    const offsetBase = method === METHOD_POSITION ? this.getScrollTop() : 0
 
     this.$offsets = []
     this.$targets = []
@@ -305,11 +295,11 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       // Get HREF value
       .map(link => getAttr(link, 'href'))
       // Filter out HREFs that do not match our RegExp
-      .filter(href => href && HREF_REGEX.test(href || ''))
+      .filter(href => href && RX_HREF.test(href || ''))
       // Find all elements with ID that match HREF hash
       .map(href => {
         // Convert HREF into an ID (including # at beginning)
-        const id = href.replace(HREF_REGEX, '$1').trim()
+        const id = href.replace(RX_HREF, '$1').trim()
         if (!id) {
           return null
         }
@@ -429,18 +419,18 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     )
 
     links.forEach(link => {
-      if (hasClass(link, ClassName.DROPDOWN_ITEM)) {
+      if (hasClass(link, CLASS_NAME_DROPDOWN_ITEM)) {
         // This is a dropdown item, so find the .dropdown-toggle and set its state
-        const dropdown = closest(Selector.DROPDOWN, link)
+        const dropdown = closest(SELECTOR_DROPDOWN, link)
         if (dropdown) {
-          this.setActiveState(select(Selector.DROPDOWN_TOGGLE, dropdown), true)
+          this.setActiveState(select(SELECTOR_DROPDOWN_TOGGLE, dropdown), true)
         }
         // Also set this link's state
         this.setActiveState(link, true)
       } else {
         // Set triggered link as active
         this.setActiveState(link, true)
-        if (matches(link.parentElement, Selector.NAV_ITEMS)) {
+        if (matches(link.parentElement, SELECTOR_NAV_ITEMS)) {
           // Handle nav-link inside nav-item, and set nav-item active
           this.setActiveState(link.parentElement, true)
         }
@@ -448,14 +438,14 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
         // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
         let el = link
         while (el) {
-          el = closest(Selector.NAV_LIST_GROUP, el)
+          el = closest(SELECTOR_NAV_LIST_GROUP, el)
           const sibling = el ? el.previousElementSibling : null
-          if (sibling && matches(sibling, `${Selector.NAV_LINKS}, ${Selector.LIST_ITEMS}`)) {
+          if (sibling && matches(sibling, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`)) {
             this.setActiveState(sibling, true)
           }
           // Handle special case where nav-link is inside a nav-item
-          if (sibling && matches(sibling, Selector.NAV_ITEMS)) {
-            this.setActiveState(select(Selector.NAV_LINKS, sibling), true)
+          if (sibling && matches(sibling, SELECTOR_NAV_ITEMS)) {
+            this.setActiveState(select(SELECTOR_NAV_LINKS, sibling), true)
             // Add active state to nav-item as well
             this.setActiveState(sibling, true)
           }
@@ -470,8 +460,8 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   }
 
   clear() {
-    selectAll(`${this.$selector}, ${Selector.NAV_ITEMS}`, this.$el)
-      .filter(el => hasClass(el, ClassName.ACTIVE))
+    selectAll(`${this.$selector}, ${SELECTOR_NAV_ITEMS}`, this.$el)
+      .filter(el => hasClass(el, CLASS_NAME_ACTIVE))
       .forEach(el => this.setActiveState(el, false))
   }
 
@@ -480,9 +470,9 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
       return
     }
     if (active) {
-      addClass(el, ClassName.ACTIVE)
+      addClass(el, CLASS_NAME_ACTIVE)
     } else {
-      removeClass(el, ClassName.ACTIVE)
+      removeClass(el, CLASS_NAME_ACTIVE)
     }
   }
 }

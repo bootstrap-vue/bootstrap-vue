@@ -1,3 +1,4 @@
+import { NAME_FORM_RADIO_GROUP } from '../../constants/components'
 import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
@@ -15,7 +16,7 @@ export const props = {
 
 // @vue/component
 export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
-  name: 'BFormRadioGroup',
+  name: NAME_FORM_RADIO_GROUP,
   mixins: [
     idMixin,
     formMixin,
