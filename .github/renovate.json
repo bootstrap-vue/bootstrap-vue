@@ -20,7 +20,7 @@
     },
     {
       "packageNames": ["postcss"],
-      "allowedVersions": "<10.0.0"
+      "allowedVersions": "<8.0.0"
     },
     {
       "packageNames": ["prettier"],
