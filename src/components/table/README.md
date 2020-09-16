@@ -3000,7 +3000,7 @@ your app handles the various inconsistencies with events.
       :current-page="currentPage"
       :per-page="perPage"
       :filter="filter"
-      :filterIncludedFields="filterOn"
+      :filter-included-fields="filterOn"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
