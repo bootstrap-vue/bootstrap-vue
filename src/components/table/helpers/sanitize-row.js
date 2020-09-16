@@ -31,8 +31,8 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
   const allowedKeys = keys(formattedRow).filter(
     key =>
       !IGNORED_FIELD_KEYS[key] &&
-      !(isArray(ignoreFields) && arrayIncludes(ignoreFields, key)) &&
-      !(isArray(includeFields) && !arrayIncludes(includeFields, key))
+      !(isArray(ignoreFields) && ignoreFields.length > 0 && arrayIncludes(ignoreFields, key)) &&
+      !(isArray(includeFields) && includeFields.length > 0 && !arrayIncludes(includeFields, key))
   )
 
   return pick(formattedRow, allowedKeys)
