@@ -1,10 +1,10 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_INPUT_GROUP_PREPEND } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { BInputGroupAddon, commonProps } from './input-group-addon'
 
 // @vue/component
 export const BInputGroupPrepend = /*#__PURE__*/ Vue.extend({
-  name: 'BInputGroupPrepend',
+  name: NAME_INPUT_GROUP_PREPEND,
   functional: true,
   props: commonProps,
   render(h, { props, data, children }) {

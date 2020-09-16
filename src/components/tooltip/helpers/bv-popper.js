@@ -5,14 +5,13 @@
 //   Templates are only instantiated when shown, and destroyed when hidden
 //
 
+import { NAME_POPPER } from '../../../constants/components'
 import Vue from '../../../utils/vue'
 import Popper from 'popper.js'
 import { getCS, requestAF, select } from '../../../utils/dom'
 import { toFloat } from '../../../utils/number'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
 import { BVTransition } from '../../../utils/bv-transition'
-
-const NAME = 'BVPopper'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -48,7 +47,7 @@ const OffsetMap = {
 
 // @vue/component
 export const BVPopper = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_POPPER,
   props: {
     target: {
       // Element that the tooltip/popover is positioned relative to

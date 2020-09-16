@@ -1,3 +1,45 @@
+import {
+  NAME_ALERT,
+  NAME_AVATAR,
+  NAME_BADGE,
+  NAME_BUTTON,
+  NAME_BUTTON_CLOSE,
+  NAME_CALENDAR,
+  NAME_CARD_SUB_TITLE,
+  NAME_CAROUSEL,
+  NAME_DROPDOWN,
+  NAME_FORM_DATEPICKER,
+  NAME_FORM_FILE,
+  NAME_FORM_RATING,
+  NAME_FORM_SPINBUTTON,
+  NAME_FORM_TAG,
+  NAME_FORM_TAGS,
+  NAME_FORM_TEXT,
+  NAME_FORM_TIMEPICKER,
+  NAME_IMG,
+  NAME_IMG_LAZY,
+  NAME_INPUT_GROUP,
+  NAME_JUMBOTRON,
+  NAME_LINK,
+  NAME_LIST_GROUP_ITEM,
+  NAME_MODAL,
+  NAME_NAVBAR,
+  NAME_NAVBAR_TOGGLE,
+  NAME_PAGINATION,
+  NAME_PAGINATION_NAV,
+  NAME_POPOVER,
+  NAME_PROGRESS,
+  NAME_PROGRESS_BAR,
+  NAME_SPINNER,
+  NAME_SKELETON,
+  NAME_SKELETON_ICON,
+  NAME_SIDEBAR,
+  NAME_TABLE,
+  NAME_TIME,
+  NAME_TOAST,
+  NAME_TOASTER,
+  NAME_TOOLTIP
+} from '../constants/components'
 import { deepFreeze } from './object'
 
 // --- General BootstrapVue configuration ---
@@ -47,28 +89,28 @@ export default deepFreeze({
 
   // Component specific defaults are keyed by the component
   // name (PascalCase) and prop name (camelCase)
-  BAlert: {
+  [NAME_ALERT]: {
     dismissLabel: 'Close',
     variant: 'info'
   },
-  BAvatar: {
+  [NAME_AVATAR]: {
     variant: 'secondary',
     badgeVariant: 'primary'
   },
-  BBadge: {
+  [NAME_BADGE]: {
     variant: 'secondary'
   },
-  BButton: {
+  [NAME_BUTTON]: {
     size: undefined,
     variant: 'secondary'
   },
-  BButtonClose: {
+  [NAME_BUTTON_CLOSE]: {
     content: '&times;',
     // `textVariant` is `undefined` to inherit the current text color
     textVariant: undefined,
     ariaLabel: 'Close'
   },
-  BCalendar: {
+  [NAME_CALENDAR]: {
     selectedVariant: 'primary',
     // Defaults to `selectedVariant`
     todayVariant: undefined,
@@ -88,23 +130,23 @@ export default deepFreeze({
     labelNav: 'Calendar navigation',
     labelHelp: 'Use cursor keys to navigate calendar dates'
   },
-  BCardSubTitle: {
+  [NAME_CARD_SUB_TITLE]: {
     // `<b-card>` and `<b-card-body>` also inherit this prop
     subTitleTextVariant: 'muted'
   },
-  BCarousel: {
+  [NAME_CAROUSEL]: {
     labelPrev: 'Previous Slide',
     labelNext: 'Next Slide',
     labelGotoSlide: 'Goto Slide',
     labelIndicators: 'Select a slide to display'
   },
-  BDropdown: {
+  [NAME_DROPDOWN]: {
     toggleText: 'Toggle Dropdown',
     size: undefined,
     variant: 'secondary',
     splitVariant: undefined
   },
-  BFormDatepicker: {
+  [NAME_FORM_DATEPICKER]: {
     // BFormDatepicker will choose from BCalendar first if not provided here
     selectedVariant: undefined,
     todayVariant: undefined,
@@ -127,22 +169,22 @@ export default deepFreeze({
     labelResetButton: 'Reset',
     labelCloseButton: 'Close'
   },
-  BFormFile: {
+  [NAME_FORM_FILE]: {
     browseText: 'Browse',
     // Chrome default file prompt
     placeholder: 'No file chosen',
     dropPlaceholder: 'Drop files here',
     noDropPlaceholder: 'Not allowed'
   },
-  BFormRating: {
+  [NAME_FORM_RATING]: {
     variant: null,
     color: null
   },
-  BFormTag: {
+  [NAME_FORM_TAG]: {
     removeLabel: 'Remove tag',
     variant: 'secondary'
   },
-  BFormTags: {
+  [NAME_FORM_TAGS]: {
     addButtonText: 'Add',
     addButtonVariant: 'outline-secondary',
     duplicateTagText: 'Duplicate tag(s)',
@@ -153,10 +195,10 @@ export default deepFreeze({
     tagRemovedLabel: 'Tag removed',
     tagVariant: 'secondary'
   },
-  BFormText: {
+  [NAME_FORM_TEXT]: {
     textVariant: 'muted'
   },
-  BFormTimepicker: {
+  [NAME_FORM_TIMEPICKER]: {
     // Fallback to BTime
     labelNoTimeSelected: undefined,
     labelSelected: undefined,
@@ -174,31 +216,31 @@ export default deepFreeze({
     labelResetButton: 'Reset',
     labelCloseButton: 'Close'
   },
-  BFormSpinbutton: {
+  [NAME_FORM_SPINBUTTON]: {
     labelDecrement: 'Decrement',
     labelIncrement: 'Increment'
   },
-  BImg: {
+  [NAME_IMG]: {
     blankColor: 'transparent'
   },
-  BImgLazy: {
+  [NAME_IMG_LAZY]: {
     blankColor: 'transparent'
   },
-  BInputGroup: {
+  [NAME_INPUT_GROUP]: {
     size: undefined
   },
-  BJumbotron: {
+  [NAME_JUMBOTRON]: {
     bgVariant: undefined,
     borderVariant: undefined,
     textVariant: undefined
   },
-  BLink: {
+  [NAME_LINK]: {
     routerComponentName: undefined
   },
-  BListGroupItem: {
+  [NAME_LIST_GROUP_ITEM]: {
     variant: undefined
   },
-  BModal: {
+  [NAME_MODAL]: {
     titleTag: 'h5',
     size: 'md',
     headerBgVariant: undefined,
@@ -217,41 +259,41 @@ export default deepFreeze({
     headerCloseContent: '&times;',
     headerCloseLabel: 'Close'
   },
-  BNavbar: {
+  [NAME_NAVBAR]: {
     variant: null
   },
-  BNavbarToggle: {
+  [NAME_NAVBAR_TOGGLE]: {
     label: 'Toggle navigation'
   },
-  BPagination: {
+  [NAME_PAGINATION]: {
     size: undefined
   },
-  BPaginationNav: {
+  [NAME_PAGINATION_NAV]: {
     size: undefined
   },
-  BPopover: {
+  [NAME_POPOVER]: {
     boundary: 'scrollParent',
     boundaryPadding: 5,
     customClass: undefined,
     delay: 50,
     variant: undefined
   },
-  BProgress: {
+  [NAME_PROGRESS]: {
     variant: undefined
   },
-  BProgressBar: {
+  [NAME_PROGRESS_BAR]: {
     variant: undefined
   },
-  BSpinner: {
+  [NAME_SPINNER]: {
     variant: undefined
   },
-  BSkeleton: {
+  [NAME_SKELETON]: {
     animation: 'wave'
   },
-  BSkeletonIcon: {
+  [NAME_SKELETON_ICON]: {
     animation: 'wave'
   },
-  BSidebar: {
+  [NAME_SIDEBAR]: {
     bgVariant: 'light',
     textVariant: 'dark',
     shadow: false,
@@ -259,12 +301,12 @@ export default deepFreeze({
     tag: 'div',
     backdropVariant: 'dark'
   },
-  BTable: {
+  [NAME_TABLE]: {
     selectedVariant: 'active',
     headVariant: undefined,
     footVariant: undefined
   },
-  BTime: {
+  [NAME_TIME]: {
     labelNoTimeSelected: 'No time selected',
     labelSelected: 'Selected time',
     labelHours: 'Hours',
@@ -278,7 +320,7 @@ export default deepFreeze({
     labelIncrement: undefined,
     labelDecrement: undefined
   },
-  BToast: {
+  [NAME_TOAST]: {
     toaster: 'b-toaster-top-right',
     autoHideDelay: 5000,
     variant: undefined,
@@ -286,12 +328,12 @@ export default deepFreeze({
     headerClass: undefined,
     bodyClass: undefined
   },
-  BToaster: {
+  [NAME_TOASTER]: {
     ariaLive: undefined,
     ariaAtomic: undefined,
     role: undefined
   },
-  BTooltip: {
+  [NAME_TOOLTIP]: {
     boundary: 'scrollParent',
     boundaryPadding: 5,
     customClass: undefined,

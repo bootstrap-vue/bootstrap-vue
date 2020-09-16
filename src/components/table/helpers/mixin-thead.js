@@ -1,11 +1,12 @@
+import { NAME_TABLE } from '../../../constants/components'
+import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import identity from '../../../utils/identity'
-import KeyCodes from '../../../utils/key-codes'
 import noop from '../../../utils/noop'
-import startCase from '../../../utils/startcase'
 import { getComponentConfig } from '../../../utils/config'
 import { stopEvent } from '../../../utils/events'
 import { htmlOrText } from '../../../utils/html'
 import { isUndefinedOrNull } from '../../../utils/inspect'
+import { startCase } from '../../../utils/string'
 import filterEvent from './filter-event'
 import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
@@ -17,7 +18,7 @@ export default {
   props: {
     headVariant: {
       type: String, // 'light', 'dark' or `null` (or custom)
-      default: () => getComponentConfig('BTable', 'headVariant')
+      default: () => getComponentConfig(NAME_TABLE, 'headVariant')
     },
     headRowVariant: {
       // Any Bootstrap theme variant (or custom)
@@ -96,7 +97,7 @@ export default {
           }
           on.keydown = evt => {
             const keyCode = evt.keyCode
-            if (keyCode === KeyCodes.ENTER || keyCode === KeyCodes.SPACE) {
+            if (keyCode === CODE_ENTER || keyCode === CODE_SPACE) {
               this.headClicked(evt, field, isFoot)
             }
           }

@@ -1,13 +1,10 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_JUMBOTRON } from '../../constants/components'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slot-names'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BContainer } from '../layout/container'
-
-// --- Constants ---
-
-const NAME = 'BJumbotron'
 
 // --- Props ---
 
@@ -54,22 +51,22 @@ export const props = {
   },
   bgVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'bgVariant')
+    default: () => getComponentConfig(NAME_JUMBOTRON, 'bgVariant')
   },
   borderVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'borderVariant')
+    default: () => getComponentConfig(NAME_JUMBOTRON, 'borderVariant')
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => getComponentConfig(NAME_JUMBOTRON, 'textVariant')
   }
 }
 
 // --- Main component ---
 // @vue/component
 export const BJumbotron = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_JUMBOTRON,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
@@ -79,7 +76,7 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
     const slotScope = {}
 
     let $header = h()
-    const hasHeaderSlot = hasNormalizedSlot('header', $scopedSlots, $slots)
+    const hasHeaderSlot = hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots)
     if (hasHeaderSlot || header || headerHtml) {
       const { headerLevel } = props
 
@@ -89,12 +86,12 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
           class: { [`display-${headerLevel}`]: headerLevel },
           domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
         },
-        normalizeSlot('header', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots)
       )
     }
 
     let $lead = h()
-    const hasLeadSlot = hasNormalizedSlot('lead', $scopedSlots, $slots)
+    const hasLeadSlot = hasNormalizedSlot(SLOT_NAME_LEAD, $scopedSlots, $slots)
     if (hasLeadSlot || lead || leadHtml) {
       $lead = h(
         props.leadTag,
@@ -102,11 +99,15 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
           staticClass: 'lead',
           domProps: hasLeadSlot ? {} : htmlOrText(leadHtml, lead)
         },
-        normalizeSlot('lead', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_LEAD, slotScope, $scopedSlots, $slots)
       )
     }
 
-    let $children = [$header, $lead, normalizeSlot('default', slotScope, $scopedSlots, $slots)]
+    let $children = [
+      $header,
+      $lead,
+      normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
+    ]
 
     // If fluid, wrap content in a container
     if (props.fluid) {

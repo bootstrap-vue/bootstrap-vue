@@ -1,5 +1,5 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import { NAME_CARD_FOOTER } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
@@ -25,7 +25,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BCardFooter = /*#__PURE__*/ Vue.extend({
-  name: 'BCardFooter',
+  name: NAME_CARD_FOOTER,
   functional: true,
   props,
   render(h, { props, data, children }) {

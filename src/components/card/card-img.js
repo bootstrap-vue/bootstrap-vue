@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_CARD_IMG } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   src: {
@@ -48,7 +48,7 @@ export const props = {
 
 // @vue/component
 export const BCardImg = /*#__PURE__*/ Vue.extend({
-  name: 'BCardImg',
+  name: NAME_CARD_IMG,
   functional: true,
   props,
   render(h, { props, data }) {

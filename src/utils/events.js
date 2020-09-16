@@ -1,11 +1,6 @@
 import { hasPassiveEventSupport } from './env'
 import { isObject } from './inspect'
 
-// --- Constants ---
-
-export const EVENT_OPTIONS_PASSIVE = { passive: true }
-export const EVENT_OPTIONS_NO_CAPTURE = { passive: true, capture: false }
-
 // --- Utils ---
 
 // Normalize event options based on support of passive option

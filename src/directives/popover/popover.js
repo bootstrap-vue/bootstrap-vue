@@ -1,3 +1,4 @@
+import { NAME_POPOVER } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -47,7 +48,6 @@ const spacesRE = /\s+/
 // Arguments and modifiers take precedence over passed value config object
 const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
-  const NAME = 'BPopover'
   let config = {
     title: undefined,
     content: undefined,
@@ -60,11 +60,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     disabled: false,
     id: null,
     html: false,
-    delay: getComponentConfig(NAME, 'delay'),
-    boundary: String(getComponentConfig(NAME, 'boundary')),
-    boundaryPadding: toInteger(getComponentConfig(NAME, 'boundaryPadding'), 0),
-    variant: getComponentConfig(NAME, 'variant'),
-    customClass: getComponentConfig(NAME, 'customClass')
+    delay: getComponentConfig(NAME_POPOVER, 'delay'),
+    boundary: String(getComponentConfig(NAME_POPOVER, 'boundary')),
+    boundaryPadding: toInteger(getComponentConfig(NAME_POPOVER, 'boundaryPadding'), 0),
+    variant: getComponentConfig(NAME_POPOVER, 'variant'),
+    customClass: getComponentConfig(NAME_POPOVER, 'customClass')
   }
 
   // Process `bindings.value`

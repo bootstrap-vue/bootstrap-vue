@@ -1,5 +1,6 @@
+import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
+import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -18,7 +19,7 @@ const ITEM_SELECTOR = [
 
 // @vue/component
 export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
-  name: 'BButtonToolbar',
+  name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
   props: {
     justify: {
@@ -79,10 +80,10 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
     },
     onKeydown(evt) {
       const { keyCode, shiftKey } = evt
-      if (keyCode === KeyCodes.UP || keyCode === KeyCodes.LEFT) {
+      if (keyCode === CODE_UP || keyCode === CODE_LEFT) {
         stopEvent(evt)
         shiftKey ? this.focusFirst(evt) : this.focusPrev(evt)
-      } else if (keyCode === KeyCodes.DOWN || keyCode === KeyCodes.RIGHT) {
+      } else if (keyCode === CODE_DOWN || keyCode === CODE_RIGHT) {
         stopEvent(evt)
         shiftKey ? this.focusLast(evt) : this.focusNext(evt)
       }
@@ -105,7 +106,7 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
             }
           : {}
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot()]
     )
   }
 })

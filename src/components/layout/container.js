@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_CONTAINER } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   tag: {
@@ -15,7 +15,7 @@ export const props = {
 
 // @vue/component
 export const BContainer = /*#__PURE__*/ Vue.extend({
-  name: 'BContainer',
+  name: NAME_CONTAINER,
   functional: true,
   props,
   render(h, { props, data, children }) {

@@ -1,16 +1,15 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_BUTTON_CLOSE } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { stopEvent } from '../../utils/events'
 import { isEvent } from '../../utils/inspect'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 
-const NAME = 'BButtonClose'
-
 const props = {
   content: {
     type: String,
-    default: () => getComponentConfig(NAME, 'content')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'content')
   },
   disabled: {
     type: Boolean,
@@ -18,17 +17,17 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'ariaLabel')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'ariaLabel')
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'textVariant')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'textVariant')
   }
 }
 
 // @vue/component
 export const BButtonClose = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_BUTTON_CLOSE,
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
@@ -56,13 +55,13 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
       }
     }
     // Careful not to override the default slot with innerHTML
-    if (!hasNormalizedSlot('default', $scopedSlots, $slots)) {
+    if (!hasNormalizedSlot(SLOT_NAME_DEFAULT, $scopedSlots, $slots)) {
       componentData.domProps = { innerHTML: props.content }
     }
     return h(
       'button',
       mergeData(data, componentData),
-      normalizeSlot('default', {}, $scopedSlots, $slots)
+      normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
     )
   }
 })

@@ -1,6 +1,16 @@
+import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
+import {
+  CODE_DOWN,
+  CODE_END,
+  CODE_HOME,
+  CODE_LEFT,
+  CODE_RIGHT,
+  CODE_SPACE,
+  CODE_UP
+} from '../../constants/key-codes'
+import { SLOT_NAME_TITLE } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
-import KeyCodes from '../../utils/key-codes'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
 import stableSort from '../../utils/stable-sort'
@@ -29,8 +39,8 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
-  name: 'BTabButtonHelper',
+const BVTabButton = /*#__PURE__*/ Vue.extend({
+  name: NAME_TAB_BUTTON_HELPER,
   inject: {
     bvTabs: {
       /* istanbul ignore next */
@@ -69,7 +79,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
       if (type === 'click') {
         stopEvent(evt)
         this.$emit('click', evt)
-      } else if (type === 'keydown' && keyCode === KeyCodes.SPACE) {
+      } else if (type === 'keydown' && keyCode === CODE_SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
@@ -77,16 +87,16 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
         this.$emit('click', evt)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
-        if ([KeyCodes.UP, KeyCodes.LEFT, KeyCodes.HOME].indexOf(keyCode) !== -1) {
+        if ([CODE_UP, CODE_LEFT, CODE_HOME].indexOf(keyCode) !== -1) {
           stopEvent(evt)
-          if (shiftKey || keyCode === KeyCodes.HOME) {
+          if (shiftKey || keyCode === CODE_HOME) {
             this.$emit('first', evt)
           } else {
             this.$emit('prev', evt)
           }
-        } else if ([KeyCodes.DOWN, KeyCodes.RIGHT, KeyCodes.END].indexOf(keyCode) !== -1) {
+        } else if ([CODE_DOWN, CODE_RIGHT, CODE_END].indexOf(keyCode) !== -1) {
           stopEvent(evt)
-          if (shiftKey || keyCode === KeyCodes.END) {
+          if (shiftKey || keyCode === CODE_END) {
             this.$emit('last', evt)
           } else {
             this.$emit('next', evt)
@@ -137,7 +147,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
           keydown: handleEvt
         }
       },
-      [this.tab.normalizeSlot('title') || title]
+      [this.tab.normalizeSlot(SLOT_NAME_TITLE) || title]
     )
 
     return h(
@@ -154,7 +164,7 @@ const BTabButtonHelper = /*#__PURE__*/ Vue.extend({
 
 // @vue/component
 export const BTabs = /*#__PURE__*/ Vue.extend({
-  name: 'BTabs',
+  name: NAME_TABS,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
     return {
@@ -597,7 +607,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           tabIndex = null
         }
       }
-      return h(BTabButtonHelper, {
+      return h(BVTabButton, {
         key: tab._uid || index,
         ref: 'buttons',
         // Needed to make `this.$refs.buttons` an array
@@ -682,7 +692,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         class: [{ col: this.vertical }, this.contentClass],
         attrs: { id: this.safeId('_BV_tab_container_') }
       },
-      concat(this.normalizeSlot('default'), empty)
+      concat(this.normalizeSlot(), empty)
     )
 
     // Render final output

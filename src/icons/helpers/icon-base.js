@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_ICON_BASE } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
@@ -71,7 +71,7 @@ const stackedAttrs = {
 // Shared private base component to reduce bundle/runtime size
 // @vue/component
 export const BVIconBase = /*#__PURE__*/ Vue.extend({
-  name: 'BVIconBase',
+  name: NAME_ICON_BASE,
   functional: true,
   props: {
     content: {

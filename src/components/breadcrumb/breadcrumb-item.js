@@ -1,10 +1,10 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_BREADCRUMB_ITEM } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { BBreadcrumbLink, props } from './breadcrumb-link'
 
 // @vue/component
 export const BBreadcrumbItem = /*#__PURE__*/ Vue.extend({
-  name: 'BBreadcrumbItem',
+  name: NAME_BREADCRUMB_ITEM,
   functional: true,
   props,
   render(h, { props, data, children }) {

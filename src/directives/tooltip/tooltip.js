@@ -1,3 +1,4 @@
+import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -48,8 +49,6 @@ const spacesRE = /\s+/
 // Arguments and modifiers take precedence over passed value config object
 const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   // We start out with a basic config
-  const NAME = 'BTooltip'
-  // Default config
   let config = {
     title: undefined,
     trigger: '', // Default set below if needed
@@ -62,11 +61,11 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     html: false,
     interactive: true,
     disabled: false,
-    delay: getComponentConfig(NAME, 'delay'),
-    boundary: String(getComponentConfig(NAME, 'boundary')),
-    boundaryPadding: toInteger(getComponentConfig(NAME, 'boundaryPadding'), 0),
-    variant: getComponentConfig(NAME, 'variant'),
-    customClass: getComponentConfig(NAME, 'customClass')
+    delay: getComponentConfig(NAME_TOOLTIP, 'delay'),
+    boundary: String(getComponentConfig(NAME_TOOLTIP, 'boundary')),
+    boundaryPadding: toInteger(getComponentConfig(NAME_TOOLTIP, 'boundaryPadding'), 0),
+    variant: getComponentConfig(NAME_TOOLTIP, 'variant'),
+    customClass: getComponentConfig(NAME_TOOLTIP, 'customClass')
   }
 
   // Process `bindings.value`

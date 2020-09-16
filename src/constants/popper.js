@@ -1,0 +1,8 @@
+export const PLACEMENT_TOP_START = 'top-start'
+export const PLACEMENT_TOP_END = 'top-end'
+export const PLACEMENT_BOTTOM_START = 'bottom-start'
+export const PLACEMENT_BOTTOM_END = 'bottom-end'
+export const PLACEMENT_RIGHT_START = 'right-start'
+export const PLACEMENT_RIGHT_END = 'right-end'
+export const PLACEMENT_LEFT_START = 'left-start'
+export const PLACEMENT_LEFT_END = 'left-end'

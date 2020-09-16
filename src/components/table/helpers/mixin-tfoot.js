@@ -1,3 +1,4 @@
+import { NAME_TABLE } from '../../../constants/components'
 import { getComponentConfig } from '../../../utils/config'
 import { BTfoot } from '../tfoot'
 
@@ -9,7 +10,7 @@ export default {
     },
     footVariant: {
       type: String, // 'dark', 'light', or `null` (or custom)
-      default: () => getComponentConfig('BTable', 'footVariant')
+      default: () => getComponentConfig(NAME_TABLE, 'footVariant')
     },
     footRowVariant: {
       // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`

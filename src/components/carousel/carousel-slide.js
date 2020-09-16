@@ -1,3 +1,4 @@
+import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { hasTouchSupport } from '../../utils/env'
 import { stopEvent } from '../../utils/events'
@@ -73,7 +74,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
-  name: 'BCarouselSlide',
+  name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvCarousel: {
@@ -134,7 +135,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
         ? h(this.textTag, { domProps: htmlOrText(this.textHtml, this.text) })
         : false,
       // Children
-      this.normalizeSlot('default') || false
+      this.normalizeSlot() || false
     ]
 
     let $content = h()

@@ -1,3 +1,4 @@
+import { NAME_TR } from '../../constants/components'
 import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -18,7 +19,7 @@ const DARK = 'dark'
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTr = /*#__PURE__*/ Vue.extend({
-  name: 'BTr',
+  name: NAME_TR,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -107,7 +108,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
         // Pass native listeners to child
         on: this.bvListeners
       },
-      this.normalizeSlot('default')
+      this.normalizeSlot()
     )
   }
 })

@@ -4,8 +4,8 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
-import Vue from './vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_TRANSITION } from '../constants/components'
+import Vue, { mergeData } from './vue'
 import { isPlainObject } from './inspect'
 
 const NO_FADE_PROPS = {
@@ -26,7 +26,7 @@ const FADE_PROPS = {
 
 // @vue/component
 export const BVTransition = /*#__PURE__*/ Vue.extend({
-  name: 'BVTransition',
+  name: NAME_TRANSITION,
   functional: true,
   props: {
     noFade: {

@@ -2,6 +2,7 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
+import { NAME_TOAST, NAME_TOAST_POP } from '../../../constants/components'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -53,8 +54,8 @@ const plugin = Vue => {
   // Create a private sub-component constructor that
   // extends BToast and self-destructs after hidden
   // @vue/component
-  const BToastPop = Vue.extend({
-    name: 'BToastPop',
+  const BVToastPop = Vue.extend({
+    name: NAME_TOAST_POP,
     extends: BToast,
     destroyed() {
       // Make sure we not in document any more
@@ -98,13 +99,13 @@ const plugin = Vue => {
       /* istanbul ignore next */
       return
     }
-    // Create an instance of `BToastPop` component
-    const toast = new BToastPop({
+    // Create an instance of `BVToastPop` component
+    const toast = new BVToastPop({
       // We set parent as the local VM so these toasts can emit events on the
       // app `$root`, and it ensures `BToast` is destroyed when parent is destroyed
       parent: $parent,
       propsData: {
-        ...filterOptions(getComponentConfig('BToast') || {}),
+        ...filterOptions(getComponentConfig(NAME_TOAST) || {}),
         // Add in (filtered) user supplied props
         ...omit(props, keys(propsToSlots)),
         // Props that can't be overridden
@@ -182,7 +183,7 @@ const plugin = Vue => {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {
-          warn(`"${PROP_NAME}" must be accessed from a Vue instance "this" context.`, 'BToast')
+          warn(`"${PROP_NAME}" must be accessed from a Vue instance "this" context.`, NAME_TOAST)
         }
         return this[PROP_NAME_PRIV]
       }

@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_DROPDOWN_DIVIDER } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   tag: {
@@ -10,7 +10,7 @@ export const props = {
 
 // @vue/component
 export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
-  name: 'BDropdownDivider',
+  name: NAME_DROPDOWN_DIVIDER,
   functional: true,
   props,
   render(h, { props, data }) {

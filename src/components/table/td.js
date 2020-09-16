@@ -1,3 +1,4 @@
+import { NAME_TABLE_CELL } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -51,7 +52,7 @@ export const props = {
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
 export const BTd = /*#__PURE__*/ Vue.extend({
-  name: 'BTableCell',
+  name: NAME_TABLE_CELL,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -187,7 +188,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const content = [this.normalizeSlot('default')]
+    const content = [this.normalizeSlot()]
     return h(
       this.tag,
       {

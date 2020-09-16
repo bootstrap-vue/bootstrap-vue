@@ -1,26 +1,23 @@
+import { NAME_TABLE_LITE } from '../../constants/components'
 import Vue from '../../utils/vue'
-
-// Mixins
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // Table helper Mixins
-import itemsMixin from './helpers/mixin-items'
 import captionMixin from './helpers/mixin-caption'
 import colgroupMixin from './helpers/mixin-colgroup'
+import itemsMixin from './helpers/mixin-items'
 import stackedMixin from './helpers/mixin-stacked'
-import theadMixin from './helpers/mixin-thead'
-import tfootMixin from './helpers/mixin-tfoot'
-import tbodyMixin from './helpers/mixin-tbody'
-
-// Main table renderer mixin
 import tableRendererMixin from './helpers/mixin-table-renderer'
+import tbodyMixin from './helpers/mixin-tbody'
+import tfootMixin from './helpers/mixin-tfoot'
+import theadMixin from './helpers/mixin-thead'
 
 // b-table-lite component definition
 // @vue/component
 export const BTableLite = /*#__PURE__*/ Vue.extend({
-  name: 'BTableLite',
+  name: NAME_TABLE_LITE,
   // Order of mixins is important!
   // They are merged from first to last, followed by this component.
   mixins: [

@@ -1,5 +1,13 @@
+import { NAME_FORM_SPINBUTTON } from '../../constants/components'
+import {
+  CODE_DOWN,
+  CODE_END,
+  CODE_HOME,
+  CODE_PAGEUP,
+  CODE_UP,
+  CODE_PAGEDOWN
+} from '../../constants/key-codes'
 import Vue from '../../utils/vue'
-import KeyCodes from '../../utils/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -17,10 +25,6 @@ import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
 
-const NAME = 'BFormSpinbutton'
-
-const { UP, DOWN, HOME, END, PAGEUP, PAGEDOWN } = KeyCodes
-
 // Default for spin button range and step
 const DEFAULT_MIN = 1
 const DEFAULT_MAX = 100
@@ -35,10 +39,12 @@ const DEFAULT_REPEAT_THRESHOLD = 10
 // Repeat speed multiplier (step multiplier, must be an integer)
 const DEFAULT_REPEAT_MULTIPLIER = 4
 
+const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PAGEDOWN]
+
 // --- BFormSpinbutton ---
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -120,11 +126,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     labelDecrement: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelDecrement')
+      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement')
     },
     labelIncrement: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelIncrement')
+      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement')
     },
     locale: {
       type: [String, Array]
@@ -367,7 +373,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
-      if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
+      if (arrayIncludes(KEY_CODES, keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
         stopEvent(evt, { propagation: false })
         /* istanbul ignore if */
@@ -376,23 +382,23 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           return
         }
         this.resetTimers()
-        if (arrayIncludes([UP, DOWN], keyCode)) {
+        if (arrayIncludes([CODE_UP, CODE_DOWN], keyCode)) {
           // The following use the custom auto-repeat handling
           this.$_keyIsDown = true
-          if (keyCode === UP) {
+          if (keyCode === CODE_UP) {
             this.handleStepRepeat(evt, this.stepUp)
-          } else if (keyCode === DOWN) {
+          } else if (keyCode === CODE_DOWN) {
             this.handleStepRepeat(evt, this.stepDown)
           }
         } else {
           // These use native OS key repeating
-          if (keyCode === PAGEUP) {
+          if (keyCode === CODE_PAGEUP) {
             this.stepUp(this.computedStepMultiplier)
-          } else if (keyCode === PAGEDOWN) {
+          } else if (keyCode === CODE_PAGEDOWN) {
             this.stepDown(this.computedStepMultiplier)
-          } else if (keyCode === HOME) {
+          } else if (keyCode === CODE_HOME) {
             this.localValue = this.computedMin
-          } else if (keyCode === END) {
+          } else if (keyCode === CODE_END) {
             this.localValue = this.computedMax
           }
         }
@@ -405,7 +411,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
-      if (arrayIncludes([UP, DOWN, HOME, END, PAGEUP, PAGEDOWN], keyCode)) {
+      if (arrayIncludes(KEY_CODES, keyCode)) {
         stopEvent(evt, { propagation: false })
         this.resetTimers()
         this.$_keyIsDown = false

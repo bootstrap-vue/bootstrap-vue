@@ -1,13 +1,11 @@
+import { NAME_POPOVER_TEMPLATE } from '../../../constants/components'
 import Vue from '../../../utils/vue'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
-
 import { BVTooltipTemplate } from '../../tooltip/helpers/bv-tooltip-template'
-
-const NAME = 'BVPopoverTemplate'
 
 // @vue/component
 export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_POPOVER_TEMPLATE,
   extends: BVTooltipTemplate,
   computed: {
     templateType() {

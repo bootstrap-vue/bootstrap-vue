@@ -1,5 +1,5 @@
-import { arrayIncludes, isArray } from '../../../utils/array'
-import { isFunction } from '../../../utils/inspect'
+import { arrayIncludes } from '../../../utils/array'
+import { isArray, isFunction } from '../../../utils/inspect'
 import { clone, keys, pick } from '../../../utils/object'
 import { IGNORED_FIELD_KEYS } from './constants'
 

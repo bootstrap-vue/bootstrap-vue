@@ -1,8 +1,11 @@
+import { NAME_COLLAPSE } from '../../constants/components'
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOnOff } from '../../utils/events'
+import { eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -21,7 +24,7 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 // --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
-  name: 'BCollapse',
+  name: NAME_COLLAPSE,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
     prop: 'visible',
@@ -234,7 +237,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot('default', scope)]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT, scope)]
     )
     return h(
       BVCollapse,

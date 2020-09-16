@@ -1,4 +1,11 @@
-import KeyCodes from '../../../utils/key-codes'
+import {
+  CODE_DOWN,
+  CODE_END,
+  CODE_ENTER,
+  CODE_HOME,
+  CODE_SPACE,
+  CODE_UP
+} from '../../../constants/key-codes'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
 import { stopEvent } from '../../../utils/events'
@@ -73,29 +80,27 @@ export default {
         return
       }
       const keyCode = evt.keyCode
-      if (arrayIncludes([KeyCodes.ENTER, KeyCodes.SPACE], keyCode)) {
+      if (arrayIncludes([CODE_ENTER, CODE_SPACE], keyCode)) {
         // Emulated click for keyboard users, transfer to click handler
         stopEvent(evt)
         this.onTBodyRowClicked(evt)
-      } else if (
-        arrayIncludes([KeyCodes.UP, KeyCodes.DOWN, KeyCodes.HOME, KeyCodes.END], keyCode)
-      ) {
+      } else if (arrayIncludes([CODE_UP, CODE_DOWN, CODE_HOME, CODE_END], keyCode)) {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
           stopEvent(evt)
           const trs = this.getTbodyTrs()
           const shift = evt.shiftKey
-          if (keyCode === KeyCodes.HOME || (shift && keyCode === KeyCodes.UP)) {
+          if (keyCode === CODE_HOME || (shift && keyCode === CODE_UP)) {
             // Focus first row
             attemptFocus(trs[0])
-          } else if (keyCode === KeyCodes.END || (shift && keyCode === KeyCodes.DOWN)) {
+          } else if (keyCode === CODE_END || (shift && keyCode === CODE_DOWN)) {
             // Focus last row
             attemptFocus(trs[trs.length - 1])
-          } else if (keyCode === KeyCodes.UP && rowIndex > 0) {
+          } else if (keyCode === CODE_UP && rowIndex > 0) {
             // Focus previous row
             attemptFocus(trs[rowIndex - 1])
-          } else if (keyCode === KeyCodes.DOWN && rowIndex < trs.length - 1) {
+          } else if (keyCode === CODE_DOWN && rowIndex < trs.length - 1) {
             // Focus next row
             attemptFocus(trs[rowIndex + 1])
           }

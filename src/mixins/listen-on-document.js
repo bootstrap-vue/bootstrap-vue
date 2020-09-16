@@ -1,6 +1,7 @@
+import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { arrayIncludes } from '../utils/array'
 import { isBrowser } from '../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../utils/events'
+import { eventOn, eventOff } from '../utils/events'
 import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 

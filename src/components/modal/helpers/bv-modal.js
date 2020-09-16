@@ -1,5 +1,5 @@
 // Plugin for adding `$bvModal` property to all Vue instances
-import { BModal, props as modalProps } from '../modal'
+import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -15,6 +15,7 @@ import {
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
+import { BModal, props as modalProps } from '../modal'
 
 // --- Constants ---
 
@@ -59,7 +60,7 @@ const plugin = Vue => {
   // which self-destructs after hidden
   // @vue/component
   const BMsgBox = Vue.extend({
-    name: 'BMsgBox',
+    name: NAME_MSG_BOX,
     extends: BModal,
     destroyed() {
       // Make sure we not in document any more
@@ -108,7 +109,7 @@ const plugin = Vue => {
       parent: $parent,
       // Preset the prop values
       propsData: {
-        ...filterOptions(getComponentConfig('BModal') || {}),
+        ...filterOptions(getComponentConfig(NAME_MODAL) || {}),
         // Defaults that user can override
         hideHeaderClose: true,
         hideHeader: !(props.title || props.titleHtml),
@@ -255,7 +256,7 @@ const plugin = Vue => {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {
-          warn(`"${PROP_NAME}" must be accessed from a Vue instance "this" context.`, 'BModal')
+          warn(`"${PROP_NAME}" must be accessed from a Vue instance "this" context.`, NAME_MODAL)
         }
         return this[PROP_NAME_PRIV]
       }

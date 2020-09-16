@@ -1,12 +1,9 @@
+import { NAME_NAVBAR } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-
-// --- Constants ---
-
-const NAME = 'BNavbar'
 
 // --- Props ---
 
@@ -21,7 +18,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'variant')
+    default: () => getComponentConfig(NAME_NAVBAR, 'variant')
   },
   toggleable: {
     type: [Boolean, String],
@@ -43,7 +40,7 @@ export const props = {
 // --- Main component ---
 // @vue/component
 export const BNavbar = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_NAVBAR,
   mixins: [normalizeSlotMixin],
   props,
   provide() {
@@ -82,7 +79,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
           role: isTag(this.tag, 'nav') ? null : 'navigation'
         }
       },
-      [this.normalizeSlot('default')]
+      [this.normalizeSlot()]
     )
   }
 })

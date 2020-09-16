@@ -1,3 +1,4 @@
+import { NAME_PAGINATION_NAV } from '../../constants/components'
 import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
@@ -15,10 +16,6 @@ import { warn } from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
 
-// --- Constants ---
-
-const NAME = 'BPaginationNav'
-
 // --- Props ---
 
 const linkProps = omit(BLinkProps, ['event', 'routerTag'])
@@ -26,7 +23,7 @@ const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 const props = {
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_PAGINATION_NAV, 'size')
   },
   numberOfPages: {
     type: [Number, String],
@@ -34,7 +31,7 @@ const props = {
     validator(value) /* istanbul ignore next */ {
       const number = toInteger(value, 0)
       if (number < 1) {
-        warn('Prop "number-of-pages" must be a number greater than "0"', NAME)
+        warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
         return false
       }
       return true
@@ -78,7 +75,7 @@ export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
 // The render function is brought in via the pagination mixin
 // @vue/component
 export const BPaginationNav = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_PAGINATION_NAV,
   mixins: [paginationMixin],
   props,
   computed: {

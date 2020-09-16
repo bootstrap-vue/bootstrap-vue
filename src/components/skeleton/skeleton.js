@@ -1,17 +1,15 @@
-import { mergeData } from 'vue-functional-data-merge'
-import Vue from '../../utils/vue'
+import { NAME_SKELETON } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
-
-const NAME = 'BSkeleton'
 
 // @vue/component
 export const BSkeleton = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SKELETON,
   functional: true,
   props: {
     animation: {
       type: String,
-      default: () => getComponentConfig(NAME, 'animation')
+      default: () => getComponentConfig(NAME_SKELETON, 'animation')
     },
     type: {
       type: String,

@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_NAV } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 // -- Constants --
 
@@ -53,7 +53,7 @@ const computeJustifyContent = value => {
 
 // @vue/component
 export const BNav = /*#__PURE__*/ Vue.extend({
-  name: 'BNav',
+  name: NAME_NAV,
   functional: true,
   props,
   render(h, { props, data, children }) {

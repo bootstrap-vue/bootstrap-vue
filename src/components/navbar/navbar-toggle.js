@@ -1,3 +1,5 @@
+import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -6,19 +8,18 @@ import { VBToggle, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle
 
 // --- Constants ---
 
-const NAME = 'BNavbarToggle'
 const CLASS_NAME = 'navbar-toggler'
 
 // --- Main component ---
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
-  name: NAME,
-  directives: { BToggle: VBToggle },
+  name: NAME_NAVBAR_TOGGLE,
+  directives: { VBToggle },
   mixins: [listenOnRootMixin, normalizeSlotMixin],
   props: {
     label: {
       type: String,
-      default: () => getComponentConfig(NAME, 'label')
+      default: () => getComponentConfig(NAME_NAVBAR_TOGGLE, 'label')
     },
     target: {
       type: String,
@@ -61,7 +62,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
       {
         staticClass: CLASS_NAME,
         class: { disabled },
-        directives: [{ name: 'BToggle', value: this.target }],
+        directives: [{ name: 'VBToggle', value: this.target }],
         attrs: {
           type: 'button',
           disabled,
@@ -70,7 +71,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
         on: { click: this.onClick }
       },
       [
-        this.normalizeSlot('default', { expanded: this.toggleState }) ||
+        this.normalizeSlot(SLOT_NAME_DEFAULT, { expanded: this.toggleState }) ||
           h('span', { staticClass: `${CLASS_NAME}-icon` })
       ]
     )

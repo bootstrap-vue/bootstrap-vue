@@ -1,4 +1,6 @@
-import KeyCodes from '../../utils/key-codes'
+import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
+import { RX_HASH, RX_HASH_ID, RX_SPACE_SPLIT } from '../../constants/regex'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
@@ -15,13 +17,11 @@ import {
   setStyle
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { EVENT_OPTIONS_PASSIVE, eventOn, eventOff } from '../../utils/events'
+import { eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
 // --- Constants ---
-
-const { ENTER, SPACE } = KeyCodes
 
 // Classes to apply to trigger element
 const CLASS_BV_TOGGLE_COLLAPSED = 'collapsed'
@@ -64,11 +64,7 @@ export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
 // Private event we send to collapse to request state update sync event
 export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
 
-const KEYDOWN_KEY_CODES = [ENTER, SPACE]
-
-const RX_HASH = /^#/
-const RX_HASH_ID = /^#[A-Za-z]+[\w\-:.]*$/
-const RX_SPLIT_SEPARATOR = /\s+/
+const KEYDOWN_KEY_CODES = [CODE_ENTER, CODE_SPACE]
 
 // --- Helper methods ---
 
@@ -79,7 +75,7 @@ const getTargets = ({ modifiers, arg, value }, el) => {
   const targets = keys(modifiers || {})
 
   // If value is a string, split out individual targets (if space delimited)
-  value = isString(value) ? value.split(RX_SPLIT_SEPARATOR) : value
+  value = isString(value) ? value.split(RX_SPACE_SPLIT) : value
 
   // Support target ID as link href (`href="#id"`)
   if (isTag(el.tagName, 'a')) {

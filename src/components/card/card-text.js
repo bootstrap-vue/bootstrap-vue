@@ -1,5 +1,5 @@
-import Vue from '../../utils/vue'
-import { mergeData } from 'vue-functional-data-merge'
+import { NAME_CARD_TEXT } from '../../constants/components'
+import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   textTag: {
@@ -10,7 +10,7 @@ export const props = {
 
 // @vue/component
 export const BCardText = /*#__PURE__*/ Vue.extend({
-  name: 'BCardText',
+  name: NAME_CARD_TEXT,
   functional: true,
   props,
   render(h, { props, data, children }) {

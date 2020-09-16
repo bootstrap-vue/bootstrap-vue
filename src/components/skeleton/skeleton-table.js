@@ -1,13 +1,12 @@
+import { NAME_SKELETON_TABLE } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { createAndFillArray } from '../../utils/array'
 import { BSkeleton } from './skeleton'
 import { BTableSimple } from '../table'
 
-const NAME = 'BSkeletonTable'
-
 // @vue/component
 export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SKELETON_TABLE,
   functional: true,
   props: {
     animation: {

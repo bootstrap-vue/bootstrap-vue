@@ -1,6 +1,9 @@
-import Vue from '../../utils/vue'
+import { NAME_MODAL } from '../../constants/components'
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { CODE_ESC } from '../../constants/key-codes'
+import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
-import KeyCodes from '../../utils/key-codes'
+import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -15,7 +18,7 @@ import {
   select
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { EVENT_OPTIONS_NO_CAPTURE, eventOn, eventOff } from '../../utils/events'
+import { eventOn, eventOff } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
@@ -34,8 +37,6 @@ import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // --- Constants ---
 
-const NAME = 'BModal'
-
 // ObserveDom config to detect changes in modal content
 // so that we can adjust the modal padding if needed
 const OBSERVER_CONFIG = {
@@ -50,7 +51,7 @@ const OBSERVER_CONFIG = {
 export const props = {
   size: {
     type: String,
-    default: () => getComponentConfig(NAME, 'size')
+    default: () => getComponentConfig(NAME_MODAL, 'size')
   },
   centered: {
     type: Boolean,
@@ -97,7 +98,7 @@ export const props = {
   },
   titleTag: {
     type: String,
-    default: () => getComponentConfig(NAME, 'titleTag')
+    default: () => getComponentConfig(NAME_MODAL, 'titleTag')
   },
   titleClass: {
     type: [String, Array, Object]
@@ -113,19 +114,19 @@ export const props = {
   },
   headerBgVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerBgVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'headerBgVariant')
   },
   headerBorderVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerBorderVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'headerBorderVariant')
   },
   headerTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerTextVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'headerTextVariant')
   },
   headerCloseVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerCloseVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'headerCloseVariant')
   },
   headerClass: {
     type: [String, Array, Object]
@@ -133,11 +134,11 @@ export const props = {
   },
   bodyBgVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'bodyBgVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'bodyBgVariant')
   },
   bodyTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'bodyTextVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'bodyTextVariant')
   },
   modalClass: {
     type: [String, Array, Object]
@@ -157,15 +158,15 @@ export const props = {
   },
   footerBgVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'footerBgVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'footerBgVariant')
   },
   footerBorderVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'footerBorderVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'footerBorderVariant')
   },
   footerTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'footerTextVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'footerTextVariant')
   },
   footerClass: {
     type: [String, Array, Object]
@@ -214,33 +215,33 @@ export const props = {
   },
   headerCloseContent: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerCloseContent')
+    default: () => getComponentConfig(NAME_MODAL, 'headerCloseContent')
   },
   headerCloseLabel: {
     type: String,
-    default: () => getComponentConfig(NAME, 'headerCloseLabel')
+    default: () => getComponentConfig(NAME_MODAL, 'headerCloseLabel')
   },
   cancelTitle: {
     type: String,
-    default: () => getComponentConfig(NAME, 'cancelTitle')
+    default: () => getComponentConfig(NAME_MODAL, 'cancelTitle')
   },
   cancelTitleHtml: {
     type: String
   },
   okTitle: {
     type: String,
-    default: () => getComponentConfig(NAME, 'okTitle')
+    default: () => getComponentConfig(NAME_MODAL, 'okTitle')
   },
   okTitleHtml: {
     type: String
   },
   cancelVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'cancelVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'cancelVariant')
   },
   okVariant: {
     type: String,
-    default: () => getComponentConfig(NAME, 'okVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'okVariant')
   },
   lazy: {
     type: Boolean,
@@ -266,7 +267,7 @@ export const props = {
 
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_MODAL,
   mixins: [
     attrsMixin,
     idMixin,
@@ -731,7 +732,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     onEsc(evt) {
       // If ESC pressed, hide modal
-      if (evt.keyCode === KeyCodes.ESC && this.isVisible && !this.noCloseOnEsc) {
+      if (evt.keyCode === CODE_ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide('esc')
       }
     },
@@ -927,7 +928,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           attrs: { id: this.modalBodyId },
           ref: 'body'
         },
-        this.normalizeSlot('default', this.slotScope)
+        this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)
       )
 
       // Modal footer

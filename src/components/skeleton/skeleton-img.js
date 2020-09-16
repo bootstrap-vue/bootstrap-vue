@@ -1,12 +1,11 @@
+import { NAME_SKELETON_IMG } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { BAspect } from '../aspect'
 import { BSkeleton } from './skeleton'
 
-const NAME = 'BSkeletonImg'
-
 // @vue/component
 export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_SKELETON_IMG,
   functional: true,
   props: {
     animation: {

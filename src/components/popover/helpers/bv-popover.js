@@ -4,15 +4,14 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
+import { NAME_POPOVER_HELPER } from '../../../constants/components'
 import Vue from '../../../utils/vue'
 import { BVTooltip } from '../../tooltip/helpers/bv-tooltip'
 import { BVPopoverTemplate } from './bv-popover-template'
 
-const NAME = 'BVPopover'
-
 // @vue/component
 export const BVPopover = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_POPOVER_HELPER,
   extends: BVTooltip,
   computed: {
     // Overwrites BVTooltip

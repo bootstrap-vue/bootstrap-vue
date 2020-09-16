@@ -1,3 +1,4 @@
+import { NAME_FORM_INPUT } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { attemptBlur } from '../../utils/dom'
@@ -32,7 +33,7 @@ const TYPES = [
 
 // @vue/component
 export const BFormInput = /*#__PURE__*/ Vue.extend({
-  name: 'BFormInput',
+  name: NAME_FORM_INPUT,
   // Mixin order is important!
   mixins: [
     listenersMixin,

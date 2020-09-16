@@ -1,18 +1,19 @@
+import { SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import { hasNormalizedSlot, normalizeSlot } from '../utils/normalize-slot'
 import { concat } from '../utils/array'
 
 export default {
   methods: {
-    hasNormalizedSlot(names) {
+    hasNormalizedSlot(name = SLOT_NAME_DEFAULT) {
       // Returns true if the either a $scopedSlot or $slot exists with the specified name
-      // `names` can be a string name or an array of names
-      return hasNormalizedSlot(names, this.$scopedSlots, this.$slots)
+      // `name` can be a string name or an array of names
+      return hasNormalizedSlot(name, this.$scopedSlots, this.$slots)
     },
-    normalizeSlot(names, scope = {}) {
+    normalizeSlot(name = SLOT_NAME_DEFAULT, scope = {}) {
       // Returns an array of rendered VNodes if slot found.
       // Returns undefined if not found.
-      // `names` can be a string name or an array of names
-      const vNodes = normalizeSlot(names, scope, this.$scopedSlots, this.$slots)
+      // `name` can be a string name or an array of names
+      const vNodes = normalizeSlot(name, scope, this.$scopedSlots, this.$slots)
       return vNodes ? concat(vNodes) : vNodes
     }
   }

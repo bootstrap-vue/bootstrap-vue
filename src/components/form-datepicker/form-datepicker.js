@@ -1,3 +1,10 @@
+import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
+import {
+  CALENDAR_LONG,
+  CALENDAR_NARROW,
+  CALENDAR_SHORT,
+  DATE_FORMAT_NUMERIC
+} from '../../constants/date'
 import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
@@ -8,15 +15,12 @@ import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar, STR_LONG, STR_NARROW, STR_NUMERIC, STR_SHORT } from '../calendar/calendar'
+import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
-const NAME = 'BFormDatepicker'
-
 // Fallback to BCalendar prop if no value found
-const getConfigFallback = prop => {
-  return getComponentConfig(NAME, prop) || getComponentConfig('BCalendar', prop)
-}
+const getConfigFallback = prop =>
+  getComponentConfig(NAME_FORM_DATEPICKER, prop) || getComponentConfig(NAME_CALENDAR, prop)
 
 // We create our props as a mixin so that we can control
 // where they appear in the props listing reference section
@@ -156,7 +160,7 @@ const propsMixin = {
     },
     labelTodayButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelTodayButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelTodayButton')
     },
     todayButtonVariant: {
       type: String,
@@ -168,7 +172,7 @@ const propsMixin = {
     },
     labelResetButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelResetButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelResetButton')
     },
     resetButtonVariant: {
       type: String,
@@ -180,7 +184,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME, 'labelCloseButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelCloseButton')
     },
     closeButtonVariant: {
       type: String,
@@ -250,10 +254,10 @@ const propsMixin = {
       // Note: This value is *not* to be placed in the global config
       type: Object,
       default: () => ({
-        year: STR_NUMERIC,
-        month: STR_LONG,
-        day: STR_NUMERIC,
-        weekday: STR_LONG
+        year: DATE_FORMAT_NUMERIC,
+        month: CALENDAR_LONG,
+        day: DATE_FORMAT_NUMERIC,
+        weekday: CALENDAR_LONG
       })
     },
     weekdayHeaderFormat: {
@@ -264,8 +268,8 @@ const propsMixin = {
       // `narrow` is typically a single letter
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc.)
-      default: STR_SHORT,
-      validator: value => arrayIncludes([STR_LONG, STR_SHORT, STR_NARROW], value)
+      default: CALENDAR_SHORT,
+      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     },
     // Dark mode
     dark: {
@@ -285,7 +289,7 @@ const propsMixin = {
 
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
-  name: NAME,
+  name: NAME_FORM_DATEPICKER,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin],
   model: {

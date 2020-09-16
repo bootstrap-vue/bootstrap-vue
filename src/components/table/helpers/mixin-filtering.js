@@ -1,3 +1,5 @@
+import { NAME_TABLE } from '../../../constants/components'
+import { RX_SPACES } from '../../../constants/regex'
 import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
@@ -10,8 +12,6 @@ import stringifyRecordValues from './stringify-record-values'
 
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
-
-const RX_SPACES = /[\s\uFEFF\xA0]+/g
 
 export default {
   props: {
@@ -58,7 +58,7 @@ export default {
       const ms = toInteger(this.filterDebounce, 0)
       /* istanbul ignore next */
       if (ms > 0) {
-        warn(DEBOUNCE_DEPRECATED_MSG, 'BTable')
+        warn(DEBOUNCE_DEPRECATED_MSG, NAME_TABLE)
       }
       return ms
     },

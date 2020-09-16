@@ -1,17 +1,10 @@
 // Date utility functions
+import { CALENDAR_GREGORY } from '../constants/date'
+import { RX_DATE, RX_DATE_SPLIT } from '../constants/regex'
 import identity from './identity'
 import { concat } from './array'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
-
-// --- Constants ---
-
-// Loose YYYY-MM-DD matching, ignores any appended time inforation
-// Matches '1999-12-20', '1999-1-1', '1999-01-20T22:51:49.118Z', '1999-01-02 13:00:00'
-const RX_DATE = /^\d+-\d\d?-\d\d?(?:\s|T|$)/
-
-// Used to split off the date parts of the YYYY-MM-DD string
-const RX_DATE_SPLIT = /-|\s|T/
 
 // --- Date utility methods ---
 
@@ -42,7 +35,7 @@ export const formatYMD = date => {
 }
 
 // Given a locale (or locales), resolve the browser available locale
-export const resolveLocale = (locales, calendar = 'gregory') => /* istanbul ignore next */ {
+export const resolveLocale = (locales, calendar = CALENDAR_GREGORY) => /* istanbul ignore next */ {
   locales = concat(locales).filter(identity)
   const fmt = new Intl.DateTimeFormat(locales, { calendar })
   return fmt.resolvedOptions().locale
