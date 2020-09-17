@@ -295,7 +295,7 @@ may prefer the custom input to occupy on the space required for it's contents. S
 
 ### Borderless
 
-By default, `<b-from-rating>` has standard Bootstrap form-control styling. To disable the default
+By default, `<b-form-rating>` has standard Bootstrap form-control styling. To disable the default
 form-control border, simply set the `no-border` prop to `true`.
 
 ```html
