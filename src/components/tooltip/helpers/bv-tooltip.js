@@ -624,18 +624,28 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // If the target has a `title` attribute,
       // remove it and store it on a data attribute
       const target = this.getTarget()
-      const title = getAttr(target, 'title')
-      if (title) {
-        setAttr(target, DATA_TITLE_ATTR, title)
+      if (hasAttr(target, 'title')) {
+        // Get `title` attribute value and remove it from target
+        const title = getAttr(target, 'title')
         setAttr(target, 'title', '')
+        // Only set the data attribute when the value is truthy
+        if (title) {
+          setAttr(target, DATA_TITLE_ATTR, title)
+        }
       }
     },
     restoreTitle() {
-      // If the target had a title, restore it and remove the data attribute
+      // If the target had a `title` attribute,
+      // restore it and remove the data attribute
       const target = this.getTarget()
-      if (target && hasAttr(target, DATA_TITLE_ATTR)) {
-        setAttr(target, 'title', getAttr(target, DATA_TITLE_ATTR) || '')
+      if (hasAttr(target, DATA_TITLE_ATTR)) {
+        // Get data attribute value and remove it from target
+        const title = getAttr(target, DATA_TITLE_ATTR)
         removeAttr(target, DATA_TITLE_ATTR)
+        // Only restore the `title` attribute when the value is truthy
+        if (title) {
+          setAttr(target, 'title', title)
+        }
       }
     },
     // --- BvEvent helpers ---
