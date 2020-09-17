@@ -623,8 +623,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     fixTitle() {
       // If the target has a `title` attribute, remove it and store it on a data attribute
       const target = this.getTarget()
-      if (target && hasAttr(target, 'title')) {
-        setAttr(target, DATA_TITLE_ATTR, getAttr(target, 'title') || '')
+      // We use `getAttr` here instead of `hasAttr`, as we only want to save the title if it has a truthy value
+      if (target && getAttr(target, 'title')) {
+        setAttr(target, DATA_TITLE_ATTR, getAttr(target, 'title'))
         setAttr(target, 'title', '')
       }
     },
