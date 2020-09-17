@@ -149,7 +149,7 @@
     "marked": "^1.1.1",
     "node-sass": "^4.14.1",
     "nuxt": "^2.14.5",
-    "postcss": "^7.0.32",
+    "postcss": "^7.0.34",
     "postcss-cli": "^7.1.2",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
