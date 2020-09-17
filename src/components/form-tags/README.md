@@ -833,7 +833,7 @@ You can easily create a custom wrapper component with your preferred rendering s
   import { BFormTags } from 'bootstrap-vue'
 
   export default {
-    name: 'MyCustomTags",
+    name: 'MyCustomTags',
     components: { BFormTags },
     model: {
       prop: 'value',
