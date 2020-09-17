@@ -1,5 +1,4 @@
 import { createWrapper, mount } from '@vue/test-utils'
-import { wrap } from 'lodash'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTooltip } from './tooltip'
 
@@ -40,7 +39,6 @@ const App = {
       // Class to simulate being in a modal
       class: { 'modal-content': !!this.isModal }
     }
-
     return h('article', wrapperData, [
       h(
         'button',
