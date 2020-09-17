@@ -29,10 +29,6 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     toggleId() {
       return this.safeId('_BV_toggle_')
     },
-    isNav() {
-      // Signal to dropdown mixin that we are in a navbar
-      return true
-    },
     dropdownClasses() {
       return [this.directionClass, this.boundaryClass, { show: this.visible }]
     },

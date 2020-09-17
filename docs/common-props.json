@@ -126,7 +126,7 @@
     "description": "Sets the `placeholder` attribute value on the form control"
   },
   "disabled": {
-    "description": "When set to 'true', disables the component's functionality and places it in a disabled state"
+    "description": "When set to `true`, disables the component's functionality and places it in a disabled state"
   },
   "readonly": {
     "description": "Sets the `readonly` attribute on the form control"
