@@ -34,15 +34,6 @@ describe('nav-item-dropdown', () => {
     wrapper.destroy()
   })
 
-  it('should have a flag that we are in a nav', async () => {
-    const wrapper = mount(BNavItemDropdown)
-
-    expect(wrapper.vm).toBeDefined()
-    expect(wrapper.vm.isNav).toBe(true)
-
-    wrapper.destroy()
-  })
-
   it('should have custom toggle class when "toggle-class" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
       propsData: {
