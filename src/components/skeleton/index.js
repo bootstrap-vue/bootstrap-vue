@@ -8,11 +8,11 @@ import { BSkeletonWrapper } from './skeleton-wrapper'
 const SkeletonPlugin = /*#__PURE__*/ pluginFactory({
   components: {
     BSkeleton,
-    BSkeletonWrapper,
-    BSkeletonTable,
+    BSkeletonIcon,
     BSkeletonImg,
-    BSkeletonIcon
+    BSkeletonTable,
+    BSkeletonWrapper
   }
 })
 
-export { SkeletonPlugin, BSkeleton, BSkeletonWrapper, BSkeletonTable, BSkeletonImg, BSkeletonIcon }
+export { SkeletonPlugin, BSkeleton, BSkeletonIcon, BSkeletonImg, BSkeletonTable, BSkeletonWrapper }
