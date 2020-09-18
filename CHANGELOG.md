@@ -16,6 +16,9 @@ Released: 2020-09-18
   [#5789](https://github.com/bootstrap-vue/bootstrap-vue/issues/5789))
   ([#5794](https://github.com/bootstrap-vue/bootstrap-vue/issues/5794))
   ([73383bf](https://github.com/bootstrap-vue/bootstrap-vue/commit/73383bfd935c097604bf5ad39a9cc2d18961ba87))
+- **b-skeleton:** add missing component exports
+  ([#5806](https://github.com/bootstrap-vue/bootstrap-vue/issues/5806))
+  ([871ce22](https://github.com/bootstrap-vue/bootstrap-vue/commit/871ce22504c4e64348b844c0e4306161317abf60))
 - **b-tooltip, b-popover:** fix `title` not being reset on hide
   ([#5793](https://github.com/bootstrap-vue/bootstrap-vue/issues/5793))
   ([31eeb0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/31eeb0ab5ef262c33579f43969c7d6ee6c802e3d))
