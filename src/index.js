@@ -285,7 +285,11 @@ export { BSidebar } from './components/sidebar/sidebar'
 
 // export * from './components/skeleton'
 export { SkeletonPlugin } from './components/skeleton'
-export { BSkeleton } from './components/skeleton'
+export { BSkeleton } from './components/skeleton/skeleton'
+export { BSkeletonIcon } from './components/skeleton/skeleton-icon'
+export { BSkeletonImg } from './components/skeleton/skeleton-img'
+export { BSkeletonTable } from './components/skeleton/skeleton-table'
+export { BSkeletonWrapper } from './components/skeleton/skeleton-wrapper'
 
 // export * from './components/spinner'
 export { SpinnerPlugin } from './components/spinner'
