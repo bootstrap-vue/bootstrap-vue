@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.17.3"></a>
+
+### [v2.17.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.2...v2.17.3)
+
+Released: 2020-09-18
+
+- No changes to v2.17.2.
+
 <a name="2.17.2"></a>
 
 ### [v2.17.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.1...v2.17.2)
