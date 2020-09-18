@@ -1,0 +1,43 @@
+{
+  "scripts": {
+    "postchangelog": "./node_modules/.bin/prettier --write CHANGELOG.md"
+  },
+  "skip": {
+    "commit": true,
+    "tag": true
+  },
+  "types": [
+    {
+      "type": "fix",
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "perf",
+      "section": "Performance"
+    },
+    {
+      "type": "docs",
+      "hidden": true
+    },
+    {
+      "type": "style",
+      "hidden": true
+    },
+    {
+      "type": "refactor",
+      "hidden": true
+    },
+    {
+      "type": "chore",
+      "hidden": true
+    },
+    {
+      "type": "test",
+      "hidden": true
+    }
+  ]
+}
