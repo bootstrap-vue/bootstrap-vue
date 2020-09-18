@@ -25,7 +25,7 @@
           },
           {
             "prop": "placement",
-            "description": "Placement of the tooltip: One of 'top', 'bottom', 'right', 'left', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'left-top', 'left-bottom', 'right-top', 'right-bottom'"
+            "description": "Placement of the tooltip: One of 'top', 'bottom', 'right', 'left', 'topleft', 'topright', 'bottomleft', 'bottomright', 'lefttop', 'leftbottom', 'righttop', 'rightbottom'"
           },
           {
             "prop": "fallbackPlacement",
