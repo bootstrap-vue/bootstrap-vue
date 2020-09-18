@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.17.2"></a>
+
+### [v2.17.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.1...v2.17.2)
+
+Released: 2020-09-18
+
+### Bug Fixes v2.17.2
+
+- **b-nav-item-dropdown:** `boundary` handling in `<b-navbar>` (closes
+  [#5789](https://github.com/bootstrap-vue/bootstrap-vue/issues/5789))
+  ([#5794](https://github.com/bootstrap-vue/bootstrap-vue/issues/5794))
+  ([73383bf](https://github.com/bootstrap-vue/bootstrap-vue/commit/73383bfd935c097604bf5ad39a9cc2d18961ba87))
+- **b-skeleton:** add missing component exports
+  ([#5806](https://github.com/bootstrap-vue/bootstrap-vue/issues/5806))
+  ([871ce22](https://github.com/bootstrap-vue/bootstrap-vue/commit/871ce22504c4e64348b844c0e4306161317abf60))
+- **b-tooltip, b-popover:** fix `title` not being reset on hide
+  ([#5793](https://github.com/bootstrap-vue/bootstrap-vue/issues/5793))
+  ([31eeb0a](https://github.com/bootstrap-vue/bootstrap-vue/commit/31eeb0ab5ef262c33579f43969c7d6ee6c802e3d))
+
 <a name="2.17.1"></a>
 
 ### [v2.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.0...v2.17.1)

@@ -98,11 +98,11 @@
         "props": [
           {
             "prop": "text",
-            "description": "Text to place in the toggle button, or in the split button is split mode"
+            "description": "Text to place in the toggle element (link)"
           },
           {
             "prop": "html",
-            "description": "HTML string to place in the toggle button, or in the split button is split mode. Use with caution"
+            "description": "HTML string to place in the toggle element (link). Use with caution"
           },
           {
             "prop": "dropup",
@@ -138,16 +138,16 @@
           },
           {
             "prop": "toggleClass",
-            "description": "CSS class (or classes) to add to the toggle button"
+            "description": "CSS class (or classes) to add to the toggle element (link)"
           },
           {
             "prop": "noCaret",
-            "description": "Hide the caret indicator on the toggle button"
+            "description": "Hide the caret indicator on the toggle element (link)"
           },
           {
             "prop": "boundary",
             "version": "2.4.0",
-            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement. Has no effect when dropdown is inside a b-navbar"
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement. Has no effect when dropdown is inside a `<b-navbar>`"
           }
         ],
         "slots": [
