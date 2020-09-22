@@ -3867,29 +3867,29 @@ codemirror@^5.58.0:
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.58.0.tgz#1f1c4faacc8606587b6ac970f30e4fd37c61047f"
   integrity sha512-OUK+7EgaYnLyC0F09UWjckLWvviy02IDDGTW5Zmj60a3gdGnFtUM6rVsqrfl5+YSylQVQBNfAGG4KF7tQOb4/Q==
 
-codesandbox-import-util-types@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.2.0.tgz#f94799f83838a1e8ba776189a8275870d6579ab6"
-  integrity sha512-EFXFKCSE7I2VABNa11cgkFJAY8MQCMDhD147xntXw4O/wg5DkGmvor9s0bpk4IYlTOVwZT86H0My1xRhkIzHOA==
+codesandbox-import-util-types@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-util-types/-/codesandbox-import-util-types-2.2.1.tgz#fbd0babed213eed068ad8251f5cdb1a01e573171"
+  integrity sha512-hM5rkWi1u4dyQo6KMM0QqxOqUYWPPVy1tEoZ058UjaB2YE2YYXOyqmTpOOQZ2misJMzTsZH2r+3vC051bKd5bQ==
 
-codesandbox-import-utils@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.2.0.tgz#281b4449746b411cca8934b93fd1817cb4a3e898"
-  integrity sha512-d2sQnwbsegkjmx6x2Q7RBiLPtSDBKQHSQgekU6h8AimtaNO9d/nc/jWWR/kMnB+T6NorUxCpmoLtHWDqBihFRw==
+codesandbox-import-utils@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/codesandbox-import-utils/-/codesandbox-import-utils-2.2.1.tgz#dd037154b0b19b998e51127c23aeeed501dc9e84"
+  integrity sha512-x7dJkyiePLnOXuQKDYxTOqcWe0KB37pYJH3xadBrXZJZkeOt8Rab4VPLn9kUCb9SKdFToHXz/petWA8rghPZ7Q==
   dependencies:
-    codesandbox-import-util-types "^2.2.0"
+    codesandbox-import-util-types "^2.2.1"
     istextorbinary "^2.2.1"
     lz-string "^1.4.4"
 
-codesandbox@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.2.0.tgz#de9b993a7c32f19adac0d73c39e4a27b18ded1e1"
-  integrity sha512-+OQgbCvd79sJO5AM6kb+3mMbPo1neBR+Gf+neQZ8bakYSGVQzMmBu7xFYrGmLNkKw3mo69lWshh90T92C7CQCA==
+codesandbox@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/codesandbox/-/codesandbox-2.2.1.tgz#c09b26cf6844f3dff4718fac832beee493f6c2ff"
+  integrity sha512-TOQVhLFlUYazflpnRyVO966sO4Avr2IyfUZn+TYad5WNM1v2WCkAS8ApC4+XNfXC11LGchxwG5MVnVfFlCWlbQ==
   dependencies:
     axios "^0.18.1"
     chalk "^2.4.1"
-    codesandbox-import-util-types "^2.2.0"
-    codesandbox-import-utils "^2.2.0"
+    codesandbox-import-util-types "^2.2.1"
+    codesandbox-import-utils "^2.2.1"
     commander "^2.9.0"
     datauri "^1.1.0"
     filesize "^3.6.1"
