@@ -120,7 +120,7 @@
     "bootstrap-icons": "^1.0.0",
     "bundlewatch": "^0.3.1",
     "clean-css-cli": "^4.3.0",
-    "codemirror": "^5.58.0",
+    "codemirror": "^5.58.1",
     "codesandbox": "^2.2.1",
     "core-js": ">=2.6.5 <3.0.0",
     "cross-env": "^7.0.2",
