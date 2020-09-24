@@ -3,10 +3,6 @@
   "labels": ["Type: Dependencies"],
   "packageRules": [
     {
-      "packageNames": ["autoprefixer"],
-      "allowedVersions": "<10.0.0"
-    },
-    {
       "packageNames": ["bootstrap"],
       "allowedVersions": "<5.0.0"
     },
@@ -17,10 +13,6 @@
     {
       "packageNames": ["highlight.js"],
       "allowedVersions": "<10.0.0"
-    },
-    {
-      "packageNames": ["postcss"],
-      "allowedVersions": "<8.0.0"
     },
     {
       "packageNames": ["prettier"],
