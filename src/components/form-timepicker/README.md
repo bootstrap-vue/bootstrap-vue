@@ -144,10 +144,10 @@ popup time selection dialog.
 <template>
   <div>
     <label for="timepicker-sm">Small time picker</label>
-    <b-form-timepicker id="timepicker-sm" size="sm" local="en" class="mb-2"></b-form-timepicker>
+    <b-form-timepicker id="timepicker-sm" size="sm" locale="en" class="mb-2"></b-form-timepicker>
 
     <label for="timepicker-lg">Large time picker</label>
-    <b-form-timepicker id="timepicker-lg" size="lg" local="en"></b-form-timepicker>
+    <b-form-timepicker id="timepicker-lg" size="lg" locale="en"></b-form-timepicker>
   </div>
 </template>
 
@@ -163,7 +163,7 @@ a placeholder is not provided, the value of the `label-no-time-selected` prop is
 <template>
   <div>
     <label for="timepicker-placeholder">Time picker with placeholder</label>
-    <b-form-timepicker id="timepicker-placeholder" placeholder="Choose a time" local="en"></b-form-timepicker>
+    <b-form-timepicker id="timepicker-placeholder" placeholder="Choose a time" locale="en"></b-form-timepicker>
   </div>
 </template>
 
