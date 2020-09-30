@@ -55,7 +55,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   name: NAME_TABLE_CELL,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   inject: {
     bvTableTr: {
       /* istanbul ignore next */
@@ -64,6 +63,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     tag() {

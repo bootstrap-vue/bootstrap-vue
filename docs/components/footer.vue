@@ -73,22 +73,6 @@
   </footer>
 </template>
 
-<style scoped>
-.bv-logo {
-  margin-top: -2rem;
-}
-
-.docs-border {
-  border-top: 3px solid #dee2e6;
-}
-
-@media (min-width: 1200px) {
-  .bd-footer > .container {
-    max-width: 960px;
-  }
-}
-</style>
-
 <script>
 import { version } from '~/content'
 import BvLogo from '~/components/bv-logo'
@@ -115,3 +99,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.bv-logo {
+  margin-top: -2rem;
+}
+
+.docs-border {
+  border-top: 3px solid #dee2e6;
+}
+
+@media (min-width: 1200px) {
+  .bd-footer > .container {
+    max-width: 960px;
+  }
+}
+</style>

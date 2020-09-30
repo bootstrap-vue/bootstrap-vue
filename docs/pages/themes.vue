@@ -117,31 +117,6 @@
   </b-container>
 </template>
 
-<style lang="scss" scoped>
-.bv-logo {
-  // BV Logo (SVG)
-  width: 280px;
-  height: 280px;
-}
-
-@media (max-width: 991px) {
-  // Shrink the display text a bit on smaller screens
-  // Only used if no themes are available
-  .display-4 {
-    font-size: 2.5rem;
-  }
-}
-
-.bvd-theme {
-  .card {
-    // Simple way to get rounded corners on the images
-    overflow: hidden;
-    // Add some shadow
-    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
-  }
-}
-</style>
-
 <script>
 import BvLogo from '~/components/bv-logo'
 
@@ -163,11 +138,6 @@ export default {
 
     return {
       themes
-    }
-  },
-  computed: {
-    title() {
-      return 'Themes and dashboards'
     }
   },
   head() {
@@ -195,6 +165,36 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    title() {
+      return 'Themes and dashboards'
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.bv-logo {
+  // BV Logo (SVG)
+  width: 280px;
+  height: 280px;
+}
+
+@media (max-width: 991px) {
+  // Shrink the display text a bit on smaller screens
+  // Only used if no themes are available
+  .display-4 {
+    font-size: 2.5rem;
+  }
+}
+
+.bvd-theme {
+  .card {
+    // Simple way to get rounded corners on the images
+    overflow: hidden;
+    // Add some shadow
+    box-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.06);
+  }
+}
+</style>

@@ -392,6 +392,35 @@
   </main>
 </template>
 
+<script>
+import {
+  bootstrapIconsCount,
+  bootstrapVersionMajor,
+  bootstrapVersionMinor,
+  version,
+  vueVersionMinor
+} from '~/content'
+import BvLogo from '~/components/bv-logo'
+import BVCarbonAd from '~/components/carbon-ad'
+import BVContributors from '~/components/contributors'
+
+export default {
+  components: {
+    BvLogo,
+    BVCarbonAd,
+    BVContributors
+  },
+  created() {
+    this.bootstrapUrl = `https://getbootstrap.com/docs/${bootstrapVersionMinor}`
+    this.bootstrapVersionMajor = bootstrapVersionMajor
+    this.bootstrapVersionMinor = bootstrapVersionMinor
+    this.bootstrapIconsCount = bootstrapIconsCount
+    this.vueVersionMinor = vueVersionMinor
+    this.version = version
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/variables';
@@ -544,32 +573,3 @@ $bv-angle-padding-md: 6rem;
   }
 }
 </style>
-
-<script>
-import {
-  bootstrapIconsCount,
-  bootstrapVersionMajor,
-  bootstrapVersionMinor,
-  version,
-  vueVersionMinor
-} from '~/content'
-import BvLogo from '~/components/bv-logo'
-import BVCarbonAd from '~/components/carbon-ad'
-import BVContributors from '~/components/contributors'
-
-export default {
-  components: {
-    BvLogo,
-    BVCarbonAd,
-    BVContributors
-  },
-  created() {
-    this.bootstrapUrl = `https://getbootstrap.com/docs/${bootstrapVersionMinor}`
-    this.bootstrapVersionMajor = bootstrapVersionMajor
-    this.bootstrapVersionMinor = bootstrapVersionMinor
-    this.bootstrapIconsCount = bootstrapIconsCount
-    this.vueVersionMinor = vueVersionMinor
-    this.version = version
-  }
-}
-</script>

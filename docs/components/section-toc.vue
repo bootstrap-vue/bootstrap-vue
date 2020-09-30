@@ -27,12 +27,6 @@
   </Main>
 </template>
 
-<style scoped>
-.list-group .list-group-item:hover strong {
-  text-decoration: underline;
-}
-</style>
-
 <script>
 import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
@@ -48,12 +42,12 @@ const groups = nav.reduce((obj, g) => {
 
 export default {
   name: 'BVSectionToc',
-  layout: 'docs',
   components: {
     CarbonAd,
     Main,
     Section
   },
+  layout: 'docs',
   computed: {
     slug() {
       return this.$route.path.replace(/^\//, '').split('/')[1] || ''
@@ -81,3 +75,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.list-group .list-group-item:hover strong {
+  text-decoration: underline;
+}
+</style>

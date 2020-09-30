@@ -163,15 +163,6 @@
   </b-navbar>
 </template>
 
-<style scoped>
-.navbar-brand {
-  color: #cbbde2;
-}
-.navbar-brand.active {
-  color: #fff;
-}
-</style>
-
 <script>
 import { BASE_URL, BASE_URL_DEV, NETLIFY_URL } from '~/constants'
 import { version } from '~/content'
@@ -241,3 +232,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.navbar-brand {
+  color: #cbbde2;
+}
+.navbar-brand.active {
+  color: #fff;
+}
+</style>

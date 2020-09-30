@@ -22,7 +22,6 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   name: NAME_TR,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableTr: this
@@ -36,6 +35,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     inTbody() {

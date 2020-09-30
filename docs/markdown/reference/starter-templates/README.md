@@ -119,12 +119,12 @@ follows:
 import { BCard, BCardBody, BCardFooter, BCardHeader, BCardImg, BTable } from 'bootstrap-vue'
 
 // Add components globally
-Vue.component('b-card', BCard)
-Vue.component('b-card-body', BCardBody)
-Vue.component('b-card-footer', BCardFooter)
-Vue.component('b-card-header', BCardHeader)
-Vue.component('b-card-img', BCardImg)
-Vue.component('b-table', BTable)
+Vue.component('BCard', BCard)
+Vue.component('BCardBody', BCardBody)
+Vue.component('BCardFooter', BCardFooter)
+Vue.component('BCardHeader', BCardHeader)
+Vue.component('BCardImg', BCardImg)
+Vue.component('BTable', BTable)
 
 // Or make available locally to your component or app
 export default {

@@ -95,7 +95,7 @@
         bordered
         striped
       >
-        <template v-slot:cell(prop)="{ value, item }">
+        <template #cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
           <b-badge v-if="item.settings" variant="dark" href="/docs/reference/settings" title="Configurable in settings">Settings</b-badge>
@@ -105,13 +105,13 @@
           <b-badge v-if="item.deprecated" variant="danger">Deprecated</b-badge>
           <b-badge v-else-if="item.deprecation" variant="warning">Deprecation</b-badge>
         </template>
-        <template v-slot:cell(type)="{ value }">
+        <template #cell(type)="{ value }">
           <span v-html="value"></span>
         </template>
-        <template v-slot:cell(defaultValue)="{ value }">
+        <template #cell(defaultValue)="{ value }">
           <code v-if="value" class="word-wrap-normal notranslate" translate="no">{{ value }}</code>
         </template>
-        <template v-slot:row-details="{ item }">
+        <template #row-details="{ item }">
           <p v-if="typeof item.deprecated === 'string'" class="mb-1 small">
             {{ item.deprecated }}
           </p>
@@ -158,10 +158,10 @@
         bordered
         striped
       >
-        <template v-slot:cell(prop)="{ value }">
+        <template #cell(prop)="{ value }">
           <code class="notranslate" translate="no">{{ kebabCase(value) }}</code>
         </template>
-        <template v-slot:cell(event)="{ value }">
+        <template #cell(event)="{ value }">
           <code class="notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table-lite>
@@ -181,11 +181,11 @@
         bordered
         striped
       >
-        <template v-slot:cell(name)="{ value, item }">
+        <template #cell(name)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
-        <template v-slot:cell(scope)="{ value, detailsShowing, toggleDetails }">
+        <template #cell(scope)="{ value, detailsShowing, toggleDetails }">
           <b-button
             v-if="value"
             variant="outline-info"
@@ -197,7 +197,7 @@
           </b-button>
           <span v-else>No</span>
         </template>
-        <template v-slot:row-details="{ item }">
+        <template #row-details="{ item }">
           <b-table-lite
             :items="item.scope"
             :fields="[{ key: 'prop', label: 'Property' }, 'type', 'description']"
@@ -207,7 +207,7 @@
             caption-top
             small
           >
-            <template v-slot:thead-top>
+            <template #thead-top>
               <b-tr>
                 <b-th colspan="3" class="text-center">
                   <code class="text-nowrap notranslate" translate="no">{{ item.name }}</code>
@@ -215,11 +215,11 @@
                 </b-th>
               </b-tr>
             </template>
-            <template v-slot:cell(prop)="{ value, item }">
+            <template #cell(prop)="{ value, item: cellItem }">
               <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
-              <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
+              <b-badge v-if="cellItem.version" variant="secondary">v{{ cellItem.version }}+</b-badge>
             </template>
-            <template v-slot:cell(type)="{ value }">
+            <template #cell(type)="{ value }">
               <code class="text-nowrap notranslate" translate="no">{{ value || 'Any' }}</code>
             </template>
           </b-table-lite>
@@ -240,11 +240,11 @@
         bordered
         striped
       >
-        <template v-slot:cell(event)="{ value, item }">
+        <template #cell(event)="{ value, item }">
           <code class="notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
-        <template v-slot:cell(args)="{ value, item }">
+        <template #cell(args)="{ value, item }">
           <ol v-if="value && value.length > 0" class="list-unstyled mb-0">
             <li v-for="(arg, idx) in value" :key="`event-${item.event}-${arg.arg || idx}`">
               <template v-if="arg.arg">
@@ -274,11 +274,11 @@
         bordered
         striped
       >
-        <template v-slot:cell(event)="{ value, item }">
+        <template #cell(event)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
         </template>
-        <template v-slot:cell(args)="{ value, item }">
+        <template #cell(args)="{ value, item }">
           <p
             v-for="arg in value"
             :key="`event-${item.event}-${arg.arg ? arg.arg : 'none'}`"
@@ -294,29 +294,6 @@
     </article>
   </section>
 </template>
-
-<style scoped>
-h3::before {
-  display: block;
-  height: 1.25rem;
-  margin-top: -1.25rem;
-  content: '';
-}
-
-code.bigger {
-  font-size: 105%;
-}
-
-ul.component-ref-mini-toc:empty {
-  display: none;
-}
-
-/deep/ .word-wrap-normal {
-  white-space: normal !important;
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-}
-</style>
 
 <script>
 import Vue from 'vue'
@@ -529,3 +506,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+h3::before {
+  display: block;
+  height: 1.25rem;
+  margin-top: -1.25rem;
+  content: '';
+}
+
+code.bigger {
+  font-size: 105%;
+}
+
+ul.component-ref-mini-toc:empty {
+  display: none;
+}
+
+/deep/ .word-wrap-normal {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+</style>

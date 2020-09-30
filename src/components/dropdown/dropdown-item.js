@@ -12,12 +12,12 @@ export const props = omit(BLinkProps, ['event', 'routerTag'])
 export const BDropdownItem = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_ITEM,
   mixins: [attrsMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
     }
   },
+  inheritAttrs: false,
   props: {
     ...props,
     linkClass: {

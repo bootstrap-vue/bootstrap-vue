@@ -66,85 +66,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.contributor {
-  width: 55px;
-
-  .contributor-thumbnail {
-    width: 100%;
-    height: 55px;
-  }
-
-  a:hover .contributor-thumbnail {
-    background-color: #6c757d40;
-  }
-
-  .contributor-name {
-    font-size: 80%;
-    font-weight: 400;
-  }
-
-  .backers & {
-    width: 70px;
-
-    .contributor-name {
-      font-size: 60%;
-    }
-
-    .contributor-thumbnail {
-      height: 70px;
-    }
-  }
-
-  .bronze-sponsors & {
-    width: 90px;
-
-    .contributor-thumbnail {
-      height: 90px;
-    }
-  }
-
-  .silver-sponsors & {
-    width: 100px;
-
-    .contributor-name {
-      font-size: 90%;
-      font-weight: bold;
-    }
-
-    .contributor-thumbnail {
-      height: 100px;
-    }
-  }
-
-  .gold-sponsors & {
-    width: 120px;
-
-    .contributor-name {
-      font-size: 90%;
-      font-weight: bold;
-    }
-
-    .contributor-thumbnail {
-      height: 120px;
-    }
-  }
-
-  .platinum-sponsors & {
-    width: 140px;
-
-    .contributor-name {
-      font-size: 100%;
-      font-weight: bold;
-    }
-
-    .contributor-thumbnail {
-      height: 140px;
-    }
-  }
-}
-</style>
-
 <script>
 import BVContributorsContainer from '~/components/contributors-container'
 
@@ -330,3 +251,82 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.contributor {
+  width: 55px;
+
+  .contributor-thumbnail {
+    width: 100%;
+    height: 55px;
+  }
+
+  a:hover .contributor-thumbnail {
+    background-color: #6c757d40;
+  }
+
+  .contributor-name {
+    font-size: 80%;
+    font-weight: 400;
+  }
+
+  .backers & {
+    width: 70px;
+
+    .contributor-name {
+      font-size: 60%;
+    }
+
+    .contributor-thumbnail {
+      height: 70px;
+    }
+  }
+
+  .bronze-sponsors & {
+    width: 90px;
+
+    .contributor-thumbnail {
+      height: 90px;
+    }
+  }
+
+  .silver-sponsors & {
+    width: 100px;
+
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 100px;
+    }
+  }
+
+  .gold-sponsors & {
+    width: 120px;
+
+    .contributor-name {
+      font-size: 90%;
+      font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 120px;
+    }
+  }
+
+  .platinum-sponsors & {
+    width: 140px;
+
+    .contributor-name {
+      font-size: 100%;
+      font-weight: bold;
+    }
+
+    .contributor-thumbnail {
+      height: 140px;
+    }
+  }
+}
+</style>

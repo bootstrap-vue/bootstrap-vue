@@ -19,7 +19,6 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   name: NAME_TFOOT,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableRowGroup: this
@@ -34,6 +33,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     isTfoot() {

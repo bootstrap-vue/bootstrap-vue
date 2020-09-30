@@ -23,7 +23,6 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   name: NAME_TBODY,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableRowGroup: this
@@ -38,6 +37,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     isTbody() {
