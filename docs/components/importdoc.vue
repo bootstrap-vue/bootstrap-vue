@@ -22,13 +22,13 @@
           bordered
           striped
         >
-          <template v-slot:cell(component)="{ value }">
+          <template #cell(component)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template v-slot:cell(namedExport)="{ value }">
+          <template #cell(namedExport)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template v-slot:cell(importPath)="{ value }">
+          <template #cell(importPath)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -57,13 +57,13 @@
           bordered
           striped
         >
-          <template v-slot:cell(directive)="{ value }">
+          <template #cell(directive)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template v-slot:cell(namedExport)="{ value }">
+          <template #cell(namedExport)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
-          <template v-slot:cell(importPath)="{ value }">
+          <template #cell(importPath)="{ value }">
             <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
           </template>
         </b-table>
@@ -97,10 +97,10 @@
         bordered
         striped
       >
-        <template v-slot:cell(namedExport)="{ value }">
+        <template #cell(namedExport)="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
-        <template v-slot:cell(importPath)="{ value }">
+        <template #cell(importPath)="{ value }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code>
         </template>
       </b-table>

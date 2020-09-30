@@ -15,7 +15,6 @@ const { titleLead = '', body = '', baseTOC = {} } = readmeData
 // @vue/component
 export default {
   name: 'BDVIcons',
-  layout: 'docs',
   components: {
     AnchoredHeading,
     CarbonAd,
@@ -27,6 +26,7 @@ export default {
     Section
   },
   mixins: [docsMixin],
+  layout: 'docs',
   data() {
     return {
       titleLead,

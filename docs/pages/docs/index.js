@@ -31,7 +31,6 @@ const { titleLead = '', body = '', baseTOC = {} } = readmeData
 // @vue/component
 export default {
   name: 'BDVDocs',
-  layout: 'docs',
   components: {
     CarbonAd,
     Main,
@@ -39,6 +38,7 @@ export default {
     Section
   },
   mixins: [docsMixin],
+  layout: 'docs',
   data() {
     return {
       bootstrapVersion,

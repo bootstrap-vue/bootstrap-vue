@@ -42,10 +42,10 @@ export const props = {
 export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR,
   mixins: [normalizeSlotMixin],
-  props,
   provide() {
     return { bvNavbar: this }
   },
+  props,
   computed: {
     breakpointClass() {
       let breakpoint = null

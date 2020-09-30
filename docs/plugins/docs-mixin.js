@@ -13,6 +13,12 @@ export default {
       scrollTimeout: null
     }
   },
+  head() {
+    return {
+      title: this.headTitle,
+      meta: this.headMeta
+    }
+  },
   computed: {
     headTitle() {
       const routeName = this.$route.name
@@ -120,12 +126,6 @@ export default {
           scrollTo(scroller, offsetTop(el) - 70, 100)
         }, 100)
       }
-    }
-  },
-  head() {
-    return {
-      title: this.headTitle,
-      meta: this.headMeta
     }
   }
 }

@@ -136,10 +136,10 @@ Vue.use(BVConfigPlugin, {
 })
 
 // Then install components globally
-Vue.component('b-alert', BAlert)
-Vue.component('b-button', BButton)
-Vue.component('b-row', BRow)
-Vue.component('b-col', BCol)
+Vue.component('BAlert', BAlert)
+Vue.component('BButton', BButton)
+Vue.component('BRow', BRow)
+Vue.component('BCol', BCol)
 
 // Or register components as local to your custom component
 export default {
