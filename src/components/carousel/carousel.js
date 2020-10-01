@@ -10,6 +10,7 @@ import {
   getActiveElement,
   reflow,
   removeClass,
+  requestAF,
   selectAll,
   setAttr
 } from '../../utils/dom'
@@ -270,8 +271,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       if (this.isSliding) {
         // Schedule slide after sliding complete
         this.$once('sliding-end', () => {
-          // Wrap in setTimeout to allow the slide to properly finish to avoid glitching
-          setTimeout(() => this.setSlide(slide, direction))
+          // Wrap in `requestAF()` to allow the slide to properly finish to avoid glitching
+          requestAF(() => this.setSlide(slide, direction))
         })
         return
       }
