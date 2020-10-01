@@ -164,7 +164,7 @@ slide transition via the `no-slide` prop.
 [reduced motion section of our accessibility documentation](/docs/reference/accessibility) for
 additional details.
 
-When disabling the slid transition, the fade transition of the [optional backdrop](#backdrop) will
+When disabling the slide transition, the fade transition of the [optional backdrop](#backdrop) will
 also be disabled.
 
 ### Z-index
