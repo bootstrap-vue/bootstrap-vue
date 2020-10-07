@@ -9,6 +9,8 @@
   overflow: hidden;
   background-color: $b-skeleton-background-color;
   cursor: $b-skeleton-loading-cursor;
+  // https://gist.github.com/ayamflow/b602ab436ac9f05660d9c15190f4fd7b
+  mask-image: radial-gradient(white, black);
 
   // Use `::before` since `::after` is used for the wave-animation
   &::before {
