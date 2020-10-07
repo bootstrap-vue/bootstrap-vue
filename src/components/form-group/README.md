@@ -12,8 +12,8 @@
       description="Let us know your name."
       label="Enter your name"
       label-for="input-1"
+      valid-feedback="Thank you!"
       :invalid-feedback="invalidFeedback"
-      :valid-feedback="validFeedback"
       :state="state"
     >
       <b-form-input id="input-1" v-model="name" :state="state" trim></b-form-input>
@@ -25,19 +25,13 @@
   export default {
     computed: {
       state() {
-        return this.name.length >= 4 ? true : false
+        return this.name.length >= 4
       },
       invalidFeedback() {
-        if (this.name.length > 4) {
-          return ''
-        } else if (this.name.length > 0) {
-          return 'Enter at least 4 characters'
-        } else {
-          return 'Please enter something'
+        if (this.name.length > 0) {
+          return 'Enter at least 4 characters.'
         }
-      },
-      validFeedback() {
-        return this.state === true ? 'Thank you' : ''
+        return 'Please enter something.'
       }
     },
     data() {
