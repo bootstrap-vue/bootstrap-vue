@@ -110,14 +110,8 @@ describe('utils/router', () => {
 
     it('parses nothing to default', async () => {
       expect(computeHref()).toEqual('#')
-      expect(computeHref(undefined, undefined, '/', '')).toEqual('/')
-      expect(computeHref(undefined, undefined, '', '')).toEqual('')
-    })
-
-    it('returns null when tag is not `a`', async () => {
-      expect(computeHref({}, 'div')).toEqual(null)
-      expect(computeHref(undefined, 'div', '/', '')).toEqual(null)
-      expect(computeHref(undefined, 'span', '', '/')).toEqual(null)
+      expect(computeHref(undefined, '/', '')).toEqual('/')
+      expect(computeHref(undefined, '', '')).toEqual('')
     })
 
     it('returns href when both href and to provided', async () => {
@@ -130,8 +124,8 @@ describe('utils/router', () => {
 
     it('parses empty `href` to default', async () => {
       expect(computeHref({ href: '' })).toEqual('#')
-      expect(computeHref({ href: '' }, 'a', '/', '')).toEqual('/')
-      expect(computeHref({ href: '' }, 'a', '', '')).toEqual('')
+      expect(computeHref({ href: '' }, '/', '')).toEqual('/')
+      expect(computeHref({ href: '' }, '', '')).toEqual('')
     })
 
     it('parses `to` when string', async () => {
@@ -179,8 +173,8 @@ describe('utils/router', () => {
 
     it('parses empty `to` to fallback default', async () => {
       expect(computeHref({ to: {} })).toEqual('#')
-      expect(computeHref({ to: {} }, 'a', '#', '')).toEqual('#')
-      expect(computeHref({ to: {} }, 'a', '/', '#')).toEqual('/')
+      expect(computeHref({ to: {} }, '#', '')).toEqual('#')
+      expect(computeHref({ to: {} }, '/', '#')).toEqual('/')
     })
 
     it('parses complete `to`', async () => {
@@ -204,8 +198,9 @@ describe('utils/router', () => {
   describe('isRouterLink()', () => {
     it('works', async () => {
       expect(isRouterLink('a')).toBe(false)
-      expect(isRouterLink('div')).toBe(true)
-      expect(isRouterLink()).toBe(true)
+      expect(isRouterLink('router-link')).toBe(true)
+      expect(isRouterLink('nuxt-link')).toBe(true)
+      expect(isRouterLink()).toBe(false)
     })
   })
 

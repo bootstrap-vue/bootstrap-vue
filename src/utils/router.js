@@ -1,15 +1,8 @@
+import { RX_ENCODED_COMMA, RX_ENCODE_REVERSE, RX_PLUS, RX_QUERY_START } from '../constants/regex'
 import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
 import { toString } from './string'
-
-const ANCHOR_TAG = 'a'
-
-// Precompile RegExp
-const commaRE = /%2C/g
-const encodeReserveRE = /[!'()*]/g
-const plusRE = /\+/g
-const queryStartRE = /^(\?|#|&)/
 
 // Method to replace reserved chars
 const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
@@ -19,8 +12,8 @@ const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 // - preserve commas
 const encode = str =>
   encodeURIComponent(toString(str))
-    .replace(encodeReserveRE, encodeReserveReplacer)
-    .replace(commaRE, ',')
+    .replace(RX_ENCODE_REVERSE, encodeReserveReplacer)
+    .replace(RX_ENCODED_COMMA, ',')
 
 const decode = decodeURIComponent
 
@@ -65,14 +58,14 @@ export const parseQuery = query => {
   const parsed = {}
   query = toString(query)
     .trim()
-    .replace(queryStartRE, '')
+    .replace(RX_QUERY_START, '')
 
   if (!query) {
     return parsed
   }
 
   query.split('&').forEach(param => {
-    const parts = param.replace(plusRE, ' ').split('=')
+    const parts = param.replace(RX_PLUS, ' ').split('=')
     const key = decode(parts.shift())
     const val = parts.length > 0 ? decode(parts.join('=')) : null
 
@@ -90,12 +83,12 @@ export const parseQuery = query => {
 
 export const isLink = props => !!(props.href || props.to)
 
-export const isRouterLink = tag => !isTag(tag, ANCHOR_TAG)
+export const isRouterLink = tag => !!(tag && !isTag(tag, 'a'))
 
 export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
-  const hasRouter = thisOrParent.$router
-  if (!hasRouter || (hasRouter && disabled) || (hasRouter && !to)) {
-    return ANCHOR_TAG
+  const hasRouter = !!thisOrParent.$router
+  if (!hasRouter || (hasRouter && (disabled || !to))) {
+    return 'a'
   }
 
   // TODO:
@@ -109,45 +102,26 @@ export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrPar
   return routerComponentName || (thisOrParent.$nuxt ? 'nuxt-link' : 'router-link')
 }
 
-export const computeRel = ({ target, rel } = {}) => {
-  if (target === '_blank' && isNull(rel)) {
-    return 'noopener'
-  }
-  return rel || null
-}
+export const computeRel = ({ target, rel } = {}) =>
+  target === '_blank' && isNull(rel) ? 'noopener' : rel || null
 
-export const computeHref = (
-  { href, to } = {},
-  tag = ANCHOR_TAG,
-  fallback = '#',
-  toFallback = '/'
-) => {
-  // We've already checked the $router in computeTag(), so isRouterLink() indicates a live router.
-  // When deferring to Vue Router's router-link, don't use the href attribute at all.
-  // We return null, and then remove href from the attributes passed to router-link
-  if (isRouterLink(tag)) {
-    return null
-  }
-
+export const computeHref = ({ href, to } = {}, fallback = '#', toFallback = '/') => {
   // Return `href` when explicitly provided
   if (href) {
     return href
   }
 
-  // Reconstruct `href` when `to` used, but no router
-  if (to) {
-    // Fallback to `to` prop (if `to` is a string)
-    if (isString(to)) {
-      return to || toFallback
-    }
-    // Fallback to `to.path + to.query + to.hash` prop (if `to` is an object)
-    if (isPlainObject(to) && (to.path || to.query || to.hash)) {
-      const path = toString(to.path)
-      const query = stringifyQueryObj(to.query)
-      let hash = toString(to.hash)
-      hash = !hash || hash.charAt(0) === '#' ? hash : `#${hash}`
-      return `${path}${query}${hash}` || toFallback
-    }
+  // Fallback to `to` prop (if `to` is a string)
+  if (isString(to)) {
+    return to || toFallback
+  }
+  // Fallback to `to.path' + `to.query` + `to.hash` prop (if `to` is an object)
+  if (isPlainObject(to) && (to.path || to.query || to.hash)) {
+    const path = toString(to.path)
+    const query = stringifyQueryObj(to.query)
+    let hash = toString(to.hash)
+    hash = !hash || hash.charAt(0) === '#' ? hash : `#${hash}`
+    return `${path}${query}${hash}` || toFallback
   }
 
   // If nothing is provided return the fallback

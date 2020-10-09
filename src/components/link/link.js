@@ -2,7 +2,7 @@ import { NAME_LINK } from '../../constants/components'
 import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { attemptBlur, attemptFocus } from '../../utils/dom'
+import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { pluckProps } from '../../utils/props'
@@ -120,14 +120,16 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     },
     computedRel() {
       // We don't pass `this` as the first arg as we need reactivity of the props
-      return computeRel({ target: this.target, rel: this.rel })
+      const { target, rel } = this
+      return computeRel({ target, rel })
     },
     computedHref() {
       // We don't pass `this` as the first arg as we need reactivity of the props
-      return computeHref({ to: this.to, href: this.href }, this.computedTag)
+      const { to, href } = this
+      return computeHref({ to, href })
     },
     computedProps() {
-      const prefetch = this.prefetch
+      const { prefetch } = this
       return this.isRouterLink
         ? {
             ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this),
@@ -156,7 +158,9 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // (i.e. if `computedHref()` is truthy)
         ...(href ? { href } : {}),
         // We don't render `rel` or `target` on non link tags when using `vue-router`
-        ...(isRouterLink && routerTag !== 'a' && routerTag !== 'area' ? {} : { rel, target }),
+        ...(isRouterLink && !isTag(routerTag, 'a') && !isTag(routerTag, 'area')
+          ? {}
+          : { rel, target }),
         tabindex: disabled ? '-1' : isUndefined(bvAttrs.tabindex) ? null : bvAttrs.tabindex,
         'aria-disabled': disabled ? 'true' : null
       }
