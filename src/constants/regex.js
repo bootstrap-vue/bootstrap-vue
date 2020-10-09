@@ -41,7 +41,7 @@ export const RX_ENCODED_COMMA = /%2C/g
 export const RX_ENCODE_REVERSE = /[!'()*]/g
 export const RX_QUERY_START = /^(\?|#|&)/
 
-// -- Aspect ---
+// --- Aspect ---
 
 export const RX_ASPECT = /^\d+(\.\d*)?[/:]\d+(\.\d*)?$/
 export const RX_ASPECT_SEPARATOR = /[/:]/
