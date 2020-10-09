@@ -150,7 +150,7 @@
     "node-sass": "^4.14.1",
     "nuxt": "^2.14.6",
     "postcss": "^8.1.1",
-    "postcss-cli": "^8.0.0",
+    "postcss-cli": "^8.1.0",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
     "rollup": "^2.29.0",
