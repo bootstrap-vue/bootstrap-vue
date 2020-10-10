@@ -50,10 +50,15 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       ]
     },
     templateAttributes() {
+      const htmlAttr = this.$parent.$options.htmlAttrs || {}
       return {
+        // normal HTML attributes to the template root element
+        ...htmlAttr,
+
         id: this.id,
         role: 'tooltip',
         tabindex: '-1',
+
         // Add the scoped style data attribute to the template root element
         ...this.scopedStyleAttrs
       }

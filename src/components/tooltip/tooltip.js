@@ -211,7 +211,9 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       const $toolpop = (this.$_toolpop = new Component({
         parent: this,
         // Pass down the scoped style ID
-        _scopeId: scopeId || undefined
+        _scopeId: scopeId || undefined,
+        // Pass normal HTML attributes
+        htmlAttrs: this.$attrs
       }))
       // Set the initial data
       $toolpop.updateData(this.templateData)
