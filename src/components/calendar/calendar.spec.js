@@ -31,6 +31,7 @@ describe('calendar', () => {
     expect($header.find('output').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').exists()).toBe(true)
     expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').attributes('role')).toEqual('group')
+    expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').attributes('tabindex')).toEqual('0')
     expect(wrapper.findAll('.b-calendar>div>div.b-calendar-nav>button').length).toBe(5)
     expect(wrapper.find('.b-calendar>div>div[role="application"]').exists()).toBe(true)
 
