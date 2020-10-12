@@ -10,6 +10,7 @@ import { BVTooltip } from './helpers/bv-tooltip'
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
+  inheritAttrs: false,
   props: {
     title: {
       type: String

@@ -5,13 +5,13 @@
 //   Templates are only instantiated when shown, and destroyed when hidden
 //
 
+import Popper from 'popper.js'
 import { NAME_POPPER } from '../../../constants/components'
 import Vue from '../../../utils/vue'
-import Popper from 'popper.js'
+import { BVTransition } from '../../../utils/bv-transition'
 import { getCS, requestAF, select } from '../../../utils/dom'
 import { toFloat } from '../../../utils/number'
 import { HTMLElement, SVGElement } from '../../../utils/safe-types'
-import { BVTransition } from '../../../utils/bv-transition'
 
 const AttachmentMap = {
   AUTO: 'auto',
@@ -95,12 +95,12 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
   },
   computed: {
     /* istanbul ignore next */
-    templateType() /* istanbul ignore next */ {
+    templateType() {
       // Overridden by template component
       return 'unknown'
     },
     popperConfig() {
-      const placement = this.placement
+      const { placement } = this
       return {
         placement: this.getAttachment(placement),
         modifiers: {
@@ -156,9 +156,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     // Ensure that the attachment position is correct before mounting
     // as our propsData is added after `new Template({...})`
     this.attachment = this.getAttachment(this.placement)
-  },
-  mounted() {
-    // TBD
   },
   updated() {
     // Update popper if needed
