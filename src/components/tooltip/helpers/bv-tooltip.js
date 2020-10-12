@@ -110,9 +110,6 @@ const templateData = {
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_HELPER,
-  props: {
-    // None
-  },
   data() {
     return {
       // BTooltip/BPopover/VBTooltip/VBPopover will update this data
