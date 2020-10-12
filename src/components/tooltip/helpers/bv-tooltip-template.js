@@ -50,10 +50,9 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       ]
     },
     templateAttributes() {
-      const htmlAttr = this.$parent.$options.htmlAttrs || {}
       return {
-        // normal HTML attributes to the template root element
-        ...htmlAttr,
+        // Apply attributes from root tooltip component
+        ...this.$parent.$parent.$attrs,
 
         id: this.id,
         role: 'tooltip',

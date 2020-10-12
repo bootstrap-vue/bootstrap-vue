@@ -10,6 +10,7 @@ import { BVTooltip } from './helpers/bv-tooltip'
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
+  inheritAttrs: false,
   props: {
     title: {
       type: String
@@ -211,9 +212,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       const $toolpop = (this.$_toolpop = new Component({
         parent: this,
         // Pass down the scoped style ID
-        _scopeId: scopeId || undefined,
-        // Pass normal HTML attributes
-        htmlAttrs: this.$attrs
+        _scopeId: scopeId || undefined
       }))
       // Set the initial data
       $toolpop.updateData(this.templateData)
