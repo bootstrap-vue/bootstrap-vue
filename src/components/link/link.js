@@ -155,7 +155,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         ...bvAttrs,
         // If `href` attribute exists on `<router-link>` (even `undefined` or `null`)
         // it fails working on SSR, so we explicitly add it here if needed
-        // (i.e. if `computedHref()` is truthy)
+        // (i.e. if `computedHref` is truthy)
         ...(href ? { href } : {}),
         // We don't render `rel` or `target` on non link tags when using `vue-router`
         ...(isRouterLink && !isTag(routerTag, 'a') ? {} : { rel, target }),
