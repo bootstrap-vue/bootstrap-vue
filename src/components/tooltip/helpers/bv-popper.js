@@ -157,9 +157,6 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
     // as our propsData is added after `new Template({...})`
     this.attachment = this.getAttachment(this.placement)
   },
-  mounted() {
-    // TBD
-  },
   updated() {
     // Update popper if needed
     // TODO: Should this be a watcher on `this.popperConfig` instead?
