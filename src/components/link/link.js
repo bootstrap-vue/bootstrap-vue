@@ -158,9 +158,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // (i.e. if `computedHref()` is truthy)
         ...(href ? { href } : {}),
         // We don't render `rel` or `target` on non link tags when using `vue-router`
-        ...(isRouterLink && !isTag(routerTag, 'a') && !isTag(routerTag, 'area')
-          ? {}
-          : { rel, target }),
+        ...(isRouterLink && !isTag(routerTag, 'a') ? {} : { rel, target }),
         tabindex: disabled ? '-1' : isUndefined(bvAttrs.tabindex) ? null : bvAttrs.tabindex,
         'aria-disabled': disabled ? 'true' : null
       }
