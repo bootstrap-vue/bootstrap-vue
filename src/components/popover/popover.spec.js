@@ -32,7 +32,10 @@ const App = {
       h(
         BPopover,
         {
-          attrs: { id: 'bar' },
+          attrs: {
+            id: 'bar',
+            'data-foo': 'bar'
+          },
           props: {
             target: 'foo',
             triggers: this.triggers,
@@ -156,7 +159,7 @@ describe('b-popover', () => {
     expect($button.attributes('id')).toEqual('foo')
     expect($button.attributes('data-original-title')).not.toBeDefined()
     // ID of the tooltip that will be in the body
-    const adb = $button.attributes('aria-describedby')
+    const $adb = $button.attributes('aria-describedby')
 
     // <b-popover> wrapper
     const $tipHolder = wrapper.findComponent(BPopover)
@@ -164,12 +167,14 @@ describe('b-popover', () => {
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
     // Find the popover element in the document
-    const tip = document.getElementById(adb)
-    expect(tip).not.toBe(null)
-    expect(tip).toBeInstanceOf(HTMLElement)
-    expect(tip.tagName).toEqual('DIV')
-    expect(tip.classList.contains('popover')).toBe(true)
-    expect(tip.classList.contains('b-popover')).toBe(true)
+    const $tip = document.getElementById($adb)
+    expect($tip).not.toBe(null)
+    expect($tip).toBeInstanceOf(HTMLElement)
+    expect($tip.tagName).toEqual('DIV')
+    expect($tip.getAttribute('id')).toEqual('bar')
+    expect($tip.getAttribute('data-foo')).toEqual('bar')
+    expect($tip.classList.contains('popover')).toBe(true)
+    expect($tip.classList.contains('b-popover')).toBe(true)
 
     // Hide the Popover
     await wrapper.setProps({
@@ -184,8 +189,8 @@ describe('b-popover', () => {
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
     // Popover element should not be in the document
-    expect(document.body.contains(tip)).toBe(false)
-    expect(document.getElementById(adb)).toBe(null)
+    expect(document.body.contains($tip)).toBe(false)
+    expect(document.getElementById($adb)).toBe(null)
 
     wrapper.destroy()
   })
