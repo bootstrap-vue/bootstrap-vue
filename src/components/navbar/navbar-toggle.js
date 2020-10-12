@@ -22,7 +22,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME_NAVBAR_TOGGLE, 'label')
     },
     target: {
-      type: String,
+      type: [Array, String],
       required: true
     },
     disabled: {
