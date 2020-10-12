@@ -71,7 +71,7 @@
         "props": [
           {
             "prop": "target",
-            "description": "ID of the collapse the toggle controls"
+            "description": "id (or array of ids) of the collapse/sidebar components that should be toggled"
           },
           {
             "prop": "label",
