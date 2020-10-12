@@ -292,8 +292,10 @@ Internally, `<b-navbar-toggle>` uses the [`v-b-toggle` directive](/docs/directiv
 `<b-navbar-toggle>` renders the default Bootstrap v4 _hamburger_ (which is a background SVG image).
 You can supply your own content (such as an icon) via the optionally scoped `default` slot. The
 default slot scope contains the property `expanded`, which will be `true` when the collapse is
-expanded, or `false` when the collapse is collapsed. You can use this to swap the toggle content
-based on the collapse state:
+expanded, or `false` when the collapse is collapsed.
+
+Note that the `expanded` scope property only works when supplying the `target` prop as a `string`,
+and not an `array`.
 
 ```html
 <template>
