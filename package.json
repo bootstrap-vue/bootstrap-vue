@@ -92,7 +92,7 @@
     "**/*.{js,json,md,scss,ts,vue}": "prettier --write"
   },
   "dependencies": {
-    "@nuxt/opencollective": "^0.3.0",
+    "@nuxt/opencollective": "^0.3.2",
     "bootstrap": ">=4.5.2 <5.0.0",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
