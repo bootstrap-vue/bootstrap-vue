@@ -122,7 +122,7 @@
     "clean-css-cli": "^4.3.0",
     "codemirror": "^5.58.1",
     "codesandbox": "^2.2.1",
-    "core-js": ">=2.6.5 <3.0.0",
+    "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
