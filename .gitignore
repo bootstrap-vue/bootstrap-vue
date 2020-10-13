@@ -13,5 +13,6 @@ node_modules/
 *.swp
 .DS_Store
 RELEASE-NOTES.md
+package-lock.json
 sw.js
 workbox*.js*

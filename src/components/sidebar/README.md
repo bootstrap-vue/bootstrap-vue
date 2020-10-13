@@ -199,7 +199,7 @@ includes a `hide()` method that can be used to close the sidebar.
   <div>
     <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button>
     <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
-      <template v-slot:default="{ hide }">
+      <template #default="{ hide }">
         <div class="p-3">
           <h4 id="sidebar-no-header-title">Custom header sidebar</h4>
           <p>
@@ -234,7 +234,7 @@ that can be used to close the sidebar.
   <div>
     <b-button v-b-toggle.sidebar-footer>Toggle Sidebar</b-button>
     <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" no-header shadow>
-      <template v-slot:footer="{ hide }">
+      <template #footer="{ hide }">
        <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
         <strong class="mr-auto">Footer</strong>
         <b-button size="sm" @click="hide">Close</b-button>

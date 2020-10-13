@@ -385,7 +385,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">
-      <template v-slot:badge><b-icon icon="star-fill"></b-icon></template>
+      <template #badge><b-icon icon="star-fill"></b-icon></template>
     </b-avatar>
   </div>
 </template>

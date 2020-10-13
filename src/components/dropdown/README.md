@@ -40,7 +40,7 @@ precedence.
   </b-dropdown>
 
   <b-dropdown>
-    <template v-slot:button-content>
+    <template #button-content>
       Custom <strong>Content</strong> with <em>HTML</em> via Slot
     </template>
     <b-dropdown-item href="#">An item</b-dropdown-item>
@@ -384,7 +384,7 @@ to `true`. This is useful when the dropdown is to be displayed as an icon.
 ```html
 <div>
   <b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
-    <template v-slot:button-content>
+    <template #button-content>
       &#x1f50d;<span class="sr-only">Search</span>
     </template>
     <b-dropdown-item href="#">Action</b-dropdown-item>

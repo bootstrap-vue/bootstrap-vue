@@ -734,7 +734,7 @@ modifier.
 <template>
   <div>
     <b-form-group>
-      <template v-slot:label>
+      <template #label>
         <b>Choose your flavours:</b><br>
         <b-form-checkbox
           v-model="allSelected"
