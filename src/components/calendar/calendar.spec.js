@@ -358,4 +358,23 @@ describe('calendar', () => {
     expect(buttons.at(3).classes()).toContain('btn-outline-primary')
     expect(buttons.at(4).classes()).toContain('btn-outline-primary')
   })
+
+  it('should disable key navigation', () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        noKeyNav: true,
+        navButtonVariant: 'primary'
+      }
+    })
+
+    const nav = wrapper.find('.b-calendar-nav')
+    const buttons = nav.findAll('button[tabindex="-1"]')
+
+    expect(nav.attributes('tabindex')).toEqual('-1')
+    expect(buttons.length).toEqual(5)
+    expect(wrapper.find('.b-calendar>div>div[role="application"]').attributes('tabindex')).toEqual(
+      '-1'
+    )
+  })
 })

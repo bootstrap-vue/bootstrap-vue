@@ -187,9 +187,9 @@ export const BCalendar = Vue.extend({
       type: String
       // default: null
     },
-    tabIndex: {
-      type: String,
-      default: '0'
+    noKeyNav: {
+      type: Boolean,
+      default: false
     },
     roleDescription: {
       type: String
@@ -699,6 +699,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return
       }
+      if (this.noKeyNav) return
       stopEvent(evt)
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
@@ -924,8 +925,7 @@ export const BCalendar = Vue.extend({
           attrs: {
             title: label || null,
             type: 'button',
-            disabled: btnDisabled,
-            tabindex: this.tabIndex,
+            tabindex: this.noKeyNav ? -1 : null,
             'aria-label': label || null,
             'aria-disabled': btnDisabled ? 'true' : null,
             'aria-keyshortcuts': shortcut || null
@@ -944,7 +944,7 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: navId,
           role: 'group',
-          tabindex: this.disabled ? null : this.tabIndex,
+          tabindex: this.noKeyNav ? -1 : 0,
           'aria-hidden': this.disabled ? 'true' : null,
           'aria-label': this.labelNav || null,
           'aria-controls': gridId
@@ -1149,7 +1149,7 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: gridId,
           role: 'application',
-          tabindex: this.disabled ? null : this.tabIndex,
+          tabindex: this.noKeyNav ? -1 : 0,
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': gridCaptionId,
