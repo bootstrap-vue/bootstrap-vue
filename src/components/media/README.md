@@ -8,7 +8,7 @@
 <div>
   <b-card>
     <b-media>
-      <template v-slot:aside>
+      <template #aside>
         <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
       </template>
 
@@ -24,7 +24,7 @@
       </p>
 
       <b-media>
-        <template v-slot:aside>
+        <template #aside>
           <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
         </template>
 
@@ -46,7 +46,7 @@
 ```html
 <div>
   <b-media>
-    <template v-slot:aside>
+    <template #aside>
       <img src="..." alt="Media Aside">
     </template>
 
@@ -81,7 +81,7 @@
         </p>
 
         <b-media>
-          <template v-slot:aside>
+          <template #aside>
             <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
           </template>
           <h5 class="mt-0">Nested Media</h5>
@@ -103,7 +103,7 @@ Change the order of content in media objects by adding `right-align` property.
 ```html
 <div>
   <b-media right-align vertical-align="center">
-    <template v-slot:aside>
+    <template #aside>
       <b-img blank blank-color="#ccc" width="80" alt="placeholder"></b-img>
     </template>
     <h5 class="mt-0 mb-1">Media object</h5>
@@ -138,7 +138,7 @@ use spacing utilities wherever needed to fine tune.
 <div>
   <ul class="list-unstyled">
     <b-media tag="li">
-      <template v-slot:aside>
+      <template #aside>
         <b-img blank blank-color="#abc" width="64" alt="placeholder"></b-img>
       </template>
       <h5 class="mt-0 mb-1">List-based media object</h5>
@@ -150,7 +150,7 @@ use spacing utilities wherever needed to fine tune.
     </b-media>
 
     <b-media tag="li" class="my-4">
-      <template v-slot:aside>
+      <template #aside>
        <b-img blank blank-color="#cba" width="64" alt="placeholder"></b-img>
       </template>
 
@@ -163,7 +163,7 @@ use spacing utilities wherever needed to fine tune.
     </b-media>
 
     <b-media tag="li">
-      <template v-slot:aside>
+      <template #aside>
         <b-img blank blank-color="#bac" width="64" alt="placeholder"></b-img>
       </template>
 

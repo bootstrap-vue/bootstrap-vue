@@ -14,7 +14,7 @@
     Hover Me
   </b-button>
   <b-popover target="popover-target-1" triggers="hover" placement="top">
-    <template v-slot:title>Popover Title</template>
+    <template #title>Popover Title</template>
     I am popover <b>component</b> content!
   </b-popover>
 </div>
@@ -260,7 +260,7 @@ The special `blur` trigger **must** be used in combination with the `click` trig
       <b-col md="6" class="py-4 text-center">
         <b-button id="popover-3" variant="primary">Using slots</b-button>
         <b-popover target="popover-3" triggers="hover focus">
-          <template v-slot:title>Content via Slots</template>
+          <template #title>Content via Slots</template>
           Embedding content <span class="text-danger">using slots</span> affords you
           <em>greater <strong>control.</strong></em> and basic HTML support.
         </b-popover>
@@ -325,7 +325,7 @@ prop:
 <div class="text-center">
   <b-button id="popover-button-variant" href="#" tabindex="0">Button</b-button>
   <b-popover target="popover-button-variant" variant="danger" triggers="focus">
-    <template v-slot:title>Danger!</template>
+    <template #title>Danger!</template>
     Danger variant popover
   </b-popover>
 </div>
@@ -343,7 +343,7 @@ A custom class can be applied to the popover outer wrapper `<div>` by using the 
 <div class="text-center">
   <b-button id="my-button">Button</b-button>
   <b-popover target="my-button" custom-class="my-popover-class">
-    <template v-slot:title>Popover Title</template>
+    <template #title>Popover Title</template>
     Popover content
   </b-popover>
 </div>
@@ -691,7 +691,7 @@ to deal with on mobile devices (such as smart-phones).
       @shown="onShown"
       @hidden="onHidden"
     >
-      <template v-slot:title>
+      <template #title>
         <b-button @click="onClose" class="close" aria-label="Close">
           <span class="d-inline-block" aria-hidden="true">&times;</span>
         </b-button>
