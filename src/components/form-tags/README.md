@@ -202,10 +202,10 @@ not validated.
         separator=" "
       ></b-form-tags>
       <!-- The following slots are for b-form-group -->
-      <template v-slot:invalid-feedback>
+      <template #invalid-feedback>
         You must provide at least 3 tags and no more than 8
       </template>
-      <template v-slot:description>
+      <template #description>
         <div id="tags-validation-help">
          Tags must be 3 to 5 characters in length and all lower
          case. Enter tags separated by spaces or press enter.
@@ -571,7 +571,7 @@ of tags:
             :disabled="disabled || availableOptions.length === 0"
             :options="availableOptions"
           >
-            <template v-slot:first>
+            <template #first>
               <!-- This is required to prevent bugs with Safari -->
               <option disabled value="">Choose a tag...</option>
             </template>
@@ -605,7 +605,7 @@ If the custom input is using custom event names that mimic `input` and `change`,
 `.native` modifier for keydown, you can do something similar to below to bind the event handlers:
 
 ```html
-<template v-slot:default="{ inputAttrs, inputHandlers, removeTag, tags }">
+<template #default="{ inputAttrs, inputHandlers, removeTag, tags }">
   <custom-input
     :id="inputAttrs.id"
     :vistom-value-prop="inputAttrs.value"
@@ -732,7 +732,7 @@ pre-defined set of tags:
           </ul>
 
           <b-dropdown size="sm" variant="outline-secondary" block menu-class="w-100">
-            <template v-slot:button-content>
+            <template #button-content>
               <b-icon icon="tag-fill"></b-icon> Choose tags
             </template>
             <b-dropdown-form @submit.stop.prevent="() => {}">
