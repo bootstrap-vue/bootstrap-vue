@@ -273,7 +273,7 @@ Place custom content in the overlay (replacing the default spinner) via the opti
           Show overlay
         </b-button>
       </b-card>
-      <template v-slot:overlay>
+      <template #overlay>
         <div class="text-center">
           <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
           <p id="cancel-label">Please wait...</p>
@@ -340,7 +340,7 @@ overlay slot content at the top right.
 <template>
   <div>
     <b-overlay no-center show rounded="sm">
-      <template v-slot:overlay>
+      <template #overlay>
         <b-icon
           icon="stopwatch"
           variant="info"
@@ -429,7 +429,7 @@ descendant of `<b-card>`:
   <div>
     <b-card header="Card header" footer="Card footer">
       <b-media>
-        <template v-slot:aside>
+        <template #aside>
           <b-img
             thumbnail
             rounded="circle"
@@ -601,7 +601,7 @@ In this example, we obscure the input and button:
 <template>
   <div>
     <b-overlay :show="busy" rounded="lg" opacity="0.6" @hidden="onHidden">
-      <template v-slot:overlay>
+      <template #overlay>
         <div class="d-flex align-items-center">
           <b-spinner small type="grow" variant="secondary"></b-spinner>
           <b-spinner type="grow" variant="dark"></b-spinner>
@@ -705,7 +705,7 @@ This example also demonstrates additional accessibility markup.
       </div>
 
       <b-overlay :show="busy" no-wrap @shown="onShown" @hidden="onHidden">
-        <template v-slot:overlay>
+        <template #overlay>
           <div v-if="processing" class="text-center p-4 bg-primary text-light rounded">
             <b-icon icon="cloud-upload" font-scale="4"></b-icon>
             <div class="mb-3">Processing...</div>
