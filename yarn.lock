@@ -1554,10 +1554,10 @@
   dependencies:
     vue-analytics "^5.22.1"
 
-"@nuxtjs/pwa@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.2.0.tgz#23b72a3a940b941febd87dbbd98ec48f292b6b0e"
-  integrity sha512-IpzVC5WrP6kQU+gwe2vBjB9xRZlQprhlB1a2nh6SrD0N1IbvCq+AyiEJBDxhr/Z4887zLsRdHVSHS+o08F2oTA==
+"@nuxtjs/pwa@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.2.1.tgz#4ec0a254482c829e3f4403cc66d3dc575124ffa5"
+  integrity sha512-4tRwZee6n8zzLELjdg3Wq4zMny0hTN8JbIb0rPv6ikmU3DEo8NLVzkv9Hmm/EoHYWNdIyKOh11xrHrAYOLkDcA==
   dependencies:
     defu "^3.1.0"
     execa "^4.0.3"
