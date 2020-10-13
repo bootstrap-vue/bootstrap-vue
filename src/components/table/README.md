@@ -2209,10 +2209,10 @@ properties:
 | ------------- | -------------------------- | --------------------------------------------------------------------------------- |
 | `currentPage` | Number                     | The current page number (starting from 1, the value of the `current-page` prop)   |
 | `perPage`     | Number                     | The maximum number of rows per page to display (the value of the `per-page` prop) |
-| `filter`      | String or RegExp or Object | the value of the `filter` prop                                                    |
+| `filter`      | String or RegExp or Object | The value of the `filter` prop                                                    |
 | `sortBy`      | String                     | The current column key being sorted, or an empty string if not sorting            |
 | `sortDesc`    | Boolean                    | The current sort direction (`true` for descending, `false` for ascending)         |
-| `apiUrl`      | String                     | the value provided to the `api-url` prop. `null` if none provided.                |
+| `apiUrl`      | String                     | The value provided to the `api-url` prop. `null` if none provided.                |
 
 The second argument `callback` is an optional parameter for when using the callback asynchronous
 method.
