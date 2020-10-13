@@ -1554,10 +1554,10 @@
   dependencies:
     vue-analytics "^5.22.1"
 
-"@nuxtjs/pwa@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.2.1.tgz#4ec0a254482c829e3f4403cc66d3dc575124ffa5"
-  integrity sha512-4tRwZee6n8zzLELjdg3Wq4zMny0hTN8JbIb0rPv6ikmU3DEo8NLVzkv9Hmm/EoHYWNdIyKOh11xrHrAYOLkDcA==
+"@nuxtjs/pwa@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/pwa/-/pwa-3.2.2.tgz#e03c632e30f3df287a842d67323d945f36b97440"
+  integrity sha512-B+2VKwmaw40Wyds0hOKuN9R8ODHg7de8B7uQbzaZpLNuCinfKioQOk8jjaLDKRf4sndNG4AYI90Et4M+MRQetQ==
   dependencies:
     defu "^3.1.0"
     execa "^4.0.3"
@@ -12261,10 +12261,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.29.0:
-  version "2.29.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.29.0.tgz#0c5c5968530b21ca0e32f8b94b7cd9346cfb0eec"
-  integrity sha512-gtU0sjxMpsVlpuAf4QXienPmUAhd6Kc7owQ4f5lypoxBW18fw2UNYZ4NssLGsri6WhUZkE/Ts3EMRebN+gNLiQ==
+rollup@^2.30.0:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.30.0.tgz#316a1eb0389dbda4082ef2d191b31488995e4c41"
+  integrity sha512-j4K1hUZfgFM03DUpayd3c7kZW+2wDbI6rj7ssQxpCpL1vsGpaM0vSorxBuePFwQDFq9O2DI6AOQbm174Awsq4w==
   optionalDependencies:
     fsevents "~2.1.2"
 
