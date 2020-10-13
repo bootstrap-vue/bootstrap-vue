@@ -232,9 +232,9 @@ popup calendar dialog.
 <template>
   <div>
     <label for="datepicker-sm">Small date picker</label>
-    <b-form-datepicker id="datepicker-sm" size="sm" local="en" class="mb-2"></b-form-datepicker>
+    <b-form-datepicker id="datepicker-sm" size="sm" locale="en" class="mb-2"></b-form-datepicker>
     <label for="datepicker-lg">Large date picker</label>
-    <b-form-datepicker id="datepicker-lg" size="lg" local="en"></b-form-datepicker>
+    <b-form-datepicker id="datepicker-lg" size="lg" locale="en"></b-form-datepicker>
   </div>
 </template>
 
@@ -250,7 +250,7 @@ a placeholder is not provided, the value of the `label-no-date-selected` prop is
 <template>
   <div>
     <label for="datepicker-placeholder">Date picker with placeholder</label>
-    <b-form-datepicker id="datepicker-placeholder" placeholder="Choose a date" local="en"></b-form-datepicker>
+    <b-form-datepicker id="datepicker-placeholder" placeholder="Choose a date" locale="en"></b-form-datepicker>
   </div>
 </template>
 
