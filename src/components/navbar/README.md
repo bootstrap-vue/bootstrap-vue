@@ -35,7 +35,7 @@
 
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
-          <template v-slot:button-content>
+          <template #button-content>
             <em>User</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
@@ -303,7 +303,7 @@ and not an `array`.
     <b-navbar-brand href="#">NavBar</b-navbar-brand>
 
     <b-navbar-toggle target="navbar-toggle-collapse">
-      <template v-slot:default="{ expanded }">
+      <template #default="{ expanded }">
         <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
         <b-icon v-else icon="chevron-bar-down"></b-icon>
       </template>

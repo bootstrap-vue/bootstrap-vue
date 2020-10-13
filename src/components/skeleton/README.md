@@ -17,7 +17,7 @@
     </div>
 
     <b-skeleton-wrapper :loading="loading">
-      <template v-slot:loading>
+      <template #loading>
         <b-card>
           <b-skeleton width="85%"></b-skeleton>
           <b-skeleton width="55%"></b-skeleton>
