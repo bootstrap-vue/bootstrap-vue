@@ -182,8 +182,6 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // TBD
-
     wrapper.destroy()
   })
 

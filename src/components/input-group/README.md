@@ -12,7 +12,7 @@
 
   <!-- Using slots -->
   <b-input-group class="mt-3">
-    <template v-slot:append>
+    <template #append>
       <b-input-group-text><strong class="text-danger">!</strong></b-input-group-text>
     </template>
     <b-form-input></b-form-input>
@@ -63,12 +63,12 @@ The slot content will automatically be wrapped by
 ```html
 <div>
   <b-input-group>
-    <template v-slot:prepend>
+    <template #prepend>
       <b-input-group-text >Username</b-input-group-text>
     </template>
     <b-form-input></b-form-input>
 
-    <template v-slot:append>
+    <template #append>
       <b-dropdown text="Dropdown" variant="success">
         <b-dropdown-item>Action A</b-dropdown-item>
         <b-dropdown-item>Action B</b-dropdown-item>
@@ -246,7 +246,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 ```html
 <div>
   <b-input-group>
-    <template v-slot:prepend>
+    <template #prepend>
       <b-dropdown text="Dropdown" variant="info">
         <b-dropdown-item>Action A</b-dropdown-item>
         <b-dropdown-item>Action B</b-dropdown-item>
@@ -255,7 +255,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 
     <b-form-input></b-form-input>
 
-    <template v-slot:append>
+    <template #append>
       <b-dropdown text="Dropdown" variant="outline-secondary" v-for="i in 2" :key="i">
         <b-dropdown-item>Action C</b-dropdown-item>
         <b-dropdown-item>Action D</b-dropdown-item>

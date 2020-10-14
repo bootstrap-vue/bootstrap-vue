@@ -7,10 +7,6 @@
       "allowedVersions": "<5.0.0"
     },
     {
-      "packageNames": ["core-js"],
-      "allowedVersions": "<3.0.0"
-    },
-    {
       "packageNames": ["highlight.js"],
       "allowedVersions": "<10.0.0"
     },

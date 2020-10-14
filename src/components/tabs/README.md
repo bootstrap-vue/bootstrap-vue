@@ -288,7 +288,7 @@ If you want to add extra tabs that do not have any content, you can put them in 
 <div>
   <b-tabs>
     <!-- Add your b-tab components here -->
-    <template v-slot:tabs-end>
+    <template #tabs-end>
       <b-nav-item href="#" role="presentation" @click="() => {}">Another tab</b-nav-item>
       <li role="presentation" class="nav-item align-self-center">Plain text</li>
     </template>
@@ -313,14 +313,14 @@ Vue component, this possible by using `title` slot of `<b-tab>`.
 <div>
   <b-tabs>
     <b-tab active>
-      <template v-slot:title>
+      <template #title>
         <b-spinner type="grow" small></b-spinner> I'm <i>custom</i> <strong>title</strong>
       </template>
       <p class="p-3">Tab contents 1</p>
     </b-tab>
 
     <b-tab>
-      <template v-slot:title>
+      <template #title>
         <b-spinner type="border" small></b-spinner> Tab 2
       </template>
       <p class="p-3">Tab contents 2</p>
@@ -530,12 +530,12 @@ It is recommended to use the `disabled` attribute on the `<b-tab>` component ins
         </b-tab>
 
         <!-- New Tab Button (Using tabs-end slot) -->
-        <template v-slot:tabs-end>
+        <template #tabs-end>
           <b-nav-item role="presentation" @click.prevent="newTab" href="#"><b>+</b></b-nav-item>
         </template>
 
         <!-- Render this if no tabs -->
-        <template v-slot:empty>
+        <template #empty>
           <div class="text-center text-muted">
             There are no open tabs<br>
             Open a new tab using the <b>+</b> button above.

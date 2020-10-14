@@ -283,16 +283,16 @@ below.
       base-url="#"
       class="mt-4"
     >
-      <template v-slot:first-text><span class="text-success">First</span></template>
-      <template v-slot:prev-text><span class="text-danger">Prev</span></template>
-      <template v-slot:next-text><span class="text-warning">Next</span></template>
-      <template v-slot:last-text><span class="text-info">Last</span></template>
-      <template v-slot:ellipsis-text>
+      <template #first-text><span class="text-success">First</span></template>
+      <template #prev-text><span class="text-danger">Prev</span></template>
+      <template #next-text><span class="text-warning">Next</span></template>
+      <template #last-text><span class="text-info">Last</span></template>
+      <template #ellipsis-text>
         <b-spinner small type="grow"></b-spinner>
         <b-spinner small type="grow"></b-spinner>
         <b-spinner small type="grow"></b-spinner>
       </template>
-      <template v-slot:page="{ page, active }">
+      <template #page="{ page, active }">
         <b v-if="active">{{ page }}</b>
         <i v-else>{{ page }}</i>
       </template>

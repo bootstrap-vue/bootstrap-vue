@@ -526,7 +526,7 @@ class to the icon component, or create a new animation class in the form of
   `prefers-reduced-motion` media query. See the
   [reduced motion section of our accessibility documentation](/docs/reference/accessibility#reduced-motion)
   for additional details.
-- The `cylon` animation gets its name from the "eye" of the Cylons from the _original_
+- The `cylon` animation gets its name from the "eye" of the Cylons from the *original*
   [1978 Battlestar Galactica TV series](https://www.youtube.com/watch?v=5a5bEIf0UaU).
 
 ## Stacking icons
@@ -827,7 +827,7 @@ font scaled by 125%).
 <template>
   <div>
     <b-dropdown variant="primary">
-      <template v-slot:button-content>
+      <template #button-content>
         <b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings
       </template>
       <b-dropdown-item-button>
