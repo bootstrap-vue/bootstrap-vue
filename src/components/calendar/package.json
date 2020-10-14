@@ -90,8 +90,8 @@
             "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
           },
           {
-            "prop": "tabIndex",
-            "description": "Sets a tabindex property on all inner calendar components."
+            "prop": "noKeyNav",
+            "description": "Disable keyboard navigation of the calendar components"
           },
           {
             "prop": "hideHeader",
