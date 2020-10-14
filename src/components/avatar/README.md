@@ -354,7 +354,7 @@ The `to` prop can either be a string path, or a `Location` object. The `to` prop
 
 ## Badge avatars
 
-<span class="badge badge-info small">2.12.0+<span>
+<span class="badge badge-info small">2.12.0+</span>
 
 Easily add a badge to your avatar via the `badge` prop or `'badge'` slot, and the badge variant can
 be set via the `badge-variant` prop. The badge will scale with the size of the avatar.
