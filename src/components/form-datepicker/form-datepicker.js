@@ -1,3 +1,4 @@
+import Vue from '../../vue'
 import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
   CALENDAR_LONG,
@@ -5,7 +6,6 @@ import {
   CALENDAR_SHORT,
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
-import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'

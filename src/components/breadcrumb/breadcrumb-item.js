@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BREADCRUMB_ITEM } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { BBreadcrumbLink, props } from './breadcrumb-link'
 
 // @vue/component

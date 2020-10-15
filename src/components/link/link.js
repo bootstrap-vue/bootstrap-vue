@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_LINK } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'

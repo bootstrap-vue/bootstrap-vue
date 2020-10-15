@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_NAVBAR_BRAND } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'

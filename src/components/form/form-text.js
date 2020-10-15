@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_FORM_TEXT } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 
 export const props = {

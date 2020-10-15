@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { hasTouchSupport } from '../../utils/env'
 import { stopEvent } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'

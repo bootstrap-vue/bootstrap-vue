@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
 

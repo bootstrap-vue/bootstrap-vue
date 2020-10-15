@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'

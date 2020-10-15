@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_BODY } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'

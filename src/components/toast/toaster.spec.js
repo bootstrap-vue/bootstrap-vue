@@ -1,6 +1,6 @@
+import { PortalTarget } from 'portal-vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
-import { PortalTarget } from 'portal-vue'
 import { BToaster } from './toaster'
 
 describe('b-toaster', () => {

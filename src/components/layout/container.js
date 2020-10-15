@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CONTAINER } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   tag: {

@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_NAV_FORM } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BForm, props as BFormProps } from '../form/form'
 

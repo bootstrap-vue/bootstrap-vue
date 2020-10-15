@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BADGE } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
