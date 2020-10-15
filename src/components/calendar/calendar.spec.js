@@ -31,7 +31,6 @@ describe('calendar', () => {
     expect($header.find('output').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').exists()).toBe(true)
     expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').attributes('role')).toEqual('group')
-    expect(wrapper.find('.b-calendar>div>div.b-calendar-nav').attributes('tabindex')).toEqual('0')
     expect(wrapper.findAll('.b-calendar>div>div.b-calendar-nav>button').length).toBe(5)
     expect(wrapper.find('.b-calendar>div>div[role="application"]').exists()).toBe(true)
 
@@ -359,7 +358,7 @@ describe('calendar', () => {
     expect(buttons.at(4).classes()).toContain('btn-outline-primary')
   })
 
-  it('should disable key navigation', () => {
+  it('should disable key navigation when `no-key-nav` prop set', () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
       propsData: {
@@ -368,11 +367,11 @@ describe('calendar', () => {
       }
     })
 
-    const nav = wrapper.find('.b-calendar-nav')
-    const buttons = nav.findAll('button[tabindex="-1"]')
+    const $nav = wrapper.find('.b-calendar-nav')
+    const $buttons = $nav.findAll('button[tabindex="-1"]')
 
-    expect(nav.attributes('tabindex')).toEqual('-1')
-    expect(buttons.length).toEqual(5)
+    expect($nav.attributes('tabindex')).toEqual('-1')
+    expect($buttons.length).toEqual(5)
     expect(wrapper.find('.b-calendar>div>div[role="application"]').attributes('tabindex')).toEqual(
       '-1'
     )
