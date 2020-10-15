@@ -1,5 +1,5 @@
+import Vue from '../../../vue'
 import { NAME_POPOVER_TEMPLATE } from '../../../constants/components'
-import Vue from '../../../utils/vue'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVTooltipTemplate } from '../../tooltip/helpers/bv-tooltip-template'
 

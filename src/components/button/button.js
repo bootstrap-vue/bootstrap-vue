@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
-import Vue, { mergeData } from '../../utils/vue'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'

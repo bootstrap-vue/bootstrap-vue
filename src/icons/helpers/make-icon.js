@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../utils/vue'
+import Vue, { mergeData } from '../../vue'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { commonIconProps, BVIconBase } from './icon-base'
 

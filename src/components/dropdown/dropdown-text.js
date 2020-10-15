@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_DROPDOWN_TEXT } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 
 // @vue/component
 export const BDropdownText = /*#__PURE__*/ Vue.extend({

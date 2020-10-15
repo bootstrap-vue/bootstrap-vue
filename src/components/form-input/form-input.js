@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_FORM_INPUT } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { attemptBlur } from '../../utils/dom'
 import { eventOn, eventOff, eventOnOff, stopEvent } from '../../utils/events'

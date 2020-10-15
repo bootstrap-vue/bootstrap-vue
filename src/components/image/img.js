@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_IMG } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'

@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
 import attrsMixin from '../../mixins/attrs'

@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TH } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { BTd } from './td'
 
 // TODO:

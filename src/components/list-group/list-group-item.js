@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isTag } from '../../utils/dom'

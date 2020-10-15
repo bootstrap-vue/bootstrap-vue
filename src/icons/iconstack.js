@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../vue'
 import { NAME_ICONSTACK } from '../constants/components'
-import Vue, { mergeData } from '../utils/vue'
 import { commonIconProps, BVIconBase } from './helpers/icon-base'
 
 // @vue/component

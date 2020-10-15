@@ -1,5 +1,5 @@
+import Vue from '../vue'
 import { NAME_TRANSPORTER_SINGLE, NAME_TRANSPORTER_TARGET_SINGLE } from '../constants/components'
-import Vue from './vue'
 import identity from './identity'
 import { concat } from './array'
 import { removeNode, select } from './dom'

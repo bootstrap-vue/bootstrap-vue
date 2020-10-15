@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
-import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'

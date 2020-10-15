@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_ASPECT } from '../../constants/components'
 import { RX_ASPECT, RX_ASPECT_SEPARATOR } from '../../constants/regex'
-import Vue from '../../utils/vue'
 import { mathAbs } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

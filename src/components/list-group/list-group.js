@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_LIST_GROUP } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { isString } from '../../utils/inspect'
 
 export const props = {

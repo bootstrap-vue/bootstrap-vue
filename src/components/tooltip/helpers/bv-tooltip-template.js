@@ -1,5 +1,5 @@
+import Vue from '../../../vue'
 import { NAME_TOOLTIP_TEMPLATE } from '../../../constants/components'
-import Vue from '../../../utils/vue'
 import scopedStyleAttrsMixin from '../../../mixins/scoped-style-attrs'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVPopper } from './bv-popper'

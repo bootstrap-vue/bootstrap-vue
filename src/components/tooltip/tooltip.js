@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
-import Vue from '../../utils/vue'
 import getScopId from '../../utils/get-scope-id'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'

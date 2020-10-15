@@ -1,10 +1,10 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
+import Vue from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { RX_SPACES } from '../../constants/regex'
-import Vue from '../../utils/vue'
 import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
