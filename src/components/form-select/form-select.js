@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'

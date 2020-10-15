@@ -1,4 +1,4 @@
-import Vue from './vue'
+import Vue from '../vue'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import memoize from './memoize'

@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_TEXT } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   tag: {

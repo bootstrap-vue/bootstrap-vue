@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 
 export const props = {
   id: {

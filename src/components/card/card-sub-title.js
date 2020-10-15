@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_SUB_TITLE } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { toString } from '../../utils/string'
 

@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_ADDON } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { BInputGroupText } from './input-group-text'
 
 export const commonProps = {

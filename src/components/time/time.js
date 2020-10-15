@@ -1,8 +1,8 @@
 // BTime control (not form input control)
+import Vue from '../../vue'
 import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
 import { RX_TIME } from '../../constants/regex'
-import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'

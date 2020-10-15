@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
-import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'

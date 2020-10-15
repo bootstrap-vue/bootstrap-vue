@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BREADCRUMB } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'

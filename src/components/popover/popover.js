@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'

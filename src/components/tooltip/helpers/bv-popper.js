@@ -6,8 +6,8 @@
 //
 
 import Popper from 'popper.js'
+import Vue from '../../../vue'
 import { NAME_POPPER } from '../../../constants/components'
-import Vue from '../../../utils/vue'
 import { BVTransition } from '../../../utils/bv-transition'
 import { getCS, requestAF, select } from '../../../utils/dom'
 import { toFloat } from '../../../utils/number'

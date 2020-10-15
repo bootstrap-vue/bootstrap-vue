@@ -1,3 +1,4 @@
+import Vue from '../../vue'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
   CALENDAR_GREGORY,
@@ -19,7 +20,6 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'

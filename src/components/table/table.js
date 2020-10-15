@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TABLE } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'

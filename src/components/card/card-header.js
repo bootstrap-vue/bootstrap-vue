@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_HEADER } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
