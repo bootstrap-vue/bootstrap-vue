@@ -1153,7 +1153,7 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: gridId,
           role: 'application',
-          tabindex: noKeyNav ? '-1' : '0',
+          tabindex: noKeyNav ? '-1' : disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': gridCaptionId,
