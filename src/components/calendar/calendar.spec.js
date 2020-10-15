@@ -340,24 +340,6 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
-  it('`nav-button-variant` changes nav button class', async () => {
-    const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
-      propsData: {
-        navButtonVariant: 'primary'
-      }
-    })
-
-    const nav = wrapper.find('.b-calendar-nav')
-    const buttons = nav.findAll('button')
-    expect(buttons.length).toBe(5)
-    expect(buttons.at(0).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(1).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(2).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(3).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(4).classes()).toContain('btn-outline-primary')
-  })
-
   it('should disable key navigation when `no-key-nav` prop set', () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
@@ -375,5 +357,23 @@ describe('calendar', () => {
     expect(wrapper.find('.b-calendar>div>div[role="application"]').attributes('tabindex')).toEqual(
       '-1'
     )
+  })
+
+  it('`nav-button-variant` changes nav button class', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        navButtonVariant: 'primary'
+      }
+    })
+
+    const nav = wrapper.find('.b-calendar-nav')
+    const buttons = nav.findAll('button')
+    expect(buttons.length).toBe(5)
+    expect(buttons.at(0).classes()).toContain('btn-outline-primary')
+    expect(buttons.at(1).classes()).toContain('btn-outline-primary')
+    expect(buttons.at(2).classes()).toContain('btn-outline-primary')
+    expect(buttons.at(3).classes()).toContain('btn-outline-primary')
+    expect(buttons.at(4).classes()).toContain('btn-outline-primary')
   })
 })
