@@ -367,13 +367,14 @@ describe('calendar', () => {
       }
     })
 
-    const nav = wrapper.find('.b-calendar-nav')
-    const buttons = nav.findAll('button')
-    expect(buttons.length).toBe(5)
-    expect(buttons.at(0).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(1).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(2).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(3).classes()).toContain('btn-outline-primary')
-    expect(buttons.at(4).classes()).toContain('btn-outline-primary')
+    const $nav = wrapper.find('.b-calendar-nav')
+    const $buttons = $nav.findAll('button')
+
+    expect($buttons.length).toBe(5)
+    expect($buttons.at(0).classes()).toContain('btn-outline-primary')
+    expect($buttons.at(1).classes()).toContain('btn-outline-primary')
+    expect($buttons.at(2).classes()).toContain('btn-outline-primary')
+    expect($buttons.at(3).classes()).toContain('btn-outline-primary')
+    expect($buttons.at(4).classes()).toContain('btn-outline-primary')
   })
 })
