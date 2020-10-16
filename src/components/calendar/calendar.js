@@ -187,6 +187,10 @@ export const BCalendar = Vue.extend({
       type: String
       // default: null
     },
+    noKeyNav: {
+      type: Boolean,
+      default: false
+    },
     roleDescription: {
       type: String
       // default: null
@@ -382,9 +386,8 @@ export const BCalendar = Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     context() {
-      const selectedYMD = this.selectedYMD
+      const { selectedYMD, activeYMD } = this
       const selectedDate = parseYMD(selectedYMD)
-      const activeYMD = this.activeYMD
       const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
@@ -408,11 +411,10 @@ export const BCalendar = Vue.extend({
     // Computed props that return a function reference
     dateOutOfRange() {
       // Check whether a date is within the min/max range
-      // returns a new function ref if the pops change
+      // Returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
-      const min = this.computedMin
-      const max = this.computedMax
+      const { computedMin: min, computedMax: max } = this
       return date => {
         // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
@@ -676,6 +678,10 @@ export const BCalendar = Vue.extend({
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
+      if (this.noKeyNav) {
+        /* istanbul ignore next */
+        return
+      }
       const { altKey, ctrlKey, keyCode } = evt
       if (
         !arrayIncludes(
@@ -769,8 +775,7 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      const selectedDate = this.selectedDate
-      const activeDate = this.activeDate
+      const { selectedDate, activeDate } = this
       const clickedDate = parseYMD(day.ymd)
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         if (!this.readonly) {
@@ -831,6 +836,8 @@ export const BCalendar = Vue.extend({
       gridCaptionId,
       gridHelpId,
       activeId,
+      disabled,
+      noKeyNav,
       isLive,
       isRTL,
       activeYMD,
@@ -846,12 +853,12 @@ export const BCalendar = Vue.extend({
       'output',
       {
         staticClass: 'form-control form-control-sm text-center',
-        class: { 'text-muted': this.disabled, readonly: this.readonly || this.disabled },
+        class: { 'text-muted': disabled, readonly: this.readonly || disabled },
         attrs: {
           id: valueId,
           for: gridId,
           role: 'status',
-          tabindex: this.disabled ? null : '-1',
+          tabindex: disabled ? null : '-1',
           // Mainly for testing purposes, as we do not know
           // the exact format `Intl` will format the date string
           'data-selected': toString(selectedYMD),
@@ -920,6 +927,7 @@ export const BCalendar = Vue.extend({
           attrs: {
             title: label || null,
             type: 'button',
+            tabindex: noKeyNav ? '-1' : null,
             'aria-label': label || null,
             'aria-disabled': btnDisabled ? 'true' : null,
             'aria-keyshortcuts': shortcut || null
@@ -938,7 +946,8 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: navId,
           role: 'group',
-          'aria-hidden': this.disabled ? 'true' : null,
+          tabindex: noKeyNav ? '-1' : null,
+          'aria-hidden': disabled ? 'true' : null,
           'aria-label': this.labelNav || null,
           'aria-controls': gridId
         }
@@ -1006,7 +1015,7 @@ export const BCalendar = Vue.extend({
       {
         key: 'grid-caption',
         staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
-        class: { 'text-muted': this.disabled },
+        class: { 'text-muted': disabled },
         attrs: {
           id: gridCaptionId,
           'aria-live': isLive ? 'polite' : null,
@@ -1029,7 +1038,7 @@ export const BCalendar = Vue.extend({
           {
             key: idx,
             staticClass: 'col text-truncate',
-            class: { 'text-muted': this.disabled },
+            class: { 'text-muted': disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
               'aria-label': d.label
@@ -1057,7 +1066,7 @@ export const BCalendar = Vue.extend({
               // Give the fake button a focus ring
               focus: isActive && this.gridHasFocus,
               // Styling
-              disabled: day.isDisabled || this.disabled,
+              disabled: day.isDisabled || disabled,
               active: isSelected, // makes the button look "pressed"
               // Selected date style (need to computed from variant)
               [this.computedVariant]: isSelected,
@@ -1089,7 +1098,7 @@ export const BCalendar = Vue.extend({
               'data-date': day.ymd, // Primarily for testing purposes
               // Only days in the month are presented as buttons to screen readers
               'aria-hidden': day.isThisMonth ? null : 'true',
-              'aria-disabled': day.isDisabled || this.disabled ? 'true' : null,
+              'aria-disabled': day.isDisabled || disabled ? 'true' : null,
               'aria-label': [
                 day.label,
                 isSelected ? `(${this.labelSelected})` : null,
@@ -1118,7 +1127,7 @@ export const BCalendar = Vue.extend({
         // A key is only required on the body if we add in transition support
         // key: this.activeYMD.slice(0, -3),
         staticClass: 'b-calendar-grid-body',
-        style: this.disabled ? { pointerEvents: 'none' } : {}
+        style: disabled ? { pointerEvents: 'none' } : {}
       },
       $gridBody
     )
@@ -1142,15 +1151,15 @@ export const BCalendar = Vue.extend({
         attrs: {
           id: gridId,
           role: 'application',
-          tabindex: this.disabled ? null : '0',
+          tabindex: noKeyNav ? '-1' : disabled ? null : '0',
           'data-month': activeYMD.slice(0, -3), // `YYYY-MM`, mainly for testing
           'aria-roledescription': this.labelCalendar || null,
           'aria-labelledby': gridCaptionId,
           'aria-describedby': gridHelpId,
           // `aria-readonly` is not considered valid on `role="application"`
           // https://www.w3.org/TR/wai-aria-1.1/#aria-readonly
-          // 'aria-readonly': this.readonly && !this.disabled ? 'true' : null,
-          'aria-disabled': this.disabled ? 'true' : null,
+          // 'aria-readonly': this.readonly && !disabled ? 'true' : null,
+          'aria-disabled': disabled ? 'true' : null,
           'aria-activedescendant': activeId
         },
         on: {
@@ -1176,7 +1185,7 @@ export const BCalendar = Vue.extend({
           dir: isRTL ? 'rtl' : 'ltr',
           lang: this.computedLocale || null,
           role: 'group',
-          'aria-disabled': this.disabled ? 'true' : null,
+          'aria-disabled': disabled ? 'true' : null,
           // If datepicker controls an input, this will specify the ID of the input
           'aria-controls': this.ariaControls || null,
           // This should be a prop (so it can be changed to Date picker, etc, localized
