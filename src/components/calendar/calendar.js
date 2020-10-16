@@ -679,6 +679,7 @@ export const BCalendar = Vue.extend({
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
       if (this.noKeyNav) {
+        /* istanbul ignore next */
         return
       }
       const { altKey, ctrlKey, keyCode } = evt
