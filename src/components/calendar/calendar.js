@@ -356,7 +356,10 @@ export const BCalendar = Vue.extend({
       return this.activeDate.getMonth()
     },
     calendarFirstDay() {
-      return createDate(this.calendarYear, this.calendarMonth, 1)
+      // We set the time for this date to 12pm to work around
+      // date formatting issues in Firefox and Safari
+      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/5818
+      return createDate(this.calendarYear, this.calendarMonth, 1, 12)
     },
     calendarDaysInMonth() {
       // We create a new date as to not mutate the original
