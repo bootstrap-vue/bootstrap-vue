@@ -386,9 +386,8 @@ export const BCalendar = Vue.extend({
       return isLocaleRTL(this.computedLocale)
     },
     context() {
-      const selectedYMD = this.selectedYMD
+      const { selectedYMD, activeYMD } = this
       const selectedDate = parseYMD(selectedYMD)
-      const activeYMD = this.activeYMD
       const activeDate = parseYMD(activeYMD)
       return {
         // The current value of the `v-model`
@@ -412,11 +411,10 @@ export const BCalendar = Vue.extend({
     // Computed props that return a function reference
     dateOutOfRange() {
       // Check whether a date is within the min/max range
-      // returns a new function ref if the pops change
+      // Returns a new function ref if the pops change
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
-      const min = this.computedMin
-      const max = this.computedMax
+      const { computedMin: min, computedMax: max } = this
       return date => {
         // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
@@ -776,8 +774,7 @@ export const BCalendar = Vue.extend({
     },
     onClickDay(day) {
       // Clicking on a date "button" to select it
-      const selectedDate = this.selectedDate
-      const activeDate = this.activeDate
+      const { selectedDate, activeDate } = this
       const clickedDate = parseYMD(day.ymd)
       if (!this.disabled && !day.isDisabled && !this.dateDisabled(clickedDate)) {
         if (!this.readonly) {
