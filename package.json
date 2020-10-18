@@ -135,7 +135,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^7.0.1",
+    "eslint-plugin-vue": "^7.1.0",
     "esm": "^3.2.25",
     "execa": "^4.0.3",
     "highlight.js": "^9.18.2",
