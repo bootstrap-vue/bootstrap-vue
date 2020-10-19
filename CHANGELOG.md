@@ -4,9 +4,46 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+## [2.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.3...v2.18.0)
+
+Released: 2020-10-19
+
+### Features v2.18.0
+
+- **b-calendar:** add `no-key-nav` property (closes
+  [#5861](https://github.com/bootstrap-vue/bootstrap-vue/issues/5861))
+  ([#5883](https://github.com/bootstrap-vue/bootstrap-vue/issues/5883))
+  ([955ad63](https://github.com/bootstrap-vue/bootstrap-vue/commit/955ad631698f82a83de214ce9cd37271367d8c45))
+- update `core-js` to v3 ([#5894](https://github.com/bootstrap-vue/bootstrap-vue/issues/5894))
+  ([aeed981](https://github.com/bootstrap-vue/bootstrap-vue/commit/aeed9812afe770b6561c9513709e4be852250022))
+
+### Bug Fixes v2.18.0
+
+- **b-calendar:** month formatting for certain dates
+  ([#5911](https://github.com/bootstrap-vue/bootstrap-vue/issues/5911))
+  ([7de1844](https://github.com/bootstrap-vue/bootstrap-vue/commit/7de1844c6d5c0014d25c930527a7fc49a2b0cc25))
+- **b-card:** properly support header/footer with body image overlay
+  ([#5872](https://github.com/bootstrap-vue/bootstrap-vue/issues/5872))
+  ([bd8319d](https://github.com/bootstrap-vue/bootstrap-vue/commit/bd8319da8c6166f9fe3e64d9a3ac5c490c6b2f48))
+- **b-carousel:** fix glitching when switching slides fast (closes
+  [#5810](https://github.com/bootstrap-vue/bootstrap-vue/issues/5810))
+  ([#5845](https://github.com/bootstrap-vue/bootstrap-vue/issues/5845))
+  ([761bc93](https://github.com/bootstrap-vue/bootstrap-vue/commit/761bc9381ba24aed751726c8213651e2014aa746))
+- **b-link:** `href` handling inconsistencies to `<router-link>` (closes
+  [#5820](https://github.com/bootstrap-vue/bootstrap-vue/issues/5820))
+  ([#5876](https://github.com/bootstrap-vue/bootstrap-vue/issues/5876))
+  ([daea0e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/daea0e5c638de9ec45d39af5aa1e9f8a9e455422))
+- **b-skeleton:** animation overflow issue for Safari
+  ([#5863](https://github.com/bootstrap-vue/bootstrap-vue/issues/5863))
+  ([bfd4f96](https://github.com/bootstrap-vue/bootstrap-vue/commit/bfd4f960d7056edcd2ccb1ae3930639d543d8b34))
+- **v-tooltip, v-popover:** render data-\* attributes on root components (closes
+  [#5836](https://github.com/bootstrap-vue/bootstrap-vue/issues/5836))
+  ([#5882](https://github.com/bootstrap-vue/bootstrap-vue/issues/5882))
+  ([f6b51e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/f6b51e04f074e45e98650034e88c2b5629ad25f6))
+
 <a name="2.17.3"></a>
 
-### [v2.17.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.2...v2.17.3)
+## [v2.17.3](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.2...v2.17.3)
 
 Released: 2020-09-18
 
@@ -14,7 +51,7 @@ Released: 2020-09-18
 
 <a name="2.17.2"></a>
 
-### [v2.17.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.1...v2.17.2)
+## [v2.17.2](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.1...v2.17.2)
 
 Released: 2020-09-18
 
@@ -33,7 +70,7 @@ Released: 2020-09-18
 
 <a name="2.17.1"></a>
 
-### [v2.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.0...v2.17.1)
+## [v2.17.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.0...v2.17.1)
 
 Released: 2020-09-16
 
