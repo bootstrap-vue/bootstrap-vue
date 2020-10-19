@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_NAV } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 
 // -- Constants --
 

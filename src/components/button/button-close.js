@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BUTTON_CLOSE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { stopEvent } from '../../utils/events'
 import { isEvent } from '../../utils/inspect'

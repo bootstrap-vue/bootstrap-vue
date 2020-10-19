@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 

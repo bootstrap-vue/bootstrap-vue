@@ -5,8 +5,8 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
+import Vue, { mergeData } from '../vue'
 import { NAME_COLLAPSE_HELPER } from '../constants/components'
-import Vue, { mergeData } from './vue'
 import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
 
 // Transition event handler helpers

@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slot-names'
-import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
@@ -36,10 +36,12 @@ export const BCard = /*#__PURE__*/ Vue.extend({
   props,
   render(h, { props, data, slots, scopedSlots }) {
     const {
+      imgSrc,
       imgLeft,
       imgRight,
       imgStart,
       imgEnd,
+      imgBottom,
       header,
       headerHtml,
       footer,
@@ -55,12 +57,12 @@ export const BCard = /*#__PURE__*/ Vue.extend({
 
     let $imgFirst = h()
     let $imgLast = h()
-    if (props.imgSrc) {
+    if (imgSrc) {
       const $img = h(BCardImg, {
         props: pluckProps(cardImgProps, props, unprefixPropName.bind(null, 'img'))
       })
 
-      if (props.imgBottom) {
+      if (imgBottom) {
         $imgLast = $img
       } else {
         $imgFirst = $img
@@ -82,9 +84,18 @@ export const BCard = /*#__PURE__*/ Vue.extend({
 
     let $content = normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
 
-    // Wrap content in <card-body> when `noBody` prop set
+    // Wrap content in `<card-body>` when `noBody` prop set
     if (!props.noBody) {
       $content = h(BCardBody, { props: pluckProps(bodyProps, props) }, $content)
+
+      // When the `overlap` prop is set we need to wrap the `<b-card-img>` and `<b-card-body>`
+      // into a relative positioned wrapper to don't distract a potential header or footer
+      if (props.overlay && imgSrc) {
+        $content = h('div', { staticClass: 'position-relative' }, [$imgFirst, $content, $imgLast])
+        // Reset image variables since they are already in the wrapper
+        $imgFirst = h()
+        $imgLast = h()
+      }
     }
 
     let $footer = h()

@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'

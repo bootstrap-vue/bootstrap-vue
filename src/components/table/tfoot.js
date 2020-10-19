@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TFOOT } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -19,7 +19,6 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   name: NAME_TFOOT,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableRowGroup: this
@@ -34,6 +33,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     isTfoot() {

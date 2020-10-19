@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
-import Vue from '../../utils/vue'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
@@ -213,7 +213,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       try {
         // Convert the `to` to a HREF via a temporary `a` tag
         link = document.createElement('a')
-        link.href = computeHref({ to }, 'a', '/', '/')
+        link.href = computeHref({ to }, '/', '/')
         // We need to add the anchor to the document to make sure the
         // `pathname` is correctly detected in any browser (i.e. IE)
         document.body.appendChild(link)

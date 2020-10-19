@@ -55,6 +55,23 @@
   <div v-else class="bv-logo"></div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isIE: false,
+      showLogo: false
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
+      this.showLogo = true
+    })
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .bv-logo {
   display: block;
@@ -159,20 +176,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      isIE: false,
-      showLogo: false
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.isIE = /msie|trident/i.test(window.navigator.userAgent || '')
-      this.showLogo = true
-    })
-  }
-}
-</script>

@@ -1,7 +1,7 @@
+import Vue from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
@@ -10,6 +10,7 @@ import {
   getActiveElement,
   reflow,
   removeClass,
+  requestAF,
   selectAll,
   setAttr
 } from '../../utils/dom'
@@ -269,7 +270,10 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       // Don't change slide while transitioning, wait until transition is done
       if (this.isSliding) {
         // Schedule slide after sliding complete
-        this.$once('sliding-end', () => this.setSlide(slide, direction))
+        this.$once('sliding-end', () => {
+          // Wrap in `requestAF()` to allow the slide to properly finish to avoid glitching
+          requestAF(() => this.setSlide(slide, direction))
+        })
         return
       }
       this.direction = direction

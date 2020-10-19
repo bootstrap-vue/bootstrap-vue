@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import Vue, { mergeData } from '../../utils/vue'
 import { normalizeSlot } from '../../utils/normalize-slot'
 
 // @vue/component

@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_FORM_SPINBUTTON, NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'

@@ -3,9 +3,9 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
+import Vue from '../../../vue'
 import { NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
-import Vue from '../../../utils/vue'
 import getScopId from '../../../utils/get-scope-id'
 import looseEqual from '../../../utils/loose-equal'
 import { mathMax } from '../../../utils/math'
@@ -110,9 +110,6 @@ const templateData = {
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_HELPER,
-  props: {
-    // None
-  },
   data() {
     return {
       // BTooltip/BPopover/VBTooltip/VBPopover will update this data

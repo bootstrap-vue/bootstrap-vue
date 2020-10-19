@@ -272,6 +272,58 @@ When auto-hide is enabled, hovering over the toast will pause the auto-hide time
 the toast, the auto-hide timer will be resumed. You can disable this feature by setting the
 `no-hover-pause` prop to `true`.
 
+### Close button
+
+Toasts have a close button to hide them on use click by default. Setting the `no-close-button` prop
+to `true` will prevent this and creates a toast without the default close button.
+
+It is still possible to create a custom close button for the toast by providing a unique ID and use
+the `this.$bvToast.hide(id)` method to hide the specific toast:
+
+```html
+<template>
+  <div>
+    <b-button @click="showToast">Show Toast</b-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        count: 0
+      }
+    },
+    methods: {
+      showToast() {
+        // Use a shorter name for `this.$createElement`
+        const h = this.$createElement
+        // Create a ID with a incremented count
+        const id = `my-toast-${this.count++}`
+
+        // Create the custom close button
+        const $closeButton = h(
+          'b-button',
+          {
+            on: { click: () => this.$bvToast.hide(id) }
+          },
+          'Close'
+        )
+
+        // Create the toast
+        this.$bvToast.toast([$closeButton], {
+          id: id,
+          title: `Toast ${this.count}`,
+          noCloseButton: true
+        })
+      }
+    }
+ }
+</script>
+
+<!-- toasts-advanced.vue -->
+```
+
 ### Toast roles
 
 Toasts are rendered with a default `role` attribute of `'alert'` and `aria-live` attribute of
@@ -333,7 +385,7 @@ component.
     <b-button @click="$bvToast.show('my-toast')">Show toast</b-button>
 
     <b-toast id="my-toast" variant="warning" solid>
-      <template v-slot:toast-title>
+      <template #toast-title>
         <div class="d-flex flex-grow-1 align-items-baseline">
           <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
           <strong class="mr-auto">Notice!</strong>
@@ -428,7 +480,7 @@ for generating more complex toast content:
 ```html
 <template>
   <div>
-    <b-button @click="popToast">Show Toast with custom content</b-button>
+    <b-button @click="showToast">Show Toast with custom content</b-button>
   </div>
 </template>
 
@@ -440,7 +492,7 @@ for generating more complex toast content:
       }
     },
     methods: {
-      popToast() {
+      showToast() {
         // Use a shorter name for this.$createElement
         const h = this.$createElement
         // Increment the toast count

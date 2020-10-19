@@ -1,6 +1,6 @@
-import { NAME_TOASTER } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { PortalTarget, Wormhole } from 'portal-vue'
+import Vue from '../../vue'
+import { NAME_TOASTER } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
 import { warn } from '../../utils/warn'

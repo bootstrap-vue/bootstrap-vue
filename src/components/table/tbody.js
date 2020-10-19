@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TBODY } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -23,7 +23,6 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   name: NAME_TBODY,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableRowGroup: this
@@ -38,6 +37,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     isTbody() {

@@ -3,7 +3,7 @@ module.exports = api => {
 
   const presets = []
   if (!isDocs) {
-    presets.push(['@babel/env', { useBuiltIns: 'entry', corejs: { version: 2 } }])
+    presets.push(['@babel/env', { useBuiltIns: 'entry', corejs: { version: 3 } }])
   }
 
   return {

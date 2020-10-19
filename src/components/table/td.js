@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TABLE_CELL } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -55,7 +55,6 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   name: NAME_TABLE_CELL,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   inject: {
     bvTableTr: {
       /* istanbul ignore next */
@@ -64,6 +63,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     tag() {

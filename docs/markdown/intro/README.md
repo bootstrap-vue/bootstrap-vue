@@ -151,7 +151,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 ```scss
 // custom.scss
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
@@ -181,7 +181,7 @@ a `scss` file:
 
 ```scss
 // Parcel example
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 ```
 
@@ -318,14 +318,10 @@ Then add it to your component definition:
 <!-- eslint-disable no-undef -->
 
 ```js
-Vue.component('my-component', {
-  components: {
-    'b-modal': BModal
-  },
-  directives: {
-    // Note that Vue automatically prefixes directive names with `v-`
-    'b-modal': VBModal
-  }
+Vue.component('MyComponent', {
+  components: { BModal },
+  // Note that Vue automatically prefixes directive names with `v-`
+  directives: { 'b-modal': VBModal }
   // ...
 })
 ```
@@ -335,7 +331,7 @@ Or register them globally:
 <!-- eslint-disable no-undef -->
 
 ```js
-Vue.component('b-modal', BModal)
+Vue.component('BModal', BModal)
 // Note that Vue automatically prefixes directive names with `v-`
 Vue.directive('b-modal', VBModal)
 ```

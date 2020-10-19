@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'

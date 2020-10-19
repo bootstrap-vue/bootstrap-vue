@@ -111,7 +111,7 @@ options specified by the `options` prop, use the named slot `first`.
   <div>
     <b-form-select v-model="selected" :options="options" class="mb-3">
       <!-- This slot appears above the options from 'options' prop -->
-      <template v-slot:first>
+      <template #first>
         <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
       </template>
 
@@ -313,7 +313,7 @@ option with an empty value as your first option.
 
 ```html
 <b-form-select v-model="selected" :options="options">
-  <template v-slot:first>
+  <template #first>
     <b-form-select-option value="" disabled>-- Please select an option --</b-form-select-option>
   </template>
 </b-form-select>

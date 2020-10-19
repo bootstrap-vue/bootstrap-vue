@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -22,7 +22,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
       default: () => getComponentConfig(NAME_NAVBAR_TOGGLE, 'label')
     },
     target: {
-      type: String,
+      type: [Array, String],
       required: true
     },
     disabled: {

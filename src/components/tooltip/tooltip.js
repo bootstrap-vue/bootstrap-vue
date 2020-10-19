@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
-import Vue from '../../utils/vue'
 import getScopId from '../../utils/get-scope-id'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -10,6 +10,7 @@ import { BVTooltip } from './helpers/bv-tooltip'
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
+  inheritAttrs: false,
   props: {
     title: {
       type: String

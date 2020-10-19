@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../vue'
 import { NAME_ICON } from '../constants/components'
 import { RX_ICON_PREFIX } from '../constants/regex'
-import Vue, { mergeData } from '../utils/vue'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { commonIconProps } from './helpers/icon-base'

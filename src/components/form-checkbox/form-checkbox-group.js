@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_FORM_CHECKBOX_GROUP } from '../../constants/components'
-import Vue from '../../utils/vue'
 import formMixin from '../../mixins/form'
 import formOptionsMixin from '../../mixins/form-options'
 import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'

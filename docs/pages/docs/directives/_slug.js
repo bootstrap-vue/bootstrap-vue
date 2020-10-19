@@ -16,8 +16,8 @@ const getReadmeData = name => {
 // @vue/component
 export default {
   name: 'BDVDirectives',
-  layout: 'docs',
   mixins: [docsMixin],
+  layout: 'docs',
   validate({ params }) {
     return Boolean(directivesMeta[params.slug])
   },

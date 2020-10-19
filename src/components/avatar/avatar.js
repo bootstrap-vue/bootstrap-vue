@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'

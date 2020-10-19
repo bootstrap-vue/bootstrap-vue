@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'

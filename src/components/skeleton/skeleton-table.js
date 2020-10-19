@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_SKELETON_TABLE } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { createAndFillArray } from '../../utils/array'
 import { BSkeleton } from './skeleton'
 import { BTableSimple } from '../table'

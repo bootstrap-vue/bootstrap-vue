@@ -131,7 +131,7 @@
           >
             <!-- Template -->
             <b-card no-body header-tag="header">
-              <template v-slot:header>
+              <template #header>
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">
                     <span class="notranslate" translate="no">Template</span>
@@ -160,7 +160,7 @@
           >
             <!-- JavaScript -->
             <b-card no-body header-tag="header">
-              <template v-slot:header>
+              <template #header>
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">
                     <span class="notranslate" translate="no">JavaScript</span>
@@ -190,7 +190,7 @@
           <b-col cols="12" class="mt-3">
             <!-- Result -->
             <b-card no-body class="play-result" header-tag="header">
-              <template v-slot:header>
+              <template #header>
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">
                     <span>Result</span>
@@ -216,7 +216,7 @@
           <b-col cols="12" class="mt-3 notranslate" translate="no">
             <!-- Console -->
             <b-card no-body header-tag="header">
-              <template v-slot:header>
+              <template #header>
                 <div class="d-flex justify-content-between align-items-center">
                   <h5 class="mb-0">
                     <span>Console log</span>
@@ -261,40 +261,6 @@
     </transition-group>
   </b-container>
 </template>
-
-<style scoped>
-.play-result-body,
-.play-log {
-  min-height: 300px;
-}
-
-.flip-move {
-  transition: all 0.3s;
-}
-.play-log .list-group-item {
-  transition: all 0.3s;
-}
-.flip-list-enter,
-.flip-list-leave-to {
-  opacity: 0;
-}
-.flip-list-leave-active {
-  position: absolute;
-}
-.flip-list-move {
-  transform: 0.3s;
-}
-
-.bv-carbon-ad {
-  min-height: 130px;
-}
-
-@media (min-width: 992px) {
-  .bv-carbon-ad {
-    min-width: 330px;
-  }
-}
-</style>
 
 <script>
 import Vue from 'vue'
@@ -391,6 +357,32 @@ export default {
       building: false
     }
   },
+  head() {
+    const title = `${this.title} | BootstrapVue`
+    const description = 'Interactively play and test BootstrapVue components online.'
+    return {
+      title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          property: 'og:title',
+          content: title
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          property: 'og:description',
+          content: description
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        }
+      ]
+    }
+  },
   computed: {
     title() {
       return 'Online Playground'
@@ -466,14 +458,14 @@ export default {
         indent(html, 2),
         '</template>',
         '',
-        '<style>',
-        indent(css, 2),
-        '</style>',
-        '',
         '<script>',
         indent(`export default ${js}`, 2),
         // prettier-ignore
-        '<\/script>' // eslint-disable-line
+        '<\/script>', // eslint-disable-line
+        '',
+        '<style>',
+        indent(css, 2),
+        '</style>'
       ]
         .join('\r\n')
         .replace(/\\\//g, '/')
@@ -749,13 +741,13 @@ export default {
           // We set a fake parent so we can capture most runtime and
           // render errors (this is an error boundary component)
           parent: new Vue({
-            template: '<span></span>',
             errorCaptured(err, vm, info) {
               // Pass error to playground error handler
               playground.errHandler(err, info)
               // Don't propagate to parent/global error handler!
               return false
-            }
+            },
+            template: '<span></span>'
           })
         })
       } catch (err) {
@@ -940,32 +932,40 @@ export default {
 
       return raf(fn)
     }
-  },
-  head() {
-    const title = `${this.title} | BootstrapVue`
-    const description = 'Interactively play and test BootstrapVue components online.'
-    return {
-      title,
-      meta: [
-        {
-          hid: 'og:title',
-          name: 'og:title',
-          property: 'og:title',
-          content: title
-        },
-        {
-          hid: 'og:description',
-          name: 'og:description',
-          property: 'og:description',
-          content: description
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: description
-        }
-      ]
-    }
   }
 }
 </script>
+
+<style scoped>
+.play-result-body,
+.play-log {
+  min-height: 300px;
+}
+
+.flip-move {
+  transition: all 0.3s;
+}
+.play-log .list-group-item {
+  transition: all 0.3s;
+}
+.flip-list-enter,
+.flip-list-leave-to {
+  opacity: 0;
+}
+.flip-list-leave-active {
+  position: absolute;
+}
+.flip-list-move {
+  transform: 0.3s;
+}
+
+.bv-carbon-ad {
+  min-height: 130px;
+}
+
+@media (min-width: 992px) {
+  .bv-carbon-ad {
+    min-width: 330px;
+  }
+}
+</style>

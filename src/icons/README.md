@@ -827,7 +827,7 @@ font scaled by 125%).
 <template>
   <div>
     <b-dropdown variant="primary">
-      <template v-slot:button-content>
+      <template #button-content>
         <b-icon icon="gear-fill" aria-hidden="true"></b-icon> Settings
       </template>
       <b-dropdown-item-button>

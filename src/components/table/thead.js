@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_THEAD } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -20,7 +20,6 @@ export const BThead = /*#__PURE__*/ Vue.extend({
   name: NAME_THEAD,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableRowGroup: this
@@ -35,6 +34,7 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     isThead() {

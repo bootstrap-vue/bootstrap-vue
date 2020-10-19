@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_MEDIA } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import Vue, { mergeData } from '../../utils/vue'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { BMediaBody } from './media-body'
 import { BMediaAside } from './media-aside'

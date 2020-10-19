@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TABLE_SIMPLE } from '../../constants/components'
-import Vue from '../../utils/vue'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 

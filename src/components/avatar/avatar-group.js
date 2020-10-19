@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
-import Vue from '../../utils/vue'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'

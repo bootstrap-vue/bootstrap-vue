@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TR } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -22,7 +22,6 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   name: NAME_TR,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   provide() {
     return {
       bvTableTr: this
@@ -36,6 +35,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       }
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     inTbody() {

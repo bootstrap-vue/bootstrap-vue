@@ -16,8 +16,8 @@ const replacer = (key, value) => (typeof value === 'undefined' ? null : value)
 // @vue/component
 export default {
   name: 'BDVReference',
-  layout: 'docs',
   mixins: [docsMixin],
+  layout: 'docs',
   validate({ params }) {
     return Boolean(referenceMeta[params.slug])
   },

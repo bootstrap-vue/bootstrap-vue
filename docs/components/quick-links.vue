@@ -31,21 +31,6 @@
   </nav>
 </template>
 
-<style scoped lang="scss">
-#bd-quick-links-collapse {
-  list-style-type: square;
-  border-left: 0.25em solid #eee;
-  padding-left: 2.5rem;
-  margin-top: 1rem;
-
-  ul {
-    list-style-type: circle;
-    padding-left: 1.25rem;
-    margin-bottom: 0.25rem;
-  }
-}
-</style>
-
 <script>
 import { offsetTop, scrollTo } from '~/utils'
 
@@ -103,3 +88,18 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+#bd-quick-links-collapse {
+  list-style-type: square;
+  border-left: 0.25em solid #eee;
+  padding-left: 2.5rem;
+  margin-top: 1rem;
+
+  ul {
+    list-style-type: circle;
+    padding-left: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+}
+</style>

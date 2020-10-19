@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
@@ -30,12 +30,12 @@ export const props = {
 export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_ITEM_BUTTON,
   mixins: [attrsMixin, normalizeSlotMixin],
-  inheritAttrs: false,
   inject: {
     bvDropdown: {
       default: null
     }
   },
+  inheritAttrs: false,
   props,
   computed: {
     computedAttrs() {
