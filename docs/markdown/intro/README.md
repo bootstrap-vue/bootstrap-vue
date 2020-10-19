@@ -151,7 +151,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 ```scss
 // custom.scss
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
@@ -181,7 +181,7 @@ a `scss` file:
 
 ```scss
 // Parcel example
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 ```
 
