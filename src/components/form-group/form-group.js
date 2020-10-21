@@ -45,9 +45,9 @@ const makePropName = memoize((breakpoint = '', prefix) => `${prefix}${upperFirst
 const generateProps = () => {
   const CODE_BREAKPOINTS = getBreakpointsUpCached()
 
-  // Generate the labelCol breakpoint props
+  // Generate the `labelCol` breakpoint props
   const bpLabelColProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
-    // i.e. label-cols, label-cols-sm, label-cols-md, ...
+    // i.e. 'label-cols', 'label-cols-sm', 'label-cols-md', ...
     props[makePropName(breakpoint, 'labelCols')] = {
       type: [Number, String, Boolean],
       default: breakpoint ? false : null
@@ -55,9 +55,9 @@ const generateProps = () => {
     return props
   }, create(null))
 
-  // Generate the labelAlign breakpoint props
+  // Generate the `labelAlign` breakpoint props
   const bpLabelAlignProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
-    // label-align, label-align-sm, label-align-md, ...
+    // 'label-align', 'bel-align-sm', 'label-align-md', ...
     props[makePropName(breakpoint, 'labelAlign')] = {
       type: String // left, right, center
       // default: null
