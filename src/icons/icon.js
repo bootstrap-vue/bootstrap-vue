@@ -5,6 +5,15 @@ import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { commonIconProps } from './helpers/icon-base'
 
+const findIconComponent = (parent, iconName) => {
+  if (!parent) {
+    return null
+  }
+  const components = (parent.$options || {}).components
+  const iconComponent = components[iconName]
+  return iconComponent || findIconComponent(parent.$parent, iconName)
+}
+
 // Helper BIcon component
 // Requires the requested icon component to be installed
 export const BIcon = /*#__PURE__*/ Vue.extend({
@@ -23,13 +32,13 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
   },
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
-    const iconName = `BIcon${icon}`
+
     // If parent context exists, we check to see if the icon has been registered
-    // Either locally in the parent component, or globally at the `$root` level
+    // either locally in the parent component, or globally at the `$root` level
     // If not registered, we render a blank icon
-    const components = ((parent || {}).$options || {}).components
-    const componentRefOrName =
-      icon && components ? components[iconName] || BIconBlank : icon ? iconName : BIconBlank
-    return h(componentRefOrName, mergeData(data, { props: { ...props, icon: null } }))
+    return h(
+      icon ? findIconComponent(parent, `BIcon${icon}`) || BIconBlank : BIconBlank,
+      mergeData(data, { props: { ...props, icon: null } })
+    )
   }
 })
