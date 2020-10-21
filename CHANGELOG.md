@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
-## [2.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.3...v2.18.0)
+## [v2.18.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.18.0...v2.18.1)
+
+Released: 2020-10-21
+
+### Bug Fixes v2.18.1
+
+- **b-form-group:** content element ID handling (closes
+  [#5930](https://github.com/bootstrap-vue/bootstrap-vue/issues/5930))
+  ([#5933](https://github.com/bootstrap-vue/bootstrap-vue/issues/5933))
+  ([fecd558](https://github.com/bootstrap-vue/bootstrap-vue/commit/fecd55814c4f4553348d8016cdf0d449f22228f7))
+- **b-icon:** local component lookup
+  ([#5939](https://github.com/bootstrap-vue/bootstrap-vue/issues/5939))
+  ([4586b49](https://github.com/bootstrap-vue/bootstrap-vue/commit/4586b49d99e4239dbebe2518f57022d6e4e20224))
+- **b-link:** `href` handling with live router (closes
+  [#5927](https://github.com/bootstrap-vue/bootstrap-vue/issues/5927))
+  ([#5934](https://github.com/bootstrap-vue/bootstrap-vue/issues/5934))
+  ([8a367b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a367b6296b0aa9700f67633fd60fb351e2f7373))
+
+## [v2.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.3...v2.18.0)
 
 Released: 2020-10-19
 
