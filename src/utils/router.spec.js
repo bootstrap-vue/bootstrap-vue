@@ -203,6 +203,7 @@ describe('utils/router', () => {
   // isRouterLink() utility method
   describe('isRouterLink()', () => {
     it('works', async () => {
+      expect(isRouterLink('a')).toBe(false)
       expect(isRouterLink('router-link')).toBe(true)
       expect(isRouterLink('nuxt-link')).toBe(true)
       expect(isRouterLink()).toBe(false)
