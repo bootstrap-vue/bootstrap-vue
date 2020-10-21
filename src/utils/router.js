@@ -4,6 +4,8 @@ import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect
 import { keys } from './object'
 import { toString } from './string'
 
+const ANCHOR_TAG = 'a'
+
 // Method to replace reserved chars
 const encodeReserveReplacer = c => '%' + c.charCodeAt(0).toString(16)
 
@@ -88,7 +90,7 @@ export const isRouterLink = tag => !!(tag && !isTag(tag, 'a'))
 export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
   const hasRouter = !!thisOrParent.$router
   if (!hasRouter || (hasRouter && (disabled || !to))) {
-    return 'a'
+    return ANCHOR_TAG
   }
 
   // TODO:
@@ -105,10 +107,22 @@ export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrPar
 export const computeRel = ({ target, rel } = {}) =>
   target === '_blank' && isNull(rel) ? 'noopener' : rel || null
 
-export const computeHref = ({ href, to } = {}, fallback = '#', toFallback = '/') => {
+export const computeHref = (
+  { href, to } = {},
+  tag = ANCHOR_TAG,
+  fallback = '#',
+  toFallback = '/'
+) => {
   // Return `href` when explicitly provided
   if (href) {
     return href
+  }
+
+  // We've checked for `$router` in `computeTag()`, so `isRouterLink()` indicates a live router
+  // When deferring to Vue Router's `<router-link>`, don't use the `href` attribute at all
+  // We return `null`, and then remove `href` from the attributes passed to `<router-link>`
+  if (isRouterLink(tag)) {
+    return null
   }
 
   // Fallback to `to` prop (if `to` is a string)
