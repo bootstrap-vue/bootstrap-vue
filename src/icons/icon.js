@@ -5,13 +5,13 @@ import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { commonIconProps } from './helpers/icon-base'
 
-const findIconComponent = (parent, iconName) => {
-  if (!parent) {
+const findIconComponent = (ctx, iconName) => {
+  if (!ctx) {
     return null
   }
-  const components = (parent.$options || {}).components
+  const components = (ctx.$options || {}).components
   const iconComponent = components[iconName]
-  return iconComponent || findIconComponent(parent.$parent, iconName)
+  return iconComponent || findIconComponent(ctx.$parent, iconName)
 }
 
 // Helper BIcon component
