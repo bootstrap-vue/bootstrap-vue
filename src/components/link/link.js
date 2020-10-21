@@ -126,7 +126,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     computedHref() {
       // We don't pass `this` as the first arg as we need reactivity of the props
       const { to, href } = this
-      return computeHref({ to, href })
+      return computeHref({ to, href }, this.computedTag)
     },
     computedProps() {
       const { prefetch } = this
