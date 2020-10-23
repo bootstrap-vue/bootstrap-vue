@@ -55,35 +55,35 @@ export const props = {
   },
   centered: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'centered')
   },
   scrollable: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'scrollable')
   },
   buttonSize: {
-    type: String
-    // default: ''
+    type: String,
+    default: () => getComponentConfig(NAME_MODAL, 'buttonSize')
   },
   noStacking: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'noStacking')
   },
   noFade: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'noFade')
   },
   noCloseOnBackdrop: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'noCloseOnBackdrop')
   },
   noCloseOnEsc: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'noCloseOnEsc')
   },
   noEnforceFocus: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'noEnforceFocus')
   },
   ignoreEnforceFocusSelector: {
     type: [Array, String],
@@ -101,8 +101,8 @@ export const props = {
     default: () => getComponentConfig(NAME_MODAL, 'titleTag')
   },
   titleClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'titleClass')
   },
   titleSrOnly: {
     type: Boolean,
@@ -129,8 +129,8 @@ export const props = {
     default: () => getComponentConfig(NAME_MODAL, 'headerCloseVariant')
   },
   headerClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'headerClass')
   },
   bodyBgVariant: {
     type: String,
@@ -141,20 +141,20 @@ export const props = {
     default: () => getComponentConfig(NAME_MODAL, 'bodyTextVariant')
   },
   modalClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'modalClass')
   },
   dialogClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'dialogClass')
   },
   contentClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'contentClass')
   },
   bodyClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'bodyClass')
   },
   footerBgVariant: {
     type: String,
@@ -169,40 +169,40 @@ export const props = {
     default: () => getComponentConfig(NAME_MODAL, 'footerTextVariant')
   },
   footerClass: {
-    type: [String, Array, Object]
-    // default: null
+    type: [String, Array, Object],
+    default: () => getComponentConfig(NAME_MODAL, 'footerClass')
   },
   // TODO: Rename to `noHeader` and deprecate `hideHeader`
   hideHeader: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'hideHeader')
   },
   // TODO: Rename to `noFooter` and deprecate `hideFooter`
   hideFooter: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'hideFooter')
   },
   // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
   hideHeaderClose: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'hideHeaderClose')
   },
   // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
   hideBackdrop: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'hideBackdrop')
   },
   okOnly: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'okOnly')
   },
   okDisabled: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'okDisabled')
   },
   cancelDisabled: {
     type: Boolean,
-    default: false
+    default: () => getComponentConfig(NAME_MODAL, 'cancelDisabled')
   },
   visible: {
     type: Boolean,
