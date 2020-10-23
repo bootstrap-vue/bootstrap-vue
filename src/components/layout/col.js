@@ -1,4 +1,4 @@
-import { mergeData } from '../../vue'
+import { h, mergeProps } from '../../vue'
 import { NAME_COL } from '../../constants/components'
 import { RX_COL_CLASS } from '../../constants/regex'
 import identity from '../../utils/identity'
@@ -9,6 +9,8 @@ import { isUndefinedOrNull } from '../../utils/inspect'
 import { assign, create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase } from '../../utils/string'
+
+// --- Helper methods ---
 
 // Generates a prop object with a type of `[Boolean, String, Number]`
 const boolStrNum = () => ({
@@ -113,8 +115,7 @@ const generateProps = () => {
   }
 }
 
-// We do not use Vue.extend here as that would evaluate the props
-// immediately, which we do not want to happen
+// --- Main component ---
 // @vue/component
 export const BCol = {
   name: NAME_COL,
@@ -127,7 +128,7 @@ export const BCol = {
     // eslint-disable-next-line no-return-assign
     return (this.props = generateProps())
   },
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const classList = []
     // Loop through `col`, `offset`, `order` breakpoint props
     for (const type in breakpointPropMap) {
@@ -154,6 +155,6 @@ export const BCol = {
       [`align-self-${props.alignSelf}`]: props.alignSelf
     })
 
-    return h(props.tag, mergeData(data, { class: classList }), children)
+    return h(props.tag, mergeProps(data, { class: classList }), children)
   }
 }

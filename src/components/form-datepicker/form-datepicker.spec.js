@@ -31,7 +31,7 @@ describe('form-date', () => {
   it('has expected base structure', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-base'
       }
     })
@@ -66,13 +66,13 @@ describe('form-date', () => {
     expect($btn.attributes('aria-expanded')).toEqual('false')
     expect($btn.find('svg.bi-calendar').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected base structure in button-only mode', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-button-only',
         buttonOnly: true
       }
@@ -108,13 +108,13 @@ describe('form-date', () => {
     expect($btn.attributes('aria-expanded')).toEqual('false')
     expect($btn.find('svg.bi-calendar').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom placeholder', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         placeholder: 'FOOBAR'
       }
@@ -128,13 +128,13 @@ describe('form-date', () => {
     expect(wrapper.find('label.form-control').exists()).toBe(true)
     expect(wrapper.find('label.form-control').text()).toContain('FOOBAR')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         name: 'foobar'
       }
@@ -159,13 +159,13 @@ describe('form-date', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('2020-01-20')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: ''
       }
     })
@@ -182,13 +182,13 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-focus-blur'
       }
@@ -218,13 +218,13 @@ describe('form-date', () => {
 
     expect(document.activeElement).not.toBe($toggle.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-hover'
       }
@@ -259,13 +259,13 @@ describe('form-date', () => {
     expect($toggle.find('svg.bi-calendar').exists()).toBe(true)
     expect($toggle.find('svg.bi-calendar-fill').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-open'
       }
@@ -296,13 +296,13 @@ describe('form-date', () => {
     await waitRAF()
     expect($menu.classes()).not.toContain('show')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits new value when date updated', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-emit-input'
       }
@@ -352,13 +352,13 @@ describe('form-date', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(activeYMD)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not close popup when prop `no-close-on-select` is set', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-no-close',
         noCloseOnSelect: true
@@ -410,13 +410,13 @@ describe('form-date', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(activeYMD)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders optional footer buttons', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-footer',
         value: '1900-01-01',
         noCloseOnSelect: true,
@@ -460,9 +460,9 @@ describe('form-date', () => {
 
     expect($btns.length).toBe(3)
 
-    const $today = $btns.at(0)
-    const $reset = $btns.at(1)
-    const $close = $btns.at(2)
+    const $today = $btns[0]
+    const $reset = $btns[1]
+    const $close = $btns[2]
 
     await $today.trigger('click')
     await waitRAF()
@@ -487,13 +487,13 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('prop reset-value works', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-reset',
         value: '2020-01-15',
         resetValue: '1900-01-01',
@@ -536,7 +536,7 @@ describe('form-date', () => {
 
     expect($btns.length).toBe(1)
 
-    const $reset = $btns.at(0)
+    const $reset = $btns[0]
 
     await $reset.trigger('click')
     await waitRAF()
@@ -545,13 +545,13 @@ describe('form-date', () => {
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('1900-01-01')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-button-slot',
         value: '2020-01-15'
       },
@@ -572,6 +572,6 @@ describe('form-date', () => {
     expect($toggle.exists()).toBe(true)
     expect($toggle.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

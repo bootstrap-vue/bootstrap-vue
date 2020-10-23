@@ -7,11 +7,10 @@ const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: '
 describe('table > thead events', () => {
   it('should not emit head-clicked event when a head cell is clicked and no head-clicked listener', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
-      },
-      listeners: {}
+      }
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('thead > tr')
@@ -19,17 +18,17 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(0).trigger('click')
+    await $ths[0].trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(1).trigger('click')
+    await $ths[1].trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(2).trigger('click')
+    await $ths[2].trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
   })
 
   it('should emit head-clicked event when a head cell is clicked', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -44,7 +43,7 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(0).trigger('click')
+    await $ths[0].trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeDefined()
     expect(wrapper.emitted('head-clicked').length).toBe(1)
     expect(wrapper.emitted('head-clicked')[0][0]).toEqual(testFields[0].key) // Field key
@@ -52,19 +51,19 @@ describe('table > thead events', () => {
     expect(wrapper.emitted('head-clicked')[0][2]).toBeInstanceOf(MouseEvent) // Event
     expect(wrapper.emitted('head-clicked')[0][3]).toBe(false) // Is footer
 
-    await $ths.at(2).trigger('click')
+    await $ths[2].trigger('click')
     expect(wrapper.emitted('head-clicked').length).toBe(2)
     expect(wrapper.emitted('head-clicked')[1][0]).toEqual(testFields[2].key) // Field key
     expect(wrapper.emitted('head-clicked')[1][1]).toEqual(testFields[2]) // Field definition
     expect(wrapper.emitted('head-clicked')[1][2]).toBeInstanceOf(MouseEvent) // Event
     expect(wrapper.emitted('head-clicked')[1][3]).toBe(false) // Is footer
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not emit head-clicked event when prop busy is set', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         busy: true
@@ -78,15 +77,15 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(0).trigger('click')
+    await $ths[0].trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not emit head-clicked event when vm.localBusy is true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -102,15 +101,15 @@ describe('table > thead events', () => {
     const $ths = wrapper.findAll('thead > tr > th')
     expect($ths.length).toBe(testFields.length)
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
-    await $ths.at(0).trigger('click')
+    await $ths[0].trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not emit head-clicked event when clicking on a button or other interactive element', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -145,6 +144,6 @@ describe('table > thead events', () => {
     await $link.trigger('click')
     expect(wrapper.emitted('head-clicked')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

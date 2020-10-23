@@ -1,14 +1,14 @@
-import Vue from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'
 import { BVPopover } from './helpers/bv-popover'
 
-export const BPopover = /*#__PURE__*/ Vue.extend({
+// @vue/component
+export const BPopover = /*#__PURE__*/ defineComponent({
   name: NAME_POPOVER,
   extends: BTooltip,
-  inheritAttrs: false,
   props: {
     title: {
       type: String

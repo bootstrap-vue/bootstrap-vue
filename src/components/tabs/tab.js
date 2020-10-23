@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
 import { SLOT_NAME_TITLE } from '../../constants/slot-names'
 import idMixin from '../../mixins/id'
@@ -6,7 +6,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import BVTransition from '../../utils/bv-transition'
 
 // @vue/component
-export const BTab = /*#__PURE__*/ Vue.extend({
+export const BTab = /*#__PURE__*/ defineComponent({
   name: NAME_TAB,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
@@ -166,7 +166,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       return deactivateTab && this.localActive ? deactivateTab(this) : false
     }
   },
-  render(h) {
+  render() {
     const { localActive } = this
 
     const $content = h(

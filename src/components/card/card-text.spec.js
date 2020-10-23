@@ -7,7 +7,7 @@ describe('card-text', () => {
 
     expect(wrapper.element.tagName).toBe('P')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-text', async () => {
@@ -15,34 +15,30 @@ describe('card-text', () => {
 
     expect(wrapper.classes()).toContain('card-text')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element "div" when prop text-tag=div', async () => {
     const wrapper = mount(BCardText, {
-      context: {
-        props: {
-          textTag: 'div'
-        }
-      }
+      props: { textTag: 'div' }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('card-text')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts custom classes', async () => {
     const wrapper = mount(BCardText, {
-      context: {
-        class: ['foobar']
+      attrs: {
+        class: 'foobar'
       }
     })
 
     expect(wrapper.classes()).toContain('card-text')
     expect(wrapper.classes()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

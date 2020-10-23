@@ -1,5 +1,5 @@
 import { Portal, Wormhole } from 'portal-vue'
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TOAST } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -107,7 +107,7 @@ export const props = {
 }
 
 // @vue/component
-export const BToast = /*#__PURE__*/ Vue.extend({
+export const BToast = /*#__PURE__*/ defineComponent({
   name: NAME_TOAST,
   mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
   inheritAttrs: false,
@@ -410,10 +410,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       return $toast
     }
   },
-  render(h) {
+  render() {
     if (!this.doRender || !this.isMounted) {
       return h()
     }
+
+    const { bvAttrs } = this
     const name = `b-toast-${this._uid}`
     // If scoped styles are applied and the toast is not static,
     // make sure the scoped style data attribute is applied
@@ -422,6 +424,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     return h(
       Portal,
       {
+        class: bvAttrs.class,
+        style: bvAttrs.style,
         props: {
           name,
           to: this.computedToaster,

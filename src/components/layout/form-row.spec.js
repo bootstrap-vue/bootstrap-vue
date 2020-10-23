@@ -10,12 +10,12 @@ describe('layout > form-row', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('custom root element when prop tag set', async () => {
     const wrapper = mount(BFormRow, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -25,7 +25,7 @@ describe('layout > form-row', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -40,6 +40,6 @@ describe('layout > form-row', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

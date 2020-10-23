@@ -1,14 +1,12 @@
-import { createLocalVue, createWrapper, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
 import { ToastPlugin } from '../index'
-
-const localVue = createLocalVue()
-localVue.use(ToastPlugin)
 
 describe('$bvToast', () => {
   it('$bvToast.show() and $bvToast.hide() works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h(
           'b-toast',
           {
@@ -25,7 +23,9 @@ describe('$bvToast', () => {
     }
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        plugins: [ToastPlugin]
+      }
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -65,18 +65,20 @@ describe('$bvToast', () => {
 
     expect(wrapper.find('.toast').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('$bvModal.toast() works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('div', 'app')
       }
     }
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        plugins: [ToastPlugin]
+      }
     })
 
     expect(wrapper.vm).toBeDefined()

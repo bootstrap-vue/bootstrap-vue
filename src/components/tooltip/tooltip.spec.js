@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BTooltip } from './tooltip'
@@ -21,7 +22,7 @@ const App = {
     'delay',
     'isModal'
   ],
-  render(h) {
+  render() {
     const tipProps = {
       target: this.target || 'foo',
       triggers: this.triggers,
@@ -35,7 +36,7 @@ const App = {
       delay: this.delay
     }
     const wrapperData = {
-      attrs: { id: 'wrapper' },
+      id: 'wrapper',
       // Class to simulate being in a modal
       class: { 'modal-content': !!this.isModal }
     }
@@ -43,12 +44,10 @@ const App = {
       h(
         'button',
         {
-          attrs: {
-            id: 'foo',
-            type: 'button',
-            disabled: this.btnDisabled || null,
-            title: this.titleAttr || null
-          },
+          id: 'foo',
+          type: 'button',
+          disabled: this.btnDisabled || null,
+          title: this.titleAttr || null,
           ref: 'target'
         },
         'text'
@@ -60,7 +59,7 @@ const App = {
   }
 }
 
-// Note: `wrapper.destroy()` MUST be called at the end of each test in order for
+// Note: `wrapper.unmount()` MUST be called at the end of each test in order for
 // the next test to function properly!
 describe('b-tooltip', () => {
   const originalCreateRange = document.createRange
@@ -100,7 +99,7 @@ describe('b-tooltip', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click'
       },
       slots: {
@@ -130,14 +129,14 @@ describe('b-tooltip', () => {
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('initially open has expected structure', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true
       },
@@ -214,14 +213,14 @@ describe('b-tooltip', () => {
     expect(tip2.classList.contains('tooltip')).toBe(true)
     expect(tip2.classList.contains('b-tooltip')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('title prop is reactive', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         title: 'hello'
@@ -282,7 +281,7 @@ describe('b-tooltip', () => {
     // Should contain the new updated content
     expect($tip.text()).toContain('world')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('providing the trigger element by function works', async () => {
@@ -290,7 +289,7 @@ describe('b-tooltip', () => {
     const container = createContainer()
     const wrapper = mount(App, {
       attachTo: container,
-      propsData: {
+      props: {
         target: () => wrapper.vm.$refs.target,
         triggers: 'click',
         show: false
@@ -344,14 +343,14 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('activating trigger element (click) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: false
       },
@@ -404,14 +403,14 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('tooltip')).toBe(true)
     expect(tip.classList.contains('b-tooltip')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('activating trigger element (focus) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'focus',
         show: false,
         delay: 0
@@ -482,14 +481,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('activating trigger element (hover) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'hover',
         show: false,
         // Add no fade for coverage
@@ -561,14 +560,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('disabled tooltip does not open on trigger', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: false,
         disabled: true
@@ -663,14 +662,14 @@ describe('b-tooltip', () => {
 
     // expect($button.attributes('aria-describedby')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes/opens on instance events', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -744,14 +743,14 @@ describe('b-tooltip', () => {
     expect($button.attributes('aria-describedby')).toBeDefined()
     expect(document.getElementById(adb)).not.toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes on $root close specific ID event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -816,14 +815,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not close on $root close specific other ID event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -887,14 +886,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(true)
     expect(document.getElementById(adb)).not.toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes on $root close all event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -960,14 +959,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not close on $root modal hidden event by default', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -1032,14 +1031,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(true)
     expect(document.getElementById(adb)).not.toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes on $root modal hidden event when inside a modal', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false,
@@ -1103,7 +1102,7 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes when trigger element is no longer visible', async () => {
@@ -1113,7 +1112,7 @@ describe('b-tooltip', () => {
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true,
         disabled: false
@@ -1218,14 +1217,14 @@ describe('b-tooltip', () => {
     // Tooltip element should not be in the document
     expect(document.getElementById(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes when title is set to empty', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         show: true,
         title: 'hello'
       }
@@ -1282,14 +1281,14 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById('adb')).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies noninteractive class based on noninteractive prop', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         show: true
       },
       slots: {
@@ -1336,14 +1335,14 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip')).toBe(true)
     expect(tip.classList.contains('noninteractive')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies variant class', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         show: true,
         variant: 'danger'
       },
@@ -1388,14 +1387,14 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('b-tooltip-success')).toBe(true)
     expect(tip.classList.contains('b-tooltip-danger')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies custom class', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         show: true,
         customClass: 'foobar-class'
       },
@@ -1443,14 +1442,14 @@ describe('b-tooltip', () => {
     expect(tip.classList.contains('barbaz-class')).toBe(true)
     expect(tip.classList.contains('foobar-class')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('saves title in data attribute on open and adds to back on hide', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: false,
         titleAttr: 'bar'
@@ -1524,6 +1523,6 @@ describe('b-tooltip', () => {
     expect(document.body.contains(tip)).toBe(false)
     expect(document.querySelector(adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

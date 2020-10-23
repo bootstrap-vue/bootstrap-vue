@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import { arrayIncludes } from '../../utils/array'
@@ -8,7 +8,7 @@ import { HTMLElement, SVGElement } from '../../utils/safe-types'
 import { BVTooltip } from './helpers/bv-tooltip'
 
 // @vue/component
-export const BTooltip = /*#__PURE__*/ Vue.extend({
+export const BTooltip = /*#__PURE__*/ defineComponent({
   name: NAME_TOOLTIP,
   inheritAttrs: false,
   props: {
@@ -321,7 +321,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       this.$_toolpop && this.$_toolpop.enable()
     }
   },
-  render(h) {
+  render() {
     // Always renders a comment node
     // TODO:
     //   Future: Possibly render a target slot (single root element)

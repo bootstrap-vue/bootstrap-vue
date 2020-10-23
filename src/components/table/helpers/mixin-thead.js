@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import identity from '../../../utils/identity'
@@ -55,7 +56,6 @@ export default {
       this.$emit('head-clicked', field.key, field, evt, isFoot)
     },
     renderThead(isFoot = false) {
-      const h = this.$createElement
       const fields = this.computedFields || []
 
       // In always stacked mode, we don't bother rendering the head/foot

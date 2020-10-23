@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_PROGRESS_BAR } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -9,7 +9,7 @@ import { toString } from '../../utils/string'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // @vue/component
-export const BProgressBar = /*#__PURE__*/ Vue.extend({
+export const BProgressBar = /*#__PURE__*/ defineComponent({
   name: NAME_PROGRESS_BAR,
   mixins: [normalizeSlotMixin],
   inject: {
@@ -117,7 +117,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
       return isBoolean(this.showValue) ? this.showValue : this.bvProgress.showValue || false
     }
   },
-  render(h) {
+  render() {
     const { label, labelHtml, computedValue, computedPrecision } = this
 
     let $children

@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import {
   CODE_DOWN,
   CODE_END,
@@ -140,8 +141,6 @@ export default {
     renderTbody() {
       // Render the tbody element and children
       const items = this.computedItems
-      // Shortcut to `createElement` (could use `this._c()` instead)
-      const h = this.$createElement
       const hasRowClickHandler = this.hasListener('row-clicked') || this.hasSelectableRowClick
 
       // Prepare the tbody rows

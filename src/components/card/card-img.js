@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   src: {
@@ -46,12 +48,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BCardImg = /*#__PURE__*/ Vue.extend({
+export const BCardImg = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_IMG,
   functional: true,
   props,
-  render(h, { props, data }) {
+  render(_, { props, data }) {
     let baseClass = 'card-img'
     if (props.top) {
       baseClass += '-top'
@@ -65,7 +68,7 @@ export const BCardImg = /*#__PURE__*/ Vue.extend({
 
     return h(
       'img',
-      mergeData(data, {
+      mergeProps(data, {
         class: [baseClass],
         attrs: {
           src: props.src || null,

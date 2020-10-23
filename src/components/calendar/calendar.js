@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
   CALENDAR_GREGORY,
@@ -61,7 +61,7 @@ import {
 // --- BCalendar component ---
 
 // @vue/component
-export const BCalendar = Vue.extend({
+export const BCalendar = defineComponent({
   name: NAME_CALENDAR,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, normalizeSlotMixin],
@@ -825,7 +825,7 @@ export const BCalendar = Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     // If `hidden` prop is set, render just a placeholder node
     if (this.hidden) {
       return h()

@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
 import { getComponentConfig } from '../../utils/config'
@@ -14,6 +14,7 @@ import { BIconPersonFill } from '../../icons/icons'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
+
 const CLASS_NAME = 'b-avatar'
 
 const SIZES = ['sm', null, 'lg']
@@ -22,6 +23,7 @@ const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
 // --- Props ---
+
 const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 const props = {
@@ -93,6 +95,7 @@ const props = {
 }
 
 // --- Utility methods ---
+
 export const computeSize = value => {
   // Parse to number when value is a float-like string
   value = isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
@@ -102,7 +105,7 @@ export const computeSize = value => {
 
 // --- Main component ---
 // @vue/component
-export const BAvatar = /*#__PURE__*/ Vue.extend({
+export const BAvatar = /*#__PURE__*/ defineComponent({
   name: NAME_AVATAR,
   mixins: [normalizeSlotMixin],
   inject: {
@@ -169,7 +172,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
       this.$emit('click', evt)
     }
   },
-  render(h) {
+  render() {
     const {
       computedVariant: variant,
       disabled,

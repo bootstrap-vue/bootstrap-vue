@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
   CALENDAR_LONG,
@@ -288,7 +288,7 @@ const propsMixin = {
 // --- BFormDate component ---
 
 // @vue/component
-export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
+export const BFormDatepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_DATEPICKER,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin],
@@ -452,12 +452,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {
-      return this.$createElement(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
+      return h(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
         attrs: { 'aria-hidden': 'true' }
       })
     }
   },
-  render(h) {
+  render() {
     const $scopedSlots = this.$scopedSlots
     const localYMD = this.localYMD
     const disabled = this.disabled

@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
@@ -18,7 +18,7 @@ const ITEM_SELECTOR = [
 // --- Main component ---
 
 // @vue/component
-export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
+export const BButtonToolbar = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
   props: {
@@ -89,7 +89,9 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
+    const { keyNav } = this
+
     return h(
       'div',
       {
@@ -97,9 +99,9 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
         class: { 'justify-content-between': this.justify },
         attrs: {
           role: 'toolbar',
-          tabindex: this.keyNav ? '0' : null
+          tabindex: keyNav ? '0' : null
         },
-        on: this.keyNav
+        on: keyNav
           ? {
               focusin: this.onFocusin,
               keydown: this.onKeydown

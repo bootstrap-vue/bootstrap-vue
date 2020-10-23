@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TBODY } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -19,7 +19,7 @@ export const props = {
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BTbody = /*#__PURE__*/ Vue.extend({
+export const BTbody = /*#__PURE__*/ defineComponent({
   name: NAME_TBODY,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
@@ -81,8 +81,11 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     const data = {
+      class: bvAttrs.class,
+      style: bvAttrs.style,
       props: this.tbodyProps,
       attrs: this.tbodyAttrs
     }

@@ -10,7 +10,7 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.element.tagName).toBe('FORM')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has expected classes', async () => {
@@ -23,12 +23,12 @@ describe('dropdown-form', () => {
     expect(form.classes()).not.toContain('was-validated')
     expect(form.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have custom form classes on form', async () => {
     const wrapper = mount(BDropdownForm, {
-      propsData: {
+      props: {
         formClass: ['form-class-custom', 'form-class-custom-2']
       }
     })
@@ -36,7 +36,7 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.classes()).toEqual(['b-dropdown-form', 'form-class-custom', 'form-class-custom-2'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has tabindex on form', async () => {
@@ -49,12 +49,12 @@ describe('dropdown-form', () => {
     expect(form.attributes('tabindex')).toBeDefined()
     expect(form.attributes('tabindex')).toEqual('-1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have tabindex on form when disabled', async () => {
     const wrapper = mount(BDropdownForm, {
-      propsData: {
+      props: {
         disabled: true
       }
     })
@@ -67,12 +67,12 @@ describe('dropdown-form', () => {
     expect(form.attributes('disabled')).toBeDefined()
     expect(form.classes()).toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "was-validated" when validated=true', async () => {
     const wrapper = mount(BDropdownForm, {
-      propsData: { validated: true }
+      props: { validated: true }
     })
 
     expect(wrapper.element.tagName).toBe('LI')
@@ -81,7 +81,7 @@ describe('dropdown-form', () => {
     expect(form.classes()).toContain('was-validated')
     expect(form.classes()).toContain('b-dropdown-form')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attribute novalidate by default', async () => {
@@ -92,12 +92,12 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.attributes('novalidate')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute novalidate when novalidate=true', async () => {
     const wrapper = mount(BDropdownForm, {
-      propsData: { novalidate: true }
+      props: { novalidate: true }
     })
 
     expect(wrapper.element.tagName).toBe('LI')
@@ -105,6 +105,6 @@ describe('dropdown-form', () => {
     const form = wrapper.find('form')
     expect(form.attributes('novalidate')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

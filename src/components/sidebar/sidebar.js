@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
 import { CODE_ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
@@ -129,7 +129,7 @@ const renderBackdrop = (h, ctx) => {
 
 // --- Main component ---
 // @vue/component
-export const BSidebar = /*#__PURE__*/ Vue.extend({
+export const BSidebar = /*#__PURE__*/ defineComponent({
   name: NAME_SIDEBAR,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
@@ -406,8 +406,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
-    const localShow = this.localShow
+  render() {
+    const { localShow, bvAttrs } = this
     const shadow = this.shadow === '' ? true : this.shadow
 
     let $sidebar = h(
@@ -466,7 +466,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-sidebar-outer',
-        style: { zIndex: this.zIndex },
+        class: bvAttrs.class,
+        style: [{ zIndex: this.zIndex }, bvAttrs.style],
         attrs: { tabindex: '-1' },
         on: { keydown: this.onKeydown }
       },

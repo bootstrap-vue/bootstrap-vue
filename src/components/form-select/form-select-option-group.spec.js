@@ -8,7 +8,7 @@ describe('form-select-option-group', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSelectOptionGroup, {
-      propsData: {
+      props: {
         label: 'foo'
       }
     })
@@ -18,12 +18,12 @@ describe('form-select-option-group', () => {
     expect(wrapper.attributes('label')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from simple options array', async () => {
     const wrapper = mount(BFormSelectOptionGroup, {
-      propsData: {
+      props: {
         label: 'foo',
         options: ['one', 'two', 'three']
       }
@@ -35,20 +35,20 @@ describe('form-select-option-group', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('one')
-    expect($options.at(1).attributes('value')).toBe('two')
-    expect($options.at(2).attributes('value')).toBe('three')
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('one')
+    expect($options[1].attributes('value')).toBe('two')
+    expect($options[2].attributes('value')).toBe('three')
     expect($options.wrappers.every(o => o.find('[disabled]').exists())).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from options array of objects', async () => {
     const wrapper = mount(BFormSelectOptionGroup, {
-      propsData: {
+      props: {
         label: 'foo',
         options: [
           { text: 'one', value: 1 },
@@ -64,38 +64,23 @@ describe('form-select-option-group', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
+    expect($options[0].find('[disabled]').exists()).toBe(false)
+    expect($options[1].find('[disabled]').exists()).toBe(true)
+    expect($options[2].find('[disabled]').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from options legacy object format', async () => {
     const spyWarn = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
     const wrapper = mount(BFormSelectOptionGroup, {
-      propsData: {
+      props: {
         label: 'foo',
         options: { one: 1, two: { value: 2, text: 'Two' }, three: 'three' }
       }
@@ -107,23 +92,23 @@ describe('form-select-option-group', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('1')
-    expect($options.at(1).text()).toBe('Two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('one')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('three')
+    expect($options[0].text()).toBe('1')
+    expect($options[1].text()).toBe('Two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('one')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('three')
 
     expect(spyWarn).toHaveBeenLastCalledWith(
       '[BootstrapVue warn]: BFormSelectOptionGroup - Setting prop "options" to an object is deprecated. Use the array format instead.'
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from default slot', async () => {
     const wrapper = mount(BFormSelectOptionGroup, {
-      propsData: {
+      props: {
         label: 'foo'
       },
       slots: {
@@ -141,13 +126,13 @@ describe('form-select-option-group', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

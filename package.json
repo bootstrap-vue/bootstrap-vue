@@ -111,7 +111,7 @@
     "@nuxtjs/robots": "^2.4.2",
     "@nuxtjs/sitemap": "^2.4.0",
     "@testing-library/jest-dom": "^5.11.4",
-    "@vue/test-utils": "^1.1.0",
+    "@vue/test-utils": "^2.0.0-beta.7",
     "autoprefixer": "^10.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
@@ -160,11 +160,10 @@
     "sass-loader": "^10.0.3",
     "standard-version": "^9.0.0",
     "terser": "^5.3.7",
-    "vue": "^2.6.12",
+    "vue": "^3.0.2",
+    "vue-demi": "^0.4.1",
     "vue-jest": "^3.0.7",
-    "vue-router": "^3.4.7",
-    "vue-server-renderer": "^2.6.12",
-    "vue-template-compiler": "^2.6.12"
+    "vue-router": "^4.0.0-beta.13"
   },
   "keywords": [
     "Bootstrap",

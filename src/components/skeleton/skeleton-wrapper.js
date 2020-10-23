@@ -1,10 +1,10 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { normalizeSlot } from '../../utils/normalize-slot'
 
 // @vue/component
-export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
+export const BSkeletonWrapper = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_WRAPPER,
   functional: true,
   props: {
@@ -13,7 +13,7 @@ export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  render(h, { data, props, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
     const slotScope = {}
@@ -21,7 +21,7 @@ export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
     if (props.loading) {
       return h(
         'div',
-        mergeData(data, {
+        mergeProps(data, {
           attrs: {
             role: 'alert',
             'aria-live': 'polite',

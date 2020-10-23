@@ -1,3 +1,4 @@
+import { h } from '../vue'
 import { SLOT_NAME_FIRST } from '../constants/slot-names'
 import looseEqual from '../utils/loose-equal'
 import normalizeSlotMixin from './normalize-slot'
@@ -80,7 +81,7 @@ export default {
       }
     }
   },
-  render(h) {
+  render() {
     const $inputs = this.formOptions.map((option, index) => {
       const key = `BV_option_${index}`
 

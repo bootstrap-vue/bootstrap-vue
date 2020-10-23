@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TABLE_LITE } from '../../constants/components'
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
@@ -16,7 +16,7 @@ import theadMixin from './helpers/mixin-thead'
 
 // b-table-lite component definition
 // @vue/component
-export const BTableLite = /*#__PURE__*/ Vue.extend({
+export const BTableLite = /*#__PURE__*/ defineComponent({
   name: NAME_TABLE_LITE,
   // Order of mixins is important!
   // They are merged from first to last, followed by this component.

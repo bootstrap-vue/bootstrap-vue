@@ -11,7 +11,7 @@ describe('form > form-text', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -27,12 +27,12 @@ describe('form > form-text', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when prop tag set', async () => {
     const wrapper = mount(BFormText, {
-      propsData: {
+      props: {
         tag: 'p'
       }
     })
@@ -43,12 +43,12 @@ describe('form > form-text', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has user supplied ID', async () => {
     const wrapper = mount(BFormText, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -57,12 +57,12 @@ describe('form > form-text', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have class form-text when prop inline set', async () => {
     const wrapper = mount(BFormText, {
-      propsData: {
+      props: {
         inline: true
       }
     })
@@ -72,12 +72,12 @@ describe('form > form-text', () => {
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has variant class applied when prop text-variant is set', async () => {
     const wrapper = mount(BFormText, {
-      propsData: {
+      props: {
         textVariant: 'info'
       }
     })
@@ -88,6 +88,6 @@ describe('form > form-text', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

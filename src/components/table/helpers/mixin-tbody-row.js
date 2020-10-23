@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import get from '../../../utils/get'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
@@ -89,7 +90,6 @@ export default {
     // Render helpers
     renderTbodyRowCell(field, colIndex, item, rowIndex) {
       // Renders a TD or TH for a row's field
-      const h = this.$createElement
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)
       const formatted = this.getFormattedValue(item, field)
       const key = field.key
@@ -178,7 +178,6 @@ export default {
     },
     renderTbodyRow(item, rowIndex) {
       // Renders an item's row (or rows if details supported)
-      const h = this.$createElement
       const fields = this.computedFields
       const tableStriped = this.striped
       const hasDetailsSlot = this.hasNormalizedSlot(detailsSlotName)

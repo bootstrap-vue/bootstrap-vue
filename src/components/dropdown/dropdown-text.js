@@ -1,8 +1,8 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_TEXT } from '../../constants/components'
 
 // @vue/component
-export const BDropdownText = /*#__PURE__*/ Vue.extend({
+export const BDropdownText = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_TEXT,
   functional: true,
   props: {
@@ -19,13 +19,13 @@ export const BDropdownText = /*#__PURE__*/ Vue.extend({
       // default: null
     }
   },
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const { tag, textClass, variant } = props
 
     const attrs = data.attrs || {}
     data.attrs = {}
 
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeProps(data, { attrs: { role: 'presentation' } }), [
       h(
         tag,
         {

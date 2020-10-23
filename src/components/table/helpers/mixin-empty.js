@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import { htmlOrText } from '../../../utils/html'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -26,7 +27,6 @@ export default {
   },
   methods: {
     renderEmpty() {
-      const h = this.$createElement
       const items = this.computedItems
 
       let $empty = h()

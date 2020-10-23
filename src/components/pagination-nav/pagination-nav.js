@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
@@ -74,7 +74,7 @@ export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
 // --- Main component ---
 // The render function is brought in via the pagination mixin
 // @vue/component
-export const BPaginationNav = /*#__PURE__*/ Vue.extend({
+export const BPaginationNav = /*#__PURE__*/ defineComponent({
   name: NAME_PAGINATION_NAV,
   mixins: [paginationMixin],
   props,

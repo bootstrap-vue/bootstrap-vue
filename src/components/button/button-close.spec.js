@@ -7,7 +7,7 @@ describe('button-close', () => {
 
     expect(wrapper.element.tagName).toBe('BUTTON')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "close"', async () => {
@@ -16,7 +16,7 @@ describe('button-close', () => {
     expect(wrapper.classes()).toContain('close')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute type="button"', async () => {
@@ -24,7 +24,7 @@ describe('button-close', () => {
 
     expect(wrapper.attributes('type')).toBe('button')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attribute "disabled" by default', async () => {
@@ -32,19 +32,17 @@ describe('button-close', () => {
 
     expect(wrapper.attributes('disabled')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute "disabled" when prop "disabled" is set', async () => {
     const wrapper = mount(BButtonClose, {
-      context: {
-        props: { disabled: true }
-      }
+      props: { disabled: true }
     })
 
     expect(wrapper.attributes('disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute aria-label="Close" by default', async () => {
@@ -52,33 +50,29 @@ describe('button-close', () => {
 
     expect(wrapper.attributes('aria-label')).toBe('Close')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom attribute "aria-label" when prop "aria-label" set', async () => {
     const wrapper = mount(BButtonClose, {
-      context: {
-        props: { ariaLabel: 'foobar' }
-      }
+      props: { ariaLabel: 'foobar' }
     })
 
     expect(wrapper.attributes('aria-label')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has text variant class when "variant" prop set', async () => {
     const wrapper = mount(BButtonClose, {
-      context: {
-        props: { textVariant: 'primary' }
-      }
+      props: { textVariant: 'primary' }
     })
 
     expect(wrapper.classes()).toContain('close')
     expect(wrapper.classes()).toContain('text-primary')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have default content', async () => {
@@ -87,19 +81,17 @@ describe('button-close', () => {
     // '&times;' gets converted to '×'
     expect(wrapper.text()).toContain('×')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have custom content from "content" prop', async () => {
     const wrapper = mount(BButtonClose, {
-      context: {
-        props: { content: 'Close' }
-      }
+      props: { content: 'Close' }
     })
 
     expect(wrapper.text()).toContain('Close')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have custom content from default slot', async () => {
@@ -111,7 +103,7 @@ describe('button-close', () => {
 
     expect(wrapper.text()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit "click" event when clicked', async () => {
@@ -120,9 +112,7 @@ describe('button-close', () => {
       event = e
     })
     const wrapper = mount(BButtonClose, {
-      context: {
-        on: { click: spy1 }
-      },
+      attrs: { onClick: spy1 },
       slots: {
         default: '<i>some <span>text</span></i>'
       }
@@ -145,18 +135,16 @@ describe('button-close', () => {
 
     expect(spy1.mock.calls.length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not emit "click" event when disabled and clicked', async () => {
     const spy1 = jest.fn()
     const wrapper = mount(BButtonClose, {
-      context: {
-        props: {
-          disabled: true
-        },
-        on: { click: spy1 }
+      props: {
+        disabled: true
       },
+      attrs: { onClick: spy1 },
       slots: {
         default: '<i>some <span>text</span></i>'
       }
@@ -181,16 +169,14 @@ describe('button-close', () => {
     //
     // expect(spy1).not.toHaveBeenCalled()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('handles multiple click listeners', async () => {
     const spy1 = jest.fn()
     const spy2 = jest.fn()
     const wrapper = mount(BButtonClose, {
-      context: {
-        on: { click: [spy1, spy2] }
-      }
+      attrs: { onClick: [spy1, spy2] }
     })
 
     expect(spy1).not.toHaveBeenCalled()
@@ -205,6 +191,6 @@ describe('button-close', () => {
     expect(spy1.mock.calls.length).toBe(1)
     expect(spy2.mock.calls.length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

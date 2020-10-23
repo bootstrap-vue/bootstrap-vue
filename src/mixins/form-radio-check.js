@@ -1,3 +1,4 @@
+import { h } from '../vue'
 import looseEqual from '../utils/loose-equal'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
@@ -190,7 +191,8 @@ export default {
       }
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     const defaultSlot = this.normalizeSlot()
 
     // Generate the input element
@@ -257,17 +259,21 @@ export default {
       return h(
         'div',
         {
-          class: {
-            'form-check': this.isPlain,
-            'form-check-inline': this.isPlain && this.isInline,
-            'custom-control': this.isCustom,
-            'custom-control-inline': this.isCustom && this.isInline,
-            'custom-checkbox': this.isCustom && this.isCheck && !this.isSwitch,
-            'custom-switch': this.isSwitch,
-            'custom-radio': this.isCustom && this.isRadio,
-            // Temporary until Bootstrap v4 supports sizing (most likely in V5)
-            [`b-custom-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
-          }
+          class: [
+            {
+              'form-check': this.isPlain,
+              'form-check-inline': this.isPlain && this.isInline,
+              'custom-control': this.isCustom,
+              'custom-control-inline': this.isCustom && this.isInline,
+              'custom-checkbox': this.isCustom && this.isCheck && !this.isSwitch,
+              'custom-switch': this.isSwitch,
+              'custom-radio': this.isCustom && this.isRadio,
+              // Temporary until Bootstrap v4 supports sizing (most likely in V5)
+              [`b-custom-control-${this.getSize}`]: Boolean(this.getSize && !this.isBtnMode)
+            },
+            bvAttrs.class
+          ],
+          style: bvAttrs.style
         },
         [input, label]
       )

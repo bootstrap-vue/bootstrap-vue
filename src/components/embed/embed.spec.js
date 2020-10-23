@@ -14,12 +14,12 @@ describe('embed', () => {
     expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
     expect(wrapper.find('iframe').classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element when tag prop set', async () => {
     const wrapper = mount(BEmbed, {
-      propsData: {
+      props: {
         tag: 'aside'
       }
     })
@@ -30,12 +30,12 @@ describe('embed', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.findAll('iframe').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('it renders specified inner element when type set', async () => {
     const wrapper = mount(BEmbed, {
-      propsData: {
+      props: {
         type: 'video'
       }
     })
@@ -48,12 +48,12 @@ describe('embed', () => {
     expect(wrapper.find('video').classes()).toContain('embed-responsive-item')
     expect(wrapper.find('video').classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders specified aspect ratio class', async () => {
     const wrapper = mount(BEmbed, {
-      propsData: {
+      props: {
         aspect: '4by3'
       }
     })
@@ -63,7 +63,7 @@ describe('embed', () => {
     expect(wrapper.classes()).toContain('embed-responsive-4by3')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('non-prop attributes should rendered on on inner element', async () => {
@@ -83,12 +83,12 @@ describe('embed', () => {
     expect(wrapper.find('iframe').attributes('baz')).toBeDefined()
     expect(wrapper.find('iframe').attributes('baz')).toBe('buz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default slot should be rendered inside inner element', async () => {
     const wrapper = mount(BEmbed, {
-      propsData: {
+      props: {
         type: 'video'
       },
       slots: {
@@ -105,6 +105,6 @@ describe('embed', () => {
     expect(wrapper.find('video').classes().length).toBe(1)
     expect(wrapper.find('video').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,7 +1,15 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAV } from '../../constants/components'
 
-// -- Constants --
+// --- Helper methods ---
+
+const computeJustifyContent = value => {
+  // Normalize value
+  value = value === 'left' ? 'start' : value === 'right' ? 'end' : value
+  return `justify-content-${value}`
+}
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -43,23 +51,16 @@ export const props = {
   }
 }
 
-// -- Utils --
-
-const computeJustifyContent = value => {
-  // Normalize value
-  value = value === 'left' ? 'start' : value === 'right' ? 'end' : value
-  return `justify-content-${value}`
-}
-
+// --- Main component ---
 // @vue/component
-export const BNav = /*#__PURE__*/ Vue.extend({
+export const BNav = /*#__PURE__*/ defineComponent({
   name: NAME_NAV,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'nav',
         class: {
           'nav-tabs': props.tabs,

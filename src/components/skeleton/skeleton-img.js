@@ -1,10 +1,10 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_SKELETON_IMG } from '../../constants/components'
 import { BAspect } from '../aspect'
 import { BSkeleton } from './skeleton'
 
 // @vue/component
-export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
+export const BSkeletonImg = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_IMG,
   functional: true,
   props: {
@@ -32,7 +32,7 @@ export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
       type: String
     }
   },
-  render(h, { props }) {
+  render(_, { props }) {
     const { aspect, width, height, animation, variant, cardImg } = props
 
     const $img = h(BSkeleton, {

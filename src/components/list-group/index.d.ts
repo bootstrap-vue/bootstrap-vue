@@ -1,7 +1,7 @@
 //
 // ListGroup
 //
-import Vue from 'vue'
+import { defineComponent, h } from 'vue'
 import { BvPlugin, BvComponent } from '../../'
 
 // Plugin

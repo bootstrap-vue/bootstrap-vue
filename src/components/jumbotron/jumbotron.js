@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_JUMBOTRON } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slot-names'
 import { getComponentConfig } from '../../utils/config'
@@ -65,11 +65,11 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BJumbotron = /*#__PURE__*/ Vue.extend({
+export const BJumbotron = /*#__PURE__*/ defineComponent({
   name: NAME_JUMBOTRON,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const { header, headerHtml, lead, leadHtml, textVariant, bgVariant, borderVariant } = props
     const $scopedSlots = scopedSlots || {}
     const $slots = slots()
@@ -116,7 +116,7 @@ export const BJumbotron = /*#__PURE__*/ Vue.extend({
 
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'jumbotron',
         class: {
           'jumbotron-fluid': props.fluid,

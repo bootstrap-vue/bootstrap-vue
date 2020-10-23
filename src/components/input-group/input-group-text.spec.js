@@ -10,12 +10,12 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element when prop tag set', async () => {
     const wrapper = mount(BInputGroupText, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -25,7 +25,7 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders content of default slot', async () => {
@@ -40,6 +40,6 @@ describe('input-group > input-group-text', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,4 +1,5 @@
 // Plugin for adding `$bvModal` property to all Vue instances
+import { defineComponent } from '../../../vue'
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
@@ -59,7 +60,7 @@ const plugin = Vue => {
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
   // @vue/component
-  const BMsgBox = Vue.extend({
+  const BMsgBox = defineComponent({
     name: NAME_MSG_BOX,
     extends: BModal,
     destroyed() {

@@ -1,14 +1,14 @@
-import Vue from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
+import looseEqual from '../../utils/loose-equal'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import formSizeMixin from '../../mixins/form-size'
 import formRadioCheckMixin from '../../mixins/form-radio-check'
-import looseEqual from '../../utils/loose-equal'
 
 // @vue/component
-export const BFormRadio = /*#__PURE__*/ Vue.extend({
+export const BFormRadio = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RADIO,
   mixins: [
     idMixin,

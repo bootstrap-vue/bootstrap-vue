@@ -11,7 +11,7 @@ describe('carousel-slide', () => {
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('listitem')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have child "carousel-caption" by default', async () => {
@@ -19,21 +19,21 @@ describe('carousel-slide', () => {
 
     expect(wrapper.find('.carousel-caption').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have "img" by default', async () => {
     const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('img').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have caption tag "h3" by default', async () => {
     const wrapper = mount(BCarouselSlide)
     expect(wrapper.find('h3').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have text tag "p" by default', async () => {
@@ -41,7 +41,7 @@ describe('carousel-slide', () => {
 
     expect(wrapper.find('p').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot inside "carousel-caption"', async () => {
@@ -54,12 +54,12 @@ describe('carousel-slide', () => {
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
     expect(wrapper.find('.carousel-caption').text()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has caption tag "h3" when prop "caption" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         caption: 'foobar'
       }
     })
@@ -68,12 +68,12 @@ describe('carousel-slide', () => {
     expect(content.find('h3').exists()).toBe(true)
     expect(content.find('h3').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has text tag "p" when prop "text" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         text: 'foobar'
       }
     })
@@ -82,12 +82,12 @@ describe('carousel-slide', () => {
     expect(content.find('p').exists()).toBe(true)
     expect(content.find('p').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom content tag when prop "content-tag" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         contentTag: 'span'
       },
       slots: {
@@ -98,12 +98,12 @@ describe('carousel-slide', () => {
     expect(wrapper.find('.carousel-caption').exists()).toBe(true)
     expect(wrapper.find('.carousel-caption').element.tagName).toBe('SPAN')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has display classes on "carousel-caption" when prop "content-visible-up" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         contentVisibleUp: 'lg'
       },
       slots: {
@@ -116,7 +116,7 @@ describe('carousel-slide', () => {
     expect(wrapper.find('.carousel-caption').classes()).toContain('d-lg-block')
     expect(wrapper.find('.carousel-caption').classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style "background" when prop "background" not set', async () => {
@@ -124,12 +124,12 @@ describe('carousel-slide', () => {
 
     expect(wrapper.attributes('style')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has style "background" when prop "background" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         background: 'rgb(1, 2, 3)'
       }
     })
@@ -138,7 +138,7 @@ describe('carousel-slide', () => {
     expect(wrapper.attributes('style')).toContain('background:')
     expect(wrapper.attributes('style')).toContain('rgb(')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has style background inherited from carousel parent', async () => {
@@ -154,12 +154,12 @@ describe('carousel-slide', () => {
     expect(wrapper.attributes('style')).toContain('background:')
     expect(wrapper.attributes('style')).toContain('rgb(')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom caption tag when prop "caption-tag" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         captionTag: 'h1',
         caption: 'foobar'
       }
@@ -169,12 +169,12 @@ describe('carousel-slide', () => {
     expect(content.find('h1').exists()).toBe(true)
     expect(content.find('h1').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom text tag when prop "text-tag is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         textTag: 'span',
         text: 'foobar'
       }
@@ -184,12 +184,12 @@ describe('carousel-slide', () => {
     expect(content.find('span').exists()).toBe(true)
     expect(content.find('span').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has image when prop "img-src" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52'
       }
     })
@@ -198,12 +198,12 @@ describe('carousel-slide', () => {
     expect(wrapper.find('img').attributes('src')).toBeDefined()
     expect(wrapper.find('img').attributes('src')).toBe('https://picsum.photos/1024/480/?image=52')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has image when prop "img-blank" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         imgBlank: true
       }
     })
@@ -212,12 +212,12 @@ describe('carousel-slide', () => {
     expect(wrapper.find('img').attributes('src')).toBeDefined()
     expect(wrapper.find('img').attributes('src')).toContain('data:')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has image with "alt" attr when prop "img-alt" is set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52',
         imgAlt: 'foobar'
       }
@@ -228,12 +228,12 @@ describe('carousel-slide', () => {
     expect(wrapper.find('img').attributes('alt')).toBeDefined()
     expect(wrapper.find('img').attributes('alt')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has image with "width" and "height" attrs when props "img-width" and "img-height" are set', async () => {
     const wrapper = mount(BCarouselSlide, {
-      propsData: {
+      props: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52',
         imgWidth: '1024',
         imgHeight: '480'
@@ -247,7 +247,7 @@ describe('carousel-slide', () => {
     expect(wrapper.find('img').attributes('height')).toBeDefined()
     expect(wrapper.find('img').attributes('height')).toBe('480')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has image with "width" and "height" attrs inherited from carousel parent', async () => {
@@ -259,7 +259,7 @@ describe('carousel-slide', () => {
           imgHeight: '480'
         }
       },
-      propsData: {
+      props: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52'
       }
     })
@@ -271,6 +271,6 @@ describe('carousel-slide', () => {
     expect(wrapper.find('img').attributes('height')).toBeDefined()
     expect(wrapper.find('img').attributes('height')).toBe('480')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

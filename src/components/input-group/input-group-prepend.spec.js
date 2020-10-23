@@ -11,12 +11,12 @@ describe('input-group > input-group-prepend', () => {
     expect(wrapper.findAll('.input-group-prepend > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when tag prop is set', async () => {
     const wrapper = mount(BInputGroupPrepend, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -27,7 +27,7 @@ describe('input-group > input-group-prepend', () => {
     expect(wrapper.findAll('.input-group-prepend > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders content of default slot', async () => {
@@ -42,12 +42,12 @@ describe('input-group > input-group-prepend', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders child input-group-text when prop is-text set', async () => {
     const wrapper = mount(BInputGroupPrepend, {
-      propsData: {
+      props: {
         isText: true
       }
     })
@@ -59,12 +59,12 @@ describe('input-group > input-group-prepend', () => {
     expect(wrapper.findAll('.input-group-prepend > .input-group-text').length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot inside child input-group-text when prop is-text set', async () => {
     const wrapper = mount(BInputGroupPrepend, {
-      propsData: {
+      props: {
         isText: true
       },
       slots: {
@@ -79,6 +79,6 @@ describe('input-group > input-group-prepend', () => {
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.find('.input-group-text').text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

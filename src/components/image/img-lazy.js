@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
@@ -95,7 +95,7 @@ export const props = {
 }
 
 // @vue/component
-export const BImgLazy = /*#__PURE__*/ Vue.extend({
+export const BImgLazy = /*#__PURE__*/ defineComponent({
   name: NAME_IMG_LAZY,
   directives: {
     bVisible: VBVisible
@@ -167,7 +167,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const directives = []
     if (!this.isShown) {
       // We only add the visible directive if we are not shown

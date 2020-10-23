@@ -44,6 +44,6 @@ describe('v-b-hover directive', () => {
     await wrapper.trigger('mouseenter')
     expect(hovered2).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

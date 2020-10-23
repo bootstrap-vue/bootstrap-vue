@@ -1,16 +1,16 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { mount } from '@vue/test-utils'
 import { IconsPlugin } from './index'
 import { BIcon } from './icon'
 import { makeIcon } from './helpers/make-icon'
 
-const localVue = createLocalVue()
-localVue.use(IconsPlugin)
-
 describe('icons', () => {
   it('b-icon has expected structure', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill'
       }
     })
@@ -35,13 +35,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon has expected structure when `stacked` prop is true', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         stacked: true
       }
@@ -69,7 +71,7 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > path').exists()).toBe(false)
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon with empty icon name renders BIconBlank', async () => {
@@ -77,8 +79,10 @@ describe('icons', () => {
     // As we don't specify a parent instance (which has all the registered
     // components for the icons)
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: ''
       }
     })
@@ -92,15 +96,17 @@ describe('icons', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon without icon name renders BIconBlank', async () => {
     // This test assumes Vue doesn't puke on unknown component names
     // As we currently do not check the validity of icon names
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: undefined
       }
     })
@@ -112,13 +118,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon with unknown icon name renders BIconBlank', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'unknown-icon-name'
       }
     })
@@ -133,13 +141,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon variant works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         variant: 'danger'
       }
@@ -159,13 +169,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon font-scale prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         fontScale: '1.25'
       }
@@ -186,7 +198,7 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon with custom icon works', async () => {
@@ -196,16 +208,18 @@ describe('icons', () => {
         // For testing user defined Icons
         BIconFakeIconTest: makeIcon('FakeIconTest', '<path class="fake-path" />')
       },
-      render(h) {
+      render() {
         return h(this.$slots.default)
       }
     }
 
     const wrapper = mount(BIcon, {
-      localVue,
+      global: {
+        plugins: [IconsPlugin]
+      },
       // Parent component has a custom icon registered
       parentComponent: ParentComponent,
-      propsData: {
+      props: {
         icon: 'fake-icon-test'
       }
     })
@@ -220,13 +234,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g > path.fake-path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon rotate prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         rotate: '45'
       }
@@ -245,13 +261,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon scale prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         scale: '1.5'
       }
@@ -270,13 +288,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon flip-h prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         flipH: true
       }
@@ -295,13 +315,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon flip-v prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         flipV: true
       }
@@ -320,13 +342,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon flip-h prop works with flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         flipH: true,
         flipV: true
@@ -346,13 +370,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon scale prop works with flip-h prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         scale: '1.5',
         flipH: true
@@ -372,13 +398,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon scale prop works with flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         scale: '1.5',
         flipV: true
@@ -398,13 +426,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon scale prop works with flip-h and flip-v prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         scale: '1.5',
         flipH: true,
@@ -425,13 +455,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon shift-h and shift-v props work', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         shiftH: 8,
         shiftV: 16
@@ -451,13 +483,15 @@ describe('icons', () => {
     expect(wrapper.find('svg > g > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon shift-h and shift-v props work with rotate prop', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'alarm-fill',
         rotate: 45,
         shiftH: 8,
@@ -481,13 +515,15 @@ describe('icons', () => {
     )
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon animation prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'circle-fill',
         animation: 'spin'
       }
@@ -500,13 +536,15 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi-circle-fill')
     expect(wrapper.classes()).toContain('b-icon-animation-spin')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon title prop works', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'circle-fill',
         title: 'Circle'
       }
@@ -522,13 +560,15 @@ describe('icons', () => {
     expect($title.exists()).toBe(true)
     expect($title.text()).toBe('Circle')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icon <title> should not render when title is undefined', async () => {
     const wrapper = mount(BIcon, {
-      localVue,
-      propsData: {
+      global: {
+        plugins: [IconsPlugin]
+      },
+      props: {
         icon: 'circle-fill'
       }
     })
@@ -542,6 +582,6 @@ describe('icons', () => {
     const $title = wrapper.find('title')
     expect($title.exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -37,13 +37,13 @@ describe('calendar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when value is set', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-02-15' // Leap year
       }
     })
@@ -57,13 +57,13 @@ describe('calendar', () => {
     expect($header.find('output').exists()).toBe(true)
     expect($header.find('output').attributes('data-selected')).toEqual('2020-02-15')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-01-01' // Leap year
       }
     })
@@ -83,13 +83,13 @@ describe('calendar', () => {
 
     expect(wrapper.vm.selectedYMD).toBe('2020-01-15')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('clicking a date selects date', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-01-01' // Leap year
       }
     })
@@ -117,13 +117,13 @@ describe('calendar', () => {
     expect($cell.attributes('aria-selected')).toEqual('true')
     expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         showDecadeNav: true,
         value: '2020-02-15' // Leap year
       }
@@ -141,45 +141,45 @@ describe('calendar', () => {
     expect($navBtns.length).toBe(7)
 
     // Prev Month
-    await $navBtns.at(2).trigger('click')
+    await $navBtns[2].trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-01')
 
     // Next Month
-    await $navBtns.at(4).trigger('click')
+    await $navBtns[4].trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Year
-    await $navBtns.at(1).trigger('click')
+    await $navBtns[1].trigger('click')
     expect($grid.attributes('data-month')).toBe('2019-02')
 
     // Next Year
-    await $navBtns.at(5).trigger('click')
+    await $navBtns[5].trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Prev Decade
-    await $navBtns.at(0).trigger('click')
+    await $navBtns[0].trigger('click')
     expect($grid.attributes('data-month')).toBe('2010-02')
 
     // Next Decade
-    await $navBtns.at(6).trigger('click')
+    await $navBtns[6].trigger('click')
     expect($grid.attributes('data-month')).toBe('2020-02')
 
     // Current Month
     // Handle the rare case this test is run right at midnight where
     // the current month rolled over at midnight when clicked
     const thisMonth1 = formatYMD(new Date()).slice(0, -3)
-    await $navBtns.at(3).trigger('click')
+    await $navBtns[3].trigger('click')
     const thisMonth2 = formatYMD(new Date()).slice(0, -3)
     const thisMonth = $grid.attributes('data-month')
     expect(thisMonth === thisMonth1 || thisMonth === thisMonth2).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-02-15' // Leap year
       }
     })
@@ -206,13 +206,13 @@ describe('calendar', () => {
 
     expect(document.activeElement).not.toBe($grid.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('clicking output header focuses grid', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-02-15' // Leap year
       }
     })
@@ -241,13 +241,13 @@ describe('calendar', () => {
     await $output.trigger('focus')
     expect(document.activeElement).toBe($grid.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '2020-02-15' // Leap year
       }
     })
@@ -337,13 +337,13 @@ describe('calendar', () => {
     expect($cell.attributes('aria-label')).toBeDefined()
     expect($cell.attributes('aria-label')).toContain('(Today)')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should disable key navigation when `no-key-nav` prop set', () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         noKeyNav: true,
         navButtonVariant: 'primary'
       }
@@ -362,7 +362,7 @@ describe('calendar', () => {
   it('`nav-button-variant` changes nav button class', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         navButtonVariant: 'primary'
       }
     })
@@ -371,10 +371,10 @@ describe('calendar', () => {
     const $buttons = $nav.findAll('button')
 
     expect($buttons.length).toBe(5)
-    expect($buttons.at(0).classes()).toContain('btn-outline-primary')
-    expect($buttons.at(1).classes()).toContain('btn-outline-primary')
-    expect($buttons.at(2).classes()).toContain('btn-outline-primary')
-    expect($buttons.at(3).classes()).toContain('btn-outline-primary')
-    expect($buttons.at(4).classes()).toContain('btn-outline-primary')
+    expect($buttons[0].classes()).toContain('btn-outline-primary')
+    expect($buttons[1].classes()).toContain('btn-outline-primary')
+    expect($buttons[2].classes()).toContain('btn-outline-primary')
+    expect($buttons[3].classes()).toContain('btn-outline-primary')
+    expect($buttons[4].classes()).toContain('btn-outline-primary')
   })
 })

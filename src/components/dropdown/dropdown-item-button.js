@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -27,7 +27,7 @@ export const props = {
 }
 
 // @vue/component
-export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
+export const BDropdownItemButton = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_ITEM_BUTTON,
   mixins: [attrsMixin, normalizeSlotMixin],
   inject: {
@@ -58,25 +58,35 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
       this.closeDropdown()
     }
   },
-  render(h) {
-    return h('li', { attrs: { role: 'presentation' } }, [
-      h(
-        'button',
-        {
-          staticClass: 'dropdown-item',
-          class: [
-            this.buttonClass,
-            {
-              [this.activeClass]: this.active,
-              [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
-            }
-          ],
-          attrs: this.computedAttrs,
-          on: { click: this.onClick },
-          ref: 'button'
-        },
-        this.normalizeSlot()
-      )
-    ])
+  render() {
+    const { bvAttrs } = this
+
+    return h(
+      'li',
+      {
+        class: bvAttrs.class,
+        style: bvAttrs.style,
+        attrs: { role: 'presentation' }
+      },
+      [
+        h(
+          'button',
+          {
+            staticClass: 'dropdown-item',
+            class: [
+              this.buttonClass,
+              {
+                [this.activeClass]: this.active,
+                [`text-${this.variant}`]: this.variant && !(this.active || this.disabled)
+              }
+            ],
+            attrs: this.computedAttrs,
+            on: { click: this.onClick },
+            ref: 'button'
+          },
+          this.normalizeSlot()
+        )
+      ]
+    )
   }
 })

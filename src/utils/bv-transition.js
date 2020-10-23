@@ -4,9 +4,11 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
-import Vue, { mergeData } from '../vue'
+import { defineComponent, h, mergeProps } from '../vue'
 import { NAME_TRANSITION } from '../constants/components'
 import { isPlainObject } from './inspect'
+
+// --- Constants ---
 
 const NO_FADE_PROPS = {
   name: '',
@@ -24,8 +26,9 @@ const FADE_PROPS = {
   leaveActiveClass: 'fade'
 }
 
+// --- Main component ---
 // @vue/component
-export const BVTransition = /*#__PURE__*/ Vue.extend({
+export const BVTransition = /*#__PURE__*/ defineComponent({
   name: NAME_TRANSITION,
   functional: true,
   props: {
@@ -51,7 +54,7 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  render(h, { children, data, props }) {
+  render(_, { props, data, children }) {
     let transProps = props.transProps
     if (!isPlainObject(transProps)) {
       transProps = props.noFade ? NO_FADE_PROPS : FADE_PROPS
@@ -75,7 +78,7 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
     return h(
       'transition',
       // Any transition event listeners will get merged here
-      mergeData(data, { props: transProps }),
+      mergeProps(data, { props: transProps }),
       children
     )
   }

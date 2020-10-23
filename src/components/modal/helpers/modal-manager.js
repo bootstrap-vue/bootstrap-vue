@@ -3,7 +3,7 @@
  * Handles controlling modal stacking zIndexes and body adjustments/classes
  */
 
-import Vue from '../../../vue'
+import { defineComponent } from '../../../vue'
 import {
   addClass,
   getAttr,
@@ -34,8 +34,9 @@ const Selector = {
   NAVBAR_TOGGLER: '.navbar-toggler'
 }
 
+// --- Main component ---
 // @vue/component
-const ModalManager = /*#__PURE__*/ Vue.extend({
+const ModalManager = /*#__PURE__*/ defineComponent({
   data() {
     return {
       modals: [],

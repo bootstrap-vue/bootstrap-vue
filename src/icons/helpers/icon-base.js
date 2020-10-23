@@ -1,9 +1,32 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_ICON_BASE } from '../../constants/components'
 import identity from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toFloat } from '../../utils/number'
+
+// --- Constants ---
+
+// Base attributes needed on all icons
+const BASE_ATTRS = {
+  viewBox: '0 0 16 16',
+  width: '1em',
+  height: '1em',
+  focusable: 'false',
+  role: 'img',
+  'aria-label': 'icon'
+}
+
+// Attributes that are nulled out when stacked
+const STACKED_ATTRS = {
+  width: null,
+  height: null,
+  focusable: null,
+  role: null,
+  'aria-label': null
+}
+
+// --- Props ---
 
 // Common icon props (should be cloned/spread before using)
 export const commonIconProps = {
@@ -49,28 +72,10 @@ export const commonIconProps = {
   }
 }
 
-// Base attributes needed on all icons
-const baseAttrs = {
-  viewBox: '0 0 16 16',
-  width: '1em',
-  height: '1em',
-  focusable: 'false',
-  role: 'img',
-  'aria-label': 'icon'
-}
-
-// Attributes that are nulled out when stacked
-const stackedAttrs = {
-  width: null,
-  height: null,
-  focusable: null,
-  role: null,
-  'aria-label': null
-}
-
+// --- Main component ---
 // Shared private base component to reduce bundle/runtime size
 // @vue/component
-export const BVIconBase = /*#__PURE__*/ Vue.extend({
+export const BVIconBase = /*#__PURE__*/ defineComponent({
   name: NAME_ICON_BASE,
   functional: true,
   props: {
@@ -83,7 +88,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     },
     ...commonIconProps
   },
-  render(h, { data, props, children }) {
+  render(_, { props, data, children }) {
     const fontScale = mathMax(toFloat(props.fontScale, 1), 0) || 1
     const scale = mathMax(toFloat(props.scale, 1), 0) || 1
     const rotate = toFloat(props.rotate, 0)
@@ -140,20 +145,20 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
 
     return h(
       'svg',
-      mergeData(
+      mergeProps(
         {
           staticClass: 'b-icon bi',
           class: {
             [`text-${props.variant}`]: !!props.variant,
             [`b-icon-animation-${animation}`]: !!animation
           },
-          attrs: baseAttrs,
+          attrs: BASE_ATTRS,
           style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
         // Merge in user supplied data
         data,
         // If icon is stacked, null out some attrs
-        isStacked ? { attrs: stackedAttrs } : {},
+        isStacked ? { attrs: STACKED_ATTRS } : {},
         // These cannot be overridden by users
         {
           attrs: {

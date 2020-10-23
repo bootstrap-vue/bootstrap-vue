@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_ASPECT } from '../../constants/components'
 import { RX_ASPECT, RX_ASPECT_SEPARATOR } from '../../constants/regex'
 import { mathAbs } from '../../utils/math'
@@ -9,7 +9,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 const CLASS_NAME = 'b-aspect'
 
 // --- Main Component ---
-export const BAspect = /*#__PURE__*/ Vue.extend({
+export const BAspect = /*#__PURE__*/ defineComponent({
   name: NAME_ASPECT,
   mixins: [normalizeSlotMixin],
   props: {
@@ -39,7 +39,7 @@ export const BAspect = /*#__PURE__*/ Vue.extend({
       return `${100 / mathAbs(ratio)}%`
     }
   },
-  render(h) {
+  render() {
     const $sizer = h('div', {
       staticClass: `${CLASS_NAME}-sizer flex-grow-1`,
       style: { paddingBottom: this.padding, height: 0 }

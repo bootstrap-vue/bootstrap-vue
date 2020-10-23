@@ -1,4 +1,4 @@
-import Vue from '../vue'
+import { defineComponent, h } from '../vue'
 import { NAME_TRANSPORTER_SINGLE, NAME_TRANSPORTER_TARGET_SINGLE } from '../constants/components'
 import identity from './identity'
 import { concat } from './array'
@@ -22,7 +22,7 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 // Transporter target used by BTransporterSingle
 // Supports only a single root element
 // @vue/component
-const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
+const BTransporterTargetSingle = /*#__PURE__*/ defineComponent({
   // As an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
@@ -44,7 +44,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
   destroyed() {
     removeNode(this.$el)
   },
-  render(h) {
+  render() {
     let nodes = isFunction(this.updatedNodes) ? this.updatedNodes({}) : this.updatedNodes
     nodes = concat(nodes).filter(Boolean)
     /* istanbul ignore else */
@@ -59,7 +59,7 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
 
 // This component has no root element, so only a single VNode is allowed
 // @vue/component
-export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
+export const BTransporterSingle = /*#__PURE__*/ defineComponent({
   name: NAME_TRANSPORTER_SINGLE,
   mixins: [normalizeSlotMixin],
   props: {
@@ -164,7 +164,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
       this.$_target = null
     }
   },
-  render(h) {
+  render() {
     if (this.disabled) {
       const nodes = concat(this.normalizeSlot()).filter(identity)
       if (nodes.length > 0 && !nodes[0].text) {

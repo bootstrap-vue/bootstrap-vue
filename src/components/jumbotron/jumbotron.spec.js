@@ -10,12 +10,12 @@ describe('jumbotron', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders with custom root element when prop "tag" is set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         tag: 'article'
       }
     })
@@ -25,12 +25,12 @@ describe('jumbotron', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has border when prop "border-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         borderVariant: 'danger'
       }
     })
@@ -41,12 +41,12 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('border-danger')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has background variant when prop "bg-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         bgVariant: 'info'
       }
     })
@@ -56,12 +56,12 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has text variant when prop "text-variant" is set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         textVariant: 'primary'
       }
     })
@@ -71,7 +71,7 @@ describe('jumbotron', () => {
     expect(wrapper.classes()).toContain('text-primary')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -87,12 +87,12 @@ describe('jumbotron', () => {
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.findAll('.jumbotron > *').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content inside container when "fluid" prop set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         fluid: true
       },
       slots: {
@@ -110,12 +110,12 @@ describe('jumbotron', () => {
     expect(wrapper.find('.container').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content inside ".container-fluid" when props "fluid" and "container-fluid" set', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         fluid: true,
         containerFluid: true
       },
@@ -135,12 +135,12 @@ describe('jumbotron', () => {
     expect(wrapper.find('.container-fluid').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders header and lead content by props', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         header: 'foo',
         lead: 'bar'
       },
@@ -169,12 +169,12 @@ describe('jumbotron', () => {
 
     expect(wrapper.find('span').text()).toEqual('baz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders header and lead content by html props', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         // We also pass non-html props to ensure html props have precedence
         header: 'foo',
         headerHtml: '<strong>baz</strong>',
@@ -208,12 +208,12 @@ describe('jumbotron', () => {
 
     expect(wrapper.find('span').text()).toEqual('baz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders header and lead content by slots', async () => {
     const wrapper = mount(BJumbotron, {
-      propsData: {
+      props: {
         // We also pass as props to ensure slots have precedence
         header: 'foo',
         headerHtml: '<strong>baz</strong>',
@@ -249,6 +249,6 @@ describe('jumbotron', () => {
 
     expect(wrapper.find('span').text()).toEqual('baz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

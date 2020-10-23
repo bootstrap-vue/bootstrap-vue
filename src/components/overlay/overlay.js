@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
 import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
@@ -7,7 +7,7 @@ import { BSpinner } from '../spinner/spinner'
 
 const positionCover = { top: 0, left: 0, bottom: 0, right: 0 }
 
-export const BOverlay = /*#__PURE__*/ Vue.extend({
+export const BOverlay = /*#__PURE__*/ defineComponent({
   name: NAME_OVERLAY,
   mixins: [normalizeSlotMixin],
   props: {
@@ -102,7 +102,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     defaultOverlayFn({ spinnerType, spinnerVariant, spinnerSmall }) {
-      return this.$createElement(BSpinner, {
+      return h(BSpinner, {
         props: {
           type: spinnerType,
           variant: spinnerVariant,
@@ -111,7 +111,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       })
     }
   },
-  render(h) {
+  render() {
     let $overlay = h()
     if (this.show) {
       const scope = this.overlayScope

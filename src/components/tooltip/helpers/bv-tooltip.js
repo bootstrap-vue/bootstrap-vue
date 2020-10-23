@@ -3,7 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import Vue from '../../../vue'
+import { defineComponent } from '../../../vue'
 import { NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
 import getScopId from '../../../utils/get-scope-id'
@@ -41,6 +41,8 @@ import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
+
+// --- Constants ---
 
 // Modal container selector for appending tooltip/popover
 const MODAL_SELECTOR = '.modal-content'
@@ -107,8 +109,9 @@ const templateData = {
   html: false
 }
 
+// --- Main component ---
 // @vue/component
-export const BVTooltip = /*#__PURE__*/ Vue.extend({
+export const BVTooltip = /*#__PURE__*/ defineComponent({
   name: NAME_TOOLTIP_HELPER,
   data() {
     return {

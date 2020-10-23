@@ -10,12 +10,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class active when prop active is set', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         active: true
       }
     })
@@ -25,7 +25,7 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes()).toContain('breadcrumb-item')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has link as child', async () => {
@@ -35,12 +35,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('#')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has link as child and href', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         href: '/foo/bar'
       }
     })
@@ -49,12 +49,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.find('a').exists()).toBe(true)
     expect(wrapper.find('a').attributes('href')).toBe('/foo/bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has child span and class active when prop active is set', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         active: true
       }
     })
@@ -65,12 +65,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.find('span').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has child text content from prop text', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         active: true,
         text: 'foobar'
       }
@@ -82,12 +82,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has child text content from prop html', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         active: true,
         html: 'foobar'
       }
@@ -99,12 +99,12 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has child text content from default slot', async () => {
     const wrapper = mount(BBreadcrumbItem, {
-      propsData: {
+      props: {
         active: true
       },
       slots: {
@@ -118,6 +118,6 @@ describe('breadcrumb-item', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

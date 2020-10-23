@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import { stopEvent } from '../../../utils/events'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -41,8 +42,6 @@ export default {
     },
     // Render the busy indicator or return `null` if not busy
     renderBusy() {
-      const h = this.$createElement
-
       // Return a busy indicator row, or `null` if not busy
       if (this.computedBusy && this.hasNormalizedSlot(busySlotName)) {
         // Show the busy slot

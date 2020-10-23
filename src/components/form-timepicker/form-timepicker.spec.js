@@ -30,7 +30,7 @@ describe('form-timepicker', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-base'
       }
     })
@@ -65,13 +65,13 @@ describe('form-timepicker', () => {
     expect($btn.attributes('aria-expanded')).toEqual('false')
     expect($btn.find('svg.bi-clock').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected default structure when button-only is true', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-button-only',
         buttonOnly: true
       }
@@ -108,13 +108,13 @@ describe('form-timepicker', () => {
     expect($btn.attributes('aria-expanded')).toEqual('false')
     expect($btn.find('svg.bi-clock').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         name: 'foobar',
         hour12: false
@@ -151,13 +151,13 @@ describe('form-timepicker', () => {
     expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
     expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:33')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders placeholder text', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         hour12: false
       }
@@ -192,13 +192,13 @@ describe('form-timepicker', () => {
     expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
     expect(wrapper.find('label.form-control').text()).not.toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-focus-blur'
       }
@@ -228,13 +228,13 @@ describe('form-timepicker', () => {
 
     expect(document.activeElement).not.toBe($toggle.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-hover'
       }
@@ -269,13 +269,13 @@ describe('form-timepicker', () => {
     expect($toggle.find('svg.bi-clock').exists()).toBe(true)
     expect($toggle.find('svg.bi-clock-fill').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         id: 'test-open'
       }
@@ -306,12 +306,12 @@ describe('form-timepicker', () => {
     await waitRAF()
     expect($menu.classes()).not.toContain('show')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders optional footer buttons', async () => {
     const wrapper = mount(BFormTimepicker, {
-      propsData: {
+      props: {
         locale: 'en',
         id: 'test-footer',
         showSeconds: true,
@@ -357,7 +357,7 @@ describe('form-timepicker', () => {
 
     expect($btns.length).toBe(3)
 
-    const $now = $btns.at(0)
+    const $now = $btns[0]
 
     await $now.trigger('click')
     await waitRAF()
@@ -375,7 +375,7 @@ describe('form-timepicker', () => {
 
     $btns = wrapper.findAll('.b-time > footer button')
     expect($btns.length).toBe(3)
-    const $reset = $btns.at(1)
+    const $reset = $btns[1]
 
     await $reset.trigger('click')
     await waitRAF()
@@ -392,7 +392,7 @@ describe('form-timepicker', () => {
 
     $btns = wrapper.findAll('.b-time > footer button')
     expect($btns.length).toBe(3)
-    const $close = $btns.at(2)
+    const $close = $btns[2]
 
     await $close.trigger('click')
     await waitRAF()
@@ -400,13 +400,13 @@ describe('form-timepicker', () => {
     expect($menu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-button-slot',
         showSeconds: true,
         value: '11:12:13'
@@ -428,6 +428,6 @@ describe('form-timepicker', () => {
     expect($toggle.exists()).toBe(true)
     expect($toggle.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,11 +1,11 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_SKELETON_TABLE } from '../../constants/components'
 import { createAndFillArray } from '../../utils/array'
 import { BSkeleton } from './skeleton'
 import { BTableSimple } from '../table'
 
 // @vue/component
-export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
+export const BSkeletonTable = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_TABLE,
   functional: true,
   props: {
@@ -35,7 +35,7 @@ export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
       default: () => {}
     }
   },
-  render(h, { props }) {
+  render(_, { props }) {
     const { animation, columns } = props
 
     const $th = h('th', [h(BSkeleton, { props: { animation } })])

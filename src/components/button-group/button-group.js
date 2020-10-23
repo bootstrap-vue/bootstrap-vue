@@ -1,6 +1,8 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BUTTON, NAME_BUTTON_GROUP } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
+
+// --- Props ---
 
 export const props = {
   vertical: {
@@ -21,15 +23,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BButtonGroup = /*#__PURE__*/ Vue.extend({
+export const BButtonGroup = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON_GROUP,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           'btn-group': !props.vertical,
           'btn-group-vertical': props.vertical,

@@ -8,19 +8,19 @@ describe('img-lazy', () => {
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         src
       }
     })
     expect(wrapper.element.tagName).toBe('IMG')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('is initially shown show prop is set', async () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         src,
         show: true
       }
@@ -30,13 +30,13 @@ describe('img-lazy', () => {
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toBe(src)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('shows when IntersectionObserver not supported', async () => {
     const wrapper = mount(BImgLazy, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         src,
         show: false
       }
@@ -91,6 +91,6 @@ describe('img-lazy', () => {
     // observer = wrapper.element.__bv__visibility_observer
     // expect(observer).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

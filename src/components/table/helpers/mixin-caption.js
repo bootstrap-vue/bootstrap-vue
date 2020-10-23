@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import { htmlOrText } from '../../../utils/html'
 
 export default {
@@ -25,7 +26,6 @@ export default {
   methods: {
     renderCaption() {
       const { caption, captionHtml } = this
-      const h = this.$createElement
 
       let $caption = h()
       const hasCaptionSlot = this.hasNormalizedSlot('table-caption')

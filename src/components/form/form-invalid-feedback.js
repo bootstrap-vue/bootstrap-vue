@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_INVALID_FEEDBACK } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   id: {
@@ -33,16 +35,17 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({
+export const BFormInvalidFeedback = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_INVALID_FEEDBACK,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const show = props.forceShow === true || props.state === false
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           'invalid-feedback': !props.tooltip,
           'invalid-tooltip': props.tooltip,

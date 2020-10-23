@@ -25,12 +25,12 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
     expect(wrapper.find('svg > g > g').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-iconstack variant works', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         variant: 'danger'
       }
     })
@@ -48,12 +48,12 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-iconstack font-scale prop works', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         fontScale: '1.25'
       }
     })
@@ -72,12 +72,12 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.find('svg > g').exists()).toBe(true)
     expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-icons rotate prop works', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         rotate: '45'
       }
     })
@@ -94,12 +94,12 @@ describe('icons > b-iconstack', () => {
       'translate(8 8) rotate(45) translate(-8 -8)'
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-iconstack scale prop works', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         scale: '1.5'
       }
     })
@@ -116,12 +116,12 @@ describe('icons > b-iconstack', () => {
       'translate(8 8) scale(1.5 1.5) translate(-8 -8)'
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-iconstack title prop works', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         icon: 'circle-fill',
         title: 'Circle'
       }
@@ -137,12 +137,12 @@ describe('icons > b-iconstack', () => {
     expect($title.exists()).toBe(true)
     expect($title.text()).toBe('Circle')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('b-iconstack <title> should not render when title is undefined', async () => {
     const wrapper = mount(BIconstack, {
-      propsData: {
+      props: {
         icon: 'circle-fill'
       }
     })
@@ -156,6 +156,6 @@ describe('icons > b-iconstack', () => {
     const $title = wrapper.find('title')
     expect($title.exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

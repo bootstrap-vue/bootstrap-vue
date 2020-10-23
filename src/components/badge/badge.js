@@ -1,9 +1,10 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_BADGE } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
@@ -30,27 +31,30 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BBadge = /*#__PURE__*/ Vue.extend({
+export const BBadge = /*#__PURE__*/ defineComponent({
   name: NAME_BADGE,
-  functional: true,
+  mixins: [normalizeSlotMixin],
   props,
-  render(h, { props, data, children }) {
-    const link = isLink(props)
-    const tag = link ? BLink : props.tag
+  render() {
+    const { variant, $props } = this
+    const link = isLink($props)
+    const tag = link ? BLink : this.tag
 
-    const componentData = {
-      staticClass: 'badge',
-      class: [
-        props.variant ? `badge-${props.variant}` : 'badge-secondary',
-        {
-          'badge-pill': props.pill,
-          active: props.active,
-          disabled: props.disabled
-        }
-      ],
-      props: link ? pluckProps(linkProps, props) : {}
-    }
-
-    return h(tag, mergeData(data, componentData), children)
+    return h(
+      tag,
+      {
+        staticClass: 'badge',
+        class: [
+          variant ? `badge-${variant}` : 'badge-secondary',
+          {
+            'badge-pill': this.pill,
+            active: this.active,
+            disabled: this.disabled
+          }
+        ],
+        props: link ? pluckProps(linkProps, $props) : {}
+      },
+      this.normalizeSlot()
+    )
   }
 })

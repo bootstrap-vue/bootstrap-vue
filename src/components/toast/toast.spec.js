@@ -15,7 +15,7 @@ describe('b-toast', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: true,
         visible: true,
@@ -64,13 +64,13 @@ describe('b-toast', () => {
     expect($body.classes().length).toBe(1)
     expect($body.text()).toEqual('content')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: true,
         visible: false,
@@ -131,13 +131,13 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hide').length).toBe(1)
     expect(wrapper.emitted('hidden').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('alert with link closes on click works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: true,
         visible: true,
@@ -185,14 +185,14 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hidden')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('auto-hide works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: false,
         visible: true,
@@ -230,13 +230,13 @@ describe('b-toast', () => {
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.vm.timer).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hover pause works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: false,
         visible: true,
@@ -271,13 +271,13 @@ describe('b-toast', () => {
     await waitRAF()
     expect(wrapper.vm.timer).not.toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hover pause has no effect when no-hover-pause is set', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         static: true,
         noAutoHide: false,
         noHoverPause: true,
@@ -313,6 +313,6 @@ describe('b-toast', () => {
     await waitRAF()
     expect(wrapper.vm.timer).not.toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

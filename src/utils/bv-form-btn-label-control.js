@@ -1,7 +1,7 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
-import Vue from '../vue'
+import { defineComponent, h } from '../vue'
 import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-names'
 import { attemptBlur, attemptFocus } from './dom'
@@ -17,7 +17,7 @@ import { BIconChevronDown } from '../icons/icons'
 export const dropdownProps = commonProps
 
 // @vue/component
-export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
+export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,
   directives: {
     BHover: VBHover
@@ -144,7 +144,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       this.isHovered = hovered
     }
   },
-  render(h) {
+  render() {
     const idButton = this.idButton
     const idLabel = this.idLabel
     const idMenu = this.idMenu

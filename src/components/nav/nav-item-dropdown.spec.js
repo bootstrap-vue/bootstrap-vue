@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BNavItemDropdown } from './nav-item-dropdown'
@@ -31,12 +32,12 @@ describe('nav-item-dropdown', () => {
     expect($menu.attributes('aria-labelledby')).toEqual($toggle.attributes('id'))
     expect($menu.classes()).toContain('dropdown-menu')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have custom toggle class when "toggle-class" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         toggleClass: 'nav-link-custom'
       }
     })
@@ -47,12 +48,12 @@ describe('nav-item-dropdown', () => {
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.classes()).toContain('nav-link-custom')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should be disabled when "disabled" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         disabled: true
       }
     })
@@ -64,12 +65,12 @@ describe('nav-item-dropdown', () => {
     expect($toggle.classes()).toContain('disabled')
     expect($toggle.attributes('aria-disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have href with ID when "id" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -83,12 +84,12 @@ describe('nav-item-dropdown', () => {
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.attributes('href')).toEqual('#foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have correct toggle content when "text" prop set [DEPRECATED]', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         text: 'foo'
       }
     })
@@ -99,12 +100,12 @@ describe('nav-item-dropdown', () => {
     const $toggle = wrapper.find('.dropdown-toggle')
     expect($toggle.text()).toEqual('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have correct toggle content when "html" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         text: 'foo',
         html: '<span>bar</span>'
       }
@@ -117,12 +118,12 @@ describe('nav-item-dropdown', () => {
     expect($toggle.find('span').exists()).toBe(true)
     expect($toggle.text()).toEqual('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have correct toggle content from "text" slot', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         text: 'foo',
         html: '<span>bar</span>'
       },
@@ -138,12 +139,12 @@ describe('nav-item-dropdown', () => {
     expect($toggle.find('strong').exists()).toBe(true)
     expect($toggle.text()).toEqual('baz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have correct toggle content from "button-content" slot', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         text: 'foo',
         html: '<span>bar</span>'
       },
@@ -160,16 +161,16 @@ describe('nav-item-dropdown', () => {
     expect($toggle.find('article').exists()).toBe(true)
     expect($toggle.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have correct menu content for "default" slot', async () => {
     let slotScope = null
     const wrapper = mount(BNavItemDropdown, {
-      scopedSlots: {
+      slots: {
         default(scope) {
           slotScope = scope
-          return this.$createElement('div', 'foo')
+          return h('div', 'foo')
         }
       }
     })
@@ -184,17 +185,17 @@ describe('nav-item-dropdown', () => {
     expect(slotScope).toBeDefined()
     expect(slotScope.hide).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should only render menu content when visible when "lazy" prop set', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         lazy: true
       },
-      scopedSlots: {
+      slots: {
         default() {
-          return this.$createElement('div', 'bar')
+          return h('div', 'bar')
         }
       }
     })
@@ -219,7 +220,7 @@ describe('nav-item-dropdown', () => {
     expect(wrapper.vm.visible).toBe(false)
     expect($menu.find('div').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should open/close on toggle click', async () => {
@@ -242,12 +243,12 @@ describe('nav-item-dropdown', () => {
     expect(wrapper.vm.visible).toBe(false)
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should prevent toggle click', async () => {
     const wrapper = mount(BNavItemDropdown, {
-      propsData: {
+      props: {
         text: 'toggle'
       }
     })
@@ -263,6 +264,6 @@ describe('nav-item-dropdown', () => {
     expect(wrapper.emitted('toggle')[0]).toBeDefined()
     expect(wrapper.emitted('toggle')[0][0].defaultPrevented).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

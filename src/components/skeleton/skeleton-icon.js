@@ -1,10 +1,10 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_SKELETON_ICON } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { BIcon } from '../../icons'
 
 // @vue/component
-export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
+export const BSkeletonIcon = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_ICON,
   functional: true,
   props: {
@@ -20,7 +20,7 @@ export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
       default: () => {}
     }
   },
-  render(h, { props }) {
+  render(_, { props }) {
     const { icon, animation } = props
 
     const $icon = h(BIcon, {

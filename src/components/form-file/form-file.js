@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_FILE } from '../../constants/components'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
@@ -108,7 +108,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
   })
 
 // @vue/component
-export const BFormFile = /*#__PURE__*/ Vue.extend({
+export const BFormFile = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_FILE,
   mixins: [attrsMixin, idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
   inheritAttrs: false,
@@ -266,8 +266,6 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       return this.flattenedFiles.map(file => file.name)
     },
     labelContent() {
-      const h = this.$createElement
-
       // Draging active
       /* istanbul ignore next: used by drag/drop which can't be tested easily */
       if (this.dragging && !this.noDrop) {
@@ -481,8 +479,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       this.onChange(evt)
     }
   },
-  render(h) {
-    const { custom, plain, size, dragging, stateClass } = this
+  render() {
+    const { custom, plain, size, dragging, stateClass, bvAttrs } = this
 
     // Form Input
     const $input = h('input', {
@@ -543,7 +541,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'custom-file b-form-file',
-        class: [{ [`b-custom-control-${size}`]: size }, stateClass],
+        class: [{ [`b-custom-control-${size}`]: size }, stateClass, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragenter: this.onDragenter,

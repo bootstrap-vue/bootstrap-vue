@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
 import { BFormCheckboxGroup } from './form-checkbox-group'
@@ -15,7 +16,7 @@ describe('form-checkbox-group', () => {
     const $children = wrapper.element.children
     expect($children.length).toEqual(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has no classes on wrapper other than focus ring', async () => {
@@ -24,7 +25,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
     expect(wrapper.classes().length).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has auto ID set', async () => {
@@ -37,7 +38,7 @@ describe('form-checkbox-group', () => {
     // Auto ID not generated until after mount
     expect(wrapper.attributes('id')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has tabindex set to -1', async () => {
@@ -46,7 +47,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('-1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default does not have aria-required set', async () => {
@@ -54,7 +55,7 @@ describe('form-checkbox-group', () => {
 
     expect(wrapper.attributes('aria-required')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default does not have aria-invalid set', async () => {
@@ -62,7 +63,7 @@ describe('form-checkbox-group', () => {
 
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has attribute role=group', async () => {
@@ -71,13 +72,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('group')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has user provided ID', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test'
       }
     })
@@ -85,13 +86,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class was-validated when validated=true', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         validated: true
       }
     })
@@ -99,13 +100,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes()).toContain('was-validated')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has attribute aria-invalid=true when state=false', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         state: false
       }
     })
@@ -113,39 +114,39 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default does not have attribute aria-invalid when state=true', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         state: true
       }
     })
 
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default does not have attribute aria-invalid when state=null', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         state: null
       }
     })
 
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has attribute aria-invalid=true when aria-invalid=true', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         ariaInvalid: true
       }
     })
@@ -153,13 +154,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has attribute aria-invalid=true when aria-invalid="true"', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         ariaInvalid: 'true'
       }
     })
@@ -167,13 +168,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has attribute aria-invalid=true when aria-invalid=""', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         ariaInvalid: ''
       }
     })
@@ -181,7 +182,7 @@ describe('form-checkbox-group', () => {
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // --- Button mode structure ---
@@ -189,7 +190,7 @@ describe('form-checkbox-group', () => {
   it('button mode has classes button-group and button-group-toggle', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         buttons: true
       }
     })
@@ -200,13 +201,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toContain('btn-group-toggle')
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('button mode has classes button-group-vertical and button-group-toggle when stacked=true', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         buttons: true,
         stacked: true
       }
@@ -218,13 +219,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toContain('btn-group-toggle')
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('button mode has size class when size prop set', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         buttons: true,
         size: 'lg'
       }
@@ -237,13 +238,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toContain('btn-group-lg')
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('button mode has size class when size prop set and stacked', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         buttons: true,
         stacked: true,
         size: 'lg'
@@ -257,12 +258,12 @@ describe('form-checkbox-group', () => {
     expect(wrapper.classes()).toContain('btn-group-lg')
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('button mode button variant works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h(
           BFormCheckboxGroup,
           {
@@ -293,11 +294,11 @@ describe('form-checkbox-group', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
     // Expect them to have the correct variant classes
-    expect($btns.at(0).classes()).toContain('btn-primary')
-    expect($btns.at(1).classes()).toContain('btn-primary')
-    expect($btns.at(2).classes()).toContain('btn-danger')
+    expect($btns[0].classes()).toContain('btn-primary')
+    expect($btns[1].classes()).toContain('btn-primary')
+    expect($btns[2].classes()).toContain('btn-danger')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // --- Functionality testing ---
@@ -305,7 +306,7 @@ describe('form-checkbox-group', () => {
   it('has checkboxes via options array', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: []
       }
@@ -318,13 +319,13 @@ describe('form-checkbox-group', () => {
     expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has checkboxes via options array which respect disabled', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: [{ text: 'one' }, { text: 'two' }, { text: 'three', disabled: true }],
         checked: []
       }
@@ -336,17 +337,17 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).attributes('disabled')).not.toBeDefined()
-    expect($inputs.at(1).attributes('disabled')).not.toBeDefined()
-    expect($inputs.at(2).attributes('disabled')).toBeDefined()
+    expect($inputs[0].attributes('disabled')).not.toBeDefined()
+    expect($inputs[1].attributes('disabled')).not.toBeDefined()
+    expect($inputs[2].attributes('disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits change event when checkbox clicked', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: []
       }
@@ -358,7 +359,7 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
 
-    await $inputs.at(0).trigger('click')
+    await $inputs[0].trigger('click')
     expect(wrapper.vm.localChecked).toEqual(['one'])
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
@@ -367,35 +368,35 @@ describe('form-checkbox-group', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(['one'])
 
-    await $inputs.at(2).trigger('click')
+    await $inputs[2].trigger('click')
     expect(wrapper.vm.localChecked).toEqual(['one', 'three'])
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual(['one', 'three'])
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(['one', 'three'])
 
-    await $inputs.at(0).trigger('click')
+    await $inputs[0].trigger('click')
     expect(wrapper.vm.localChecked).toEqual(['three'])
     expect(wrapper.emitted('change').length).toBe(3)
     expect(wrapper.emitted('change')[2][0]).toEqual(['three'])
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toEqual(['three'])
 
-    await $inputs.at(1).trigger('click')
+    await $inputs[1].trigger('click')
     expect(wrapper.vm.localChecked).toEqual(['three', 'two'])
     expect(wrapper.emitted('change').length).toBe(4)
     expect(wrapper.emitted('change')[3][0]).toEqual(['three', 'two'])
     expect(wrapper.emitted('input').length).toBe(4)
     expect(wrapper.emitted('input')[3][0]).toEqual(['three', 'two'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not emit "input" event when value loosely changes', async () => {
     const value = ['one', 'two', 'three']
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: value.slice(),
         checked: value.slice()
       }
@@ -407,9 +408,9 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual(value)
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).element.checked).toBe(true)
-    expect($inputs.at(1).element.checked).toBe(true)
-    expect($inputs.at(2).element.checked).toBe(true)
+    expect($inputs[0].element.checked).toBe(true)
+    expect($inputs[1].element.checked).toBe(true)
+    expect($inputs[2].element.checked).toBe(true)
 
     expect(wrapper.emitted('input')).not.toBeDefined()
 
@@ -419,9 +420,9 @@ describe('form-checkbox-group', () => {
 
     expect(wrapper.vm.localChecked).toEqual(value)
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).element.checked).toBe(true)
-    expect($inputs.at(1).element.checked).toBe(true)
-    expect($inputs.at(2).element.checked).toBe(true)
+    expect($inputs[0].element.checked).toBe(true)
+    expect($inputs[1].element.checked).toBe(true)
+    expect($inputs[2].element.checked).toBe(true)
 
     expect(wrapper.emitted('input')).not.toBeDefined()
 
@@ -431,20 +432,20 @@ describe('form-checkbox-group', () => {
 
     expect(wrapper.vm.localChecked).toEqual(value.slice().reverse())
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).element.checked).toBe(true)
-    expect($inputs.at(1).element.checked).toBe(true)
-    expect($inputs.at(2).element.checked).toBe(true)
+    expect($inputs[0].element.checked).toBe(true)
+    expect($inputs[1].element.checked).toBe(true)
+    expect($inputs[2].element.checked).toBe(true)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(value.slice().reverse())
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('checkboxes reflect group checked v-model', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: ['two']
       }
@@ -456,24 +457,24 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual(['two'])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).element.checked).toBe(false)
-    expect($inputs.at(1).element.checked).toBe(true)
-    expect($inputs.at(2).element.checked).toBe(false)
+    expect($inputs[0].element.checked).toBe(false)
+    expect($inputs[1].element.checked).toBe(true)
+    expect($inputs[2].element.checked).toBe(false)
 
     await wrapper.setProps({ checked: ['three', 'one'] })
     expect(wrapper.vm.localChecked).toEqual(['three', 'one'])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).element.checked).toBe(true)
-    expect($inputs.at(1).element.checked).toBe(false)
-    expect($inputs.at(2).element.checked).toBe(true)
+    expect($inputs[0].element.checked).toBe(true)
+    expect($inputs[1].element.checked).toBe(false)
+    expect($inputs[2].element.checked).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes have is-valid classes when group state set to valid', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: [],
         state: true
@@ -488,13 +489,13 @@ describe('form-checkbox-group', () => {
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
     expect($inputs.wrappers.every(c => c.find('input.is-valid').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes have is-invalid classes when group state set to invalid', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: [],
         state: false
@@ -507,13 +508,13 @@ describe('form-checkbox-group', () => {
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
     expect($inputs.wrappers.every(c => c.find('input.is-invalid').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes have disabled attribute when group disabled', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         options: ['one', 'two', 'three'],
         checked: [],
         disabled: true
@@ -526,13 +527,13 @@ describe('form-checkbox-group', () => {
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
     expect($inputs.wrappers.every(c => c.find('input[disabled]').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes have required attribute when group required', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         name: 'group',
         options: ['one', 'two', 'three'],
         checked: [],
@@ -547,13 +548,13 @@ describe('form-checkbox-group', () => {
     expect($inputs.wrappers.every(c => c.find('input[required]').exists())).toBe(true)
     expect($inputs.wrappers.every(c => c.find('input[aria-required="true"]').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes have class custom-control-inline when stacked=false', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         name: 'group',
         options: ['one', 'two', 'three'],
         checked: [],
@@ -565,13 +566,13 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect($inputs.wrappers.every(c => c.find('div.custom-control-inline').exists())).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('child checkboxes do not have class custom-control-inline when stacked=true', async () => {
     const wrapper = mount(BFormCheckboxGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         name: 'group',
         options: ['one', 'two', 'three'],
         checked: [],
@@ -583,6 +584,6 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect($inputs.wrappers.every(c => c.find('div.custom-control-inline').exists())).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

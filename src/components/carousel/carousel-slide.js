@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import { hasTouchSupport } from '../../utils/env'
 import { stopEvent } from '../../utils/events'
@@ -73,7 +73,7 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
+export const BCarouselSlide = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
@@ -103,7 +103,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
       return this.imgHeight || this.bvCarousel.imgHeight || null
     }
   },
-  render(h) {
+  render() {
     let $img = this.normalizeSlot('img')
     if (!$img && (this.imgSrc || this.imgBlank)) {
       const on = {}

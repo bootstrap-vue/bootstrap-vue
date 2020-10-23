@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
 import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slot-names'
 import { getComponentConfig } from '../../utils/config'
@@ -38,11 +38,11 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BInputGroup = /*#__PURE__*/ Vue.extend({
+export const BInputGroup = /*#__PURE__*/ defineComponent({
   name: NAME_INPUT_GROUP,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const { prepend, prependHtml, append, appendHtml, size } = props
     const $scopedSlots = scopedSlots || {}
     const $slots = slots()
@@ -70,7 +70,7 @@ export const BInputGroup = /*#__PURE__*/ Vue.extend({
 
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'input-group',
         class: { [`input-group-${size}`]: size },
         attrs: {

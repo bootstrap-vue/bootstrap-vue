@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_MEDIA_ASIDE } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -12,12 +14,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BMediaAside = /*#__PURE__*/ Vue.extend({
+export const BMediaAside = /*#__PURE__*/ defineComponent({
   name: NAME_MEDIA_ASIDE,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const align =
       props.verticalAlign === 'top'
         ? 'start'
@@ -26,7 +29,7 @@ export const BMediaAside = /*#__PURE__*/ Vue.extend({
           : /* istanbul ignore next */ props.verticalAlign
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'd-flex',
         class: {
           [`align-self-${align}`]: align

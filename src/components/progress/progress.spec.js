@@ -18,7 +18,7 @@ describe('progress', () => {
     expect($bar.attributes('aria-valuenow')).toBe('0')
     expect($bar.attributes('style')).toBe('width: 0%;')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders content from default slot', async () => {
@@ -37,7 +37,7 @@ describe('progress', () => {
 
   it('has progress-bar child with expected parameters', async () => {
     const wrapper = mount(BProgress, {
-      propsData: {
+      props: {
         value: 25,
         max: 50,
         variant: 'success',
@@ -66,6 +66,6 @@ describe('progress', () => {
     expect($bar.classes().length).toBe(4)
     expect($bar.text()).toEqual('25')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

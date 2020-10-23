@@ -7,7 +7,7 @@ describe('card-group', () => {
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-group', async () => {
@@ -16,60 +16,52 @@ describe('card-group', () => {
     expect(wrapper.classes()).toContain('card-group')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element when prop tag is set', async () => {
     const wrapper = mount(BCardGroup, {
-      context: {
-        props: {
-          tag: 'article'
-        }
-      }
+      props: { tag: 'article' }
     })
 
     expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.classes()).toContain('card-group')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-deck when prop deck=true', async () => {
     const wrapper = mount(BCardGroup, {
-      context: {
-        props: { deck: true }
-      }
+      props: { deck: true }
     })
 
     expect(wrapper.classes()).toContain('card-deck')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-columns when prop columns=true', async () => {
     const wrapper = mount(BCardGroup, {
-      context: {
-        props: { columns: true }
-      }
+      props: { columns: true }
     })
 
     expect(wrapper.classes()).toContain('card-columns')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts custom classes', async () => {
     const wrapper = mount(BCardGroup, {
-      context: {
-        class: ['foobar']
+      attrs: {
+        class: 'foobar'
       }
     })
 
     expect(wrapper.classes()).toContain('card-group')
     expect(wrapper.classes()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

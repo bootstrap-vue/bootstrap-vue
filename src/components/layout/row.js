@@ -1,4 +1,4 @@
-import { mergeData } from '../../vue'
+import { h, mergeProps } from '../../vue'
 import { NAME_ROW } from '../../constants/components'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
@@ -8,7 +8,11 @@ import { create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase, toString, trim } from '../../utils/string'
 
+// --- Constants ---
+
 const COMMON_ALIGNMENT = ['start', 'end', 'center']
+
+// --- Helper methods ---
 
 // Generates a prop object with a type of `[String, Number]`
 const strNum = () => ({
@@ -75,8 +79,7 @@ const generateProps = () => {
   }
 }
 
-// We do not use `Vue.extend()` here as that would evaluate the props
-// immediately, which we do not want to happen
+// --- Main component ---
 // @vue/component
 export const BRow = {
   name: NAME_ROW,
@@ -89,7 +92,7 @@ export const BRow = {
     this.props = generateProps()
     return this.props
   },
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const classList = []
     // Loop through row-cols breakpoint props and generate the classes
     rowColsPropList.forEach(prop => {
@@ -105,6 +108,6 @@ export const BRow = {
       [`justify-content-${props.alignH}`]: props.alignH,
       [`align-content-${props.alignContent}`]: props.alignContent
     })
-    return h(props.tag, mergeData(data, { staticClass: 'row', class: classList }), children)
+    return h(props.tag, mergeProps(data, { staticClass: 'row', class: classList }), children)
   }
 }

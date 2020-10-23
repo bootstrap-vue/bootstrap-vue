@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
@@ -30,7 +30,7 @@ const parseShow = show => {
 }
 
 // @vue/component
-export const BAlert = /*#__PURE__*/ Vue.extend({
+export const BAlert = /*#__PURE__*/ defineComponent({
   name: NAME_ALERT,
   mixins: [normalizeSlotMixin],
   model: {
@@ -131,7 +131,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     let $alert // undefined
     if (this.localShow) {
       let $dismissBtn = h()

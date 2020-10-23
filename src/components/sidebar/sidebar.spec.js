@@ -11,7 +11,7 @@ describe('sidebar', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-1',
         visible: true
       }
@@ -56,13 +56,13 @@ describe('sidebar', () => {
     // Check for no presence of `display: none' from `v-show` directive
     expect($sidebar.element).toBeVisible()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('shows backdrop when prop `backdrop` is `true`', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-backdrop',
         noCloseOnBackdrop: true,
         visible: true,
@@ -97,13 +97,13 @@ describe('sidebar', () => {
     expect($sidebar.element).not.toBeVisible()
     expect($backdrop.element).not.toBeVisible()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies "bg-*" class to backdrop based on `backdrop-variant` prop', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-backdrop',
         noCloseOnBackdrop: true,
         visible: true,
@@ -139,13 +139,13 @@ describe('sidebar', () => {
     expect($sidebar.element).not.toBeVisible()
     expect($backdrop.element).not.toBeVisible()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('shows and hides in response to v-b-toggle events', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-toggle'
       }
     })
@@ -178,13 +178,13 @@ describe('sidebar', () => {
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closes when ESC key is pressed', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-esc'
       }
     })
@@ -222,13 +222,13 @@ describe('sidebar', () => {
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).toBeVisible()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('handles state sync requests', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-sync',
         visible: true
       }
@@ -255,13 +255,13 @@ describe('sidebar', () => {
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test-sync') // ID
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when `no-header` is set', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-2',
         visible: true,
         noHeader: true
@@ -274,13 +274,13 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when `no-header-close` is set', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-3',
         visible: true,
         noHeaderClose: true
@@ -294,13 +294,13 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when `lazy` is set', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-4',
         visible: false,
         lazy: true
@@ -321,13 +321,13 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when `footer` slot provided', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-5',
         visible: true
       },
@@ -343,13 +343,13 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').text()).toEqual('FOOTER')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when `title` prop provided', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'test-title',
         visible: true,
         title: 'TITLE'
@@ -363,6 +363,6 @@ describe('sidebar', () => {
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

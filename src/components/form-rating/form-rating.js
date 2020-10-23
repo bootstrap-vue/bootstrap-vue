@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -22,7 +22,7 @@ const DEFAULT_STARS = 5
 
 // --- Private helper component ---
 // @vue/component
-const BVFormRatingStar = Vue.extend({
+const BVFormRatingStar = defineComponent({
   name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
   props: {
@@ -64,7 +64,7 @@ const BVFormRatingStar = Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const { rating, star, focused, hasClear, variant, disabled, readonly } = this
     const minStar = hasClear ? 0 : 1
     const type = rating >= star ? 'full' : rating >= star - 0.5 ? 'half' : 'empty'
@@ -97,7 +97,7 @@ const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 
 // --- BFormRating ---
 // @vue/component
-export const BFormRating = /*#__PURE__*/ Vue.extend({
+export const BFormRating = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
   mixins: [idMixin],
@@ -304,7 +304,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     },
     // --- Render methods ---
     renderIcon(icon) {
-      return this.$createElement(BIcon, {
+      return h(BIcon, {
         props: {
           icon,
           variant: this.disabled || this.color ? null : this.variant || null
@@ -321,10 +321,10 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       return this.renderIcon(this.iconFull)
     },
     iconClearFn() {
-      return this.$createElement(BIcon, { props: { icon: this.iconClear } })
+      return h(BIcon, { props: { icon: this.iconClear } })
     }
   },
-  render(h) {
+  render() {
     const {
       disabled,
       readonly,

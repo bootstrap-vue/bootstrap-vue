@@ -1,11 +1,11 @@
-import Vue from '../../../vue'
+import { defineComponent, h } from '../../../vue'
 import { NAME_TOOLTIP_TEMPLATE } from '../../../constants/components'
 import scopedStyleAttrsMixin from '../../../mixins/scoped-style-attrs'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVPopper } from './bv-popper'
 
 // @vue/component
-export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
+export const BVTooltipTemplate = /*#__PURE__*/ defineComponent({
   name: NAME_TOOLTIP_TEMPLATE,
   extends: BVPopper,
   mixins: [scopedStyleAttrsMixin],
@@ -85,7 +85,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    renderTemplate(h) {
+    renderTemplate() {
       // Title can be a scoped slot function
       const $title = isFunction(this.title)
         ? this.title({})

@@ -1,9 +1,11 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_BODY } from '../../constants/components'
 import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'
 import { BCardSubTitle, props as subTitleProps } from './card-sub-title'
+
+// --- Props ---
 
 export const props = {
   // Import common card props and prefix them with `body-`
@@ -20,12 +22,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BCardBody = /*#__PURE__*/ Vue.extend({
+export const BCardBody = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_BODY,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     let cardTitle = h()
     let cardSubTitle = h()
     const cardContent = children || [h()]
@@ -43,7 +46,7 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
 
     return h(
       props.bodyTag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'card-body',
         class: [
           {

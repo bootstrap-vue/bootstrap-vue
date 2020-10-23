@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
@@ -16,7 +16,7 @@ import listenersMixin from '../../mixins/listeners'
 import { VBVisible } from '../../directives/visible/visible'
 
 // @vue/component
-export const BFormTextarea = /*#__PURE__*/ Vue.extend({
+export const BFormTextarea = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TEXTAREA,
   directives: {
     'b-visible': VBVisible
@@ -197,7 +197,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       return `${height}px`
     }
   },
-  render(h) {
+  render() {
     return h('textarea', {
       ref: 'input',
       class: this.computedClass,

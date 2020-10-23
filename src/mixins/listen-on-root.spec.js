@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import listenOnRootMixin from './listen-on-root'
 
@@ -12,7 +13,7 @@ describe('mixins/listen-on-root', () => {
         this.listenOnRoot('root-on', spyOn)
         this.listenOnRootOnce('root-once', spyOnce)
       },
-      render(h) {
+      render() {
         return h('div', this.$slots.default)
       }
     }
@@ -25,13 +26,13 @@ describe('mixins/listen-on-root', () => {
           default: false
         }
       },
-      render(h) {
+      render() {
         return h('div', [this.destroy ? h() : h(TestComponent, 'test-component')])
       }
     }
 
     const wrapper = mount(App, {
-      propsData: {
+      props: {
         destroy: false
       }
     })
@@ -60,6 +61,6 @@ describe('mixins/listen-on-root', () => {
     expect(spyOn).toHaveBeenCalledTimes(1)
     expect(spyOnce).not.toHaveBeenCalled()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

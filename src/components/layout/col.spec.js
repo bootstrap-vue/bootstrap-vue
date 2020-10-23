@@ -11,12 +11,12 @@ describe('layout > col', () => {
     expect(wrapper.findAll('.col > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when tag prop set', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -27,12 +27,12 @@ describe('layout > col', () => {
     expect(wrapper.findAll('.col > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply breakpoint specific col-{bp}-{#} classes', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         cols: 6,
         sm: 5,
         md: 4,
@@ -49,12 +49,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('col-xl-2')
     expect(wrapper.classes().length).toBe(5)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have class "col" when only single breakpoint prop specified', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         sm: 5
       }
     })
@@ -63,12 +63,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('col-sm-5')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply ".offset-*" classes with "offset-{bp}-{#}" props', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         offset: 6,
         offsetSm: 5,
         offsetMd: 4,
@@ -86,12 +86,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('offset-xl-2')
     expect(wrapper.classes().length).toBe(6)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply ".order-*" classes with "order-{bp}-{#}" props', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         order: 6,
         orderSm: 5,
         orderMd: 4,
@@ -109,12 +109,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('order-xl-2')
     expect(wrapper.classes().length).toBe(6)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop", async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         col: true,
         sm: true,
         md: true,
@@ -131,12 +131,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('col-xl')
     expect(wrapper.classes().length).toBe(5)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("should apply boolean breakpoint classes for 'sm', 'md', 'lg', 'xl' prop set to empty string", async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         sm: '',
         md: '',
         lg: '',
@@ -151,12 +151,12 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('col-xl')
     expect(wrapper.classes().length).toBe(4)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply ".align-self-*" class with "align-self" prop', async () => {
     const wrapper = mount(BCol, {
-      propsData: {
+      props: {
         alignSelf: 'center'
       }
     })
@@ -166,7 +166,7 @@ describe('layout > col', () => {
     expect(wrapper.classes()).toContain('align-self-center')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // it('computeBkPtClass helper should compute boolean classes', async () => {

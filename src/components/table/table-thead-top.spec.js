@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import normalizeFields from './helpers/normalize-fields'
 import { BTable } from './table'
@@ -8,7 +9,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > thead thead-top slot', () => {
   it('should not have thead-top row by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -19,12 +20,12 @@ describe('table > thead thead-top slot', () => {
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render named slot `thead-top`', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -37,37 +38,25 @@ describe('table > thead thead-top slot', () => {
     expect(wrapper.find('thead').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(2)
-    expect(
-      wrapper
-        .findAll('thead > tr')
-        .at(0)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('thead > tr')
-        .at(0)
-        .classes()
-    ).toContain('test')
+    expect(wrapper.findAll('thead > tr')[0].text()).toBe('foobar')
+    expect(wrapper.findAll('thead > tr')[0].classes()).toContain('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render scoped slot `thead-top`', async () => {
     let fields = []
     let columns
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
-      scopedSlots: {
+      slots: {
         'thead-top': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement('tr', { class: 'test' }, [
-            this.$createElement('th', { attrs: { span: columns } }, 'foobar')
-          ])
+          return h('tr', { class: 'test' }, [h('th', { span: columns }, 'foobar')])
         }
       }
     })
@@ -78,19 +67,9 @@ describe('table > thead thead-top slot', () => {
     expect(fields).toEqual(normalizeFields(testFields))
     expect(wrapper.findAll('thead > tr').exists()).toBe(true)
     expect(wrapper.findAll('thead > tr').length).toBe(2)
-    expect(
-      wrapper
-        .findAll('thead > tr')
-        .at(0)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('thead > tr')
-        .at(0)
-        .classes()
-    ).toContain('test')
+    expect(wrapper.findAll('thead > tr')[0].text()).toBe('foobar')
+    expect(wrapper.findAll('thead > tr')[0].classes()).toContain('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

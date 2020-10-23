@@ -7,7 +7,7 @@ const fields1 = ['a', 'b', 'c']
 describe('table', () => {
   it('has expected default classes', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1
       }
@@ -19,12 +19,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-striped" when striped=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         striped: true
@@ -38,12 +38,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-bordered" when bordered=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         bordered: true
@@ -57,12 +57,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-borderless" when borderless=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         borderless: true
@@ -76,12 +76,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-hover" when hover=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         hover: true
@@ -95,12 +95,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-sm" when small=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         small: true
@@ -114,12 +114,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-dark" when dark=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         dark: true
@@ -133,12 +133,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "border" when outlined=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         outlined: true
@@ -152,12 +152,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-fixed" when fixed=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         fixed: true
@@ -171,12 +171,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-no-border-collapse" when no-border-collapse=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         noBorderCollapse: true
@@ -190,12 +190,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-stacked" when stacked=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stacked: true
@@ -209,12 +209,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-stacked-md" when stacked=md', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stacked: 'md'
@@ -228,12 +228,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-sticky-header" when sticky-header=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stickyHeader: true
@@ -248,12 +248,12 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "b-table-sticky-header" when sticky-header=100px', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stickyHeader: '100px'
@@ -270,12 +270,12 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-responsive" when responsive=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         responsive: true
@@ -290,12 +290,12 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "table-responsive-md" when responsive=md', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         responsive: 'md'
@@ -310,12 +310,12 @@ describe('table', () => {
     expect(wrapper.find('table').classes()).toContain('b-table')
     expect(wrapper.find('table').classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('stacked has precedence over responsive', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stacked: true,
@@ -331,12 +331,12 @@ describe('table', () => {
     expect(wrapper.classes()).toContain('b-table')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('stacked has data-label attribute on all tbody > tr td', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: fields1,
         stacked: true
@@ -347,51 +347,21 @@ describe('table', () => {
     const $trs = wrapper.findAll('tbody > tr').wrappers
 
     // Labels will have run through startCase
-    expect(
-      $trs[0]
-        .findAll('td')
-        .at(0)
-        .attributes('data-label')
-    ).toBe('A')
-    expect(
-      $trs[1]
-        .findAll('td')
-        .at(0)
-        .attributes('data-label')
-    ).toBe('A')
+    expect($trs[0].findAll('td')[0].attributes('data-label')).toBe('A')
+    expect($trs[1].findAll('td')[0].attributes('data-label')).toBe('A')
 
-    expect(
-      $trs[0]
-        .findAll('td')
-        .at(1)
-        .attributes('data-label')
-    ).toBe('B')
-    expect(
-      $trs[1]
-        .findAll('td')
-        .at(1)
-        .attributes('data-label')
-    ).toBe('B')
+    expect($trs[0].findAll('td')[1].attributes('data-label')).toBe('B')
+    expect($trs[1].findAll('td')[1].attributes('data-label')).toBe('B')
 
-    expect(
-      $trs[0]
-        .findAll('td')
-        .at(2)
-        .attributes('data-label')
-    ).toBe('C')
-    expect(
-      $trs[1]
-        .findAll('td')
-        .at(2)
-        .attributes('data-label')
-    ).toBe('C')
+    expect($trs[0].findAll('td')[2].attributes('data-label')).toBe('C')
+    expect($trs[1].findAll('td')[2].attributes('data-label')).toBe('C')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('item _rowVariant works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 1, _rowVariant: 'primary' }],
         fields: ['a'],
         dark: false
@@ -409,12 +379,12 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.find('tbody > tr').classes()).toContain('bg-primary')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('item _cellVariants works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 1, _cellVariants: { a: 'info' } }],
         fields: ['a'],
         dark: false
@@ -434,14 +404,14 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr > td').length).toBe(1)
     expect(wrapper.find('tbody > tr > td').classes()).toContain('bg-info')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('changing items array works', async () => {
     const items1 = [{ a: 1, b: 2 }, { a: 3, b: 4 }]
     const items2 = [{ a: 3, b: 4 }]
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: items1,
         fields: ['a', 'b']
       }
@@ -454,12 +424,12 @@ describe('table', () => {
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('tbody-tr-class works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 1, b: 2 }, { a: 3, b: 4 }],
         fields: ['a', 'b'],
         tbodyTrClass: 'foobar'
@@ -471,8 +441,8 @@ describe('table', () => {
     // Prop as a string
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     let $trs = wrapper.findAll('tbody > tr')
-    expect($trs.at(0).classes()).toContain('foobar')
-    expect($trs.at(1).classes()).toContain('foobar')
+    expect($trs[0].classes()).toContain('foobar')
+    expect($trs[1].classes()).toContain('foobar')
 
     // As a function
     await wrapper.setProps({
@@ -483,17 +453,17 @@ describe('table', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     $trs = wrapper.findAll('tbody > tr')
-    expect($trs.at(0).classes()).toContain('foo')
-    expect($trs.at(0).classes()).not.toContain('bar')
-    expect($trs.at(1).classes()).toContain('bar')
-    expect($trs.at(1).classes()).not.toContain('foo')
+    expect($trs[0].classes()).toContain('foo')
+    expect($trs[0].classes()).not.toContain('bar')
+    expect($trs[1].classes()).toContain('bar')
+    expect($trs[1].classes()).not.toContain('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('thead and tfoot variant and classes work', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 1, b: 2 }],
         fields: ['a', 'b'],
         footClone: true
@@ -539,12 +509,12 @@ describe('table', () => {
     expect(wrapper.find('thead > tr').classes()).toContain('willy')
     expect(wrapper.find('tfoot > tr').classes()).toContain('wonka')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('item field isRowHeader works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 1, b: 2 }],
         fields: [{ key: 'a', isRowHeader: true }, 'b']
       }
@@ -554,35 +524,15 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
     expect(wrapper.findAll('tbody > tr > *').length).toBe(2)
 
-    expect(wrapper.findAll('tbody > tr > *').at(0).element.tagName).toBe('TH')
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(0)
-        .attributes('role')
-    ).toBe('rowheader')
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(0)
-        .attributes('scope')
-    ).toBe('row')
+    expect(wrapper.findAll('tbody > tr > *')[0].element.tagName).toBe('TH')
+    expect(wrapper.findAll('tbody > tr > *')[0].attributes('role')).toBe('rowheader')
+    expect(wrapper.findAll('tbody > tr > *')[0].attributes('scope')).toBe('row')
 
-    expect(wrapper.findAll('tbody > tr > *').at(1).element.tagName).toBe('TD')
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(1)
-        .attributes('role')
-    ).toBe('cell')
-    expect(
-      wrapper
-        .findAll('tbody > tr > *')
-        .at(1)
-        .attributes('scope')
-    ).not.toBeDefined()
+    expect(wrapper.findAll('tbody > tr > *')[1].element.tagName).toBe('TD')
+    expect(wrapper.findAll('tbody > tr > *')[1].attributes('role')).toBe('cell')
+    expect(wrapper.findAll('tbody > tr > *')[1].attributes('scope')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('item field tdAttr and tdClass works', async () => {
@@ -595,7 +545,7 @@ describe('table', () => {
     }
     const wrapper = mount(BTable, {
       parentComponent: Parent,
-      propsData: {
+      props: {
         items: [{ a: 1, b: 2, c: 3 }],
         fields: [
           { key: 'a', tdAttr: { 'data-foo': 'bar' } },
@@ -611,19 +561,19 @@ describe('table', () => {
 
     const $tds = wrapper.findAll('tbody > tr > td')
 
-    expect($tds.at(0).attributes('data-foo')).toBe('bar')
-    expect($tds.at(0).attributes('data-parent')).not.toBeDefined()
-    expect($tds.at(0).classes().length).toBe(0)
+    expect($tds[0].attributes('data-foo')).toBe('bar')
+    expect($tds[0].attributes('data-parent')).not.toBeDefined()
+    expect($tds[0].classes().length).toBe(0)
 
-    expect($tds.at(1).classes()).toContain('baz')
-    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
-    expect($tds.at(1).attributes('data-parent')).not.toBeDefined()
+    expect($tds[1].classes()).toContain('baz')
+    expect($tds[1].attributes('data-foo')).not.toBeDefined()
+    expect($tds[1].attributes('data-parent')).not.toBeDefined()
 
-    expect($tds.at(2).attributes('data-parent')).toBe('parent')
-    expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
-    expect($tds.at(2).classes().length).toBe(0)
+    expect($tds[2].attributes('data-parent')).toBe('parent')
+    expect($tds[2].attributes('data-foo')).not.toBeDefined()
+    expect($tds[2].classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('item field thAttr works', async () => {
@@ -637,7 +587,7 @@ describe('table', () => {
 
     const wrapper = mount(BTable, {
       parentComponent: Parent,
-      propsData: {
+      props: {
         items: [{ a: 1, b: 2, c: 3 }],
         fields: [
           { key: 'a', thAttr: { 'data-foo': 'bar' } },
@@ -660,24 +610,24 @@ describe('table', () => {
     expect(wrapper.findAll('tbody > tr > th').length).toBe(1)
 
     const $headerThs = wrapper.findAll('thead > tr > th')
-    expect($headerThs.at(0).attributes('data-foo')).toBe('bar')
-    expect($headerThs.at(0).attributes('data-type')).not.toBeDefined()
-    expect($headerThs.at(0).classes().length).toBe(0)
+    expect($headerThs[0].attributes('data-foo')).toBe('bar')
+    expect($headerThs[0].attributes('data-type')).not.toBeDefined()
+    expect($headerThs[0].classes().length).toBe(0)
 
-    expect($headerThs.at(1).attributes('data-foo')).not.toBeDefined()
-    expect($headerThs.at(1).attributes('data-type')).toBe('head')
-    expect($headerThs.at(1).classes().length).toBe(0)
+    expect($headerThs[1].attributes('data-foo')).not.toBeDefined()
+    expect($headerThs[1].attributes('data-type')).toBe('head')
+    expect($headerThs[1].classes().length).toBe(0)
 
-    expect($headerThs.at(2).attributes('data-foo')).not.toBeDefined()
-    expect($headerThs.at(2).attributes('data-type')).toBe('head')
-    expect($headerThs.at(2).classes().length).toBe(0)
+    expect($headerThs[2].attributes('data-foo')).not.toBeDefined()
+    expect($headerThs[2].attributes('data-type')).toBe('head')
+    expect($headerThs[2].classes().length).toBe(0)
 
     const $bodyThs = wrapper.findAll('tbody > tr > th')
 
-    expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
-    expect($bodyThs.at(0).attributes('data-type')).toBe('row')
-    expect($bodyThs.at(0).classes().length).toBe(0)
+    expect($bodyThs[0].attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs[0].attributes('data-type')).toBe('row')
+    expect($bodyThs[0].classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

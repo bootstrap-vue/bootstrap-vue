@@ -11,7 +11,7 @@ describe('form-select', () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.element.tagName).toBe('SELECT')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class custom-select', async () => {
@@ -19,68 +19,68 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attr multiple by default', async () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.attributes('multiple')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attr required by default', async () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.attributes('required')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr required when required=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         required: true
       }
     })
     expect(wrapper.attributes('required')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attr form by default', async () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.attributes('form')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr form when form is set', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         form: 'foobar'
       }
     })
     expect(wrapper.attributes('form')).toBeDefined()
     expect(wrapper.attributes('form')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr multiple when multiple=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         multiple: true,
         value: []
       }
     })
     expect(wrapper.attributes('multiple')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr size when select-size is set', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         selectSize: 4
       }
     })
@@ -88,7 +88,7 @@ describe('form-select', () => {
     expect(wrapper.attributes('size')).toBe('4')
     expect(wrapper.attributes('multiple')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has auto ID attr by default', async () => {
@@ -96,43 +96,43 @@ describe('form-select', () => {
     await waitNT(wrapper.vm) // Auto-ID assigned after mount
     expect(wrapper.attributes('id')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has user supplied ID attr when id is set', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         id: 'foobar'
       }
     })
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attr size by default', async () => {
     const wrapper = mount(BFormSelect)
     expect(wrapper.attributes('size')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does have attr size when plain=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         plain: true
       }
     })
     expect(wrapper.attributes('size')).toBeDefined()
     expect(wrapper.attributes('size')).toBe('0')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class custom-select-sm when size=sm and plain=false', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'sm'
       }
     })
@@ -140,12 +140,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class custom-select-lg when size=lg and plain=false', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'lg'
       }
     })
@@ -153,12 +153,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class custom-select-foo when size=foo and plain=false', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'foo'
       }
     })
@@ -166,12 +166,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class is-invalid and attr aria-invalid="true" when state=false', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         state: false
       }
     })
@@ -180,12 +180,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class is-valid when state=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         state: true
       }
     })
@@ -194,12 +194,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr aria-invalid="true" when aria-invalid="true"', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         ariaInvalid: 'true'
       }
     })
@@ -207,12 +207,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attr aria-invalid="true" when aria-invalid=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         ariaInvalid: true
       }
     })
@@ -220,12 +220,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control when plain=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         plain: true
       }
     })
@@ -233,12 +233,12 @@ describe('form-select', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.element.tagName).toBe('SELECT')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control-lg when size=lg and plain=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'lg',
         plain: true
       }
@@ -247,12 +247,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control-sm when size=sm and plain=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'sm',
         plain: true
       }
@@ -261,12 +261,12 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control-foo when size=foo and plain=true', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         size: 'foo',
         plain: true
       }
@@ -275,7 +275,7 @@ describe('form-select', () => {
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focus() and blur() methods work', async () => {
@@ -295,31 +295,31 @@ describe('form-select', () => {
 
     expect(document.activeElement).not.toBe(wrapper.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from simple options array', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: ['one', 'two', 'three']
       }
     })
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('one')
-    expect($options.at(1).attributes('value')).toBe('two')
-    expect($options.at(2).attributes('value')).toBe('three')
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('one')
+    expect($options[1].attributes('value')).toBe('two')
+    expect($options[2].attributes('value')).toBe('three')
     expect($options.wrappers.every(o => o.find('[disabled]').exists())).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from options array of objects', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: [
           { text: 'one', value: 1 },
           { text: 'two', value: 2, disabled: true },
@@ -330,37 +330,22 @@ describe('form-select', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
+    expect($options[0].find('[disabled]').exists()).toBe(false)
+    expect($options[1].find('[disabled]').exists()).toBe(true)
+    expect($options[2].find('[disabled]').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from options array of objects with custom field names', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: [
           { price: 1.5, display: { text: '1,50 €' } },
           {
@@ -378,55 +363,25 @@ describe('form-select', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('1,50 €')
-    expect($options.at(1).text()).toBe('5,00 €')
-    expect($options.at(2).text()).toBe('50,75 €')
-    expect(
-      $options
-        .at(0)
-        .find('span')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('span')
-        .exists()
-    ).toBe(true)
-    expect(
-      $options
-        .at(2)
-        .find('span')
-        .exists()
-    ).toBe(false)
-    expect($options.at(0).attributes('value')).toBe('1.5')
-    expect($options.at(1).attributes('value')).toBe('5')
-    expect($options.at(2).attributes('value')).toBe('50.75')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
+    expect($options[0].text()).toBe('1,50 €')
+    expect($options[1].text()).toBe('5,00 €')
+    expect($options[2].text()).toBe('50,75 €')
+    expect($options[0].find('span').exists()).toBe(false)
+    expect($options[1].find('span').exists()).toBe(true)
+    expect($options[2].find('span').exists()).toBe(false)
+    expect($options[0].attributes('value')).toBe('1.5')
+    expect($options[1].attributes('value')).toBe('5')
+    expect($options[2].attributes('value')).toBe('50.75')
+    expect($options[0].find('[disabled]').exists()).toBe(false)
+    expect($options[1].find('[disabled]').exists()).toBe(false)
+    expect($options[2].find('[disabled]').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option group elements with options from options array of objects', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: [
           {
             label: 'group one',
@@ -442,52 +397,32 @@ describe('form-select', () => {
 
     const $groups = wrapper.findAll('optgroup')
     expect($groups.length).toBe(2)
-    expect($groups.at(0).attributes('label')).toBe('group one')
-    expect($groups.at(1).attributes('label')).toBe('group two')
-    expect($groups.at(0).findAll('option').length).toBe(2)
-    expect($groups.at(1).findAll('option').length).toBe(2)
+    expect($groups[0].attributes('label')).toBe('group one')
+    expect($groups[1].attributes('label')).toBe('group two')
+    expect($groups[0].findAll('option').length).toBe(2)
+    expect($groups[1].findAll('option').length).toBe(2)
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(4)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(3).text()).toBe('four')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
-    expect($options.at(3).attributes('value')).toBe('4')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(3)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[3].text()).toBe('four')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
+    expect($options[3].attributes('value')).toBe('4')
+    expect($options[0].find('[disabled]').exists()).toBe(false)
+    expect($options[1].find('[disabled]').exists()).toBe(false)
+    expect($options[2].find('[disabled]').exists()).toBe(false)
+    expect($options[3].find('[disabled]').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option group and option elements from options array of objects', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: [
           { text: 'one', value: 1 },
           {
@@ -501,69 +436,49 @@ describe('form-select', () => {
 
     const $groups = wrapper.findAll('optgroup')
     expect($groups.length).toBe(1)
-    expect($groups.at(0).attributes('label')).toBe('group')
-    expect($groups.at(0).findAll('option').length).toBe(2)
+    expect($groups[0].attributes('label')).toBe('group')
+    expect($groups[0].findAll('option').length).toBe(2)
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(4)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(3).text()).toBe('four')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
-    expect($options.at(3).attributes('value')).toBe('4')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(3)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[3].text()).toBe('four')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
+    expect($options[3].attributes('value')).toBe('4')
+    expect($options[0].find('[disabled]').exists()).toBe(false)
+    expect($options[1].find('[disabled]').exists()).toBe(false)
+    expect($options[2].find('[disabled]').exists()).toBe(false)
+    expect($options[3].find('[disabled]').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from options legacy object format', async () => {
     const spyWarn = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: { one: 1, two: { value: 2, text: 'Two' }, three: 'three' }
       }
     })
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('1')
-    expect($options.at(1).text()).toBe('Two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('one')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('three')
+    expect($options[0].text()).toBe('1')
+    expect($options[1].text()).toBe('Two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('one')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('three')
 
     expect(spyWarn).toHaveBeenLastCalledWith(
       '[BootstrapVue warn]: BFormSelect - Setting prop "options" to an object is deprecated. Use the array format instead.'
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has option elements from default slot', async () => {
@@ -579,19 +494,19 @@ describe('form-select', () => {
 
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-    expect($options.at(0).text()).toBe('one')
-    expect($options.at(1).text()).toBe('two')
-    expect($options.at(2).text()).toBe('three')
-    expect($options.at(0).attributes('value')).toBe('1')
-    expect($options.at(1).attributes('value')).toBe('2')
-    expect($options.at(2).attributes('value')).toBe('3')
+    expect($options[0].text()).toBe('one')
+    expect($options[1].text()).toBe('two')
+    expect($options[2].text()).toBe('three')
+    expect($options[0].attributes('value')).toBe('1')
+    expect($options[1].attributes('value')).toBe('2')
+    expect($options[2].attributes('value')).toBe('3')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('updates v-model when option selected in single mode', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: ['one', 'two', 'three']
       }
     })
@@ -602,7 +517,7 @@ describe('form-select', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // select 3rd option
-    $options.at(2).setSelected()
+    $options[2].setSelected()
     await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
@@ -610,12 +525,12 @@ describe('form-select', () => {
     expect(wrapper.emitted('input')[0][0]).toBe('three')
     expect(wrapper.emitted('change')[0][0]).toBe('three')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('updating v-model (value) when selects correct option', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: ['one', 'two', { text: 'three', value: { three: 3 } }],
         value: 'one'
       }
@@ -623,28 +538,28 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect($options.at(0).element.selected).toBe(true)
+    expect($options[0].element.selected).toBe(true)
 
     // Select 2nd option
     await wrapper.setProps({
       value: 'two'
     })
 
-    expect($options.at(1).element.selected).toBe(true)
+    expect($options[1].element.selected).toBe(true)
 
     // Select 3rd option
     await wrapper.setProps({
       value: { three: 3 }
     })
 
-    expect($options.at(2).element.selected).toBe(true)
+    expect($options[2].element.selected).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('updates v-model when option selected in single mode with complex values', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         options: [
           { text: 'one', value: { a: 1 } },
           { text: 'two', value: { b: 2 } },
@@ -659,7 +574,7 @@ describe('form-select', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Select 3rd option
-    $options.at(2).setSelected()
+    $options[2].setSelected()
     await waitNT(wrapper.vm)
 
     expect(wrapper.emitted('input')).toBeDefined()
@@ -667,12 +582,12 @@ describe('form-select', () => {
     expect(wrapper.emitted('input')[0][0]).toEqual({ c: 3 })
     expect(wrapper.emitted('change')[0][0]).toEqual({ c: 3 })
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('updates v-model when option selected in multiple mode', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         multiple: true,
         selectSize: 3,
         options: ['one', 'two', 'three'],
@@ -686,20 +601,20 @@ describe('form-select', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Select 2nd and 3rd option
-    $options.at(1).element.selected = true
-    $options.at(2).element.selected = true
+    $options[1].element.selected = true
+    $options[2].element.selected = true
     await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
     expect(wrapper.emitted('change')[0][0]).toEqual(['two', 'three'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('updates v-model when option selected in multiple mode with complex values', async () => {
     const wrapper = mount(BFormSelect, {
-      propsData: {
+      props: {
         multiple: true,
         selectSize: 3,
         value: [],
@@ -717,15 +632,15 @@ describe('form-select', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
 
     // Select 2nd and 3rd option
-    $options.at(1).element.selected = true
-    $options.at(2).element.selected = true
+    $options[1].element.selected = true
+    $options[2].element.selected = true
     await wrapper.trigger('change')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('input')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
     expect(wrapper.emitted('change')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
@@ -753,7 +668,7 @@ describe('form-select', () => {
     it('works when true', async () => {
       const wrapper = mount(BFormSelect, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           autofocus: true,
           options: ['a', 'b', 'c']
         }
@@ -767,13 +682,13 @@ describe('form-select', () => {
       expect(document).toBeDefined()
       expect(document.activeElement).toBe(input.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormSelect, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           autofocus: false,
           options: ['a', 'b', 'c']
         }
@@ -787,7 +702,7 @@ describe('form-select', () => {
       expect(document).toBeDefined()
       expect(document.activeElement).not.toBe(input.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

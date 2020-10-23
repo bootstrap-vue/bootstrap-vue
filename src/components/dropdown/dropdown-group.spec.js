@@ -20,14 +20,12 @@ describe('dropdown > dropdown-header', () => {
 
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders header element when prop header set', async () => {
     const wrapper = mount(BDropdownGroup, {
-      context: {
-        props: { header: 'foobar' }
-      }
+      props: { header: 'foobar' }
     })
 
     expect(wrapper.element.tagName).toBe('LI')
@@ -39,16 +37,14 @@ describe('dropdown > dropdown-header', () => {
     expect(header.attributes('id')).not.toBeDefined()
     expect(header.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom header element when prop header-tag set', async () => {
     const wrapper = mount(BDropdownGroup, {
-      context: {
-        props: {
-          header: 'foobar',
-          headerTag: 'h6'
-        }
+      props: {
+        header: 'foobar',
+        headerTag: 'h6'
       }
     })
 
@@ -59,14 +55,12 @@ describe('dropdown > dropdown-header', () => {
     expect(header.classes().length).toBe(1)
     expect(header.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('user supplied id when prop id set', async () => {
     const wrapper = mount(BDropdownGroup, {
-      context: {
-        props: { id: 'foo' }
-      }
+      props: { id: 'foo' }
     })
 
     expect(wrapper.element.tagName).toBe('LI')
@@ -75,7 +69,7 @@ describe('dropdown > dropdown-header', () => {
     expect(ul.attributes('id')).toBeDefined()
     expect(ul.attributes('id')).toEqual('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -89,6 +83,6 @@ describe('dropdown > dropdown-header', () => {
     expect(ul.element.tagName).toBe('UL')
     expect(ul.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

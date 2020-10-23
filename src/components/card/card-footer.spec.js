@@ -7,7 +7,7 @@ describe('card-footer', () => {
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-header', async () => {
@@ -16,74 +16,62 @@ describe('card-footer', () => {
     expect(wrapper.classes()).toContain('card-footer')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element when prop footerTag is set', async () => {
     const wrapper = mount(BCardFooter, {
-      context: {
-        props: {
-          footerTag: 'footer'
-        }
-      }
+      props: { footerTag: 'footer' }
     })
 
     expect(wrapper.element.tagName).toBe('FOOTER')
     expect(wrapper.classes()).toContain('card-footer')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class bg-info when prop footerBgVariant=info', async () => {
     const wrapper = mount(BCardFooter, {
-      context: {
-        props: { footerBgVariant: 'info' }
-      }
+      props: { footerBgVariant: 'info' }
     })
 
     expect(wrapper.classes()).toContain('card-footer')
     expect(wrapper.classes()).toContain('bg-info')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class text-info when prop footerTextVariant=info', async () => {
     const wrapper = mount(BCardFooter, {
-      context: {
-        props: { footerTextVariant: 'info' }
-      }
+      props: { footerTextVariant: 'info' }
     })
 
     expect(wrapper.classes()).toContain('card-footer')
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class border-info when prop footerBorderVariant=info', async () => {
     const wrapper = mount(BCardFooter, {
-      context: {
-        props: { footerBorderVariant: 'info' }
-      }
+      props: { footerBorderVariant: 'info' }
     })
 
     expect(wrapper.classes()).toContain('card-footer')
     expect(wrapper.classes()).toContain('border-info')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has all variant classes when all variant props set', async () => {
     const wrapper = mount(BCardFooter, {
-      context: {
-        props: {
-          footerTextVariant: 'info',
-          footerBgVariant: 'danger',
-          footerBorderVariant: 'dark'
-        }
+      props: {
+        footerTextVariant: 'info',
+        footerBgVariant: 'danger',
+        footerBorderVariant: 'dark'
       }
     })
 
@@ -93,6 +81,6 @@ describe('card-footer', () => {
     expect(wrapper.classes()).toContain('border-dark')
     expect(wrapper.classes().length).toBe(4)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import identity from '../../../utils/identity'
 import { isBoolean } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
@@ -165,7 +166,8 @@ export default {
       }
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     const $content = []
 
     if (this.isTableSimple) {
@@ -191,10 +193,11 @@ export default {
     const $table = h(
       'table',
       {
-        key: 'b-table',
         staticClass: 'table b-table',
-        class: this.tableClasses,
-        attrs: this.tableAttrs
+        class: [this.tableClasses, bvAttrs.class],
+        style: bvAttrs.style,
+        attrs: this.tableAttrs,
+        key: 'b-table'
       },
       $content.filter(identity)
     )

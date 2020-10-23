@@ -9,12 +9,12 @@ describe('alert', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hidden alert (show = "0") renders comment node', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: '0'
       }
     })
@@ -22,12 +22,12 @@ describe('alert', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hidden alert (show = 0) renders comment node', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: 0
       }
     })
@@ -35,12 +35,12 @@ describe('alert', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('visible alert has default class names and attributes', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true
       }
     })
@@ -55,12 +55,12 @@ describe('alert', () => {
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('visible alert (show = "") has default class names and attributes', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: ''
       }
     })
@@ -75,12 +75,12 @@ describe('alert', () => {
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('visible alert has variant when prop variant is set', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true,
         variant: 'success'
       }
@@ -93,16 +93,16 @@ describe('alert', () => {
     expect(wrapper.attributes('aria-live')).toBe('polite')
     expect(wrapper.attributes('aria-atomic')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders content from default slot', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true
       },
       slots: {
-        default: '<article>foobar</article>'
+        default: () => '<article>foobar</article>'
       }
     })
 
@@ -112,7 +112,7 @@ describe('alert', () => {
     expect(wrapper.find('article').exists()).toBe(true)
     expect(wrapper.find('article').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hidden alert shows when show prop set', async () => {
@@ -128,12 +128,12 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('alert')
     expect(wrapper.classes()).toContain('alert-info')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismissible alert should have class alert-dismissible', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true,
         dismissible: true
       }
@@ -145,12 +145,12 @@ describe('alert', () => {
     expect(wrapper.classes()).toContain('alert-info')
     expect(wrapper.classes()).toContain('alert-dismissible')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismissible alert should have close button', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true,
         dismissible: true
       }
@@ -162,12 +162,12 @@ describe('alert', () => {
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('Close')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismissible alert should have close button with custom aria-label', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true,
         dismissible: true,
         dismissLabel: 'foobar'
@@ -180,12 +180,12 @@ describe('alert', () => {
     expect(wrapper.find('button').classes()).toContain('close')
     expect(wrapper.find('button').attributes('aria-label')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismiss button click should close alert', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: true,
         dismissible: true
       }
@@ -208,12 +208,12 @@ describe('alert', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('fade transition works', async () => {
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: false,
         fade: true
       }
@@ -240,13 +240,13 @@ describe('alert', () => {
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismiss countdown emits dismiss-count-down event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: 3
       }
     })
@@ -285,13 +285,13 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismiss countdown emits dismiss-count-down event when show is number as string', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: '3'
       }
     })
@@ -330,13 +330,13 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismiss countdown handles when show value is changed', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: 2
       }
     })
@@ -392,13 +392,13 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('dismiss countdown handles when alert dismissed early', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BAlert, {
-      propsData: {
+      props: {
         show: 2,
         dismissible: true
       }
@@ -437,6 +437,6 @@ describe('alert', () => {
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

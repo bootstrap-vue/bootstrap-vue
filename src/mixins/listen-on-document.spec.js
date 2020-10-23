@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import listenOnDocumentMixin from './listen-on-document'
@@ -28,7 +29,7 @@ describe('mixins/listen-on-document', () => {
           }
         }
       },
-      render(h) {
+      render() {
         return h('div', this.$slots.default)
       }
     }
@@ -45,7 +46,7 @@ describe('mixins/listen-on-document', () => {
           default: false
         }
       },
-      render(h) {
+      render() {
         const props = {
           offClickOne: this.offClickOne
         }
@@ -59,7 +60,7 @@ describe('mixins/listen-on-document', () => {
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         destroy: false
       }
     })
@@ -113,6 +114,6 @@ describe('mixins/listen-on-document', () => {
     expect(spyClick2).toHaveBeenCalledTimes(2)
     expect(spyFocusin).toHaveBeenCalledTimes(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

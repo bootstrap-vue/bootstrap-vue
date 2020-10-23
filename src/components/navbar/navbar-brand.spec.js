@@ -7,7 +7,7 @@ describe('navbar-brand', () => {
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class "navbar-brand"', async () => {
@@ -16,28 +16,24 @@ describe('navbar-brand', () => {
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts custom tag', async () => {
     const wrapper = mount(BNavbarBrand, {
-      context: {
-        props: { tag: 'span' }
-      }
+      props: { tag: 'span' }
     })
 
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders link when href set', async () => {
     const wrapper = mount(BNavbarBrand, {
-      context: {
-        props: { href: '#foo' }
-      }
+      props: { href: '#foo' }
     })
 
     expect(wrapper.element.tagName).toBe('A')
@@ -45,6 +41,6 @@ describe('navbar-brand', () => {
     expect(wrapper.classes()).toContain('navbar-brand')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

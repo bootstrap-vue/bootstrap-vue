@@ -1,16 +1,16 @@
-import Vue, { mergeData } from '../vue'
+import { defineComponent, h, mergeProps } from '../vue'
 import { NAME_ICONSTACK } from '../constants/components'
 import { commonIconProps, BVIconBase } from './helpers/icon-base'
 
 // @vue/component
-export const BIconstack = /*#__PURE__*/ Vue.extend({
+export const BIconstack = /*#__PURE__*/ defineComponent({
   name: NAME_ICONSTACK,
   functional: true,
-  props: { ...commonIconProps },
-  render(h, { data, props, children }) {
+  props: commonIconProps,
+  render(_, { props, data, children }) {
     return h(
       BVIconBase,
-      mergeData(data, { staticClass: 'b-iconstack', props: { ...props, stacked: false } }),
+      mergeProps(data, { staticClass: 'b-iconstack', props: { ...props, stacked: false } }),
       children
     )
   }

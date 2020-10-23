@@ -6,7 +6,7 @@
 //
 
 import Popper from 'popper.js'
-import Vue from '../../../vue'
+import { defineComponent, h } from '../../../vue'
 import { NAME_POPPER } from '../../../constants/components'
 import { BVTransition } from '../../../utils/bv-transition'
 import { getCS, requestAF, select } from '../../../utils/dom'
@@ -46,7 +46,7 @@ const OffsetMap = {
 }
 
 // @vue/component
-export const BVPopper = /*#__PURE__*/ Vue.extend({
+export const BVPopper = /*#__PURE__*/ defineComponent({
   name: NAME_POPPER,
   props: {
     target: {
@@ -218,12 +218,12 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       this.attachment = this.getAttachment(data.placement)
     },
     /* istanbul ignore next */
-    renderTemplate(h) /* istanbul ignore next */ {
+    renderTemplate() /* istanbul ignore next */ {
       // Will be overridden by templates
       return h('div')
     }
   },
-  render(h) {
+  render() {
     // Note: `show` and 'fade' classes are only appled during transition
     return h(
       BVTransition,
@@ -238,7 +238,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
           afterLeave: el => this.$emit('hidden', el)
         }
       },
-      [this.localShow ? this.renderTemplate(h) : h()]
+      [this.localShow ? this.renderTemplate() : h()]
     )
   }
 })

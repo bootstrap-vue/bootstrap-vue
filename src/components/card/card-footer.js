@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_FOOTER } from '../../constants/components'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
@@ -24,16 +24,16 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BCardFooter = /*#__PURE__*/ Vue.extend({
+export const BCardFooter = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_FOOTER,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const { footerBgVariant, footerBorderVariant, footerTextVariant } = props
 
     return h(
       props.footerTag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'card-footer',
         class: [
           props.footerClass,

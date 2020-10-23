@@ -7,7 +7,7 @@ const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: '
 describe('table > custom tfoot slot', () => {
   it('should not render tfoot by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         footClone: false
@@ -19,12 +19,12 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.find('tfoot').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render custom-foot slot inside b-tfoot', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         footClone: false
@@ -41,12 +41,12 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tfoot').text()).toContain('CUSTOM-FOOTER')
     expect(wrapper.find('tfoot').classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not render custom-foot slot when foot-clone is true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         footClone: true
@@ -62,12 +62,12 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tfoot').exists()).toBe(true)
     expect(wrapper.find('tfoot').text()).not.toContain('CUSTOM-FOOTER')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have foot-variant on custom-foot slot', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         footClone: false,
@@ -86,6 +86,6 @@ describe('table > custom tfoot slot', () => {
     expect(wrapper.find('tfoot').classes()).toContain('thead-dark')
     expect(wrapper.find('tfoot').classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

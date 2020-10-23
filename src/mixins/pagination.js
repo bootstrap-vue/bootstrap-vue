@@ -1,3 +1,4 @@
+import { h } from '../vue'
 import { NAME_PAGINATION } from '../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_SPACE, CODE_UP } from '../constants/key-codes'
 import range from '../utils/range'
@@ -427,7 +428,7 @@ export default {
       })
     }
   },
-  render(h) {
+  render() {
     const buttons = []
     const numberOfPages = this.localNumberOfPages
     const pageNumbers = this.pageList.map(p => p.number)

@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
 import { BTransporterSingle } from './transporter'
@@ -5,7 +6,7 @@ import { BTransporterSingle } from './transporter'
 describe('utils/transporter component', () => {
   it('renders in-pace when disabled=true', async () => {
     const App = {
-      render(h) {
+      render() {
         return h(BTransporterSingle, { props: { disabled: true } }, [h('div', 'content')])
       }
     }
@@ -18,14 +19,14 @@ describe('utils/transporter component', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.text()).toEqual('content')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not render in-pace when disabled=false', async () => {
     const App = {
-      render(h) {
+      render() {
         return h(BTransporterSingle, { props: { disabled: false } }, [
-          h('div', { attrs: { id: 'foobar' } }, 'content')
+          h('div', { id: 'foobar' }, 'content')
         ])
       }
     }
@@ -49,7 +50,7 @@ describe('utils/transporter component', () => {
     expect(target.parentElement).toBeDefined()
     expect(target.parentElement).toBe(document.body)
 
-    wrapper.destroy()
+    wrapper.unmount()
 
     await waitNT(wrapper.vm)
 

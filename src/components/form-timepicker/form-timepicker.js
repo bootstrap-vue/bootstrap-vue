@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SPINBUTTON, NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
@@ -190,7 +190,7 @@ const propsMixin = {
 // --- BFormDate component ---
 
 // @vue/component
-export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
+export const BFormTimepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TIMEPICKER,
   // The mixins order determines the order of appearance in the props reference section
   mixins: [idMixin, propsMixin],
@@ -319,12 +319,12 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     },
     // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {
-      return this.$createElement(isHovered || hasFocus ? BIconClockFill : BIconClock, {
+      return h(isHovered || hasFocus ? BIconClockFill : BIconClock, {
         attrs: { 'aria-hidden': 'true' }
       })
     }
   },
-  render(h) {
+  render() {
     const { localHMS, disabled, readonly } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoTimeSelected

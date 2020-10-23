@@ -40,7 +40,7 @@ describe('utils/dom', () => {
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('isDisabled() works', async () => {
@@ -53,11 +53,11 @@ describe('utils/dom', () => {
     const $btns = wrapper.findAll('div.baz > button')
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
-    expect(isDisabled($btns.at(0).element)).toBe(false)
-    expect(isDisabled($btns.at(1).element)).toBe(false)
-    expect(isDisabled($btns.at(2).element)).toBe(true)
+    expect(isDisabled($btns[0].element)).toBe(false)
+    expect(isDisabled($btns[1].element)).toBe(false)
+    expect(isDisabled($btns[2].element)).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hasClass() works', async () => {
@@ -75,7 +75,7 @@ describe('utils/dom', () => {
     expect(hasClass($span.element, 'fizzle-rocks')).toBe(false)
     expect(hasClass(null, 'foobar')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('contains() works', async () => {
@@ -97,7 +97,7 @@ describe('utils/dom', () => {
     expect(contains($span.element, $btn1.element)).toBe(false)
     expect(contains(null, $btn1.element)).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('closest() works', async () => {
@@ -111,20 +111,20 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
-    expect(closest('div.foo', $btns.at(0).element)).toBeDefined()
-    expect(closest('div.foo', $btns.at(0).element)).toBe(wrapper.element)
+    expect(closest('div.foo', $btns[0].element)).toBeDefined()
+    expect(closest('div.foo', $btns[0].element)).toBe(wrapper.element)
     expect(closest('div.foo', null)).toBe(null)
 
     const $baz = wrapper.find('div.baz')
     expect($baz).toBeDefined()
     expect($baz.exists()).toBe(true)
-    expect(closest('div.baz', $btns.at(0).element)).toBeDefined()
-    expect(closest('div.baz', $btns.at(0).element)).toBe($baz.element)
-    expect(closest('div.not-here', $btns.at(0).element)).toBe(null)
+    expect(closest('div.baz', $btns[0].element)).toBeDefined()
+    expect(closest('div.baz', $btns[0].element)).toBe($baz.element)
+    expect(closest('div.not-here', $btns[0].element)).toBe(null)
     expect(closest('div.baz', $baz.element)).toBe(null)
     expect(closest('div.baz', $baz.element, true)).toBe($baz.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('matches() works', async () => {
@@ -138,19 +138,19 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
-    expect(matches($btns.at(0).element, 'button[disabled]')).toBe(false)
-    expect(matches($btns.at(1).element, 'button[disabled]')).toBe(false)
-    expect(matches($btns.at(2).element, 'button[disabled]')).toBe(true)
-    expect(matches($btns.at(0).element, 'div.baz button')).toBe(true)
-    expect(matches($btns.at(0).element, 'div.baz > button')).toBe(true)
-    expect(matches($btns.at(0).element, '.foo > div.baz > button')).toBe(true)
-    expect(matches($btns.at(0).element, 'div.foo button')).toBe(true)
-    expect(matches($btns.at(0).element, 'div.foo > button')).toBe(false)
-    expect(matches($btns.at(0).element, 'div.bar > button')).toBe(false)
-    expect(matches($btns.at(0).element, 'button#button1')).toBe(true)
+    expect(matches($btns[0].element, 'button[disabled]')).toBe(false)
+    expect(matches($btns[1].element, 'button[disabled]')).toBe(false)
+    expect(matches($btns[2].element, 'button[disabled]')).toBe(true)
+    expect(matches($btns[0].element, 'div.baz button')).toBe(true)
+    expect(matches($btns[0].element, 'div.baz > button')).toBe(true)
+    expect(matches($btns[0].element, '.foo > div.baz > button')).toBe(true)
+    expect(matches($btns[0].element, 'div.foo button')).toBe(true)
+    expect(matches($btns[0].element, 'div.foo > button')).toBe(false)
+    expect(matches($btns[0].element, 'div.bar > button')).toBe(false)
+    expect(matches($btns[0].element, 'button#button1')).toBe(true)
     expect(matches(null, 'div.foo')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('hasAttr() works', async () => {
@@ -164,14 +164,14 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
-    expect(hasAttr($btns.at(0).element, 'disabled')).toBe(false)
-    expect(hasAttr($btns.at(0).element, 'aria-label')).toBe(true)
-    expect(hasAttr($btns.at(1).element, 'disabled')).toBe(false)
-    expect(hasAttr($btns.at(2).element, 'disabled')).toBe(true)
-    expect(hasAttr($btns.at(2).element, 'role')).toBe(false)
+    expect(hasAttr($btns[0].element, 'disabled')).toBe(false)
+    expect(hasAttr($btns[0].element, 'aria-label')).toBe(true)
+    expect(hasAttr($btns[1].element, 'disabled')).toBe(false)
+    expect(hasAttr($btns[2].element, 'disabled')).toBe(true)
+    expect(hasAttr($btns[2].element, 'role')).toBe(false)
     expect(hasAttr(null, 'role')).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('getAttr() works', async () => {
@@ -185,17 +185,17 @@ describe('utils/dom', () => {
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
 
-    expect(getAttr($btns.at(0).element, 'aria-label')).toBe('label')
-    expect(getAttr($btns.at(0).element, 'id')).toBe('button1')
-    expect(getAttr($btns.at(1).element, 'aria-label')).toBe(null)
-    expect(getAttr($btns.at(1).element, 'id')).toBe('button2')
-    expect(getAttr($btns.at(2).element, 'aria-label')).toBe(null)
-    expect(getAttr($btns.at(2).element, 'id')).toBe('button3')
+    expect(getAttr($btns[0].element, 'aria-label')).toBe('label')
+    expect(getAttr($btns[0].element, 'id')).toBe('button1')
+    expect(getAttr($btns[1].element, 'aria-label')).toBe(null)
+    expect(getAttr($btns[1].element, 'id')).toBe('button2')
+    expect(getAttr($btns[2].element, 'aria-label')).toBe(null)
+    expect(getAttr($btns[2].element, 'id')).toBe('button3')
     expect(getAttr(null, 'role')).toBe(null)
-    expect(getAttr($btns.at(0).element, '')).toBe(null)
-    expect(getAttr($btns.at(0).element, undefined)).toBe(null)
+    expect(getAttr($btns[0].element, '')).toBe(null)
+    expect(getAttr($btns[0].element, undefined)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('getStyle() works', async () => {
@@ -212,7 +212,7 @@ describe('utils/dom', () => {
     expect(getStyle($span.element, 'width')).toBe(null)
     expect(getStyle(null, 'color')).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('select() works', async () => {
@@ -227,19 +227,19 @@ describe('utils/dom', () => {
     expect($btns.length).toBe(3)
 
     // With root element specified
-    expect(select('button', wrapper.element)).toBe($btns.at(0).element)
-    expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
+    expect(select('button', wrapper.element)).toBe($btns[0].element)
+    expect(select('button#button3', wrapper.element)).toBe($btns[2].element)
     expect(select('span.not-here', wrapper.element)).toBe(null)
 
     // Note: It appears that `vue-test-utils` is not detaching previous
     //       app instances and elements once the test is complete!
     expect(select('button')).not.toBe(null)
-    expect(select('button')).toBe($btns.at(0).element)
+    expect(select('button')).toBe($btns[0].element)
     expect(select('button#button3')).not.toBe(null)
-    expect(select('button#button3')).toBe($btns.at(2).element)
+    expect(select('button#button3')).toBe($btns[2].element)
     expect(select('span.not-here')).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('selectAll() works', async () => {
@@ -256,17 +256,17 @@ describe('utils/dom', () => {
     // With root element specified
     expect(Array.isArray(selectAll('button', wrapper.element))).toBe(true)
     expect(selectAll('button', wrapper.element).length).toBe(3)
-    expect(selectAll('button', wrapper.element)[0]).toBe($btns.at(0).element)
-    expect(selectAll('button', wrapper.element)[1]).toBe($btns.at(1).element)
-    expect(selectAll('button', wrapper.element)[2]).toBe($btns.at(2).element)
+    expect(selectAll('button', wrapper.element)[0]).toBe($btns[0].element)
+    expect(selectAll('button', wrapper.element)[1]).toBe($btns[1].element)
+    expect(selectAll('button', wrapper.element)[2]).toBe($btns[2].element)
 
     expect(Array.isArray(selectAll('button.fake', wrapper.element))).toBe(true)
     expect(selectAll('button.fake', wrapper.element).length).toBe(0)
 
     expect(selectAll('div.baz button', wrapper.element).length).toBe(3)
-    expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns.at(0).element)
-    expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns.at(1).element)
-    expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
+    expect(selectAll('div.baz button', wrapper.element)[0]).toBe($btns[0].element)
+    expect(selectAll('div.baz button', wrapper.element)[1]).toBe($btns[1].element)
+    expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns[2].element)
 
     // Without root element specified (assumes document as root)
     // Note: It appears that `vue-test-utils` is not detaching previous
@@ -274,19 +274,19 @@ describe('utils/dom', () => {
     expect(Array.isArray(selectAll('button'))).toBe(true)
     expect(selectAll('button')).not.toEqual([])
     expect(selectAll('button').length).toBe(3)
-    expect(selectAll('button')[0]).toBe($btns.at(0).element)
-    expect(selectAll('button')[1]).toBe($btns.at(1).element)
-    expect(selectAll('button')[2]).toBe($btns.at(2).element)
+    expect(selectAll('button')[0]).toBe($btns[0].element)
+    expect(selectAll('button')[1]).toBe($btns[1].element)
+    expect(selectAll('button')[2]).toBe($btns[2].element)
 
     expect(Array.isArray(selectAll('button.fake'))).toBe(true)
     expect(selectAll('button.fake').length).toBe(0)
 
     expect(selectAll('div.baz button')).not.toEqual([])
     expect(selectAll('div.baz button').length).toBe(3)
-    expect(selectAll('div.baz button')[0]).toBe($btns.at(0).element)
-    expect(selectAll('div.baz button')[1]).toBe($btns.at(1).element)
-    expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
+    expect(selectAll('div.baz button')[0]).toBe($btns[0].element)
+    expect(selectAll('div.baz button')[1]).toBe($btns[1].element)
+    expect(selectAll('div.baz button')[2]).toBe($btns[2].element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

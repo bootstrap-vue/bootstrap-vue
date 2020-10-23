@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_HEADER } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   id: {
@@ -16,15 +18,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
+export const BDropdownHeader = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_HEADER,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const $attrs = data.attrs || {}
     data.attrs = {}
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeProps(data, { attrs: { role: 'presentation' } }), [
       h(
         props.tag,
         {

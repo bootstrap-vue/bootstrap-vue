@@ -1,6 +1,8 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_TEXT } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
+
+// --- Props ---
 
 export const props = {
   id: {
@@ -21,15 +23,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BFormText = /*#__PURE__*/ Vue.extend({
+export const BFormText = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TEXT,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           'form-text': !props.inline,
           [`text-${props.textVariant}`]: props.textVariant

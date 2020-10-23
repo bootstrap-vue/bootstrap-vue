@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TR } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -18,7 +18,7 @@ const DARK = 'dark'
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BTr = /*#__PURE__*/ Vue.extend({
+export const BTr = /*#__PURE__*/ defineComponent({
   name: NAME_TR,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
@@ -99,11 +99,13 @@ export const BTr = /*#__PURE__*/ Vue.extend({
       return { role: 'row', ...this.bvAttrs }
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     return h(
       'tr',
       {
-        class: this.trClasses,
+        class: [this.trClasses, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: this.trAttrs,
         // Pass native listeners to child
         on: this.bvListeners

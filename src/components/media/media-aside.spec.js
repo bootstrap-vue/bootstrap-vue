@@ -10,12 +10,12 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has custom root element when prop tag set', async () => {
     const wrapper = mount(BMediaAside, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -26,12 +26,12 @@ describe('media-aside', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has alignment class when prop vertical-align set', async () => {
     const wrapper = mount(BMediaAside, {
-      propsData: {
+      props: {
         verticalAlign: 'bottom'
       }
     })
@@ -41,7 +41,7 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('align-self-end')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -58,6 +58,6 @@ describe('media-aside', () => {
     expect(wrapper.findAll('b').length).toBe(1)
     expect(wrapper.find('b').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

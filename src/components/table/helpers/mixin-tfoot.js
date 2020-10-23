@@ -1,3 +1,4 @@
+import { h } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import { getComponentConfig } from '../../../utils/config'
 import { BTfoot } from '../tfoot'
@@ -28,7 +29,6 @@ export default {
   },
   methods: {
     renderTFootCustom() {
-      const h = this.$createElement
       if (this.hasNormalizedSlot('custom-foot')) {
         return h(
           BTfoot,

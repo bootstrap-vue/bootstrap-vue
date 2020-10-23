@@ -7,43 +7,43 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.element.type).toBe('textarea')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attribute disabled by default', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.attributes('disabled')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute disabled when disabled=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         disabled: true
       }
     })
     expect(wrapper.attributes('disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have attribute readonly by default', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.attributes('readonly')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute readonly when readonly=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         readonly: true
       }
     })
     expect(wrapper.attributes('readonly')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('inherits non-prop attributes', async () => {
@@ -55,21 +55,21 @@ describe('form-textarea', () => {
     expect(wrapper.attributes('foo')).toBeDefined()
     expect(wrapper.attributes('foo')).toBe('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control by default', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.classes()).toContain('form-control')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have class form-control-plaintext by default', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.classes()).not.toContain('form-control-plaintext')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have size classes by default', async () => {
@@ -77,12 +77,12 @@ describe('form-textarea', () => {
     expect(wrapper.classes()).not.toContain('form-control-sm')
     expect(wrapper.classes()).not.toContain('form-control-lg')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has size class when size prop is set', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         size: 'sm'
       }
     })
@@ -94,51 +94,51 @@ describe('form-textarea', () => {
     await wrapper.setProps({ size: '' })
     expect(wrapper.classes()).not.toContain('form-control-')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-control-plaintext when plaintext=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         plaintext: true
       }
     })
     expect(wrapper.classes()).toContain('form-control-plaintext')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have class form-control when plaintext=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         plaintext: true
       }
     })
     expect(wrapper.classes()).not.toContain('form-control')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute readonly when plaintext=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         plaintext: true
       }
     })
     expect(wrapper.attributes('readonly')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has user supplied id', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         id: 'foobar'
       }
     })
     expect(wrapper.attributes('id')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have is-valid or is-invalid classes by default', async () => {
@@ -146,65 +146,65 @@ describe('form-textarea', () => {
     expect(wrapper.classes()).not.toContain('is-valid')
     expect(wrapper.classes()).not.toContain('is-invalid')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class is-valid when state=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         state: true
       }
     })
     expect(wrapper.classes()).toContain('is-valid')
     expect(wrapper.classes()).not.toContain('is-invalid')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class is-invalid when state=false', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         state: false
       }
     })
     expect(wrapper.classes()).toContain('is-invalid')
     expect(wrapper.classes()).not.toContain('is-valid')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have aria-invalid attribute when state=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         state: true
       }
     })
     expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has aria-invalid attribute when state=false', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         state: false
       }
     })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has aria-invalid attribute when aria-invalid=true', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         ariaInvalid: true
       }
     })
@@ -212,25 +212,25 @@ describe('form-textarea', () => {
     await wrapper.setProps({ ariaInvalid: 'true' })
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has aria-invalid attribute when aria-invalid="spelling"', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         ariaInvalid: 'spelling'
       }
     })
     expect(wrapper.attributes('aria-invalid')).toBe('spelling')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not emit an update event on mount when value not set', async () => {
     const wrapper = mount(BFormTextarea)
     expect(wrapper.emitted('update')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does mot emit an update event on mount when value is set and no formatter', async () => {
@@ -239,7 +239,7 @@ describe('form-textarea', () => {
     })
     expect(wrapper.emitted('update')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits an input event with single arg of value', async () => {
@@ -251,7 +251,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('input')[0].length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits an change event with single arg of value', async () => {
@@ -263,7 +263,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change')[0].length).toEqual(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits an update event with one arg on input', async () => {
@@ -275,7 +275,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update')[0].length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not emit an update event on change when value not changed', async () => {
@@ -290,7 +290,7 @@ describe('form-textarea', () => {
     await wrapper.trigger('change')
     expect(wrapper.emitted('update').length).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits an update event with one arg on change when input text changed', async () => {
@@ -307,7 +307,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual('TEST')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not emit an update, input or change event when value prop changed', async () => {
@@ -324,14 +324,14 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('input')).not.toBeDefined()
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits a native focus event', async () => {
     const spy = jest.fn()
     const wrapper = mount(BFormTextarea, {
-      listeners: {
-        focus: spy
+      attrs: {
+        onFocus: spy
       }
     })
 
@@ -339,7 +339,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('focus')).not.toBeDefined()
     expect(spy).toHaveBeenCalled()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits a blur event when blurred', async () => {
@@ -348,7 +348,7 @@ describe('form-textarea', () => {
     await wrapper.trigger('blur')
     expect(wrapper.emitted('blur')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute rows set to 2 by default', async () => {
@@ -357,12 +357,12 @@ describe('form-textarea', () => {
     expect(wrapper.attributes('rows')).toBeDefined()
     expect(wrapper.attributes('rows')).toEqual('2')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute rows when rows set and max-rows not set', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         rows: 10
       }
     })
@@ -384,12 +384,12 @@ describe('form-textarea', () => {
     expect(wrapper.attributes('rows')).toBeDefined()
     expect(wrapper.attributes('rows')).toEqual('2')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute rows set when rows and max-rows are equal', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         rows: 5,
         maxRows: 5
       }
@@ -403,12 +403,12 @@ describe('form-textarea', () => {
     expect(wrapper.attributes('rows')).toBeDefined()
     expect(wrapper.attributes('rows')).toEqual('10')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have rows set when rows and max-rows set', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         rows: 2,
         maxRows: 5
       }
@@ -416,12 +416,12 @@ describe('form-textarea', () => {
 
     expect(wrapper.attributes('rows')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute rows set when max-rows less than rows', async () => {
     const wrapper = mount(BFormTextarea, {
-      propsData: {
+      props: {
         rows: 10,
         maxRows: 5
       }
@@ -430,7 +430,7 @@ describe('form-textarea', () => {
     expect(wrapper.attributes('rows')).toBeDefined()
     expect(wrapper.attributes('rows')).toEqual('10')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style resize by default', async () => {
@@ -441,13 +441,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style resize when no-resize is set', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         noResize: true
       }
     })
@@ -455,13 +455,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style resize when max-rows not set', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         rows: 10
       }
     })
@@ -469,13 +469,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style resize when max-rows less than rows', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         rows: 10,
         maxRows: 5
       }
@@ -484,13 +484,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has style resize:none when max-rows greater than rows', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         rows: 2,
         maxRows: 5
       }
@@ -500,7 +500,7 @@ describe('form-textarea', () => {
     expect(wrapper.element.style.resize).toBeDefined()
     expect(wrapper.element.style.resize).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style height by default', async () => {
@@ -512,13 +512,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style.height).toBeDefined()
     expect(wrapper.element.style.height).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style height when rows and max-rows equal', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         rows: 2,
         maxRows: 2
       }
@@ -528,13 +528,13 @@ describe('form-textarea', () => {
     expect(wrapper.element.style.height).toBeDefined()
     expect(wrapper.element.style.height).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have style height when max-rows not set', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         rows: 5
       }
     })
@@ -543,7 +543,7 @@ describe('form-textarea', () => {
     expect(wrapper.element.style.height).toBeDefined()
     expect(wrapper.element.style.height).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // The height style calculations do not work in JSDOM environment
@@ -552,7 +552,7 @@ describe('form-textarea', () => {
   // it('has style height when max-rows greater than rows', async () => {
   //   const input = mount(BFormTextarea, {
   //     attachTo: createContainer(),
-  //     propsData: {
+  //     props: {
   //       rows: 2,
   //       maxRows: 5
   //     }
@@ -563,13 +563,13 @@ describe('form-textarea', () => {
   //   expect(input.element.style.height).toBeDefined()
   //   expect(input.element.style.height).not.toEqual('')
   //
-  //   input.destroy()
+  //   input.unmount()
   // })
   //
   // it('auto height should work', async () => {
   //   const input = mount(BFormTextarea, {
   //     attachTo: createContainer(),
-  //     propsData: {
+  //     props: {
   //       value: '',
   //       rows: 2,
   //       maxRows: 10
@@ -594,13 +594,13 @@ describe('form-textarea', () => {
   //   const thirdHeight = parseFloat(input.element.style.height)
   //   expect(thirdHeight).toBeLessThan(secondHeight)
   //
-  //   input.destroy()
+  //   input.unmount()
   // })
 
   it('Formats on input when not lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         formatter(value) {
           return value.toLowerCase()
@@ -622,13 +622,13 @@ describe('form-textarea', () => {
     // And no change event
     expect(wrapper.emitted('change')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Formats on change when not lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         formatter(value) {
           return value.toLowerCase()
@@ -650,13 +650,13 @@ describe('form-textarea', () => {
     // And no input event
     expect(wrapper.emitted('input')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Formats on blur when lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         formatter(value) {
           return value.toLowerCase()
         },
@@ -706,13 +706,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('blur').length).toEqual(1)
     expect(wrapper.emitted('update').length).toEqual(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Does not format value on mount when not lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: 'TEST',
         formatter(value) {
           return value.toLowerCase()
@@ -725,13 +725,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update')).not.toBeDefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Does not format value on mount when lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: 'TEST',
         formatter(value) {
           return value.toLowerCase()
@@ -745,13 +745,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update')).not.toBeDefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Does not format on prop "value" change when not lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         formatter(value) {
           return value.toLowerCase()
@@ -770,13 +770,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not format on value prop change when lazy', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         formatter(value) {
           return value.toLowerCase()
@@ -797,13 +797,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change')).not.toBeDefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('trim modifier prop works', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         trim: true
       }
@@ -864,13 +864,13 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('  TEST  ')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('number modifier prop works', async () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: '',
         number: true
       }
@@ -930,7 +930,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('input')[3][0]).toEqual('0123 450')
     expect(typeof wrapper.emitted('input')[3][0]).toEqual('string')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // These tests are wrapped in a new describe to limit
@@ -959,7 +959,7 @@ describe('form-textarea', () => {
     it('works when true', async () => {
       const wrapper = mount(BFormTextarea, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           autofocus: true
         }
       })
@@ -973,13 +973,13 @@ describe('form-textarea', () => {
       expect(document).toBeDefined()
       expect(document.activeElement).toBe(input.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormTextarea, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           autofocus: false
         }
       })
@@ -993,7 +993,7 @@ describe('form-textarea', () => {
       expect(document).toBeDefined()
       expect(document.activeElement).not.toBe(input.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

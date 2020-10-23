@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
@@ -9,7 +9,7 @@ import { BLink, props as BLinkProps } from '../link/link'
 export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // @vue/component
-export const BDropdownItem = /*#__PURE__*/ Vue.extend({
+export const BDropdownItem = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_ITEM,
   mixins: [attrsMixin, normalizeSlotMixin],
   inject: {
@@ -51,22 +51,30 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
       this.closeDropdown()
     }
   },
-  render(h) {
-    const { linkClass, variant, active, disabled, onClick } = this
+  render() {
+    const { linkClass, variant, active, disabled, onClick, bvAttrs } = this
 
-    return h('li', { attrs: { role: 'presentation' } }, [
-      h(
-        BLink,
-        {
-          staticClass: 'dropdown-item',
-          class: [linkClass, { [`text-${variant}`]: variant && !(active || disabled) }],
-          props: this.$props,
-          attrs: this.computedAttrs,
-          on: { click: onClick },
-          ref: 'item'
-        },
-        this.normalizeSlot()
-      )
-    ])
+    return h(
+      'li',
+      {
+        class: bvAttrs.class,
+        style: bvAttrs.style,
+        attrs: { role: 'presentation' }
+      },
+      [
+        h(
+          BLink,
+          {
+            staticClass: 'dropdown-item',
+            class: [linkClass, { [`text-${variant}`]: variant && !(active || disabled) }],
+            props: this.$props,
+            attrs: this.computedAttrs,
+            on: { click: onClick },
+            ref: 'item'
+          },
+          this.normalizeSlot()
+        )
+      ]
+    )
   }
 })

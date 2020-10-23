@@ -1,8 +1,8 @@
+import { h } from '../../../vue'
+
 export default {
   methods: {
     renderColgroup() {
-      const h = this.$createElement
-
       const fields = this.computedFields
       let $colgroup = h()
 

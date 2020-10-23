@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { getComponentConfig } from '../../utils/config'
@@ -12,7 +12,7 @@ const CLASS_NAME = 'navbar-toggler'
 
 // --- Main component ---
 // @vue/component
-export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
+export const BNavbarToggle = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR_TOGGLE,
   directives: { VBToggle },
   mixins: [listenOnRootMixin, normalizeSlotMixin],
@@ -54,7 +54,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const { disabled } = this
 
     return h(

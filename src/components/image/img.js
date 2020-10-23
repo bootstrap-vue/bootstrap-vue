@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_IMG } from '../../constants/components'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
@@ -16,6 +16,19 @@ const BLANK_TEMPLATE =
   'viewBox="0 0 %{w} %{h}" preserveAspectRatio="none">' +
   '<rect width="100%" height="100%" style="fill:%{f};"></rect>' +
   '</svg>'
+
+// --- Helper methods ---
+
+const makeBlankImgSrc = (width, height, color) => {
+  const src = encodeURIComponent(
+    BLANK_TEMPLATE.replace('%{w}', toString(width))
+      .replace('%{h}', toString(height))
+      .replace('%{f}', color)
+  )
+  return `data:image/svg+xml;charset=UTF-8,${src}`
+}
+
+// --- Props --
 
 export const props = {
   src: {
@@ -94,23 +107,13 @@ export const props = {
   }
 }
 
-// --- Helper methods ---
-
-const makeBlankImgSrc = (width, height, color) => {
-  const src = encodeURIComponent(
-    BLANK_TEMPLATE.replace('%{w}', toString(width))
-      .replace('%{h}', toString(height))
-      .replace('%{f}', color)
-  )
-  return `data:image/svg+xml;charset=UTF-8,${src}`
-}
-
+// --- Main component ---
 // @vue/component
-export const BImg = /*#__PURE__*/ Vue.extend({
+export const BImg = /*#__PURE__*/ defineComponent({
   name: NAME_IMG,
   functional: true,
   props,
-  render(h, { props, data }) {
+  render(_, { props, data }) {
     let src = props.src
     let width = toInteger(props.width) || null
     let height = toInteger(props.height) || null
@@ -148,7 +151,7 @@ export const BImg = /*#__PURE__*/ Vue.extend({
     }
     return h(
       'img',
-      mergeData(data, {
+      mergeProps(data, {
         attrs: {
           src,
           alt: props.alt,

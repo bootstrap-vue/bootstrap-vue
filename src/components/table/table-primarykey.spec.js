@@ -6,7 +6,7 @@ const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 
 describe('table > primary key', () => {
   it('default should not have ids on table rows', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         id: 'test'
       }
@@ -21,16 +21,16 @@ describe('table > primary key', () => {
     ).toBe(true)
     const trs = wrapper.find('tbody').findAll('tr')
     expect(trs.length).toBe(testItems.length)
-    expect(trs.at(0).attributes('id')).not.toBeDefined()
-    expect(trs.at(1).attributes('id')).not.toBeDefined()
-    expect(trs.at(2).attributes('id')).not.toBeDefined()
+    expect(trs[0].attributes('id')).not.toBeDefined()
+    expect(trs[1].attributes('id')).not.toBeDefined()
+    expect(trs[2].attributes('id')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have ids on table rows when primary key set to field', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         id: 'foo',
         primaryKey: 'a'
@@ -46,19 +46,19 @@ describe('table > primary key', () => {
     ).toBe(true)
     const trs = wrapper.find('tbody').findAll('tr')
     expect(trs.length).toBe(testItems.length)
-    expect(trs.at(0).attributes('id')).toBeDefined()
-    expect(trs.at(0).attributes('id')).toBe(`foo__row_${testItems[0].a}`)
-    expect(trs.at(1).attributes('id')).toBeDefined()
-    expect(trs.at(1).attributes('id')).toBe(`foo__row_${testItems[1].a}`)
-    expect(trs.at(2).attributes('id')).toBeDefined()
-    expect(trs.at(2).attributes('id')).toBe(`foo__row_${testItems[2].a}`)
+    expect(trs[0].attributes('id')).toBeDefined()
+    expect(trs[0].attributes('id')).toBe(`foo__row_${testItems[0].a}`)
+    expect(trs[1].attributes('id')).toBeDefined()
+    expect(trs[1].attributes('id')).toBe(`foo__row_${testItems[1].a}`)
+    expect(trs[2].attributes('id')).toBeDefined()
+    expect(trs[2].attributes('id')).toBe(`foo__row_${testItems[2].a}`)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have ids on table rows when primary key set to nonexistent field', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         id: 'foo',
         primaryKey: 'ZZZ'
@@ -74,10 +74,10 @@ describe('table > primary key', () => {
     ).toBe(true)
     const trs = wrapper.find('tbody').findAll('tr')
     expect(trs.length).toBe(testItems.length)
-    expect(trs.at(0).attributes('id')).not.toBeDefined()
-    expect(trs.at(1).attributes('id')).not.toBeDefined()
-    expect(trs.at(2).attributes('id')).not.toBeDefined()
+    expect(trs[0].attributes('id')).not.toBeDefined()
+    expect(trs[1].attributes('id')).not.toBeDefined()
+    expect(trs[2].attributes('id')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

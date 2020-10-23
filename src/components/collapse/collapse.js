@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -23,7 +23,7 @@ const EVENT_ACCORDION = 'bv::collapse::accordion'
 
 // --- Main component ---
 // @vue/component
-export const BCollapse = /*#__PURE__*/ Vue.extend({
+export const BCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE,
   mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
   model: {
@@ -224,7 +224,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.show = getCS(this.$el).display === 'block'
     }
   },
-  render(h) {
+  render() {
     const scope = {
       visible: this.show,
       close: () => (this.show = false)

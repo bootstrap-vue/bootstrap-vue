@@ -1,11 +1,11 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_SPINNER } from '../../constants/components'
 import { SLOT_NAME_LABEL } from '../../constants/slot-names'
 import { getComponentConfig } from '../../utils/config'
 import { normalizeSlot } from '../../utils/normalize-slot'
 
 // @vue/component
-export const BSpinner = /*#__PURE__*/ Vue.extend({
+export const BSpinner = /*#__PURE__*/ defineComponent({
   name: NAME_SPINNER,
   functional: true,
   props: {
@@ -34,7 +34,7 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
       default: 'span'
     }
   },
-  render(h, { props, data, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
     let label = normalizeSlot(SLOT_NAME_LABEL, {}, $scopedSlots, $slots) || props.label
@@ -43,7 +43,7 @@ export const BSpinner = /*#__PURE__*/ Vue.extend({
     }
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         attrs: {
           role: label ? props.role || 'status' : null,
           'aria-hidden': label ? null : 'true'

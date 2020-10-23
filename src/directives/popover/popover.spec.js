@@ -73,7 +73,7 @@ describe('v-b-popover directive', () => {
     expect($button.element[BV_POPOVER]).toBeDefined()
     expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should work', async () => {
@@ -125,6 +125,6 @@ describe('v-b-popover directive', () => {
     expect(pop.classList.contains('popover')).toBe(true)
     expect(pop.classList.contains('b-popover')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

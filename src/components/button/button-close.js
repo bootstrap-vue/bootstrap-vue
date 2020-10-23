@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BUTTON_CLOSE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { getComponentConfig } from '../../utils/config'
@@ -26,11 +26,11 @@ const props = {
 }
 
 // @vue/component
-export const BButtonClose = /*#__PURE__*/ Vue.extend({
+export const BButtonClose = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON_CLOSE,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
 
@@ -60,7 +60,7 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
     }
     return h(
       'button',
-      mergeData(data, componentData),
+      mergeProps(data, componentData),
       normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
     )
   }

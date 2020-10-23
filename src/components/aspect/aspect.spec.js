@@ -26,12 +26,12 @@ describe('aspect', () => {
     expect($content.classes()).toContain('mw-100')
     expect($content.attributes('style')).toContain('margin-left: -100%;')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `tag` is set', async () => {
     const wrapper = mount(BAspect, {
-      propsData: {
+      props: {
         tag: 'section'
       }
     })
@@ -57,12 +57,12 @@ describe('aspect', () => {
     expect($content.classes()).toContain('mw-100')
     expect($content.attributes('style')).toContain('margin-left: -100%;')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when aspect is set to "4:3"', async () => {
     const wrapper = mount(BAspect, {
-      propsData: {
+      props: {
         aspect: '4:3'
       }
     })
@@ -87,11 +87,11 @@ describe('aspect', () => {
     expect($content.classes()).toContain('mw-100')
     expect($content.attributes('style')).toContain('margin-left: -100%;')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
   it('should have expected structure when aspect is set to `16/9`', async () => {
     const wrapper = mount(BAspect, {
-      propsData: {
+      props: {
         aspect: 16 / 9
       }
     })
@@ -116,6 +116,6 @@ describe('aspect', () => {
     expect($content.classes()).toContain('mw-100')
     expect($content.attributes('style')).toContain('margin-left: -100%;')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

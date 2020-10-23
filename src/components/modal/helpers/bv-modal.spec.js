@@ -1,24 +1,24 @@
-import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { config as vtuConfig, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
 import { TransitionStub } from '../../../../tests/components'
 import { ModalPlugin } from '../index'
 
 // Stub `<transition>` component
-vtuConfig.stubs.transition = TransitionStub
-
-const localVue = createLocalVue()
-localVue.use(ModalPlugin)
+vtuConfig.global.stubs.transition = TransitionStub
 
 describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
       }
     }
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        plugins: [ModalPlugin]
+      }
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -55,18 +55,20 @@ describe('$bvModal', () => {
 
     expect($modal.element.style.display).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('$bvModal.msgBoxOk() works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('div', 'app')
       }
     }
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        plugins: [ModalPlugin]
+      }
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -122,13 +124,15 @@ describe('$bvModal', () => {
 
   it('$bvModal.msgBoxConfirm() works', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('div', 'app')
       }
     }
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        plugins: [ModalPlugin]
+      }
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -164,9 +168,9 @@ describe('$bvModal', () => {
     // Find the CANCEL button and click it
     expect($modal.findAll('button').length).toBe(2)
     const $buttons = $modal.findAll('button')
-    expect($buttons.at(0).text()).toEqual('Cancel')
-    expect($buttons.at(1).text()).toEqual('OK')
-    await $buttons.at(0).trigger('click')
+    expect($buttons[0].text()).toEqual('Cancel')
+    expect($buttons[1].text()).toEqual('OK')
+    await $buttons[0].trigger('click')
 
     // Promise should now resolve
     const result = await p

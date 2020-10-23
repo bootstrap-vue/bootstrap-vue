@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BModal } from './modal'
@@ -31,7 +32,7 @@ describe('modal', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test'
         }
@@ -71,13 +72,13 @@ describe('modal', () => {
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('has expected default structure when static and lazy', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           lazy: true
         }
@@ -88,13 +89,13 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('has expected default structure when not static', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: false
         }
       })
@@ -104,13 +105,13 @@ describe('modal', () => {
       await waitNT(wrapper.vm)
       expect(wrapper.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('has expected structure when initially open', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
@@ -153,13 +154,13 @@ describe('modal', () => {
       expect($content.attributes('tabindex')).toBeDefined()
       expect($content.attributes('tabindex')).toEqual('-1')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: false,
           id: 'test-target',
           visible: true
@@ -181,7 +182,7 @@ describe('modal', () => {
       expect(outer.parentElement).toBe(document.body)
 
       // Destroy modal
-      wrapper.destroy()
+      wrapper.unmount()
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -193,7 +194,7 @@ describe('modal', () => {
     it('has expected structure when closed after being initially open', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
@@ -240,13 +241,13 @@ describe('modal', () => {
       // Backdrop should be removed
       expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('title-html prop works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           titleHtml: '<em>title</em>'
@@ -260,7 +261,7 @@ describe('modal', () => {
       expect($title.exists()).toBe(true)
       expect($title.html()).toContain('<em>title</em>')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 
@@ -269,7 +270,7 @@ describe('modal', () => {
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true
         }
       })
@@ -279,26 +280,26 @@ describe('modal', () => {
       expect($buttons.length).toBe(2)
 
       // Cancel button (left-most button)
-      const $cancel = $buttons.at(0)
+      const $cancel = $buttons[0]
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.classes()).toContain('btn')
       expect($cancel.classes()).toContain('btn-secondary')
       expect($cancel.text()).toContain('Cancel')
 
       // OK button (right-most button)
-      const $ok = $buttons.at(1)
+      const $ok = $buttons[1]
       expect($ok.attributes('type')).toBe('button')
       expect($ok.classes()).toContain('btn')
       expect($ok.classes()).toContain('btn-primary')
       expect($ok.text()).toContain('OK')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('default header close button', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true
         }
       })
@@ -308,18 +309,18 @@ describe('modal', () => {
       expect($buttons.length).toBe(1)
 
       // Close button
-      const $close = $buttons.at(0)
+      const $close = $buttons[0]
       expect($close.attributes('type')).toBe('button')
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('ok-title-html and cancel-title-html works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           okTitleHtml: '<em>ok</em>',
           cancelTitleHtml: '<em>cancel</em>'
@@ -331,26 +332,26 @@ describe('modal', () => {
       expect($buttons.length).toBe(2)
 
       // Cancel button (left-most button)
-      const $cancel = $buttons.at(0)
+      const $cancel = $buttons[0]
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.text()).toContain('cancel')
       // `v-html` is applied to a span
       expect($cancel.html()).toContain('<em>cancel</em>')
 
       // OK button (right-most button)
-      const $ok = $buttons.at(1)
+      const $ok = $buttons[1]
       expect($ok.attributes('type')).toBe('button')
       expect($ok.text()).toContain('ok')
       // `v-html` is applied to a span
       expect($ok.html()).toContain('<em>ok</em>')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('modal-ok and modal-cancel button content slots works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true
         },
         slots: {
@@ -364,20 +365,20 @@ describe('modal', () => {
       expect($buttons.length).toBe(2)
 
       // Cancel button (left-most button)
-      const $cancel = $buttons.at(0)
+      const $cancel = $buttons[0]
       expect($cancel.attributes('type')).toBe('button')
       expect($cancel.text()).toContain('foo cancel')
       // `v-html` is applied to a span
       expect($cancel.html()).toContain('<em>foo cancel</em>')
 
       // OK button (right-most button)
-      const $ok = $buttons.at(1)
+      const $ok = $buttons[1]
       expect($ok.attributes('type')).toBe('button')
       expect($ok.text()).toContain('bar ok')
       // `v-html` is applied to a span
       expect($ok.html()).toContain('<em>bar ok</em>')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 
@@ -388,13 +389,13 @@ describe('modal', () => {
       let evt = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
         },
-        listeners: {
-          hide: bvEvent => {
+        attrs: {
+          onHide: bvEvent => {
             if (cancelHide) {
               bvEvent.preventDefault()
             }
@@ -420,7 +421,7 @@ describe('modal', () => {
       expect($buttons.length).toBe(1)
 
       // Close button
-      const $close = $buttons.at(0)
+      const $close = $buttons[0]
       expect($close.attributes('type')).toBe('button')
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
@@ -458,7 +459,7 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('footer OK and CANCEL buttons trigger modal close and are preventable', async () => {
@@ -466,13 +467,13 @@ describe('modal', () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
         },
-        listeners: {
-          hide: bvEvent => {
+        attrs: {
+          onHide: bvEvent => {
             if (cancelHide) {
               bvEvent.preventDefault()
             }
@@ -497,11 +498,11 @@ describe('modal', () => {
       expect($buttons.length).toBe(2)
 
       // Cancel button (left-most button)
-      const $cancel = $buttons.at(0)
+      const $cancel = $buttons[0]
       expect($cancel.text()).toContain('Cancel')
 
       // OK button (right-most button)
-      const $ok = $buttons.at(1)
+      const $ok = $buttons[1]
       expect($ok.text()).toContain('OK')
 
       expect(wrapper.emitted('hide')).not.toBeDefined()
@@ -541,20 +542,20 @@ describe('modal', () => {
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('pressing ESC closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
         },
-        listeners: {
-          hide: bvEvent => {
+        attrs: {
+          onHide: bvEvent => {
             trigger = bvEvent.trigger
           }
         }
@@ -596,20 +597,20 @@ describe('modal', () => {
       expect(wrapper.emitted('ok')).not.toBeDefined()
       expect(wrapper.emitted('cancel')).not.toBeDefined()
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('click outside closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
         },
-        listeners: {
-          hide: bvEvent => {
+        attrs: {
+          onHide: bvEvent => {
             trigger = bvEvent.trigger
           }
         }
@@ -651,7 +652,7 @@ describe('modal', () => {
       expect(wrapper.emitted('ok')).not.toBeDefined()
       expect(wrapper.emitted('cancel')).not.toBeDefined()
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('mousedown inside followed by mouse up outside (click) does not close modal', async () => {
@@ -659,13 +660,13 @@ describe('modal', () => {
       let called = false
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true
         },
-        listeners: {
-          hide: bvEvent => {
+        attrs: {
+          onHide: bvEvent => {
             called = true
             trigger = bvEvent.trigger
           }
@@ -729,13 +730,13 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: false
@@ -776,13 +777,13 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('$root bv::toggle::modal works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: false
@@ -834,7 +835,7 @@ describe('modal', () => {
       // Modal should not be open
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('show event is cancellable', async () => {
@@ -842,7 +843,7 @@ describe('modal', () => {
       let called = 0
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: false
@@ -901,13 +902,13 @@ describe('modal', () => {
       expect(called).toBe(true)
       expect($modal.element.style.display).toEqual('block')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('instance .toggle() methods works', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: false
@@ -948,13 +949,13 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('modal closes when no-stacking is true and another modal opens', async () => {
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           static: true,
           id: 'test',
           visible: true,
@@ -987,16 +988,16 @@ describe('modal', () => {
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 
   describe('focus management', () => {
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = {
-        render(h) {
+        render() {
           return h('div', [
-            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
+            h('button', { class: 'trigger', id: 'trigger', type: 'button' }, 'trigger'),
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
@@ -1062,19 +1063,15 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
       expect(document.activeElement).toBe($button.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('returns focus to element specified in toggle() method', async () => {
       const App = {
-        render(h) {
+        render() {
           return h('div', [
-            h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
-            h(
-              'button',
-              { class: 'return-to', attrs: { id: 'return-to', type: 'button' } },
-              'trigger'
-            ),
+            h('button', { class: 'trigger', id: 'trigger', type: 'button' }, 'trigger'),
+            h('button', { class: 'return-to', id: 'return-to', type: 'button' }, 'trigger'),
             h(BModal, { props: { static: true, id: 'test', visible: false } }, 'modal content')
           ])
         }
@@ -1147,14 +1144,14 @@ describe('modal', () => {
       expect($modal.element.style.display).toEqual('none')
       expect(document.activeElement).toBe($button2.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('if focus leaves modal it returns to modal', async () => {
       const App = {
-        render(h) {
+        render() {
           return h('div', [
-            h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
+            h('button', { id: 'button', type: 'button' }, 'Button'),
             h(BModal, { props: { static: true, id: 'test', visible: true } }, 'Modal content')
           ])
         }
@@ -1228,15 +1225,15 @@ describe('modal', () => {
       // The OK button (last tabbable in modal) should be focused
       expect(document.activeElement).toBe($okButton.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
       const App = {
-        render(h) {
+        render() {
           return h('div', [
-            h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
-            h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
+            h('button', { id: 'button1', type: 'button' }, 'Button 1'),
+            h('button', { id: 'button2', type: 'button' }, 'Button 2'),
             h(
               BModal,
               {
@@ -1296,15 +1293,15 @@ describe('modal', () => {
       expect(document.activeElement).toBe($button2.element)
       expect(document.activeElement).not.toBe($content.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
       const App = {
-        render(h) {
+        render() {
           return h('div', [
-            h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
-            h('button', { attrs: { id: 'button2', type: 'button' } }, 'Button 2'),
+            h('button', { id: 'button1', type: 'button' }, 'Button 1'),
+            h('button', { id: 'button2', type: 'button' }, 'Button 2'),
             h(
               BModal,
               {
@@ -1364,7 +1361,7 @@ describe('modal', () => {
       expect(document.activeElement).not.toBe($button2.element)
       expect(document.activeElement).toBe($content.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

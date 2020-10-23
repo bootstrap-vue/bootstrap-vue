@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
 import { BTable } from './table'
@@ -18,7 +19,7 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: provider
       }
@@ -39,7 +40,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('promise items provider works', async () => {
@@ -51,7 +52,7 @@ describe('table > provider functions', () => {
       return promise
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: provider,
         showEmpty: true
@@ -88,7 +89,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('callback items provider works', async () => {
@@ -98,7 +99,7 @@ describe('table > provider functions', () => {
       return null
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: provider,
         showEmpty: true
@@ -135,7 +136,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('callback items provider expects 2 arguments', async () => {
@@ -143,7 +144,7 @@ describe('table > provider functions', () => {
       return Promise.resolve(null)
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: provider,
         showEmpty: true
@@ -181,7 +182,7 @@ describe('table > provider functions', () => {
     ).toBe(true)
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('provider refreshing works', async () => {
@@ -189,7 +190,7 @@ describe('table > provider functions', () => {
       return testItems.slice()
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         id: 'the-table',
         fields: testFields,
         items: provider
@@ -213,7 +214,7 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('refresh debouncing works', async () => {
@@ -223,7 +224,7 @@ describe('table > provider functions', () => {
       return null
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields.map(f => ({ key: f, sortable: true })),
         items: provider,
         sortBy: null,
@@ -262,7 +263,7 @@ describe('table > provider functions', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reacts to items provider function change', async () => {
@@ -275,7 +276,7 @@ describe('table > provider functions', () => {
     }
 
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: provider1
       }
@@ -309,7 +310,7 @@ describe('table > provider functions', () => {
 
     expect(wrapper.find('tbody').findAll('tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('calls provider only once when filter is pre-set object', async () => {
@@ -320,7 +321,7 @@ describe('table > provider functions', () => {
     }
 
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         filter: { a: '123' },
         fields: testFields.slice(),
         items: provider
@@ -337,7 +338,7 @@ describe('table > provider functions', () => {
 
     expect(providerCallCount).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('provider is called when filter object child property is changed', async () => {
@@ -362,7 +363,7 @@ describe('table > provider functions', () => {
           return testItems.slice()
         }
       },
-      render(h) {
+      render() {
         return h(BTable, {
           props: {
             items: this.provider,
@@ -403,6 +404,6 @@ describe('table > provider functions', () => {
       a: '456'
     })
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

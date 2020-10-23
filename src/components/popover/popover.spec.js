@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BPopover } from './popover'
@@ -15,27 +16,21 @@ const App = {
     'variant',
     'customClass'
   ],
-  render(h) {
-    return h('article', { attrs: { id: 'wrapper' } }, [
+  render() {
+    return h('article', { id: 'wrapper' }, [
       h(
         'button',
         {
-          attrs: {
-            id: 'foo',
-            type: 'button',
-            disabled: this.btnDisabled || null,
-            title: this.titleAttr || null
-          }
+          id: 'foo',
+          type: 'button',
+          disabled: this.btnDisabled || null,
+          title: this.titleAttr || null
         },
         'text'
       ),
       h(
         BPopover,
         {
-          attrs: {
-            id: 'bar',
-            'data-foo': 'bar'
-          },
           props: {
             target: 'foo',
             triggers: this.triggers,
@@ -44,7 +39,9 @@ const App = {
             noFade: this.noFade || false,
             variant: this.variant,
             customClass: this.customClass
-          }
+          },
+          id: 'bar',
+          'data-foo': 'bar'
         },
         [h('template', { slot: 'title' }, this.$slots.title), this.$slots.default || '']
       )
@@ -56,7 +53,7 @@ const App = {
 // as popover shares a common mixin with tooltip
 // So we just test a few key differences
 
-// Note: `wrapper.destroy()` MUST be called at the end of each test in order for
+// Note: `wrapper.unmount()` MUST be called at the end of each test in order for
 // the next test to function properly!
 describe('b-popover', () => {
   const originalCreateRange = document.createRange
@@ -96,7 +93,7 @@ describe('b-popover', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click'
       },
       slots: {
@@ -124,14 +121,14 @@ describe('b-popover', () => {
     expect($tipHolder.exists()).toBe(true)
     expect($tipHolder.element.nodeType).toEqual(Node.COMMENT_NODE)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('initially open has expected structure', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         triggers: 'click',
         show: true
       },
@@ -192,6 +189,6 @@ describe('b-popover', () => {
     expect(document.body.contains($tip)).toBe(false)
     expect(document.getElementById($adb)).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

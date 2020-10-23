@@ -1,13 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
 import focusInMixin from './focus-in'
 
 describe('utils/focus-in', () => {
   it('works', async () => {
     let count = 0
-    const localVue = createLocalVue()
-    const App = localVue.extend({
-      mixins: [focusInMixin],
+    const App = {
       // listenForFocusIn comes from the mixin
       created() {
         this.listenForFocusIn = true
@@ -17,14 +16,16 @@ describe('utils/focus-in', () => {
           count++
         }
       },
-      render(h) {
+      render() {
         return h('div', [h('button', 'button')])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        mixins: [focusInMixin]
+      }
     })
 
     const focusinEvt = new FocusEvent('focusin')
@@ -50,6 +51,6 @@ describe('utils/focus-in', () => {
     await waitNT(wrapper.vm)
     expect(count).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

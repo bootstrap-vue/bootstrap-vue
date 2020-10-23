@@ -13,12 +13,12 @@ describe('input-group', () => {
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render custom root element when prop tag is set', async () => {
     const wrapper = mount(BInputGroup, {
-      propsData: {
+      props: {
         tag: 'span'
       }
     })
@@ -30,12 +30,12 @@ describe('input-group', () => {
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply size class when when prop size is set', async () => {
     const wrapper = mount(BInputGroup, {
-      propsData: {
+      props: {
         size: 'lg'
       }
     })
@@ -45,7 +45,7 @@ describe('input-group', () => {
     expect(wrapper.classes()).toContain('input-group-lg')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render default slot content', async () => {
@@ -61,12 +61,12 @@ describe('input-group', () => {
     expect(wrapper.text()).toEqual('foobar')
     expect(wrapper.findAll('.input-group > *').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append props set', async () => {
     const wrapper = mount(BInputGroup, {
-      propsData: {
+      props: {
         prepend: 'foo',
         append: 'bar'
       },
@@ -90,12 +90,12 @@ describe('input-group', () => {
       true
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders input-group-prepend & input-group-append when prepend-html & append-html props set', async () => {
     const wrapper = mount(BInputGroup, {
-      propsData: {
+      props: {
         prependHtml: '<i>foo</i>',
         appendHtml: '<b>bar</b>'
       },
@@ -119,7 +119,7 @@ describe('input-group', () => {
       true
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders input-group-prepend & input-group-append when prepend & append slots present', async () => {
@@ -148,6 +148,6 @@ describe('input-group', () => {
       true
     )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

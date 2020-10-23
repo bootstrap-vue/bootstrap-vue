@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_THEAD } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
@@ -16,7 +16,7 @@ export const props = {
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BThead = /*#__PURE__*/ Vue.extend({
+export const BThead = /*#__PURE__*/ defineComponent({
   name: NAME_THEAD,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
@@ -77,11 +77,13 @@ export const BThead = /*#__PURE__*/ Vue.extend({
       return { role: 'rowgroup', ...this.bvAttrs }
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     return h(
       'thead',
       {
-        class: this.theadClasses,
+        class: [this.theadClasses, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: this.theadAttrs,
         // Pass down any native listeners
         on: this.bvListeners

@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCarousel } from './carousel'
@@ -18,7 +19,7 @@ const App = {
     // Custom props
     'slideCount'
   ],
-  render(h) {
+  render() {
     const props = { ...this.$props }
     const { slideCount = 4 } = props
     delete props.slideCount
@@ -96,13 +97,13 @@ describe('carousel', () => {
     expect($indicators.element.style.display).toEqual('none')
     expect($indicators.findAll('li').length).toBe(0) // no slides
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has prev/next controls when prop controls is set', async () => {
     const wrapper = mount(BCarousel, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         controls: true
       }
     })
@@ -159,13 +160,13 @@ describe('carousel', () => {
     expect($indicators.classes().length).toBe(1)
     expect($indicators.element.style.display).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has indicators showing when prop indicators is set', async () => {
     const wrapper = mount(BCarousel, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         indicators: true
       }
     })
@@ -206,13 +207,13 @@ describe('carousel', () => {
     expect($indicators.classes().length).toBe(1)
     expect($indicators.element.style.display).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class "carousel-fade" when prop "fade" is "true"', async () => {
     const wrapper = mount(BCarousel, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         fade: true
       }
     })
@@ -225,13 +226,13 @@ describe('carousel', () => {
     expect(wrapper.classes()).toContain('slide')
     expect(wrapper.classes()).toContain('carousel-fade')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have class "fade" or "slide" when prop "no-animation" is "true"', async () => {
     const wrapper = mount(BCarousel, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         noAnimation: true
       }
     })
@@ -244,13 +245,13 @@ describe('carousel', () => {
     expect(wrapper.classes()).not.toContain('slide')
     expect(wrapper.classes()).not.toContain('carousel-fade')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have class "fade" or "slide" when prop "no-animation" and "fade" are "true"', async () => {
     const wrapper = mount(BCarousel, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         fade: true,
         noAnimation: true
       }
@@ -264,13 +265,13 @@ describe('carousel', () => {
     expect(wrapper.classes()).not.toContain('slide')
     expect(wrapper.classes()).not.toContain('carousel-fade')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not automatically scroll to next slide when "interval" is "0"', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0
       }
     })
@@ -291,13 +292,13 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to next/prev slide when next/prev clicked', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         controls: true
       }
@@ -353,13 +354,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to next/prev slide when next/prev space keypress', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         controls: true
       }
@@ -415,13 +416,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to specified slide when indicator clicked', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         controls: true
       }
@@ -442,7 +443,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    await $indicators.at(3).trigger('click')
+    await $indicators[3].trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -461,7 +462,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    await $indicators.at(1).trigger('click')
+    await $indicators[1].trigger('click')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -477,13 +478,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to specified slide when indicator keypress space/enter', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         controls: true
       }
@@ -504,7 +505,7 @@ describe('carousel', () => {
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
     expect($carousel.emitted('input')).not.toBeDefined()
 
-    await $indicators.at(3).trigger('keydown.space')
+    await $indicators[3].trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
     expect($carousel.emitted('sliding-end')).not.toBeDefined()
@@ -523,7 +524,7 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(1)
     expect($carousel.emitted('input')[0][0]).toEqual(3)
 
-    await $indicators.at(1).trigger('keydown.enter')
+    await $indicators[1].trigger('keydown.enter')
 
     expect($carousel.emitted('sliding-start').length).toBe(2)
     expect($carousel.emitted('sliding-end').length).toBe(1)
@@ -539,13 +540,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to next/prev slide when key next/prev pressed', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         controls: true
       }
@@ -598,13 +599,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input').length).toBe(2)
     expect($carousel.emitted('input')[1][0]).toEqual(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit paused and unpaused events when "interval" changed to 0', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0
       }
     })
@@ -677,13 +678,13 @@ describe('carousel', () => {
     expect($carousel.emitted('unpaused').length).toBe(2)
     expect($carousel.emitted('paused').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should scroll to specified slide when value (v-model) changed', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         value: 0
       }
@@ -756,13 +757,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[1][0]).toEqual(3)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('changing slides works when "no-animation" set', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         noAnimation: true
       }
@@ -820,13 +821,13 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('setting new slide when sliding is active, schedules the new slide to happen after finished', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0
       }
     })
@@ -897,13 +898,13 @@ describe('carousel', () => {
     expect($carousel.emitted('input')[1][0]).toEqual(3)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('next/prev slide wraps to end/start when "no-wrap is "false"', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         noAnimation: true,
         noWrap: false,
@@ -962,13 +963,13 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('next/prev slide does not wrap to end/start when "no-wrap" is "true"', async () => {
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         interval: 0,
         // Transitions (or fallback timers) are not used when no-animation set
         noAnimation: true,
@@ -1064,6 +1065,6 @@ describe('carousel', () => {
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

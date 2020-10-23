@@ -4,7 +4,7 @@ import { TransitionGroupStub } from '../../../tests/components'
 import { BTable } from './table'
 
 // Stub `<transition-group>` component
-vtuConfig.stubs['transition-group'] = TransitionGroupStub
+vtuConfig.global.stubs['transition-group'] = TransitionGroupStub
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
 const testFields = ['a', 'b', 'c']
@@ -13,7 +13,7 @@ describe('table > tbody transition', () => {
   it('tbody should not be a transition-group component by default', async () => {
     const wrapper = mount(BTable, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -25,13 +25,13 @@ describe('table > tbody transition', () => {
     // `<transition-group>` stub doesn't render itself with the specified tag
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('tbody should be a transition-group component when tbody-transition-props set', async () => {
     const wrapper = mount(BTable, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         tbodyTransitionProps: {
@@ -45,13 +45,13 @@ describe('table > tbody transition', () => {
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('tbody should be a transition-group component when tbody-transition-handlers set', async () => {
     const wrapper = mount(BTable, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         tbodyTransitionHandlers: {
@@ -68,6 +68,6 @@ describe('table > tbody transition', () => {
     expect(wrapper.findComponent(TransitionGroupStub).exists()).toBe(true)
     expect(wrapper.find('tbody').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

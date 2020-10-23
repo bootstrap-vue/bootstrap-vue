@@ -15,7 +15,7 @@ describe('nav > nav-form', () => {
     expect($form.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -34,12 +34,12 @@ describe('nav > nav-form', () => {
     expect($form.classes()).toContain('form-inline')
     expect($form.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies ID to form when prop ID is set', async () => {
     const wrapper = mount(BNavForm, {
-      propsData: {
+      props: {
         id: 'baz'
       },
       slots: {
@@ -57,17 +57,17 @@ describe('nav > nav-form', () => {
     expect($form.text()).toEqual('foobar')
     expect($form.attributes('id')).toEqual('baz')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('listeners are bound to form element', async () => {
     const onSubmit = jest.fn()
     const wrapper = mount(BNavForm, {
-      propsData: {
+      props: {
         id: 'baz'
       },
-      listeners: {
-        submit: onSubmit
+      attrs: {
+        onSubmit
       },
       slots: {
         default: 'foobar'
@@ -88,6 +88,6 @@ describe('nav > nav-form', () => {
     await $form.trigger('submit')
     expect(onSubmit).toHaveBeenCalled()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,4 +1,4 @@
-import Vue from '../vue'
+import { Vue, isVue2 } from '../vue'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import memoize from './memoize'
@@ -7,7 +7,8 @@ import DEFAULTS from './config-defaults'
 // --- Constants ---
 
 const PROP_NAME = '$bvConfig'
-const VueProto = Vue.prototype
+// TODO: Implement instance properties for Vue 3
+const VueProto = isVue2 ? Vue.prototype : {}
 
 // --- Getter methods ---
 // All methods return a deep clone (immutable) copy of the config

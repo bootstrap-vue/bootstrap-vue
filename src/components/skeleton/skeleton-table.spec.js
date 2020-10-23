@@ -13,12 +13,12 @@ describe('skeleton-table', () => {
     expect(wrapper.findAll('tbody > tr > td > div').length).toBe(15)
     expect(wrapper.find('tfoot').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("prop `hide-header` doesn't render `<thead>`", async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         hideHeader: true
       }
     })
@@ -27,12 +27,12 @@ describe('skeleton-table', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('thead').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('prop `show-footer` renders `<tfoot>`', async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         showFooter: true
       }
     })
@@ -41,12 +41,12 @@ describe('skeleton-table', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tfoot').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('setting `rows` prop changes amount of `tr` rendered in `tbody`', async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         rows: 7
       }
     })
@@ -55,12 +55,12 @@ describe('skeleton-table', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.findAll('tbody > tr').length).toBe(7)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('setting `columns` prop changes amount of `th` rendered in `thead`', async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         columns: 6
       }
     })
@@ -69,12 +69,12 @@ describe('skeleton-table', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.findAll('thead > tr > th').length).toBe(6)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`table-props` are properly passed to the table', async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         tableProps: {
           bordered: true,
           striped: true
@@ -87,12 +87,12 @@ describe('skeleton-table', () => {
     expect(wrapper.classes()).toContain('table-bordered')
     expect(wrapper.classes()).toContain('table-striped')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`animation` prop changes animation used in cells', async () => {
     const wrapper = mount(BSkeletonTable, {
-      propsData: {
+      props: {
         animation: 'fade'
       }
     })
@@ -101,6 +101,6 @@ describe('skeleton-table', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('tbody > tr > td > div').classes()).toContain('b-skeleton-animate-fade')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

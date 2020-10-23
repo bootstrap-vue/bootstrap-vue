@@ -51,12 +51,12 @@ describe('form-spinbutton', () => {
     await waitNT(wrapper.vm)
     expect($output.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when value set', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      propsData: {
+      props: {
         min: 0,
         max: 10,
         value: 5
@@ -110,12 +110,12 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('8')
     expect($output.attributes('aria-valuetext')).toEqual('8')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when prop inline set', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      propsData: {
+      props: {
         inline: true
       }
     })
@@ -158,12 +158,12 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when prop vertical set', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      propsData: {
+      props: {
         vertical: true
       }
     })
@@ -206,12 +206,12 @@ describe('form-spinbutton', () => {
     expect($output.element.hasAttribute('aria-valuenow')).toBe(false)
     expect($output.element.hasAttribute('aria-valuetext')).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders hidden input when name set', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      propsData: {
+      props: {
         name: 'foobar',
         value: null
       }
@@ -236,7 +236,7 @@ describe('form-spinbutton', () => {
     expect($hidden.attributes('name')).toBe('foobar')
     expect($hidden.attributes('value')).toBe('50')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('basic +/- buttons click', async () => {
@@ -379,7 +379,7 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('1')
     expect($output.attributes('aria-valuetext')).toEqual('1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('basic keyboard control works', async () => {
@@ -483,14 +483,14 @@ describe('form-spinbutton', () => {
     expect($output.attributes('aria-valuenow')).toEqual('5')
     expect($output.attributes('aria-valuetext')).toEqual('5')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('auto repeat works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BFormSpinbutton, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         min: 1,
         max: 100,
         step: 1,
@@ -651,7 +651,7 @@ describe('form-spinbutton', () => {
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focus and blur handling works', async () => {
@@ -726,6 +726,6 @@ describe('form-spinbutton', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($output.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -19,12 +19,12 @@ describe('button', () => {
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders a link when href provided', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         href: '/foo/bar'
       }
     })
@@ -43,7 +43,7 @@ describe('button', () => {
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -62,12 +62,12 @@ describe('button', () => {
     expect(wrapper.find('span').exists()).toBe(true)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies variant class', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         variant: 'danger'
       }
     })
@@ -79,12 +79,12 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn-danger')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies block class', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         block: true
       }
     })
@@ -97,12 +97,12 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn-block')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies rounded-pill class when pill prop set', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pill: true
       }
     })
@@ -115,12 +115,12 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('rounded-pill')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies rounded-0 class when squared prop set', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         squared: true
       }
     })
@@ -133,12 +133,12 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('rounded-0')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         tag: 'div'
       }
     })
@@ -158,12 +158,12 @@ describe('button', () => {
     expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('button has attribute disabled when disabled set', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         disabled: true
       }
     })
@@ -176,12 +176,12 @@ describe('button', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('link has attribute aria-disabled when disabled set', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         href: '/foo/bar',
         disabled: true
       }
@@ -200,12 +200,12 @@ describe('button', () => {
     // Shouldn't have a role with href not `#`
     expect(wrapper.attributes('role')).not.toEqual('button')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('link with href="#" should have role="button"', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         href: '#'
       }
     })
@@ -216,15 +216,15 @@ describe('button', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('role')).toEqual('button')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit click event when clicked', async () => {
     let called = 0
     let evt = null
     const wrapper = mount(BButton, {
-      listeners: {
-        click: e => {
+      attrs: {
+        onClick: e => {
           evt = e
           called++
         }
@@ -238,18 +238,18 @@ describe('button', () => {
     expect(called).toBe(1)
     expect(evt).toBeInstanceOf(MouseEvent)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('link with href="#" should treat keydown.space as click', async () => {
     let called = 0
     let evt = null
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         href: '#'
       },
-      listeners: {
-        click: e => {
+      attrs: {
+        onClick: e => {
           evt = e
           called++
         }
@@ -272,17 +272,17 @@ describe('button', () => {
 
     // Links treat keydown.enter natively as a click
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not emit click event when clicked and disabled', async () => {
     let called = 0
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         disabled: true
       },
-      listeners: {
-        click: () => {
+      attrs: {
+        onClick: () => {
           called++
         }
       }
@@ -293,12 +293,12 @@ describe('button', () => {
     await wrapper.find('button').trigger('click')
     expect(called).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have `.active` class and `aria-pressed` when pressed is null', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pressed: null
       }
     })
@@ -310,12 +310,12 @@ describe('button', () => {
     expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
     expect(wrapper.attributes('autocomplete')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have `.active` class and have `aria-pressed="false"` when pressed is false', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pressed: false
       }
     })
@@ -326,12 +326,12 @@ describe('button', () => {
     expect(wrapper.attributes('autocomplete')).toBeDefined()
     expect(wrapper.attributes('autocomplete')).toBe('off')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have `.active` class and have `aria-pressed="true"` when pressed is true', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pressed: true
       }
     })
@@ -342,12 +342,12 @@ describe('button', () => {
     expect(wrapper.attributes('autocomplete')).toBeDefined()
     expect(wrapper.attributes('autocomplete')).toBe('off')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('pressed should have `.focus` class when focused', async () => {
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pressed: false
       }
     })
@@ -358,18 +358,18 @@ describe('button', () => {
     await wrapper.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should update the parent sync value on click and when pressed is not null', async () => {
     let called = 0
     const values = []
     const wrapper = mount(BButton, {
-      propsData: {
+      props: {
         pressed: false
       },
-      listeners: {
-        'update:pressed': val => {
+      attrs: {
+        'onUpdate:pressed': val => {
           values.push(val)
           called++
         }
@@ -383,6 +383,6 @@ describe('button', () => {
     expect(called).toBe(1)
     expect(values[0]).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

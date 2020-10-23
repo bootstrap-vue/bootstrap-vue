@@ -7,7 +7,7 @@ describe('card-title', () => {
 
     expect(wrapper.element.tagName).toBe('H4')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class "card-title"', async () => {
@@ -16,19 +16,17 @@ describe('card-title', () => {
     expect(wrapper.classes()).toContain('card-title')
     expect(wrapper.classes().length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom tag', async () => {
     const wrapper = mount(BCardTitle, {
-      context: {
-        props: { titleTag: 'div' }
-      }
+      props: { titleTag: 'div' }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from default slot', async () => {
@@ -40,6 +38,6 @@ describe('card-title', () => {
 
     expect(wrapper.text()).toContain('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

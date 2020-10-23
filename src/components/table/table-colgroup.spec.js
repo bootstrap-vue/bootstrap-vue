@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import normalizeFields from './helpers/normalize-fields'
@@ -9,7 +10,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > colgroup', () => {
   it('should not have colgroup by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -18,12 +19,12 @@ describe('table > colgroup', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('colgroup').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render named slot `table-colgroup`', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -42,22 +43,22 @@ describe('table > colgroup', () => {
     ).toBe(true)
     expect(wrapper.find('colgroup').findAll('col').length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render scoped slot `table-colgroup`', async () => {
     let fields = []
     let columns
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
-      scopedSlots: {
+      slots: {
         'table-colgroup': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement('col', { attrs: { span: columns } })
+          return h('col', { span: columns })
         }
       }
     })
@@ -76,6 +77,6 @@ describe('table > colgroup', () => {
     expect(wrapper.findAll('col').length).toBe(1)
     expect(wrapper.find('col').attributes('span')).toBe('3')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

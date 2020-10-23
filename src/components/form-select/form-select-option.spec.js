@@ -4,7 +4,7 @@ import { BFormSelectOption } from './form-select-option'
 describe('form-select-option', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSelectOption, {
-      propsData: {
+      props: {
         value: 'foo'
       }
     })
@@ -14,12 +14,12 @@ describe('form-select-option', () => {
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
-      propsData: {
+      props: {
         value: 'foo'
       },
       slots: {
@@ -32,12 +32,12 @@ describe('form-select-option', () => {
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders HTML as default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
-      propsData: {
+      props: {
         value: 'foo'
       },
       slots: {
@@ -52,12 +52,12 @@ describe('form-select-option', () => {
     const $bold = wrapper.find('b')
     expect($bold.text()).toEqual('Bold')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has disabled attribute applied when disabled=true', async () => {
     const wrapper = mount(BFormSelectOption, {
-      propsData: {
+      props: {
         value: 'foo',
         disabled: true
       }
@@ -70,6 +70,6 @@ describe('form-select-option', () => {
     expect(wrapper.attributes('disabled')).toEqual('disabled')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

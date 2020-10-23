@@ -1,6 +1,6 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
@@ -59,7 +59,7 @@ const cleanTagsState = () => ({
 })
 
 // @vue/component
-export const BFormTags = /*#__PURE__*/ Vue.extend({
+export const BFormTags = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAGS,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
@@ -560,8 +560,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       duplicateTagText,
       limitTagsText
     }) {
-      const h = this.$createElement
-
       // Make the list of tags
       const $tags = tags.map(tag => {
         tag = toString(tag)
@@ -748,7 +746,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return [$ul, $feedback]
     }
   },
-  render(h) {
+  render() {
     // Scoped slot properties
     const scope = {
       // Array of tags (shallow copy to prevent mutations)

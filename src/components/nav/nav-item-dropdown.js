@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_NAV_ITEM_DROPDOWN } from '../../constants/components'
 import {
   SLOT_NAME_BUTTON_CONTENT,
@@ -21,7 +21,7 @@ export const props = pluckProps(
 
 // --- Main component ---
 // @vue/component
-export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
+export const BNavItemDropdown = /*#__PURE__*/ defineComponent({
   name: NAME_NAV_ITEM_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -45,7 +45,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
       return [this.toggleClass, { 'dropdown-toggle-no-caret': this.noCaret }]
     }
   },
-  render(h) {
+  render() {
     const { toggleId, visible } = this
 
     const $toggle = h(

@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormFile } from './form-file'
@@ -5,7 +6,7 @@ import { BFormFile } from './form-file'
 describe('form-file', () => {
   it('default has expected structure, classes and attributes', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -36,12 +37,12 @@ describe('form-file', () => {
     expect(label.attributes('for')).toBeDefined()
     expect(label.attributes('for')).toBe('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute multiple when multiple=true', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: true
       }
@@ -50,12 +51,12 @@ describe('form-file', () => {
     const $input = wrapper.find('input')
     expect($input.attributes('multiple')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute required when required=true', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         required: true
       }
@@ -66,12 +67,12 @@ describe('form-file', () => {
     expect($input.attributes('aria-required')).toBeDefined()
     expect($input.attributes('aria-required')).toBe('true')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute disabled when disabled=true', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         disabled: true
       }
@@ -80,12 +81,12 @@ describe('form-file', () => {
     const $input = wrapper.find('input')
     expect($input.attributes('disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute capture when capture=true', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         capture: true
       }
@@ -94,12 +95,12 @@ describe('form-file', () => {
     const $input = wrapper.find('input')
     expect($input.attributes('capture')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute accept when accept is set', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         accept: 'image/*'
       }
@@ -109,12 +110,12 @@ describe('form-file', () => {
     expect($input.attributes('accept')).toBeDefined()
     expect($input.attributes('accept')).toBe('image/*')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute name when name is set', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         name: 'bar'
       }
@@ -124,12 +125,12 @@ describe('form-file', () => {
     expect($input.attributes('name')).toBeDefined()
     expect($input.attributes('name')).toBe('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has input attribute form when form is set', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         form: 'bar'
       }
@@ -139,12 +140,12 @@ describe('form-file', () => {
     expect($input.attributes('form')).toBeDefined()
     expect($input.attributes('form')).toBe('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has custom attributes transferred input element', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         foo: 'bar'
       }
@@ -154,12 +155,12 @@ describe('form-file', () => {
     expect($input.attributes('foo')).toBeDefined()
     expect($input.attributes('foo')).toEqual('bar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class focus when input focused', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -174,12 +175,12 @@ describe('form-file', () => {
     await $input.trigger('focusout')
     expect($input.classes()).not.toContain('focus')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has no wrapper div or label when plain=true', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         plain: true
       }
@@ -192,12 +193,12 @@ describe('form-file', () => {
     expect(wrapper.attributes('id')).toBe('foo')
     expect(wrapper.attributes('multiple')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits input event when file changed', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -220,12 +221,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits input event when files changed in multiple mode', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: true
       }
@@ -265,12 +266,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits input event when files changed in directory mode', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: true,
         directory: true
@@ -315,12 +316,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits flat files array when `no-traverse` prop set', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: true,
         directory: true,
@@ -348,12 +349,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual([file1, file2, file3])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('native change event works', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -378,12 +379,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reset() method works in single mode', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: false
       }
@@ -407,12 +408,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reset() method works in multiple mode', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         multiple: true
       }
@@ -440,12 +441,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual([])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reset works in single mode by setting value', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         value: null
       }
@@ -466,12 +467,12 @@ describe('form-file', () => {
     await wrapper.setProps({ value: null })
     expect(wrapper.emitted('input').length).toEqual(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('reset works in multiple mode by setting value', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         value: [],
         multiple: true
@@ -508,12 +509,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(4)
     expect(wrapper.emitted('input')[3][0]).toEqual([])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('native reset event works', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         value: null
       }
@@ -535,12 +536,12 @@ describe('form-file', () => {
     expect(wrapper.emitted('input').length).toEqual(2)
     expect(wrapper.emitted('input')[1][0]).toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('form native reset event triggers BFormFile reset', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('form', {}, [h(BFormFile, { id: 'foo' })])
       }
     }
@@ -570,7 +571,7 @@ describe('form-file', () => {
     expect(formFile.emitted('input').length).toEqual(2)
     expect(formFile.emitted('input')[1][0]).toEqual(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('file-name-formatter works', async () => {
@@ -578,7 +579,7 @@ describe('form-file', () => {
     let filesArray = null
     let filesTraversedArray = null
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         fileNameFormatter: (files, filesTraversed) => {
           called = true
@@ -609,16 +610,16 @@ describe('form-file', () => {
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('some files')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('file-name slot works', async () => {
     let slotScope = null
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo'
       },
-      scopedSlots: {
+      slots: {
         'file-name': scope => {
           slotScope = scope
           return 'foobar'
@@ -642,12 +643,12 @@ describe('form-file', () => {
     // Should have our custom formatted "filename"
     expect(wrapper.find('label').text()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('drag placeholder and drop works', async () => {
     const wrapper = mount(BFormFile, {
-      propsData: {
+      props: {
         id: 'foo',
         placeholder: 'PLACEHOLDER',
         dropPlaceholder: 'DROP_HERE',
@@ -714,7 +715,7 @@ describe('form-file', () => {
     expect($label.text()).not.toContain('DROP_HERE')
     expect($label.text()).toContain(file.name)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   // These tests are wrapped in a new describe to limit the scope of the getBCR Mock
@@ -742,7 +743,7 @@ describe('form-file', () => {
     it('works when true', async () => {
       const wrapper = mount(BFormFile, {
         attachTo: createContainer(),
-        propsData: {
+        props: {
           autofocus: true
         }
       })
@@ -756,7 +757,7 @@ describe('form-file', () => {
       expect(document).toBeDefined()
       expect(document.activeElement).toBe($input.element)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 
@@ -777,12 +778,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(true)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to single extension', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: '.txt'
         }
       })
@@ -794,12 +795,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(false)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to multiple extensions', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: '.txt,.html, .png'
         }
       })
@@ -811,12 +812,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(true)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to single mime type', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: 'text/plain'
         }
       })
@@ -828,12 +829,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(false)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to single wildcard mime type', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: 'text/*'
         }
       })
@@ -845,12 +846,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(false)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to multiple mime types', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: 'text/*, application/json'
         }
       })
@@ -862,12 +863,12 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(false)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
 
     it('isFileValid() works with accept set to mime and extension', async () => {
       const wrapper = mount(BFormFile, {
-        propsData: {
+        props: {
           accept: '.png, application/json'
         }
       })
@@ -879,7 +880,7 @@ describe('form-file', () => {
       expect(vm.isFileValid(filePng)).toBe(true)
       expect(vm.isFileValid()).toBe(false)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

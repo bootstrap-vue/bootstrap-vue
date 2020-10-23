@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import { htmlOrText } from '../../utils/html'
 import { omit } from '../../utils/object'
@@ -25,11 +25,11 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
+export const BBreadcrumbLink = /*#__PURE__*/ defineComponent({
   name: NAME_BREADCRUMB_LINK,
   functional: true,
   props,
-  render(h, { props: suppliedProps, data, children }) {
+  render(_, { props: suppliedProps, data, children }) {
     const { active } = suppliedProps
     const tag = active ? 'span' : BLink
 
@@ -42,6 +42,6 @@ export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
       componentData.domProps = htmlOrText(suppliedProps.html, suppliedProps.text)
     }
 
-    return h(tag, mergeData(data, componentData), children)
+    return h(tag, mergeProps(data, componentData), children)
   }
 })

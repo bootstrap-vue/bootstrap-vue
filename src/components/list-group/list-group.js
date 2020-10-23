@@ -1,6 +1,8 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_LIST_GROUP } from '../../constants/components'
 import { isString } from '../../utils/inspect'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -17,12 +19,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BListGroup = /*#__PURE__*/ Vue.extend({
+export const BListGroup = /*#__PURE__*/ defineComponent({
   name: NAME_LIST_GROUP,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     let horizontal = props.horizontal === '' ? true : props.horizontal
     horizontal = props.flush ? false : horizontal
     const componentData = {
@@ -33,6 +36,6 @@ export const BListGroup = /*#__PURE__*/ Vue.extend({
         [`list-group-horizontal-${horizontal}`]: isString(horizontal)
       }
     }
-    return h(props.tag, mergeData(data, componentData), children)
+    return h(props.tag, mergeProps(data, componentData), children)
   }
 })

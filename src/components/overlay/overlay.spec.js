@@ -24,12 +24,12 @@ describe('overlay', () => {
     expect(wrapper.find('.b-overlay').exists()).toBe(false)
     expect(wrapper.find('.spinner-border').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected default structure when `show` prop is true', async () => {
     const wrapper = mount(BOverlay, {
-      propsData: {
+      props: {
         show: true
       },
       slots: {
@@ -56,26 +56,21 @@ describe('overlay', () => {
     const $children = $overlay.findAll('div:not(.b-overlay)')
     expect($children.length).toBe(2)
 
-    expect($children.at(0).classes()).toContain('position-absolute')
-    expect($children.at(0).classes()).toContain('bg-light')
-    expect($children.at(0).text()).toBe('')
+    expect($children[0].classes()).toContain('position-absolute')
+    expect($children[0].classes()).toContain('bg-light')
+    expect($children[0].text()).toBe('')
 
-    expect($children.at(1).classes()).toContain('position-absolute')
-    expect($children.at(1).classes()).not.toContain('bg-light')
-    expect(
-      $children
-        .at(1)
-        .find('.spinner-border')
-        .exists()
-    ).toBe(true)
+    expect($children[1].classes()).toContain('position-absolute')
+    expect($children[1].classes()).not.toContain('bg-light')
+    expect($children[1].find('.spinner-border').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('responds to changes in the `show` prop', async () => {
     const wrapper = mount(BOverlay, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         show: false
       },
       slots: {
@@ -162,12 +157,12 @@ describe('overlay', () => {
     expect(wrapper.emitted('shown').length).toBe(2)
     expect(wrapper.emitted('hidden').length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits event when overlay clicked', async () => {
     const wrapper = mount(BOverlay, {
-      propsData: {
+      props: {
         show: true
       },
       slots: {
@@ -195,12 +190,12 @@ describe('overlay', () => {
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
     expect(wrapper.emitted('click')[0][0].type).toEqual('click')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected default structure when `no-wrap` is set', async () => {
     const wrapper = mount(BOverlay, {
-      propsData: {
+      props: {
         noWrap: true
       }
     })
@@ -213,12 +208,12 @@ describe('overlay', () => {
 
     expect(wrapper.find('div').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected default structure when `no-wrap` is set and `show` is true', async () => {
     const wrapper = mount(BOverlay, {
-      propsData: {
+      props: {
         noWrap: true,
         show: true
       }
@@ -239,19 +234,14 @@ describe('overlay', () => {
     const $children = wrapper.findAll('div:not(.b-overlay)')
     expect($children.length).toBe(2)
 
-    expect($children.at(0).classes()).toContain('position-absolute')
-    expect($children.at(0).classes()).toContain('bg-light')
-    expect($children.at(0).text()).toBe('')
+    expect($children[0].classes()).toContain('position-absolute')
+    expect($children[0].classes()).toContain('bg-light')
+    expect($children[0].text()).toBe('')
 
-    expect($children.at(1).classes()).toContain('position-absolute')
-    expect($children.at(1).classes()).not.toContain('bg-light')
-    expect(
-      $children
-        .at(1)
-        .find('.spinner-border')
-        .exists()
-    ).toBe(true)
+    expect($children[1].classes()).toContain('position-absolute')
+    expect($children[1].classes()).not.toContain('bg-light')
+    expect($children[1].find('.spinner-border').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -7,7 +7,7 @@ describe('list-group', () => {
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default should contain only single class of list-group', async () => {
@@ -18,26 +18,22 @@ describe('list-group', () => {
     expect(wrapper.classes()).not.toContain('list-group-flush')
     expect(wrapper.classes()).not.toContain('list-group-horizontal')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have tag ul then prop tag=ul', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: { tag: 'ul' }
-      }
+      props: { tag: 'ul' }
     })
 
     expect(wrapper.element.tagName).toBe('UL')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class list-group-flush when prop flush=true', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: { flush: true }
-      }
+      props: { flush: true }
     })
 
     expect(wrapper.classes().length).toBe(2)
@@ -45,14 +41,12 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group-flush')
     expect(wrapper.classes()).not.toContain('list-group-horizontal')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class list-group-horizontal when prop horizontal=true', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: { horizontal: true }
-      }
+      props: { horizontal: true }
     })
 
     expect(wrapper.classes().length).toBe(2)
@@ -60,14 +54,12 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group')
     expect(wrapper.classes()).toContain('list-group-horizontal')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class list-group-horizontal-md when prop horizontal=md', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: { horizontal: 'md' }
-      }
+      props: { horizontal: 'md' }
     })
 
     expect(wrapper.classes().length).toBe(2)
@@ -76,16 +68,14 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group')
     expect(wrapper.classes()).toContain('list-group-horizontal-md')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have class list-group-horizontal when prop horizontal=true and flush=true', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: {
-          horizontal: true,
-          flush: true
-        }
+      props: {
+        horizontal: true,
+        flush: true
       }
     })
 
@@ -94,16 +84,14 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group')
     expect(wrapper.classes()).toContain('list-group-flush')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not have class list-group-horizontal-lg when prop horizontal=lg and flush=true', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
-        props: {
-          horizontal: 'lg',
-          flush: true
-        }
+      props: {
+        horizontal: 'lg',
+        flush: true
       }
     })
 
@@ -113,12 +101,12 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group')
     expect(wrapper.classes()).toContain('list-group-flush')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should accept custom classes', async () => {
     const wrapper = mount(BListGroup, {
-      context: {
+      attrs: {
         class: 'foobar'
       }
     })
@@ -127,6 +115,6 @@ describe('list-group', () => {
     expect(wrapper.classes()).toContain('list-group')
     expect(wrapper.classes()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

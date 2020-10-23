@@ -4,7 +4,7 @@ import { BSkeletonWrapper } from './skeleton-wrapper'
 describe('skeleton-wrapper', () => {
   it('`loading` slot renders when `loading` prop is true', async () => {
     const wrapper = mount(BSkeletonWrapper, {
-      propsData: {
+      props: {
         loading: true
       },
       slots: {
@@ -18,12 +18,12 @@ describe('skeleton-wrapper', () => {
 
     expect(wrapper.find('span').exists()).toBe(true)
     expect(wrapper.find('span').text()).toBe('Loading state')
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`default` slot renders when `loading` prop is false', async () => {
     const wrapper = mount(BSkeletonWrapper, {
-      propsData: {
+      props: {
         loading: false
       },
       slots: {
@@ -37,7 +37,7 @@ describe('skeleton-wrapper', () => {
 
   it('root element has correct aria attributes in loading state', async () => {
     const wrapper = mount(BSkeletonWrapper, {
-      propsData: {
+      props: {
         loading: true
       }
     })

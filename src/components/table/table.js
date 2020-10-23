@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TABLE } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import hasListenerMixin from '../../mixins/has-listener'
@@ -26,7 +26,7 @@ import topRowMixin from './helpers/mixin-top-row'
 
 // b-table component definition
 // @vue/component
-export const BTable = /*#__PURE__*/ Vue.extend({
+export const BTable = /*#__PURE__*/ defineComponent({
   name: NAME_TABLE,
   // Order of mixins is important!
   // They are merged from first to last, followed by this component

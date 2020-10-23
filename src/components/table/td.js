@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TABLE_CELL } from '../../constants/components'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -51,7 +51,7 @@ export const props = {
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BTd = /*#__PURE__*/ Vue.extend({
+export const BTd = /*#__PURE__*/ defineComponent({
   name: NAME_TABLE_CELL,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
@@ -187,12 +187,14 @@ export const BTd = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
+    const { bvAttrs } = this
     const content = [this.normalizeSlot()]
     return h(
       this.tag,
       {
-        class: this.cellClasses,
+        class: [this.cellClasses, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: this.cellAttrs,
         // Transfer any native listeners
         on: this.bvListeners

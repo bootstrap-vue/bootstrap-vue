@@ -1,5 +1,5 @@
 // BTime control (not form input control)
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
 import { RX_TIME } from '../../constants/regex'
@@ -57,7 +57,7 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
 }
 
 // @vue/component
-export const BTime = /*#__PURE__*/ Vue.extend({
+export const BTime = /*#__PURE__*/ defineComponent({
   name: NAME_TIME,
   mixins: [idMixin, normalizeSlotMixin],
   model: {
@@ -280,7 +280,6 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       return this.labelNoTimeSelected || ' '
     },
     spinScopedSlots() {
-      const h = this.$createElement
       return {
         increment: ({ hasFocus }) =>
           h(BIconChevronUp, {
@@ -437,7 +436,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     /* istanbul ignore if */
     if (this.hidden) {
       // If hidden, we just render a placeholder comment

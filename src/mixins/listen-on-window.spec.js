@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
 import listenOnWindowMixin from './listen-on-window'
@@ -28,7 +29,7 @@ describe('mixins/listen-on-window', () => {
           }
         }
       },
-      render(h) {
+      render() {
         return h('div', this.$slots.default)
       }
     }
@@ -45,7 +46,7 @@ describe('mixins/listen-on-window', () => {
           default: false
         }
       },
-      render(h) {
+      render() {
         const props = {
           offResizeOne: this.offResizeOne
         }
@@ -55,7 +56,7 @@ describe('mixins/listen-on-window', () => {
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         destroy: false
       }
     })
@@ -111,6 +112,6 @@ describe('mixins/listen-on-window', () => {
     expect(spyResize2).toHaveBeenCalledTimes(2)
     expect(spyScroll).toHaveBeenCalledTimes(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

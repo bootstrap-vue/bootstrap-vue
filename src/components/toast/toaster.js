@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
@@ -34,7 +34,7 @@ export const props = {
 }
 
 // @vue/component
-export const DefaultTransition = /*#__PURE__*/ Vue.extend({
+export const DefaultTransition = /*#__PURE__*/ defineComponent({
   data() {
     return {
       // Transition classes base name
@@ -53,7 +53,7 @@ export const DefaultTransition = /*#__PURE__*/ Vue.extend({
       })
     }
   },
-  render(h) {
+  render() {
     return h(
       'transition-group',
       {
@@ -66,7 +66,7 @@ export const DefaultTransition = /*#__PURE__*/ Vue.extend({
 })
 
 // @vue/component
-export const BToaster = /*#__PURE__*/ Vue.extend({
+export const BToaster = /*#__PURE__*/ defineComponent({
   name: NAME_TOASTER,
   props,
   data() {
@@ -103,7 +103,7 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
       this.$el.parentNode.removeChild(this.$el)
     }
   },
-  render(h) {
+  render() {
     let $toaster = h('div', { class: ['d-none', { 'b-dead-toaster': this.dead }] })
     if (this.doRender) {
       const $target = h(PortalTarget, {

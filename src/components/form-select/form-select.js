@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
 import { from as arrayFrom } from '../../utils/array'
@@ -16,7 +16,7 @@ import { BFormSelectOption } from './form-select-option'
 import { BFormSelectOptionGroup } from './form-select-option-group'
 
 // @vue/component
-export const BFormSelect = /*#__PURE__*/ Vue.extend({
+export const BFormSelect = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SELECT,
   mixins: [
     idMixin,
@@ -103,7 +103,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
       })
     }
   },
-  render(h) {
+  render() {
     const { name, disabled, required, computedSelectSize: size, localValue: value } = this
 
     const $options = this.formOptions.map((option, index) => {

@@ -15,14 +15,12 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when prop tag set', async () => {
     const wrapper = mount(BDropdownDivider, {
-      context: {
-        props: { tag: 'span' }
-      }
+      props: { tag: 'span' }
     })
 
     expect(wrapper.element.tagName).toBe('LI')
@@ -35,7 +33,7 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not render default slot content', async () => {
@@ -53,6 +51,6 @@ describe('dropdown > dropdown-divider', () => {
     expect(divider.attributes('role')).toEqual('separator')
     expect(divider.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

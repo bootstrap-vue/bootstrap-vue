@@ -9,7 +9,7 @@ describe('form', () => {
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -25,12 +25,12 @@ describe('form', () => {
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class form-inline when prop inline set', async () => {
     const wrapper = mount(BForm, {
-      propsData: {
+      props: {
         inline: true
       }
     })
@@ -42,12 +42,12 @@ describe('form', () => {
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class was-validation when prop validated set', async () => {
     const wrapper = mount(BForm, {
-      propsData: {
+      props: {
         validated: true
       }
     })
@@ -59,12 +59,12 @@ describe('form', () => {
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has user supplied id', async () => {
     const wrapper = mount(BForm, {
-      propsData: {
+      props: {
         id: 'foo'
       }
     })
@@ -76,12 +76,12 @@ describe('form', () => {
     expect(wrapper.attributes('novalidate')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute novalidate when prop novalidate set', async () => {
     const wrapper = mount(BForm, {
-      propsData: {
+      props: {
         novalidate: true
       }
     })
@@ -92,6 +92,6 @@ describe('form', () => {
     expect(wrapper.attributes('novalidate')).toBeDefined()
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

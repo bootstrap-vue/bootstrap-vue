@@ -20,7 +20,7 @@
 // When used in a render function:
 // export default {
 //   directives: { 'b-visible': VBVisible },
-//   render(h) {
+//   render() {
 //     h(
 //       'div',
 //       {

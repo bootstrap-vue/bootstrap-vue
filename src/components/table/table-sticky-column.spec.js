@@ -13,7 +13,7 @@ const fields = [
 describe('table > sticky columns', () => {
   it('has expected classes when sticky column is enabled and responsive', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         responsive: true,
         footClone: true,
         items,
@@ -32,112 +32,72 @@ describe('table > sticky columns', () => {
     // Body
     let trs = wrapper.findAll('tbody > tr')
     expect(trs.length).toBe(2)
-    let cells = trs.at(0).findAll('th, td')
+    let cells = trs[0].findAll('th, td')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTd with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTd)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TD')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTd).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TD')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
-    expect(cells.at(2).element.tagName).toBe('TD')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].vm).not.toBeDefined()
+    expect(cells[2].element.tagName).toBe('TD')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Header cells
     trs = wrapper.findAll('thead > tr')
     expect(trs.length).toBe(1)
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Footer cells
     trs = wrapper.findAll('tfoot > tr')
     expect(trs.length).toBe(1)
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected classes when sticky column is enabled with sticky headers', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         responsive: false,
         stickyHeader: true,
         footClone: true,
@@ -157,113 +117,73 @@ describe('table > sticky columns', () => {
     // Tbody cells
     let trs = wrapper.findAll('tbody > tr')
     expect(trs.length).toBe(2)
-    let cells = trs.at(0).findAll('th, td')
+    let cells = trs[0].findAll('th, td')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTd with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTd)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TD')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTd).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TD')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
-    expect(cells.at(2).element.tagName).toBe('TD')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].vm).not.toBeDefined()
+    expect(cells[2].element.tagName).toBe('TD')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Header cells
     trs = wrapper.findAll('thead > tr')
     expect(trs.length).toBe(1)
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Footer cells
     trs = wrapper.findAll('tfoot > tr')
     expect(trs.length).toBe(1)
 
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have sticky classes when sticky column is enabled and not responsive and no sticky header', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         responsive: false,
         stickyHeader: false,
         footClone: true,
@@ -282,96 +202,66 @@ describe('table > sticky columns', () => {
     // Body
     let trs = wrapper.findAll('tbody > tr')
     expect(trs.length).toBe(2)
-    let cells = trs.at(0).findAll('th, td')
+    let cells = trs[0].findAll('th, td')
     expect(cells.length).toBe(3)
 
     // First column should be th
-    expect(cells.at(0).vm).not.toBeDefined()
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[0].vm).not.toBeDefined()
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).not.toContain('b-table-sticky-column')
 
     // Second column should be td
-    expect(cells.at(1).vm).not.toBeDefined()
-    expect(cells.at(1).element.tagName).toBe('TD')
-    expect(cells.at(1).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[1].vm).not.toBeDefined()
+    expect(cells[1].element.tagName).toBe('TD')
+    expect(cells[1].classes()).not.toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
-    expect(cells.at(2).element.tagName).toBe('TD')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].vm).not.toBeDefined()
+    expect(cells[2].element.tagName).toBe('TD')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Header cells
     trs = wrapper.findAll('thead > tr')
     expect(trs.length).toBe(1)
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).not.toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).not.toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
     // Footer cells
     trs = wrapper.findAll('tfoot > tr')
     expect(trs.length).toBe(1)
-    cells = trs.at(0).findAll('th')
+    cells = trs[0].findAll('th')
     expect(cells.length).toBe(3)
 
     // First column should be BTh with sticky classes
-    expect(
-      cells
-        .at(0)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(0).element.tagName).toBe('TH')
-    expect(cells.at(0).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[0].findComponent(BTh).exists()).toBe(true)
+    expect(cells[0].element.tagName).toBe('TH')
+    expect(cells[0].classes()).not.toContain('b-table-sticky-column')
 
     // Second column should be BTh with sticky classes
-    expect(
-      cells
-        .at(1)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(1).element.tagName).toBe('TH')
-    expect(cells.at(1).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[1].findComponent(BTh).exists()).toBe(true)
+    expect(cells[1].element.tagName).toBe('TH')
+    expect(cells[1].classes()).not.toContain('b-table-sticky-column')
 
     // Third column should be BTh
-    expect(
-      cells
-        .at(2)
-        .findComponent(BTh)
-        .exists()
-    ).toBe(true)
-    expect(cells.at(2).element.tagName).toBe('TH')
-    expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
+    expect(cells[2].findComponent(BTh).exists()).toBe(true)
+    expect(cells[2].element.tagName).toBe('TH')
+    expect(cells[2].classes()).not.toContain('b-table-sticky-column')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

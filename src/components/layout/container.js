@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CONTAINER } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -13,15 +15,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BContainer = /*#__PURE__*/ Vue.extend({
+export const BContainer = /*#__PURE__*/ defineComponent({
   name: NAME_CONTAINER,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           container: !(props.fluid || props.fluid === ''),
           'container-fluid': props.fluid === true || props.fluid === '',

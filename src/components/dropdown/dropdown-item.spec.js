@@ -1,5 +1,6 @@
-import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitRAF } from '../../../tests/utils'
 import { BDropdownItem } from './dropdown-item'
 
@@ -12,7 +13,7 @@ describe('dropdown-item', () => {
     expect(item.element.tagName).toBe('A')
     expect(item.attributes('href')).toBe('#')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "dropdown-item"', async () => {
@@ -23,7 +24,7 @@ describe('dropdown-item', () => {
     expect(item.classes()).toContain('dropdown-item')
     expect(item.attributes('href')).toBe('#')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('calls dropdown hide(true) method when clicked', async () => {
@@ -48,14 +49,14 @@ describe('dropdown-item', () => {
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItem, {
-      propsData: { disabled: true },
+      props: { disabled: true },
       provide: {
         bvDropdown: {
           hide(arg) {
@@ -74,12 +75,12 @@ describe('dropdown-item', () => {
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has linkClass when prop is passed a value', () => {
     const wrapper = mount(BDropdownItem, {
-      propsData: {
+      props: {
         linkClass: 'link-class'
       }
     })
@@ -89,26 +90,13 @@ describe('dropdown-item', () => {
     expect(item.classes()).toContain('link-class')
     expect(item.classes()).toContain('dropdown-item')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = createLocalVue()
-      localVue.use(VueRouter)
-
-      const router = new VueRouter({
-        mode: 'abstract',
-        routes: [
-          { path: '/', component: { name: 'R', template: '<div class="r">ROOT</div>' } },
-          { path: '/a', component: { name: 'A', template: '<div class="a">A</div>' } },
-          { path: '/b', component: { name: 'B', template: '<div class="a">B</div>' } }
-        ]
-      })
-
       const App = {
-        router,
-        render(h) {
+        render() {
           return h('ul', [
             // <router-link>
             h(BDropdownItem, { props: { to: '/a' } }, ['to-a']),
@@ -123,9 +111,23 @@ describe('dropdown-item', () => {
         }
       }
 
+      const router = createRouter({
+        history: createWebHistory(),
+        routes: [
+          { path: '/', component: { name: 'R', template: '<div class="r">ROOT</div>' } },
+          { path: '/a', component: { name: 'A', template: '<div class="a">A</div>' } },
+          { path: '/b', component: { name: 'B', template: '<div class="a">B</div>' } }
+        ]
+      })
+
+      router.push('/')
+      await router.isReady()
+
       const wrapper = mount(App, {
-        localVue,
-        attachTo: createContainer()
+        attachTo: createContainer(),
+        global: {
+          plugins: [router]
+        }
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -136,25 +138,25 @@ describe('dropdown-item', () => {
 
       const $links = wrapper.findAll('a')
 
-      expect($links.at(0).vm).toBeDefined()
-      expect($links.at(0).vm.$options.name).toBe('BLink')
-      expect($links.at(0).vm.$children.length).toBe(1)
-      expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[0].vm).toBeDefined()
+      expect($links[0].vm.$options.name).toBe('BLink')
+      expect($links[0].vm.$children.length).toBe(1)
+      expect($links[0].vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(1).vm).toBeDefined()
-      expect($links.at(1).vm.$options.name).toBe('BLink')
-      expect($links.at(1).vm.$children.length).toBe(0)
+      expect($links[1].vm).toBeDefined()
+      expect($links[1].vm.$options.name).toBe('BLink')
+      expect($links[1].vm.$children.length).toBe(0)
 
-      expect($links.at(2).vm).toBeDefined()
-      expect($links.at(2).vm.$options.name).toBe('BLink')
-      expect($links.at(2).vm.$children.length).toBe(1)
-      expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[2].vm).toBeDefined()
+      expect($links[2].vm.$options.name).toBe('BLink')
+      expect($links[2].vm.$children.length).toBe(1)
+      expect($links[2].vm.$children[0].$options.name).toBe('RouterLink')
 
-      expect($links.at(3).vm).toBeDefined()
-      expect($links.at(3).vm.$options.name).toBe('BLink')
-      expect($links.at(3).vm.$children.length).toBe(0)
+      expect($links[3].vm).toBeDefined()
+      expect($links[3].vm.$options.name).toBe('BLink')
+      expect($links[3].vm.$children.length).toBe(0)
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

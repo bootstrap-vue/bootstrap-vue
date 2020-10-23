@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { BIconPerson } from '../../icons/icons'
 import { BAvatar } from './avatar'
 
@@ -12,12 +12,12 @@ describe('avatar', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('type')).not.toBeDefined()
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `button` set', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         button: true
       }
     })
@@ -41,12 +41,12 @@ describe('avatar', () => {
     expect(wrapper.emitted('click').length).toBe(1)
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `href` set', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         href: '#foo'
       }
     })
@@ -71,12 +71,12 @@ describe('avatar', () => {
     expect(wrapper.emitted('click').length).toBe(1)
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `text` set', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         text: 'BV'
       }
     })
@@ -90,12 +90,12 @@ describe('avatar', () => {
     expect(wrapper.text()).toContain('BV')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(false)
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when default slot used', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         text: 'FOO'
       },
       slots: {
@@ -113,12 +113,12 @@ describe('avatar', () => {
     expect(wrapper.text()).not.toContain('FOO')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(false)
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `src` set', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         src: '/foo/bar',
         text: 'BV'
       }
@@ -150,16 +150,17 @@ describe('avatar', () => {
     expect(wrapper.find('img').exists()).toBe(false)
     expect(wrapper.text()).toContain('BV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop `icon` set', async () => {
-    const localVue = createLocalVue()
-    localVue.component('BIconPerson', BIconPerson)
-
     const wrapper = mount(BAvatar, {
-      localVue,
-      propsData: {
+      global: {
+        components: {
+          BIconPerson
+        }
+      },
+      props: {
         icon: 'person'
       }
     })
@@ -175,49 +176,49 @@ describe('avatar', () => {
     const $icon = wrapper.find('.b-icon')
     expect($icon.exists()).toBe(true)
     expect($icon.classes()).toContain('bi-person')
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`size` prop should work as expected', async () => {
     const wrapper1 = mount(BAvatar)
     expect(wrapper1.attributes('style')).toEqual(undefined)
-    wrapper1.destroy()
+    wrapper1.unmount()
 
-    const wrapper2 = mount(BAvatar, { propsData: { size: 'sm' } })
+    const wrapper2 = mount(BAvatar, { props: { size: 'sm' } })
     expect(wrapper2.attributes('style')).toEqual(undefined)
     expect(wrapper2.classes()).toContain('b-avatar-sm')
-    wrapper2.destroy()
+    wrapper2.unmount()
 
-    const wrapper3 = mount(BAvatar, { propsData: { size: 'md' } })
+    const wrapper3 = mount(BAvatar, { props: { size: 'md' } })
     expect(wrapper3.attributes('style')).toEqual(undefined)
     expect(wrapper3.classes()).not.toContain('b-avatar-md')
-    wrapper3.destroy()
+    wrapper3.unmount()
 
-    const wrapper4 = mount(BAvatar, { propsData: { size: 'lg' } })
+    const wrapper4 = mount(BAvatar, { props: { size: 'lg' } })
     expect(wrapper4.attributes('style')).toEqual(undefined)
     expect(wrapper4.classes()).toContain('b-avatar-lg')
-    wrapper4.destroy()
+    wrapper4.unmount()
 
-    const wrapper5 = mount(BAvatar, { propsData: { size: 20 } })
+    const wrapper5 = mount(BAvatar, { props: { size: 20 } })
     expect(wrapper5.attributes('style')).toEqual('width: 20px; height: 20px;')
-    wrapper5.destroy()
+    wrapper5.unmount()
 
-    const wrapper6 = mount(BAvatar, { propsData: { size: '24.5' } })
+    const wrapper6 = mount(BAvatar, { props: { size: '24.5' } })
     expect(wrapper6.attributes('style')).toEqual('width: 24.5px; height: 24.5px;')
-    wrapper6.destroy()
+    wrapper6.unmount()
 
-    const wrapper7 = mount(BAvatar, { propsData: { size: '5em' } })
+    const wrapper7 = mount(BAvatar, { props: { size: '5em' } })
     expect(wrapper7.attributes('style')).toEqual('width: 5em; height: 5em;')
-    wrapper7.destroy()
+    wrapper7.unmount()
 
-    const wrapper8 = mount(BAvatar, { propsData: { size: '36px' } })
+    const wrapper8 = mount(BAvatar, { props: { size: '36px' } })
     expect(wrapper8.attributes('style')).toEqual('width: 36px; height: 36px;')
-    wrapper8.destroy()
+    wrapper8.unmount()
   })
 
   it('should have expected structure when prop badge is set', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         badge: true
       }
     })
@@ -243,7 +244,7 @@ describe('avatar', () => {
     expect($badge.classes()).toContain('badge-info')
     expect($badge.text()).toEqual('FOO')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should handle b-avatar-group variant', async () => {
@@ -261,7 +262,7 @@ describe('avatar', () => {
     // Uses avatar group size (default)
     expect(wrapper1.attributes('style')).toBe(undefined)
 
-    wrapper1.destroy()
+    wrapper1.unmount()
 
     const wrapper2 = mount(BAvatar, {
       provide: {
@@ -279,12 +280,12 @@ describe('avatar', () => {
     // Uses avatar group size (default)
     expect(wrapper2.attributes('style')).toBe(undefined)
 
-    wrapper2.destroy()
+    wrapper2.unmount()
   })
 
   it('should handle b-avatar-group size', async () => {
     const wrapper1 = mount(BAvatar, {
-      propsData: {
+      props: {
         size: '5em'
       },
       provide: {
@@ -300,10 +301,10 @@ describe('avatar', () => {
     // Uses avatar group size (default)
     expect(wrapper1.attributes('style')).toBe(undefined)
 
-    wrapper1.destroy()
+    wrapper1.unmount()
 
     const wrapper2 = mount(BAvatar, {
-      propsData: {
+      props: {
         size: '2em'
       },
       provide: {
@@ -320,12 +321,12 @@ describe('avatar', () => {
     // Should use BAvatarGroup size prop
     expect(wrapper2.attributes('style')).toContain('width: 5em; height: 5em;')
 
-    wrapper2.destroy()
+    wrapper2.unmount()
   })
 
   it('should render `alt` attribute if `alt` prop is empty string', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         src: '/foo/bar',
         alt: ''
       }
@@ -335,12 +336,12 @@ describe('avatar', () => {
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
     expect(wrapper.find('img').attributes('alt')).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not render `alt` attribute if `alt` prop is null', async () => {
     const wrapper = mount(BAvatar, {
-      propsData: {
+      props: {
         src: '/foo/bar',
         alt: null
       }
@@ -350,6 +351,6 @@ describe('avatar', () => {
     expect(wrapper.find('img').attributes('src')).toEqual('/foo/bar')
     expect(wrapper.find('img').attributes('alt')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

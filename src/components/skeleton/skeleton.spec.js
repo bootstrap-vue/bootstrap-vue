@@ -13,12 +13,12 @@ describe('skeleton', () => {
     expect(wrapper.classes()).toContain('b-skeleton-text')
     expect(wrapper.classes()).toContain('b-skeleton-animate-wave')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class `b-skeleton-button` when `type="button"` is set', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         type: 'button'
       }
     })
@@ -26,12 +26,12 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.classes()).toContain('b-skeleton-button')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class `b-skeleton-animate-fade` when `animation="fade"` is set', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         animation: 'fade'
       }
     })
@@ -39,12 +39,12 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.classes()).toContain('b-skeleton-animate-fade')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has no animate class when `animation` prop has falsy value', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         animation: null
       }
     })
@@ -52,12 +52,12 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.classes()).not.toContain('b-skeleton-animate-wave')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has `width` style set when `width` prop is used', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         width: '50px'
       }
     })
@@ -65,12 +65,12 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.element.style.width).toBe('50px')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has `height` style set when `height` prop is used', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         height: '50px'
       }
     })
@@ -78,12 +78,12 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.element.style.height).toBe('50px')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has `width` and `height` styles set when `size` prop is used', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         size: '50px'
       }
     })
@@ -92,12 +92,12 @@ describe('skeleton', () => {
     expect(wrapper.element.style.height).toBe('50px')
     expect(wrapper.element.style.width).toBe('50px')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`size` prop overrules the `width` and `height` props', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         height: '25px',
         width: '40px',
         size: '50px'
@@ -108,12 +108,12 @@ describe('skeleton', () => {
     expect(wrapper.element.style.height).toBe('50px')
     expect(wrapper.element.style.width).toBe('50px')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has `bg-[variant]` class applied when `variant` prop is used', async () => {
     const wrapper = mount(BSkeleton, {
-      propsData: {
+      props: {
         variant: 'primary'
       }
     })
@@ -121,6 +121,6 @@ describe('skeleton', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.classes()).toContain('bg-primary')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

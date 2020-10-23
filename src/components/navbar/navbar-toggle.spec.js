@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BNavbarToggle } from './navbar-toggle'
@@ -5,19 +6,19 @@ import { BNavbarToggle } from './navbar-toggle'
 describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-1'
       }
     })
 
     expect(wrapper.element.tagName).toBe('BUTTON')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class "navbar-toggler"', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-2'
       }
     })
@@ -27,12 +28,12 @@ describe('navbar-toggle', () => {
     expect(wrapper.classes()).toContain('collapsed')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has default attributes', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-3'
       }
     })
@@ -42,24 +43,24 @@ describe('navbar-toggle', () => {
     expect(wrapper.attributes('aria-expanded')).toBe('false')
     expect(wrapper.attributes('aria-label')).toBe('Toggle navigation')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has inner button-close', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-4'
       }
     })
 
     expect(wrapper.find('span.navbar-toggler-icon')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts custom label when label prop is set', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-5',
         label: 'foobar'
       }
@@ -67,19 +68,19 @@ describe('navbar-toggle', () => {
 
     expect(wrapper.attributes('aria-label')).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default slot scope works', async () => {
     let scope = null
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-6'
       },
-      scopedSlots: {
+      slots: {
         default(ctx) {
           scope = ctx
-          return this.$createElement('div', 'foobar')
+          return h('div', 'foobar')
         }
       }
     })
@@ -97,12 +98,12 @@ describe('navbar-toggle', () => {
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits click event', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-7'
       }
     })
@@ -125,12 +126,12 @@ describe('navbar-toggle', () => {
 
     wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('sets aria-expanded when receives root emit for target', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-8'
       }
     })
@@ -161,12 +162,12 @@ describe('navbar-toggle', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('disabled prop works', async () => {
     const wrapper = mount(BNavbarToggle, {
-      propsData: {
+      props: {
         target: 'target-9',
         disabled: true
       }
@@ -179,6 +180,6 @@ describe('navbar-toggle', () => {
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

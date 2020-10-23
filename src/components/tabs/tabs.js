@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -39,7 +39,7 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BVTabButton = /*#__PURE__*/ Vue.extend({
+const BVTabButton = /*#__PURE__*/ defineComponent({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
     bvTabs: {
@@ -105,7 +105,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const { id, tabIndex, setSize, posInSet, controls, handleEvt } = this
     const {
       title,
@@ -163,7 +163,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
 })
 
 // @vue/component
-export const BTabs = /*#__PURE__*/ Vue.extend({
+export const BTabs = /*#__PURE__*/ defineComponent({
   name: NAME_TABS,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
@@ -586,7 +586,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const { tabs, noKeyNav, firstTab, previousTab, nextTab, lastTab } = this
 
     // Currently active tab

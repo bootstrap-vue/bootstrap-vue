@@ -1,16 +1,16 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BREADCRUMB_ITEM } from '../../constants/components'
 import { BBreadcrumbLink, props } from './breadcrumb-link'
 
 // @vue/component
-export const BBreadcrumbItem = /*#__PURE__*/ Vue.extend({
+export const BBreadcrumbItem = /*#__PURE__*/ defineComponent({
   name: NAME_BREADCRUMB_ITEM,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       'li',
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'breadcrumb-item',
         class: { active: props.active }
       }),

@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { concat } from '../../utils/array'
@@ -139,11 +139,11 @@ const computeAttrs = (props, data) => {
 
 // --- Main component ---
 // @vue/component
-export const BButton = /*#__PURE__*/ Vue.extend({
+export const BButton = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON,
   functional: true,
   props,
-  render(h, { props, data, listeners, children }) {
+  render(_, { props, data, listeners, children }) {
     const toggle = isToggle(props)
     const link = isLink(props)
     const nonStandardTag = isNonStandardTag(props)
@@ -194,6 +194,6 @@ export const BButton = /*#__PURE__*/ Vue.extend({
       on
     }
 
-    return h(link ? BLink : props.tag, mergeData(data, componentData), children)
+    return h(link ? BLink : props.tag, mergeProps(data, componentData), children)
   }
 })

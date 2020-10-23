@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_SELECT_OPTION } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   value: {
@@ -12,16 +14,17 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BFormSelectOption = /*#__PURE__*/ Vue.extend({
+export const BFormSelectOption = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SELECT_OPTION,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const { value, disabled } = props
     return h(
       'option',
-      mergeData(data, {
+      mergeProps(data, {
         attrs: { disabled },
         domProps: { value }
       }),

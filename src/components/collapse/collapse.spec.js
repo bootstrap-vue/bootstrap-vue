@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
@@ -35,7 +36,7 @@ describe('collapse', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test'
       }
@@ -53,13 +54,13 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have expected structure when prop is-nav is set', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         isNav: true
@@ -78,13 +79,13 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test'
       },
@@ -104,13 +105,13 @@ describe('collapse', () => {
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should mount as visible when prop visible is true', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         visible: true
@@ -131,13 +132,13 @@ describe('collapse', () => {
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit its state on mount (initially hidden)', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test'
       },
@@ -159,13 +160,13 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
     expect(wrapper.element.style.display).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit its state on mount (initially visible)', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         visible: true
@@ -188,13 +189,13 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should respond to state sync requests', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         visible: true
@@ -226,13 +227,13 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('setting visible to true after mount shows collapse', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         visible: false
@@ -271,13 +272,13 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should respond to according events', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         accordion: 'foo',
@@ -368,16 +369,16 @@ describe('collapse', () => {
     await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should close when clicking on contained nav-link prop is-nav is set', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
-          h('style', { attrs: { type: 'text/css' } }, '.collapse:not(.show) { display: none; }'),
+          h('style', { type: 'text/css' }, '.collapse:not(.show) { display: none; }'),
           h(
             BCollapse,
             {
@@ -387,7 +388,7 @@ describe('collapse', () => {
                 visible: true
               }
             },
-            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
+            [h('a', { class: 'nav-link', href: '#' }, 'nav link')]
           )
         ])
       }
@@ -418,19 +419,19 @@ describe('collapse', () => {
     expect($collapse.classes()).not.toContain('show')
     expect($collapse.element.style.display).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not close when clicking on nav-link prop is-nav is set & collapse is display block important', async () => {
     const App = {
-      render(h) {
+      render() {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
           // Although it appears to be picky about CSS definition ordering
           // https://github.com/jsdom/jsdom/blob/master/Changelog.md#030
           h(
             'style',
-            { attrs: { type: 'text/css' } },
+            { type: 'text/css' },
             '.collapse:not(.show) { display: none; } .d-block { display: block !important; }'
           ),
           h(
@@ -443,7 +444,7 @@ describe('collapse', () => {
                 visible: true
               }
             },
-            [h('a', { class: 'nav-link', attrs: { href: '#' } }, 'nav link')]
+            [h('a', { class: 'nav-link', href: '#' }, 'nav link')]
           )
         ])
       }
@@ -474,13 +475,13 @@ describe('collapse', () => {
     expect($collapse.classes()).toContain('show')
     expect($collapse.element.style.display).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not respond to root toggle event that does not match ID', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test'
       },
@@ -504,22 +505,22 @@ describe('collapse', () => {
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.element.style.display).toEqual('none')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default slot scope works', async () => {
     let scope = null
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         // 'id' is a required prop
         id: 'test',
         visible: true
       },
-      scopedSlots: {
+      slots: {
         default(props) {
           scope = props
-          return this.$createElement('div', 'foobar')
+          return h('div', 'foobar')
         }
       }
     })
@@ -555,6 +556,6 @@ describe('collapse', () => {
     expect(scope.visible).toBe(false)
     expect(typeof scope.close).toBe('function')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   id: {
@@ -33,16 +35,17 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
+export const BFormValidFeedback = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_VALID_FEEDBACK,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const show = props.forceShow === true || props.state === true
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           'valid-feedback': !props.tooltip,
           'valid-tooltip': props.tooltip,

@@ -73,7 +73,7 @@ describe('v-b-tooltip directive', () => {
     expect($button.element[BV_TOOLTIP]).toBeDefined()
     expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should work', async () => {
@@ -125,7 +125,7 @@ describe('v-b-tooltip directive', () => {
     expect(tip).not.toBe(null)
     expect(tip.classList.contains('tooltip')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not show tooltip when title is empty', async () => {
@@ -172,7 +172,7 @@ describe('v-b-tooltip directive', () => {
 
     expect($button.attributes('aria-describedby')).not.toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('variant and customClass should work', async () => {
@@ -219,6 +219,6 @@ describe('v-b-tooltip directive', () => {
     expect(tip.classList.contains('b-tooltip-info')).toBe(true)
     expect(tip.classList.contains('foobar')).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

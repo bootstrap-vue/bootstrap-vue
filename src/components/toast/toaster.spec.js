@@ -7,7 +7,7 @@ describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         name: 'foo'
       }
     })
@@ -34,13 +34,13 @@ describe('b-toaster', () => {
     expect($slot.classes().length).toBe(2)
     expect($slot.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         name: 'bar',
         ariaLive: 'assertive',
         ariaAtomic: 'true',
@@ -67,6 +67,6 @@ describe('b-toaster', () => {
     expect($slot.classes().length).toBe(2)
     expect($slot.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { commonIconProps, BVIconBase } from './icon-base'
 
@@ -18,7 +18,8 @@ export const makeIcon = (name, content) => {
   const iconTitle = kebabName.replace(/-/g, ' ')
   const svgContent = trim(content || '')
   // Return the icon component definition
-  return /*#__PURE__*/ Vue.extend({
+  // @vue/component
+  return /*#__PURE__*/ defineComponent({
     name: iconName,
     functional: true,
     props: {
@@ -28,10 +29,10 @@ export const makeIcon = (name, content) => {
         default: false
       }
     },
-    render(h, { data, props }) {
+    render(_, { props, data }) {
       return h(
         BVIconBase,
-        mergeData(
+        mergeProps(
           // Defaults
           {
             props: { title: iconTitle },

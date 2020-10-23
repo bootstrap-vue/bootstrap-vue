@@ -10,7 +10,7 @@ describe('dropdown-item-button', () => {
     expect(button.element.tagName).toBe('BUTTON')
     expect(button.attributes('type')).toBe('button')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "dropdown-item"', async () => {
@@ -21,12 +21,12 @@ describe('dropdown-item-button', () => {
     expect(button.classes()).toContain('dropdown-item')
     expect(button.classes()).not.toContain('active')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class "active" when active=true', async () => {
     const wrapper = mount(BDropdownItemButton, {
-      propsData: { active: true }
+      props: { active: true }
     })
     expect(wrapper.element.tagName).toBe('LI')
 
@@ -34,19 +34,19 @@ describe('dropdown-item-button', () => {
     expect(button.classes()).toContain('active')
     expect(button.classes()).toContain('dropdown-item')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute "disabled" when disabled=true', async () => {
     const wrapper = mount(BDropdownItemButton, {
-      propsData: { disabled: true }
+      props: { disabled: true }
     })
     expect(wrapper.element.tagName).toBe('LI')
 
     const button = wrapper.find('button')
     expect(button.attributes('disabled')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('calls dropdown hide(true) method when clicked', async () => {
@@ -70,14 +70,14 @@ describe('dropdown-item-button', () => {
     expect(called).toBe(true)
     expect(refocus).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not call dropdown hide(true) method when clicked and disabled', async () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItemButton, {
-      propsData: {
+      props: {
         disabled: true
       },
       provide: {
@@ -97,12 +97,12 @@ describe('dropdown-item-button', () => {
     expect(called).toBe(false)
     expect(refocus).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has buttonClass when prop is passed a value', () => {
     const wrapper = mount(BDropdownItemButton, {
-      propsData: {
+      props: {
         buttonClass: 'button-class'
       }
     })
@@ -112,6 +112,6 @@ describe('dropdown-item-button', () => {
     expect(button.classes()).toContain('button-class')
     expect(button.classes()).toContain('dropdown-item')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

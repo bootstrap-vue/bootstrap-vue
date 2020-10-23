@@ -1,3 +1,4 @@
+import { h } from '../../vue'
 import { NAME_FORM_GROUP } from '../../constants/components'
 import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slot-names'
 import cssEscape from '../../utils/css-escape'
@@ -249,7 +250,7 @@ export const BFormGroup = {
       }
     }
   },
-  render(h) {
+  render() {
     const {
       labelFor,
       tooltip,

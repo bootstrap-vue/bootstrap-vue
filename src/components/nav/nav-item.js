@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
@@ -9,7 +9,7 @@ export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // --- Main component ---
 // @vue/component
-export const BNavItem = /*#__PURE__*/ Vue.extend({
+export const BNavItem = /*#__PURE__*/ defineComponent({
   name: NAME_NAV_ITEM,
   functional: true,
   props: {
@@ -23,12 +23,12 @@ export const BNavItem = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
-  render(h, { props, data, listeners, children }) {
+  render(_, { props, data, listeners, children }) {
     // We transfer the listeners to the link
     delete data.on
     return h(
       'li',
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'nav-item'
       }),
       [

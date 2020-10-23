@@ -10,12 +10,12 @@ describe('layout > container', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when prop tag set', async () => {
     const wrapper = mount(BContainer, {
-      propsData: {
+      props: {
         tag: 'section'
       }
     })
@@ -25,12 +25,12 @@ describe('layout > container', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have container-fluid class when prop fluid set', async () => {
     const wrapper = mount(BContainer, {
-      propsData: {
+      props: {
         fluid: true
       }
     })
@@ -40,12 +40,12 @@ describe('layout > container', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have container-md class when prop fluid="md"', async () => {
     const wrapper = mount(BContainer, {
-      propsData: {
+      props: {
         fluid: 'md'
       }
     })
@@ -55,7 +55,7 @@ describe('layout > container', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from default slot', async () => {
@@ -70,6 +70,6 @@ describe('layout > container', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

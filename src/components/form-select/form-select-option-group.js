@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SELECT_OPTION_GROUP } from '../../constants/components'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
 import { htmlOrText } from '../../utils/html'
@@ -7,7 +7,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormSelectOption } from './form-select-option'
 
 // @vue/component
-const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
+const BFormSelectOptionGroup = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SELECT_OPTION_GROUP,
   mixins: [normalizeSlotMixin, formOptionsMixin],
   props: {
@@ -16,7 +16,7 @@ const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
       required: true
     }
   },
-  render(h) {
+  render() {
     const $options = this.formOptions.map((option, index) => {
       const { value, text, html, disabled } = option
 

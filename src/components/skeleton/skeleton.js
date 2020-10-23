@@ -1,9 +1,9 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_SKELETON } from '../../constants/components'
 import { getComponentConfig } from '../../utils/config'
 
 // @vue/component
-export const BSkeleton = /*#__PURE__*/ Vue.extend({
+export const BSkeleton = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON,
   functional: true,
   props: {
@@ -28,12 +28,12 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
       type: String
     }
   },
-  render(h, { data, props }) {
+  render(_, { props, data }) {
     const { size, animation, variant } = props
 
     return h(
       'div',
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'b-skeleton',
         style: {
           width: size || props.width,

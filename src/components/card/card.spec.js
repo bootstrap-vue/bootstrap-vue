@@ -20,12 +20,12 @@ describe('card', () => {
     // Should have no content by default
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should not contain "card-body" if prop no-body set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true
       }
     })
@@ -40,12 +40,12 @@ describe('card', () => {
     // Should have no content by default
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when tag prop set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         tag: 'article',
         noBody: true
       }
@@ -57,12 +57,12 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies variant classes to root element', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true,
         bgVariant: 'info',
         borderVariant: 'danger',
@@ -79,12 +79,12 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies text align class to when align prop set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true,
         align: 'right'
       }
@@ -97,12 +97,12 @@ describe('card', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have content from default slot', async () => {
     const wrapperBody = mount(BCard, {
-      propsData: {
+      props: {
         noBody: false
       },
       slots: {
@@ -110,7 +110,7 @@ describe('card', () => {
       }
     })
     const wrapperNoBody = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true
       },
       slots: {
@@ -128,13 +128,13 @@ describe('card', () => {
     expect(wrapperNoBody.findAll('.card-body').length).toBe(0)
     expect(wrapperNoBody.text()).toBe('foobar')
 
-    wrapperBody.destroy()
-    wrapperNoBody.destroy()
+    wrapperBody.unmount()
+    wrapperNoBody.unmount()
   })
 
   it('should have class flex-row when img-left set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true,
         imgLeft: true
       }
@@ -145,12 +145,12 @@ describe('card', () => {
     expect(wrapper.classes()).toContain('flex-row')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class flex-row-reverse when img-right set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true,
         imgRight: true
       }
@@ -161,12 +161,12 @@ describe('card', () => {
     expect(wrapper.classes()).toContain('flex-row-reverse')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have class flex-row when img-left and img-right set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         noBody: true,
         imgLeft: true,
         imgRight: true
@@ -179,12 +179,12 @@ describe('card', () => {
     expect(wrapper.classes()).not.toContain('flex-row-reverse')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have header and footer when header and footer props are set', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         header: 'foo',
         footer: 'bar'
       },
@@ -206,12 +206,12 @@ describe('card', () => {
     // Expected order
     expect(wrapper.find('.card-header+.card-body+.card-footer').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have img at top', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
         imgTop: true
@@ -232,12 +232,12 @@ describe('card', () => {
     // Expected order
     expect(wrapper.find('img + .card-body').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have img at bottom', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
         imgBottom: true
@@ -258,12 +258,12 @@ describe('card', () => {
     // Expected order
     expect(wrapper.find('.card-body + img').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have img overlay', async () => {
     const wrapper = mount(BCard, {
-      propsData: {
+      props: {
         imgSrc: '/foo/bar',
         imgAlt: 'foobar',
         overlay: true
@@ -291,6 +291,6 @@ describe('card', () => {
     // Expected order
     expect(wrapper.find('img + .card-body').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

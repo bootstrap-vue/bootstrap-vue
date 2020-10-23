@@ -23,7 +23,7 @@ describe('tab', () => {
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
     expect(wrapper.attributes('id')).toBeDefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has expected data state', async () => {
@@ -33,12 +33,12 @@ describe('tab', () => {
     expect(wrapper.vm.localActive).toBe(false)
     expect(wrapper.vm.show).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class disabled when disabled=true', async () => {
     const wrapper = mount(BTab, {
-      propsData: { disabled: true }
+      props: { disabled: true }
     })
 
     expect(wrapper.classes()).toContain('disabled')
@@ -46,24 +46,24 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class active when active=true', async () => {
     const wrapper = mount(BTab, {
-      propsData: { active: true }
+      props: { active: true }
     })
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have class active when active=true and disabled=true', async () => {
     const wrapper = mount(BTab, {
-      propsData: {
+      props: {
         active: true,
         disabled: true
       }
@@ -74,7 +74,7 @@ describe('tab', () => {
     expect(wrapper.classes()).toContain('tab-pane')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class active and show when localActive becomes true', async () => {
@@ -100,7 +100,7 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('card-body')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits event "update:active" when localActive becomes true', async () => {
@@ -121,7 +121,7 @@ describe('tab', () => {
     expect(called).toBe(true)
     expect(value).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has class card-body when parent has card=true', async () => {
@@ -143,7 +143,7 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not have class card-body when parent has card=true and prop no-body is set', async () => {
@@ -158,7 +158,7 @@ describe('tab', () => {
           }
         }
       },
-      propsData: {
+      props: {
         noBody: true
       }
     })
@@ -168,7 +168,7 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.classes()).not.toContain('active')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("calls parent's updateButton() when title slot provided", async () => {
@@ -200,7 +200,7 @@ describe('tab', () => {
     expect(called).toBe(true)
     expect(vm).toEqual(wrapper.vm)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('calls parent de/activateTab() when prop active changes', async () => {
@@ -258,7 +258,7 @@ describe('tab', () => {
     expect(deactivateCalled).toBe(true)
     expect(deactivateVm).toBe(wrapper.vm)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not call parent activateTab() when prop active changes and disabled=true', async () => {
@@ -282,7 +282,7 @@ describe('tab', () => {
           }
         }
       },
-      propsData: { disabled: true }
+      props: { disabled: true }
     })
 
     expect(activateCalled).toBe(false)
@@ -293,7 +293,7 @@ describe('tab', () => {
     expect(activateCalled).toBe(false)
     expect(activateVm).toBe(null)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not call parent deactivateTab() when deactivate() called and not active', async () => {
@@ -328,6 +328,6 @@ describe('tab', () => {
     expect(deactivateVm).toBe(null)
     expect(result).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

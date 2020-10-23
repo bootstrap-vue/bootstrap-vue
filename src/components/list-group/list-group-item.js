@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
 import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -10,7 +10,7 @@ import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
-const actionTags = ['a', 'router-link', 'button', 'b-link']
+const ACTION_TAGS = ['a', 'router-link', 'button', 'b-link']
 
 // --- Props ---
 
@@ -40,15 +40,15 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BListGroupItem = /*#__PURE__*/ Vue.extend({
+export const BListGroupItem = /*#__PURE__*/ defineComponent({
   name: NAME_LIST_GROUP_ITEM,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const { button, variant, active, disabled } = props
     const link = isLink(props)
     const tag = button ? 'button' : !link ? props.tag : BLink
-    const action = !!(props.action || link || button || arrayIncludes(actionTags, props.tag))
+    const action = !!(props.action || link || button || arrayIncludes(ACTION_TAGS, props.tag))
 
     const attrs = {}
     let itemProps = {}
@@ -67,7 +67,7 @@ export const BListGroupItem = /*#__PURE__*/ Vue.extend({
 
     return h(
       tag,
-      mergeData(data, {
+      mergeProps(data, {
         attrs,
         props: itemProps,
         staticClass: 'list-group-item',

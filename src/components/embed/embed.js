@@ -1,6 +1,8 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
 import { arrayIncludes } from '../../utils/array'
+
+// --- Props ---
 
 export const props = {
   type: {
@@ -19,12 +21,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BEmbed = /*#__PURE__*/ Vue.extend({
+export const BEmbed = /*#__PURE__*/ defineComponent({
   name: NAME_EMBED,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
       {
@@ -34,7 +37,7 @@ export const BEmbed = /*#__PURE__*/ Vue.extend({
           [`embed-responsive-${props.aspect}`]: props.aspect
         }
       },
-      [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
+      [h(props.type, mergeProps(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
     )
   }
 })

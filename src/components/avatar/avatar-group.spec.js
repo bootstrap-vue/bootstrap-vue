@@ -14,12 +14,12 @@ describe('avatar-group', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toEqual('group')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render custom root element when prop tag is set', async () => {
     const wrapper = mount(BAvatarGroup, {
-      propsData: {
+      props: {
         tag: 'article'
       }
     })
@@ -32,7 +32,7 @@ describe('avatar-group', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('role')).toEqual('group')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render content from default slot', async () => {
@@ -53,12 +53,12 @@ describe('avatar-group', () => {
     expect(wrapper.text()).toEqual('FOOBAR')
     expect(wrapper.find('span').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('overlap props work', async () => {
     const wrapper = mount(BAvatarGroup, {
-      propsData: {
+      props: {
         overlap: 0.65
       }
     })
@@ -69,6 +69,6 @@ describe('avatar-group', () => {
     expect(wrapper.vm.overlap).toBe(0.65)
     expect(wrapper.vm.overlapScale).toBe(0.325)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -10,12 +10,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element when prop tag set', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         tag: 'ol'
       }
     })
@@ -25,7 +25,7 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot content', async () => {
@@ -40,12 +40,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies pill style', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         pills: true
       }
     })
@@ -56,12 +56,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies tab style', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         tabs: true
       }
     })
@@ -72,12 +72,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies vertical style', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         vertical: true
       }
     })
@@ -88,12 +88,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies justify style when justified', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         justified: true
       }
     })
@@ -104,12 +104,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("doesn't apply justify style when vertical", async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         justified: true,
         vertical: true
       }
@@ -121,12 +121,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies fill style style when fill set', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         fill: true
       }
     })
@@ -137,12 +137,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("doesn't apply fill style when vertical", async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         fill: true,
         vertical: true
       }
@@ -154,12 +154,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies alignment correctly', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         align: 'center'
       }
     })
@@ -170,12 +170,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it("doesn't apply alignment when vertical", async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         align: 'center',
         vertical: true
       }
@@ -187,12 +187,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies small style', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         small: true
       }
     })
@@ -203,12 +203,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies card-header-tabs class when tabs and card-header props set', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         tabs: true,
         cardHeader: true
       }
@@ -221,12 +221,12 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies card-header-pills class when pills and card-header props set', async () => {
     const wrapper = mount(BNav, {
-      propsData: {
+      props: {
         pills: true,
         cardHeader: true
       }
@@ -239,6 +239,6 @@ describe('nav', () => {
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

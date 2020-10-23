@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TAG } from '../../constants/components'
 import { CODE_DELETE } from '../../constants/key-codes'
 import { getComponentConfig } from '../../utils/config'
@@ -7,7 +7,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BBadge } from '../badge/badge'
 import { BButtonClose } from '../button/button-close'
 
-export const BFormTag = /*#__PURE__*/ Vue.extend({
+export const BFormTag = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAG,
   mixins: [idMixin, normalizeSlotMixin],
   props: {
@@ -44,7 +44,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  render(h) {
+  render() {
     const tagId = this.safeId()
     const tagLabelId = this.safeId('_taglabel_')
     let $remove = h()

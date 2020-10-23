@@ -4,7 +4,7 @@ import { BFormTag } from './form-tag'
 describe('form-tag', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BFormTag, {
-      propsData: {
+      props: {
         title: 'foobar'
       }
     })
@@ -23,12 +23,12 @@ describe('form-tag', () => {
     expect($btn.classes()).toContain('b-form-tag-remove')
     expect($btn.attributes('aria-label')).toBe('Remove tag')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element', async () => {
     const wrapper = mount(BFormTag, {
-      propsData: {
+      props: {
         title: 'foobar',
         tag: 'li'
       }
@@ -48,12 +48,12 @@ describe('form-tag', () => {
     expect($btn.classes()).toContain('b-form-tag-remove')
     expect($btn.attributes('aria-label')).toBe('Remove tag')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders default slot', async () => {
     const wrapper = mount(BFormTag, {
-      propsData: {
+      props: {
         title: 'foo'
       },
       slots: {
@@ -76,12 +76,12 @@ describe('form-tag', () => {
     expect($btn.classes()).toContain('b-form-tag-remove')
     expect($btn.attributes('aria-label')).toBe('Remove tag')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('emits remove event when button clicked', async () => {
     const wrapper = mount(BFormTag, {
-      propsData: {
+      props: {
         title: 'foobar'
       }
     })
@@ -107,6 +107,6 @@ describe('form-tag', () => {
     expect(wrapper.emitted('remove')).toBeDefined()
     expect(wrapper.emitted('remove').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

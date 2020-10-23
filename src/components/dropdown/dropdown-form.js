@@ -1,9 +1,9 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
 import { BForm, props as formProps } from '../form/form'
 
 // @vue/component
-export const BDropdownForm = /*#__PURE__*/ Vue.extend({
+export const BDropdownForm = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_FORM,
   functional: true,
   props: {
@@ -17,12 +17,12 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
       // default: null
     }
   },
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const $attrs = data.attrs || {}
     const $listeners = data.on || {}
     data.attrs = {}
     data.on = {}
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeProps(data, { attrs: { role: 'presentation' } }), [
       h(
         BForm,
         {

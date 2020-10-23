@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slot-names'
 import { htmlOrText } from '../../utils/html'
@@ -9,6 +9,8 @@ import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
 import { BCardFooter, props as footerProps } from './card-footer'
 import { BCardImg, props as imgProps } from './card-img'
+
+// --- Props ---
 
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
@@ -29,12 +31,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BCard = /*#__PURE__*/ Vue.extend({
+export const BCard = /*#__PURE__*/ defineComponent({
   name: NAME_CARD,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots }) {
+  render(_, { props, data, slots, scopedSlots }) {
     const {
       imgSrc,
       imgLeft,
@@ -113,7 +116,7 @@ export const BCard = /*#__PURE__*/ Vue.extend({
 
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'card',
         class: {
           'flex-row': imgLeft || imgStart,

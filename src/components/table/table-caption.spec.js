@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
@@ -8,7 +9,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > caption', () => {
   it('should not have caption by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -17,12 +18,12 @@ describe('table > caption', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('caption').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render named slot `table-caption`', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -37,20 +38,20 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('table').classes()).not.toContain('b-table-caption-top')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render scoped slot `table-caption`', async () => {
     let scope = null
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
-      scopedSlots: {
+      slots: {
         'table-caption': function(props) {
           scope = props
-          return this.$createElement('b', 'foobar')
+          return h('b', 'foobar')
         }
       }
     })
@@ -66,12 +67,12 @@ describe('table > caption', () => {
     ).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render `caption` when prop caption is set', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         caption: 'foobar'
@@ -84,12 +85,12 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render `caption` when prop caption-html is set', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         captionHtml: '<b>foobar</b>'
@@ -108,12 +109,12 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render `caption` with table class when prop caption-top is set', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         caption: 'foobar',
@@ -127,12 +128,12 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
     expect(wrapper.find('table').classes()).toContain('b-table-caption-top')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render `caption` with id attribute when prop stacked is true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         id: 'zzz',
         fields: testFields,
         items: testItems,
@@ -149,12 +150,12 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).toBeDefined()
     expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render `caption` with id attribute when prop stacked is sm', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         id: 'zzz',
         fields: testFields,
         items: testItems,
@@ -171,6 +172,6 @@ describe('table > caption', () => {
     expect(wrapper.find('caption').attributes('id')).toBeDefined()
     expect(wrapper.find('caption').attributes('id')).toBe('zzz__caption_')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

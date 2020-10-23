@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
@@ -70,7 +70,7 @@ const getTransitionEndEvent = el => {
 }
 
 // @vue/component
-export const BCarousel = /*#__PURE__*/ Vue.extend({
+export const BCarousel = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL,
   mixins: [idMixin, normalizeSlotMixin],
   provide() {
@@ -498,7 +498,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
       )
     }
   },
-  render(h) {
+  render() {
     // Wrapper for slides
     const inner = h(
       'div',

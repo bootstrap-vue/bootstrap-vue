@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { arrayIncludes } from '../../utils/array'
@@ -92,7 +92,7 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BDropdown = /*#__PURE__*/ Vue.extend({
+export const BDropdown = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -134,7 +134,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       ]
     }
   },
-  render(h) {
+  render() {
     const { visible, variant, size, block, disabled, split, role, hide, toggle } = this
     const commonProps = { variant, size, block, disabled }
 

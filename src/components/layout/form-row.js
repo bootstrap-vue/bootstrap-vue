@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_ROW } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -8,15 +10,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BFormRow = /*#__PURE__*/ Vue.extend({
+export const BFormRow = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_ROW,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'form-row'
       }),
       children

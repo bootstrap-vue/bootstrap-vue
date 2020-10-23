@@ -12,7 +12,7 @@ describe('breadcrumb-link', () => {
     expect(wrapper.attributes('aria-current')).not.toBeDefined()
     expect(wrapper.text()).toBe('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from default slot', async () => {
@@ -24,36 +24,36 @@ describe('breadcrumb-link', () => {
 
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from text prop', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         text: 'foobar'
       }
     })
 
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from html prop', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         html: 'foobar'
       }
     })
 
     expect(wrapper.text()).toBe('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute aria-current when active', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         active: true
       }
     })
@@ -63,12 +63,12 @@ describe('breadcrumb-link', () => {
     expect(wrapper.attributes('aria-current')).toBe('location')
     expect(wrapper.classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has attribute aria-current with custom value when active', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         active: true,
         ariaCurrent: 'foobar'
       }
@@ -79,12 +79,12 @@ describe('breadcrumb-link', () => {
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders link when href is set', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         href: '/foo/bar'
       }
     })
@@ -95,12 +95,12 @@ describe('breadcrumb-link', () => {
     expect(wrapper.attributes('aria-current')).not.toBeDefined()
     expect(wrapper.classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not render a link when href is set and active', async () => {
     const wrapper = mount(BBreadcrumbLink, {
-      propsData: {
+      props: {
         active: true,
         href: '/foo/bar'
       }
@@ -112,6 +112,6 @@ describe('breadcrumb-link', () => {
     expect(wrapper.attributes('aria-current')).toBe('location')
     expect(wrapper.classes().length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

@@ -35,12 +35,12 @@ describe('time', () => {
     expect($spinWrap.classes()).toContain('justify-content-center')
     expect($spinWrap.classes()).toContain('mx-auto')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when `value` supplied', async () => {
     const wrapper = mount(BTime, {
-      propsData: {
+      props: {
         locale: 'en',
         hour12: false,
         showSeconds: true,
@@ -54,22 +54,22 @@ describe('time', () => {
 
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(3)
-    expect($spinners.at(0).text()).toEqual('13')
-    expect($spinners.at(1).text()).toEqual('14')
-    expect($spinners.at(2).text()).toEqual('15')
+    expect($spinners[0].text()).toEqual('13')
+    expect($spinners[1].text()).toEqual('14')
+    expect($spinners[2].text()).toEqual('15')
 
     await wrapper.setProps({ value: '01:02:03' })
     await waitRAF()
-    expect($spinners.at(0).text()).toEqual('01')
-    expect($spinners.at(1).text()).toEqual('02')
-    expect($spinners.at(2).text()).toEqual('03')
+    expect($spinners[0].text()).toEqual('01')
+    expect($spinners[1].text()).toEqual('02')
+    expect($spinners[2].text()).toEqual('03')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when prop `hour12` is `true`', async () => {
     const wrapper = mount(BTime, {
-      propsData: {
+      props: {
         locale: 'en',
         hour12: true,
         value: '01:02:00'
@@ -82,22 +82,22 @@ describe('time', () => {
 
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(3)
-    expect($spinners.at(0).text()).toEqual('01')
-    expect($spinners.at(1).text()).toEqual('02')
-    expect($spinners.at(2).text()).toEqual('AM')
+    expect($spinners[0].text()).toEqual('01')
+    expect($spinners[1].text()).toEqual('02')
+    expect($spinners[2].text()).toEqual('AM')
 
     await wrapper.setProps({ value: '13:14:00' })
     await waitRAF()
-    expect($spinners.at(0).text()).toEqual('01')
-    expect($spinners.at(1).text()).toEqual('14')
-    expect($spinners.at(2).text()).toEqual('PM')
+    expect($spinners[0].text()).toEqual('01')
+    expect($spinners[1].text()).toEqual('14')
+    expect($spinners[2].text()).toEqual('PM')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when prop `hour12` is `false`', async () => {
     const wrapper = mount(BTime, {
-      propsData: {
+      props: {
         locale: 'en',
         hour12: false,
         value: '01:02:00'
@@ -110,20 +110,20 @@ describe('time', () => {
 
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(2)
-    expect($spinners.at(0).text()).toEqual('01')
-    expect($spinners.at(1).text()).toEqual('02')
+    expect($spinners[0].text()).toEqual('01')
+    expect($spinners[1].text()).toEqual('02')
 
     await wrapper.setProps({ value: '13:14:00' })
     await waitRAF()
-    expect($spinners.at(0).text()).toEqual('13')
-    expect($spinners.at(1).text()).toEqual('14')
+    expect($spinners[0].text()).toEqual('13')
+    expect($spinners[1].text()).toEqual('14')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has expected structure when prop `show-seconds` is `true`', async () => {
     const wrapper = mount(BTime, {
-      propsData: {
+      props: {
         locale: 'en',
         hour12: false,
         showSeconds: true,
@@ -138,16 +138,16 @@ describe('time', () => {
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(3)
 
-    expect($spinners.at(0).text()).toEqual('01')
-    expect($spinners.at(1).text()).toEqual('02')
-    expect($spinners.at(2).text()).toEqual('03')
+    expect($spinners[0].text()).toEqual('01')
+    expect($spinners[1].text()).toEqual('02')
+    expect($spinners[2].text()).toEqual('03')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('spin buttons work', async () => {
     const wrapper = mount(BTime, {
-      propsData: {
+      props: {
         showSeconds: true,
         value: '00:00:00',
         // force to 12 hour mode
@@ -164,10 +164,10 @@ describe('time', () => {
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(4)
 
-    const $hours = $spinners.at(0)
-    const $minutes = $spinners.at(1)
-    const $seconds = $spinners.at(2)
-    const $ampm = $spinners.at(3)
+    const $hours = $spinners[0]
+    const $minutes = $spinners[1]
+    const $seconds = $spinners[2]
+    const $ampm = $spinners[3]
 
     await $hours.trigger('keydown.up')
     await $hours.trigger('keyup.up')
@@ -200,7 +200,7 @@ describe('time', () => {
     expect(wrapper.emitted('input').length).toBe(5)
     expect(wrapper.emitted('input')[4][0]).toBe('01:01:01')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('blur and focus methods work', async () => {
@@ -229,13 +229,13 @@ describe('time', () => {
 
     expect(document.activeElement).not.toBe($hours.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('arrow left/right moves focus', async () => {
     const wrapper = mount(BTime, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         showSeconds: true,
         value: '00:00:00',
         // force to 12 hour mode
@@ -250,10 +250,10 @@ describe('time', () => {
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(4)
 
-    const $hours = $spinners.at(0)
-    const $minutes = $spinners.at(1)
-    const $seconds = $spinners.at(2)
-    const $ampm = $spinners.at(3)
+    const $hours = $spinners[0]
+    const $minutes = $spinners[1]
+    const $seconds = $spinners[2]
+    const $ampm = $spinners[3]
 
     expect(document.activeElement).not.toBe($hours.element)
     expect(document.activeElement).not.toBe($minutes.element)
@@ -284,6 +284,6 @@ describe('time', () => {
     await $ampm.trigger('keydown.left')
     expect(document.activeElement).toBe($seconds.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

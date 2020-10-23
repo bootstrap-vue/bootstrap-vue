@@ -1,13 +1,12 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { h } from 'vue'
+import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
 import clickOutMixin from './click-out'
 
 describe('utils/click-out', () => {
   it('works', async () => {
     let count = 0
-    const localVue = createLocalVue()
-    const App = localVue.extend({
-      mixins: [clickOutMixin],
+    const App = {
       // `listenForClickOut` comes from the mixin data
       created() {
         this.listenForClickOut = true
@@ -17,14 +16,16 @@ describe('utils/click-out', () => {
           count++
         }
       },
-      render(h) {
+      render() {
         return h('div', [h('button', 'button')])
       }
-    })
+    }
 
     const wrapper = mount(App, {
       attachTo: createContainer(),
-      localVue
+      global: {
+        mixins: [clickOutMixin]
+      }
     })
 
     const clickEvt = new MouseEvent('click')
@@ -49,6 +50,6 @@ describe('utils/click-out', () => {
     await waitNT(wrapper.vm)
     expect(count).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

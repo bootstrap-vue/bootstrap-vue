@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { BTable } from './table'
 import normalizeFields from './helpers/normalize-fields'
@@ -8,7 +9,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > tbody bottom-row slot', () => {
   it('should not have bottom row by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -19,12 +20,12 @@ describe('table > tbody bottom-row slot', () => {
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render named slot `bottom-row`', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -37,35 +38,27 @@ describe('table > tbody bottom-row slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length + 1)
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(testItems.length)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(testItems.length)
-        .classes()
-    ).toContain('b-table-bottom-row')
+    expect(wrapper.findAll('tbody > tr')[testItems.length].text()).toBe('foobar')
+    expect(wrapper.findAll('tbody > tr')[testItems.length].classes()).toContain(
+      'b-table-bottom-row'
+    )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should render scoped slot `bottom-row`', async () => {
     let fields = []
     let columns
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
-      scopedSlots: {
+      slots: {
         'bottom-row': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement('td', { attrs: { span: columns } }, 'foobar')
+          return h('td', { span: columns }, 'foobar')
         }
       }
     })
@@ -76,19 +69,11 @@ describe('table > tbody bottom-row slot', () => {
     expect(fields).toEqual(normalizeFields(testFields))
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length + 1)
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(testItems.length)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(testItems.length)
-        .classes()
-    ).toContain('b-table-bottom-row')
+    expect(wrapper.findAll('tbody > tr')[testItems.length].text()).toBe('foobar')
+    expect(wrapper.findAll('tbody > tr')[testItems.length].classes()).toContain(
+      'b-table-bottom-row'
+    )
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

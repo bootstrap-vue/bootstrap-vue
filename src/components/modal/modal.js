@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
@@ -266,7 +266,7 @@ export const props = {
 }
 
 // @vue/component
-export const BModal = /*#__PURE__*/ Vue.extend({
+export const BModal = /*#__PURE__*/ defineComponent({
   name: NAME_MODAL,
   mixins: [
     attrsMixin,
@@ -863,6 +863,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     makeModal(h) {
+      const { bvAttrs } = this
+
       // Modal header
       let $header = h()
       if (!this.hideHeader) {
@@ -1090,7 +1092,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       return h(
         'div',
         {
-          style: this.modalOuterStyle,
+          class: bvAttrs.class,
+          style: [this.modalOuterStyle, bvAttrs.style],
           attrs: this.computedAttrs,
           key: `modal-outer-${this._uid}`
         },
@@ -1098,7 +1101,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       )
     }
   },
-  render(h) {
+  render() {
     if (this.static) {
       return this.lazy && this.isHidden ? h() : this.makeModal(h)
     } else {

@@ -1,13 +1,9 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAVBAR_NAV } from '../../constants/components'
 import { pluckProps } from '../../utils/props'
 import { props as BNavProps } from '../nav/nav'
 
-// -- Constants --
-
-export const props = pluckProps(['tag', 'fill', 'justified', 'align', 'small'], BNavProps)
-
-// -- Utils --
+// --- Helper methods ---
 
 const computeJustifyContent = value => {
   // Normalize value
@@ -15,15 +11,20 @@ const computeJustifyContent = value => {
   return `justify-content-${value}`
 }
 
+// --- Props ---
+
+export const props = pluckProps(['tag', 'fill', 'justified', 'align', 'small'], BNavProps)
+
+// --- Main component ---
 // @vue/component
-export const BNavbarNav = /*#__PURE__*/ Vue.extend({
+export const BNavbarNav = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR_NAV,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'navbar-nav',
         class: {
           'nav-fill': props.fill,

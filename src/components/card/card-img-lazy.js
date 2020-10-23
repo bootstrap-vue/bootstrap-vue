@@ -1,7 +1,9 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
 import { omit } from '../../utils/object'
 import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
+
+// --- Props ---
 
 // Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
 // The `omit()` util creates a new object, so we can just pass the original props
@@ -46,12 +48,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
+export const BCardImgLazy = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_IMG_LAZY,
   functional: true,
   props,
-  render(h, { props, data }) {
+  render(_, { props, data }) {
     let baseClass = 'card-img'
     if (props.top) {
       baseClass += '-top'
@@ -67,7 +70,7 @@ export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
     const lazyProps = { ...props, left: false, right: false, center: false }
     return h(
       BImgLazy,
-      mergeData(data, {
+      mergeProps(data, {
         class: [baseClass],
         props: lazyProps
       })

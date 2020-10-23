@@ -1,9 +1,11 @@
-import Vue, { mergeData } from '../vue'
+import { defineComponent, h, mergeProps } from '../vue'
 import { NAME_ICON } from '../constants/components'
 import { RX_ICON_PREFIX } from '../constants/regex'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { commonIconProps } from './helpers/icon-base'
+
+// --- Helper methods ---
 
 const findIconComponent = (ctx, iconName) => {
   if (!ctx) {
@@ -14,9 +16,11 @@ const findIconComponent = (ctx, iconName) => {
   return iconComponent || findIconComponent(ctx.$parent, iconName)
 }
 
+// --- Main component ---
 // Helper BIcon component
 // Requires the requested icon component to be installed
-export const BIcon = /*#__PURE__*/ Vue.extend({
+// @vue/component
+export const BIcon = /*#__PURE__*/ defineComponent({
   name: NAME_ICON,
   functional: true,
   props: {
@@ -30,7 +34,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  render(h, { data, props, parent }) {
+  render(_, { props, data, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
 
     // If parent context exists, we check to see if the icon has been registered
@@ -38,7 +42,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     // If not registered, we render a blank icon
     return h(
       icon ? findIconComponent(parent, `BIcon${icon}`) || BIconBlank : BIconBlank,
-      mergeData(data, { props: { ...props, icon: null } })
+      mergeProps(data, { props: { ...props, icon: null } })
     )
   }
 })

@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_NAVBAR } from '../../constants/components'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
@@ -39,7 +39,7 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BNavbar = /*#__PURE__*/ Vue.extend({
+export const BNavbar = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR,
   mixins: [normalizeSlotMixin],
   provide() {
@@ -60,7 +60,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
       return breakpoint
     }
   },
-  render(h) {
+  render() {
     return h(
       this.tag,
       {

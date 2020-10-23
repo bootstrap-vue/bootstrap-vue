@@ -13,7 +13,7 @@ describe('layout > row', () => {
 
   it('renders custom root element when prop tag is set', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         tag: 'p'
       }
     })
@@ -39,7 +39,7 @@ describe('layout > row', () => {
 
   it('has class no-gutters when prop no-gutters is set', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         noGutters: true
       }
     })
@@ -52,7 +52,7 @@ describe('layout > row', () => {
 
   it('has vertical align class when prop align-v is set', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         alignV: 'baseline'
       }
     })
@@ -65,7 +65,7 @@ describe('layout > row', () => {
 
   it('has horizontal align class when prop align-h is set', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         alignH: 'center'
       }
     })
@@ -78,7 +78,7 @@ describe('layout > row', () => {
 
   it('has content align class when prop align-content is set', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         alignContent: 'stretch'
       }
     })
@@ -91,7 +91,7 @@ describe('layout > row', () => {
 
   it('has class row-cols-6 when prop cols is set to 6', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         cols: 6
       }
     })
@@ -104,7 +104,7 @@ describe('layout > row', () => {
 
   it('has class row-cols-md-3 when prop cols-md is set to 3', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         colsMd: '3'
       }
     })
@@ -117,7 +117,7 @@ describe('layout > row', () => {
 
   it('all cols-* props work', async () => {
     const wrapper = mount(BRow, {
-      propsData: {
+      props: {
         cols: 1,
         colsSm: 2,
         colsMd: 3,

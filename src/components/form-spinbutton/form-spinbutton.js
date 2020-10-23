@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -43,7 +43,7 @@ const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PA
 
 // --- BFormSpinbutton ---
 // @vue/component
-export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
+export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, normalizeSlotMixin],
@@ -481,7 +481,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       this.$_keyIsDown = false
     }
   },
-  render(h) {
+  render() {
     const {
       spinId,
       localValue: value,
@@ -491,7 +491,8 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       disabled,
       state,
       size,
-      computedFormatter
+      computedFormatter,
+      bvAttrs
     } = this
     const hasValue = !isNull(value)
 
@@ -593,18 +594,22 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-form-spinbutton form-control',
-        class: {
-          disabled,
-          readonly,
-          focus: this.hasFocus,
-          [`form-control-${size}`]: !!size,
-          'd-inline-flex': inline || vertical,
-          'd-flex': !inline && !vertical,
-          'align-items-stretch': !vertical,
-          'flex-column': vertical,
-          'is-valid': state === true,
-          'is-invalid': state === false
-        },
+        class: [
+          {
+            disabled,
+            readonly,
+            focus: this.hasFocus,
+            [`form-control-${size}`]: !!size,
+            'd-inline-flex': inline || vertical,
+            'd-flex': !inline && !vertical,
+            'align-items-stretch': !vertical,
+            'flex-column': vertical,
+            'is-valid': state === true,
+            'is-invalid': state === false
+          },
+          bvAttrs.class
+        ],
+        style: bvAttrs.style,
         attrs: this.computedAttrs,
         on: {
           keydown: this.onKeydown,

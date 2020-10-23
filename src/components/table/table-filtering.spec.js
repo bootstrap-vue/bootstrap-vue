@@ -9,7 +9,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > filtering', () => {
   it('should not be filtered by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -25,21 +25,18 @@ describe('table > filtering', () => {
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
     const columnA = $rows.map(row => {
-      return row
-        .findAll('td')
-        .at(0)
-        .text()
+      return row.findAll('td')[0].text()
     })
     expect(columnA[0]).toBe('3')
     expect(columnA[1]).toBe('1')
     expect(columnA[2]).toBe('2')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should be filtered when filter is a string', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: 'z'
@@ -54,18 +51,18 @@ describe('table > filtering', () => {
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(1)
 
-    const $tds = $rows.at(0).findAll('td')
+    const $tds = $rows[0].findAll('td')
 
-    expect($tds.at(0).text()).toBe('2')
-    expect($tds.at(1).text()).toBe('a')
-    expect($tds.at(2).text()).toBe('z')
+    expect($tds[0].text()).toBe('2')
+    expect($tds[1].text()).toBe('a')
+    expect($tds[2].text()).toBe('z')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should emit filtered event when filter string is changed', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: ''
@@ -136,7 +133,7 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[3][1]).toEqual(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should work with filter function', async () => {
@@ -145,7 +142,7 @@ describe('table > filtering', () => {
       return regexp.test(stringifyRecordValues(item))
     }
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: '',
@@ -188,12 +185,12 @@ describe('table > filtering', () => {
     // Number of rows matching filter
     expect(wrapper.emitted('filtered')[1][1]).toEqual(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should be filtered with no rows when no matches', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: 'ZZZZZZZZ'
@@ -204,12 +201,12 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`filter-ignored-fields` prop works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: '',
@@ -232,12 +229,12 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`filter-included-fields` prop works', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         // Add a extra item with a duplicated value in another field
         items: [...testItems, { a: 4, b: 'y', c: 'a' }],
@@ -261,12 +258,12 @@ describe('table > filtering', () => {
     await waitNT(wrapper.vm)
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should filter for formatted values for keys which are not present in row', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: [{ a: 'A', b: 'B' }],
         fields: [
           { key: 'a' },
@@ -289,12 +286,12 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should show empty filtered message when no matches and show-empty=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems,
         filter: '',
@@ -318,7 +315,7 @@ describe('table > filtering', () => {
     expect(wrapper.find('tbody > tr > td > div').attributes('role')).toBe('alert')
     expect(wrapper.find('tbody > tr > td > div').attributes('aria-live')).toBe('polite')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   describe('debouncing (deprecated)', () => {
@@ -332,7 +329,7 @@ describe('table > filtering', () => {
       jest.useFakeTimers()
       let lastFilterTimer = null
       const wrapper = mount(BTable, {
-        propsData: {
+        props: {
           fields: testFields,
           items: testItems,
           filterDebounce: 100 // 100ms
@@ -403,7 +400,7 @@ describe('table > filtering', () => {
       expect(wrapper.emitted('input')[2][0]).toEqual([testItems[1]])
       expect(wrapper.vm.localFilter).toEqual('1')
 
-      wrapper.destroy()
+      wrapper.unmount()
     })
   })
 })

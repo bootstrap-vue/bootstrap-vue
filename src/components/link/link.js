@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -103,7 +103,7 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BLink = /*#__PURE__*/ Vue.extend({
+export const BLink = /*#__PURE__*/ defineComponent({
   name: NAME_LINK,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
@@ -212,13 +212,14 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       attemptBlur(this.$el)
     }
   },
-  render(h) {
-    const { active, disabled } = this
+  render() {
+    const { active, disabled, bvAttrs } = this
 
     return h(
       this.computedTag,
       {
-        class: { active, disabled },
+        class: [{ active, disabled }, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: this.computedAttrs,
         props: this.computedProps,
         // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`

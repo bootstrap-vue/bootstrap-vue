@@ -1,9 +1,11 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_MEDIA } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { BMediaBody } from './media-body'
 import { BMediaAside } from './media-aside'
+
+// --- Props ---
 
 export const props = {
   tag: {
@@ -24,12 +26,13 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BMedia = /*#__PURE__*/ Vue.extend({
+export const BMedia = /*#__PURE__*/ defineComponent({
   name: NAME_MEDIA,
   functional: true,
   props,
-  render(h, { props, data, slots, scopedSlots, children }) {
+  render(_, { props, data, children, slots, scopedSlots }) {
     const childNodes = props.noBody ? children : []
 
     if (!props.noBody) {
@@ -61,6 +64,6 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
       }
     }
 
-    return h(props.tag, mergeData(data, { staticClass: 'media' }), childNodes)
+    return h(props.tag, mergeProps(data, { staticClass: 'media' }), childNodes)
   }
 })

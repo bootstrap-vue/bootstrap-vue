@@ -1,4 +1,4 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAVBAR_BRAND } from '../../constants/components'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -20,17 +20,17 @@ export const props = {
 
 // --- Main component ---
 // @vue/component
-export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
+export const BNavbarBrand = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR_BRAND,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     const isLink = props.to || props.href
     const tag = isLink ? BLink : props.tag
 
     return h(
       tag,
-      mergeData(data, {
+      mergeProps(data, {
         staticClass: 'navbar-brand',
         props: isLink ? pluckProps(linkProps, props) : {}
       }),

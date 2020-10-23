@@ -7,7 +7,7 @@ describe('card-sub-title', () => {
 
     expect(wrapper.element.tagName).toBe('H6')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default has class "card-subtitle" and "text-muted"', async () => {
@@ -17,33 +17,29 @@ describe('card-sub-title', () => {
     expect(wrapper.classes()).toContain('text-muted')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom tag', async () => {
     const wrapper = mount(BCardSubTitle, {
-      context: {
-        props: { subTitleTag: 'div' }
-      }
+      props: { subTitleTag: 'div' }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('accepts subTitleTextVariant value', async () => {
     const wrapper = mount(BCardSubTitle, {
-      context: {
-        props: { subTitleTextVariant: 'info' }
-      }
+      props: { subTitleTextVariant: 'info' }
     })
 
     expect(wrapper.classes()).toContain('card-subtitle')
     expect(wrapper.classes()).toContain('text-info')
     expect(wrapper.classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has content from default slot', async () => {
@@ -55,6 +51,6 @@ describe('card-sub-title', () => {
 
     expect(wrapper.text()).toContain('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

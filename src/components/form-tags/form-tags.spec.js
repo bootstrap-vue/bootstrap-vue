@@ -12,12 +12,12 @@ describe('form-tags', () => {
     expect(wrapper.attributes('role')).toBe('group')
     expect(wrapper.attributes('tabindex')).toBe('-1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has tags when value is set', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       }
     })
@@ -27,26 +27,26 @@ describe('form-tags', () => {
     const $tags = wrapper.findAll('.b-form-tag')
     expect($tags.length).toBe(2)
 
-    const $tag0 = $tags.at(0)
+    const $tag0 = $tags[0]
     expect($tag0.attributes('title')).toEqual('apple')
     expect($tag0.classes()).toContain('badge')
     expect($tag0.classes()).toContain('badge-secondary')
     expect($tag0.text()).toContain('apple')
     expect($tag0.find('button.close').exists()).toBe(true)
 
-    const $tag1 = $tags.at(1)
+    const $tag1 = $tags[1]
     expect($tag1.attributes('title')).toEqual('orange')
     expect($tag1.classes()).toContain('badge')
     expect($tag1.classes()).toContain('badge-secondary')
     expect($tag1.text()).toContain('orange')
     expect($tag1.find('button.close').exists()).toBe(true)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('responds to changes in value prop', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       }
     })
@@ -56,16 +56,16 @@ describe('form-tags', () => {
     await wrapper.setProps({ value: ['pear'] })
     expect(wrapper.vm.tags).toEqual(['pear'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('default slot has expected scope', async () => {
     let scope
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       },
-      scopedSlots: {
+      slots: {
         default(props) {
           scope = props
         }
@@ -94,12 +94,12 @@ describe('form-tags', () => {
     expect(scope.inputAttrs).toEqual(wrapper.vm.computedInputAttrs)
     expect(scope.inputHandlers).toEqual(wrapper.vm.computedInputHandlers)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has hidden inputs when name is set', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange'],
         name: 'foo'
       }
@@ -109,17 +109,17 @@ describe('form-tags', () => {
 
     const $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
-    expect($hidden.at(0).attributes('value')).toEqual('apple')
-    expect($hidden.at(0).attributes('name')).toEqual('foo')
-    expect($hidden.at(1).attributes('value')).toEqual('orange')
-    expect($hidden.at(1).attributes('name')).toEqual('foo')
+    expect($hidden[0].attributes('value')).toEqual('apple')
+    expect($hidden[0].attributes('name')).toEqual('foo')
+    expect($hidden[1].attributes('value')).toEqual('orange')
+    expect($hidden[1].attributes('name')).toEqual('foo')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('adds new tags from user input', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       }
     })
@@ -154,12 +154,12 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('applies "input-id" to the input', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         inputId: '1-tag-input',
         value: ['apple', 'orange']
       }
@@ -188,12 +188,12 @@ describe('form-tags', () => {
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
     await wrapper.setProps({ addOnChange: false })
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('removes tags when user clicks remove on tag', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange', 'pear', 'peach']
       }
     })
@@ -204,9 +204,9 @@ describe('form-tags', () => {
 
     let $tags = wrapper.findAll('.badge')
     expect($tags.length).toBe(4)
-    expect($tags.at(1).attributes('title')).toEqual('orange')
+    expect($tags[1].attributes('title')).toEqual('orange')
 
-    const $btn = $tags.at(1).find('button')
+    const $btn = $tags[1].find('button')
     expect($btn.exists()).toBe(true)
 
     await $btn.trigger('click')
@@ -214,14 +214,14 @@ describe('form-tags', () => {
 
     $tags = wrapper.findAll('.badge')
     expect($tags.length).toBe(3)
-    expect($tags.at(1).attributes('title')).toEqual('pear')
+    expect($tags[1].attributes('title')).toEqual('pear')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('adds new tags via separator', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         separator: ' ,;',
         value: ['apple', 'orange']
       }
@@ -254,12 +254,12 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('apple ')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear', 'peach', 'foo', 'bar', 'pie'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('tag validation works', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         separator: ' ',
         tagValidator: tag => tag.length < 5,
         value: ['one', 'two']
@@ -313,12 +313,12 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('    ')
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag', 'four', 'cat'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('tag validation on input event works', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         separator: ' ',
         tagValidator: tag => tag.length < 5,
         validateOnInput: true,
@@ -485,12 +485,12 @@ describe('form-tags', () => {
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('adds new tags when add button clicked', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       }
     })
@@ -518,13 +518,13 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         value: ['apple', 'orange']
       }
     })
@@ -568,13 +568,13 @@ describe('form-tags', () => {
     await $input.trigger('focusout')
     expect(wrapper.classes()).not.toContain('focus')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('autofocus works', async () => {
     const wrapper = mount(BFormTags, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         autofocus: true,
         value: ['apple', 'orange']
       }
@@ -599,12 +599,12 @@ describe('form-tags', () => {
     expect(wrapper.classes()).not.toContain('focus')
     expect(document.activeElement).not.toBe($input.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('`limit` prop works', async () => {
     const wrapper = mount(BFormTags, {
-      propsData: {
+      props: {
         value: ['apple', 'orange'],
         limit: 3
       }
@@ -654,6 +654,6 @@ describe('form-tags', () => {
     expect($feedback.exists()).toBe(true)
     expect($feedback.text()).toContain('Tag limit reached')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

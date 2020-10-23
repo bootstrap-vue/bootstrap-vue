@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import normalizeFields from './helpers/normalize-fields'
 import { BTable } from './table'
@@ -8,7 +9,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > tbody top-row slot', () => {
   it('should not have top row by default', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       }
@@ -22,7 +23,7 @@ describe('table > tbody top-row slot', () => {
 
   it('should render named slot `top-row`', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
@@ -35,33 +36,23 @@ describe('table > tbody top-row slot', () => {
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length + 1)
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(0)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(0)
-        .classes()
-    ).toContain('b-table-top-row')
+    expect(wrapper.findAll('tbody > tr')[0].text()).toBe('foobar')
+    expect(wrapper.findAll('tbody > tr')[0].classes()).toContain('b-table-top-row')
   })
 
   it('should render scoped slot `top-row`', async () => {
     let fields = []
     let columns
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         fields: testFields,
         items: testItems
       },
-      scopedSlots: {
+      slots: {
         'top-row': function(scope) {
           fields = scope.fields
           columns = scope.columns
-          return this.$createElement('td', { attrs: { span: columns } }, 'foobar')
+          return h('td', { span: columns }, 'foobar')
         }
       }
     })
@@ -72,17 +63,7 @@ describe('table > tbody top-row slot', () => {
     expect(fields).toEqual(normalizeFields(testFields))
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(testItems.length + 1)
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(0)
-        .text()
-    ).toBe('foobar')
-    expect(
-      wrapper
-        .findAll('tbody > tr')
-        .at(0)
-        .classes()
-    ).toContain('b-table-top-row')
+    expect(wrapper.findAll('tbody > tr')[0].text()).toBe('foobar')
+    expect(wrapper.findAll('tbody > tr')[0].classes()).toContain('b-table-top-row')
   })
 })

@@ -45,7 +45,7 @@ describe('form-group', () => {
     expect(wrapper.find('div').attributes('tabindex')).toEqual('-1')
     expect(wrapper.text()).toEqual('')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders content from default slot', async () => {
@@ -66,12 +66,12 @@ describe('form-group', () => {
     expect(wrapper.find('div[role="group"]').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has user supplied ID', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         label: 'test',
         labelFor: 'input-id',
         id: 'foo'
@@ -87,12 +87,12 @@ describe('form-group', () => {
     expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('does not render a fieldset if prop label-for set', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         label: 'test',
         labelFor: 'input-id'
       },
@@ -133,12 +133,12 @@ describe('form-group', () => {
     expect(wrapper.find('label').attributes('id')).toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual(`${formGroupId}__BV_label_`)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('horizontal layout with prop label-for set has expected structure', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         label: 'test',
         labelFor: 'input-id',
         labelCols: 1,
@@ -177,12 +177,12 @@ describe('form-group', () => {
     expect(wrapper.find('div > div').classes()).toContain('bv-no-focus-ring')
     expect(wrapper.find('div > div').classes().length).toBe(2)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('sets "aria-describedby" even when special characters are used in IDs', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         id: '/group-id',
         label: 'test',
         labelFor: '/input-id',
@@ -203,12 +203,12 @@ describe('form-group', () => {
     expect($input.attributes('aria-describedby')).toBeDefined()
     expect($input.attributes('aria-describedby')).toEqual('/group-id__BV_description_')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('horizontal layout without prop label-for set has expected structure', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         label: 'test',
         labelCols: 1,
         labelColsSm: 2,
@@ -250,12 +250,12 @@ describe('form-group', () => {
     expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
     expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('horizontal layout without label content has expected structure', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         labelCols: 1
       },
       slots: {
@@ -287,12 +287,12 @@ describe('form-group', () => {
     expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
     expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('validation and help text works', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         id: 'group-id',
         label: 'test',
         labelFor: 'input-id',
@@ -362,7 +362,7 @@ describe('form-group', () => {
 
   it('validation elements respect feedback-aria-live attribute', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         id: 'group-id',
         label: 'test',
         labelFor: 'input-id',
@@ -411,7 +411,7 @@ describe('form-group', () => {
 
   it('Label alignment works', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         id: 'group-id',
         label: 'test',
         labelFor: 'input-id',
@@ -432,12 +432,12 @@ describe('form-group', () => {
     expect($label.classes()).toContain('text-md-center')
     expect($label.classes()).toContain('text-xl-right')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('Label sr-only works', async () => {
     const wrapper = mount(BFormGroup, {
-      propsData: {
+      props: {
         id: 'group-id',
         label: 'test',
         labelFor: 'input-id',
@@ -460,7 +460,7 @@ describe('form-group', () => {
   it('clicking legend focuses input', async () => {
     const wrapper = mount(BFormGroup, {
       attachTo: createContainer(),
-      propsData: {
+      props: {
         id: 'group-id',
         label: 'test'
       },
@@ -483,6 +483,6 @@ describe('form-group', () => {
     await $legend.trigger('click')
     expect(document.activeElement).toBe($input.element)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

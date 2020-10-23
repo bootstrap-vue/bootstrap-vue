@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { mathMax, mathMin } from '../../utils/math'
@@ -7,7 +7,7 @@ import { computeSize } from './avatar'
 
 // --- Main component ---
 // @vue/component
-export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
+export const BAvatarGroup = /*#__PURE__*/ defineComponent({
   name: NAME_AVATAR_GROUP,
   mixins: [normalizeSlotMixin],
   provide() {
@@ -56,7 +56,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
       return value ? { paddingLeft: value, paddingRight: value } : {}
     }
   },
-  render(h) {
+  render() {
     const $inner = h('div', { staticClass: 'b-avatar-group-inner', style: this.paddingStyle }, [
       this.normalizeSlot()
     ])

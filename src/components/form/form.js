@@ -1,5 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM } from '../../constants/components'
+
+// --- Props ---
 
 export const props = {
   id: {
@@ -20,15 +22,16 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
-export const BForm = /*#__PURE__*/ Vue.extend({
+export const BForm = /*#__PURE__*/ defineComponent({
   name: NAME_FORM,
   functional: true,
   props,
-  render(h, { props, data, children }) {
+  render(_, { props, data, children }) {
     return h(
       'form',
-      mergeData(data, {
+      mergeProps(data, {
         class: {
           'form-inline': props.inline,
           'was-validated': props.validated

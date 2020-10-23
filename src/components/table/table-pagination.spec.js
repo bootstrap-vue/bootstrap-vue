@@ -12,18 +12,18 @@ const testItems = [
 describe('table > pagination', () => {
   it('default should not be paginated', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems
       }
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(5)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have 3 rows when per-page=3', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         perPage: 3,
         currentPage: 1
@@ -31,31 +31,16 @@ describe('table > pagination', () => {
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     const $trs = wrapper.findAll('tbody > tr')
-    expect(
-      $trs
-        .at(0)
-        .find('td')
-        .text()
-    ).toBe('1')
-    expect(
-      $trs
-        .at(1)
-        .find('td')
-        .text()
-    ).toBe('4')
-    expect(
-      $trs
-        .at(2)
-        .find('td')
-        .text()
-    ).toBe('7')
+    expect($trs[0].find('td').text()).toBe('1')
+    expect($trs[1].find('td').text()).toBe('4')
+    expect($trs[2].find('td').text()).toBe('7')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('changing pages should update rows', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         perPage: 3,
         currentPage: 1
@@ -63,52 +48,27 @@ describe('table > pagination', () => {
     })
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
     let $trs = wrapper.findAll('tbody > tr')
-    expect(
-      $trs
-        .at(0)
-        .find('td')
-        .text()
-    ).toBe('1')
-    expect(
-      $trs
-        .at(1)
-        .find('td')
-        .text()
-    ).toBe('4')
-    expect(
-      $trs
-        .at(2)
-        .find('td')
-        .text()
-    ).toBe('7')
+    expect($trs[0].find('td').text()).toBe('1')
+    expect($trs[1].find('td').text()).toBe('4')
+    expect($trs[2].find('td').text()).toBe('7')
 
     await wrapper.setProps({ currentPage: 2 })
 
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     $trs = wrapper.findAll('tbody > tr')
-    expect(
-      $trs
-        .at(0)
-        .find('td')
-        .text()
-    ).toBe('10')
-    expect(
-      $trs
-        .at(1)
-        .find('td')
-        .text()
-    ).toBe('13')
+    expect($trs[0].find('td').text()).toBe('10')
+    expect($trs[1].find('td').text()).toBe('13')
 
     await wrapper.setProps({ currentPage: 3 })
 
     expect(wrapper.findAll('tbody > tr').length).toBe(0)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('setting current-page to more than pages shows empty row when show-empty=true', async () => {
     const wrapper = mount(BTable, {
-      propsData: {
+      props: {
         items: testItems,
         perPage: 3,
         currentPage: 1,
@@ -128,6 +88,6 @@ describe('table > pagination', () => {
     expect(wrapper.find('tbody > tr > td > div').attributes('role')).toBe('alert')
     expect(wrapper.find('tbody > tr > td > div').attributes('aria-live')).toBe('polite')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })
