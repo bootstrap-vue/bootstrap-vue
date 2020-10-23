@@ -141,7 +141,9 @@ describe('form-invalid-feedback', () => {
 
   it('should have children in the default slot when supplied', async () => {
     const wrapper = mount(BFormInvalidFeedback, {
-      children: ['foo', '<span>bar</span>']
+      slots: {
+        default: ['foo', '<span>bar</span>']
+      }
     })
 
     expect(wrapper.text()).toContain('foo')
