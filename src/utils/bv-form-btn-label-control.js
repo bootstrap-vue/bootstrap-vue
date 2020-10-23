@@ -3,7 +3,7 @@
 //
 import { defineComponent, h } from '../vue'
 import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
-import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-names'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slots'
 import { attemptBlur, attemptFocus } from './dom'
 import { stopEvent } from './events'
 import { toString } from './string'

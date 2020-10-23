@@ -1,6 +1,6 @@
 import { defineComponent } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
-import { SLOT_NAME_TITLE } from '../../constants/slot-names'
+import { SLOT_NAME_TITLE } from '../../constants/slots'
 import { getComponentConfig } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'

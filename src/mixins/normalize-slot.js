@@ -1,5 +1,5 @@
 import { isVue2 } from '../vue'
-import { SLOT_NAME_DEFAULT } from '../constants/slot-names'
+import { SLOT_NAME_DEFAULT } from '../constants/slots'
 import { hasNormalizedSlot, normalizeSlot } from '../utils/normalize-slot'
 import { concat } from '../utils/array'
 

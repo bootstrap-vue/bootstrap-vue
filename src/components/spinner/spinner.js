@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_SPINNER } from '../../constants/components'
-import { SLOT_NAME_LABEL } from '../../constants/slot-names'
+import { SLOT_NAME_LABEL } from '../../constants/slots'
 import { getComponentConfig } from '../../utils/config'
 import { normalizeSlot } from '../../utils/normalize-slot'
 

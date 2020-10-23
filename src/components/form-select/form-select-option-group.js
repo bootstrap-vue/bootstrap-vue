@@ -1,6 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SELECT_OPTION_GROUP } from '../../constants/components'
-import { SLOT_NAME_FIRST } from '../../constants/slot-names'
+import { SLOT_NAME_FIRST } from '../../constants/slots'
 import { htmlOrText } from '../../utils/html'
 import formOptionsMixin from '../../mixins/form-options'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

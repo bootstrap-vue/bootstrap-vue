@@ -9,7 +9,7 @@ import {
   mergeProps as _mergeProps
 } from 'vue-demi'
 import { mergeData } from 'vue-functional-data-merge'
-import { SLOT_NAME_DEFAULT } from './constants/slot-names'
+import { SLOT_NAME_DEFAULT } from './constants/slots'
 import { isPlainObject, isUndefined } from './utils/inspect'
 import { keys } from './utils/object'
 import { upperFirst } from './utils/string'

@@ -1,6 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
 import identity from '../../utils/identity'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 

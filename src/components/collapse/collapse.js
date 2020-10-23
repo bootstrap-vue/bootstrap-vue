@@ -1,7 +1,7 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'

@@ -9,7 +9,7 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../constants/key-codes'
-import { SLOT_NAME_TITLE } from '../../constants/slot-names'
+import { SLOT_NAME_TITLE } from '../../constants/slots'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'

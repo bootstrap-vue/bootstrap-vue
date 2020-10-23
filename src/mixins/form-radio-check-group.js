@@ -1,5 +1,5 @@
 import { h } from '../vue'
-import { SLOT_NAME_FIRST } from '../constants/slot-names'
+import { SLOT_NAME_FIRST } from '../constants/slots'
 import looseEqual from '../utils/loose-equal'
 import normalizeSlotMixin from './normalize-slot'
 import { htmlOrText } from '../utils/html'

@@ -1,6 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { getComponentConfig } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
