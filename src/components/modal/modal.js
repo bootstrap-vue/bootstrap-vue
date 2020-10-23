@@ -862,7 +862,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
         this.isModalOverflowing = modal.scrollHeight > document.documentElement.clientHeight
       }
     },
-    makeModal(h) {
+    makeModal() {
       const { bvAttrs } = this
 
       // Modal header
@@ -1103,9 +1103,9 @@ export const BModal = /*#__PURE__*/ defineComponent({
   },
   render() {
     if (this.static) {
-      return this.lazy && this.isHidden ? h() : this.makeModal(h)
+      return this.lazy && this.isHidden ? h() : this.makeModal()
     } else {
-      return this.isHidden ? h() : h(BTransporterSingle, [this.makeModal(h)])
+      return this.isHidden ? h() : h(BTransporterSingle, [this.makeModal()])
     }
   }
 })

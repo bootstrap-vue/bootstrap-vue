@@ -352,7 +352,7 @@ export const BToast = /*#__PURE__*/ defineComponent({
       this.emitEvent(hiddenEvt)
       this.doRender = false
     },
-    makeToast(h) {
+    makeToast() {
       // Render helper for generating the toast
       // Assemble the header content
       const $headerContent = []
@@ -452,7 +452,7 @@ export const BToast = /*#__PURE__*/ defineComponent({
           },
           [
             h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
-              this.localShow ? this.makeToast(h) : h()
+              this.localShow ? this.makeToast() : h()
             ])
           ]
         )
