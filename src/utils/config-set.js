@@ -1,10 +1,10 @@
-import OurVue from '../vue'
+import { Vue as OurVue } from '../vue'
+import DEFAULTS from './config-defaults'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { getOwnPropertyNames, hasOwnProperty } from './object'
 import { warn } from './warn'
-import DEFAULTS from './config-defaults'
 
 // --- Constants ---
 

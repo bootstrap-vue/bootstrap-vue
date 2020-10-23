@@ -1,3 +1,4 @@
+import DEFAULTS from './config-defaults'
 import {
   getConfig,
   getConfigValue,
@@ -7,7 +8,6 @@ import {
   getBreakpointsDown
 } from './config'
 import { setConfig, resetConfig } from './config-set'
-import DEFAULTS from './config-defaults'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
 import { AlertPlugin } from '../../src/components/alert'

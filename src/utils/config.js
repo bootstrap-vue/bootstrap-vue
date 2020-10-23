@@ -1,8 +1,8 @@
 import { Vue, isVue2 } from '../vue'
+import DEFAULTS from './config-defaults'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import memoize from './memoize'
-import DEFAULTS from './config-defaults'
 
 // --- Constants ---
 
