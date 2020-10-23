@@ -5,6 +5,7 @@ import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
@@ -193,7 +194,7 @@ const propsMixin = {
 export const BFormTimepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TIMEPICKER,
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin],
+  mixins: [idMixin, propsMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -441,7 +442,7 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': this.$scopedSlots['button-content'] || this.defaultButtonFn
+          'button-content': this.normalizeSlot('button-content') || this.defaultButtonFn
         }
       },
       [$time]

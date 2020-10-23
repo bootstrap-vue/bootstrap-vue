@@ -5,11 +5,13 @@ import { arrayIncludes } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { isArray, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement, SVGElement } from '../../utils/safe-types'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BVTooltip } from './helpers/bv-tooltip'
 
 // @vue/component
 export const BTooltip = /*#__PURE__*/ defineComponent({
   name: NAME_TOOLTIP,
+  mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   props: {
     title: {
@@ -253,7 +255,7 @@ export const BTooltip = /*#__PURE__*/ defineComponent({
       // Popover: Default slot is `content`, `title` slot is title
       // We pass a scoped slot function reference by default (Vue v2.6x)
       // And pass the title prop as a fallback
-      this.setTitle(this.$scopedSlots.default || this.title)
+      this.setTitle(this.normalizeSlot() || this.title)
     },
     // Helper methods for `updateContent()`
     setTitle(val) {

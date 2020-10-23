@@ -12,8 +12,8 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
-import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
@@ -291,7 +291,7 @@ const propsMixin = {
 export const BFormDatepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_DATEPICKER,
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin],
+  mixins: [idMixin, propsMixin, normalizeSlotMixin],
   model: {
     prop: 'value',
     event: 'input'
@@ -458,7 +458,6 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const $scopedSlots = this.$scopedSlots
     const localYMD = this.localYMD
     const disabled = this.disabled
     const readonly = this.readonly
@@ -542,7 +541,7 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
           input: this.onInput,
           context: this.onContext
         },
-        scopedSlots: pick($scopedSlots, [
+        scopedSlots: [
           'nav-prev-decade',
           'nav-prev-year',
           'nav-prev-month',
@@ -550,7 +549,7 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
           'nav-next-month',
           'nav-next-year',
           'nav-next-decade'
-        ])
+        ].reduce((result, slotName) => ({ ...result, [slotName]: this.normalizeSlot(slotName) }))
       },
       $footer
     )
@@ -578,7 +577,7 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': $scopedSlots['button-content'] || this.defaultButtonFn
+          'button-content': this.normalizeSlot('button-content') || this.defaultButtonFn
         }
       },
       [$calendar]
