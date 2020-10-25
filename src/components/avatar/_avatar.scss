@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   vertical-align: middle;
+  flex-shrink: 0;
   width: $b-avatar-size;
   height: $b-avatar-size;
   font-size: inherit;
