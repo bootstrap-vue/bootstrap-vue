@@ -42,7 +42,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
         childNodes.push(
           h(
             BMediaAside,
-            { staticClass: 'mr-3', props: { verticalAlign: props.verticalAlign } },
+            { staticClass: 'media-aside-left', props: { verticalAlign: props.verticalAlign } },
             $aside
           )
         )
@@ -54,7 +54,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
         childNodes.push(
           h(
             BMediaAside,
-            { staticClass: 'ml-3', props: { verticalAlign: props.verticalAlign } },
+            { staticClass: 'media-aside-right', props: { verticalAlign: props.verticalAlign } },
             $aside
           )
         )
