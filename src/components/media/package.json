@@ -34,6 +34,10 @@
           {
             "prop": "verticalAlign",
             "description": "Vertical alignment of the aside: 'start' (or 'top'), 'center', or 'end' (or 'bottom')"
+          },
+          {
+            "prop": "right",
+            "description": "Render the 'aside' on the right. Default is on the left"
           }
         ]
       },
