@@ -9,6 +9,10 @@ export const props = {
   verticalAlign: {
     type: String,
     default: 'top'
+  },
+  right: {
+    type: Boolean,
+    default: false
   }
 }
 
@@ -27,9 +31,10 @@ export const BMediaAside = /*#__PURE__*/ Vue.extend({
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'd-flex',
+        staticClass: 'd-flex media-aside',
         class: {
-          [`align-self-${align}`]: align
+          [`align-self-${align}`]: align,
+          'media-aside-right': props.right
         }
       }),
       children
