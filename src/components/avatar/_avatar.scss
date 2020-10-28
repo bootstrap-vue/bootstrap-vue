@@ -99,7 +99,7 @@
     border-radius: 10em;
     font-size: 70%;
     font-weight: 700;
-    z-index: 5;
+    z-index: 1;
   }
 }
 
@@ -142,7 +142,7 @@
   a,
   .btn {
     &.b-avatar:hover:not(.disabled):not(disabled) {
-      z-index: 3;
+      z-index: 1;
     }
   }
 }
