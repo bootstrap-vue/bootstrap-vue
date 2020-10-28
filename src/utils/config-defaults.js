@@ -2,7 +2,6 @@ import {
   NAME_ALERT,
   NAME_AVATAR,
   NAME_BADGE,
-  NAME_BUTTON,
   NAME_BUTTON_CLOSE,
   NAME_CALENDAR,
   NAME_CARD_SUB_TITLE,
@@ -98,10 +97,6 @@ export default deepFreeze({
     badgeVariant: 'primary'
   },
   [NAME_BADGE]: {
-    variant: 'secondary'
-  },
-  [NAME_BUTTON]: {
-    size: undefined,
     variant: 'secondary'
   },
   [NAME_BUTTON_CLOSE]: {

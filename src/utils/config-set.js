@@ -2,7 +2,7 @@ import OurVue from '../vue'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'
-import { getOwnPropertyNames, hasOwnProperty } from './object'
+import { getOwnPropertyNames } from './object'
 import { warn } from './warn'
 import DEFAULTS from './config-defaults'
 
@@ -45,10 +45,6 @@ class BvConfig {
     const configKeys = getOwnPropertyNames(config)
     configKeys.forEach(cmpName => {
       /* istanbul ignore next */
-      if (!hasOwnProperty(DEFAULTS, cmpName)) {
-        warn(`Unknown config property "${cmpName}"`, NAME)
-        return
-      }
       const cmpConfig = config[cmpName]
       if (cmpName === 'breakpoints') {
         // Special case for breakpoints
@@ -67,15 +63,10 @@ class BvConfig {
         // Component prop defaults
         const props = getOwnPropertyNames(cmpConfig)
         props.forEach(prop => {
-          /* istanbul ignore if */
-          if (!hasOwnProperty(DEFAULTS[cmpName], prop)) {
-            warn(`Unknown config property "${cmpName}.${prop}"`, NAME)
-          } else {
-            // TODO: If we pre-populate the config with defaults, we can skip this line
-            this.$_config[cmpName] = this.$_config[cmpName] || {}
-            if (!isUndefined(cmpConfig[prop])) {
-              this.$_config[cmpName][prop] = cloneDeep(cmpConfig[prop])
-            }
+          // TODO: If we pre-populate the config with defaults, we can skip this line
+          this.$_config[cmpName] = this.$_config[cmpName] || {}
+          if (!isUndefined(cmpConfig[prop])) {
+            this.$_config[cmpName][prop] = cloneDeep(cmpConfig[prop])
           }
         })
       }
