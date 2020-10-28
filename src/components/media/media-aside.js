@@ -1,40 +1,45 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_MEDIA_ASIDE } from '../../constants/components'
 
+// --- Props ---
+
 export const props = {
   tag: {
     type: String,
     default: 'div'
   },
-  verticalAlign: {
-    type: String,
-    default: 'top'
-  },
   right: {
     type: Boolean,
     default: false
+  },
+  verticalAlign: {
+    type: String,
+    default: 'top'
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BMediaAside = /*#__PURE__*/ Vue.extend({
   name: NAME_MEDIA_ASIDE,
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { verticalAlign } = props
     const align =
-      props.verticalAlign === 'top'
+      verticalAlign === 'top'
         ? 'start'
-        : props.verticalAlign === 'bottom'
+        : verticalAlign === 'bottom'
           ? 'end'
-          : /* istanbul ignore next */ props.verticalAlign
+          : /* istanbul ignore next */ verticalAlign
+
     return h(
       props.tag,
       mergeData(data, {
-        staticClass: 'd-flex media-aside',
+        staticClass: 'media-aside',
         class: {
-          [`align-self-${align}`]: align,
-          'media-aside-right': props.right
+          'media-aside-right': props.right,
+          [`align-self-${align}`]: align
         }
       }),
       children
