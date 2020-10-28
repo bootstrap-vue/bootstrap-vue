@@ -125,15 +125,15 @@ visitors with class `.sr-only`.
 <div>
   <b-form inline>
     <label class="sr-only" for="inline-form-input-name">Name</label>
-    <b-input
+    <b-form-input
       id="inline-form-input-name"
       class="mb-2 mr-sm-2 mb-sm-0"
       placeholder="Jane Doe"
-    ></b-input>
+    ></b-form-input>
 
     <label class="sr-only" for="inline-form-input-username">Username</label>
     <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
-      <b-input id="inline-form-input-username" placeholder="Username"></b-input>
+      <b-form-input id="inline-form-input-username" placeholder="Username"></b-form-input>
     </b-input-group>
 
     <b-form-checkbox class="mb-2 mr-sm-2 mb-sm-0">Remember me</b-form-checkbox>
@@ -222,7 +222,7 @@ will announce this help text when the user focuses or enters the control.
 <div>
   <b-form @submit.stop.prevent>
     <label for="text-password">Password</label>
-    <b-input type="password" id="text-password" aria-describedby="password-help-block"></b-input>
+    <b-form-input type="password" id="text-password" aria-describedby="password-help-block"></b-form-input>
     <b-form-text id="password-help-block">
       Your password must be 8-20 characters long, contain letters and numbers, and must not
       contain spaces, special characters, or emoji.
@@ -261,7 +261,7 @@ or the `force-show` prop to display the feedback.
   <div>
     <b-form  @submit.stop.prevent>
       <label for="feedback-user">User ID</label>
-      <b-input v-model="userId" :state="validation" id="feedback-user"></b-input>
+      <b-form-input v-model="userId" :state="validation" id="feedback-user"></b-form-input>
       <b-form-invalid-feedback :state="validation">
         Your user ID must be 5-12 characters long.
       </b-form-invalid-feedback>
@@ -302,9 +302,11 @@ any `<option>` elements generated from the `options` prop.
 
 ```html
 <template>
-  <label for="input-with-list">Input with datalist</label>
-  <b-form-input list="input-list" id="input-with-list"></b-form-input>
-  <b-form-datalist id="input-list" :options="options"></b-form-datalist>
+  <div>
+    <label for="input-with-list">Input with datalist</label>
+    <b-form-input list="input-list" id="input-with-list"></b-form-input>
+    <b-form-datalist id="input-list" :options="options"></b-form-datalist>
+  </div>
 </template>
 
 <script>
