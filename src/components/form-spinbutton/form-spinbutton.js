@@ -1,3 +1,4 @@
+import Vue from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -7,7 +8,6 @@ import {
   CODE_UP,
   CODE_PAGEDOWN
 } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'

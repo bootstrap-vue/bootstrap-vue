@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_SKELETON_IMG } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { BAspect } from '../aspect'
 import { BSkeleton } from './skeleton'
 

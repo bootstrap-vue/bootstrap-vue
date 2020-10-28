@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { arrayIncludes } from '../../utils/array'
 
 export const props = {

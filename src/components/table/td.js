@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TABLE_CELL } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'

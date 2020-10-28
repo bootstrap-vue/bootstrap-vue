@@ -90,6 +90,10 @@
             "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
           },
           {
+            "prop": "noKeyNav",
+            "description": "Disable keyboard navigation of the calendar components"
+          },
+          {
             "prop": "hideHeader",
             "description": "When `true`, visually hides the selected date header"
           },

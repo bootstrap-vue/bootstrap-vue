@@ -1,3 +1,4 @@
+import Vue from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -9,7 +10,6 @@ import {
   CODE_UP
 } from '../../constants/key-codes'
 import { SLOT_NAME_TITLE } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'

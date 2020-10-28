@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_SKELETON_ICON } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { BIcon } from '../../icons'
 

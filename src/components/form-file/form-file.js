@@ -1,7 +1,7 @@
+import Vue from '../../vue'
 import { NAME_FORM_FILE } from '../../constants/components'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
-import Vue from '../../utils/vue'
 import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'

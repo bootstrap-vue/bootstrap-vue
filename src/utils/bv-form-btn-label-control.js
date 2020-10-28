@@ -1,9 +1,9 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
+import Vue from '../vue'
 import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-names'
-import Vue from './vue'
 import { attemptBlur, attemptFocus } from './dom'
 import { stopEvent } from './events'
 import { toString } from './string'

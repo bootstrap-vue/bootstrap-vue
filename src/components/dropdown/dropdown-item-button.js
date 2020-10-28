@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
-import Vue from '../../utils/vue'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 

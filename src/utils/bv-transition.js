@@ -4,8 +4,8 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
+import Vue, { mergeData } from '../vue'
 import { NAME_TRANSITION } from '../constants/components'
-import Vue, { mergeData } from './vue'
 import { isPlainObject } from './inspect'
 
 const NO_FADE_PROPS = {

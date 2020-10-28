@@ -1,4 +1,4 @@
-import OurVue from './vue'
+import OurVue from '../vue'
 import { setConfig } from './config-set'
 import { hasWindowSupport, isJSDOM } from './env'
 import { warn } from './warn'

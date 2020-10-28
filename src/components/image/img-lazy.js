@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
-import Vue from '../../utils/vue'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'

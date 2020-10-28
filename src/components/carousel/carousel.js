@@ -1,7 +1,7 @@
+import Vue from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
