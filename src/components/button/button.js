@@ -28,7 +28,7 @@ const btnProps = {
   },
   size: {
     type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'size', 'md')
+    default: () => getComponentConfig(NAME_BUTTON, 'size')
   },
   variant: {
     type: String,
