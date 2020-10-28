@@ -1,6 +1,6 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slot-names'
-import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'

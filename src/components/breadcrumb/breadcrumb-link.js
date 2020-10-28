@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'

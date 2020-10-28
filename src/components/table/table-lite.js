@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_TABLE_LITE } from '../../constants/components'
-import Vue from '../../utils/vue'
 import hasListenerMixin from '../../mixins/has-listener'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

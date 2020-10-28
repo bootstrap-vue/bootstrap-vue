@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { BForm, props as formProps } from '../form/form'
 
 // @vue/component

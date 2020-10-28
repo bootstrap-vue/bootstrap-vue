@@ -9,40 +9,18 @@ BootstrapVue icon components are built from
 are opt-in, meaning that they explicitly need to be imported in order to be used. They are not
 installed by default. You do not need `bootstrap-icons` as a dependency.
 
-- Icon components were added in BootstrapVue release `v2.2.0`.
-- Bootstrap Icons `v1.0.0-alpha3` icons were added in BootstrapVue release `v2.8.0`.
-- Bootstrap Icons `v1.0.0-alpha4` icons were added in BootstrapVue release `v2.15.0`.
-- Bootstrap Icons `v1.0.0-alpha5` icons were added in BootstrapVue release `v2.16.0`.
-- Bootstrap Icons `v1.0.0` icons were added in BootstrapVue release `v2.17.0`.
-
-<div class="alert alert-info small">
-  <p class="mb-2">
-    <strong>Note:</strong>
-    <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap's Icon</a> SVGs
-    are currently in the <b>alpha release stage</b>, and may be subject to _sweeping_ changes.
-  </p>
-  <ul class="mb-0">
-    <li>
-      <strong><code>v1.0.0-alpha3</code> changes:</strong> In addition to over 200 new icons,
-      some icons have changed names &mdash; <code>document-*</code> icons renamed <code>file-*</code>;
-      <code>alert-*</code> icons renamed <code>exclamation-*</code>; <code>columns-gutters</code>
-      renamed <code>columns-gap</code> and <code>diamond</code> renamed <code>gem</code> (because of
-      new <code>diamond-*</code> shape icons).
-    </li>
-    <li>
-      <strong><code>v1.0.0-alpha4</code> changes:</strong> In addition to over 140 new icons,
-      some icons have changed names &mdash; <code>arrow-up-down</code> renamed
-      <code>arrow-down-up</code> and <code>people-circle</code> renamed <code>person-circle</code>.
-    </li>
-    <li>
-      <strong><code>v1.0.0-alpha5</code> changes:</strong> In addition to over 300 new icons,
-      some icons have changed names &mdash; <code>camera</code> renamed <code>camera2</code>.
-    </li>
-    <li>
-      <strong><code>v1.0.0</code> changes:</strong> Over 90 new icons were added and over 400 redrawn.
-    </li>
-  </ul>
-</div>
+- [Bootstrap Icons](https://blog.getbootstrap.com/2019/11/26/bootstrap-icons/) were introduced to
+  BootstrapVue in release `v2.2.0`.
+- [Bootstrap Icons `v1.0.0-alpha3`](https://blog.getbootstrap.com/2020/03/19/bootstrap-icons-alpha-3/)
+  were added in BootstrapVue `v2.8.0`.
+- [Bootstrap Icons `v1.0.0-alpha4`](https://blog.getbootstrap.com/2020/05/21/bootstrap-icons-alpha4/)
+  were added in BootstrapVue `v2.15.0`.
+- [Bootstrap Icons `v1.0.0-alpha5`](https://blog.getbootstrap.com/2020/06/26/bootstrap-icons-alpha5/)
+  were added in BootstrapVue `v2.16.0`.
+- [Bootstrap Icons `v1.0.0`](https://blog.getbootstrap.com/2020/08/28/bootstrap-icons-stable/) were
+  added in BootstrapVue `v2.17.0`.
+- [Bootstrap Icons `v1.1.0`](https://blog.getbootstrap.com/2020/10/28/bootstrap-icons-1-1-0/) were
+  added in BootstrapVue `v2.19.0`.
 
 ## Usage
 

@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_PREPEND } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { BInputGroupAddon, commonProps } from './input-group-addon'
 
 // @vue/component

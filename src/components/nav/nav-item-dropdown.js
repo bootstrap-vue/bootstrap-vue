@@ -1,10 +1,10 @@
+import Vue from '../../vue'
 import { NAME_NAV_ITEM_DROPDOWN } from '../../constants/components'
 import {
   SLOT_NAME_BUTTON_CONTENT,
   SLOT_NAME_DEFAULT,
   SLOT_NAME_TEXT
 } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps } from '../../utils/props'
 import dropdownMixin from '../../mixins/dropdown'

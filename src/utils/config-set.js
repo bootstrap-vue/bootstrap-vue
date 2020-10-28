@@ -1,4 +1,4 @@
-import OurVue from './vue'
+import OurVue from '../vue'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'

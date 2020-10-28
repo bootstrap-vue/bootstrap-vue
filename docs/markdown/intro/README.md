@@ -151,7 +151,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 ```scss
 // custom.scss
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
@@ -181,7 +181,7 @@ a `scss` file:
 
 ```scss
 // Parcel example
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 ```
 
@@ -214,7 +214,25 @@ BootstrapVue and PortalVue require access to the global `Vue` reference (via
   </p>
 </div>
 
-**Example: Vue alias in webpack.config.js**
+**Example: Vue alias for [Vue CLI](https://cli.vuejs.org/) in `vue.config.js`**
+
+```js
+const path = require('path')
+
+module.exports = {
+  chainWebpack: config => {
+    config.resolve.alias.set(
+      'vue$',
+      // If using the runtime only build
+      path.resolve(__dirname, 'node_modules/vue/dist/vue.runtime.esm.js')
+      // Or if using full build of Vue (runtime + compiler)
+      // path.resolve(__dirname, 'node_modules/vue/dist/vue.esm.js')
+    )
+  }
+}
+```
+
+**Example: Vue alias in `webpack.config.js`**
 
 ```js
 module.exports = {

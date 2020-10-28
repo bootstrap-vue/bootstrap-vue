@@ -1,5 +1,5 @@
+import Vue, { mergeData } from '../../vue'
 import { NAME_SKELETON } from '../../constants/components'
-import Vue, { mergeData } from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 
 // @vue/component

@@ -68,7 +68,7 @@
         <b-img blank blank-color="#ccc" width="64" height="128" alt="placeholder"></b-img>
       </b-media-aside>
 
-      <b-media-body class="ml-3">
+      <b-media-body>
         <h5 class="mt-0">Media Title</h5>
         <p>
           Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante

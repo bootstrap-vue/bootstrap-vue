@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

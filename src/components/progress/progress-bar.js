@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_PROGRESS_BAR } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean } from '../../utils/inspect'

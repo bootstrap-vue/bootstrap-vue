@@ -1,5 +1,5 @@
+import Vue from '../../vue'
 import { NAME_NAVBAR } from '../../constants/components'
-import Vue from '../../utils/vue'
 import { getComponentConfig, getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { isString } from '../../utils/inspect'

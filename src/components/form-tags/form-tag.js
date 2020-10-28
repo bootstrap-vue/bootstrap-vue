@@ -1,6 +1,6 @@
+import Vue from '../../vue'
 import { NAME_FORM_TAG } from '../../constants/components'
 import { CODE_DELETE } from '../../constants/key-codes'
-import Vue from '../../utils/vue'
 import { getComponentConfig } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'

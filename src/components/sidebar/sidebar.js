@@ -1,7 +1,7 @@
+import Vue from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
 import { CODE_ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
-import Vue from '../../utils/vue'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { getComponentConfig } from '../../utils/config'
