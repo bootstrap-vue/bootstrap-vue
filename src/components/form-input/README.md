@@ -439,12 +439,14 @@ chosen, or new values to be entered.
 
 ```html
 <template>
-  <b-form-input list="my-list-id"></b-form-input>
+  <div>
+    <b-form-input list="my-list-id"></b-form-input>
 
-  <datalist id="my-list-id">
-    <option>Manual Option</option>
-    <option v-for="size in sizes">{{ size }}</option>
-  </datalist>
+    <datalist id="my-list-id">
+      <option>Manual Option</option>
+      <option v-for="size in sizes">{{ size }}</option>
+    </datalist>
+  </div>
 </template>
 
 <script>
