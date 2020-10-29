@@ -159,7 +159,7 @@ const plugin = Vue => {
 
   // Private utility method to open a user defined message box and returns a promise.
   // Not to be used directly by consumers, as this method may change calling syntax
-  const makeMsgBox = ($parent, content, options = {}, resolver) => {
+  const makeMsgBox = ($parent, content, options = {}, resolver = null) => {
     if (
       !content ||
       warnNoPromiseSupport(PROP_NAME) ||

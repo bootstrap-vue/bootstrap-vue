@@ -39,7 +39,7 @@ const LEGEND_INTERACTIVE_ELEMENTS = ['input', 'select', 'textarea', 'label', 'bu
 
 // Memoize this function to return cached values to
 // save time in computed functions
-const makePropName = memoize((breakpoint = '', prefix) => `${prefix}${upperFirst(breakpoint)}`)
+const makePropName = memoize((breakpoint = '', prefix = '') => `${prefix}${upperFirst(breakpoint)}`)
 
 // BFormGroup prop generator for lazy generation of props
 const generateProps = () => {
