@@ -36,18 +36,18 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
     },
     delay: {
       type: [Number, Object, String],
-      default: () => getComponentConfig(NAME_POPOVER, 'delay')
+      default: () => getComponentConfig(NAME_POPOVER, 'delay', 50)
     },
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
       // Object: Vue component
       type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME_POPOVER, 'boundary')
+      default: () => getComponentConfig(NAME_POPOVER, 'boundary', 'scrollParent')
     },
     boundaryPadding: {
       type: [Number, String],
-      default: () => getComponentConfig(NAME_POPOVER, 'boundaryPadding')
+      default: () => getComponentConfig(NAME_POPOVER, 'boundaryPadding', 5)
     }
   },
   methods: {

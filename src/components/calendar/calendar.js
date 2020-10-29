@@ -129,17 +129,17 @@ export const BCalendar = Vue.extend({
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'selectedVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'selectedVariant', 'primary')
     },
     todayVariant: {
       // Variant color to use for today's date (defaults to `selectedVariant`)
       type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'todayVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'todayVariant', 'undefined')
     },
     navButtonVariant: {
       // Variant color to use for the navigation buttons
       type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant')
+      default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant', 'secondary')
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -198,55 +198,56 @@ export const BCalendar = Vue.extend({
     // Labels for buttons and keyboard shortcuts
     labelPrevDecade: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade', 'Previous decade')
     },
     labelPrevYear: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear', 'Previous year')
     },
     labelPrevMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth', 'Previous month')
     },
     labelCurrentMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth', 'Current month')
     },
     labelNextMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth', 'Next month')
     },
     labelNextYear: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear', 'Next year')
     },
     labelNextDecade: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade', 'Next decade')
     },
     labelToday: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday', 'Today')
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected', 'Selected date')
     },
     labelNoDateSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected', 'No date selected')
     },
     labelCalendar: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar', 'Calendar')
     },
     labelNav: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav')
+      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav', 'Calendar navigation')
     },
     labelHelp: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelHelp')
+      default: () =>
+        getComponentConfig(NAME_CALENDAR, 'labelHelp', 'Use cursor keys to navigate calendar dates')
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object

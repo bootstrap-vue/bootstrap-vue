@@ -9,7 +9,7 @@ import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 const props = {
   content: {
     type: String,
-    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'content')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'content', '&times;')
   },
   disabled: {
     type: Boolean,
@@ -17,10 +17,11 @@ const props = {
   },
   ariaLabel: {
     type: String,
-    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'ariaLabel')
+    default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'ariaLabel', 'Close')
   },
   textVariant: {
     type: String,
+    // `textVariant` is `undefined` to inherit the current text color
     default: () => getComponentConfig(NAME_BUTTON_CLOSE, 'textVariant')
   }
 }

@@ -1,8 +1,6 @@
 import Vue from '../vue'
 import cloneDeep from './clone-deep'
-import { getRaw } from './get'
 import memoize from './memoize'
-import DEFAULTS from './config-defaults'
 
 // --- Constants ---
 
@@ -19,22 +17,26 @@ export const getConfig = () => {
 }
 
 // Method to grab a config value based on a dotted/array notation key
-export const getConfigValue = key => {
+export const getConfigValue = (key, defaultValue = undefined) => {
   return VueProto[PROP_NAME]
-    ? VueProto[PROP_NAME].getConfigValue(key)
-    : cloneDeep(getRaw(DEFAULTS, key))
+    ? VueProto[PROP_NAME].getConfigValue(key, defaultValue)
+    : cloneDeep(defaultValue)
 }
 
 // Method to grab a config value for a particular component
 export const getComponentConfig = (cmpName, key = null, defaultValue = undefined) => {
-  // Return the particular config value for key for if specified,
+  // Return the particular config value for key if specified,
   // otherwise we return the full config (or an empty object if not found)
-  return key ? getConfigValue(`${cmpName}.${key}`) || defaultValue : getConfigValue(cmpName) || {}
+
+  return key
+    ? getConfigValue(`${cmpName}.${key}`, defaultValue)
+    : getConfigValue(cmpName, defaultValue) || {}
 }
 
 // Convenience method for getting all breakpoint names
+const breakpoints = ['xs', 'sm', 'md', 'lg', 'xl']
 export const getBreakpoints = () => {
-  return getConfigValue('breakpoints')
+  return getConfigValue('breakpoints', breakpoints)
 }
 
 // Private function for caching / locking-in breakpoint names

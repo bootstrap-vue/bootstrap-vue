@@ -149,15 +149,15 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     bgVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'bgVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'bgVariant', 'light')
     },
     textVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'textVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'textVariant', 'dark')
     },
     shadow: {
       type: [Boolean, String],
-      default: () => getComponentConfig(NAME_SIDEBAR, 'shadow')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'shadow', false)
     },
     width: {
       type: String,
@@ -183,7 +183,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     tag: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'tag')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'tag', 'div')
     },
     sidebarClass: {
       type: [String, Array, Object]
@@ -208,7 +208,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     backdropVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'backdropVariant')
+      default: () => getComponentConfig(NAME_SIDEBAR, 'backdropVariant', 'dark')
     },
     noSlide: {
       type: Boolean,

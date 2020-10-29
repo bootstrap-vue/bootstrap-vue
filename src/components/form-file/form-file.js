@@ -144,19 +144,19 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'placeholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'placeholder', 'No file chosen')
     },
     browseText: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'browseText')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'browseText', 'Browse')
     },
     dropPlaceholder: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'dropPlaceholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'dropPlaceholder', 'Drop files here')
     },
     noDropPlaceholder: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'noDropPlaceholder')
+      default: () => getComponentConfig(NAME_FORM_FILE, 'noDropPlaceholder', 'Not allowed')
     },
     multiple: {
       type: Boolean,

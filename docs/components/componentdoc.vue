@@ -298,7 +298,6 @@
 <script>
 import Vue from 'vue'
 import commonProps from '../common-props.json'
-import { defaultConfig } from '../content'
 import { kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
@@ -425,7 +424,6 @@ export default {
     propsItems() {
       const props = this.componentProps
       const propsMetaObj = this.componentPropsMetaObj
-      const componentSettings = defaultConfig[this.componentOptions.name] || {}
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
@@ -457,8 +455,6 @@ export default {
             ? ''
             : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
-        const settings = Object.prototype.hasOwnProperty.call(componentSettings, prop)
-
         return {
           prop: kebabCase(prop),
           type,
@@ -466,7 +462,6 @@ export default {
           required: p.required || false,
           description: meta.description || '',
           version: meta.version || '',
-          settings,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,

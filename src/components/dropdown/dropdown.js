@@ -23,11 +23,11 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'variant')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'variant', 'secondary')
   },
   size: {
     type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'size')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'size', undefined)
   },
   block: {
     type: Boolean,
@@ -44,7 +44,7 @@ export const props = {
   toggleText: {
     // This really should be toggleLabel
     type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'toggleText')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'toggleText', 'Toggle Dropdown')
   },
   toggleClass: {
     type: [String, Array, Object]
@@ -68,7 +68,7 @@ export const props = {
   },
   splitVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'splitVariant')
+    default: () => getComponentConfig(NAME_DROPDOWN, 'splitVariant', undefined)
   },
   splitClass: {
     type: [String, Array, Object]

@@ -40,7 +40,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'variant')
+      default: () => getComponentConfig(NAME_ALERT, 'variant', 'info')
     },
     dismissible: {
       type: Boolean,
@@ -48,7 +48,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     },
     dismissLabel: {
       type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel')
+      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel', 'Close')
     },
     show: {
       type: [Boolean, Number, String],

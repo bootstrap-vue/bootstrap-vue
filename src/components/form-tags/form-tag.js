@@ -13,7 +13,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
   props: {
     variant: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAG, 'variant')
+      default: () => getComponentConfig(NAME_FORM_TAG, 'variant', 'secondary')
     },
     disabled: {
       type: Boolean,
@@ -29,7 +29,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     },
     removeLabel: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAG, 'removeLabel')
+      default: () => getComponentConfig(NAME_FORM_TAG, 'removeLabel', 'Remove tag')
     },
     tag: {
       type: String,

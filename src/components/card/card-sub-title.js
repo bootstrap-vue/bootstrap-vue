@@ -14,7 +14,7 @@ export const props = {
   },
   subTitleTextVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_CARD_SUB_TITLE, 'subTitleTextVariant')
+    default: () => getComponentConfig(NAME_CARD_SUB_TITLE, 'subTitleTextVariant', 'muted')
   }
 }
 

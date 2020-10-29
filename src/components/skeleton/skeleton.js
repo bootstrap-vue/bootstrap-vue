@@ -9,7 +9,7 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
   props: {
     animation: {
       type: String,
-      default: () => getComponentConfig(NAME_SKELETON, 'animation')
+      default: () => getComponentConfig(NAME_SKELETON, 'animation', 'wave')
     },
     type: {
       type: String,

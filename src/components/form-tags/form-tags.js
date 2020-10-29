@@ -75,7 +75,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     placeholder: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'placeholder')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'placeholder', 'Add tag...')
     },
     disabled: {
       type: Boolean,
@@ -118,15 +118,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     addButtonText: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonText', 'Add')
     },
     addButtonVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonVariant')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonVariant', 'outline-secondary')
     },
     tagVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagVariant')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagVariant', 'secondary')
     },
     tagClass: {
       type: [String, Array, Object]
@@ -138,11 +138,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     tagRemoveLabel: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemoveLabel')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemoveLabel', 'Remove tag')
     },
     tagRemovedLabel: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemovedLabel')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemovedLabel', 'Tag removed')
     },
     tagValidator: {
       type: Function
@@ -150,15 +150,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     duplicateTagText: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'duplicateTagText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'duplicateTagText', 'Duplicate tag(s)')
     },
     invalidTagText: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'invalidTagText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'invalidTagText', 'Invalid tag(s)')
     },
     limitTagsText: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'limitTagsText')
+      default: () => getComponentConfig(NAME_FORM_TAGS, 'limitTagsText', 'Tag limit reached')
     },
     limit: {
       type: Number

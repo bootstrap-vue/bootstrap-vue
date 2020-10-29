@@ -83,19 +83,20 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   props: {
     labelPrev: {
       type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev', 'Previous Slide')
     },
     labelNext: {
       type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext', 'Next Slide')
     },
     labelGotoSlide: {
       type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide')
+      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide', 'Goto Slide')
     },
     labelIndicators: {
       type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelIndicators')
+      default: () =>
+        getComponentConfig(NAME_CAROUSEL, 'labelIndicators', 'Select a slide to display')
     },
     interval: {
       type: Number,

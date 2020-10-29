@@ -21,7 +21,7 @@ export default {
     },
     selectedVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_TABLE, 'selectedVariant')
+      default: () => getComponentConfig(NAME_TABLE, 'selectedVariant', 'active')
     },
     noSelectOnClick: {
       // Disable use of click handlers for row selection

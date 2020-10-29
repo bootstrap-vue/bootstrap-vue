@@ -160,7 +160,7 @@ const propsMixin = {
     },
     labelTodayButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelTodayButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelTodayButton', 'Select today')
     },
     todayButtonVariant: {
       type: String,
@@ -172,7 +172,7 @@ const propsMixin = {
     },
     labelResetButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelResetButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelResetButton', 'Reset')
     },
     resetButtonVariant: {
       type: String,
@@ -184,7 +184,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelCloseButton')
+      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelCloseButton', 'Close')
     },
     closeButtonVariant: {
       type: String,

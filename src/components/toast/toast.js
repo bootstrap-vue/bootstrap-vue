@@ -43,7 +43,7 @@ export const props = {
   },
   toaster: {
     type: String,
-    default: () => getComponentConfig(NAME_TOAST, 'toaster')
+    default: () => getComponentConfig(NAME_TOAST, 'toaster', 'b-toaster-top-right')
   },
   visible: {
     type: Boolean,
@@ -68,7 +68,7 @@ export const props = {
   },
   autoHideDelay: {
     type: [Number, String],
-    default: () => getComponentConfig(NAME_TOAST, 'autoHideDelay')
+    default: () => getComponentConfig(NAME_TOAST, 'autoHideDelay', 5000)
   },
   noCloseButton: {
     type: Boolean,

@@ -105,7 +105,7 @@ const propsMixin = {
     },
     labelNowButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelNowButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelNowButton', 'Select now')
     },
     nowButtonVariant: {
       type: String,
@@ -117,7 +117,7 @@ const propsMixin = {
     },
     labelResetButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelResetButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelResetButton', 'Reset')
     },
     resetButtonVariant: {
       type: String,
@@ -129,7 +129,7 @@ const propsMixin = {
     },
     labelCloseButton: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelCloseButton')
+      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelCloseButton', 'Close')
     },
     closeButtonVariant: {
       type: String,

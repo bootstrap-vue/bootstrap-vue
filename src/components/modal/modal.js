@@ -51,7 +51,7 @@ const OBSERVER_CONFIG = {
 export const props = {
   size: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'size')
+    default: () => getComponentConfig(NAME_MODAL, 'size', 'md')
   },
   centered: {
     type: Boolean,
@@ -98,7 +98,7 @@ export const props = {
   },
   titleTag: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'titleTag')
+    default: () => getComponentConfig(NAME_MODAL, 'titleTag', 'h5')
   },
   titleClass: {
     type: [String, Array, Object]
@@ -215,33 +215,33 @@ export const props = {
   },
   headerCloseContent: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerCloseContent')
+    default: () => getComponentConfig(NAME_MODAL, 'headerCloseContent', '&times;')
   },
   headerCloseLabel: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerCloseLabel')
+    default: () => getComponentConfig(NAME_MODAL, 'headerCloseLabel', 'Close')
   },
   cancelTitle: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'cancelTitle')
+    default: () => getComponentConfig(NAME_MODAL, 'cancelTitle', 'Cancel')
   },
   cancelTitleHtml: {
     type: String
   },
   okTitle: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'okTitle')
+    default: () => getComponentConfig(NAME_MODAL, 'okTitle', 'OK')
   },
   okTitleHtml: {
     type: String
   },
   cancelVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'cancelVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'cancelVariant', 'secondary')
   },
   okVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'okVariant')
+    default: () => getComponentConfig(NAME_MODAL, 'okVariant', 'primary')
   },
   lazy: {
     type: Boolean,

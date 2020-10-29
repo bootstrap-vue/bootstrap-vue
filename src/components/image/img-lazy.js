@@ -40,7 +40,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getComponentConfig(NAME_IMG_LAZY, 'blankColor')
+    default: () => getComponentConfig(NAME_IMG_LAZY, 'blankColor', 'transparent')
   },
   blankWidth: {
     type: [Number, String]

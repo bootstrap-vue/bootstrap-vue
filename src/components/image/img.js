@@ -90,7 +90,7 @@ export const props = {
   },
   blankColor: {
     type: String,
-    default: () => getComponentConfig(NAME_IMG, 'blankColor')
+    default: () => getComponentConfig(NAME_IMG, 'blankColor', 'transparent')
   }
 }
 

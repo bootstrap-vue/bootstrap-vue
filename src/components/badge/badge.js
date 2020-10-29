@@ -19,7 +19,7 @@ export const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME_BADGE, 'variant')
+    default: () => getComponentConfig(NAME_BADGE, 'variant', 'secondary')
   },
   pill: {
     type: Boolean,

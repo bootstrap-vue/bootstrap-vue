@@ -126,11 +126,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     labelDecrement: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement')
+      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement', 'Decrement')
     },
     labelIncrement: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement')
+      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement', 'Increment')
     },
     locale: {
       type: [String, Array]

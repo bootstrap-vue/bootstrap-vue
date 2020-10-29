@@ -55,18 +55,18 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
     },
     delay: {
       type: [Number, Object, String],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'delay')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'delay', 50)
     },
     boundary: {
       // String: scrollParent, window, or viewport
       // Element: element reference
       // Object: Vue component
       type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'boundary')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'boundary', 'scrollParent')
     },
     boundaryPadding: {
       type: [Number, String],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'boundaryPadding')
+      default: () => getComponentConfig(NAME_TOOLTIP, 'boundaryPadding', 5)
     },
     offset: {
       type: [Number, String],

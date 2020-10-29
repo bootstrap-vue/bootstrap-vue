@@ -21,7 +21,7 @@ defined in the default configuration can be overridden. Attempting to set a conf
 not defined in the default will generate a console warning.
 
 ```json
-{{ defaultConfig }}
+TODO
 ```
 
 ### Setting new configuration values

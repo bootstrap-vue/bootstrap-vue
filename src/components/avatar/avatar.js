@@ -43,7 +43,7 @@ const props = {
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME_AVATAR, 'variant')
+    default: () => getComponentConfig(NAME_AVATAR, 'variant', 'secondary')
   },
   size: {
     type: [Number, String],
@@ -71,7 +71,7 @@ const props = {
   },
   badgeVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_AVATAR, 'badgeVariant')
+    default: () => getComponentConfig(NAME_AVATAR, 'badgeVariant', 'primary')
   },
   badgeTop: {
     type: Boolean,

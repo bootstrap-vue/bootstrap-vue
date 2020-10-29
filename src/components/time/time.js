@@ -112,35 +112,35 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     labelNoTimeSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected')
+      default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected', 'No time selected')
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSelected')
+      default: () => getComponentConfig(NAME_TIME, 'labelSelected', 'Selected time')
     },
     labelHours: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelHours')
+      default: () => getComponentConfig(NAME_TIME, 'labelHours', 'Hours')
     },
     labelMinutes: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelMinutes')
+      default: () => getComponentConfig(NAME_TIME, 'labelMinutes', 'Minutes')
     },
     labelSeconds: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSeconds')
+      default: () => getComponentConfig(NAME_TIME, 'labelSeconds', 'Seconds')
     },
     labelAmpm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAmpm')
+      default: () => getComponentConfig(NAME_TIME, 'labelAmpm', 'AM/PM')
     },
     labelAm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAm')
+      default: () => getComponentConfig(NAME_TIME, 'labelAm', 'AM')
     },
     labelPm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelPm')
+      default: () => getComponentConfig(NAME_TIME, 'labelPm', 'PM')
     },
     // Passed to the spin buttons
     labelIncrement: {

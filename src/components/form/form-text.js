@@ -13,7 +13,7 @@ export const props = {
   },
   textVariant: {
     type: String,
-    default: () => getComponentConfig(NAME_FORM_TEXT, 'textVariant')
+    default: () => getComponentConfig(NAME_FORM_TEXT, 'textVariant', 'muted')
   },
   inline: {
     type: Boolean,
