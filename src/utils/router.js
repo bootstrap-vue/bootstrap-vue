@@ -87,7 +87,7 @@ export const isLink = props => !!(props.href || props.to)
 
 export const isRouterLink = tag => !!(tag && !isTag(tag, 'a'))
 
-export const computeTag = ({ to, disabled, routerComponentName } = {}, thisOrParent) => {
+export const computeTag = ({ to, disabled, routerComponentName }, thisOrParent) => {
   const hasRouter = !!thisOrParent.$router
   if (!hasRouter || (hasRouter && (disabled || !to))) {
     return ANCHOR_TAG
