@@ -1,15 +1,19 @@
 import Vue from '../../vue'
 import { NAME_TFOOT } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-export const props = {
-  footVariant: {
-    type: String, // Supported values: 'lite', 'dark', or null
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    footVariant: {
+      type: String, // Supported values: 'lite', 'dark', or null
+      default: null
+    }
+  },
+  NAME_TFOOT
+)
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
