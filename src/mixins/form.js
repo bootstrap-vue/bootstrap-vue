@@ -1,34 +1,38 @@
+import { makePropsConfigurable } from '../utils/config'
 import { attemptFocus, isVisible, matches, requestAF, select } from '../utils/dom'
 
 const SELECTOR = 'input, textarea, select'
 
 // @vue/component
 export default {
-  props: {
-    name: {
-      type: String
-      // default: undefined
+  props: makePropsConfigurable(
+    {
+      name: {
+        type: String
+        // default: undefined
+      },
+      id: {
+        type: String
+        // default: undefined
+      },
+      disabled: {
+        type: Boolean
+      },
+      required: {
+        type: Boolean,
+        default: false
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      autofocus: {
+        type: Boolean,
+        default: false
+      }
     },
-    id: {
-      type: String
-      // default: undefined
-    },
-    disabled: {
-      type: Boolean
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
-    }
-  },
+    'form'
+  ),
   mounted() {
     this.handleAutofocus()
   },
