@@ -1,4 +1,6 @@
+import { NAME_TABLE } from '../../../constants/components'
 import get from '../../../utils/get'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
 import { BTr } from '../tr'
@@ -8,20 +10,23 @@ import { BTh } from '../th'
 const detailsSlotName = 'row-details'
 
 export default {
-  props: {
-    tbodyTrClass: {
-      type: [String, Array, Object, Function]
-      // default: null
+  props: makePropsConfigurable(
+    {
+      tbodyTrClass: {
+        type: [String, Array, Object, Function]
+        // default: null
+      },
+      tbodyTrAttr: {
+        type: [Object, Function]
+        // default: null
+      },
+      detailsTdClass: {
+        type: [String, Array, Object]
+        // default: null
+      }
     },
-    tbodyTrAttr: {
-      type: [Object, Function]
-      // default: null
-    },
-    detailsTdClass: {
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
+    NAME_TABLE
+  ),
   methods: {
     // Methods for computing classes, attributes and styles for table cells
     getTdValues(item, key, tdValue, defValue) {
