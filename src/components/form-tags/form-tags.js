@@ -20,7 +20,7 @@ import {
   select
 } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
+import { isEvent, isFunction, isNumber, isString, isUndefined } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -531,9 +531,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return parsed
     },
     validateTag(tag) {
-      // Call the user supplied tag validator
-      const validator = this.tagValidator
-      return isFunction(validator) ? validator(tag) : true
+      const { tagValidator } = this
+      if (isFunction(tagValidator)) {
+        const result = tagValidator(tag)
+        if (!isUndefined(result)) {
+          return result
+        }
+      }
+      return true
     },
     getInput() {
       // Returns the input element reference (or null if not found)
