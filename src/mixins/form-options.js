@@ -1,4 +1,5 @@
 import get from '../utils/get'
+import { makePropsConfigurable } from '../utils/config'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
@@ -9,28 +10,31 @@ const OPTIONS_OBJECT_DEPRECATED_MSG =
 
 // @vue/component
 export default {
-  props: {
-    options: {
-      type: [Array, Object],
-      default: () => []
+  props: makePropsConfigurable(
+    {
+      options: {
+        type: [Array, Object],
+        default: () => []
+      },
+      valueField: {
+        type: String,
+        default: 'value'
+      },
+      textField: {
+        type: String,
+        default: 'text'
+      },
+      htmlField: {
+        type: String,
+        default: 'html'
+      },
+      disabledField: {
+        type: String,
+        default: 'disabled'
+      }
     },
-    valueField: {
-      type: String,
-      default: 'value'
-    },
-    textField: {
-      type: String,
-      default: 'text'
-    },
-    htmlField: {
-      type: String,
-      default: 'html'
-    },
-    disabledField: {
-      type: String,
-      default: 'disabled'
-    }
-  },
+    'formOptions'
+  ),
   computed: {
     formOptions() {
       return this.normalizeOptions(this.options)
