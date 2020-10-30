@@ -174,7 +174,7 @@ export default {
               this.localBusy = false
             }
           }
-        } catch (e) {
+        } catch (e) /* istanbul ignore next */ {
           // Provider function borked on us, so we spew out a warning
           // and clear the busy state
           warn(`Provider function error [${e.name}] ${e.message}.`, NAME_TABLE)

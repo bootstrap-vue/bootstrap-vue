@@ -29,6 +29,7 @@ const props = makePropsConfigurable(
     numberOfPages: {
       type: [Number, String],
       default: 1,
+      /* istanbul ignore next */
       validator(value) {
         const number = toInteger(value, 0)
         if (number < 1) {

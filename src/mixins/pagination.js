@@ -70,6 +70,7 @@ export const props = makePropsConfigurable(
     value: {
       type: [Number, String],
       default: null,
+      /* istanbul ignore next */
       validator(value) {
         if (!isNull(value) && toInteger(value, 0) < 1) {
           warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
@@ -81,6 +82,7 @@ export const props = makePropsConfigurable(
     limit: {
       type: [Number, String],
       default: DEFAULT_LIMIT,
+      /* istanbul ignore next */
       validator(value) {
         if (toInteger(value, 0) < 1) {
           warn('Prop "limit" must be a number greater than "0"', NAME_PAGINATION)

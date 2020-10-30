@@ -695,6 +695,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       }, this)
     },
+    /* istanbul ignore next */
     unListen() {
       // Remove trigger event handlers
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
@@ -753,6 +754,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
       }
     },
+    /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */
     setOnTouchStartListener(on) {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children

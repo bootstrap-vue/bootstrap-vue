@@ -135,6 +135,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Called by intersection observer directive
+    /* istanbul ignore next */
     visibleCallback(visible) {
       if (visible) {
         // We use a `$nextTick()` here just to make sure any
@@ -149,6 +150,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
         })
       })
     },
+    /* istanbul ignore next: can't test getComputedStyle in JSDOM */
     computeHeight() {
       if (this.$isServer || !isNull(this.computedRows)) {
         return null

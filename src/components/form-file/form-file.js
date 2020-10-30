@@ -366,6 +366,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
           : flattenDeep(files)
         : flattenDeep(files).slice(0, 1)
     },
+    /* istanbul ignore next: used by Drag/Drop */
     setInputFiles(files) {
       // Try an set the file input files array so that `required`
       // constraint works for dropped files (will fail in IE11 though)
