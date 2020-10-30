@@ -259,7 +259,8 @@ export const props = makePropsConfigurable(
     autoFocusButton: {
       type: String,
       default: null,
-      validator(value) /* istanbul ignore next */ {
+      /* istanbul ignore next */
+      validator(value) {
         return isUndefinedOrNull(value) || arrayIncludes(['ok', 'cancel', 'close'], value)
       }
     }
