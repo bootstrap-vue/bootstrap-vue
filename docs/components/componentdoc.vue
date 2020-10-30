@@ -98,7 +98,6 @@
         <template #cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
-          <b-badge v-if="item.settings" variant="dark" href="/docs/reference/settings" title="Configurable in settings">Settings</b-badge>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
@@ -462,7 +461,6 @@ export default {
           required: p.required || false,
           description: meta.description || '',
           version: meta.version || '',
-          settings: meta.settings || false,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
