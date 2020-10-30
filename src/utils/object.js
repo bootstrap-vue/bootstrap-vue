@@ -1,4 +1,4 @@
-import { isArray, isObject, isPlainObject } from './inspect'
+import { isObject } from './inspect'
 
 // --- Static ---
 
