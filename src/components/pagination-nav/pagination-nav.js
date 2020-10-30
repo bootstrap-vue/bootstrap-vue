@@ -29,7 +29,7 @@ const props = makePropsConfigurable(
     numberOfPages: {
       type: [Number, String],
       default: 1,
-      validator(value) /* istanbul ignore next */ {
+      validator(value) {
         const number = toInteger(value, 0)
         if (number < 1) {
           warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)

@@ -316,7 +316,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
       }
     },
-    calendarYM(newVal, oldVal) /* istanbul ignore next */ {
+    calendarYM(newVal, oldVal) {
       // Displayed calendar month has changed
       // So possibly the calendar height has changed...
       // We need to update popper computed position

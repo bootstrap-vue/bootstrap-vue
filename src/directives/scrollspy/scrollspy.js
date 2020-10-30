@@ -85,27 +85,27 @@ const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
  */
 export const VBScrollspy = {
   /* istanbul ignore next: not easy to test */
-  bind(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  bind(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
   },
   /* istanbul ignore next: not easy to test */
-  inserted(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  inserted(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
   },
   /* istanbul ignore next: not easy to test */
-  update(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  update(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyScrollspy(el, bindings, vnode)
     }
   },
   /* istanbul ignore next: not easy to test */
-  componentUpdated(el, bindings, vnode) /* istanbul ignore next: not easy to test */ {
+  componentUpdated(el, bindings, vnode) {
     if (bindings.value !== bindings.oldValue) {
       applyScrollspy(el, bindings, vnode)
     }
   },
   /* istanbul ignore next: not easy to test */
-  unbind(el) /* istanbul ignore next: not easy to test */ {
+  unbind(el) {
     removeScrollspy(el)
   }
 }

@@ -179,12 +179,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    toaster() /* istanbul ignore next */ {
+    toaster() {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(this.ensureToaster)
     },
     /* istanbul ignore next */
-    static(newVal) /* istanbul ignore next */ {
+    static(newVal) {
       // If static changes to true, and the toast is showing,
       // ensure the toaster target exists
       if (newVal && this.localShow) {

@@ -255,12 +255,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     })
   },
   /* istanbul ignore next */
-  updated() /* istanbul ignore next */ {
+  updated() {
     // Usually called when the slots/data changes
     this.$nextTick(this.handleTemplateUpdate)
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     // In a keepalive that has been deactivated, so hide
     // the tooltip/popover if it is showing
     this.forceHide()
@@ -695,7 +695,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }
       }, this)
     },
-    unListen() /* istanbul ignore next */ {
+    unListen() {
       // Remove trigger event handlers
       const events = ['click', 'focusin', 'focusout', 'mouseenter', 'mouseleave']
       const target = this.getTarget()
@@ -753,7 +753,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
       }
     },
-    setOnTouchStartListener(on) /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */ {
+    setOnTouchStartListener(on) {
       // If this is a touch-enabled device we add extra empty
       // `mouseover` listeners to the body's immediate children
       // Only needed because of broken event delegation on iOS
@@ -885,7 +885,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    toggle() /* istanbul ignore next */ {
+    toggle() {
       // Manual toggle handler
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */

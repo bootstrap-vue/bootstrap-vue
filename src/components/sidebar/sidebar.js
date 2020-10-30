@@ -308,7 +308,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    $route(newVal = {}, oldVal = {}) /* istanbul ignore next: pain to mock */ {
+    $route(newVal = {}, oldVal = {}) {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
       }
@@ -328,7 +328,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     })
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.emitSync()
   },
   beforeDestroy() {
@@ -371,12 +371,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    onTopTrapFocus() /* istanbul ignore next */ {
+    onTopTrapFocus() {
       const tabables = getTabables(this.$refs.content)
       this.enforceFocus(tabables.reverse()[0])
     },
     /* istanbul ignore next */
-    onBottomTrapFocus() /* istanbul ignore next */ {
+    onBottomTrapFocus() {
       const tabables = getTabables(this.$refs.content)
       this.enforceFocus(tabables[0])
     },

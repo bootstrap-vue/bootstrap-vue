@@ -183,7 +183,7 @@ export default {
     this.$_popper = null
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next: not easy to test */ {
+  deactivated() {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
@@ -253,7 +253,7 @@ export default {
     },
     // Instructs popper to re-computes the dropdown position
     // useful if the content changes size
-    updatePopper() /* istanbul ignore next: not easy to test */ {
+    updatePopper() {
       try {
         this.$_popper.scheduleUpdate()
       } catch {}
@@ -348,7 +348,7 @@ export default {
     },
     // Mousedown handler for the toggle
     /* istanbul ignore next */
-    onMousedown(evt) /* istanbul ignore next */ {
+    onMousedown(evt) {
       // We prevent the 'mousedown' event for the toggle to stop the
       // 'focusin' event from being fired
       // The event would otherwise be picked up by the global 'focusin'

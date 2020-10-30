@@ -62,7 +62,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   inject: {
     bvTableTr: {
       /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
+      default() {
         return {}
       }
     }

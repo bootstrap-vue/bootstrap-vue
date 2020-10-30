@@ -645,11 +645,11 @@ export const BCalendar = Vue.extend({
     this.setLive(true)
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.setLive(true)
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     this.setLive(false)
   },
   beforeDestroy() {

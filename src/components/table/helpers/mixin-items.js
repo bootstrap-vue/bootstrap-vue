@@ -14,7 +14,7 @@ export default {
         // Provider mixin adds in `Function` type
         type: Array,
         /* istanbul ignore next */
-        default() /* istanbul ignore next */ {
+        default() {
           return []
         }
       },

@@ -115,13 +115,13 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     this.emitSync()
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     if (this.isNav) {
       this.setWindowEvents(true)
     }

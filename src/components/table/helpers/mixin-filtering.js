@@ -175,7 +175,7 @@ export default {
       this.isFiltered = Boolean(this.localFilter)
     })
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     this.clearFilterTimer()
   },
   methods: {

@@ -327,7 +327,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
     /* istanbul ignore next */
-    restart() /* istanbul ignore next: difficult to test */ {
+    restart() {
       if (!this.$el.contains(getActiveElement())) {
         this.start()
       }
@@ -445,8 +445,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         fn()
       }
     },
-    /* istanbul ignore next */
-    handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    handleSwipe() {
       const absDeltaX = mathAbs(this.touchDeltaX)
       if (absDeltaX <= SWIPE_THRESHOLD) {
         return
@@ -463,16 +463,16 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.next()
       }
     },
-    /* istanbul ignore next */
-    touchStart(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchStart(evt) {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
       } else if (!hasPointerEventSupport) {
         this.touchStartX = evt.touches[0].clientX
       }
     },
-    /* istanbul ignore next */
-    touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchMove(evt) {
       // Ensure swiping with one touch and not pinching
       if (evt.touches && evt.touches.length > 1) {
         this.touchDeltaX = 0
@@ -480,8 +480,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
-    /* istanbul ignore next */
-    touchEnd(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchEnd(evt) {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
       }

@@ -151,7 +151,7 @@ export default {
   },
   watch: {
     /* istanbul ignore next: pain in the butt to test */
-    isSortable(newVal) /* istanbul ignore next: pain in the butt to test */ {
+    isSortable(newVal) {
       if (newVal) {
         if (this.isSortable) {
           this.$on('head-clicked', this.handleSort)

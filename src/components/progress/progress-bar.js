@@ -14,7 +14,7 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   inject: {
     bvProgress: {
-      default() /* istanbul ignore next */ {
+      default() {
         return {}
       }
     }

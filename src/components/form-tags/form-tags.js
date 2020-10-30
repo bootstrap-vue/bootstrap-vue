@@ -334,7 +334,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     this.handleAutofocus()
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.handleAutofocus()
   },
   methods: {

@@ -15,7 +15,7 @@ export default {
         // Adds in 'Function' support
         type: [Array, Function],
         /* istanbul ignore next */
-        default() /* istanbul ignore next */ {
+        default() {
           return []
         }
       },
@@ -174,7 +174,7 @@ export default {
               this.localBusy = false
             }
           }
-        } catch (e) /* istanbul ignore next */ {
+        } catch (e) {
           // Provider function borked on us, so we spew out a warning
           // and clear the busy state
           warn(`Provider function error [${e.name}] ${e.message}.`, NAME_TABLE)

@@ -318,7 +318,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.clearRepeat()
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     this.clearRepeat()
   },
   methods: {
