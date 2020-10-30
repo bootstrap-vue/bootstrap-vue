@@ -122,7 +122,7 @@ export const props = {
   todayVariant: {
     // Variant color to use for today's date (defaults to `selectedVariant`)
     type: String,
-    default: getComponentConfig(NAME_CALENDAR, 'todayVariant', 'undefined')
+    default: getComponentConfig(NAME_CALENDAR, 'todayVariant')
   },
   navButtonVariant: {
     // Variant color to use for the navigation buttons
