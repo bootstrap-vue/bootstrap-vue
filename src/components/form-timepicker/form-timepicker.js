@@ -1,5 +1,5 @@
 import Vue from '../../vue'
-import { NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
+import { NAME_FORM_TIMEPICKER } from '../../constants/components'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
@@ -137,21 +137,18 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       },
       // Labels
       // These fallback to BTime values
-      ...makePropsConfigurable(
-        pick(timeProps, [
-          'labelSelected',
-          'labelNoTimeSelected',
-          'labelHours',
-          'labelMinutes',
-          'labelSeconds',
-          'labelAmpm',
-          'labelAm',
-          'labelPm',
-          'labelIncrement',
-          'labelDecrement'
-        ]),
-        NAME_TIME
-      ),
+      ...pick(timeProps, [
+        'labelSelected',
+        'labelNoTimeSelected',
+        'labelHours',
+        'labelMinutes',
+        'labelSeconds',
+        'labelAmpm',
+        'labelAm',
+        'labelPm',
+        'labelIncrement',
+        'labelDecrement'
+      ]),
       // extra dropdown stuff
       menuClass: {
         type: [String, Array, Object]
