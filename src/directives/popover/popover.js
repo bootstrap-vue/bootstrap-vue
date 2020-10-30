@@ -60,9 +60,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     disabled: false,
     id: null,
     html: false,
-    delay: getComponentConfig(NAME_POPOVER, 'delay'),
-    boundary: String(getComponentConfig(NAME_POPOVER, 'boundary')),
-    boundaryPadding: toInteger(getComponentConfig(NAME_POPOVER, 'boundaryPadding'), 0),
+    delay: getComponentConfig(NAME_POPOVER, 'delay', 50),
+    boundary: String(getComponentConfig(NAME_POPOVER, 'boundary', 'scrollParent')),
+    boundaryPadding: toInteger(getComponentConfig(NAME_POPOVER, 'boundaryPadding', 5), 0),
     variant: getComponentConfig(NAME_POPOVER, 'variant'),
     customClass: getComponentConfig(NAME_POPOVER, 'customClass')
   }
