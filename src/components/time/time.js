@@ -1,6 +1,6 @@
 // BTime control (not form input control)
 import Vue from '../../vue'
-import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
+import { NAME_TIME } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
 import { RX_TIME } from '../../constants/regex'
 import identity from '../../utils/identity'
@@ -134,10 +134,7 @@ export const props = makePropsConfigurable(
       default: 'PM'
     },
     // Passed to the spin buttons
-    ...makePropsConfigurable(
-      pick(formSpinbuttonProps, ['labelIncrement', 'labelDecrement']),
-      NAME_FORM_SPINBUTTON
-    ),
+    ...pick(formSpinbuttonProps, ['labelIncrement', 'labelDecrement']),
     hidden: {
       type: Boolean,
       default: false
