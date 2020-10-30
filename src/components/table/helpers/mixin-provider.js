@@ -1,5 +1,6 @@
 import { NAME_TABLE } from '../../../constants/components'
 import looseEqual from '../../../utils/loose-equal'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import { clone } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
@@ -7,35 +8,38 @@ import listenOnRootMixin from '../../../mixins/listen-on-root'
 
 export default {
   mixins: [listenOnRootMixin],
-  props: {
-    // Prop override(s)
-    items: {
-      // Adds in 'Function' support
-      type: [Array, Function],
-      /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
-        return []
+  props: makePropsConfigurable(
+    {
+      // Prop override(s)
+      items: {
+        // Adds in 'Function' support
+        type: [Array, Function],
+        /* istanbul ignore next */
+        default() /* istanbul ignore next */ {
+          return []
+        }
+      },
+      // Additional props
+      noProviderPaging: {
+        type: Boolean,
+        default: false
+      },
+      noProviderSorting: {
+        type: Boolean,
+        default: false
+      },
+      noProviderFiltering: {
+        type: Boolean,
+        default: false
+      },
+      apiUrl: {
+        // Passthrough prop. Passed to the context object. Not used by b-table directly
+        type: String,
+        default: ''
       }
     },
-    // Additional props
-    noProviderPaging: {
-      type: Boolean,
-      default: false
-    },
-    noProviderSorting: {
-      type: Boolean,
-      default: false
-    },
-    noProviderFiltering: {
-      type: Boolean,
-      default: false
-    },
-    apiUrl: {
-      // Passthrough prop. Passed to the context object. Not used by b-table directly
-      type: String,
-      default: ''
-    }
-  },
+    NAME_TABLE
+  ),
   computed: {
     hasProvider() {
       return isFunction(this.items)
