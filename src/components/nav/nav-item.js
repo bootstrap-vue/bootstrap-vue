@@ -6,15 +6,9 @@ import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = makePropsConfigurable(omit(BLinkProps, ['event', 'routerTag']), NAME_NAV_ITEM)
-
-// --- Main component ---
-// @vue/component
-export const BNavItem = /*#__PURE__*/ Vue.extend({
-  name: NAME_NAV_ITEM,
-  functional: true,
-  props: {
-    ...props,
+export const props = makePropsConfigurable(
+  {
+    ...omit(BLinkProps, ['event', 'routerTag']),
     linkAttrs: {
       type: Object,
       default: () => {}
@@ -24,6 +18,15 @@ export const BNavItem = /*#__PURE__*/ Vue.extend({
       default: null
     }
   },
+  NAME_NAV_ITEM
+)
+
+// --- Main component ---
+// @vue/component
+export const BNavItem = /*#__PURE__*/ Vue.extend({
+  name: NAME_NAV_ITEM,
+  functional: true,
+  props,
   render(h, { props, data, listeners, children }) {
     // We transfer the listeners to the link
     delete data.on
