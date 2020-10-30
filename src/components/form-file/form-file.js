@@ -267,11 +267,12 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       }
     },
     computedFileNameFormatter() {
-      const { fileNameFormatter, flattenedFiles, clonedFiles, fileNames } = this
-      return isFunction(fileNameFormatter) &&
-        !isUndefined(fileNameFormatter(flattenedFiles, clonedFiles, fileNames))
-        ? fileNameFormatter
-        : this.defaultFileNameFormatter
+      const { fileNameFormatter } = this
+      let result = null
+      try {
+        result = fileNameFormatter()
+      } catch {}
+      return isUndefined(result) ? this.defaultFileNameFormatter : fileNameFormatter
     },
     clonedFiles() {
       return cloneDeep(this.files)
