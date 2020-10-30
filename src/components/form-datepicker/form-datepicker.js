@@ -1,5 +1,5 @@
 import Vue from '../../vue'
-import { NAME_FORM_DATEPICKER } from '../../constants/components'
+import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
   CALENDAR_LONG,
   CALENDAR_NARROW,
@@ -8,25 +8,15 @@ import {
 } from '../../constants/date'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isFunction, isUndefinedOrNull } from '../../utils/inspect'
+import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BCalendar, props as calendarProps } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
-
-// --- Helper methods ---
-
-// Fallback to BCalendar prop if no value found
-const getConfigFallback = prop => {
-  const fallback = (calendarProps[prop] || {}).default
-  return (
-    getComponentConfig(NAME_FORM_DATEPICKER, prop) || (isFunction(fallback) ? fallback() : fallback)
-  )
-}
 
 // --- Main component ---
 // @vue/component
@@ -38,264 +28,221 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      type: [String, Date],
-      default: null
+  props: makePropsConfigurable(
+    {
+      value: {
+        type: [String, Date],
+        default: null
+      },
+      valueAsDate: {
+        type: Boolean,
+        default: false
+      },
+      resetValue: {
+        type: [String, Date]
+        // default: null
+      },
+      initialDate: {
+        // This specifies the calendar year/month/day that will be shown when
+        // first opening the datepicker if no v-model value is provided
+        // Default is the current date (or `min`/`max`)
+        // Passed directly to <b-calendar>
+        type: [String, Date]
+        // default: null
+      },
+      placeholder: {
+        type: String
+        // Defaults to `labelNoDateSelected` from calendar context
+        // default: null
+      },
+      size: {
+        type: String
+        // default: null
+      },
+      min: {
+        type: [String, Date]
+        // default: null
+      },
+      max: {
+        type: [String, Date]
+        // default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      required: {
+        // If true adds the `aria-required` attribute
+        type: Boolean,
+        default: false
+      },
+      name: {
+        type: String
+        // default: null
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      state: {
+        // Tri-state prop: `true`, `false` or `null`
+        type: Boolean,
+        default: null
+      },
+      dateDisabledFn: {
+        type: Function
+        // default: null
+      },
+      noCloseOnSelect: {
+        type: Boolean,
+        default: false
+      },
+      hideHeader: {
+        type: Boolean,
+        default: false
+      },
+      showDecadeNav: {
+        // When `true` enables the decade navigation buttons
+        type: Boolean,
+        default: false
+      },
+      locale: {
+        type: [String, Array]
+        // default: null
+      },
+      startWeekday: {
+        // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
+        // Day of week to start calendar on
+        type: [Number, String],
+        default: 0
+      },
+      direction: {
+        type: String
+        // default: null
+      },
+      buttonOnly: {
+        type: Boolean,
+        default: false
+      },
+      buttonVariant: {
+        // Applicable in button only mode
+        type: String,
+        default: 'secondary'
+      },
+      calendarWidth: {
+        // Width of the calendar dropdown
+        type: String,
+        default: '270px'
+      },
+      ...makePropsConfigurable(
+        pick(calendarProps, ['selectedVariant', 'todayVariant', 'navButtonVariant']),
+        NAME_CALENDAR
+      ),
+      noHighlightToday: {
+        // Disable highlighting today's date
+        type: Boolean,
+        default: false
+      },
+      todayButton: {
+        type: Boolean,
+        default: false
+      },
+      labelTodayButton: {
+        type: String,
+        default: 'Select today'
+      },
+      todayButtonVariant: {
+        type: String,
+        default: 'outline-primary'
+      },
+      resetButton: {
+        type: Boolean,
+        default: false
+      },
+      labelResetButton: {
+        type: String,
+        default: 'Reset'
+      },
+      resetButtonVariant: {
+        type: String,
+        default: 'outline-danger'
+      },
+      closeButton: {
+        type: Boolean,
+        default: false
+      },
+      labelCloseButton: {
+        type: String,
+        default: 'Close'
+      },
+      closeButtonVariant: {
+        type: String,
+        default: 'outline-secondary'
+      },
+      dateInfoFn: {
+        // Passed through to b-calendar
+        type: Function
+        // default: undefined
+      },
+      // Labels for buttons and keyboard shortcuts
+      // These pick BCalendar global config if no BFormDate global config
+      ...makePropsConfigurable(
+        pick(calendarProps, [
+          'labelPrevDecade',
+          'labelPrevYear',
+          'labelPrevMonth',
+          'labelCurrentMonth',
+          'labelNextMonth',
+          'labelNextYear',
+          'labelToday',
+          'labelSelected',
+          'labelNoDateSelected',
+          'labelCalendar',
+          'labelNav',
+          'labelHelp'
+        ]),
+        NAME_CALENDAR
+      ),
+      dateFormatOptions: {
+        // `Intl.DateTimeFormat` object
+        // Note: This value is *not* to be placed in the global config
+        type: Object,
+        default: () => ({
+          year: DATE_FORMAT_NUMERIC,
+          month: CALENDAR_LONG,
+          day: DATE_FORMAT_NUMERIC,
+          weekday: CALENDAR_LONG
+        })
+      },
+      weekdayHeaderFormat: {
+        // Format of the weekday names at the top of the calendar
+        // Note: This value is *not* to be placed in the global config
+        type: String,
+        // `short` is typically a 3 letter abbreviation,
+        // `narrow` is typically a single letter
+        // `long` is the full week day name
+        // Although some locales may override this (i.e `ar`, etc.)
+        default: CALENDAR_SHORT,
+        validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+      },
+      // Dark mode
+      dark: {
+        type: Boolean,
+        default: false
+      },
+      // extra dropdown stuff
+      menuClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      ...dropdownProps
     },
-    valueAsDate: {
-      type: Boolean,
-      default: false
-    },
-    resetValue: {
-      type: [String, Date]
-      // default: null
-    },
-    initialDate: {
-      // This specifies the calendar year/month/day that will be shown when
-      // first opening the datepicker if no v-model value is provided
-      // Default is the current date (or `min`/`max`)
-      // Passed directly to <b-calendar>
-      type: [String, Date]
-      // default: null
-    },
-    placeholder: {
-      type: String
-      // Defaults to `labelNoDateSelected` from calendar context
-      // default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    min: {
-      type: [String, Date]
-      // default: null
-    },
-    max: {
-      type: [String, Date]
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      // If true adds the `aria-required` attribute
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false` or `null`
-      type: Boolean,
-      default: null
-    },
-    dateDisabledFn: {
-      type: Function
-      // default: null
-    },
-    noCloseOnSelect: {
-      type: Boolean,
-      default: false
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    showDecadeNav: {
-      // When `true` enables the decade navigation buttons
-      type: Boolean,
-      default: false
-    },
-    locale: {
-      type: [String, Array]
-      // default: null
-    },
-    startWeekday: {
-      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
-      // Day of week to start calendar on
-      type: [Number, String],
-      default: 0
-    },
-    direction: {
-      type: String
-      // default: null
-    },
-    buttonOnly: {
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Applicable in button only mode
-      type: String,
-      default: 'secondary'
-    },
-    calendarWidth: {
-      // Width of the calendar dropdown
-      type: String,
-      default: '270px'
-    },
-    selectedVariant: {
-      // Variant color to use for the selected date
-      type: String,
-      default: () => getConfigFallback('selectedVariant')
-    },
-    todayVariant: {
-      // Variant color to use for today's date (defaults to `selectedVariant`)
-      type: String,
-      default: () => getConfigFallback('todayVariant')
-    },
-    navButtonVariant: {
-      // Variant color to use for the navigation buttons
-      type: String,
-      default: () => getConfigFallback('navButtonVariant')
-    },
-    noHighlightToday: {
-      // Disable highlighting today's date
-      type: Boolean,
-      default: false
-    },
-    todayButton: {
-      type: Boolean,
-      default: false
-    },
-    labelTodayButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelTodayButton', 'Select today')
-    },
-    todayButtonVariant: {
-      type: String,
-      default: 'outline-primary'
-    },
-    resetButton: {
-      type: Boolean,
-      default: false
-    },
-    labelResetButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelResetButton', 'Reset')
-    },
-    resetButtonVariant: {
-      type: String,
-      default: 'outline-danger'
-    },
-    closeButton: {
-      type: Boolean,
-      default: false
-    },
-    labelCloseButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_DATEPICKER, 'labelCloseButton', 'Close')
-    },
-    closeButtonVariant: {
-      type: String,
-      default: 'outline-secondary'
-    },
-    dateInfoFn: {
-      // Passed through to b-calendar
-      type: Function
-      // default: undefined
-    },
-    // Labels for buttons and keyboard shortcuts
-    // These pick BCalendar global config if no BFormDate global config
-    labelPrevDecade: {
-      type: String,
-      default: () => getConfigFallback('labelPrevDecade')
-    },
-    labelPrevYear: {
-      type: String,
-      default: () => getConfigFallback('labelPrevYear')
-    },
-    labelPrevMonth: {
-      type: String,
-      default: () => getConfigFallback('labelPrevMonth')
-    },
-    labelCurrentMonth: {
-      type: String,
-      default: () => getConfigFallback('labelCurrentMonth')
-    },
-    labelNextMonth: {
-      type: String,
-      default: () => getConfigFallback('labelNextMonth')
-    },
-    labelNextYear: {
-      type: String,
-      default: () => getConfigFallback('labelNextYear')
-    },
-    labelNextDecade: {
-      type: String,
-      default: () => getConfigFallback('labelNextDecade')
-    },
-    labelToday: {
-      type: String,
-      default: () => getConfigFallback('labelToday')
-    },
-    labelSelected: {
-      type: String,
-      default: () => getConfigFallback('labelSelected')
-    },
-    labelNoDateSelected: {
-      type: String,
-      default: () => getConfigFallback('labelNoDateSelected')
-    },
-    labelCalendar: {
-      type: String,
-      default: () => getConfigFallback('labelCalendar')
-    },
-    labelNav: {
-      type: String,
-      default: () => getConfigFallback('labelNav')
-    },
-    labelHelp: {
-      type: String,
-      default: () => getConfigFallback('labelHelp')
-    },
-    dateFormatOptions: {
-      // `Intl.DateTimeFormat` object
-      // Note: This value is *not* to be placed in the global config
-      type: Object,
-      default: () => ({
-        year: DATE_FORMAT_NUMERIC,
-        month: CALENDAR_LONG,
-        day: DATE_FORMAT_NUMERIC,
-        weekday: CALENDAR_LONG
-      })
-    },
-    weekdayHeaderFormat: {
-      // Format of the weekday names at the top of the calendar
-      // Note: This value is *not* to be placed in the global config
-      type: String,
-      // `short` is typically a 3 letter abbreviation,
-      // `narrow` is typically a single letter
-      // `long` is the full week day name
-      // Although some locales may override this (i.e `ar`, etc.)
-      default: CALENDAR_SHORT,
-      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
-    },
-    // Dark mode
-    dark: {
-      type: Boolean,
-      default: false
-    },
-    // extra dropdown stuff
-    menuClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    ...dropdownProps
-  },
+    NAME_FORM_DATEPICKER
+  ),
   data() {
     return {
       // We always use `YYYY-MM-DD` value internally
