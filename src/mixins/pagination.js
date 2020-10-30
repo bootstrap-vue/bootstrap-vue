@@ -11,14 +11,13 @@ import {
   selectAll
 } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isFunction, isNull } from '../utils/inspect'
+import { isFunction, isNull, isUndefined } from '../utils/inspect'
 import { mathFloor, mathMax, mathMin } from '../utils/math'
 import { toInteger } from '../utils/number'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
-import { isUndefined } from 'lodash'
 
 // Common props, computed, data, render function, and methods
 // for `<b-pagination>` and `<b-pagination-nav>`
