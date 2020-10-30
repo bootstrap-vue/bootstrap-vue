@@ -3,12 +3,19 @@ import { NAME_EMBED } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { arrayIncludes } from '../../utils/array'
 
+// --- Constants ---
+
+const TYPES = ['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy']
+
+// --- Props ---
+
 export const props = makePropsConfigurable({
   type: {
     type: String,
     default: 'iframe',
-    validator: str =>
-      arrayIncludes(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str)
+    validator(value) {
+      return arrayIncludes(TYPES, value)
+    }
   },
   tag: {
     type: String,
@@ -20,6 +27,7 @@ export const props = makePropsConfigurable({
   }
 })
 
+// --- Main component ---
 // @vue/component
 export const BEmbed = /*#__PURE__*/ Vue.extend({
   name: NAME_EMBED,

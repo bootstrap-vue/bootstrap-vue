@@ -257,7 +257,9 @@ export const props = {
     // `long` is the full week day name
     // Although some locales may override this (i.e `ar`, etc.)
     default: CALENDAR_SHORT,
-    validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+    validator(value) {
+      return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+    }
   }
 }
 

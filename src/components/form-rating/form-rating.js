@@ -117,7 +117,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       stars: {
         type: [Number, String],
         default: DEFAULT_STARS,
-        validator: val => toInteger(val) >= MIN_STARS
+        validator(value) {
+          return toInteger(value) >= MIN_STARS
+        }
       },
       variant: {
         type: String

@@ -132,7 +132,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       value: {
         type: [File, Array],
         default: null,
-        validator: value => {
+        validator(value) {
           /* istanbul ignore next */
           if (value === '') {
             warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)

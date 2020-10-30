@@ -8,6 +8,8 @@ import { isArray, isNumber } from '../../../utils/inspect'
 import { mathMax, mathMin } from '../../../utils/math'
 import sanitizeRow from './sanitize-row'
 
+const SELECT_MODES = ['range', 'multi', 'single']
+
 export default {
   props: {
     selectable: {
@@ -17,7 +19,9 @@ export default {
     selectMode: {
       type: String,
       default: 'multi',
-      validator: val => arrayIncludes(['range', 'multi', 'single'], val)
+      validator(value) {
+        return arrayIncludes(SELECT_MODES, value)
+      }
     },
     selectedVariant: {
       type: String,

@@ -106,7 +106,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       inputType: {
         type: String,
         default: 'text',
-        validator: type => arrayIncludes(TYPES, type)
+        validator(value) {
+          return arrayIncludes(TYPES, value)
+        }
       },
       inputClass: {
         type: [String, Array, Object]

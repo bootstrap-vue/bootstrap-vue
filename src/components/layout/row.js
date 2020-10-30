@@ -60,18 +60,23 @@ const generateProps = () => {
       alignV: {
         type: String,
         default: null,
-        validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'baseline', 'stretch'), str)
+        validator(value) {
+          return arrayIncludes(concat(COMMON_ALIGNMENT, 'baseline', 'stretch'), value)
+        }
       },
       alignH: {
         type: String,
         default: null,
-        validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around'), str)
+        validator(value) {
+          return arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around'), value)
+        }
       },
       alignContent: {
         type: String,
         default: null,
-        validator: str =>
-          arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
+        validator(value) {
+          return arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), value)
+        }
       },
       ...rowColsProps
     },

@@ -78,7 +78,9 @@ export const props = makePropsConfigurable(
     splitButtonType: {
       type: String,
       default: 'button',
-      validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
+      validator(value) {
+        return arrayIncludes(['button', 'submit', 'reset'], value)
+      }
     },
     lazy: {
       // If true, only render menu contents when open

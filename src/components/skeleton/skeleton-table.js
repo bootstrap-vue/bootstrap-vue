@@ -17,12 +17,16 @@ export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
       rows: {
         type: Number,
         default: 3,
-        validator: value => value > 0
+        validator(value) {
+          return value > 0
+        }
       },
       columns: {
         type: Number,
         default: 5,
-        validator: value => value > 0
+        validator(value) {
+          return value > 0
+        }
       },
       hideHeader: {
         type: Boolean,

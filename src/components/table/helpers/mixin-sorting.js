@@ -4,6 +4,8 @@ import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { trim } from '../../../utils/string'
 import defaultSortCompare from './default-sort-compare'
 
+const SORT_DIRECTIONS = ['asc', 'desc', 'last']
+
 export default {
   props: {
     sortBy: {
@@ -21,7 +23,9 @@ export default {
       // (not to mention it screws up the ARIA label on the headers)
       type: String,
       default: 'asc',
-      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
+      validator(value) {
+        return arrayIncludes(SORT_DIRECTIONS, value)
+      }
     },
     sortCompare: {
       type: Function

@@ -35,7 +35,9 @@ export default {
       type: [Number, String],
       deprecated: DEBOUNCE_DEPRECATED_MSG,
       default: 0,
-      validator: val => /^\d+/.test(String(val))
+      validator(value) {
+        return /^\d+/.test(String(value))
+      }
     }
   },
   data() {
