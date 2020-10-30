@@ -2,6 +2,7 @@ import Vue from '../vue'
 import { DEFAULT_BREAKPOINT, PROP_NAME } from '../constants/config'
 import cloneDeep from './clone-deep'
 import memoize from './memoize'
+import { isFunction } from './inspect'
 import { keys } from './object'
 
 // --- Constants ---
@@ -77,9 +78,15 @@ export const getBreakpointsDownCached = () => {
 export const makePropsConfigurable = (props, componentKey) =>
   keys(props).reduce((result, prop) => {
     const currentProp = props[prop]
+
+    let defaultValue = currentProp.default
+    if (isFunction(defaultValue)) {
+      defaultValue = defaultValue()
+    }
+
     result[prop] = {
       ...cloneDeep(currentProp),
-      default: () => getComponentConfig(componentKey, prop, currentProp.default)
+      default: () => getComponentConfig(componentKey, prop, defaultValue)
     }
 
     return result
