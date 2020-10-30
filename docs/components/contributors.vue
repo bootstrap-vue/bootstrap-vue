@@ -129,7 +129,7 @@ export default {
           cb(this.processOcNodes(response.nodes || []), null)
         } else {
           // We just return an empty node list rather than spew an error
-          // eslint-disable-next-line node/no-callback-literal
+          // eslint-disable-next-line standard/no-callback-literal
           cb([], xhr.statusText)
         }
       }

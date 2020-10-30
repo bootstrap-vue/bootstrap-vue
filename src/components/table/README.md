@@ -2234,7 +2234,7 @@ function myProvider() {
 
 **Example: Using callback to return data (asynchronous):**
 
-<!-- eslint-disable no-unused-vars, node/no-callback-literal -->
+<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
 
 ```js
 function myProvider(ctx, callback) {
