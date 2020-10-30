@@ -43,7 +43,7 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import { isArray, isPlainObject, isString, isUndefined } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -340,6 +340,23 @@ export const BCalendar = Vue.extend({
       // Returns the resolved locale used by the calendar
       return resolveLocale(concat(this.locale).filter(identity), CALENDAR_GREGORY)
     },
+    computedDateDisabledFn() {
+      const { dateDisabledFn } = this
+      let result = null
+      try {
+        result = dateDisabledFn()
+      } catch {}
+      return isUndefined(result) ? () => false : dateDisabledFn
+    },
+    // TODO: Change `dateInfoFn` to handle events and notes as well as classes
+    computedDateInfoFn() {
+      const { dateInfoFn } = this
+      let result = null
+      try {
+        result = dateInfoFn()
+      } catch {}
+      return isUndefined(result) ? () => ({}) : dateInfoFn
+    },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
       // Needed because IE 11 resolves `ar-IR` as islamic-civil calendar
@@ -439,13 +456,12 @@ export const BCalendar = Vue.extend({
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const rangeFn = this.dateOutOfRange
-      const disabledFn = isFunction(this.dateDisabledFn) ? this.dateDisabledFn : () => false
       // Return the function ref
       return date => {
         // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return !!(rangeFn(date) || disabledFn(ymd, date))
+        return !!(rangeFn(date) || this.computedDateDisabledFn(ymd, date))
       }
     },
     // Computed props that return date formatter functions
@@ -544,8 +560,6 @@ export const BCalendar = Vue.extend({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
-      // TODO: Change `dateInfoFn` to handle events and notes as well as classes
-      const dateInfoFn = isFunction(this.dateInfoFn) ? this.dateInfoFn : () => ({})
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
       for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
@@ -560,7 +574,7 @@ export const BCalendar = Vue.extend({
           const dayYMD = formatYMD(date)
           const dayDisabled = this.dateDisabled(date)
           // TODO: This could be a normalizer method
-          let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
+          let dateInfo = this.computedDateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
               ? /* istanbul ignore next */ { class: dateInfo }
