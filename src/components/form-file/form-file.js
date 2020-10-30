@@ -10,7 +10,14 @@ import { makePropsConfigurable } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
-import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
+import {
+  isArray,
+  isFile,
+  isFunction,
+  isNull,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
@@ -184,8 +191,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         default: false
       },
       fileNameFormatter: {
-        type: Function,
-        default: null
+        type: Function
+        // default: null
       }
     },
     NAME_FORM_FILE
@@ -259,6 +266,13 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         'aria-required': required ? 'true' : null
       }
     },
+    computedFileNameFormatter() {
+      const { fileNameFormatter, flattenedFiles, clonedFiles, fileNames } = this
+      return isFunction(fileNameFormatter) &&
+        !isUndefined(fileNameFormatter(flattenedFiles, clonedFiles, fileNames))
+        ? fileNameFormatter
+        : this.defaultFileNameFormatter
+    },
     clonedFiles() {
       return cloneDeep(this.files)
     },
@@ -288,19 +302,18 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         return this.normalizeSlot('placeholder') || this.placeholder
       }
 
+      const { flattenedFiles, clonedFiles, fileNames, computedFileNameFormatter } = this
+
       // There is a slot for formatting the files/names
       if (this.hasNormalizedSlot('file-name')) {
         return this.normalizeSlot('file-name', {
-          files: this.flattenedFiles,
-          filesTraversed: this.clonedFiles,
-          names: this.fileNames
+          files: flattenedFiles,
+          filesTraversed: clonedFiles,
+          names: fileNames
         })
       }
 
-      // Use the user supplied formatter, or the built in one
-      return isFunction(this.fileNameFormatter)
-        ? String(this.fileNameFormatter(this.flattenedFiles, this.clonedFiles))
-        : this.fileNames.join(', ')
+      return computedFileNameFormatter(flattenedFiles, clonedFiles, fileNames)
     }
   },
   watch: {
@@ -337,6 +350,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     isFilesArrayValid(files) {
       return isArray(files) ? files.every(file => this.isFileValid(file)) : this.isFileValid(files)
+    },
+    defaultFileNameFormatter(flattenedFiles, clonedFiles, fileNames) {
+      return fileNames.join(', ')
     },
     setFiles(files) {
       // Reset the dragging flags
