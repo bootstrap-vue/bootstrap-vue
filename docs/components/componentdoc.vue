@@ -462,6 +462,7 @@ export default {
           required: p.required || false,
           description: meta.description || '',
           version: meta.version || '',
+          settings: meta.settings || false,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
