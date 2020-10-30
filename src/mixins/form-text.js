@@ -1,6 +1,7 @@
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isFunction } from '../utils/inspect'
+import { isNull, isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
@@ -11,58 +12,61 @@ export default {
     prop: 'value',
     event: 'update'
   },
-  props: {
-    value: {
-      type: [String, Number],
-      default: ''
+  props: makePropsConfigurable(
+    {
+      value: {
+        type: [String, Number],
+        default: ''
+      },
+      ariaInvalid: {
+        type: [Boolean, String],
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      plaintext: {
+        type: Boolean,
+        default: false
+      },
+      autocomplete: {
+        type: String
+        // default: null
+      },
+      placeholder: {
+        type: String
+        // default: null
+      },
+      formatter: {
+        type: Function
+        // default: null
+      },
+      lazyFormatter: {
+        type: Boolean,
+        default: false
+      },
+      trim: {
+        type: Boolean,
+        default: false
+      },
+      number: {
+        type: Boolean,
+        default: false
+      },
+      lazy: {
+        // Only update the `v-model` on blur/change events
+        type: Boolean,
+        default: false
+      },
+      debounce: {
+        // Debounce timeout (in ms). Not applicable with `lazy` prop
+        type: [Number, String],
+        default: 0
+      }
     },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    plaintext: {
-      type: Boolean,
-      default: false
-    },
-    autocomplete: {
-      type: String
-      // default: null
-    },
-    placeholder: {
-      type: String
-      // default: null
-    },
-    formatter: {
-      type: Function
-      // default: null
-    },
-    lazyFormatter: {
-      type: Boolean,
-      default: false
-    },
-    trim: {
-      type: Boolean,
-      default: false
-    },
-    number: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // Only update the `v-model` on blur/change events
-      type: Boolean,
-      default: false
-    },
-    debounce: {
-      // Debounce timeout (in ms). Not applicable with `lazy` prop
-      type: [Number, String],
-      default: 0
-    }
-  },
+    'formText'
+  ),
   data() {
     return {
       localValue: toString(this.value),
@@ -103,7 +107,11 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      return isFunction(this.formatter)
+      let result = null
+      try {
+        result = this.formatter()
+      } catch {}
+      return !isUndefined(result)
     }
   },
   watch: {
