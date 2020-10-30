@@ -17,48 +17,50 @@ const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
-const btnProps = {
-  block: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    block: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String
+      //default: undefined
+    },
+    variant: {
+      type: String,
+      default: 'secondary'
+    },
+    type: {
+      type: String,
+      default: 'button'
+    },
+    tag: {
+      type: String,
+      default: 'button'
+    },
+    pill: {
+      type: Boolean,
+      default: false
+    },
+    squared: {
+      type: Boolean,
+      default: false
+    },
+    pressed: {
+      // Tri-state: `true`, `false` or `null`
+      // => On, off, not a toggle
+      type: Boolean,
+      default: null
+    },
+    ...linkProps
   },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  size: {
-    type: String
-    //default: undefined
-  },
-  variant: {
-    type: String,
-    default: 'secondary'
-  },
-  type: {
-    type: String,
-    default: 'button'
-  },
-  tag: {
-    type: String,
-    default: 'button'
-  },
-  pill: {
-    type: Boolean,
-    default: false
-  },
-  squared: {
-    type: Boolean,
-    default: false
-  },
-  pressed: {
-    // Tri-state: `true`, `false` or `null`
-    // => On, off, not a toggle
-    type: Boolean,
-    default: null
-  }
-}
-
-export const props = makePropsConfigurable({ ...btnProps, ...linkProps }, NAME_BUTTON)
+  NAME_BUTTON
+)
 
 // --- Helper methods ---
 
