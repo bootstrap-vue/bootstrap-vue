@@ -1,5 +1,5 @@
 import Vue from '../../vue'
-import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
+import { NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
   CALENDAR_LONG,
   CALENDAR_NARROW,
@@ -138,10 +138,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         type: String,
         default: '270px'
       },
-      ...makePropsConfigurable(
-        pick(calendarProps, ['selectedVariant', 'todayVariant', 'navButtonVariant']),
-        NAME_CALENDAR
-      ),
+      ...pick(calendarProps, ['selectedVariant', 'todayVariant', 'navButtonVariant']),
       noHighlightToday: {
         // Disable highlighting today's date
         type: Boolean,
@@ -190,23 +187,20 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       },
       // Labels for buttons and keyboard shortcuts
       // These pick BCalendar global config if no BFormDate global config
-      ...makePropsConfigurable(
-        pick(calendarProps, [
-          'labelPrevDecade',
-          'labelPrevYear',
-          'labelPrevMonth',
-          'labelCurrentMonth',
-          'labelNextMonth',
-          'labelNextYear',
-          'labelToday',
-          'labelSelected',
-          'labelNoDateSelected',
-          'labelCalendar',
-          'labelNav',
-          'labelHelp'
-        ]),
-        NAME_CALENDAR
-      ),
+      ...pick(calendarProps, [
+        'labelPrevDecade',
+        'labelPrevYear',
+        'labelPrevMonth',
+        'labelCurrentMonth',
+        'labelNextMonth',
+        'labelNextYear',
+        'labelToday',
+        'labelSelected',
+        'labelNoDateSelected',
+        'labelCalendar',
+        'labelNav',
+        'labelHelp'
+      ]),
       dateFormatOptions: {
         // `Intl.DateTimeFormat` object
         // Note: This value is *not* to be placed in the global config
