@@ -1,6 +1,6 @@
 import Vue from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -37,28 +37,31 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     prop: 'show',
     event: 'input'
   },
-  props: {
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'variant', 'info')
+  props: makePropsConfigurable(
+    {
+      variant: {
+        type: String,
+        default: 'info'
+      },
+      dismissible: {
+        type: Boolean,
+        default: false
+      },
+      dismissLabel: {
+        type: String,
+        default: 'Close'
+      },
+      show: {
+        type: [Boolean, Number, String],
+        default: false
+      },
+      fade: {
+        type: Boolean,
+        default: false
+      }
     },
-    dismissible: {
-      type: Boolean,
-      default: false
-    },
-    dismissLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel', 'Close')
-    },
-    show: {
-      type: [Boolean, Number, String],
-      default: false
-    },
-    fade: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_ALERT
+  ),
   data() {
     return {
       countDown: 0,

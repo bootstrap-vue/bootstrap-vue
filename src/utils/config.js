@@ -2,6 +2,7 @@ import Vue from '../vue'
 import { DEFAULT_BREAKPOINT, PROP_NAME } from '../constants/config'
 import cloneDeep from './clone-deep'
 import memoize from './memoize'
+import { keys } from './object'
 
 // --- Constants ---
 
@@ -24,10 +25,10 @@ export const getConfigValue = (key, defaultValue = undefined) => {
 }
 
 // Method to grab a config value for a particular component
-export const getComponentConfig = (cmpName, key = null, defaultValue = undefined) => {
+export const getComponentConfig = (key, propKey = null, defaultValue = undefined) => {
   // Return the particular config value for key if specified,
   // otherwise we return the full config (or an empty object if not found)
-  return key ? getConfigValue(`${cmpName}.${key}`, defaultValue) : getConfigValue(cmpName, {})
+  return propKey ? getConfigValue(`${key}.${propKey}`, defaultValue) : getConfigValue(key, {})
 }
 
 // Get all breakpoint names
@@ -69,3 +70,17 @@ export const getBreakpointsDownCached = () => {
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
+
+// Make a props object configurable by global configuration
+// Replaces the current `default` key of each prop with a `getComponentConfig()`
+// call that falls back to the current default value of the prop
+export const makePropsConfigurable = (props, componentKey) =>
+  keys(props).reduce((result, prop) => {
+    const currentProp = props[prop]
+    result[prop] = {
+      ...cloneDeep(currentProp),
+      default: () => getComponentConfig(componentKey, prop, currentProp.default)
+    }
+
+    return result
+  }, {})
