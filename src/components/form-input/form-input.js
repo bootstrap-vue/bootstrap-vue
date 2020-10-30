@@ -52,7 +52,9 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
       type: {
         type: String,
         default: 'text',
-        validator: type => arrayIncludes(TYPES, type)
+        validator(type) {
+          return arrayIncludes(TYPES, type)
+        }
       },
       noWheel: {
         // Disable mousewheel to prevent wheel from
