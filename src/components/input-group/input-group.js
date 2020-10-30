@@ -1,7 +1,7 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
 import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slot-names'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BInputGroupAppend } from './input-group-append'
@@ -10,13 +10,13 @@ import { BInputGroupText } from './input-group-text'
 
 // --- Props ---
 
-export const props = {
+export const props = makePropsConfigurable({
   id: {
     type: String
   },
   size: {
-    type: String,
-    default: () => getComponentConfig(NAME_INPUT_GROUP, 'size')
+    type: String
+    // default: undefined
   },
   prepend: {
     type: String
@@ -34,7 +34,7 @@ export const props = {
     type: String,
     default: 'div'
   }
-}
+})
 
 // --- Main component ---
 // @vue/component

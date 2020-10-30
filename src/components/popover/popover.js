@@ -1,6 +1,6 @@
 import Vue from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { HTMLElement } from '../../utils/safe-types'
 import { BTooltip } from '../tooltip/tooltip'
 import { BVPopover } from './helpers/bv-popover'
@@ -9,47 +9,50 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME_POPOVER,
   extends: BTooltip,
   inheritAttrs: false,
-  props: {
-    title: {
-      type: String
-      // default: undefined
+  props: makePropsConfigurable(
+    {
+      title: {
+        type: String
+        // default: undefined
+      },
+      content: {
+        type: String
+        // default: undefined
+      },
+      triggers: {
+        type: [String, Array],
+        default: 'click'
+      },
+      placement: {
+        type: String,
+        default: 'right'
+      },
+      variant: {
+        type: String,
+        default: undefined
+      },
+      customClass: {
+        type: String,
+        default: undefined
+      },
+      delay: {
+        type: [Number, Object, String],
+        default: 50
+      },
+      boundary: {
+        // String: scrollParent, window, or viewport
+        // Element: element reference
+        // Object: Vue component
+        type: [String, HTMLElement, Object],
+        default: 'scrollParent'
+      },
+      boundaryPadding: {
+        type: [Number, String],
+        default: 5
+      }
     },
-    content: {
-      type: String
-      // default: undefined
-    },
-    triggers: {
-      type: [String, Array],
-      default: 'click'
-    },
-    placement: {
-      type: String,
-      default: 'right'
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_POPOVER, 'variant')
-    },
-    customClass: {
-      type: String,
-      default: () => getComponentConfig(NAME_POPOVER, 'customClass')
-    },
-    delay: {
-      type: [Number, Object, String],
-      default: () => getComponentConfig(NAME_POPOVER, 'delay', 50)
-    },
-    boundary: {
-      // String: scrollParent, window, or viewport
-      // Element: element reference
-      // Object: Vue component
-      type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME_POPOVER, 'boundary', 'scrollParent')
-    },
-    boundaryPadding: {
-      type: [Number, String],
-      default: () => getComponentConfig(NAME_POPOVER, 'boundaryPadding', 5)
-    }
-  },
+    NAME_POPOVER
+  ),
   methods: {
     getComponent() {
       // Overridden by BPopover

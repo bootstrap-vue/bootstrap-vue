@@ -10,7 +10,7 @@ import {
 } from '../../constants/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
 import { isFunction, isNull } from '../../utils/inspect'
@@ -43,111 +43,114 @@ const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PA
 
 // --- Props ---
 
-export const props = {
-  value: {
-    // Should this really be String, to match native number inputs?
-    type: Number,
-    default: null
+export const props = makePropsConfigurable(
+  {
+    value: {
+      // Should this really be String, to match native number inputs?
+      type: Number,
+      default: null
+    },
+    min: {
+      type: [Number, String],
+      default: DEFAULT_MIN
+    },
+    max: {
+      type: [Number, String],
+      default: DEFAULT_MAX
+    },
+    step: {
+      type: [Number, String],
+      default: DEFAULT_STEP
+    },
+    wrap: {
+      type: Boolean,
+      default: false
+    },
+    formatterFn: {
+      type: Function
+      // default: null
+    },
+    size: {
+      type: String
+      // default: null
+    },
+    placeholder: {
+      type: String
+      // default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    required: {
+      // Only affects the `aria-invalid` attribute
+      type: Boolean,
+      default: false
+    },
+    name: {
+      type: String
+      // default: null
+    },
+    form: {
+      type: String
+      // default: null
+    },
+    state: {
+      // Tri-state prop: `true`, `false`, or `null`
+      type: Boolean,
+      default: null
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    ariaLabel: {
+      type: String
+      // default: null
+    },
+    ariaControls: {
+      type: String
+      // default: null
+    },
+    labelDecrement: {
+      type: String,
+      default: 'Decrement'
+    },
+    labelIncrement: {
+      type: String,
+      default: 'Increment'
+    },
+    locale: {
+      type: [String, Array]
+      // default: null
+    },
+    repeatDelay: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_DELAY
+    },
+    repeatInterval: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_INTERVAL
+    },
+    repeatThreshold: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_THRESHOLD
+    },
+    repeatStepMultiplier: {
+      type: [Number, String],
+      default: DEFAULT_REPEAT_MULTIPLIER
+    }
   },
-  min: {
-    type: [Number, String],
-    default: DEFAULT_MIN
-  },
-  max: {
-    type: [Number, String],
-    default: DEFAULT_MAX
-  },
-  step: {
-    type: [Number, String],
-    default: DEFAULT_STEP
-  },
-  wrap: {
-    type: Boolean,
-    default: false
-  },
-  formatterFn: {
-    type: Function
-    // default: null
-  },
-  size: {
-    type: String
-    // default: null
-  },
-  placeholder: {
-    type: String
-    // default: null
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  readonly: {
-    type: Boolean,
-    default: false
-  },
-  required: {
-    // Only affects the `aria-invalid` attribute
-    type: Boolean,
-    default: false
-  },
-  name: {
-    type: String
-    // default: null
-  },
-  form: {
-    type: String
-    // default: null
-  },
-  state: {
-    // Tri-state prop: `true`, `false`, or `null`
-    type: Boolean,
-    default: null
-  },
-  inline: {
-    type: Boolean,
-    default: false
-  },
-  vertical: {
-    type: Boolean,
-    default: false
-  },
-  ariaLabel: {
-    type: String
-    // default: null
-  },
-  ariaControls: {
-    type: String
-    // default: null
-  },
-  labelDecrement: {
-    type: String,
-    default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement', 'Decrement')
-  },
-  labelIncrement: {
-    type: String,
-    default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement', 'Increment')
-  },
-  locale: {
-    type: [String, Array]
-    // default: null
-  },
-  repeatDelay: {
-    type: [Number, String],
-    default: DEFAULT_REPEAT_DELAY
-  },
-  repeatInterval: {
-    type: [Number, String],
-    default: DEFAULT_REPEAT_INTERVAL
-  },
-  repeatThreshold: {
-    type: [Number, String],
-    default: DEFAULT_REPEAT_THRESHOLD
-  },
-  repeatStepMultiplier: {
-    type: [Number, String],
-    default: DEFAULT_REPEAT_MULTIPLIER
-  }
-}
+  NAME_FORM_SPINBUTTON
+)
 
 // --- BFormSpinbutton ---
 // @vue/component

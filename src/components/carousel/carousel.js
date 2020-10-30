@@ -4,7 +4,7 @@ import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   addClass,
   getActiveElement,
@@ -80,80 +80,82 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    labelPrev: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev', 'Previous Slide')
+  props: makePropsConfigurable(
+    {
+      labelPrev: {
+        type: String,
+        default: 'Previous Slide'
+      },
+      labelNext: {
+        type: String,
+        default: 'Next Slide'
+      },
+      labelGotoSlide: {
+        type: String,
+        default: 'Goto Slide'
+      },
+      labelIndicators: {
+        type: String,
+        default: 'Select a slide to display'
+      },
+      interval: {
+        type: Number,
+        default: 5000
+      },
+      indicators: {
+        type: Boolean,
+        default: false
+      },
+      controls: {
+        type: Boolean,
+        default: false
+      },
+      noAnimation: {
+        // Disable slide/fade animation
+        type: Boolean,
+        default: false
+      },
+      fade: {
+        // Enable cross-fade animation instead of slide animation
+        type: Boolean,
+        default: false
+      },
+      noWrap: {
+        // Disable wrapping/looping when start/end is reached
+        type: Boolean,
+        default: false
+      },
+      noTouch: {
+        // Sniffed by carousel-slide
+        type: Boolean,
+        default: false
+      },
+      noHoverPause: {
+        // Disable pause on hover
+        type: Boolean,
+        default: false
+      },
+      imgWidth: {
+        // Sniffed by carousel-slide
+        type: [Number, String]
+        // default: undefined
+      },
+      imgHeight: {
+        // Sniffed by carousel-slide
+        type: [Number, String]
+        // default: undefined
+      },
+      background: {
+        type: String
+        // default: undefined
+      },
+      value: {
+        type: Number,
+        default: 0
+      }
     },
-    labelNext: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext', 'Next Slide')
-    },
-    labelGotoSlide: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide', 'Goto Slide')
-    },
-    labelIndicators: {
-      type: String,
-      default: () =>
-        getComponentConfig(NAME_CAROUSEL, 'labelIndicators', 'Select a slide to display')
-    },
-    interval: {
-      type: Number,
-      default: 5000
-    },
-    indicators: {
-      type: Boolean,
-      default: false
-    },
-    controls: {
-      type: Boolean,
-      default: false
-    },
-    noAnimation: {
-      // Disable slide/fade animation
-      type: Boolean,
-      default: false
-    },
-    fade: {
-      // Enable cross-fade animation instead of slide animation
-      type: Boolean,
-      default: false
-    },
-    noWrap: {
-      // Disable wrapping/looping when start/end is reached
-      type: Boolean,
-      default: false
-    },
-    noTouch: {
-      // Sniffed by carousel-slide
-      type: Boolean,
-      default: false
-    },
-    noHoverPause: {
-      // Disable pause on hover
-      type: Boolean,
-      default: false
-    },
-    imgWidth: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-      // default: undefined
-    },
-    imgHeight: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-      // default: undefined
-    },
-    background: {
-      type: String
-      // default: undefined
-    },
-    value: {
-      type: Number,
-      default: 0
-    }
-  },
+    NAME_CAROUSEL
+  ),
   data() {
     return {
       index: this.value || 0,

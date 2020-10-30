@@ -1,6 +1,6 @@
 import Vue from '../../vue'
 import { NAME_PROGRESS } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BProgressBar } from './progress-bar'
 
@@ -11,46 +11,49 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
   provide() {
     return { bvProgress: this }
   },
-  props: {
-    // These props can be inherited via the child b-progress-bar(s)
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_PROGRESS, 'variant')
+  props: makePropsConfigurable(
+    {
+      // These props can be inherited via the child b-progress-bar(s)
+      variant: {
+        type: String
+        // default: undefined
+      },
+      striped: {
+        type: Boolean,
+        default: false
+      },
+      animated: {
+        type: Boolean,
+        default: false
+      },
+      height: {
+        type: String
+        // default: null
+      },
+      precision: {
+        type: [Number, String],
+        default: 0
+      },
+      showProgress: {
+        type: Boolean,
+        default: false
+      },
+      showValue: {
+        type: Boolean,
+        default: false
+      },
+      max: {
+        type: [Number, String],
+        default: 100
+      },
+      // This prop is not inherited by child b-progress-bar(s)
+      value: {
+        type: [Number, String],
+        default: 0
+      }
     },
-    striped: {
-      type: Boolean,
-      default: false
-    },
-    animated: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: String
-      // default: null
-    },
-    precision: {
-      type: [Number, String],
-      default: 0
-    },
-    showProgress: {
-      type: Boolean,
-      default: false
-    },
-    showValue: {
-      type: Boolean,
-      default: false
-    },
-    max: {
-      type: [Number, String],
-      default: 100
-    },
-    // This prop is not inherited by child b-progress-bar(s)
-    value: {
-      type: [Number, String],
-      default: 0
-    }
-  },
+    NAME_PROGRESS
+  ),
   computed: {
     progressHeight() {
       return { height: this.height || null }

@@ -2,7 +2,7 @@ import Vue, { mergeData } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { getComponentConfig, makePropsConfigurable } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
@@ -27,12 +27,12 @@ const btnProps = {
     default: false
   },
   size: {
-    type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'size')
+    type: String
+    //default: undefined
   },
   variant: {
     type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'variant', 'secondary')
+    default: 'secondary'
   },
   type: {
     type: String,
@@ -58,7 +58,7 @@ const btnProps = {
   }
 }
 
-export const props = { ...btnProps, ...linkProps }
+export const props = makePropsConfigurable({ ...btnProps, ...linkProps }, NAME_BUTTON)
 
 // --- Helper methods ---
 

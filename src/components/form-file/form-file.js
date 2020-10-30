@@ -6,7 +6,7 @@ import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { from as arrayFrom, flatten, flattenDeep } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
@@ -116,77 +116,80 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    size: {
-      type: String,
-      default: () => getComponentConfig('BFormControl', 'size')
-    },
-    value: {
-      type: [File, Array],
-      default: null,
-      validator: value => {
-        /* istanbul ignore next */
-        if (value === '') {
-          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
-          return true
+  props: makePropsConfigurable(
+    {
+      size: {
+        type: String
+        // default: undefined
+      },
+      value: {
+        type: [File, Array],
+        default: null,
+        validator: value => {
+          /* istanbul ignore next */
+          if (value === '') {
+            warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
+            return true
+          }
+          return isUndefinedOrNull(value) || isValidValue(value)
         }
-        return isUndefinedOrNull(value) || isValidValue(value)
+      },
+      accept: {
+        type: String,
+        default: ''
+      },
+      // Instruct input to capture from camera
+      capture: {
+        type: Boolean,
+        default: false
+      },
+      placeholder: {
+        type: String,
+        default: 'No file chosen'
+      },
+      browseText: {
+        type: String,
+        default: 'Browse'
+      },
+      dropPlaceholder: {
+        type: String,
+        default: 'Drop files here'
+      },
+      noDropPlaceholder: {
+        type: String,
+        default: 'Not allowed'
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      directory: {
+        type: Boolean,
+        default: false
+      },
+      // TODO:
+      //   Should we deprecate this and only support flat file structures?
+      //   Nested file structures are only supported when files are dropped
+      //   A Chromium "bug" prevents `webkitEntries` from being populated
+      //   on the file input's `change` event and is marked as "WontFix"
+      //   Mozilla implemented the behavior the same way as Chromium
+      //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
+      //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
+      noTraverse: {
+        type: Boolean,
+        default: false
+      },
+      noDrop: {
+        type: Boolean,
+        default: false
+      },
+      fileNameFormatter: {
+        type: Function,
+        default: null
       }
     },
-    accept: {
-      type: String,
-      default: ''
-    },
-    // Instruct input to capture from camera
-    capture: {
-      type: Boolean,
-      default: false
-    },
-    placeholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'placeholder', 'No file chosen')
-    },
-    browseText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'browseText', 'Browse')
-    },
-    dropPlaceholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'dropPlaceholder', 'Drop files here')
-    },
-    noDropPlaceholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'noDropPlaceholder', 'Not allowed')
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    directory: {
-      type: Boolean,
-      default: false
-    },
-    // TODO:
-    //   Should we deprecate this and only support flat file structures?
-    //   Nested file structures are only supported when files are dropped
-    //   A Chromium "bug" prevents `webkitEntries` from being populated
-    //   on the file input's `change` event and is marked as "WontFix"
-    //   Mozilla implemented the behavior the same way as Chromium
-    //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
-    //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
-    noTraverse: {
-      type: Boolean,
-      default: false
-    },
-    noDrop: {
-      type: Boolean,
-      default: false
-    },
-    fileNameFormatter: {
-      type: Function,
-      default: null
-    }
-  },
+    NAME_FORM_FILE
+  ),
   data() {
     return {
       files: [],

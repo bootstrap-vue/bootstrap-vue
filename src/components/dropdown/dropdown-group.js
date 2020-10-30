@@ -1,35 +1,39 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import identity from '../../utils/identity'
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    header: {
+      type: String
+      // default: null
+    },
+    headerTag: {
+      type: String,
+      default: 'header'
+    },
+    headerVariant: {
+      type: String
+      // default: null
+    },
+    headerClasses: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    ariaDescribedby: {
+      type: String
+      // default: null
+    }
   },
-  header: {
-    type: String
-    // default: null
-  },
-  headerTag: {
-    type: String,
-    default: 'header'
-  },
-  headerVariant: {
-    type: String
-    // default: null
-  },
-  headerClasses: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  ariaDescribedby: {
-    type: String
-    // default: null
-  }
-}
+  NAME_DROPDOWN_GROUP
+)
 
 // @vue/component
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({

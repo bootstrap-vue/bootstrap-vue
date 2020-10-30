@@ -1,5 +1,6 @@
 import Vue from '../../vue'
 import { NAME_FORM_SELECT_OPTION_GROUP } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
 import { htmlOrText } from '../../utils/html'
 import formOptionsMixin from '../../mixins/form-options'
@@ -10,12 +11,15 @@ import { BFormSelectOption } from './form-select-option'
 const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_SELECT_OPTION_GROUP,
   mixins: [normalizeSlotMixin, formOptionsMixin],
-  props: {
-    label: {
-      type: String,
-      required: true
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      label: {
+        type: String,
+        required: true
+      }
+    },
+    NAME_FORM_SELECT_OPTION_GROUP
+  ),
   render(h) {
     const $options = this.formOptions.map((option, index) => {
       const { value, text, html, disabled } = option

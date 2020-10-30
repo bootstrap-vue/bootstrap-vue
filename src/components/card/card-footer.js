@@ -1,26 +1,30 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_FOOTER } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
 import cardMixin from '../../mixins/card'
 
 // --- Props ---
 
-export const props = {
-  ...copyProps(cardMixin.props, prefixPropName.bind(null, 'footer')),
-  footer: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    ...copyProps(cardMixin.props, prefixPropName.bind(null, 'footer')),
+    footer: {
+      type: String
+      // default: null
+    },
+    footerHtml: {
+      type: String
+      // default: null
+    },
+    footerClass: {
+      type: [String, Object, Array]
+      // default: null
+    }
   },
-  footerHtml: {
-    type: String
-    // default: null
-  },
-  footerClass: {
-    type: [String, Object, Array]
-    // default: null
-  }
-}
+  NAME_CARD_FOOTER
+)
 
 // --- Main component ---
 // @vue/component

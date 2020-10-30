@@ -6,6 +6,7 @@ import formStateMixin from '../../mixins/form-state'
 import formSizeMixin from '../../mixins/form-size'
 import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
+import { makePropsConfigurable } from '../../utils/config'
 
 // @vue/component
 export const BFormRadio = /*#__PURE__*/ Vue.extend({
@@ -23,13 +24,16 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  props: {
-    checked: {
-      // v-model
-      // type: [String, Number, Boolean, Object],
-      default: null
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      checked: {
+        // v-model
+        // type: [String, Number, Boolean, Object],
+        default: null
+      }
+    },
+    NAME_FORM_RADIO
+  ),
   computed: {
     // Radio Groups can only have a single value, so determining if checked is simple
     isChecked() {

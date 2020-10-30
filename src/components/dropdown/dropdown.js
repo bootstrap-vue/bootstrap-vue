@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { arrayIncludes } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { toString } from '../../utils/string'
 import dropdownMixin from '../../mixins/dropdown'
@@ -12,83 +12,86 @@ import { BButton } from '../button/button'
 
 // --- Props ---
 
-export const props = {
-  text: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    text: {
+      type: String
+      // default: null
+    },
+    html: {
+      type: String
+      // default: null
+    },
+    variant: {
+      type: String,
+      default: 'secondary'
+    },
+    size: {
+      type: String
+      // default: undefined
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    menuClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    toggleTag: {
+      type: String,
+      default: 'button'
+    },
+    toggleText: {
+      // This really should be toggleLabel
+      type: String,
+      default: 'Toggle Dropdown'
+    },
+    toggleClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    noCaret: {
+      type: Boolean,
+      default: false
+    },
+    split: {
+      type: Boolean,
+      default: false
+    },
+    splitHref: {
+      type: String
+      // default: undefined
+    },
+    splitTo: {
+      type: [String, Object]
+      // default: undefined
+    },
+    splitVariant: {
+      type: String
+      // default: undefined
+    },
+    splitClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    splitButtonType: {
+      type: String,
+      default: 'button',
+      validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
+    },
+    lazy: {
+      // If true, only render menu contents when open
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: String,
+      default: 'menu'
+    }
   },
-  html: {
-    type: String
-    // default: null
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'variant', 'secondary')
-  },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'size', undefined)
-  },
-  block: {
-    type: Boolean,
-    default: false
-  },
-  menuClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  toggleTag: {
-    type: String,
-    default: 'button'
-  },
-  toggleText: {
-    // This really should be toggleLabel
-    type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'toggleText', 'Toggle Dropdown')
-  },
-  toggleClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  noCaret: {
-    type: Boolean,
-    default: false
-  },
-  split: {
-    type: Boolean,
-    default: false
-  },
-  splitHref: {
-    type: String
-    // default: undefined
-  },
-  splitTo: {
-    type: [String, Object]
-    // default: undefined
-  },
-  splitVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_DROPDOWN, 'splitVariant', undefined)
-  },
-  splitClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  splitButtonType: {
-    type: String,
-    default: 'button',
-    validator: value => arrayIncludes(['button', 'submit', 'reset'], value)
-  },
-  lazy: {
-    // If true, only render menu contents when open
-    type: Boolean,
-    default: false
-  },
-  role: {
-    type: String,
-    default: 'menu'
-  }
-}
+  NAME_DROPDOWN
+)
 
 // --- Main component ---
 // @vue/component
