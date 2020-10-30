@@ -10,6 +10,7 @@ import {
   PLACEMENT_LEFT_START
 } from '../constants/popper'
 import { BvEvent } from '../utils/bv-event.class'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
@@ -40,48 +41,51 @@ const filterVisibles = els => (els || []).filter(isVisible)
 
 // --- Props ---
 
-export const commonProps = {
-  dropup: {
-    // place on top if possible
-    type: Boolean,
-    default: false
+export const commonProps = makePropsConfigurable(
+  {
+    dropup: {
+      // place on top if possible
+      type: Boolean,
+      default: false
+    },
+    dropright: {
+      // place right if possible
+      type: Boolean,
+      default: false
+    },
+    dropleft: {
+      // place left if possible
+      type: Boolean,
+      default: false
+    },
+    right: {
+      // Right align menu (default is left align)
+      type: Boolean,
+      default: false
+    },
+    offset: {
+      // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
+      type: [Number, String],
+      default: 0
+    },
+    noFlip: {
+      // Disable auto-flipping of menu from bottom <=> top
+      type: Boolean,
+      default: false
+    },
+    popperOpts: {
+      type: Object,
+      default: () => {}
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // HTMLElement: HTML Element reference
+      type: [String, HTMLElement],
+      default: 'scrollParent'
+    }
   },
-  dropright: {
-    // place right if possible
-    type: Boolean,
-    default: false
-  },
-  dropleft: {
-    // place left if possible
-    type: Boolean,
-    default: false
-  },
-  right: {
-    // Right align menu (default is left align)
-    type: Boolean,
-    default: false
-  },
-  offset: {
-    // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
-    type: [Number, String],
-    default: 0
-  },
-  noFlip: {
-    // Disable auto-flipping of menu from bottom <=> top
-    type: Boolean,
-    default: false
-  },
-  popperOpts: {
-    type: Object,
-    default: () => {}
-  },
-  boundary: {
-    // String: `scrollParent`, `window` or `viewport`
-    // HTMLElement: HTML Element reference
-    type: [String, HTMLElement],
-    default: 'scrollParent'
-  }
-}
+  NAME_DROPDOWN
+)
 
 // @vue/component
 export default {
@@ -94,10 +98,15 @@ export default {
   },
   props: {
     ...commonProps,
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+    ...makePropsConfigurable(
+      {
+        disabled: {
+          type: Boolean,
+          default: false
+        }
+      },
+      NAME_DROPDOWN
+    )
   },
   data() {
     return {
