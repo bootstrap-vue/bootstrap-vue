@@ -51,8 +51,8 @@ export const props = makePropsConfigurable(
       default: false
     },
     variant: {
-      type: String,
-      default: 'variant'
+      type: String
+      // default: null
     },
     isStatus: {
       // Switches role to 'status' and aria-live to 'polite'
