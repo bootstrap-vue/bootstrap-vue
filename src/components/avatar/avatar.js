@@ -1,7 +1,7 @@
 import Vue from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
 import { RX_NUMBER } from '../../constants/regex'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { omit } from '../../utils/object'
@@ -21,84 +21,18 @@ const SIZES = ['sm', null, 'lg']
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
-// --- Props ---
-const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
-
-const props = {
-  src: {
-    type: String
-    // default: null
-  },
-  text: {
-    type: String
-    // default: null
-  },
-  icon: {
-    type: String
-    // default: null
-  },
-  alt: {
-    type: String,
-    default: 'avatar'
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_AVATAR, 'variant', 'secondary')
-  },
-  size: {
-    type: [Number, String],
-    default: null
-  },
-  square: {
-    type: Boolean,
-    default: false
-  },
-  rounded: {
-    type: [Boolean, String],
-    default: false
-  },
-  button: {
-    type: Boolean,
-    default: false
-  },
-  buttonType: {
-    type: String,
-    default: 'button'
-  },
-  badge: {
-    type: [Boolean, String],
-    default: false
-  },
-  badgeVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_AVATAR, 'badgeVariant', 'primary')
-  },
-  badgeTop: {
-    type: Boolean,
-    default: false
-  },
-  badgeLeft: {
-    type: Boolean,
-    default: false
-  },
-  badgeOffset: {
-    type: String,
-    default: '0px'
-  },
-  ...linkProps,
-  ariaLabel: {
-    type: String
-    // default: null
-  }
-}
-
 // --- Utility methods ---
+
 export const computeSize = value => {
   // Parse to number when value is a float-like string
   value = isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
   // Convert all numbers to pixel values
   return isNumber(value) ? `${value}px` : value || null
 }
+
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 // --- Main component ---
 // @vue/component
@@ -108,7 +42,76 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   inject: {
     bvAvatarGroup: { default: null }
   },
-  props,
+  props: makePropsConfigurable(
+    {
+      src: {
+        type: String
+        // default: null
+      },
+      text: {
+        type: String
+        // default: null
+      },
+      icon: {
+        type: String
+        // default: null
+      },
+      alt: {
+        type: String,
+        default: 'avatar'
+      },
+      variant: {
+        type: String,
+        default: 'secondary'
+      },
+      size: {
+        type: [Number, String],
+        default: null
+      },
+      square: {
+        type: Boolean,
+        default: false
+      },
+      rounded: {
+        type: [Boolean, String],
+        default: false
+      },
+      button: {
+        type: Boolean,
+        default: false
+      },
+      buttonType: {
+        type: String,
+        default: 'button'
+      },
+      badge: {
+        type: [Boolean, String],
+        default: false
+      },
+      badgeVariant: {
+        type: String,
+        default: 'primary'
+      },
+      badgeTop: {
+        type: Boolean,
+        default: false
+      },
+      badgeLeft: {
+        type: Boolean,
+        default: false
+      },
+      badgeOffset: {
+        type: String,
+        default: '0px'
+      },
+      ...linkProps,
+      ariaLabel: {
+        type: String
+        // default: null
+      }
+    },
+    NAME_AVATAR
+  ),
   data() {
     return {
       localSrc: this.src || null
