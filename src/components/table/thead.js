@@ -1,16 +1,20 @@
 import Vue from '../../vue'
 import { NAME_THEAD } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-export const props = {
-  headVariant: {
-    // Also sniffed by <b-tr> / <b-td> / <b-th>
-    type: String, // Supported values: 'lite', 'dark', or null
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    headVariant: {
+      // Also sniffed by <b-tr> / <b-td> / <b-th>
+      type: String, // Supported values: 'lite', 'dark', or null
+      default: null
+    }
+  },
+  NAME_THEAD
+)
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
