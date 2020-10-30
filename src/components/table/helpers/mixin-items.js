@@ -1,4 +1,6 @@
+import { NAME_TABLE } from '../../../constants/components'
 import looseEqual from '../../../utils/loose-equal'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
@@ -6,33 +8,36 @@ import { clone } from '../../../utils/object'
 import normalizeFields from './normalize-fields'
 
 export default {
-  props: {
-    items: {
-      // Provider mixin adds in `Function` type
-      type: Array,
-      /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
-        return []
+  props: makePropsConfigurable(
+    {
+      items: {
+        // Provider mixin adds in `Function` type
+        type: Array,
+        /* istanbul ignore next */
+        default() /* istanbul ignore next */ {
+          return []
+        }
+      },
+      fields: {
+        type: Array,
+        default: null
+      },
+      primaryKey: {
+        // Primary key for record
+        // If provided the value in each row must be unique!
+        type: String
+        // default: null
+      },
+      value: {
+        // `v-model` for retrieving the current displayed rows
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
-    fields: {
-      type: Array,
-      default: null
-    },
-    primaryKey: {
-      // Primary key for record
-      // If provided the value in each row must be unique!
-      type: String
-      // default: null
-    },
-    value: {
-      // `v-model` for retrieving the current displayed rows
-      type: Array,
-      default() {
-        return []
-      }
-    }
-  },
+    NAME_TABLE
+  ),
   data() {
     return {
       // Our local copy of the items
