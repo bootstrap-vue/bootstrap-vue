@@ -71,23 +71,3 @@ export const mergeDeep = (target, source) => {
  * Convenience method to create a read-only descriptor
  */
 export const readonlyDescriptor = () => ({ enumerable: true, configurable: false, writable: false })
-
-/**
- * Deep-freezes and object, making it immutable / read-only
- * Returns the same object passed-in, but frozen
- * Freezes inner object/array/values first
- * Note: This method will not work for property values using `Symbol()` as a key
- * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze
- */
-export const deepFreeze = obj => {
-  // Retrieve the property names defined on object/array
-  // Note: `keys` will ignore properties that are keyed by a `Symbol()`
-  const props = keys(obj)
-  // Iterate over each prop and recursively freeze it
-  props.forEach(prop => {
-    const value = obj[prop]
-    // If value is a plain object or array, we deepFreeze it
-    obj[prop] = value && (isPlainObject(value) || isArray(value)) ? deepFreeze(value) : value
-  })
-  return freeze(obj)
-}
