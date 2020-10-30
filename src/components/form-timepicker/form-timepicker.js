@@ -1,26 +1,32 @@
 import Vue from '../../vue'
-import { NAME_FORM_SPINBUTTON, NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
+import { NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isUndefinedOrNull } from '../../utils/inspect'
+import { isFunction, isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BTime } from '../time/time'
+import { BTime, props as timeProps } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
 
-// Fallback to BTime/BFormSpinbutton prop if no value found
+// --- Helper methods ---
+
+// Fallback to BTime prop if no value found
 const getConfigFallback = prop => {
-  return (
-    getComponentConfig(NAME_FORM_TIMEPICKER, prop) ||
-    getComponentConfig(NAME_TIME, prop) ||
-    getComponentConfig(NAME_FORM_SPINBUTTON, prop)
-  )
+  const fallback = (timeProps[prop] || {}).default
+  return getComponentConfig(NAME_TIME, prop) || (isFunction(fallback) ? fallback() : fallback)
 }
 
-// We create our props as a mixin so that we can control
-// where they appear in the props listing reference section
-const propsMixin = {
+// --- Main component ---
+// @vue/component
+export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
+  name: NAME_FORM_TIMEPICKER,
+  // The mixins order determines the order of appearance in the props reference section
+  mixins: [idMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       type: String,
@@ -184,19 +190,6 @@ const propsMixin = {
       // default: null
     },
     ...dropdownProps
-  }
-}
-
-// --- BFormDate component ---
-
-// @vue/component
-export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
-  name: NAME_FORM_TIMEPICKER,
-  // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
   },
   data() {
     return {

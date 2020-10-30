@@ -1,6 +1,6 @@
 // BTime control (not form input control)
 import Vue from '../../vue'
-import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
+import { NAME_TIME } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
 import { RX_TIME } from '../../constants/regex'
 import identity from '../../utils/identity'
@@ -10,24 +10,25 @@ import { getComponentConfig } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { attemptBlur, attemptFocus, contains, getActiveElement, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isNull, isUndefinedOrNull } from '../../utils/inspect'
+import { isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
+import { BFormSpinbutton, props as formSpinbuttonProps } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 
 // --- Constants ---
 
 const NUMERIC = 'numeric'
 
-// --- Helpers ---
+// --- Helper methods ---
 
 // Fallback to BFormSpinbutton prop if no value found
 const getConfigFallback = prop => {
-  return getComponentConfig(NAME_TIME, prop) || getComponentConfig(NAME_FORM_SPINBUTTON, prop)
+  const fallback = (formSpinbuttonProps[prop] || {}).default
+  return getComponentConfig(NAME_TIME, prop) || (isFunction(fallback) ? fallback() : fallback)
 }
 
 const padLeftZeros = num => {
@@ -56,6 +57,104 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
   return hms.map(padLeftZeros).join(':')
 }
 
+// --- Props ---
+
+export const props = {
+  value: {
+    type: String,
+    default: ''
+  },
+  showSeconds: {
+    // If true, show the second spinbutton
+    type: Boolean,
+    default: false
+  },
+  hour12: {
+    // Explicitly force 12 or 24 hour time
+    // Default is to use resolved locale for 12/24 hour display
+    // Tri-state: `true` = 12, `false` = 24, `null` = auto
+    type: Boolean,
+    default: null
+  },
+  locale: {
+    type: [String, Array]
+    // default: null
+  },
+  ariaLabelledby: {
+    // ID of label element
+    type: String
+    // default: null
+  },
+  secondsStep: {
+    type: [Number, String],
+    default: 1
+  },
+  minutesStep: {
+    type: [Number, String],
+    default: 1
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  hideHeader: {
+    type: Boolean,
+    default: false
+  },
+  labelNoTimeSelected: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected', 'No time selected')
+  },
+  labelSelected: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelSelected', 'Selected time')
+  },
+  labelHours: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelHours', 'Hours')
+  },
+  labelMinutes: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelMinutes', 'Minutes')
+  },
+  labelSeconds: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelSeconds', 'Seconds')
+  },
+  labelAmpm: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelAmpm', 'AM/PM')
+  },
+  labelAm: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelAm', 'AM')
+  },
+  labelPm: {
+    type: String,
+    default: () => getComponentConfig(NAME_TIME, 'labelPm', 'PM')
+  },
+  // Passed to the spin buttons
+  labelIncrement: {
+    type: String,
+    // Falls back to BFormSpinbutton label
+    default: () => getConfigFallback('labelIncrement')
+  },
+  labelDecrement: {
+    type: String,
+    // Falls back to BFormSpinbutton label
+    default: () => getConfigFallback('labelDecrement')
+  },
+  hidden: {
+    type: Boolean,
+    default: false
+  }
+}
+
+// --- Main component ---
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
   name: NAME_TIME,
@@ -64,100 +163,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      type: String,
-      default: ''
-    },
-    showSeconds: {
-      // If true, show the second spinbutton
-      type: Boolean,
-      default: false
-    },
-    hour12: {
-      // Explicitly force 12 or 24 hour time
-      // Default is to use resolved locale for 12/24 hour display
-      // Tri-state: `true` = 12, `false` = 24, `null` = auto
-      type: Boolean,
-      default: null
-    },
-    locale: {
-      type: [String, Array]
-      // default: null
-    },
-    ariaLabelledby: {
-      // ID of label element
-      type: String
-      // default: null
-    },
-    secondsStep: {
-      type: [Number, String],
-      default: 1
-    },
-    minutesStep: {
-      type: [Number, String],
-      default: 1
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    labelNoTimeSelected: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected', 'No time selected')
-    },
-    labelSelected: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSelected', 'Selected time')
-    },
-    labelHours: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelHours', 'Hours')
-    },
-    labelMinutes: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelMinutes', 'Minutes')
-    },
-    labelSeconds: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSeconds', 'Seconds')
-    },
-    labelAmpm: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAmpm', 'AM/PM')
-    },
-    labelAm: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAm', 'AM')
-    },
-    labelPm: {
-      type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelPm', 'PM')
-    },
-    // Passed to the spin buttons
-    labelIncrement: {
-      type: String,
-      // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback('labelIncrement')
-    },
-    labelDecrement: {
-      type: String,
-      // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback('labelDecrement')
-    },
-    hidden: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props,
   data() {
     const parsed = parseHMS(this.value || '')
     return {

@@ -58,8 +58,210 @@ import {
   BIconCircleFill
 } from '../../icons/icons'
 
-// --- BCalendar component ---
+// --- Props ---
 
+export const props = {
+  value: {
+    type: [String, Date]
+    // default: null
+  },
+  valueAsDate: {
+    // Always return the `v-model` value as a date object
+    type: Boolean,
+    default: false
+  },
+  initialDate: {
+    // This specifies the calendar year/month/day that will be shown when
+    // first opening the datepicker if no v-model value is provided
+    // Default is the current date (or `min`/`max`)
+    type: [String, Date]
+    // default: null
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  min: {
+    type: [String, Date]
+    // default: null
+  },
+  max: {
+    type: [String, Date]
+    // default: null
+  },
+  dateDisabledFn: {
+    type: Function
+    // default: null
+  },
+  startWeekday: {
+    // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
+    // Day of week to start calendar on
+    type: [Number, String],
+    default: 0
+  },
+  locale: {
+    // Locale(s) to use
+    // Default is to use page/browser default setting
+    type: [String, Array]
+    // default: null
+  },
+  direction: {
+    // 'ltr', 'rtl', or `null` (for auto detect)
+    type: String
+    // default: null
+  },
+  selectedVariant: {
+    // Variant color to use for the selected date
+    type: String,
+    default: getComponentConfig(NAME_CALENDAR, 'selectedVariant', 'primary')
+  },
+  todayVariant: {
+    // Variant color to use for today's date (defaults to `selectedVariant`)
+    type: String,
+    default: getComponentConfig(NAME_CALENDAR, 'todayVariant', 'undefined')
+  },
+  navButtonVariant: {
+    // Variant color to use for the navigation buttons
+    type: String,
+    default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant', 'secondary')
+  },
+  noHighlightToday: {
+    // Disable highlighting today's date
+    type: Boolean,
+    default: false
+  },
+  dateInfoFn: {
+    // Function to set a class of (classes) on the date cell
+    // if passed a string or an array
+    // TODO:
+    //   If the function returns an object, look for class prop for classes,
+    //   and other props for handling events/details/descriptions
+    type: Function
+    // default: null
+  },
+  width: {
+    // Has no effect if prop `block` is set
+    type: String,
+    default: '270px'
+  },
+  block: {
+    // Makes calendar the full width of its parent container
+    type: Boolean,
+    default: false
+  },
+  hideHeader: {
+    // When true makes the selected date header `sr-only`
+    type: Boolean,
+    default: false
+  },
+  showDecadeNav: {
+    // When `true` enables the decade navigation buttons
+    type: Boolean,
+    default: false
+  },
+  hidden: {
+    // When `true`, renders a comment node, but keeps the component instance active
+    // Mainly for <b-form-date>, so that we can get the component's value and locale
+    // But we might just use separate date formatters, using the resolved locale
+    // (adjusted for the gregorian calendar)
+    type: Boolean,
+    default: false
+  },
+  ariaControls: {
+    type: String
+    // default: null
+  },
+  noKeyNav: {
+    type: Boolean,
+    default: false
+  },
+  roleDescription: {
+    type: String
+    // default: null
+  },
+  // Labels for buttons and keyboard shortcuts
+  labelPrevDecade: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade', 'Previous decade')
+  },
+  labelPrevYear: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear', 'Previous year')
+  },
+  labelPrevMonth: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth', 'Previous month')
+  },
+  labelCurrentMonth: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth', 'Current month')
+  },
+  labelNextMonth: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth', 'Next month')
+  },
+  labelNextYear: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear', 'Next year')
+  },
+  labelNextDecade: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade', 'Next decade')
+  },
+  labelToday: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelToday', 'Today')
+  },
+  labelSelected: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected', 'Selected date')
+  },
+  labelNoDateSelected: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected', 'No date selected')
+  },
+  labelCalendar: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar', 'Calendar')
+  },
+  labelNav: {
+    type: String,
+    default: () => getComponentConfig(NAME_CALENDAR, 'labelNav', 'Calendar navigation')
+  },
+  labelHelp: {
+    type: String,
+    default: () =>
+      getComponentConfig(NAME_CALENDAR, 'labelHelp', 'Use cursor keys to navigate calendar dates')
+  },
+  dateFormatOptions: {
+    // `Intl.DateTimeFormat` object
+    // Note: This value is *not* to be placed in the global config
+    type: Object,
+    default: () => ({
+      year: DATE_FORMAT_NUMERIC,
+      month: CALENDAR_LONG,
+      day: DATE_FORMAT_NUMERIC,
+      weekday: CALENDAR_LONG
+    })
+  },
+  weekdayHeaderFormat: {
+    // Format of the weekday names at the top of the calendar
+    // Note: This value is *not* to be placed in the global config
+    type: String,
+    // `short` is typically a 3 letter abbreviation,
+    // `narrow` is typically a single letter
+    // `long` is the full week day name
+    // Although some locales may override this (i.e `ar`, etc.)
+    default: CALENDAR_SHORT,
+    validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+  }
+}
+
+// --- Main component ---
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME_CALENDAR,
@@ -72,206 +274,7 @@ export const BCalendar = Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      type: [String, Date]
-      // default: null
-    },
-    valueAsDate: {
-      // Always return the `v-model` value as a date object
-      type: Boolean,
-      default: false
-    },
-    initialDate: {
-      // This specifies the calendar year/month/day that will be shown when
-      // first opening the datepicker if no v-model value is provided
-      // Default is the current date (or `min`/`max`)
-      type: [String, Date]
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    min: {
-      type: [String, Date]
-      // default: null
-    },
-    max: {
-      type: [String, Date]
-      // default: null
-    },
-    dateDisabledFn: {
-      type: Function
-      // default: null
-    },
-    startWeekday: {
-      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
-      // Day of week to start calendar on
-      type: [Number, String],
-      default: 0
-    },
-    locale: {
-      // Locale(s) to use
-      // Default is to use page/browser default setting
-      type: [String, Array]
-      // default: null
-    },
-    direction: {
-      // 'ltr', 'rtl', or `null` (for auto detect)
-      type: String
-      // default: null
-    },
-    selectedVariant: {
-      // Variant color to use for the selected date
-      type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'selectedVariant', 'primary')
-    },
-    todayVariant: {
-      // Variant color to use for today's date (defaults to `selectedVariant`)
-      type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'todayVariant', 'undefined')
-    },
-    navButtonVariant: {
-      // Variant color to use for the navigation buttons
-      type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant', 'secondary')
-    },
-    noHighlightToday: {
-      // Disable highlighting today's date
-      type: Boolean,
-      default: false
-    },
-    dateInfoFn: {
-      // Function to set a class of (classes) on the date cell
-      // if passed a string or an array
-      // TODO:
-      //   If the function returns an object, look for class prop for classes,
-      //   and other props for handling events/details/descriptions
-      type: Function
-      // default: null
-    },
-    width: {
-      // Has no effect if prop `block` is set
-      type: String,
-      default: '270px'
-    },
-    block: {
-      // Makes calendar the full width of its parent container
-      type: Boolean,
-      default: false
-    },
-    hideHeader: {
-      // When true makes the selected date header `sr-only`
-      type: Boolean,
-      default: false
-    },
-    showDecadeNav: {
-      // When `true` enables the decade navigation buttons
-      type: Boolean,
-      default: false
-    },
-    hidden: {
-      // When `true`, renders a comment node, but keeps the component instance active
-      // Mainly for <b-form-date>, so that we can get the component's value and locale
-      // But we might just use separate date formatters, using the resolved locale
-      // (adjusted for the gregorian calendar)
-      type: Boolean,
-      default: false
-    },
-    ariaControls: {
-      type: String
-      // default: null
-    },
-    noKeyNav: {
-      type: Boolean,
-      default: false
-    },
-    roleDescription: {
-      type: String
-      // default: null
-    },
-    // Labels for buttons and keyboard shortcuts
-    labelPrevDecade: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade', 'Previous decade')
-    },
-    labelPrevYear: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear', 'Previous year')
-    },
-    labelPrevMonth: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth', 'Previous month')
-    },
-    labelCurrentMonth: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth', 'Current month')
-    },
-    labelNextMonth: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth', 'Next month')
-    },
-    labelNextYear: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear', 'Next year')
-    },
-    labelNextDecade: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade', 'Next decade')
-    },
-    labelToday: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday', 'Today')
-    },
-    labelSelected: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected', 'Selected date')
-    },
-    labelNoDateSelected: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected', 'No date selected')
-    },
-    labelCalendar: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar', 'Calendar')
-    },
-    labelNav: {
-      type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav', 'Calendar navigation')
-    },
-    labelHelp: {
-      type: String,
-      default: () =>
-        getComponentConfig(NAME_CALENDAR, 'labelHelp', 'Use cursor keys to navigate calendar dates')
-    },
-    dateFormatOptions: {
-      // `Intl.DateTimeFormat` object
-      // Note: This value is *not* to be placed in the global config
-      type: Object,
-      default: () => ({
-        year: DATE_FORMAT_NUMERIC,
-        month: CALENDAR_LONG,
-        day: DATE_FORMAT_NUMERIC,
-        weekday: CALENDAR_LONG
-      })
-    },
-    weekdayHeaderFormat: {
-      // Format of the weekday names at the top of the calendar
-      // Note: This value is *not* to be placed in the global config
-      type: String,
-      // `short` is typically a 3 letter abbreviation,
-      // `narrow` is typically a single letter
-      // `long` is the full week day name
-      // Although some locales may override this (i.e `ar`, etc.)
-      default: CALENDAR_SHORT,
-      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
-    }
-  },
+  props,
   data() {
     const selected = formatYMD(this.value) || ''
     return {

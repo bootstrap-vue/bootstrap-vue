@@ -41,6 +41,114 @@ const DEFAULT_REPEAT_MULTIPLIER = 4
 
 const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PAGEDOWN]
 
+// --- Props ---
+
+export const props = {
+  value: {
+    // Should this really be String, to match native number inputs?
+    type: Number,
+    default: null
+  },
+  min: {
+    type: [Number, String],
+    default: DEFAULT_MIN
+  },
+  max: {
+    type: [Number, String],
+    default: DEFAULT_MAX
+  },
+  step: {
+    type: [Number, String],
+    default: DEFAULT_STEP
+  },
+  wrap: {
+    type: Boolean,
+    default: false
+  },
+  formatterFn: {
+    type: Function
+    // default: null
+  },
+  size: {
+    type: String
+    // default: null
+  },
+  placeholder: {
+    type: String
+    // default: null
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  required: {
+    // Only affects the `aria-invalid` attribute
+    type: Boolean,
+    default: false
+  },
+  name: {
+    type: String
+    // default: null
+  },
+  form: {
+    type: String
+    // default: null
+  },
+  state: {
+    // Tri-state prop: `true`, `false`, or `null`
+    type: Boolean,
+    default: null
+  },
+  inline: {
+    type: Boolean,
+    default: false
+  },
+  vertical: {
+    type: Boolean,
+    default: false
+  },
+  ariaLabel: {
+    type: String
+    // default: null
+  },
+  ariaControls: {
+    type: String
+    // default: null
+  },
+  labelDecrement: {
+    type: String,
+    default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement', 'Decrement')
+  },
+  labelIncrement: {
+    type: String,
+    default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement', 'Increment')
+  },
+  locale: {
+    type: [String, Array]
+    // default: null
+  },
+  repeatDelay: {
+    type: [Number, String],
+    default: DEFAULT_REPEAT_DELAY
+  },
+  repeatInterval: {
+    type: [Number, String],
+    default: DEFAULT_REPEAT_INTERVAL
+  },
+  repeatThreshold: {
+    type: [Number, String],
+    default: DEFAULT_REPEAT_THRESHOLD
+  },
+  repeatStepMultiplier: {
+    type: [Number, String],
+    default: DEFAULT_REPEAT_MULTIPLIER
+  }
+}
+
 // --- BFormSpinbutton ---
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
@@ -48,111 +156,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, normalizeSlotMixin],
   inheritAttrs: false,
-  props: {
-    value: {
-      // Should this really be String, to match native number inputs?
-      type: Number,
-      default: null
-    },
-    min: {
-      type: [Number, String],
-      default: DEFAULT_MIN
-    },
-    max: {
-      type: [Number, String],
-      default: DEFAULT_MAX
-    },
-    step: {
-      type: [Number, String],
-      default: DEFAULT_STEP
-    },
-    wrap: {
-      type: Boolean,
-      default: false
-    },
-    formatterFn: {
-      type: Function
-      // default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    placeholder: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      // Only affects the `aria-invalid` attribute
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false`, or `null`
-      type: Boolean,
-      default: null
-    },
-    inline: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    ariaLabel: {
-      type: String
-      // default: null
-    },
-    ariaControls: {
-      type: String
-      // default: null
-    },
-    labelDecrement: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement', 'Decrement')
-    },
-    labelIncrement: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement', 'Increment')
-    },
-    locale: {
-      type: [String, Array]
-      // default: null
-    },
-    repeatDelay: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_DELAY
-    },
-    repeatInterval: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_INTERVAL
-    },
-    repeatThreshold: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_THRESHOLD
-    },
-    repeatStepMultiplier: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_MULTIPLIER
-    }
-  },
+  props,
   data() {
     return {
       localValue: toFloat(this.value, null),

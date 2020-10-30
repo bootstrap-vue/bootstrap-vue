@@ -1,5 +1,5 @@
 import Vue from '../../vue'
-import { NAME_CALENDAR, NAME_FORM_DATEPICKER } from '../../constants/components'
+import { NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
   CALENDAR_LONG,
   CALENDAR_NARROW,
@@ -11,20 +11,33 @@ import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-la
 import { getComponentConfig } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isUndefinedOrNull } from '../../utils/inspect'
+import { isFunction, isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar } from '../calendar/calendar'
+import { BCalendar, props as calendarProps } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
-// Fallback to BCalendar prop if no value found
-const getConfigFallback = prop =>
-  getComponentConfig(NAME_FORM_DATEPICKER, prop) || getComponentConfig(NAME_CALENDAR, prop)
+// --- Helper methods ---
 
-// We create our props as a mixin so that we can control
-// where they appear in the props listing reference section
-const propsMixin = {
+// Fallback to BCalendar prop if no value found
+const getConfigFallback = prop => {
+  const fallback = (calendarProps[prop] || {}).default
+  return (
+    getComponentConfig(NAME_FORM_DATEPICKER, prop) || (isFunction(fallback) ? fallback() : fallback)
+  )
+}
+
+// --- Main component ---
+// @vue/component
+export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
+  name: NAME_FORM_DATEPICKER,
+  // The mixins order determines the order of appearance in the props reference section
+  mixins: [idMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
   props: {
     value: {
       type: [String, Date],
@@ -282,19 +295,6 @@ const propsMixin = {
       // default: null
     },
     ...dropdownProps
-  }
-}
-
-// --- BFormDate component ---
-
-// @vue/component
-export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
-  name: NAME_FORM_DATEPICKER,
-  // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
   },
   data() {
     return {
