@@ -1,15 +1,19 @@
 import Vue from '../../vue'
 import { NAME_TR } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-export const props = {
-  variant: {
-    type: String,
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    variant: {
+      type: String,
+      default: null
+    }
+  },
+  NAME_TR
+)
 
 const LIGHT = 'light'
 const DARK = 'dark'
