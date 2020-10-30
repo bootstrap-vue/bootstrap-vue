@@ -186,16 +186,24 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       }
     },
     makePage(pageNum) {
+      const { pageGen } = this
       const info = this.getPageInfo(pageNum)
-      if (this.pageGen && isFunction(this.pageGen)) {
-        return this.pageGen(pageNum, info)
+      if (pageGen && isFunction(pageGen)) {
+        const result = pageGen(pageNum, info)
+        if (!isUndefined(result)) {
+          return result
+        }
       }
       return info.text
     },
     makeLink(pageNum) {
+      const { linkGen } = this
       const info = this.getPageInfo(pageNum)
-      if (this.linkGen && isFunction(this.linkGen)) {
-        return this.linkGen(pageNum, info)
+      if (linkGen && isFunction(linkGen)) {
+        const result = linkGen(pageNum, info)
+        if (!isUndefined(result)) {
+          return result
+        }
       }
       return info.link
     },
