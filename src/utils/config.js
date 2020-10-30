@@ -66,6 +66,7 @@ export const getBreakpointsDown = () => {
 
 // Get breakpoints with the largest breakpoint set as '' (cached)
 // Useful for components that create breakpoint specific props
+/* istanbul ignore next: we don't use this method anywhere, yet */
 export const getBreakpointsDownCached = () => {
   const breakpoints = getBreakpointsCached()
   breakpoints[breakpoints.length - 1] = ''
