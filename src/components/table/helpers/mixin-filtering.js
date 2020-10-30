@@ -4,42 +4,47 @@ import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
 import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
+import { isUndefined } from 'lodash'
 
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
 export default {
-  props: {
-    filter: {
-      type: [String, RegExp, Object, Array],
-      default: null
-    },
-    filterFunction: {
-      type: Function
-      // default: null
-    },
-    filterIgnoredFields: {
-      type: Array
-      // default: undefined
-    },
-    filterIncludedFields: {
-      type: Array
-      // default: undefined
-    },
-    filterDebounce: {
-      type: [Number, String],
-      deprecated: DEBOUNCE_DEPRECATED_MSG,
-      default: 0,
-      validator(value) {
-        return /^\d+/.test(String(value))
+  props: makePropsConfigurable(
+    {
+      filter: {
+        type: [String, RegExp, Object, Array],
+        default: null
+      },
+      filterFunction: {
+        type: Function
+        // default: null
+      },
+      filterIgnoredFields: {
+        type: Array
+        // default: undefined
+      },
+      filterIncludedFields: {
+        type: Array
+        // default: undefined
+      },
+      filterDebounce: {
+        type: [Number, String],
+        deprecated: DEBOUNCE_DEPRECATED_MSG,
+        default: 0,
+        validator(value) {
+          return /^\d+/.test(String(value))
+        }
       }
-    }
-  },
+    },
+    NAME_TABLE
+  ),
   data() {
     return {
       // Flag for displaying which empty slot to show and some event triggering
@@ -78,7 +83,12 @@ export default {
     // Sanitized/normalize filter-function prop
     localFilterFn() {
       // Return `null` to signal to use internal filter function
-      return isFunction(this.filterFunction) ? this.filterFunction : null
+      const { filterFunction } = this
+      let result = null
+      try {
+        result = filterFunction()
+      } catch {}
+      return isUndefined(result) ? null : filterFunction
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting
