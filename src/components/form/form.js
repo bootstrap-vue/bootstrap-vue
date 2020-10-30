@@ -1,24 +1,28 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_FORM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    novalidate: {
+      type: Boolean,
+      default: false
+    },
+    validated: {
+      type: Boolean,
+      default: false
+    }
   },
-  inline: {
-    type: Boolean,
-    default: false
-  },
-  novalidate: {
-    type: Boolean,
-    default: false
-  },
-  validated: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_FORM
+)
 
 // @vue/component
 export const BForm = /*#__PURE__*/ Vue.extend({

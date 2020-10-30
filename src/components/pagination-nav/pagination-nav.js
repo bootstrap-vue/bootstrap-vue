@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
@@ -20,51 +20,54 @@ import { props as BLinkProps } from '../link/link'
 
 const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 
-const props = {
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_PAGINATION_NAV, 'size')
-  },
-  numberOfPages: {
-    type: [Number, String],
-    default: 1,
-    validator(value) /* istanbul ignore next */ {
-      const number = toInteger(value, 0)
-      if (number < 1) {
-        warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
-        return false
+const props = makePropsConfigurable(
+  {
+    size: {
+      type: String
+      // default: undefined
+    },
+    numberOfPages: {
+      type: [Number, String],
+      default: 1,
+      validator(value) /* istanbul ignore next */ {
+        const number = toInteger(value, 0)
+        if (number < 1) {
+          warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
+          return false
+        }
+        return true
       }
-      return true
-    }
+    },
+    baseUrl: {
+      type: String,
+      default: '/'
+    },
+    useRouter: {
+      type: Boolean,
+      default: false
+    },
+    linkGen: {
+      type: Function
+      // default: null
+    },
+    pageGen: {
+      type: Function
+      // default: null
+    },
+    pages: {
+      // Optional array of page links
+      type: Array
+      // default: null
+    },
+    noPageDetect: {
+      // Disable auto page number detection if true
+      type: Boolean,
+      default: false
+    },
+    ...linkProps
   },
-  baseUrl: {
-    type: String,
-    default: '/'
-  },
-  useRouter: {
-    type: Boolean,
-    default: false
-  },
-  linkGen: {
-    type: Function
-    // default: null
-  },
-  pageGen: {
-    type: Function
-    // default: null
-  },
-  pages: {
-    // Optional array of page links
-    type: Array
-    // default: null
-  },
-  noPageDetect: {
-    // Disable auto page number detection if true
-    type: Boolean,
-    default: false
-  },
-  ...linkProps
-}
+  NAME_PAGINATION_NAV
+)
 
 // --- Utility methods ---
 

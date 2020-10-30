@@ -1,11 +1,12 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = omit(BLinkProps, ['event', 'routerTag'])
+export const props = makePropsConfigurable(omit(BLinkProps, ['event', 'routerTag']), NAME_NAV_ITEM)
 
 // --- Main component ---
 // @vue/component

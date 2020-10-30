@@ -1,5 +1,6 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_MEDIA } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { BMediaAside } from './media-aside'
@@ -7,24 +8,27 @@ import { BMediaBody } from './media-body'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    noBody: {
+      type: Boolean,
+      default: false
+    },
+    rightAlign: {
+      type: Boolean,
+      default: false
+    },
+    verticalAlign: {
+      type: String,
+      default: 'top'
+    }
   },
-  noBody: {
-    type: Boolean,
-    default: false
-  },
-  rightAlign: {
-    type: Boolean,
-    default: false
-  },
-  verticalAlign: {
-    type: String,
-    default: 'top'
-  }
-}
+  NAME_MEDIA
+)
 
 // --- Main component ---
 // @vue/component

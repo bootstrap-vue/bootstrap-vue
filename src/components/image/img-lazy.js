@@ -2,97 +2,100 @@ import Vue from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
 import { toInteger } from '../../utils/number'
 import { VBVisible } from '../../directives/visible/visible'
 import { BImg } from './img'
 
-export const props = {
-  src: {
-    type: String,
-    required: true
+export const props = makePropsConfigurable(
+  {
+    src: {
+      type: String,
+      required: true
+    },
+    srcset: {
+      type: [String, Array]
+      // default: null
+    },
+    sizes: {
+      type: [String, Array]
+      // default: null
+    },
+    alt: {
+      type: String
+      // default: null
+    },
+    width: {
+      type: [Number, String]
+      // default: null
+    },
+    height: {
+      type: [Number, String]
+      // default: null
+    },
+    blankSrc: {
+      // If null, a blank image is generated
+      type: String,
+      default: null
+    },
+    blankColor: {
+      type: String,
+      default: 'transparent'
+    },
+    blankWidth: {
+      type: [Number, String]
+      // default: null
+    },
+    blankHeight: {
+      type: [Number, String]
+      // default: null
+    },
+    show: {
+      type: Boolean,
+      default: false
+    },
+    fluid: {
+      type: Boolean,
+      default: false
+    },
+    fluidGrow: {
+      type: Boolean,
+      default: false
+    },
+    block: {
+      type: Boolean,
+      default: false
+    },
+    thumbnail: {
+      type: Boolean,
+      default: false
+    },
+    rounded: {
+      type: [Boolean, String],
+      default: false
+    },
+    left: {
+      type: Boolean,
+      default: false
+    },
+    right: {
+      type: Boolean,
+      default: false
+    },
+    center: {
+      type: Boolean,
+      default: false
+    },
+    offset: {
+      // Distance away from viewport (in pixels) before being
+      // considered "visible"
+      type: [Number, String],
+      default: 360
+    }
   },
-  srcset: {
-    type: [String, Array]
-    // default: null
-  },
-  sizes: {
-    type: [String, Array]
-    // default: null
-  },
-  alt: {
-    type: String
-    // default: null
-  },
-  width: {
-    type: [Number, String]
-    // default: null
-  },
-  height: {
-    type: [Number, String]
-    // default: null
-  },
-  blankSrc: {
-    // If null, a blank image is generated
-    type: String,
-    default: null
-  },
-  blankColor: {
-    type: String,
-    default: () => getComponentConfig(NAME_IMG_LAZY, 'blankColor', 'transparent')
-  },
-  blankWidth: {
-    type: [Number, String]
-    // default: null
-  },
-  blankHeight: {
-    type: [Number, String]
-    // default: null
-  },
-  show: {
-    type: Boolean,
-    default: false
-  },
-  fluid: {
-    type: Boolean,
-    default: false
-  },
-  fluidGrow: {
-    type: Boolean,
-    default: false
-  },
-  block: {
-    type: Boolean,
-    default: false
-  },
-  thumbnail: {
-    type: Boolean,
-    default: false
-  },
-  rounded: {
-    type: [Boolean, String],
-    default: false
-  },
-  left: {
-    type: Boolean,
-    default: false
-  },
-  right: {
-    type: Boolean,
-    default: false
-  },
-  center: {
-    type: Boolean,
-    default: false
-  },
-  offset: {
-    // Distance away from viewport (in pixels) before being
-    // considered "visible"
-    type: [Number, String],
-    default: 360
-  }
-}
+  NAME_IMG_LAZY
+)
 
 // @vue/component
 export const BImgLazy = /*#__PURE__*/ Vue.extend({

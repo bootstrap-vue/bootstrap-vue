@@ -1,5 +1,6 @@
 import Vue from '../../vue'
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { isArray } from '../../utils/inspect'
@@ -25,32 +26,35 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  props: {
-    value: {
-      // type: [String, Number, Boolean, Object],
-      default: true
+  props: makePropsConfigurable(
+    {
+      value: {
+        // type: [String, Number, Boolean, Object],
+        default: true
+      },
+      uncheckedValue: {
+        // type: [String, Number, Boolean, Object],
+        // Not applicable in multi-check mode
+        default: false
+      },
+      indeterminate: {
+        // Not applicable in multi-check mode
+        type: Boolean,
+        default: false
+      },
+      switch: {
+        // Custom switch styling
+        type: Boolean,
+        default: false
+      },
+      checked: {
+        // v-model (Array when multiple checkboxes have same name)
+        // type: [String, Number, Boolean, Object, Array],
+        default: null
+      }
     },
-    uncheckedValue: {
-      // type: [String, Number, Boolean, Object],
-      // Not applicable in multi-check mode
-      default: false
-    },
-    indeterminate: {
-      // Not applicable in multi-check mode
-      type: Boolean,
-      default: false
-    },
-    switch: {
-      // Custom switch styling
-      type: Boolean,
-      default: false
-    },
-    checked: {
-      // v-model (Array when multiple checkboxes have same name)
-      // type: [String, Number, Boolean, Object, Array],
-      default: null
-    }
-  },
+    NAME_FORM_CHECKBOX
+  ),
   computed: {
     isChecked() {
       const { value, computedLocalChecked: checked } = this

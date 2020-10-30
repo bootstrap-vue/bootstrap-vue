@@ -1,5 +1,6 @@
 import Vue from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
@@ -33,31 +34,34 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     formSelectionMixin,
     formValidityMixin
   ],
-  props: {
-    rows: {
-      type: [Number, String],
-      default: 2
+  props: makePropsConfigurable(
+    {
+      rows: {
+        type: [Number, String],
+        default: 2
+      },
+      maxRows: {
+        type: [Number, String]
+        // default: null
+      },
+      wrap: {
+        // 'soft', 'hard' or 'off'. Browser default is 'soft'
+        type: String,
+        default: 'soft'
+      },
+      noResize: {
+        // Disable the resize handle of textarea
+        type: Boolean,
+        default: false
+      },
+      noAutoShrink: {
+        // When in auto resize mode, disable shrinking to content height
+        type: Boolean,
+        default: false
+      }
     },
-    maxRows: {
-      type: [Number, String]
-      // default: null
-    },
-    wrap: {
-      // 'soft', 'hard' or 'off'. Browser default is 'soft'
-      type: String,
-      default: 'soft'
-    },
-    noResize: {
-      // Disable the resize handle of textarea
-      type: Boolean,
-      default: false
-    },
-    noAutoShrink: {
-      // When in auto resize mode, disable shrinking to content height
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_FORM_TEXTAREA
+  ),
   data() {
     return {
       heightInPx: null

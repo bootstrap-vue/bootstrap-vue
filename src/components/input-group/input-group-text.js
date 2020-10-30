@@ -1,12 +1,16 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_TEXT } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
+  NAME_INPUT_GROUP_TEXT
+)
 
 // @vue/component
 export const BInputGroupText = /*#__PURE__*/ Vue.extend({

@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isNull } from '../../utils/inspect'
@@ -25,37 +25,40 @@ const DEFAULT_STARS = 5
 const BVFormRatingStar = Vue.extend({
   name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
-  props: {
-    rating: {
-      type: Number,
-      default: 0
+  props: makePropsConfigurable(
+    {
+      rating: {
+        type: Number,
+        default: 0
+      },
+      star: {
+        type: Number,
+        default: 0
+      },
+      focused: {
+        // If parent is focused
+        type: Boolean,
+        default: false
+      },
+      variant: {
+        type: String
+        // default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      hasClear: {
+        type: Boolean,
+        default: false
+      }
     },
-    star: {
-      type: Number,
-      default: 0
-    },
-    focused: {
-      // If parent is focused
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    hasClear: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_FORM_RATING_STAR
+  ),
   methods: {
     onClick(evt) {
       if (!this.disabled && !this.readonly) {
@@ -105,92 +108,95 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'change'
   },
-  props: {
-    value: {
-      type: [Number, String],
-      default: null
+  props: makePropsConfigurable(
+    {
+      value: {
+        type: [Number, String],
+        default: null
+      },
+      stars: {
+        type: [Number, String],
+        default: DEFAULT_STARS,
+        validator: val => toInteger(val) >= MIN_STARS
+      },
+      variant: {
+        type: String
+        // default: undefined
+      },
+      color: {
+        // CSS color string (overrides variant)
+        type: String
+        // default: undefined
+      },
+      showValue: {
+        type: Boolean,
+        default: false
+      },
+      showValueMax: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      size: {
+        type: String
+        // default: null
+      },
+      name: {
+        type: String
+        // default: null
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      noBorder: {
+        type: Boolean,
+        default: false
+      },
+      inline: {
+        type: Boolean,
+        default: false
+      },
+      precision: {
+        type: [Number, String],
+        default: null
+      },
+      iconEmpty: {
+        type: String,
+        default: 'star'
+      },
+      iconHalf: {
+        type: String,
+        default: 'star-half'
+      },
+      iconFull: {
+        type: String,
+        default: 'star-fill'
+      },
+      iconClear: {
+        type: String,
+        default: 'x'
+      },
+      locale: {
+        // Locale for the formatted value (if shown)
+        // Defaults to the browser locale. Falls back to `en`
+        type: [String, Array]
+        // default: undefined
+      },
+      showClear: {
+        type: Boolean,
+        default: false
+      }
     },
-    stars: {
-      type: [Number, String],
-      default: DEFAULT_STARS,
-      validator: val => toInteger(val) >= MIN_STARS
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_RATING, 'variant')
-    },
-    color: {
-      // CSS color string (overrides variant)
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_RATING, 'color')
-    },
-    showValue: {
-      type: Boolean,
-      default: false
-    },
-    showValueMax: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    noBorder: {
-      type: Boolean,
-      default: false
-    },
-    inline: {
-      type: Boolean,
-      default: false
-    },
-    precision: {
-      type: [Number, String],
-      default: null
-    },
-    iconEmpty: {
-      type: String,
-      default: 'star'
-    },
-    iconHalf: {
-      type: String,
-      default: 'star-half'
-    },
-    iconFull: {
-      type: String,
-      default: 'star-fill'
-    },
-    iconClear: {
-      type: String,
-      default: 'x'
-    },
-    locale: {
-      // Locale for the formatted value (if shown)
-      // Defaults to the browser locale. Falls back to `en`
-      type: [String, Array]
-      // default: undefined
-    },
-    showClear: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_FORM_RATING
+  ),
   data() {
     const value = toFloat(this.value, null)
     const stars = computeStars(this.stars)

@@ -1,37 +1,35 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
 import Vue from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
 import { warn } from '../../utils/warn'
 
 // --- Props ---
 
-export const props = {
-  name: {
-    type: String,
-    required: true
+export const props = makePropsConfigurable(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    ariaLive: {
+      type: String,
+      default: undefined
+    },
+    // Allowed: 'true' or 'false' or null
+    ariaAtomic: {
+      type: String
+      //default: undefined
+    },
+    role: {
+      // Aria role
+      type: String
+      // default: undefined
+    }
   },
-  ariaLive: {
-    type: String,
-    default: () => getComponentConfig(NAME_TOASTER, 'ariaLive')
-  },
-  ariaAtomic: {
-    type: String,
-    default: () => getComponentConfig(NAME_TOASTER, 'ariaAtomic') // Allowed: 'true' or 'false' or null
-  },
-  role: {
-    // Aria role
-    type: String,
-    default: () => getComponentConfig(NAME_TOASTER, 'role')
-  }
-  /*
-  transition: {
-    type: [Boolean, String, Object],
-    default: false
-  }
-  */
-}
+  NAME_TOASTER
+)
 
 // @vue/component
 export const DefaultTransition = /*#__PURE__*/ Vue.extend({

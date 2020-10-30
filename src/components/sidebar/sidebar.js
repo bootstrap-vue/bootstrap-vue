@@ -4,7 +4,7 @@ import { CODE_ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
@@ -138,7 +138,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     prop: 'visible',
     event: 'change'
   },
-  props: {
+  props: makePropsConfigurable({
     title: {
       type: String
       // default: null
@@ -149,19 +149,19 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     bgVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'bgVariant', 'light')
+      default: 'light'
     },
     textVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'textVariant', 'dark')
+      default: 'dark'
     },
     shadow: {
       type: [Boolean, String],
-      default: () => getComponentConfig(NAME_SIDEBAR, 'shadow', false)
+      default: false
     },
     width: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'width')
+      type: String
+      // default: undefined
     },
     zIndex: {
       type: [Number, String]
@@ -183,7 +183,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     tag: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'tag', 'div')
+      default: 'div'
     },
     sidebarClass: {
       type: [String, Array, Object]
@@ -208,7 +208,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     backdropVariant: {
       type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'backdropVariant', 'dark')
+      default: 'dark'
     },
     noSlide: {
       type: Boolean,
@@ -246,7 +246,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       type: Boolean,
       default: false
     }
-  },
+  }),
   data() {
     return {
       // Internal `v-model` state

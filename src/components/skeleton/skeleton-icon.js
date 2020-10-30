@@ -1,16 +1,16 @@
 import Vue from '../../vue'
 import { NAME_SKELETON_ICON } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { BIcon } from '../../icons'
 
 // @vue/component
 export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
   name: NAME_SKELETON_ICON,
   functional: true,
-  props: {
+  props: makePropsConfigurable({
     animation: {
       type: String,
-      default: () => getComponentConfig(NAME_SKELETON_ICON, 'animation', 'wave')
+      default: 'wave'
     },
     icon: {
       type: String
@@ -19,7 +19,7 @@ export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
       type: Object,
       default: () => {}
     }
-  },
+  }),
   render(h, { props }) {
     const { icon, animation } = props
 

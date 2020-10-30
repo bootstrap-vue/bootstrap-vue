@@ -5,6 +5,7 @@ import {
   SLOT_NAME_DEFAULT,
   SLOT_NAME_TEXT
 } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { pluckProps } from '../../utils/props'
 import dropdownMixin from '../../mixins/dropdown'
@@ -14,9 +15,12 @@ import { props as BDropdownProps } from '../dropdown/dropdown'
 import { BLink } from '../link/link'
 
 // --- Props ---
-export const props = pluckProps(
-  ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
-  BDropdownProps
+export const props = makePropsConfigurable(
+  pluckProps(
+    ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],
+    BDropdownProps
+  ),
+  NAME_NAV_ITEM_DROPDOWN
 )
 
 // --- Main component ---

@@ -1,21 +1,14 @@
 import Vue from '../../vue'
 import { NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
-import { isFunction, isUndefinedOrNull } from '../../utils/inspect'
+import { isUndefinedOrNull } from '../../utils/inspect'
+import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
 import { BTime, props as timeProps } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
-
-// --- Helper methods ---
-
-// Fallback to BTime prop if no value found
-const getConfigFallback = prop => {
-  const fallback = (timeProps[prop] || {}).default
-  return getComponentConfig(NAME_TIME, prop) || (isFunction(fallback) ? fallback() : fallback)
-}
 
 // --- Main component ---
 // @vue/component
@@ -27,170 +20,147 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      type: String,
-      default: ''
+  props: makePropsConfigurable(
+    {
+      value: {
+        type: String,
+        default: ''
+      },
+      resetValue: {
+        type: String,
+        default: ''
+      },
+      placeholder: {
+        type: String
+        // Defaults to `labelNoTime` from BTime context
+        // default: null
+      },
+      size: {
+        type: String
+        // default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      required: {
+        // If true adds the `aria-required` attribute
+        type: Boolean,
+        default: false
+      },
+      name: {
+        type: String
+        // default: null
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      state: {
+        // Tri-state prop: `true`, `false` or `null`
+        type: Boolean,
+        default: null
+      },
+      hour12: {
+        // Tri-state prop: `true` => 12 hour, `false` => 24 hour, `null` => auto
+        type: Boolean,
+        default: null
+      },
+      locale: {
+        type: [String, Array]
+        // default: null
+      },
+      showSeconds: {
+        type: Boolean,
+        default: false
+      },
+      hideHeader: {
+        type: Boolean,
+        default: false
+      },
+      secondsStep: {
+        type: [Number, String],
+        default: 1
+      },
+      minutesStep: {
+        type: [Number, String],
+        default: 1
+      },
+      buttonOnly: {
+        type: Boolean,
+        default: false
+      },
+      buttonVariant: {
+        // Applicable in button only mode
+        type: String,
+        default: 'secondary'
+      },
+      nowButton: {
+        type: Boolean,
+        default: false
+      },
+      labelNowButton: {
+        type: String,
+        default: 'Select now'
+      },
+      nowButtonVariant: {
+        type: String,
+        default: 'outline-primary'
+      },
+      resetButton: {
+        type: Boolean,
+        default: false
+      },
+      labelResetButton: {
+        type: String,
+        default: 'Reset'
+      },
+      resetButtonVariant: {
+        type: String,
+        default: 'outline-danger'
+      },
+      noCloseButton: {
+        type: Boolean,
+        default: false
+      },
+      labelCloseButton: {
+        type: String,
+        default: 'Close'
+      },
+      closeButtonVariant: {
+        type: String,
+        default: 'outline-secondary'
+      },
+      // Labels
+      // These fallback to BTime values
+      ...makePropsConfigurable(
+        pick(timeProps, [
+          'labelSelected',
+          'labelNoTimeSelected',
+          'labelHours',
+          'labelMinutes',
+          'labelSeconds',
+          'labelAmpm',
+          'labelAm',
+          'labelPm',
+          'labelIncrement',
+          'labelDecrement'
+        ]),
+        NAME_TIME
+      ),
+      // extra dropdown stuff
+      menuClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      ...dropdownProps
     },
-    resetValue: {
-      type: String,
-      default: ''
-    },
-    placeholder: {
-      type: String
-      // Defaults to `labelNoTime` from BTime context
-      // default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      // If true adds the `aria-required` attribute
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false` or `null`
-      type: Boolean,
-      default: null
-    },
-    hour12: {
-      // Tri-state prop: `true` => 12 hour, `false` => 24 hour, `null` => auto
-      type: Boolean,
-      default: null
-    },
-    locale: {
-      type: [String, Array]
-      // default: null
-    },
-    showSeconds: {
-      type: Boolean,
-      default: false
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    secondsStep: {
-      type: [Number, String],
-      default: 1
-    },
-    minutesStep: {
-      type: [Number, String],
-      default: 1
-    },
-    buttonOnly: {
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Applicable in button only mode
-      type: String,
-      default: 'secondary'
-    },
-    nowButton: {
-      type: Boolean,
-      default: false
-    },
-    labelNowButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelNowButton', 'Select now')
-    },
-    nowButtonVariant: {
-      type: String,
-      default: 'outline-primary'
-    },
-    resetButton: {
-      type: Boolean,
-      default: false
-    },
-    labelResetButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelResetButton', 'Reset')
-    },
-    resetButtonVariant: {
-      type: String,
-      default: 'outline-danger'
-    },
-    noCloseButton: {
-      type: Boolean,
-      default: false
-    },
-    labelCloseButton: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TIMEPICKER, 'labelCloseButton', 'Close')
-    },
-    closeButtonVariant: {
-      type: String,
-      default: 'outline-secondary'
-    },
-    // Labels
-    // These fallback to BTime values
-    labelSelected: {
-      type: String,
-      default: () => getConfigFallback('labelSelected')
-    },
-    labelNoTimeSelected: {
-      type: String,
-      default: () => getConfigFallback('labelNoTimeSelected')
-    },
-    labelHours: {
-      type: String,
-      default: () => getConfigFallback('labelHours')
-    },
-    labelMinutes: {
-      type: String,
-      default: () => getConfigFallback('labelMinutes')
-    },
-    labelSeconds: {
-      type: String,
-      default: () => getConfigFallback('labelSeconds')
-    },
-    labelAmpm: {
-      type: String,
-      default: () => getConfigFallback('labelAmpm')
-    },
-    labelAm: {
-      type: String,
-      default: () => getConfigFallback('labelAm')
-    },
-    labelPm: {
-      type: String,
-      default: () => getConfigFallback('labelPm')
-    },
-    // These pick BTime or BFormSpinbutton global config if no BFormTimepicker global config
-    labelIncrement: {
-      type: String,
-      default: () => getConfigFallback('labelIncrement')
-    },
-    labelDecrement: {
-      type: String,
-      default: () => getConfigFallback('labelDecrement')
-    },
-    // extra dropdown stuff
-    menuClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    ...dropdownProps
-  },
+    NAME_FORM_TIMEPICKER
+  ),
   data() {
     return {
       // We always use `HH:mm:ss` value internally

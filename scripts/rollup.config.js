@@ -102,7 +102,7 @@ export default [
     }
   },
 
-  // ESM Icons only Module Bundle Build
+  // ESM Module Bundle Build
   {
     ...baseConfig,
     output: {
@@ -113,7 +113,7 @@ export default [
     }
   },
 
-  // ESM Module Bundle Build
+  // ESM Icons only Module Bundle Build
   {
     ...baseConfig,
     input: path.resolve(src, 'icons-only.js'),

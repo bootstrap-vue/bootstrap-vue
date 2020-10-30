@@ -9,7 +9,7 @@ import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   attemptBlur,
   attemptFocus,
@@ -68,141 +68,144 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    inputId: {
-      type: String
-      // default: null
+  props: makePropsConfigurable(
+    {
+      inputId: {
+        type: String
+        // default: null
+      },
+      placeholder: {
+        type: String,
+        default: 'Add tag...'
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      name: {
+        type: String
+        // default: null
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      autofocus: {
+        type: Boolean,
+        default: false
+      },
+      state: {
+        // Tri-state: `true`, `false`, `null`
+        type: Boolean,
+        default: null
+      },
+      size: {
+        type: String
+        // default: null
+      },
+      inputType: {
+        type: String,
+        default: 'text',
+        validator: type => arrayIncludes(TYPES, type)
+      },
+      inputClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      inputAttrs: {
+        // Additional attributes to add to the input element
+        type: Object,
+        default: () => ({})
+      },
+      addButtonText: {
+        type: String,
+        default: 'Add'
+      },
+      addButtonVariant: {
+        type: String,
+        default: 'outline-secondary'
+      },
+      tagVariant: {
+        type: String,
+        default: 'secondary'
+      },
+      tagClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      tagPills: {
+        type: Boolean,
+        default: false
+      },
+      tagRemoveLabel: {
+        type: String,
+        default: 'Remove tag'
+      },
+      tagRemovedLabel: {
+        type: String,
+        default: 'Tag removed'
+      },
+      tagValidator: {
+        type: Function
+        // default: null
+      },
+      duplicateTagText: {
+        type: String,
+        default: 'Duplicate tag(s)'
+      },
+      invalidTagText: {
+        type: String,
+        default: 'Invalid tag(s)'
+      },
+      limitTagsText: {
+        type: String,
+        default: 'Tag limit reached'
+      },
+      limit: {
+        type: Number
+        // default: null
+      },
+      separator: {
+        // Character (or characters) that trigger adding tags
+        type: [String, Array]
+        // default: null
+      },
+      removeOnDelete: {
+        // Enable deleting last tag in list when CODE_BACKSPACE is
+        // pressed and input is empty
+        type: Boolean,
+        default: false
+      },
+      addOnChange: {
+        // Enable change event triggering tag addition
+        // Handy if using <select> as the input
+        type: Boolean,
+        default: false
+      },
+      noAddOnEnter: {
+        // Disable ENTER key from triggering tag addition
+        type: Boolean,
+        default: false
+      },
+      noOuterFocus: {
+        // Disable the focus ring on the root element
+        type: Boolean,
+        default: false
+      },
+      ignoreInputFocusSelector: {
+        // Disable the input focus behavior when clicking
+        // on element matching the selector (or selectors)
+        type: [Array, String],
+        default: () => ['.b-form-tag', 'button', 'input', 'select']
+      },
+      value: {
+        // The v-model prop
+        type: Array,
+        default: () => []
+      }
     },
-    placeholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'placeholder', 'Add tag...')
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
-    },
-    state: {
-      // Tri-state: `true`, `false`, `null`
-      type: Boolean,
-      default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    inputType: {
-      type: String,
-      default: 'text',
-      validator: type => arrayIncludes(TYPES, type)
-    },
-    inputClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    inputAttrs: {
-      // Additional attributes to add to the input element
-      type: Object,
-      default: () => ({})
-    },
-    addButtonText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonText', 'Add')
-    },
-    addButtonVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonVariant', 'outline-secondary')
-    },
-    tagVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagVariant', 'secondary')
-    },
-    tagClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    tagPills: {
-      type: Boolean,
-      default: false
-    },
-    tagRemoveLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemoveLabel', 'Remove tag')
-    },
-    tagRemovedLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemovedLabel', 'Tag removed')
-    },
-    tagValidator: {
-      type: Function
-      // default: null
-    },
-    duplicateTagText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'duplicateTagText', 'Duplicate tag(s)')
-    },
-    invalidTagText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'invalidTagText', 'Invalid tag(s)')
-    },
-    limitTagsText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'limitTagsText', 'Tag limit reached')
-    },
-    limit: {
-      type: Number
-      // default: null
-    },
-    separator: {
-      // Character (or characters) that trigger adding tags
-      type: [String, Array]
-      // default: null
-    },
-    removeOnDelete: {
-      // Enable deleting last tag in list when CODE_BACKSPACE is
-      // pressed and input is empty
-      type: Boolean,
-      default: false
-    },
-    addOnChange: {
-      // Enable change event triggering tag addition
-      // Handy if using <select> as the input
-      type: Boolean,
-      default: false
-    },
-    noAddOnEnter: {
-      // Disable ENTER key from triggering tag addition
-      type: Boolean,
-      default: false
-    },
-    noOuterFocus: {
-      // Disable the focus ring on the root element
-      type: Boolean,
-      default: false
-    },
-    ignoreInputFocusSelector: {
-      // Disable the input focus behavior when clicking
-      // on element matching the selector (or selectors)
-      type: [Array, String],
-      default: () => ['.b-form-tag', 'button', 'input', 'select']
-    },
-    value: {
-      // The v-model prop
-      type: Array,
-      default: () => []
-    }
-  },
+    NAME_FORM_TAGS
+  ),
   data() {
     return {
       hasFocus: false,

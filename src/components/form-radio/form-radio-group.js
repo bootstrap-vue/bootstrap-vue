@@ -6,13 +6,17 @@ import formOptionsMixin from '../../mixins/form-options'
 import formRadioCheckGroupMixin from '../../mixins/form-radio-check-group'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  checked: {
-    // type: [String, Number, Boolean, Object],
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    checked: {
+      // type: [String, Number, Boolean, Object],
+      default: null
+    }
+  },
+  NAME_FORM_RADIO_GROUP
+)
 
 // @vue/component
 export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({

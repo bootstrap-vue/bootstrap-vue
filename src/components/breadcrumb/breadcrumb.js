@@ -3,13 +3,17 @@ import { NAME_BREADCRUMB } from '../../constants/components'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  items: {
-    type: Array,
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    items: {
+      type: Array,
+      default: null
+    }
+  },
+  NAME_BREADCRUMB
+)
 
 // @vue/component
 export const BBreadcrumb = /*#__PURE__*/ Vue.extend({

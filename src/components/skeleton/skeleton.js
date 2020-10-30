@@ -1,15 +1,15 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_SKELETON } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 
 // @vue/component
 export const BSkeleton = /*#__PURE__*/ Vue.extend({
   name: NAME_SKELETON,
   functional: true,
-  props: {
+  props: makePropsConfigurable({
     animation: {
       type: String,
-      default: () => getComponentConfig(NAME_SKELETON, 'animation', 'wave')
+      default: 'wave'
     },
     type: {
       type: String,
@@ -27,7 +27,7 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
     variant: {
       type: String
     }
-  },
+  }),
   render(h, { data, props }) {
     const { size, animation, variant } = props
 

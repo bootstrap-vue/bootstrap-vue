@@ -1,8 +1,9 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { arrayIncludes } from '../../utils/array'
 
-export const props = {
+export const props = makePropsConfigurable({
   type: {
     type: String,
     default: 'iframe',
@@ -17,7 +18,7 @@ export const props = {
     type: String,
     default: '16by9'
   }
-}
+})
 
 // @vue/component
 export const BEmbed = /*#__PURE__*/ Vue.extend({

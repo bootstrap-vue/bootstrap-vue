@@ -1,7 +1,7 @@
 import Vue from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
 import { BvEvent } from '../../utils/bv-event.class'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathCeil, mathMax } from '../../utils/math'
@@ -13,24 +13,27 @@ import paginationMixin from '../../mixins/pagination'
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
 
-const props = {
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_PAGINATION, 'size')
+const props = makePropsConfigurable(
+  {
+    size: {
+      type: String
+      // default: undefined
+    },
+    perPage: {
+      type: [Number, String],
+      default: DEFAULT_PER_PAGE
+    },
+    totalRows: {
+      type: [Number, String],
+      default: DEFAULT_TOTAL_ROWS
+    },
+    ariaControls: {
+      type: String
+      // default: null
+    }
   },
-  perPage: {
-    type: [Number, String],
-    default: DEFAULT_PER_PAGE
-  },
-  totalRows: {
-    type: [Number, String],
-    default: DEFAULT_TOTAL_ROWS
-  },
-  ariaControls: {
-    type: String
-    // default: null
-  }
-}
+  NAME_PAGINATION
+)
 
 // --- Helper methods ---
 

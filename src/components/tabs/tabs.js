@@ -10,6 +10,7 @@ import {
   CODE_UP
 } from '../../constants/key-codes'
 import { SLOT_NAME_TITLE } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import observeDom from '../../utils/observe-dom'
@@ -49,23 +50,26 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  props: {
-    // Reference to the child <b-tab> instance
-    tab: { default: null },
-    tabs: {
-      type: Array,
-      /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
-        return []
-      }
+  props: makePropsConfigurable(
+    {
+      // Reference to the child <b-tab> instance
+      tab: { default: null },
+      tabs: {
+        type: Array,
+        /* istanbul ignore next */
+        default() /* istanbul ignore next */ {
+          return []
+        }
+      },
+      id: { type: String, default: null },
+      controls: { type: String, default: null },
+      tabIndex: { type: Number, default: null },
+      posInSet: { type: Number, default: null },
+      setSize: { type: Number, default: null },
+      noKeyNav: { type: Boolean, default: false }
     },
-    id: { type: String, default: null },
-    controls: { type: String, default: null },
-    tabIndex: { type: Number, default: null },
-    posInSet: { type: Number, default: null },
-    setSize: { type: Number, default: null },
-    noKeyNav: { type: Boolean, default: false }
-  },
+    NAME_TABS
+  ),
   methods: {
     focus() {
       attemptFocus(this.$refs.link)

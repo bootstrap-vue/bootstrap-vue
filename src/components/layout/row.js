@@ -3,7 +3,7 @@ import { NAME_ROW } from '../../constants/components'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getBreakpointsUpCached } from '../../utils/config'
+import { getBreakpointsUpCached, makePropsConfigurable } from '../../utils/config'
 import { create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase, toString, trim } from '../../utils/string'
@@ -47,32 +47,36 @@ const generateProps = () => {
   rowColsPropList = keys(rowColsProps)
 
   // Return the generated props
-  return {
-    tag: {
-      type: String,
-      default: 'div'
+  return makePropsConfigurable(
+    {
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      noGutters: {
+        type: Boolean,
+        default: false
+      },
+      alignV: {
+        type: String,
+        default: null,
+        validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'baseline', 'stretch'), str)
+      },
+      alignH: {
+        type: String,
+        default: null,
+        validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around'), str)
+      },
+      alignContent: {
+        type: String,
+        default: null,
+        validator: str =>
+          arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
+      },
+      ...rowColsProps
     },
-    noGutters: {
-      type: Boolean,
-      default: false
-    },
-    alignV: {
-      type: String,
-      default: null,
-      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'baseline', 'stretch'), str)
-    },
-    alignH: {
-      type: String,
-      default: null,
-      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around'), str)
-    },
-    alignContent: {
-      type: String,
-      default: null,
-      validator: str => arrayIncludes(concat(COMMON_ALIGNMENT, 'between', 'around', 'stretch'), str)
-    },
-    ...rowColsProps
-  }
+    NAME_ROW
+  )
 }
 
 // We do not use `Vue.extend()` here as that would evaluate the props

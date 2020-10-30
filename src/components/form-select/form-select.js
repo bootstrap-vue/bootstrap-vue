@@ -1,6 +1,7 @@
 import Vue from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
@@ -31,26 +32,29 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      // type: [Object, Array, String, Number, Boolean],
-      // default: undefined
+  props: makePropsConfigurable(
+    {
+      value: {
+        // type: [Object, Array, String, Number, Boolean],
+        // default: undefined
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      selectSize: {
+        // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
+        // Size of 1 can bork out Firefox
+        type: Number,
+        default: 0
+      },
+      ariaInvalid: {
+        type: [Boolean, String],
+        default: false
+      }
     },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    selectSize: {
-      // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
-      // Size of 1 can bork out Firefox
-      type: Number,
-      default: 0
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
+    NAME_FORM_SELECT
+  ),
   data() {
     return {
       localValue: this.value

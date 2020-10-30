@@ -1,5 +1,6 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slot-names'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
@@ -13,21 +14,24 @@ import { BCardImg, props as imgProps } from './card-img'
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
 
-export const props = {
-  ...bodyProps,
-  ...headerProps,
-  ...footerProps,
-  ...cardImgProps,
-  ...copyProps(cardMixin.props),
-  align: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    ...bodyProps,
+    ...headerProps,
+    ...footerProps,
+    ...cardImgProps,
+    ...copyProps(cardMixin.props),
+    align: {
+      type: String
+      // default: null
+    },
+    noBody: {
+      type: Boolean,
+      default: false
+    }
   },
-  noBody: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_CARD
+)
 
 // @vue/component
 export const BCard = /*#__PURE__*/ Vue.extend({
