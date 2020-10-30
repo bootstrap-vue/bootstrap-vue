@@ -1,13 +1,16 @@
-import { getComponentConfig } from '../utils/config'
+import { makePropsConfigurable } from '../utils/config'
 
 // @vue/component
 export default {
-  props: {
-    size: {
-      type: String,
-      default: () => getComponentConfig('formControls', 'size')
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      size: {
+        type: String
+        // default: null
+      }
+    },
+    'formControls'
+  ),
   computed: {
     sizeFormClass() {
       return [this.size ? `form-control-${this.size}` : null]
