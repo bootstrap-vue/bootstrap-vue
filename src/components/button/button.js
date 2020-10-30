@@ -2,7 +2,7 @@ import Vue, { mergeData } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { concat } from '../../utils/array'
-import { getComponentConfig, makePropsConfigurable } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
@@ -87,7 +87,7 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
 const computeClass = props => [
-  `btn-${props.variant || getComponentConfig(NAME_BUTTON, 'variant')}`,
+  `btn-${props.variant || 'secondary'}`,
   {
     [`btn-${props.size}`]: props.size,
     'btn-block': props.block,
