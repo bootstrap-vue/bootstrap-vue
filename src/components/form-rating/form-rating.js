@@ -25,40 +25,37 @@ const DEFAULT_STARS = 5
 const BVFormRatingStar = Vue.extend({
   name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
-  props: makePropsConfigurable(
-    {
-      rating: {
-        type: Number,
-        default: 0
-      },
-      star: {
-        type: Number,
-        default: 0
-      },
-      focused: {
-        // If parent is focused
-        type: Boolean,
-        default: false
-      },
-      variant: {
-        type: String
-        // default: null
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      hasClear: {
-        type: Boolean,
-        default: false
-      }
+  props: {
+    rating: {
+      type: Number,
+      default: 0
     },
-    NAME_FORM_RATING_STAR
-  ),
+    star: {
+      type: Number,
+      default: 0
+    },
+    focused: {
+      // If parent is focused
+      type: Boolean,
+      default: false
+    },
+    variant: {
+      type: String
+      // default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    hasClear: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     onClick(evt) {
       if (!this.disabled && !this.readonly) {
