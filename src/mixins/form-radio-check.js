@@ -1,4 +1,5 @@
 import looseEqual from '../utils/loose-equal'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
@@ -11,46 +12,49 @@ export default {
     prop: 'checked',
     event: 'input'
   },
-  props: {
-    value: {
-      // Value when checked
-      // type: Object,
-      // default: undefined
+  props: makePropsConfigurable(
+    {
+      value: {
+        // Value when checked
+        // type: Object,
+        // default: undefined
+      },
+      checked: {
+        // This is the v-model
+        // type: Object,
+        // default: undefined
+      },
+      inline: {
+        type: Boolean,
+        default: false
+      },
+      plain: {
+        type: Boolean,
+        default: false
+      },
+      button: {
+        // Only applicable in standalone mode (non group)
+        type: Boolean,
+        default: false
+      },
+      buttonVariant: {
+        // Only applicable when rendered with button style
+        type: String
+        // default: null
+      },
+      ariaLabel: {
+        // Placed on the input if present.
+        type: String
+        // default: null
+      },
+      ariaLabelledby: {
+        // Placed on the input if present.
+        type: String
+        // default: null
+      }
     },
-    checked: {
-      // This is the v-model
-      // type: Object,
-      // default: undefined
-    },
-    inline: {
-      type: Boolean,
-      default: false
-    },
-    plain: {
-      type: Boolean,
-      default: false
-    },
-    button: {
-      // Only applicable in standalone mode (non group)
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Only applicable when rendered with button style
-      type: String
-      // default: null
-    },
-    ariaLabel: {
-      // Placed on the input if present.
-      type: String
-      // default: null
-    },
-    ariaLabelledby: {
-      // Placed on the input if present.
-      type: String
-      // default: null
-    }
-  },
+    'formRadioCheck'
+  ),
   data() {
     return {
       localChecked: this.isGroup ? this.bvGroup.checked : this.checked,
