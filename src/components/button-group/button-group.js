@@ -1,8 +1,8 @@
 import Vue, { mergeData } from '../../vue'
-import { NAME_BUTTON, NAME_BUTTON_GROUP } from '../../constants/components'
+import { NAME_BUTTON_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { pick } from '../../utils/object'
-import { props as btnProps } from '../button/button'
+import { props as buttonProps } from '../button/button'
 
 export const props = makePropsConfigurable(
   {
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
       type: String,
       default: 'group'
     },
-    ...makePropsConfigurable(pick(btnProps, ['size']), NAME_BUTTON)
+    ...pick(buttonProps, ['size'])
   },
   NAME_BUTTON_GROUP
 )
