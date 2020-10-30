@@ -1,6 +1,7 @@
 import { NAME_PAGINATION } from '../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_SPACE, CODE_UP } from '../constants/key-codes'
 import range from '../utils/range'
+import { makePropsConfigurable } from '../utils/config'
 import {
   attemptFocus,
   getActiveElement,
@@ -17,6 +18,7 @@ import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
+import { isUndefined } from 'lodash'
 
 // Common props, computed, data, render function, and methods
 // for `<b-pagination>` and `<b-pagination-nav>`
@@ -60,126 +62,129 @@ const onSpaceKey = evt => {
 }
 
 // --- Props ---
-export const props = {
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  value: {
-    type: [Number, String],
-    default: null,
-    validator(value) /* istanbul ignore next */ {
-      if (!isNull(value) && toInteger(value, 0) < 1) {
-        warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
-        return false
+export const props = makePropsConfigurable(
+  {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    value: {
+      type: [Number, String],
+      default: null,
+      validator(value) /* istanbul ignore next */ {
+        if (!isNull(value) && toInteger(value, 0) < 1) {
+          warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
+          return false
+        }
+        return true
       }
-      return true
+    },
+    limit: {
+      type: [Number, String],
+      default: DEFAULT_LIMIT,
+      validator(value) /* istanbul ignore next */ {
+        if (toInteger(value, 0) < 1) {
+          warn('Prop "limit" must be a number greater than "0"', NAME_PAGINATION)
+          return false
+        }
+        return true
+      }
+    },
+    align: {
+      type: String,
+      default: 'left'
+    },
+    pills: {
+      type: Boolean,
+      default: false
+    },
+    hideGotoEndButtons: {
+      type: Boolean,
+      default: false
+    },
+    ariaLabel: {
+      type: String,
+      default: 'Pagination'
+    },
+    labelFirstPage: {
+      type: String,
+      default: 'Go to first page'
+    },
+    firstText: {
+      type: String,
+      default: '\u00AB' // '«'
+    },
+    firstNumber: {
+      type: Boolean,
+      default: false
+    },
+    firstClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    labelPrevPage: {
+      type: String,
+      default: 'Go to previous page'
+    },
+    prevText: {
+      type: String,
+      default: '\u2039' // '‹'
+    },
+    prevClass: {
+      type: [String, Array, Object],
+      default: null
+    },
+    labelNextPage: {
+      type: String,
+      default: 'Go to next page'
+    },
+    nextText: {
+      type: String,
+      default: '\u203A' // '›'
+    },
+    nextClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    labelLastPage: {
+      type: String,
+      default: 'Go to last page'
+    },
+    lastText: {
+      type: String,
+      default: '\u00BB' // '»'
+    },
+    lastNumber: {
+      type: Boolean,
+      default: false
+    },
+    lastClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    labelPage: {
+      type: [String, Function],
+      default: 'Go to page'
+    },
+    pageClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    hideEllipsis: {
+      type: Boolean,
+      default: false
+    },
+    ellipsisText: {
+      type: String,
+      default: '\u2026' // '…'
+    },
+    ellipsisClass: {
+      type: [String, Array, Object]
+      // default: null
     }
   },
-  limit: {
-    type: [Number, String],
-    default: DEFAULT_LIMIT,
-    validator(value) /* istanbul ignore next */ {
-      if (toInteger(value, 0) < 1) {
-        warn('Prop "limit" must be a number greater than "0"', NAME_PAGINATION)
-        return false
-      }
-      return true
-    }
-  },
-  align: {
-    type: String,
-    default: 'left'
-  },
-  pills: {
-    type: Boolean,
-    default: false
-  },
-  hideGotoEndButtons: {
-    type: Boolean,
-    default: false
-  },
-  ariaLabel: {
-    type: String,
-    default: 'Pagination'
-  },
-  labelFirstPage: {
-    type: String,
-    default: 'Go to first page'
-  },
-  firstText: {
-    type: String,
-    default: '\u00AB' // '«'
-  },
-  firstNumber: {
-    type: Boolean,
-    default: false
-  },
-  firstClass: {
-    type: [String, Array, Object],
-    default: null
-  },
-  labelPrevPage: {
-    type: String,
-    default: 'Go to previous page'
-  },
-  prevText: {
-    type: String,
-    default: '\u2039' // '‹'
-  },
-  prevClass: {
-    type: [String, Array, Object],
-    default: null
-  },
-  labelNextPage: {
-    type: String,
-    default: 'Go to next page'
-  },
-  nextText: {
-    type: String,
-    default: '\u203A' // '›'
-  },
-  nextClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  labelLastPage: {
-    type: String,
-    default: 'Go to last page'
-  },
-  lastText: {
-    type: String,
-    default: '\u00BB' // '»'
-  },
-  lastNumber: {
-    type: Boolean,
-    default: false
-  },
-  lastClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  labelPage: {
-    type: [String, Function],
-    default: 'Go to page'
-  },
-  pageClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  hideEllipsis: {
-    type: Boolean,
-    default: false
-  },
-  ellipsisText: {
-    type: String,
-    default: '\u2026' // '…'
-  },
-  ellipsisClass: {
-    type: [String, Array, Object]
-    // default: null
-  }
-}
+  NAME_PAGINATION
+)
 
 // @vue/component
 export default {
@@ -519,14 +524,16 @@ export default {
       const active = isActivePage(page.number) && !noCurrentPage
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
+
       const attrs = {
         role: isNav ? null : 'menuitemradio',
         type: isNav || disabled ? null : 'button',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
-        'aria-label': isFunction(this.labelPage)
-          ? /* istanbul ignore next */ this.labelPage(page.number)
-          : `${this.labelPage} ${page.number}`,
+        'aria-label':
+          isFunction(this.labelPage) && !isUndefined(this.labelPage(page.number))
+            ? /* istanbul ignore next */ this.labelPage(page.number)
+            : `${this.labelPage} ${page.number}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,
         'aria-posinset': isNav ? null : page.number,
