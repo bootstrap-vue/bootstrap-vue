@@ -13,7 +13,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
-import { isFunction, isNull, isUndefined } from '../../utils/inspect'
+import { isNull, isUndefined } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
@@ -242,9 +242,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     computedFormatter() {
       const { formatterFn } = this
-      return isFunction(formatterFn) && !isUndefined(formatterFn(''))
-        ? formatterFn
-        : this.defaultFormatter
+      let result = null
+      try {
+        result = formatterFn()
+      } catch {}
+      return isUndefined(result) ? this.defaultFormatter : formatterFn
     },
     computedAttrs() {
       return {
