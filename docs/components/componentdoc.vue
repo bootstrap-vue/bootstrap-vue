@@ -517,7 +517,7 @@ ul.component-ref-mini-toc:empty {
   display: none;
 }
 
-/deep/ .word-wrap-normal {
+>>> .word-wrap-normal {
   white-space: normal !important;
   word-break: normal !important;
   overflow-wrap: normal !important;
