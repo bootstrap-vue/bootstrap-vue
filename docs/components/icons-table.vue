@@ -118,16 +118,16 @@ export default {
   position: relative;
 }
 
-#bv-icons-table-result /deep/ .bi {
+#bv-icons-table-result >>> .bi {
   font-size: 1.5rem;
 }
 
-.form-group /deep/ .form-text {
+.form-group >>> .form-text {
   text-align: right;
 }
 
 // Icon zoom on hover
-.flip-icon-list-icon /deep/ .card {
+.flip-icon-list-icon >>> .card {
   .bi {
     transition: transform 0.15s;
   }

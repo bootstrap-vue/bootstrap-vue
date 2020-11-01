@@ -195,10 +195,10 @@ import 'custom.scss'
 
 You can find all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
-Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
+Do not forget to include `sass` and `sass-loader` to use `scss` in Vue:
 
 ```sh
-npm install --save-dev node-sass sass-loader
+npm install --save-dev sass sass-loader
 ```
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.
