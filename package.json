@@ -139,7 +139,7 @@
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.20",
     "marked": "^1.2.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "nuxt": "^2.14.7",
     "postcss": "^8.1.4",
     "postcss-cli": "^8.2.0",
