@@ -3,9 +3,7 @@ type: 'Landing Page'
 category: 'Startup & Product Landing Page'
 img: 'https://raw.githubusercontent.com/mh-rafi/vue-landing/master/preview.png?token=ADAAYN6HJGIO53OHN7MX3SC7VERDM'
 href: 'https://1.envato.market/rVP4d'
-description:
-  'Dexam is Clean and Modern VueJs + HTML App&Product Landing Page. It Is Multi-Purpose Product  Landing Page
-  and
-  Builds With VueCli, Bootstrap, BootstrapVue, and SASS. It has 10+  Different Home Variations and also Includes HTML Pages Too. '
+description:'Dexam is Clean and Modern VueJs + HTML App&Product Landing Page. It Is Multi-Purpose Product  Landing Page and
+   Builds With VueCli, Bootstrap, BootstrapVue, and SASS. It has 10+  Different Home Variations and also Includes HTML Pages Too'
 provider: 'UiLib'
 price: '$22.00'
