@@ -124,7 +124,7 @@ jobs:
 
       - name: CodeCov
         uses: codecov/codecov-action@v1
-        if: matrix.node == '12'
+        if: matrix.node == '14'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
