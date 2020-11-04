@@ -393,15 +393,13 @@ export default {
     },
     // Document click-out listener
     clickOutHandler(evt) {
-      console.log('clickOutHandler')
       this.hideHandler(evt)
     },
     // Document focus-in listener
     focusInHandler(evt) {
-      console.log('focusInHandler')
       setTimeout(() => {
         this.hideHandler(evt)
-      }, this.inNavbar ? 100 : 0)
+      }, this.inNavbar ? 32 : 0)
     },
     // Keyboard nav
     focusNext(evt, up) {
