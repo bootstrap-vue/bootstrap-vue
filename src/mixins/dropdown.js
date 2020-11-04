@@ -397,7 +397,7 @@ export default {
     focusInHandler(evt) {
       setTimeout(() => {
         this.hideHandler(evt)
-      }, this.inNavbar ? 32 : 0)
+      }, this.inNavbar ? 50 : 0)
     },
     // Keyboard nav
     focusNext(evt, up) {
