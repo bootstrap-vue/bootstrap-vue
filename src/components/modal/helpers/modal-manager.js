@@ -68,9 +68,11 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
       }
     },
     modals(newValue) {
-      requestAF(() => {
+      this.$nextTick(() => {
         this.checkScrollbar()
-        this.updateModals(newValue || [])
+        requestAF(() => {
+          this.updateModals(newValue || [])
+        })
       })
     }
   },
