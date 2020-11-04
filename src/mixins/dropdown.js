@@ -307,13 +307,7 @@ export default {
       if (this.disabled) {
         return
       }
-      // Wrap in a `requestAF()` to allow any previous
-      // click handling to occur first
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.visible = false
-        })
-      })
+      this.visible = false
       if (refocus) {
         // Child element is closing the dropdown on click
         this.$once('hidden', this.focusToggler)
@@ -399,7 +393,9 @@ export default {
     },
     // Document click-out listener
     clickOutHandler(evt) {
-      this.hideHandler(evt)
+      requestAF(() => {
+        this.hideHandler(evt)
+      })
     },
     // Document focus-in listener
     focusInHandler(evt) {
