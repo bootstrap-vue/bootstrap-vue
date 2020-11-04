@@ -295,10 +295,8 @@ export default {
       }
       // Wrap in a `requestAF()` to allow any previous
       // click handling to occur first
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.visible = true
-        })
+      requestAF(() => {
+        this.visible = true
       })
     },
     // Public method to hide dropdown
