@@ -383,7 +383,8 @@ export const BFormGroup = {
         staticClass: 'bv-no-focus-ring',
         attrs: {
           tabindex: isFieldset ? '-1' : null,
-          role: isFieldset ? 'group' : null
+          role: isFieldset ? 'group' : null,
+          'aria-labelledby': isFieldset ? labelId : null
         }
       },
       [normalizeSlot() || h(), $invalidFeedback, $validFeedback, $description]
