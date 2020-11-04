@@ -288,27 +288,31 @@ export default {
         this.visible = false
       }
     },
+    // Public method to show dropdown
     show() {
-      // Public method to show dropdown
       if (this.disabled) {
         return
       }
       // Wrap in a `requestAF()` to allow any previous
       // click handling to occur first
-      requestAF(() => {
-        this.visible = true
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.visible = true
+        })
       })
     },
+    // Public method to hide dropdown
     hide(refocus = false) {
-      // Public method to hide dropdown
+      /* istanbul ignore next */
       if (this.disabled) {
-        /* istanbul ignore next */
         return
       }
       // Wrap in a `requestAF()` to allow any previous
       // click handling to occur first
-      requestAF(() => {
-        this.visible = false
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.visible = false
+        })
       })
       if (refocus) {
         // Child element is closing the dropdown on click
