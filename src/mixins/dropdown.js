@@ -172,6 +172,7 @@ export default {
   created() {
     // Create private non-reactive props
     this.$_popper = null
+    this.$_hideTimeout = null
   },
   /* istanbul ignore next */
   deactivated() /* istanbul ignore next: not easy to test */ {
@@ -184,6 +185,7 @@ export default {
     this.visible = false
     this.whileOpenListen(false)
     this.destroyPopper()
+    this.clearHideTimeout()
   },
   methods: {
     // Event emitter
@@ -248,6 +250,10 @@ export default {
       try {
         this.$_popper.scheduleUpdate()
       } catch {}
+    },
+    clearHideTimeout() {
+      clearTimeout(this.$_hideTimeout)
+      this.$_hideTimeout = null
     },
     getPopperConfig() {
       let placement = PLACEMENT_BOTTOM_START
@@ -386,7 +392,8 @@ export default {
     hideHandler(evt) {
       const { target } = evt
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        this.hide()
+        this.clearHideTimeout()
+        this.$_hideTimeout = setTimeout(() => this.hide(), this.inNavbar ? 300 : 0)
       }
     },
     // Document click-out listener
@@ -395,9 +402,7 @@ export default {
     },
     // Document focus-in listener
     focusInHandler(evt) {
-      setTimeout(() => {
-        this.hideHandler(evt)
-      }, this.inNavbar ? 300 : 0)
+      this.hideHandler(evt)
     },
     // Keyboard nav
     focusNext(evt, up) {
