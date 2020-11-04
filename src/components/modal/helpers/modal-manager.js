@@ -13,7 +13,6 @@ import {
   hasAttr,
   removeAttr,
   removeClass,
-  requestAF,
   selectAll,
   setAttr,
   setStyle
