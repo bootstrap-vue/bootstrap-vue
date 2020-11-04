@@ -13,6 +13,7 @@ import {
   hasAttr,
   removeAttr,
   removeClass,
+  requestAF,
   selectAll,
   setAttr,
   setStyle
@@ -66,9 +67,11 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         setAttr(document.body, 'data-modal-open-count', String(newCount))
       }
     },
-    modals(newVal) {
-      this.checkScrollbar()
-      this.updateModals(newVal || [])
+    modals(newValue) {
+      requestAF(() => {
+        this.checkScrollbar()
+        this.updateModals(newValue || [])
+      })
     }
   },
   methods: {
