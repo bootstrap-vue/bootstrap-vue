@@ -305,7 +305,11 @@ export default {
         /* istanbul ignore next */
         return
       }
-      this.visible = false
+      // Wrap in a `requestAF()` to allow any previous
+      // click handling to occur first
+      requestAF(() => {
+        this.visible = false
+      })
       if (refocus) {
         // Child element is closing the dropdown on click
         this.$once('hidden', this.focusToggler)
