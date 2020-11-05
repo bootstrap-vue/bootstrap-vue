@@ -83,12 +83,13 @@ export const makePropsConfigurable = (props, componentKey) =>
 
     result[prop] = {
       ...cloneDeep(currentProp),
-      default: () =>
-        getComponentConfig(
+      default() {
+        return getComponentConfig(
           componentKey,
           prop,
           isFunction(defaultValue) ? defaultValue() : defaultValue
         )
+      }
     }
 
     return result
