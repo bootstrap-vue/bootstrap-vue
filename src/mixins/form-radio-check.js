@@ -2,12 +2,14 @@ import looseEqual from '../utils/loose-equal'
 import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
+import formCustomMixin, { props as formCustomProps } from './form-custom'
 import normalizeSlotMixin from './normalize-slot'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
+    ...formCustomProps,
     value: {
       // Value when checked
       // type: Object,
@@ -19,10 +21,6 @@ export const props = makePropsConfigurable(
       // default: undefined
     },
     inline: {
-      type: Boolean,
-      default: false
-    },
-    plain: {
       type: Boolean,
       default: false
     },
@@ -53,7 +51,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 // @vue/component
 export default {
-  mixins: [attrsMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, formCustomMixin, normalizeSlotMixin],
   inheritAttrs: false,
   model: {
     prop: 'checked',
