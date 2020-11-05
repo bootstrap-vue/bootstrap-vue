@@ -187,7 +187,7 @@ export const props = makePropsConfigurable(
     // Labels for buttons and keyboard shortcuts
     labelPrevDecade: {
       type: String,
-      default: () => 'Previous decade'
+      default: 'Previous decade'
     },
     labelPrevYear: {
       type: String,
