@@ -9,23 +9,26 @@ const TYPES = ['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy
 
 // --- Props ---
 
-export const props = makePropsConfigurable({
-  type: {
-    type: String,
-    default: 'iframe',
-    validator(value) {
-      return arrayIncludes(TYPES, value)
+export const props = makePropsConfigurable(
+  {
+    type: {
+      type: String,
+      default: 'iframe',
+      validator(value) {
+        return arrayIncludes(TYPES, value)
+      }
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    aspect: {
+      type: String,
+      default: '16by9'
     }
   },
-  tag: {
-    type: String,
-    default: 'div'
-  },
-  aspect: {
-    type: String,
-    default: '16by9'
-  }
-})
+  NAME_EMBED
+)
 
 // --- Main component ---
 // @vue/component

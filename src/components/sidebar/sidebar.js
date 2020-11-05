@@ -138,115 +138,118 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     prop: 'visible',
     event: 'change'
   },
-  props: makePropsConfigurable({
-    title: {
-      type: String
-      // default: null
+  props: makePropsConfigurable(
+    {
+      title: {
+        type: String
+        // default: null
+      },
+      right: {
+        type: Boolean,
+        default: false
+      },
+      bgVariant: {
+        type: String,
+        default: 'light'
+      },
+      textVariant: {
+        type: String,
+        default: 'dark'
+      },
+      shadow: {
+        type: [Boolean, String],
+        default: false
+      },
+      width: {
+        type: String
+        // default: undefined
+      },
+      zIndex: {
+        type: [Number, String]
+        // default: null
+      },
+      ariaLabel: {
+        type: String
+        // default: null
+      },
+      ariaLabelledby: {
+        type: String
+        // default: null
+      },
+      closeLabel: {
+        // `aria-label` for close button
+        // Defaults to 'Close'
+        type: String
+        // default: undefined
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      sidebarClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      headerClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      bodyClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      footerClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      backdrop: {
+        // If `true`, shows a basic backdrop
+        type: Boolean,
+        default: false
+      },
+      backdropVariant: {
+        type: String,
+        default: 'dark'
+      },
+      noSlide: {
+        type: Boolean,
+        default: false
+      },
+      noHeader: {
+        type: Boolean,
+        default: false
+      },
+      noHeaderClose: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnEsc: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnBackdrop: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnRouteChange: {
+        type: Boolean,
+        default: false
+      },
+      noEnforceFocus: {
+        type: Boolean,
+        default: false
+      },
+      lazy: {
+        type: Boolean,
+        default: false
+      },
+      visible: {
+        type: Boolean,
+        default: false
+      }
     },
-    right: {
-      type: Boolean,
-      default: false
-    },
-    bgVariant: {
-      type: String,
-      default: 'light'
-    },
-    textVariant: {
-      type: String,
-      default: 'dark'
-    },
-    shadow: {
-      type: [Boolean, String],
-      default: false
-    },
-    width: {
-      type: String
-      // default: undefined
-    },
-    zIndex: {
-      type: [Number, String]
-      // default: null
-    },
-    ariaLabel: {
-      type: String
-      // default: null
-    },
-    ariaLabelledby: {
-      type: String
-      // default: null
-    },
-    closeLabel: {
-      // `aria-label` for close button
-      // Defaults to 'Close'
-      type: String
-      // default: undefined
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    sidebarClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    headerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    bodyClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    footerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    backdrop: {
-      // If `true`, shows a basic backdrop
-      type: Boolean,
-      default: false
-    },
-    backdropVariant: {
-      type: String,
-      default: 'dark'
-    },
-    noSlide: {
-      type: Boolean,
-      default: false
-    },
-    noHeader: {
-      type: Boolean,
-      default: false
-    },
-    noHeaderClose: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnEsc: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnRouteChange: {
-      type: Boolean,
-      default: false
-    },
-    noEnforceFocus: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  }),
+    NAME_SIDEBAR
+  ),
   data() {
     return {
       // Internal `v-model` state

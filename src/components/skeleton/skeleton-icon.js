@@ -7,19 +7,22 @@ import { BIcon } from '../../icons'
 export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
   name: NAME_SKELETON_ICON,
   functional: true,
-  props: makePropsConfigurable({
-    animation: {
-      type: String,
-      default: 'wave'
+  props: makePropsConfigurable(
+    {
+      animation: {
+        type: String,
+        default: 'wave'
+      },
+      icon: {
+        type: String
+      },
+      iconProps: {
+        type: Object,
+        default: () => {}
+      }
     },
-    icon: {
-      type: String
-    },
-    iconProps: {
-      type: Object,
-      default: () => {}
-    }
-  }),
+    NAME_SKELETON_ICON
+  ),
   render(h, { props }) {
     const { icon, animation } = props
 
