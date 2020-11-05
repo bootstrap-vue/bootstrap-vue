@@ -10,31 +10,34 @@ import { BInputGroupText } from './input-group-text'
 
 // --- Props ---
 
-export const props = makePropsConfigurable({
-  id: {
-    type: String
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+    },
+    size: {
+      type: String
+      // default: undefined
+    },
+    prepend: {
+      type: String
+    },
+    prependHtml: {
+      type: String
+    },
+    append: {
+      type: String
+    },
+    appendHtml: {
+      type: String
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    }
   },
-  size: {
-    type: String
-    // default: undefined
-  },
-  prepend: {
-    type: String
-  },
-  prependHtml: {
-    type: String
-  },
-  append: {
-    type: String
-  },
-  appendHtml: {
-    type: String
-  },
-  tag: {
-    type: String,
-    default: 'div'
-  }
-})
+  NAME_INPUT_GROUP
+)
 
 // --- Main component ---
 // @vue/component
