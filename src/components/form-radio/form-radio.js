@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
 import looseEqual from '../../utils/loose-equal'
 import { makePropsConfigurable } from '../../utils/config'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
 import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
@@ -14,7 +14,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   mixins: [
     idMixin,
     formRadioCheckMixin, // Includes shared render function
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -26,7 +26,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
-      ...formProps,
+      ...formControlProps,
       ...formRadioCheckProps,
       ...formSizeProps,
       ...formStateProps,

@@ -45,7 +45,7 @@ export const props = makePropsConfigurable(
       // default: null
     }
   },
-  'formRadioCheck'
+  'formRadioCheckControls'
 )
 
 // --- Mixin ---

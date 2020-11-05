@@ -5,7 +5,7 @@ import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
 import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
@@ -27,7 +27,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     listenersMixin,
     idMixin,
     listenOnRootMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin,
     formTextMixin,
@@ -36,7 +36,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   ],
   props: makePropsConfigurable(
     {
-      ...formProps,
+      ...formControlProps,
       ...formSizeProps,
       ...formStateProps,
       ...formTextProps,

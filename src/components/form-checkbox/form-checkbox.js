@@ -4,7 +4,7 @@ import { makePropsConfigurable } from '../../utils/config'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { isArray } from '../../utils/inspect'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
 import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
@@ -16,7 +16,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   mixins: [
     formRadioCheckMixin, // Includes shared render function
     idMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -28,7 +28,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
-      ...formProps,
+      ...formControlProps,
       ...formRadioCheckProps,
       ...formSizeProps,
       ...formStateProps,

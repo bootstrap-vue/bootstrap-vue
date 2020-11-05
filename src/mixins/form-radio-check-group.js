@@ -31,11 +31,11 @@ export const props = makePropsConfigurable(
     },
     buttonVariant: {
       // Only applicable when rendered with button style
-      type: String,
-      default: 'secondary'
+      type: String
+      // default: null
     }
   },
-  'formRadioCheckGroup'
+  'formRadioCheckGroups'
 )
 
 // --- Mixin ---

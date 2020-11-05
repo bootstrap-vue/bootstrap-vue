@@ -1,7 +1,7 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
-import { BForm, props as formProps } from '../form/form'
+import { BForm, props as formControlProps } from '../form/form'
 
 // @vue/component
 export const BDropdownForm = /*#__PURE__*/ Vue.extend({
@@ -9,7 +9,7 @@ export const BDropdownForm = /*#__PURE__*/ Vue.extend({
   functional: true,
   props: makePropsConfigurable(
     {
-      ...formProps,
+      ...formControlProps,
       disabled: {
         type: Boolean,
         default: false

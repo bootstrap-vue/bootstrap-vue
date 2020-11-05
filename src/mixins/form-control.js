@@ -7,34 +7,36 @@ const SELECTOR = 'input, textarea, select'
 
 // --- Props ---
 
-export const props = makePropsConfigurable(
-  {
-    name: {
-      type: String
-      // default: undefined
-    },
-    id: {
-      type: String
-      // default: undefined
-    },
-    disabled: {
-      type: Boolean
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
-    }
+export const props = {
+  id: {
+    type: String
+    // default: undefined
   },
-  'form'
-)
+  name: {
+    type: String
+    // default: undefined
+  },
+  ...makePropsConfigurable(
+    {
+      disabled: {
+        type: Boolean
+      },
+      required: {
+        type: Boolean,
+        default: false
+      },
+      form: {
+        type: String
+        // default: null
+      },
+      autofocus: {
+        type: Boolean,
+        default: false
+      }
+    },
+    'formControls'
+  )
+}
 
 // --- Mixin ---
 // @vue/component

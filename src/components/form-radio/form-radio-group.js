@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_FORM_RADIO_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import idMixin from '../../mixins/id'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formOptionsMixin, { props as formOptionsProps } from '../../mixins/form-options'
 import formRadioCheckGroupMixin, {
   props as formRadioCheckGroupProps
@@ -14,7 +14,7 @@ import formStateMixin, { props as formStateProps } from '../../mixins/form-state
 
 export const props = makePropsConfigurable(
   {
-    ...formProps,
+    ...formControlProps,
     ...formOptionsProps,
     ...formRadioCheckGroupProps,
     ...formSizeProps,
@@ -33,7 +33,7 @@ export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_RADIO_GROUP,
   mixins: [
     idMixin,
-    formMixin,
+    formControlMixin,
     formRadioCheckGroupMixin, // Includes render function
     formOptionsMixin,
     formSizeMixin,

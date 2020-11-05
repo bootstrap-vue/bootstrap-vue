@@ -35,7 +35,7 @@ export const props = makePropsConfigurable(
       default: 'disabled'
     }
   },
-  'formOptions'
+  'formOptionControls'
 )
 
 // --- Mixin ---

@@ -9,7 +9,7 @@ export const props = makePropsConfigurable(
       default: false
     }
   },
-  'formCustom'
+  'formControls'
 )
 
 // --- Mixin ---

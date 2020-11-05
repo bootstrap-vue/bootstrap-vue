@@ -61,7 +61,7 @@ export const props = makePropsConfigurable(
       default: 0
     }
   },
-  'formText'
+  'formTextControls'
 )
 
 // --- Mixin ---

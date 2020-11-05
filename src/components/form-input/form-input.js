@@ -4,7 +4,7 @@ import { arrayIncludes } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur } from '../../utils/dom'
 import { eventOn, eventOff, eventOnOff, stopEvent } from '../../utils/events'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formSelectionMixin from '../../mixins/form-selection'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
 import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
@@ -42,7 +42,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   mixins: [
     listenersMixin,
     idMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin,
     formTextMixin,
@@ -51,7 +51,7 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   ],
   props: makePropsConfigurable(
     {
-      ...formProps,
+      ...formControlProps,
       ...formSizeProps,
       ...formStateProps,
       ...formTextProps,

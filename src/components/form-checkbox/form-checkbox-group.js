@@ -1,7 +1,7 @@
 import Vue from '../../vue'
 import { NAME_FORM_CHECKBOX_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
-import formMixin, { props as formProps } from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formOptionsMixin, { props as formOptionsProps } from '../../mixins/form-options'
 import formRadioCheckGroupMixin, {
   props as formRadioCheckGroupProps
@@ -14,7 +14,7 @@ import idMixin from '../../mixins/id'
 
 export const props = makePropsConfigurable(
   {
-    ...formProps,
+    ...formControlProps,
     ...formOptionsProps,
     ...formRadioCheckGroupProps,
     ...formSizeProps,
@@ -38,7 +38,7 @@ export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_CHECKBOX_GROUP,
   mixins: [
     idMixin,
-    formMixin,
+    formControlMixin,
     formRadioCheckGroupMixin, // Includes render function
     formOptionsMixin,
     formSizeMixin,
