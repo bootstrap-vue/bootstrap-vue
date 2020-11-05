@@ -44,9 +44,9 @@ export const props = makePropsConfigurable(
       default: 'button'
     },
     toggleText: {
-      // This really should be toggleLabel
+      // TODO: This really should be `toggleLabel`
       type: String,
-      default: 'Toggle Dropdown'
+      default: 'Toggle dropdown'
     },
     toggleClass: {
       type: [String, Array, Object]
