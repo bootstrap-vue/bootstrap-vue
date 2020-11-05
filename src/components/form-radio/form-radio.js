@@ -1,12 +1,12 @@
 import Vue from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
-import idMixin from '../../mixins/id'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
-import formSizeMixin from '../../mixins/form-size'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
 import { makePropsConfigurable } from '../../utils/config'
+import formMixin, { props as formProps } from '../../mixins/form'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
 // @vue/component
 export const BFormRadio = /*#__PURE__*/ Vue.extend({
@@ -26,6 +26,10 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
+      ...formProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
       checked: {
         // v-model
         // type: [String, Number, Boolean, Object],

@@ -6,6 +6,41 @@ import normalizeSlotMixin from './normalize-slot'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    validated: {
+      type: Boolean,
+      default: false
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    },
+    stacked: {
+      type: Boolean,
+      default: false
+    },
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    buttons: {
+      // Render as button style
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Only applicable when rendered with button style
+      type: String,
+      default: 'secondary'
+    }
+  },
+  'formRadioCheckGroup'
+)
+
+// --- Mixin ---
 // @vue/component
 export default {
   mixins: [normalizeSlotMixin],
@@ -13,37 +48,7 @@ export default {
     prop: 'checked',
     event: 'input'
   },
-  props: makePropsConfigurable(
-    {
-      validated: {
-        type: Boolean,
-        default: false
-      },
-      ariaInvalid: {
-        type: [Boolean, String],
-        default: false
-      },
-      stacked: {
-        type: Boolean,
-        default: false
-      },
-      plain: {
-        type: Boolean,
-        default: false
-      },
-      buttons: {
-        // Render as button style
-        type: Boolean,
-        default: false
-      },
-      buttonVariant: {
-        // Only applicable when rendered with button style
-        type: String,
-        default: 'secondary'
-      }
-    },
-    'formRadioCheckGroup'
-  ),
+  props,
   computed: {
     inline() {
       return !this.stacked

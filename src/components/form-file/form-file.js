@@ -22,9 +22,9 @@ import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import attrsMixin from '../../mixins/attrs'
-import formCustomMixin from '../../mixins/form-custom'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
+import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
+import formMixin, { props as formProps } from '../../mixins/form'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
@@ -125,6 +125,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
+      ...formProps,
+      ...formCustomProps,
+      ...formStateProps,
       size: {
         type: String
         // default: undefined

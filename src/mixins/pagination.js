@@ -61,6 +61,7 @@ const onSpaceKey = evt => {
 }
 
 // --- Props ---
+
 export const props = makePropsConfigurable(
   {
     disabled: {
@@ -187,6 +188,7 @@ export const props = makePropsConfigurable(
   NAME_PAGINATION
 )
 
+// --- Mixin ---
 // @vue/component
 export default {
   mixins: [normalizeSlotMixin],

@@ -4,6 +4,53 @@ import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import normalizeSlotMixin from './normalize-slot'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    value: {
+      // Value when checked
+      // type: Object,
+      // default: undefined
+    },
+    checked: {
+      // This is the v-model
+      // type: Object,
+      // default: undefined
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    },
+    plain: {
+      type: Boolean,
+      default: false
+    },
+    button: {
+      // Only applicable in standalone mode (non group)
+      type: Boolean,
+      default: false
+    },
+    buttonVariant: {
+      // Only applicable when rendered with button style
+      type: String
+      // default: null
+    },
+    ariaLabel: {
+      // Placed on the input if present.
+      type: String
+      // default: null
+    },
+    ariaLabelledby: {
+      // Placed on the input if present.
+      type: String
+      // default: null
+    }
+  },
+  'formRadioCheck'
+)
+
+// --- Mixin ---
 // @vue/component
 export default {
   mixins: [attrsMixin, normalizeSlotMixin],
@@ -12,49 +59,7 @@ export default {
     prop: 'checked',
     event: 'input'
   },
-  props: makePropsConfigurable(
-    {
-      value: {
-        // Value when checked
-        // type: Object,
-        // default: undefined
-      },
-      checked: {
-        // This is the v-model
-        // type: Object,
-        // default: undefined
-      },
-      inline: {
-        type: Boolean,
-        default: false
-      },
-      plain: {
-        type: Boolean,
-        default: false
-      },
-      button: {
-        // Only applicable in standalone mode (non group)
-        type: Boolean,
-        default: false
-      },
-      buttonVariant: {
-        // Only applicable when rendered with button style
-        type: String
-        // default: null
-      },
-      ariaLabel: {
-        // Placed on the input if present.
-        type: String
-        // default: null
-      },
-      ariaLabelledby: {
-        // Placed on the input if present.
-        type: String
-        // default: null
-      }
-    },
-    'formRadioCheck'
-  ),
+  props,
   data() {
     return {
       localChecked: this.isGroup ? this.bvGroup.checked : this.checked,

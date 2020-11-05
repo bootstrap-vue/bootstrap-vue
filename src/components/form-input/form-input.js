@@ -1,17 +1,19 @@
 import Vue from '../../vue'
 import { NAME_FORM_INPUT } from '../../constants/components'
 import { arrayIncludes } from '../../utils/array'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur } from '../../utils/dom'
 import { eventOn, eventOff, eventOnOff, stopEvent } from '../../utils/events'
-import formMixin from '../../mixins/form'
+import formMixin, { props as formProps } from '../../mixins/form'
 import formSelectionMixin from '../../mixins/form-selection'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
-import formTextMixin from '../../mixins/form-text'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
+import formTextMixin, { props as formTextProps } from '../../mixins/form-text'
 import formValidityMixin from '../../mixins/form-validity'
 import idMixin from '../../mixins/id'
 import listenersMixin from '../../mixins/listeners'
-import { makePropsConfigurable } from '../../utils/config'
+
+// --- Constants ---
 
 // Valid supported input types
 const TYPES = [
@@ -32,6 +34,7 @@ const TYPES = [
   'week'
 ]
 
+// --- Main component ---
 // @vue/component
 export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_INPUT,
@@ -48,6 +51,10 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   ],
   props: makePropsConfigurable(
     {
+      ...formProps,
+      ...formSizeProps,
+      ...formStateProps,
+      ...formTextProps,
       // `value` prop is defined in form-text mixin
       type: {
         type: String,

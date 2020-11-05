@@ -6,10 +6,10 @@ import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
 import { isArray } from '../../utils/inspect'
-import formCustomMixin from '../../mixins/form-custom'
-import formMixin from '../../mixins/form'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
+import formMixin, { props as formProps } from '../../mixins/form'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import optionsMixin from './helpers/mixin-options'
@@ -34,6 +34,10 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
+      ...formProps,
+      ...formCustomProps,
+      ...formSizeProps,
+      ...formStateProps,
       value: {
         // type: [Object, Array, String, Number, Boolean],
         // default: undefined

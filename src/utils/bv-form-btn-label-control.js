@@ -7,15 +7,102 @@ import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-n
 import { attemptBlur, attemptFocus } from './dom'
 import { stopEvent } from './events'
 import { toString } from './string'
-import dropdownMixin, { commonProps } from '../mixins/dropdown'
+import dropdownMixin, {
+  commonProps as commonDropdownProps,
+  props as dropdownProps
+} from '../mixins/dropdown'
 import idMixin from '../mixins/id'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { VBHover } from '../directives/hover/hover'
 import { BIconChevronDown } from '../icons/icons'
 
-// Re-export common dropdown props used for convenience
-export const dropdownProps = commonProps
+// --- Props ---
 
+export { commonDropdownProps as dropdownProps }
+
+export const props = {
+  ...dropdownProps,
+  value: {
+    // This is the value placed on the hidden input
+    type: String,
+    default: ''
+  },
+  formattedValue: {
+    // This is the value shown in the label
+    // Defaults back to `value`
+    type: String
+    // default: null
+  },
+  placeholder: {
+    // This is the value placed on the hidden input when no value selected
+    type: String
+    // default: null
+  },
+  labelSelected: {
+    // Value placed in sr-only span inside label when value is present
+    type: String
+    // default: null
+  },
+  state: {
+    // Tri-state prop: `true`, `false`, or `null`
+    type: Boolean,
+    // We must explicitly default to `null` here otherwise
+    // Vue coerces `undefined` into Boolean `false`
+    default: null
+  },
+  size: {
+    type: String
+    // default: null
+  },
+  name: {
+    type: String
+    // default: null
+  },
+  form: {
+    type: String
+    // default: null
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  required: {
+    type: Boolean,
+    default: false
+  },
+  lang: {
+    type: String
+    // default: null
+  },
+  rtl: {
+    // Tri-state prop: `true`, `false` or `null`
+    type: Boolean,
+    // We must explicitly default to `null` here otherwise
+    // Vue coerces `undefined` into Boolean `false`
+    default: null
+  },
+  buttonOnly: {
+    // When true, renders a btn-group wrapper and visually hides the label
+    type: Boolean,
+    default: false
+  },
+  buttonVariant: {
+    // Applicable in button mode only
+    type: String,
+    default: 'secondary'
+  },
+  menuClass: {
+    // Extra classes to apply to the `dropdown-menu` div
+    type: [String, Array, Object]
+    // default: null
+  }
+}
+
+// --- Main component ---
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,
@@ -23,86 +110,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     BHover: VBHover
   },
   mixins: [idMixin, normalizeSlotMixin, dropdownMixin],
-  props: {
-    value: {
-      // This is the value placed on the hidden input
-      type: String,
-      default: ''
-    },
-    formattedValue: {
-      // This is the value shown in the label
-      // Defaults back to `value`
-      type: String
-      // default: null
-    },
-    placeholder: {
-      // This is the value placed on the hidden input when no value selected
-      type: String
-      // default: null
-    },
-    labelSelected: {
-      // Value placed in sr-only span inside label when value is present
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false`, or `null`
-      type: Boolean,
-      // We must explicitly default to `null` here otherwise
-      // Vue coerces `undefined` into Boolean `false`
-      default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    lang: {
-      type: String
-      // default: null
-    },
-    rtl: {
-      // Tri-state prop: `true`, `false` or `null`
-      type: Boolean,
-      // We must explicitly default to `null` here otherwise
-      // Vue coerces `undefined` into Boolean `false`
-      default: null
-    },
-    buttonOnly: {
-      // When true, renders a btn-group wrapper and visually hides the label
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Applicable in button mode only
-      type: String,
-      default: 'secondary'
-    },
-    menuClass: {
-      // Extra classes to apply to the `dropdown-menu` div
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
+  props,
   data() {
     return {
       isHovered: false,

@@ -1,13 +1,14 @@
 import get from '../../../utils/get'
 import { makePropsConfigurable } from '../../../utils/config'
 import { isNull, isPlainObject, isUndefined } from '../../../utils/inspect'
-import formOptionsMixin from '../../../mixins/form-options'
+import formOptionsMixin, { props as formOptionsProps } from '../../../mixins/form-options'
 
 // @vue/component
 export default {
   mixins: [formOptionsMixin],
   props: makePropsConfigurable(
     {
+      ...formOptionsProps,
       labelField: {
         type: String,
         default: 'label'

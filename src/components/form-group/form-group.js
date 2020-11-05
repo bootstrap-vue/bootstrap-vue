@@ -18,7 +18,7 @@ import { isBoolean } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { keys, create } from '../../utils/object'
 import { upperFirst } from '../../utils/string'
-import formStateMixin from '../../mixins/form-state'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BCol } from '../layout/col'
@@ -67,6 +67,7 @@ const generateProps = () => {
 
   return makePropsConfigurable(
     {
+      ...formStateProps,
       label: {
         type: String
         // default: null

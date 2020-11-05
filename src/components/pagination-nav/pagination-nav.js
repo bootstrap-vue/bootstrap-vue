@@ -13,67 +13,17 @@ import { pluckProps } from '../../utils/props'
 import { computeHref, parseQuery } from '../../utils/router'
 import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
-import paginationMixin from '../../mixins/pagination'
+import paginationMixin, { props as paginationProps } from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
-
-// --- Props ---
-
-const linkProps = omit(BLinkProps, ['event', 'routerTag'])
-
-const props = makePropsConfigurable(
-  {
-    size: {
-      type: String
-      // default: undefined
-    },
-    numberOfPages: {
-      type: [Number, String],
-      default: 1,
-      /* istanbul ignore next */
-      validator(value) {
-        const number = toInteger(value, 0)
-        if (number < 1) {
-          warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
-          return false
-        }
-        return true
-      }
-    },
-    baseUrl: {
-      type: String,
-      default: '/'
-    },
-    useRouter: {
-      type: Boolean,
-      default: false
-    },
-    linkGen: {
-      type: Function
-      // default: null
-    },
-    pageGen: {
-      type: Function
-      // default: null
-    },
-    pages: {
-      // Optional array of page links
-      type: Array
-      // default: null
-    },
-    noPageDetect: {
-      // Disable auto page number detection if true
-      type: Boolean,
-      default: false
-    },
-    ...linkProps
-  },
-  NAME_PAGINATION_NAV
-)
 
 // --- Utility methods ---
 
 // Sanitize the provided number of pages (converting to a number)
 export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
+
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 
 // --- Main component ---
 // The render function is brought in via the pagination mixin
@@ -81,7 +31,56 @@ export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
 export const BPaginationNav = /*#__PURE__*/ Vue.extend({
   name: NAME_PAGINATION_NAV,
   mixins: [paginationMixin],
-  props,
+  props: makePropsConfigurable(
+    {
+      ...paginationProps,
+      ...linkProps,
+      size: {
+        type: String
+        // default: undefined
+      },
+      numberOfPages: {
+        type: [Number, String],
+        default: 1,
+        /* istanbul ignore next */
+        validator(value) {
+          const number = toInteger(value, 0)
+          if (number < 1) {
+            warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
+            return false
+          }
+          return true
+        }
+      },
+      baseUrl: {
+        type: String,
+        default: '/'
+      },
+      useRouter: {
+        type: Boolean,
+        default: false
+      },
+      linkGen: {
+        type: Function
+        // default: null
+      },
+      pageGen: {
+        type: Function
+        // default: null
+      },
+      pages: {
+        // Optional array of page links
+        type: Array
+        // default: null
+      },
+      noPageDetect: {
+        // Disable auto page number detection if true
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_PAGINATION_NAV
+  ),
   computed: {
     // Used by render function to trigger wrapping in '<nav>' element
     isNav() {

@@ -5,36 +5,44 @@ import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
 import { warn } from '../utils/warn'
 
+// --- Constants ---
+
 const OPTIONS_OBJECT_DEPRECATED_MSG =
   'Setting prop "options" to an object is deprecated. Use the array format instead.'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    options: {
+      type: [Array, Object],
+      default: () => []
+    },
+    valueField: {
+      type: String,
+      default: 'value'
+    },
+    textField: {
+      type: String,
+      default: 'text'
+    },
+    htmlField: {
+      type: String,
+      default: 'html'
+    },
+    disabledField: {
+      type: String,
+      default: 'disabled'
+    }
+  },
+  'formOptions'
+)
+
+// --- Mixin ---
+
 // @vue/component
 export default {
-  props: makePropsConfigurable(
-    {
-      options: {
-        type: [Array, Object],
-        default: () => []
-      },
-      valueField: {
-        type: String,
-        default: 'value'
-      },
-      textField: {
-        type: String,
-        default: 'text'
-      },
-      htmlField: {
-        type: String,
-        default: 'html'
-      },
-      disabledField: {
-        type: String,
-        default: 'disabled'
-      }
-    },
-    'formOptions'
-  ),
+  props,
   computed: {
     formOptions() {
       return this.normalizeOptions(this.options)

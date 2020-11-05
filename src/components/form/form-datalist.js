@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_FORM_DATALIST } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
-import formOptionsMixin from '../../mixins/form-options'
+import formOptionsMixin, { props as formOptionsProps } from '../../mixins/form-options'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // @vue/component
@@ -11,6 +11,7 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   mixins: [formOptionsMixin, normalizeSlotMixin],
   props: makePropsConfigurable(
     {
+      ...formOptionsProps,
       id: {
         type: String,
         required: true

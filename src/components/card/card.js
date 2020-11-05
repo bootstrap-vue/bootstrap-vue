@@ -5,11 +5,13 @@ import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../con
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
-import cardMixin from '../../mixins/card'
+import { props as cardProps } from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
 import { BCardFooter, props as footerProps } from './card-footer'
 import { BCardImg, props as imgProps } from './card-img'
+
+// --- Props ---
 
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
@@ -20,7 +22,7 @@ export const props = makePropsConfigurable(
     ...headerProps,
     ...footerProps,
     ...cardImgProps,
-    ...copyProps(cardMixin.props),
+    ...cardProps,
     align: {
       type: String
       // default: null
@@ -33,6 +35,7 @@ export const props = makePropsConfigurable(
   NAME_CARD
 )
 
+// --- Main component ---
 // @vue/component
 export const BCard = /*#__PURE__*/ Vue.extend({
   name: NAME_CARD,

@@ -6,67 +6,72 @@ import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    value: {
+      type: [String, Number],
+      default: ''
+    },
+    ariaInvalid: {
+      type: [Boolean, String],
+      default: false
+    },
+    readonly: {
+      type: Boolean,
+      default: false
+    },
+    plaintext: {
+      type: Boolean,
+      default: false
+    },
+    autocomplete: {
+      type: String
+      // default: null
+    },
+    placeholder: {
+      type: String
+      // default: null
+    },
+    formatter: {
+      type: Function
+      // default: null
+    },
+    lazyFormatter: {
+      type: Boolean,
+      default: false
+    },
+    trim: {
+      type: Boolean,
+      default: false
+    },
+    number: {
+      type: Boolean,
+      default: false
+    },
+    lazy: {
+      // Only update the `v-model` on blur/change events
+      type: Boolean,
+      default: false
+    },
+    debounce: {
+      // Debounce timeout (in ms). Not applicable with `lazy` prop
+      type: [Number, String],
+      default: 0
+    }
+  },
+  'formText'
+)
+
+// --- Mixin ---
 // @vue/component
 export default {
   model: {
     prop: 'value',
     event: 'update'
   },
-  props: makePropsConfigurable(
-    {
-      value: {
-        type: [String, Number],
-        default: ''
-      },
-      ariaInvalid: {
-        type: [Boolean, String],
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      plaintext: {
-        type: Boolean,
-        default: false
-      },
-      autocomplete: {
-        type: String
-        // default: null
-      },
-      placeholder: {
-        type: String
-        // default: null
-      },
-      formatter: {
-        type: Function
-        // default: null
-      },
-      lazyFormatter: {
-        type: Boolean,
-        default: false
-      },
-      trim: {
-        type: Boolean,
-        default: false
-      },
-      number: {
-        type: Boolean,
-        default: false
-      },
-      lazy: {
-        // Only update the `v-model` on blur/change events
-        type: Boolean,
-        default: false
-      },
-      debounce: {
-        // Debounce timeout (in ms). Not applicable with `lazy` prop
-        type: [Number, String],
-        default: 0
-      }
-    },
-    'formText'
-  ),
+  props,
   data() {
     return {
       localValue: toString(this.value),

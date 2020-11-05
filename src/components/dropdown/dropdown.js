@@ -5,7 +5,7 @@ import { arrayIncludes } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { toString } from '../../utils/string'
-import dropdownMixin from '../../mixins/dropdown'
+import dropdownMixin, { props as dropdownProps } from '../../mixins/dropdown'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
@@ -14,6 +14,7 @@ import { BButton } from '../button/button'
 
 export const props = makePropsConfigurable(
   {
+    ...dropdownProps,
     text: {
       type: String
       // default: null

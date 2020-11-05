@@ -15,6 +15,7 @@ import { props as BDropdownProps } from '../dropdown/dropdown'
 import { BLink } from '../link/link'
 
 // --- Props ---
+
 export const props = makePropsConfigurable(
   pluckProps(
     ['text', 'html', 'menuClass', 'toggleClass', 'noCaret', 'role', 'lazy'],

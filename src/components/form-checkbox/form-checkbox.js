@@ -4,10 +4,10 @@ import { makePropsConfigurable } from '../../utils/config'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { isArray } from '../../utils/inspect'
-import formMixin from '../../mixins/form'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formMixin, { props as formProps } from '../../mixins/form'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
 // @vue/component
@@ -28,6 +28,10 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
+      ...formProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
       value: {
         // type: [String, Number, Boolean, Object],
         default: true

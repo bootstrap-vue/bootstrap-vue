@@ -87,6 +87,20 @@ export const commonProps = makePropsConfigurable(
   NAME_DROPDOWN
 )
 
+export const props = {
+  ...commonProps,
+  ...makePropsConfigurable(
+    {
+      disabled: {
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_DROPDOWN
+  )
+}
+
+// --- Mixin ---
 // @vue/component
 export default {
   mixins: [idMixin, clickOutMixin, focusInMixin],
@@ -96,18 +110,7 @@ export default {
   inject: {
     bvNavbar: { default: null }
   },
-  props: {
-    ...commonProps,
-    ...makePropsConfigurable(
-      {
-        disabled: {
-          type: Boolean,
-          default: false
-        }
-      },
-      NAME_DROPDOWN
-    )
-  },
+  props,
   data() {
     return {
       visible: false,

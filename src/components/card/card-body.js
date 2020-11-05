@@ -2,14 +2,14 @@ import Vue, { mergeData } from '../../vue'
 import { NAME_CARD_BODY } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
-import cardMixin from '../../mixins/card'
+import { props as cardProps } from '../../mixins/card'
 import { BCardTitle, props as titleProps } from './card-title'
 import { BCardSubTitle, props as subTitleProps } from './card-sub-title'
 
 export const props = makePropsConfigurable(
   {
     // Import common card props and prefix them with `body-`
-    ...copyProps(cardMixin.props, prefixPropName.bind(null, 'body')),
+    ...copyProps(cardProps, prefixPropName.bind(null, 'body')),
     bodyClass: {
       type: [String, Object, Array]
       // default: null
