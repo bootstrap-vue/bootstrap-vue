@@ -20,7 +20,7 @@ export const props = makePropsConfigurable(
     // Allowed: 'true' or 'false' or null
     ariaAtomic: {
       type: String
-      //default: undefined
+      // default: undefined
     },
     role: {
       // Aria role
