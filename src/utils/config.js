@@ -79,15 +79,16 @@ export const getBreakpointsDownCached = () => {
 export const makePropsConfigurable = (props, componentKey) =>
   keys(props).reduce((result, prop) => {
     const currentProp = props[prop]
-
-    let defaultValue = currentProp.default
-    if (isFunction(defaultValue)) {
-      defaultValue = defaultValue()
-    }
+    const defaultValue = currentProp.default
 
     result[prop] = {
       ...cloneDeep(currentProp),
-      default: () => getComponentConfig(componentKey, prop, defaultValue)
+      default: () =>
+        getComponentConfig(
+          componentKey,
+          prop,
+          isFunction(defaultValue) ? defaultValue() : defaultValue
+        )
     }
 
     return result
