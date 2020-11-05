@@ -19,10 +19,6 @@ export default {
   computed: {
     sizeFormClass() {
       return [this.size ? `form-control-${this.size}` : null]
-    },
-    /* istanbul ignore next: don't think this is used */
-    sizeBtnClass() {
-      return [this.size ? `btn-${this.size}` : null]
     }
   }
 }

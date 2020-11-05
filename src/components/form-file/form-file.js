@@ -137,7 +137,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       ...formStateProps,
       size: {
         type: String
-        // default: undefined
+        // default: null
       },
       value: {
         type: [File, Array],

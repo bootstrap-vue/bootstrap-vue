@@ -37,7 +37,7 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       ...linkProps,
       size: {
         type: String
-        // default: undefined
+        // default: null
       },
       numberOfPages: {
         type: [Number, String],

@@ -32,7 +32,7 @@ properties.
     "form": undefined,
     "autofocus": false,
     "plain": false,
-    "size": false
+    "size": undefined
   },
   "formOptionControls": {
     "options": [],

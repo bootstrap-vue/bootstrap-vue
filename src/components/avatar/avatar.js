@@ -65,8 +65,8 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         default: 'secondary'
       },
       size: {
-        type: [Number, String],
-        default: null
+        type: [Number, String]
+        // default: null
       },
       square: {
         type: Boolean,

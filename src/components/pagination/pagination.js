@@ -31,7 +31,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     {
       size: {
         type: String
-        // default: undefined
+        // default: null
       },
       perPage: {
         type: [Number, String],

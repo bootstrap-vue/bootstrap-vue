@@ -17,15 +17,19 @@ export const BSkeleton = /*#__PURE__*/ Vue.extend({
     },
     width: {
       type: String
+      // default: null
     },
     height: {
       type: String
+      // default: null
     },
     size: {
       type: String
+      // default: null
     },
     variant: {
       type: String
+      // default: null
     }
   }),
   render(h, { data, props }) {

@@ -29,7 +29,7 @@ export const props = makePropsConfigurable(
     },
     size: {
       type: String
-      // default: undefined
+      // default: null
     },
     block: {
       type: Boolean,

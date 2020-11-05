@@ -23,8 +23,8 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
       },
       size: {
         // Child avatars will always use this over their own size
-        type: String,
-        default: null
+        type: String
+        // default: null
       },
       overlap: {
         type: [Number, String],
