@@ -14,14 +14,76 @@ Note that it is not possible to change the defaults when using BootstrapVue via 
 
 ### Default configuration
 
-Default breakpoint names are stored in the `breakpoints` property, default form control size is
-stored under the `formControls` property, while component specific defaults are keyed by their
-<samp>PascalCase</samp> name with the props as <samp>camelCase</samp> properties. Only properties
-defined in the default configuration can be overridden. Attempting to set a config property that is
-not defined in the default will generate a console warning.
+Default breakpoint names are stored in the `breakpoints` property and all other shared component
+configurations (like `formControls`) are listed below.
+
+Component specific defaults are keyed by their `PascalCase` name with the props as `camelCase`
+properties.
 
 ```json
-TODO
+{
+  // Breakpoint configuration
+  "breakpoints": ["xs", "sm", "md", "lg", "xl"],
+
+  // Shared component configuration
+  "formControls": {
+    "disabled": undefined,
+    "required": false,
+    "form": undefined,
+    "autofocus": false,
+    "plain": false,
+    "size": false
+  },
+  "formOptionControls": {
+    "options": [],
+    "valueField": "value",
+    "textField": "text",
+    "htmlField": "html",
+    "disabledField": "disabled"
+  },
+  "formRadioCheckGroups": {
+    "validated": false,
+    "ariaInvalid": false,
+    "stacked": false,
+    "buttons": false,
+    "buttonVariant": undefined,
+    "plain": false
+  },
+  "formRadioCheckControls": {
+    "value": undefined,
+    "checked": undefined,
+    "inline": false,
+    "button": false,
+    "buttonVariant": undefined,
+    "ariaLabel": undefined,
+    "ariaLabelledby": undefined,
+    "plain": false
+  },
+  "formState": {
+    "state": null
+  },
+  "formTextControls": {
+    "value": "",
+    "ariaInvalid": false,
+    "readonly": false,
+    "plaintext": false,
+    "autocomplete": undefined,
+    "placeholder": undefined,
+    "formatter": undefined,
+    "lazyFormatter": false,
+    "trim": false,
+    "number": false,
+    "lazy": false,
+    "debounce": 0
+  },
+
+  // Component configuration
+  "BAlert": {
+    "variant": "info"
+    // ...
+  }
+  // ...
+}
 ```
 
 ### Setting new configuration values
@@ -30,11 +92,12 @@ When you `Vue.use(BootstrapVue)`, you can optionally pass a configuration object
 values to replace the default values. For example if you wish to define new breakpoint names (which
 will generate appropriate properties on components such as `<b-col>` and `<b-form-group>`), so that
 the new breakpoints are `['aa', 'bb', 'cc', 'dd']` then `<b-col>` will now have `bb`, `cc`, and `dd`
-props instead of `sm`, `md`, `lg` and `xl` props (Similar for the `label-cols-{breakpoint}` and
-`label-align-{breakpoint}`props on `<b-form-group>`):
+props instead of `sm`, `md`, `lg` and `xl` props (similar for the `label-cols-{breakpoint}` and
+`label-align-{breakpoint}` props on `<b-form-group>`):
 
 ```js
 import BootstrapVue from 'bootstrap-vue'
+
 Vue.use(BootstrapVue, {
   breakpoints: [`xs`, 'sm', 'md', 'lg', 'xl', 'xxl']
 })
@@ -44,6 +107,7 @@ Or if changing the default variants for `<b-button>` and `<b-alert>`:
 
 ```js
 import BootstrapVue from 'bootstrap-vue'
+
 Vue.use(BootstrapVue, {
   BAlert: { variant: 'danger' },
   BButton: { variant: 'primary' }
@@ -72,7 +136,6 @@ and subsequent changes to the breakpoints will **not** be reflected.
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-// Component group plugins
 import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
 // Supply configs via each plugin as it is `Vue.use()`'d
@@ -86,7 +149,6 @@ Vue.use(ButtonPlugin, { BButton: { variant: 'primary' } })
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-// Component group plugins
 import { LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
 // Supply complete config to first `Vue.use()`'d plugin
@@ -104,7 +166,6 @@ Vue.use(ButtonPlugin)
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-// BootstrapVue configuration helper plugin and Component group plugins
 import { BVConfigPlugin, LayoutPlugin, AlertPlugin, ButtonPlugin } from 'bootstrap-vue'
 
 // Supply complete config to the BVConfigPlugin helper plugin
@@ -125,7 +186,6 @@ Vue.use(ButtonPlugin)
 <!-- eslint-disable import/first, import/no-duplicates -->
 
 ```js
-// Import BootstrapVue configuration helper plugin and Individual components
 import { BVConfigPlugin, BAlert, BButton, BRow, BCol } from 'bootstrap-vue'
 
 // Supply complete config to the BVConfig helper plugin
@@ -161,12 +221,12 @@ in **Example 3** and **Example 4** above. The `BVConfigPlugin` plugin should be 
 entry point of your app, and **before** any `Vue.use()` of component plugins or `Vue.component()` or
 individual components.
 
-### Setting the config via Nuxt.js BootstrapVue plugin
+### Setting the config via Nuxt.js module
 
-Refer to the [Getting Started](/docs/#nuxtjs-plugin-module) documentation for information on passing
-the config object to the Nuxt.js plugin module.
+Refer to the [Getting Started](/docs/#nuxtjs-module) documentation for information on passing the
+config object to the BootstrapVue Nuxt.js module.
 
-## Disabling BootstrapVue console warnings
+## Disabling console warnings
 
 BootstrapVue will warn (via `console.warn()`) when you try and use a deprecated prop, or pass an
 invalid value to certain props. These warnings are provided to help you ensure that your application
