@@ -62,7 +62,6 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       countDown: 0,
-      countDownTimeout: null,
       // If initially shown, we need to set these for SSR
       localShow: parseShow(this.show)
     }
@@ -83,7 +82,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
         }
         if (newVal > 0) {
           this.localShow = true
-          this.countDownTimeout = setTimeout(() => {
+          this.$_countDownTimeout = setTimeout(() => {
             this.countDown--
           }, 1000)
         } else {
@@ -108,6 +107,9 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
+    // Create private non-reactive props
+    this.$_filterTimer = null
+
     this.countDown = parseCountDown(this.show)
     this.localShow = parseShow(this.show)
   },
@@ -125,10 +127,8 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
       this.localShow = false
     },
     clearCountDownInterval() {
-      if (this.countDownTimeout) {
-        clearTimeout(this.countDownTimeout)
-        this.countDownTimeout = null
-      }
+      clearTimeout(this.$_countDownTimeout)
+      this.$_countDownTimeout = null
     }
   },
   render(h) {
