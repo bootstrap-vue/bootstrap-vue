@@ -23,7 +23,7 @@ const props = makePropsConfigurable(
     textVariant: {
       type: String
       // `textVariant` is `undefined` to inherit the current text color
-      //default: undefined
+      // default: undefined
     }
   },
   NAME_BUTTON_CLOSE
