@@ -214,7 +214,7 @@ describe('b-toast', () => {
     await waitRAF()
 
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.vm.timer).not.toEqual(null)
+    expect(wrapper.vm.$_dismissTimer).not.toEqual(null)
 
     jest.runOnlyPendingTimers()
 
@@ -228,7 +228,7 @@ describe('b-toast', () => {
     await waitRAF()
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
-    expect(wrapper.vm.timer).toBe(null)
+    expect(wrapper.vm.$_dismissTimer).toBe(null)
 
     wrapper.destroy()
   })
@@ -259,17 +259,17 @@ describe('b-toast', () => {
     await waitRAF()
 
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.vm.timer).not.toEqual(null)
+    expect(wrapper.vm.$_dismissTimer).not.toEqual(null)
     await waitNT(wrapper.vm)
     await waitRAF()
 
     await wrapper.trigger('mouseenter')
     await waitRAF()
-    expect(wrapper.vm.timer).toEqual(null)
+    expect(wrapper.vm.$_dismissTimer).toEqual(null)
 
     await wrapper.trigger('mouseleave')
     await waitRAF()
-    expect(wrapper.vm.timer).not.toEqual(null)
+    expect(wrapper.vm.$_dismissTimer).not.toEqual(null)
 
     wrapper.destroy()
   })
