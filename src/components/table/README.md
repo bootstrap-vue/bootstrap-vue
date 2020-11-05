@@ -3081,7 +3081,10 @@ your app handles the various inconsistencies with events.
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
-        pageOptions: [5, 10, 15],
+        pageOptions: [5, 10, 15, {
+          value: 100,
+          text: "show a lot"
+        }],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
