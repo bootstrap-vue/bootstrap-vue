@@ -85,6 +85,11 @@
       <anchored-heading :id="`comp-ref-${componentName}-props`" level="4" class="mb-3">
         Properties
       </anchored-heading>
+
+      <p>
+        All property default values are <b-link href="/docs/reference/settings">globally configurable</b-link>.
+      </p>
+
       <b-table
         :items="propsItems"
         :fields="propsFields"
