@@ -297,7 +297,7 @@
 <script>
 import Vue from 'vue'
 import commonProps from '../common-props.json'
-import { kebabCase } from '../utils'
+import { getComponentName, getCleanComponentName, kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 export default {
@@ -472,13 +472,13 @@ export default {
     slotsItems() {
       // We use object spread here so that `_showDetails` doesn't
       // mutate the original array objects
-      return this.slots ? this.slots.map(s => ({ ...s })) : []
+      return this.slots ? this.slots.map(slot => ({ ...slot })) : []
     },
     componentName() {
-      return kebabCase(this.component).replace('{', '-{')
+      return getComponentName(this.component)
     },
     componentNameClean() {
-      return this.componentName.replace('{', '').replace('}', '')
+      return getCleanComponentName(this.component)
     },
     tag() {
       return `<${this.componentName}>`

@@ -181,6 +181,7 @@ export default {
   created() {
     // Create private non-reactive props
     this.$_popper = null
+    this.$_hideTimeout = null
   },
   /* istanbul ignore next */
   deactivated() {
@@ -193,6 +194,7 @@ export default {
     this.visible = false
     this.whileOpenListen(false)
     this.destroyPopper()
+    this.clearHideTimeout()
   },
   methods: {
     // Event emitter
@@ -258,6 +260,10 @@ export default {
         this.$_popper.scheduleUpdate()
       } catch {}
     },
+    clearHideTimeout() {
+      clearTimeout(this.$_hideTimeout)
+      this.$_hideTimeout = null
+    },
     getPopperConfig() {
       let placement = PLACEMENT_BOTTOM_START
       if (this.dropup) {
@@ -297,8 +303,8 @@ export default {
         this.visible = false
       }
     },
+    // Public method to show dropdown
     show() {
-      // Public method to show dropdown
       if (this.disabled) {
         return
       }
@@ -308,10 +314,10 @@ export default {
         this.visible = true
       })
     },
+    // Public method to hide dropdown
     hide(refocus = false) {
-      // Public method to hide dropdown
+      /* istanbul ignore next */
       if (this.disabled) {
-        /* istanbul ignore next */
         return
       }
       this.visible = false
@@ -395,7 +401,8 @@ export default {
     hideHandler(evt) {
       const { target } = evt
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
-        this.hide()
+        this.clearHideTimeout()
+        this.$_hideTimeout = setTimeout(() => this.hide(), this.inNavbar ? 300 : 0)
       }
     },
     // Document click-out listener

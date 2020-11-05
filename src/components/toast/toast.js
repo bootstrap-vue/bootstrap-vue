@@ -127,7 +127,6 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       isTransitioning: false,
       isHiding: false,
       order: 0,
-      timer: null,
       dismissStarted: 0,
       resumeDismiss: 0
     }
@@ -191,6 +190,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.ensureToaster()
       }
     }
+  },
+  created() {
+    // Create private non-reactive props
+    this.$_dismissTimer = null
   },
   mounted() {
     this.isMounted = true
@@ -292,14 +295,14 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     startDismissTimer() {
       this.clearDismissTimer()
       if (!this.noAutoHide) {
-        this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
+        this.$_dismissTimer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
         this.dismissStarted = Date.now()
         this.resumeDismiss = 0
       }
     },
     clearDismissTimer() {
-      clearTimeout(this.timer)
-      this.timer = null
+      clearTimeout(this.$_dismissTimer)
+      this.$_dismissTimer = null
     },
     setHoverHandler(on) {
       const el = this.$refs['b-toast']
@@ -308,7 +311,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     onPause() {
       // Determine time remaining, and then pause timer
-      if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
+      if (this.noAutoHide || this.noHoverPause || !this.$_dismissTimer || this.resumeDismiss) {
         return
       }
       const passed = Date.now() - this.dismissStarted

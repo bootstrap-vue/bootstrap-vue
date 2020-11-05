@@ -106,16 +106,19 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       }
       this.computedLocalChecked = localChecked
 
-      // Change is only emitted on user interaction
-      this.$emit('change', localChecked)
+      // Fire events in a `$nextTick()` to ensure the `v-model` is updated
+      this.$nextTick(() => {
+        // Change is only emitted on user interaction
+        this.$emit('change', localChecked)
 
-      // If this is a child of `<form-checkbox-group>`,
-      // we emit a change event on it as well
-      if (this.isGroup) {
-        this.bvGroup.$emit('change', localChecked)
-      }
+        // If this is a child of `<form-checkbox-group>`,
+        // we emit a change event on it as well
+        if (this.isGroup) {
+          this.bvGroup.$emit('change', localChecked)
+        }
 
-      this.$emit('update:indeterminate', indeterminate)
+        this.$emit('update:indeterminate', indeterminate)
+      })
     },
     setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode
