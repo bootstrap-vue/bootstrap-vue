@@ -2202,8 +2202,7 @@ The provider function is called with the following signature:
 provider(ctx, [callback])
 ```
 
-The `ctx` is the context object associated with the table state, and contains the following five
-properties:
+The `ctx` is the context object associated with the table state, and contains the following properties:
 
 | Property      | Type                       | Description                                                                       |
 | ------------- | -------------------------- | --------------------------------------------------------------------------------- |
