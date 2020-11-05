@@ -8,11 +8,6 @@ const TOC_CACHE = {}
 
 // @vue/component
 export default {
-  data() {
-    return {
-      scrollTimeout: null
-    }
-  },
   head() {
     return {
       title: this.headTitle,
@@ -70,6 +65,9 @@ export default {
     }
   },
   created() {
+    // Create private non-reactive props
+    this.$_filterTimer = null
+
     // In a `$nextTick()` to ensure `toc.vue` is created first
     this.$nextTick(() => {
       const key = `${this.$route.name}_${this.$route.params.slug || ''}`
@@ -91,10 +89,8 @@ export default {
   },
   methods: {
     clearScrollTimeout() {
-      if (this.scrollTimeout) {
-        clearTimeout(this.scrollTimeout)
-        this.scrollTimeout = null
-      }
+      clearTimeout(this.$_scrollTimeout)
+      this.$_scrollTimeout = null
     },
     focusScroll() {
       const hash = this.$route.hash
@@ -119,9 +115,9 @@ export default {
       if (el) {
         // Get the document scrolling element
         const scroller = document.scrollingElement || document.documentElement || document.body
+        this.clearScrollTimeout()
         // Allow time for v-play to finish rendering
-        this.scrollTimeout = setTimeout(() => {
-          this.clearScrollTimeout()
+        this.$_scrollTimeout = setTimeout(() => {
           // Scroll heading into view (minus offset to account for nav top height)
           scrollTo(scroller, offsetTop(el) - 70, 100)
         }, 100)
