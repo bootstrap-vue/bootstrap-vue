@@ -84,15 +84,15 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     {
       labelPrev: {
         type: String,
-        default: 'Previous Slide'
+        default: 'Previous slide'
       },
       labelNext: {
         type: String,
-        default: 'Next Slide'
+        default: 'Next slide'
       },
       labelGotoSlide: {
         type: String,
-        default: 'Goto Slide'
+        default: 'Goto slide'
       },
       labelIndicators: {
         type: String,
