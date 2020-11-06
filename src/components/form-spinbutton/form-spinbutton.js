@@ -17,10 +17,14 @@ import { isNull, isUndefined } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as formControlProps } from '../../mixins/form-control'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
@@ -45,6 +49,9 @@ const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PA
 
 export const props = makePropsConfigurable(
   {
+    ...omit(formControlProps, ['required', 'autofocus']),
+    ...formSizeProps,
+    ...formStateProps,
     value: {
       // Should this really be String, to match native number inputs?
       type: Number,
@@ -70,39 +77,13 @@ export const props = makePropsConfigurable(
       type: Function
       // default: null
     },
-    size: {
-      type: String
-      // default: null
-    },
     placeholder: {
       type: String
       // default: null
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     readonly: {
       type: Boolean,
       default: false
-    },
-    required: {
-      // Only affects the `aria-invalid` attribute
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false`, or `null`
-      type: Boolean,
-      default: null
     },
     inline: {
       type: Boolean,
@@ -157,7 +138,7 @@ export const props = makePropsConfigurable(
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, idMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props,
   data() {
@@ -501,8 +482,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       computedReadonly: readonly,
       vertical,
       disabled,
-      state,
-      size,
       computedFormatter
     } = this
     const hasValue = !isNull(value)
@@ -605,18 +584,19 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-form-spinbutton form-control',
-        class: {
-          disabled,
-          readonly,
-          focus: this.hasFocus,
-          [`form-control-${size}`]: !!size,
-          'd-inline-flex': inline || vertical,
-          'd-flex': !inline && !vertical,
-          'align-items-stretch': !vertical,
-          'flex-column': vertical,
-          'is-valid': state === true,
-          'is-invalid': state === false
-        },
+        class: [
+          {
+            disabled,
+            readonly,
+            focus: this.hasFocus,
+            'd-inline-flex': inline || vertical,
+            'd-flex': !inline && !vertical,
+            'align-items-stretch': !vertical,
+            'flex-column': vertical
+          },
+          this.sizeFormClass,
+          this.stateClass
+        ],
         attrs: this.computedAttrs,
         on: {
           keydown: this.onKeydown,

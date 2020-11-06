@@ -27,6 +27,7 @@ import formCustomMixin, { props as formCustomProps } from '../../mixins/form-cus
 import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as formSizeProps } from '../../mixins/form-size'
 
 // --- Constants ---
 
@@ -135,10 +136,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       ...formControlProps,
       ...formCustomProps,
       ...formStateProps,
-      size: {
-        type: String
-        // default: null
-      },
+      ...formSizeProps,
       value: {
         type: [File, Array],
         default: null,

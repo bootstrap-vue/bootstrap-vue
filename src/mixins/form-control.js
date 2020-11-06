@@ -19,7 +19,8 @@ export const props = {
   ...makePropsConfigurable(
     {
       disabled: {
-        type: Boolean
+        type: Boolean,
+        default: false
       },
       required: {
         type: Boolean,

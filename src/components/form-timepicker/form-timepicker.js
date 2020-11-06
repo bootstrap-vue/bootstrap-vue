@@ -1,13 +1,17 @@
 import Vue from '../../vue'
 import { NAME_FORM_TIMEPICKER } from '../../constants/components'
-import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
+import {
+  BVFormBtnLabelControl,
+  props as BVFormBtnLabelControlProps
+} from '../../utils/bv-form-btn-label-control'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
-import { pick } from '../../utils/object'
+import { omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BTime, props as timeProps } from '../time/time'
+import { BTime, props as BTimeProps } from '../time/time'
 import { BIconClock, BIconClockFill } from '../../icons/icons'
 
 // --- Main component ---
@@ -22,73 +26,11 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
-      value: {
-        type: String,
-        default: ''
-      },
+      ...BTimeProps,
+      ...omit(BVFormBtnLabelControlProps, ['id', 'value', 'formattedValue', 'rtl', 'lang']),
       resetValue: {
         type: String,
         default: ''
-      },
-      placeholder: {
-        type: String
-        // Defaults to `labelNoTime` from BTime context
-        // default: null
-      },
-      size: {
-        type: String
-        // default: null
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      required: {
-        // If true adds the `aria-required` attribute
-        type: Boolean,
-        default: false
-      },
-      name: {
-        type: String
-        // default: null
-      },
-      form: {
-        type: String
-        // default: null
-      },
-      state: {
-        // Tri-state prop: `true`, `false` or `null`
-        type: Boolean,
-        default: null
-      },
-      hour12: {
-        // Tri-state prop: `true` => 12 hour, `false` => 24 hour, `null` => auto
-        type: Boolean,
-        default: null
-      },
-      locale: {
-        type: [String, Array]
-        // default: null
-      },
-      showSeconds: {
-        type: Boolean,
-        default: false
-      },
-      hideHeader: {
-        type: Boolean,
-        default: false
-      },
-      secondsStep: {
-        type: [Number, String],
-        default: 1
-      },
-      minutesStep: {
-        type: [Number, String],
-        default: 1
       },
       buttonOnly: {
         type: Boolean,
@@ -134,27 +76,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       closeButtonVariant: {
         type: String,
         default: 'outline-secondary'
-      },
-      // Labels
-      // These fallback to BTime values
-      ...pick(timeProps, [
-        'labelSelected',
-        'labelNoTimeSelected',
-        'labelHours',
-        'labelMinutes',
-        'labelSeconds',
-        'labelAmpm',
-        'labelAm',
-        'labelPm',
-        'labelIncrement',
-        'labelDecrement'
-      ]),
-      // extra dropdown stuff
-      menuClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      ...dropdownProps
+      }
     },
     NAME_FORM_TIMEPICKER
   ),
@@ -173,35 +95,6 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   computed: {
     computedLang() {
       return (this.localLocale || '').replace(/-u-.*$/i, '') || null
-    },
-    timeProps() {
-      // Props we pass to BTime
-      // Use self for better minification, as `this` won't
-      // minimize and we reference it many times below
-      const self = this
-      return {
-        hidden: !self.isVisible,
-        value: self.localHMS,
-        // Passthrough props
-        readonly: self.readonly,
-        disabled: self.disabled,
-        locale: self.locale,
-        hour12: self.hour12,
-        hideHeader: self.hideHeader,
-        showSeconds: self.showSeconds,
-        secondsStep: self.secondsStep,
-        minutesStep: self.minutesStep,
-        labelNoTimeSelected: self.labelNoTimeSelected,
-        labelSelected: self.labelSelected,
-        labelHours: self.labelHours,
-        labelMinutes: self.labelMinutes,
-        labelSeconds: self.labelSeconds,
-        labelAmpm: self.labelAmpm,
-        labelAm: self.labelAm,
-        labelPm: self.labelPm,
-        labelIncrement: self.labelIncrement,
-        labelDecrement: self.labelDecrement
-      }
     }
   },
   watch: {
@@ -285,7 +178,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { localHMS, disabled, readonly } = this
+    const { localHMS, disabled, readonly, $props } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoTimeSelected
       : this.placeholder
@@ -370,7 +263,11 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       {
         ref: 'time',
         staticClass: 'b-form-time-control',
-        props: this.timeProps,
+        props: {
+          ...pluckProps(BTimeProps, $props),
+          value: localHMS,
+          hidden: !this.isVisible
+        },
         on: {
           input: this.onInput,
           context: this.onContext
@@ -385,15 +282,13 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
         ref: 'control',
         staticClass: 'b-form-timepicker',
         props: {
-          // This adds unneeded props, but reduces code size:
-          ...this.$props,
-          // Overridden / computed props
+          ...pluckProps(BVFormBtnLabelControlProps, $props),
           id: this.safeId(),
-          rtl: this.isRTL,
-          lang: this.computedLang,
-          value: localHMS || '',
+          value: localHMS,
           formattedValue: localHMS ? this.formattedValue : '',
-          placeholder: placeholder || ''
+          placeholder,
+          rtl: this.isRTL,
+          lang: this.computedLang
         },
         on: {
           show: this.onShow,

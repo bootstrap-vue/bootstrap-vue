@@ -1,21 +1,18 @@
 import Vue from '../../vue'
 import { NAME_FORM_DATEPICKER } from '../../constants/components'
 import {
-  CALENDAR_LONG,
-  CALENDAR_NARROW,
-  CALENDAR_SHORT,
-  DATE_FORMAT_NUMERIC
-} from '../../constants/date'
-import { arrayIncludes } from '../../utils/array'
-import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
+  BVFormBtnLabelControl,
+  props as BVFormBtnLabelControlProps
+} from '../../utils/bv-form-btn-label-control'
 import { makePropsConfigurable } from '../../utils/config'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
-import { pick } from '../../utils/object'
+import { pick, omit } from '../../utils/object'
+import { pluckProps } from '../../utils/props'
 import idMixin from '../../mixins/id'
 import { BButton } from '../button/button'
-import { BCalendar, props as calendarProps } from '../calendar/calendar'
+import { BCalendar, props as BCalendarProps } from '../calendar/calendar'
 import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 
 // --- Main component ---
@@ -30,99 +27,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   },
   props: makePropsConfigurable(
     {
-      value: {
-        type: [String, Date],
-        default: null
-      },
-      valueAsDate: {
-        type: Boolean,
-        default: false
-      },
+      ...BCalendarProps,
+      ...omit(BVFormBtnLabelControlProps, ['id', 'value', 'formattedValue', 'rtl', 'lang']),
       resetValue: {
         type: [String, Date]
-        // default: null
-      },
-      initialDate: {
-        // This specifies the calendar year/month/day that will be shown when
-        // first opening the datepicker if no v-model value is provided
-        // Default is the current date (or `min`/`max`)
-        // Passed directly to <b-calendar>
-        type: [String, Date]
-        // default: null
-      },
-      placeholder: {
-        type: String
-        // Defaults to `labelNoDateSelected` from calendar context
-        // default: null
-      },
-      size: {
-        type: String
-        // default: null
-      },
-      min: {
-        type: [String, Date]
-        // default: null
-      },
-      max: {
-        type: [String, Date]
-        // default: null
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      required: {
-        // If true adds the `aria-required` attribute
-        type: Boolean,
-        default: false
-      },
-      name: {
-        type: String
-        // default: null
-      },
-      form: {
-        type: String
-        // default: null
-      },
-      state: {
-        // Tri-state prop: `true`, `false` or `null`
-        type: Boolean,
-        default: null
-      },
-      dateDisabledFn: {
-        type: Function
         // default: null
       },
       noCloseOnSelect: {
         type: Boolean,
         default: false
-      },
-      hideHeader: {
-        type: Boolean,
-        default: false
-      },
-      showDecadeNav: {
-        // When `true` enables the decade navigation buttons
-        type: Boolean,
-        default: false
-      },
-      locale: {
-        type: [String, Array]
-        // default: null
-      },
-      startWeekday: {
-        // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
-        // Day of week to start calendar on
-        type: [Number, String],
-        default: 0
-      },
-      direction: {
-        type: String
-        // default: null
       },
       buttonOnly: {
         type: Boolean,
@@ -137,12 +50,6 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         // Width of the calendar dropdown
         type: String,
         default: '270px'
-      },
-      ...pick(calendarProps, ['selectedVariant', 'todayVariant', 'navButtonVariant']),
-      noHighlightToday: {
-        // Disable highlighting today's date
-        type: Boolean,
-        default: false
       },
       todayButton: {
         type: Boolean,
@@ -180,62 +87,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         type: String,
         default: 'outline-secondary'
       },
-      dateInfoFn: {
-        // Passed through to b-calendar
-        type: Function
-        // default: undefined
-      },
-      // Labels for buttons and keyboard shortcuts
-      // These pick BCalendar global config if no BFormDate global config
-      ...pick(calendarProps, [
-        'labelPrevDecade',
-        'labelPrevYear',
-        'labelPrevMonth',
-        'labelCurrentMonth',
-        'labelNextMonth',
-        'labelNextYear',
-        'labelToday',
-        'labelSelected',
-        'labelNoDateSelected',
-        'labelCalendar',
-        'labelNav',
-        'labelHelp'
-      ]),
-      dateFormatOptions: {
-        // `Intl.DateTimeFormat` object
-        // Note: This value is *not* to be placed in the global config
-        type: Object,
-        default: () => ({
-          year: DATE_FORMAT_NUMERIC,
-          month: CALENDAR_LONG,
-          day: DATE_FORMAT_NUMERIC,
-          weekday: CALENDAR_LONG
-        })
-      },
-      weekdayHeaderFormat: {
-        // Format of the weekday names at the top of the calendar
-        // Note: This value is *not* to be placed in the global config
-        type: String,
-        // `short` is typically a 3 letter abbreviation,
-        // `narrow` is typically a single letter
-        // `long` is the full week day name
-        // Although some locales may override this (i.e `ar`, etc.)
-        default: CALENDAR_SHORT,
-        validator(value) {
-          return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
-        }
-      },
       // Dark mode
       dark: {
         type: Boolean,
         default: false
-      },
-      // extra dropdown stuff
-      menuClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      ...dropdownProps
+      }
     },
     NAME_FORM_DATEPICKER
   ),
@@ -257,47 +113,6 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       // Returns the calendar year/month
       // Returns the `YYYY-MM` portion of the active calendar date
       return this.activeYMD.slice(0, -3)
-    },
-    calendarProps() {
-      // Use self for better minification, as `this` won't
-      // minimize and we reference it many times below
-      const self = this
-      return {
-        hidden: !self.isVisible,
-        value: self.localYMD,
-        min: self.min,
-        max: self.max,
-        initialDate: self.initialDate,
-        readonly: self.readonly,
-        disabled: self.disabled,
-        locale: self.locale,
-        startWeekday: self.startWeekday,
-        direction: self.direction,
-        width: self.calendarWidth,
-        dateDisabledFn: self.dateDisabledFn,
-        selectedVariant: self.selectedVariant,
-        todayVariant: self.todayVariant,
-        navButtonVariant: self.navButtonVariant,
-        dateInfoFn: self.dateInfoFn,
-        hideHeader: self.hideHeader,
-        showDecadeNav: self.showDecadeNav,
-        noHighlightToday: self.noHighlightToday,
-        labelPrevDecade: self.labelPrevDecade,
-        labelPrevYear: self.labelPrevYear,
-        labelPrevMonth: self.labelPrevMonth,
-        labelCurrentMonth: self.labelCurrentMonth,
-        labelNextMonth: self.labelNextMonth,
-        labelNextYear: self.labelNextYear,
-        labelNextDecade: self.labelNextDecade,
-        labelToday: self.labelToday,
-        labelSelected: self.labelSelected,
-        labelNoDateSelected: self.labelNoDateSelected,
-        labelCalendar: self.labelCalendar,
-        labelNav: self.labelNav,
-        labelHelp: self.labelHelp,
-        dateFormatOptions: self.dateFormatOptions,
-        weekdayHeaderFormat: self.weekdayHeaderFormat
-      }
     },
     computedLang() {
       return (this.localLocale || '').replace(/-u-.*$/i, '') || null
@@ -401,10 +216,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const $scopedSlots = this.$scopedSlots
-    const localYMD = this.localYMD
-    const disabled = this.disabled
-    const readonly = this.readonly
+    const { localYMD, disabled, readonly, dark, $props, $scopedSlots } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
       ? this.labelNoDateSelected
       : this.placeholder
@@ -479,7 +291,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         key: 'calendar',
         ref: 'calendar',
         staticClass: 'b-form-date-calendar w-100',
-        props: this.calendarProps,
+        props: {
+          ...pluckProps(BCalendarProps, $props),
+          value: localYMD,
+          hidden: !this.isVisible
+        },
         on: {
           selected: this.onSelected,
           input: this.onInput,
@@ -504,16 +320,14 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         ref: 'control',
         staticClass: 'b-form-datepicker',
         props: {
-          // This adds unneeded props, but reduces code size:
-          ...this.$props,
-          // Overridden / computed props
+          ...pluckProps(BVFormBtnLabelControlProps, $props),
           id: this.safeId(),
+          value: localYMD,
+          formattedValue: localYMD ? this.formattedValue : '',
+          placeholder,
           rtl: this.isRTL,
           lang: this.computedLang,
-          value: localYMD || '',
-          formattedValue: localYMD ? this.formattedValue : '',
-          placeholder: placeholder || '',
-          menuClass: [{ 'bg-dark': !!this.dark, 'text-light': !!this.dark }, this.menuClass]
+          menuClass: [{ 'bg-dark': !!dark, 'text-light': !!dark }, this.menuClass]
         },
         on: {
           show: this.onShow,
