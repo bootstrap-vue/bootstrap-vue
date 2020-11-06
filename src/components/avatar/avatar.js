@@ -14,6 +14,7 @@ import { BIconPersonFill } from '../../icons/icons'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
+
 const CLASS_NAME = 'b-avatar'
 
 const SIZES = ['sm', null, 'lg']
