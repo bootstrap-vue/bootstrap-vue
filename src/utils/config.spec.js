@@ -175,7 +175,7 @@ describe('utils/config', () => {
     const config = {
       [NAME]: { text: 'bar' }
     }
-    const Component = {
+    const ConfigurableComponent = {
       name: NAME,
       props: makePropsConfigurable(props, NAME),
       render(h) {
@@ -185,7 +185,7 @@ describe('utils/config', () => {
 
     setConfig(config)
 
-    const wrapper = mount(Component)
+    const wrapper = mount(ConfigurableComponent)
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
