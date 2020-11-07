@@ -1,25 +1,31 @@
 import Vue, { mergeData } from '../../vue'
-import { NAME_BUTTON, NAME_BUTTON_GROUP } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { NAME_BUTTON_GROUP } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
+import { pick } from '../../utils/object'
+import { props as buttonProps } from '../button/button'
 
-export const props = {
-  vertical: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String
+      // default: null
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    ariaRole: {
+      type: String,
+      default: 'group'
+    },
+    ...pick(buttonProps, ['size'])
   },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'size')
-  },
-  tag: {
-    type: String,
-    default: 'div'
-  },
-  ariaRole: {
-    type: String,
-    default: 'group'
-  }
-}
+  NAME_BUTTON_GROUP
+)
 
 // @vue/component
 export const BButtonGroup = /*#__PURE__*/ Vue.extend({

@@ -61,9 +61,9 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     html: false,
     interactive: true,
     disabled: false,
-    delay: getComponentConfig(NAME_TOOLTIP, 'delay'),
-    boundary: String(getComponentConfig(NAME_TOOLTIP, 'boundary')),
-    boundaryPadding: toInteger(getComponentConfig(NAME_TOOLTIP, 'boundaryPadding'), 0),
+    delay: getComponentConfig(NAME_TOOLTIP, 'delay', 50),
+    boundary: String(getComponentConfig(NAME_TOOLTIP, 'boundary', 'scrollParent')),
+    boundaryPadding: toInteger(getComponentConfig(NAME_TOOLTIP, 'boundaryPadding', 5), 0),
     variant: getComponentConfig(NAME_TOOLTIP, 'variant'),
     customClass: getComponentConfig(NAME_TOOLTIP, 'customClass')
   }

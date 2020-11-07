@@ -1,15 +1,19 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_NAV_FORM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { BForm, props as BFormProps } from '../form/form'
 
-export const props = {
-  ...omit(BFormProps, ['inline']),
-  formClass: {
-    type: [String, Array, Object]
-    // default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    ...omit(BFormProps, ['inline']),
+    formClass: {
+      type: [String, Array, Object]
+      // default: null
+    }
+  },
+  NAME_NAV_FORM
+)
 
 // @vue/component
 export const BNavForm = /*#__PURE__*/ Vue.extend({

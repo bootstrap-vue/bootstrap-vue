@@ -10,6 +10,10 @@ import { assign, create, keys } from '../../utils/object'
 import { suffixPropName } from '../../utils/props'
 import { lowerCase } from '../../utils/string'
 
+// --- Constants ---
+
+const ALIGN_SELF_VALUES = ['auto', 'start', 'end', 'center', 'baseline', 'stretch']
+
 // Generates a prop object with a type of `[Boolean, String, Number]`
 const boolStrNum = () => ({
   type: [Boolean, String, Number],
@@ -103,8 +107,9 @@ const generateProps = () => {
     alignSelf: {
       type: String,
       default: null,
-      validator: str =>
-        arrayIncludes(['auto', 'start', 'end', 'center', 'baseline', 'stretch'], str)
+      validator(value) {
+        return arrayIncludes(ALIGN_SELF_VALUES, value)
+      }
     },
     tag: {
       type: String,

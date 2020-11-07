@@ -1,6 +1,5 @@
 import { importAll, parseVersion, parseFullVersion } from '~/utils'
 import { version, dependencies, devDependencies, description } from '~/../package.json'
-import DEFAULT_CONFIG from '~/../src/utils/config-defaults'
 
 const componentsContext = require.context('~/../src/components/', true, /package.json/)
 export const components = importAll(componentsContext)
@@ -92,7 +91,6 @@ export const vueVersion = parseVersion(devDependencies.vue)
 export const vueVersionMinor = vueVersion.replace(minorRE, '$1')
 export const vueVersionMajor = vueVersion.replace(majorRE, '$1')
 
-export const defaultConfig = DEFAULT_CONFIG
 export const bvDescription = description
 
 export { version }

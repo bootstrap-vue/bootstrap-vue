@@ -3,32 +3,39 @@ import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import range from '../../../utils/range'
 import { arrayIncludes } from '../../../utils/array'
-import { getComponentConfig } from '../../../utils/config'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isArray, isNumber } from '../../../utils/inspect'
 import { mathMax, mathMin } from '../../../utils/math'
 import sanitizeRow from './sanitize-row'
 
+const SELECT_MODES = ['range', 'multi', 'single']
+
 export default {
-  props: {
-    selectable: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      selectable: {
+        type: Boolean,
+        default: false
+      },
+      selectMode: {
+        type: String,
+        default: 'multi',
+        validator(value) {
+          return arrayIncludes(SELECT_MODES, value)
+        }
+      },
+      selectedVariant: {
+        type: String,
+        default: 'active'
+      },
+      noSelectOnClick: {
+        // Disable use of click handlers for row selection
+        type: Boolean,
+        default: false
+      }
     },
-    selectMode: {
-      type: String,
-      default: 'multi',
-      validator: val => arrayIncludes(['range', 'multi', 'single'], val)
-    },
-    selectedVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_TABLE, 'selectedVariant')
-    },
-    noSelectOnClick: {
-      // Disable use of click handlers for row selection
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_TABLE
+  ),
   data() {
     return {
       selectedRows: [],

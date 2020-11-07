@@ -1,88 +1,96 @@
 import Vue from '../vue'
+import { DEFAULT_BREAKPOINT, PROP_NAME } from '../constants/config'
 import cloneDeep from './clone-deep'
-import { getRaw } from './get'
 import memoize from './memoize'
-import DEFAULTS from './config-defaults'
+import { isFunction } from './inspect'
+import { keys } from './object'
 
 // --- Constants ---
 
-const PROP_NAME = '$bvConfig'
 const VueProto = Vue.prototype
 
 // --- Getter methods ---
-// All methods return a deep clone (immutable) copy of the config
-// value, to prevent mutation of the user config object.
+// All methods return a deep clone (immutable) copy of the config value,
+// to prevent mutation of the user config object
 
-// Get the current user config. For testing purposes only
+// Get the current config
 export const getConfig = () => {
-  return VueProto[PROP_NAME] ? VueProto[PROP_NAME].getConfig() : {}
+  const bvConfig = VueProto[PROP_NAME]
+  return bvConfig ? bvConfig.getConfig() : {}
 }
 
 // Method to grab a config value based on a dotted/array notation key
-export const getConfigValue = key => {
-  return VueProto[PROP_NAME]
-    ? VueProto[PROP_NAME].getConfigValue(key)
-    : cloneDeep(getRaw(DEFAULTS, key))
+export const getConfigValue = (key, defaultValue = undefined) => {
+  const bvConfig = VueProto[PROP_NAME]
+  return bvConfig ? bvConfig.getConfigValue(key, defaultValue) : cloneDeep(defaultValue)
 }
 
 // Method to grab a config value for a particular component
-export const getComponentConfig = (cmpName, key = null) => {
-  // Return the particular config value for key for if specified,
+export const getComponentConfig = (key, propKey = null, defaultValue = undefined) => {
+  // Return the particular config value for key if specified,
   // otherwise we return the full config (or an empty object if not found)
-  return key ? getConfigValue(`${cmpName}.${key}`) : getConfigValue(cmpName) || {}
+  return propKey ? getConfigValue(`${key}.${propKey}`, defaultValue) : getConfigValue(key, {})
 }
 
-// Convenience method for getting all breakpoint names
-export const getBreakpoints = () => {
-  return getConfigValue('breakpoints')
-}
+// Get all breakpoint names
+export const getBreakpoints = () => getConfigValue('breakpoints', DEFAULT_BREAKPOINT)
 
-// Private function for caching / locking-in breakpoint names
-const _getBreakpointsCached = memoize(() => {
-  return getBreakpoints()
-})
+// Private method for caching breakpoint names
+const _getBreakpointsCached = memoize(() => getBreakpoints())
 
-// Convenience method for getting all breakpoint names.
-// Caches the results after first access.
-export const getBreakpointsCached = () => {
-  return cloneDeep(_getBreakpointsCached())
-}
+// Get all breakpoint names (cached)
+export const getBreakpointsCached = () => cloneDeep(_getBreakpointsCached())
 
-// Convenience method for getting breakpoints with
-// the smallest breakpoint set as ''.
-// Useful for components that create breakpoint specific props.
+// Get breakpoints with the smallest breakpoint set as ''
+// Useful for components that create breakpoint specific props
 export const getBreakpointsUp = () => {
   const breakpoints = getBreakpoints()
   breakpoints[0] = ''
   return breakpoints
 }
 
-// Convenience method for getting breakpoints with
-// the smallest breakpoint set as ''.
-// Useful for components that create breakpoint specific props.
-// Caches the results after first access.
+// Get breakpoints with the smallest breakpoint set as '' (cached)
+// Useful for components that create breakpoint specific props
 export const getBreakpointsUpCached = memoize(() => {
   const breakpoints = getBreakpointsCached()
   breakpoints[0] = ''
   return breakpoints
 })
 
-// Convenience method for getting breakpoints with
-// the largest breakpoint set as ''.
-// Useful for components that create breakpoint specific props.
+// Get breakpoints with the largest breakpoint set as ''
 export const getBreakpointsDown = () => {
   const breakpoints = getBreakpoints()
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
 
-// Convenience method for getting breakpoints with
-// the largest breakpoint set as ''.
-// Useful for components that create breakpoint specific props.
-// Caches the results after first access.
+// Get breakpoints with the largest breakpoint set as '' (cached)
+// Useful for components that create breakpoint specific props
 /* istanbul ignore next: we don't use this method anywhere, yet */
-export const getBreakpointsDownCached = () => /* istanbul ignore next */ {
+export const getBreakpointsDownCached = () => {
   const breakpoints = getBreakpointsCached()
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
+
+// Make a props object configurable by global configuration
+// Replaces the current `default` key of each prop with a `getComponentConfig()`
+// call that falls back to the current default value of the prop
+export const makePropsConfigurable = (props, componentKey) =>
+  keys(props).reduce((result, prop) => {
+    const currentProp = props[prop]
+    const defaultValue = currentProp.default
+
+    result[prop] = {
+      ...cloneDeep(currentProp),
+      default() {
+        return getComponentConfig(
+          componentKey,
+          prop,
+          isFunction(defaultValue) ? defaultValue() : defaultValue
+        )
+      }
+    }
+
+    return result
+  }, {})

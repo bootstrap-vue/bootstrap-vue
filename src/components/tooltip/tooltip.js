@@ -2,7 +2,7 @@ import Vue from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import { arrayIncludes } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { isArray, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement, SVGElement } from '../../utils/safe-types'
 import { BVTooltip } from './helpers/bv-tooltip'
@@ -11,97 +11,100 @@ import { BVTooltip } from './helpers/bv-tooltip'
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
   inheritAttrs: false,
-  props: {
-    title: {
-      type: String
-      // default: undefined
-    },
-    // Added in by BPopover
-    // content: {
-    //   type: String,
-    //   default: undefined
-    // },
-    target: {
-      // String ID of element, or element/component reference
-      // Or function that returns one of the above
-      type: [String, HTMLElement, SVGElement, Function, Object],
-      required: true
-    },
-    triggers: {
-      type: [String, Array],
-      default: 'hover focus'
-    },
-    placement: {
-      type: String,
-      default: 'top'
-    },
-    fallbackPlacement: {
-      type: [String, Array],
-      default: 'flip',
-      validator(value) {
-        return (
-          (isArray(value) && value.every(v => isString(v))) ||
-          arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
-        )
+  props: makePropsConfigurable(
+    {
+      title: {
+        type: String
+        // default: undefined
+      },
+      // Added in by BPopover
+      // content: {
+      //   type: String,
+      //   default: undefined
+      // },
+      target: {
+        // String ID of element, or element/component reference
+        // Or function that returns one of the above
+        type: [String, HTMLElement, SVGElement, Function, Object],
+        required: true
+      },
+      triggers: {
+        type: [String, Array],
+        default: 'hover focus'
+      },
+      placement: {
+        type: String,
+        default: 'top'
+      },
+      fallbackPlacement: {
+        type: [String, Array],
+        default: 'flip',
+        validator(value) {
+          return (
+            (isArray(value) && value.every(v => isString(v))) ||
+            arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
+          )
+        }
+      },
+      variant: {
+        type: String
+        // default: undefined
+      },
+      customClass: {
+        type: String
+        // default: undefined
+      },
+      delay: {
+        type: [Number, Object, String],
+        default: 50
+      },
+      boundary: {
+        // String: scrollParent, window, or viewport
+        // Element: element reference
+        // Object: Vue component
+        type: [String, HTMLElement, Object],
+        default: 'scrollParent'
+      },
+      boundaryPadding: {
+        type: [Number, String],
+        default: 5
+      },
+      offset: {
+        type: [Number, String],
+        default: 0
+      },
+      noFade: {
+        type: Boolean,
+        default: false
+      },
+      container: {
+        // String: HTML ID of container, if null body is used (default)
+        // HTMLElement: element reference reference
+        // Object: Vue Component
+        type: [String, HTMLElement, Object]
+        // default: undefined
+      },
+      show: {
+        type: Boolean,
+        default: false
+      },
+      noninteractive: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      id: {
+        // ID to use for tooltip element
+        // If not provided on will automatically be generated
+        type: String
+        // default: null
       }
     },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_TOOLTIP, 'variant')
-    },
-    customClass: {
-      type: String,
-      default: () => getComponentConfig(NAME_TOOLTIP, 'customClass')
-    },
-    delay: {
-      type: [Number, Object, String],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'delay')
-    },
-    boundary: {
-      // String: scrollParent, window, or viewport
-      // Element: element reference
-      // Object: Vue component
-      type: [String, HTMLElement, Object],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'boundary')
-    },
-    boundaryPadding: {
-      type: [Number, String],
-      default: () => getComponentConfig(NAME_TOOLTIP, 'boundaryPadding')
-    },
-    offset: {
-      type: [Number, String],
-      default: 0
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    container: {
-      // String: HTML ID of container, if null body is used (default)
-      // HTMLElement: element reference reference
-      // Object: Vue Component
-      type: [String, HTMLElement, Object]
-      // default: undefined
-    },
-    show: {
-      type: Boolean,
-      default: false
-    },
-    noninteractive: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    id: {
-      // ID to use for tooltip element
-      // If not provided on will automatically be generated
-      type: String
-      // default: null
-    }
-  },
+    NAME_TOOLTIP
+  ),
   data() {
     return {
       localShow: this.show,

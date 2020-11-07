@@ -109,7 +109,7 @@ const plugin = Vue => {
       parent: $parent,
       // Preset the prop values
       propsData: {
-        ...filterOptions(getComponentConfig(NAME_MODAL) || {}),
+        ...filterOptions(getComponentConfig(NAME_MODAL)),
         // Defaults that user can override
         hideHeaderClose: true,
         hideHeader: !(props.title || props.titleHtml),

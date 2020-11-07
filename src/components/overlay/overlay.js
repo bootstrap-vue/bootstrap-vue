@@ -1,5 +1,6 @@
 import Vue from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -10,80 +11,83 @@ const positionCover = { top: 0, left: 0, bottom: 0, right: 0 }
 export const BOverlay = /*#__PURE__*/ Vue.extend({
   name: NAME_OVERLAY,
   mixins: [normalizeSlotMixin],
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String,
-      default: 'light'
-    },
-    bgColor: {
-      // Alternative to variant, allowing a specific
-      // CSS color to be applied to the overlay
-      type: String
-      // default: null
-    },
-    opacity: {
-      type: [Number, String],
-      default: 0.85,
-      validator(value) {
-        const number = toFloat(value, 0)
-        return number >= 0 && number <= 1
+  props: makePropsConfigurable(
+    {
+      show: {
+        type: Boolean,
+        default: false
+      },
+      variant: {
+        type: String,
+        default: 'light'
+      },
+      bgColor: {
+        // Alternative to variant, allowing a specific
+        // CSS color to be applied to the overlay
+        type: String
+        // default: null
+      },
+      opacity: {
+        type: [Number, String],
+        default: 0.85,
+        validator(value) {
+          const number = toFloat(value, 0)
+          return number >= 0 && number <= 1
+        }
+      },
+      blur: {
+        type: String,
+        default: '2px'
+      },
+      rounded: {
+        type: [Boolean, String],
+        default: false
+      },
+      noCenter: {
+        type: Boolean,
+        default: false
+      },
+      noFade: {
+        type: Boolean,
+        default: false
+      },
+      spinnerType: {
+        type: String,
+        default: 'border'
+      },
+      spinnerVariant: {
+        type: String
+        // default: null
+      },
+      spinnerSmall: {
+        type: Boolean,
+        default: false
+      },
+      overlayTag: {
+        type: String,
+        default: 'div'
+      },
+      wrapTag: {
+        type: String,
+        default: 'div'
+      },
+      noWrap: {
+        // If set, does not render the default slot
+        // and switches to absolute positioning
+        type: Boolean,
+        default: false
+      },
+      fixed: {
+        type: Boolean,
+        default: false
+      },
+      zIndex: {
+        type: [Number, String],
+        default: 10
       }
     },
-    blur: {
-      type: String,
-      default: '2px'
-    },
-    rounded: {
-      type: [Boolean, String],
-      default: false
-    },
-    noCenter: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    spinnerType: {
-      type: String,
-      default: 'border'
-    },
-    spinnerVariant: {
-      type: String
-      // default: null
-    },
-    spinnerSmall: {
-      type: Boolean,
-      default: false
-    },
-    overlayTag: {
-      type: String,
-      default: 'div'
-    },
-    wrapTag: {
-      type: String,
-      default: 'div'
-    },
-    noWrap: {
-      // If set, does not render the default slot
-      // and switches to absolute positioning
-      type: Boolean,
-      default: false
-    },
-    fixed: {
-      type: Boolean,
-      default: false
-    },
-    zIndex: {
-      type: [Number, String],
-      default: 10
-    }
-  },
+    NAME_OVERLAY
+  ),
   computed: {
     computedRounded() {
       const rounded = this.rounded

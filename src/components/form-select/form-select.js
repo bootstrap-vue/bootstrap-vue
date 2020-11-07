@@ -1,14 +1,15 @@
 import Vue from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { SLOT_NAME_FIRST } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
 import { isArray } from '../../utils/inspect'
-import formCustomMixin from '../../mixins/form-custom'
-import formMixin from '../../mixins/form'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import optionsMixin from './helpers/mixin-options'
@@ -21,7 +22,7 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
   mixins: [
     idMixin,
     normalizeSlotMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin,
     formCustomMixin,
@@ -31,26 +32,33 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    value: {
-      // type: [Object, Array, String, Number, Boolean],
-      // default: undefined
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formCustomProps,
+      ...formSizeProps,
+      ...formStateProps,
+      value: {
+        // type: [Object, Array, String, Number, Boolean],
+        // default: undefined
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      selectSize: {
+        // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
+        // Size of 1 can bork out Firefox
+        type: Number,
+        default: 0
+      },
+      ariaInvalid: {
+        type: [Boolean, String],
+        default: false
+      }
     },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    selectSize: {
-      // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
-      // Size of 1 can bork out Firefox
-      type: Number,
-      default: 0
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
+    NAME_FORM_SELECT
+  ),
   data() {
     return {
       localValue: this.value

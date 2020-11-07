@@ -10,6 +10,7 @@ import {
   PLACEMENT_LEFT_START
 } from '../constants/popper'
 import { BvEvent } from '../utils/bv-event.class'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
 import { stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
@@ -40,49 +41,66 @@ const filterVisibles = els => (els || []).filter(isVisible)
 
 // --- Props ---
 
-export const commonProps = {
-  dropup: {
-    // place on top if possible
-    type: Boolean,
-    default: false
+export const commonProps = makePropsConfigurable(
+  {
+    dropup: {
+      // place on top if possible
+      type: Boolean,
+      default: false
+    },
+    dropright: {
+      // place right if possible
+      type: Boolean,
+      default: false
+    },
+    dropleft: {
+      // place left if possible
+      type: Boolean,
+      default: false
+    },
+    right: {
+      // Right align menu (default is left align)
+      type: Boolean,
+      default: false
+    },
+    offset: {
+      // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
+      type: [Number, String],
+      default: 0
+    },
+    noFlip: {
+      // Disable auto-flipping of menu from bottom <=> top
+      type: Boolean,
+      default: false
+    },
+    popperOpts: {
+      type: Object,
+      default: () => {}
+    },
+    boundary: {
+      // String: `scrollParent`, `window` or `viewport`
+      // HTMLElement: HTML Element reference
+      type: [String, HTMLElement],
+      default: 'scrollParent'
+    }
   },
-  dropright: {
-    // place right if possible
-    type: Boolean,
-    default: false
-  },
-  dropleft: {
-    // place left if possible
-    type: Boolean,
-    default: false
-  },
-  right: {
-    // Right align menu (default is left align)
-    type: Boolean,
-    default: false
-  },
-  offset: {
-    // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
-    type: [Number, String],
-    default: 0
-  },
-  noFlip: {
-    // Disable auto-flipping of menu from bottom <=> top
-    type: Boolean,
-    default: false
-  },
-  popperOpts: {
-    type: Object,
-    default: () => {}
-  },
-  boundary: {
-    // String: `scrollParent`, `window` or `viewport`
-    // HTMLElement: HTML Element reference
-    type: [String, HTMLElement],
-    default: 'scrollParent'
-  }
+  NAME_DROPDOWN
+)
+
+export const props = {
+  ...commonProps,
+  ...makePropsConfigurable(
+    {
+      disabled: {
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_DROPDOWN
+  )
 }
 
+// --- Mixin ---
 // @vue/component
 export default {
   mixins: [idMixin, clickOutMixin, focusInMixin],
@@ -92,13 +110,7 @@ export default {
   inject: {
     bvNavbar: { default: null }
   },
-  props: {
-    ...commonProps,
-    disabled: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props,
   data() {
     return {
       visible: false,
@@ -175,7 +187,7 @@ export default {
     this.$_hideTimeout = null
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next: not easy to test */ {
+  deactivated() {
     // In case we are inside a `<keep-alive>`
     this.visible = false
     this.whileOpenListen(false)
@@ -246,7 +258,7 @@ export default {
     },
     // Instructs popper to re-computes the dropdown position
     // useful if the content changes size
-    updatePopper() /* istanbul ignore next: not easy to test */ {
+    updatePopper() {
       try {
         this.$_popper.scheduleUpdate()
       } catch {}
@@ -345,7 +357,7 @@ export default {
     },
     // Mousedown handler for the toggle
     /* istanbul ignore next */
-    onMousedown(evt) /* istanbul ignore next */ {
+    onMousedown(evt) {
       // We prevent the 'mousedown' event for the toggle to stop the
       // 'focusin' event from being fired
       // The event would otherwise be picked up by the global 'focusin'

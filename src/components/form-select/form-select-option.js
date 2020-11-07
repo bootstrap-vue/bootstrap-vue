@@ -1,16 +1,20 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_FORM_SELECT_OPTION } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  value: {
-    // type: [String, Number, Boolean, Object],
-    required: true
+export const props = makePropsConfigurable(
+  {
+    value: {
+      // type: [String, Number, Boolean, Object],
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_FORM_SELECT_OPTION
+)
 
 // @vue/component
 export const BFormSelectOption = /*#__PURE__*/ Vue.extend({

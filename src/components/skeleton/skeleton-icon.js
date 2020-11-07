@@ -1,25 +1,28 @@
 import Vue from '../../vue'
 import { NAME_SKELETON_ICON } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { BIcon } from '../../icons'
 
 // @vue/component
 export const BSkeletonIcon = /*#__PURE__*/ Vue.extend({
   name: NAME_SKELETON_ICON,
   functional: true,
-  props: {
-    animation: {
-      type: String,
-      default: () => getComponentConfig(NAME_SKELETON_ICON, 'animation')
+  props: makePropsConfigurable(
+    {
+      animation: {
+        type: String,
+        default: 'wave'
+      },
+      icon: {
+        type: String
+      },
+      iconProps: {
+        type: Object,
+        default: () => {}
+      }
     },
-    icon: {
-      type: String
-    },
-    iconProps: {
-      type: Object,
-      default: () => {}
-    }
-  },
+    NAME_SKELETON_ICON
+  ),
   render(h, { props }) {
     const { icon, animation } = props
 
