@@ -1,19 +1,23 @@
 import Vue from '../../vue'
 import { NAME_TBODY } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-export const props = {
-  tbodyTransitionProps: {
-    type: Object
-    // default: undefined
+export const props = makePropsConfigurable(
+  {
+    tbodyTransitionProps: {
+      type: Object
+      // default: undefined
+    },
+    tbodyTransitionHandlers: {
+      type: Object
+      // default: undefined
+    }
   },
-  tbodyTransitionHandlers: {
-    type: Object
-    // default: undefined
-  }
-}
+  NAME_TBODY
+)
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
@@ -32,7 +36,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     bvTable: {
       // Sniffed by <b-tr> / <b-td> / <b-th>
       /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
+      default() {
         return {}
       }
     }

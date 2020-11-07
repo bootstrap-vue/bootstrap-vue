@@ -1,17 +1,22 @@
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
 
 export default {
-  props: {
-    perPage: {
-      type: [Number, String],
-      default: 0
+  props: makePropsConfigurable(
+    {
+      perPage: {
+        type: [Number, String],
+        default: 0
+      },
+      currentPage: {
+        type: [Number, String],
+        default: 1
+      }
     },
-    currentPage: {
-      type: [Number, String],
-      default: 1
-    }
-  },
+    NAME_TABLE
+  ),
   computed: {
     localPaging() {
       return this.hasProvider ? !!this.noProviderPaging : true

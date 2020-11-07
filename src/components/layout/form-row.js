@@ -1,12 +1,16 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_FORM_ROW } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
+  NAME_FORM_ROW
+)
 
 // @vue/component
 export const BFormRow = /*#__PURE__*/ Vue.extend({

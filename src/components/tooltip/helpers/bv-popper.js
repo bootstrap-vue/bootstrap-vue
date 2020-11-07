@@ -218,7 +218,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       this.attachment = this.getAttachment(data.placement)
     },
     /* istanbul ignore next */
-    renderTemplate(h) /* istanbul ignore next */ {
+    renderTemplate(h) {
       // Will be overridden by templates
       return h('div')
     }

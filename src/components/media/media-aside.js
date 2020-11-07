@@ -1,22 +1,26 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_MEDIA_ASIDE } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    right: {
+      type: Boolean,
+      default: false
+    },
+    verticalAlign: {
+      type: String,
+      default: 'top'
+    }
   },
-  right: {
-    type: Boolean,
-    default: false
-  },
-  verticalAlign: {
-    type: String,
-    default: 'top'
-  }
-}
+  NAME_MEDIA_ASIDE
+)
 
 // --- Main component ---
 // @vue/component

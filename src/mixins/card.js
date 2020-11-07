@@ -1,6 +1,10 @@
-// @vue/component
-export default {
-  props: {
+import { NAME_CARD } from '../constants/components'
+import { makePropsConfigurable } from '../utils/config'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     tag: {
       type: String,
       default: 'div'
@@ -17,5 +21,12 @@ export default {
       type: String
       // default: null
     }
-  }
+  },
+  NAME_CARD
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  props
 }

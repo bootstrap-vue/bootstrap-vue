@@ -33,7 +33,7 @@ export const matchesEl =
 /* istanbul ignore next */
 export const closestEl =
   elProto.closest ||
-  function(sel) /* istanbul ignore next */ {
+  function(sel) {
     let el = this
     do {
       // Use our "patched" matches function

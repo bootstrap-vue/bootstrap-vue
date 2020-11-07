@@ -1,4 +1,6 @@
+import { NAME_TABLE } from '../../../constants/components'
 import identity from '../../../utils/identity'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isBoolean } from '../../../utils/inspect'
 import { toString } from '../../../utils/string'
 import attrsMixin from '../../../mixins/attrs'
@@ -17,65 +19,68 @@ export default {
       bvTable: this
     }
   },
-  props: {
-    striped: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      striped: {
+        type: Boolean,
+        default: false
+      },
+      bordered: {
+        type: Boolean,
+        default: false
+      },
+      borderless: {
+        type: Boolean,
+        default: false
+      },
+      outlined: {
+        type: Boolean,
+        default: false
+      },
+      dark: {
+        type: Boolean,
+        default: false
+      },
+      hover: {
+        type: Boolean,
+        default: false
+      },
+      small: {
+        type: Boolean,
+        default: false
+      },
+      fixed: {
+        type: Boolean,
+        default: false
+      },
+      responsive: {
+        type: [Boolean, String],
+        default: false
+      },
+      stickyHeader: {
+        // If a string, it is assumed to be the table `max-height` value
+        type: [Boolean, String],
+        default: false
+      },
+      noBorderCollapse: {
+        type: Boolean,
+        default: false
+      },
+      captionTop: {
+        type: Boolean,
+        default: false
+      },
+      tableVariant: {
+        type: String
+        // default: null
+      },
+      tableClass: {
+        type: [String, Array, Object]
+        // default: null
+      }
     },
-    bordered: {
-      type: Boolean,
-      default: false
-    },
-    borderless: {
-      type: Boolean,
-      default: false
-    },
-    outlined: {
-      type: Boolean,
-      default: false
-    },
-    dark: {
-      type: Boolean,
-      default: false
-    },
-    hover: {
-      type: Boolean,
-      default: false
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    fixed: {
-      type: Boolean,
-      default: false
-    },
-    responsive: {
-      type: [Boolean, String],
-      default: false
-    },
-    stickyHeader: {
-      // If a string, it is assumed to be the table `max-height` value
-      type: [Boolean, String],
-      default: false
-    },
-    noBorderCollapse: {
-      type: Boolean,
-      default: false
-    },
-    captionTop: {
-      type: Boolean,
-      default: false
-    },
-    tableVariant: {
-      type: String
-      // default: null
-    },
-    tableClass: {
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
+    NAME_TABLE
+  ),
   computed: {
     // Layout related computed props
     isResponsive() {

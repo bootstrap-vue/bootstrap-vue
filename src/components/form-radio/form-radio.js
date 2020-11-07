@@ -1,11 +1,12 @@
 import Vue from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
-import idMixin from '../../mixins/id'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
-import formSizeMixin from '../../mixins/form-size'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
+import { makePropsConfigurable } from '../../utils/config'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
 // @vue/component
 export const BFormRadio = /*#__PURE__*/ Vue.extend({
@@ -13,7 +14,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   mixins: [
     idMixin,
     formRadioCheckMixin, // Includes shared render function
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -23,13 +24,20 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  props: {
-    checked: {
-      // v-model
-      // type: [String, Number, Boolean, Object],
-      default: null
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
+      checked: {
+        // v-model
+        // type: [String, Number, Boolean, Object],
+        default: null
+      }
+    },
+    NAME_FORM_RADIO
+  ),
   computed: {
     isChecked() {
       return looseEqual(this.value, this.computedLocalChecked)

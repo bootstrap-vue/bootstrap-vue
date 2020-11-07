@@ -1,5 +1,6 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_ADDON } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { BInputGroupText } from './input-group-text'
 
 export const commonProps = {
@@ -21,13 +22,16 @@ export const commonProps = {
 export const BInputGroupAddon = /*#__PURE__*/ Vue.extend({
   name: NAME_INPUT_GROUP_ADDON,
   functional: true,
-  props: {
-    ...commonProps,
-    append: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      ...commonProps,
+      append: {
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_INPUT_GROUP_ADDON
+  ),
   render(h, { props, data, children }) {
     return h(
       props.tag,

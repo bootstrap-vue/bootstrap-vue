@@ -1,29 +1,34 @@
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 
 export default {
-  props: {
-    showEmpty: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      showEmpty: {
+        type: Boolean,
+        default: false
+      },
+      emptyText: {
+        type: String,
+        default: 'There are no records to show'
+      },
+      emptyHtml: {
+        type: String
+      },
+      emptyFilteredText: {
+        type: String,
+        default: 'There are no records matching your request'
+      },
+      emptyFilteredHtml: {
+        type: String
+      }
     },
-    emptyText: {
-      type: String,
-      default: 'There are no records to show'
-    },
-    emptyHtml: {
-      type: String
-    },
-    emptyFilteredText: {
-      type: String,
-      default: 'There are no records matching your request'
-    },
-    emptyFilteredHtml: {
-      type: String
-    }
-  },
+    NAME_TABLE
+  ),
   methods: {
     renderEmpty() {
       const h = this.$createElement

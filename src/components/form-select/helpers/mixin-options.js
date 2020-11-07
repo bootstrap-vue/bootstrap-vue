@@ -1,20 +1,25 @@
 import get from '../../../utils/get'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isNull, isPlainObject, isUndefined } from '../../../utils/inspect'
-import formOptionsMixin from '../../../mixins/form-options'
+import formOptionsMixin, { props as formOptionsProps } from '../../../mixins/form-options'
 
 // @vue/component
 export default {
   mixins: [formOptionsMixin],
-  props: {
-    labelField: {
-      type: String,
-      default: 'label'
+  props: makePropsConfigurable(
+    {
+      ...formOptionsProps,
+      labelField: {
+        type: String,
+        default: 'label'
+      },
+      optionsField: {
+        type: String,
+        default: 'options'
+      }
     },
-    optionsField: {
-      type: String,
-      default: 'options'
-    }
-  },
+    'formOptions'
+  ),
   methods: {
     normalizeOption(option, key = null) {
       // When the option is an object, normalize it
