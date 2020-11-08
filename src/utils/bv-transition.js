@@ -5,6 +5,7 @@
 // (show and fade classes are only applied during transition)
 
 import { defineComponent, h, mergeProps } from '../vue'
+import { CLASS_NAME_FADE, CLASS_NAME_SHOW } from '../constants/class-names'
 import { NAME_TRANSITION } from '../constants/components'
 import { isPlainObject } from './inspect'
 
@@ -14,16 +15,16 @@ const NO_FADE_PROPS = {
   name: '',
   enterClass: '',
   enterActiveClass: '',
-  enterToClass: 'show',
-  leaveClass: 'show',
+  enterToClass: CLASS_NAME_SHOW,
+  leaveClass: CLASS_NAME_SHOW,
   leaveActiveClass: '',
   leaveToClass: ''
 }
 
 const FADE_PROPS = {
   ...NO_FADE_PROPS,
-  enterActiveClass: 'fade',
-  leaveActiveClass: 'fade'
+  enterActiveClass: CLASS_NAME_FADE,
+  leaveActiveClass: CLASS_NAME_FADE
 }
 
 // --- Main component ---

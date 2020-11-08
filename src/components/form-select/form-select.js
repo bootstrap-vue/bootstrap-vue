@@ -1,5 +1,7 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_FIRST } from '../../constants/slots'
 import { from as arrayFrom } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
@@ -10,6 +12,7 @@ import formMixin from '../../mixins/form'
 import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import optionsMixin from './helpers/mixin-options'
 import { BFormSelectOption } from './form-select-option'
@@ -20,6 +23,7 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SELECT,
   mixins: [
     idMixin,
+    modelMixin,
     normalizeSlotMixin,
     formMixin,
     formSizeMixin,
@@ -27,15 +31,7 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     formCustomMixin,
     optionsMixin
   ],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
-    value: {
-      // type: [Object, Array, String, Number, Boolean],
-      // default: undefined
-    },
     multiple: {
       type: Boolean,
       default: false
@@ -51,9 +47,10 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
       default: false
     }
   },
+  emits: [EVENT_NAME_CHANGE],
   data() {
     return {
-      localValue: this.value
+      localValue: this[PROP_NAME_MODEL_VALUE]
     }
   },
   computed: {
@@ -78,11 +75,11 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal) {
+    [PROP_NAME_MODEL_VALUE](newVal) {
       this.localValue = newVal
     },
     localValue() {
-      this.$emit('input', this.localValue)
+      this.$emit(EVENT_NAME_MODEL_VALUE, this.localValue)
     }
   },
   methods: {
@@ -99,7 +96,7 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
         .map(o => ('_value' in o ? o._value : o.value))
       this.localValue = target.multiple ? selectedVal : selectedVal[0]
       this.$nextTick(() => {
-        this.$emit('change', this.localValue)
+        this.$emit(EVENT_NAME_CHANGE, this.localValue)
       })
     }
   },

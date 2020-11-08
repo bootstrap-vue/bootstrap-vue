@@ -1,7 +1,8 @@
+import { defineComponent } from '../vue'
 import { getComponentConfig } from '../utils/config'
 
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     size: {
       type: String,
@@ -17,4 +18,4 @@ export default {
       return [this.size ? `btn-${this.size}` : null]
     }
   }
-}
+})

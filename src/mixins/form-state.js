@@ -6,10 +6,11 @@
  *  - false for is-invalid
  *  - null for no contextual state
  */
+import { defineComponent } from '../vue'
 import { isBoolean } from '../utils/inspect'
 
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     state: {
       // Tri-state prop: true, false, null (or undefined)
@@ -27,4 +28,4 @@ export default {
       return state === true ? 'is-valid' : state === false ? 'is-invalid' : null
     }
   }
-}
+})

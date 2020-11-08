@@ -1,12 +1,22 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
+import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
+import BVTransition from '../../utils/bv-transition'
 import { getComponentConfig } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
-import BVTransition from '../../utils/bv-transition'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
+
+// --- Constants ---
+
+const EVENT_NAME_DISMISSED = 'dismissed'
+const EVENT_NAME_DISMISS_COUNT_DOWN = 'dismiss-count-down'
+
+// --- Helper methods ---
 
 // Convert `show` value to a number
 const parseCountDown = show => {
@@ -29,15 +39,16 @@ const parseShow = show => {
   return !!show
 }
 
+// --- Main component ---
 // @vue/component
 export const BAlert = /*#__PURE__*/ defineComponent({
   name: NAME_ALERT,
-  mixins: [normalizeSlotMixin],
-  model: {
-    prop: 'show',
-    event: 'input'
-  },
+  mixins: [modelMixin, normalizeSlotMixin],
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: [Boolean, Number, String],
+      default: false
+    },
     variant: {
       type: String,
       default: () => getComponentConfig(NAME_ALERT, 'variant')
@@ -50,38 +61,36 @@ export const BAlert = /*#__PURE__*/ defineComponent({
       type: String,
       default: () => getComponentConfig(NAME_ALERT, 'dismissLabel')
     },
-    show: {
-      type: [Boolean, Number, String],
-      default: false
-    },
     fade: {
       type: Boolean,
       default: false
     }
   },
+  emits: [EVENT_NAME_DISMISSED, EVENT_NAME_DISMISS_COUNT_DOWN],
   data() {
     return {
       countDown: 0,
       countDownTimeout: null,
       // If initially shown, we need to set these for SSR
-      localShow: parseShow(this.show)
+      localShow: parseShow(this[PROP_NAME_MODEL_VALUE])
     }
   },
   watch: {
-    show(newVal) {
+    [PROP_NAME_MODEL_VALUE](newVal) {
       this.countDown = parseCountDown(newVal)
       this.localShow = parseShow(newVal)
     },
-    countDown(newVal) {
+    countDown(newValue) {
       this.clearCountDownInterval()
-      if (isNumeric(this.show)) {
+      const show = this[PROP_NAME_MODEL_VALUE]
+      if (isNumeric(show)) {
         // Ignore if this.show transitions to a boolean value.
-        this.$emit('dismiss-count-down', newVal)
-        if (this.show !== newVal) {
+        this.$emit(EVENT_NAME_DISMISS_COUNT_DOWN, newValue)
+        if (show !== newValue) {
           // Update the v-model if needed
-          this.$emit('input', newVal)
+          this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
         }
-        if (newVal > 0) {
+        if (newValue > 0) {
           this.localShow = true
           this.countDownTimeout = setTimeout(() => {
             this.countDown--
@@ -96,24 +105,27 @@ export const BAlert = /*#__PURE__*/ defineComponent({
         }
       }
     },
-    localShow(newVal) {
-      if (!newVal && (this.dismissible || isNumeric(this.show))) {
-        // Only emit dismissed events for dismissible or auto dismissing alerts
-        this.$emit('dismissed')
+    localShow(newValue) {
+      const show = this[PROP_NAME_MODEL_VALUE]
+      // Only emit dismissed events for dismissible or auto-dismissing alerts
+      if (!newValue && (this.dismissible || isNumeric(show))) {
+        this.$emit(EVENT_NAME_DISMISSED)
       }
-      if (!isNumeric(this.show) && this.show !== newVal) {
-        // Only emit booleans if we weren't passed a number via `this.show`
-        this.$emit('input', newVal)
+      // Only emit booleans if we weren't passed a number via v-model
+      if (!isNumeric(show) && show !== newValue) {
+        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
       }
     }
   },
   created() {
-    this.countDown = parseCountDown(this.show)
-    this.localShow = parseShow(this.show)
+    const show = this[PROP_NAME_MODEL_VALUE]
+    this.countDown = parseCountDown(show)
+    this.localShow = parseShow(show)
   },
   mounted() {
-    this.countDown = parseCountDown(this.show)
-    this.localShow = parseShow(this.show)
+    const show = this[PROP_NAME_MODEL_VALUE]
+    this.countDown = parseCountDown(show)
+    this.localShow = parseShow(show)
   },
   beforeDestroy() {
     this.clearCountDownInterval()

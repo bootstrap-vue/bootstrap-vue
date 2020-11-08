@@ -1,5 +1,7 @@
+import { defineComponent } from '../vue'
+
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     plain: {
       type: Boolean,
@@ -11,4 +13,4 @@ export default {
       return !this.plain
     }
   }
-}
+})

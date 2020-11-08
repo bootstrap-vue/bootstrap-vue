@@ -1,5 +1,6 @@
 import { defineComponent } from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
+import { EVENT_NAME_CHANGE } from '../../constants/events'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
@@ -15,6 +16,10 @@ import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import paginationMixin from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
+
+// --- Constants ---
+
+const EVENT_NAME_PAGE_CLICK = 'page-click'
 
 // --- Props ---
 
@@ -78,6 +83,7 @@ export const BPaginationNav = /*#__PURE__*/ defineComponent({
   name: NAME_PAGINATION_NAV,
   mixins: [paginationMixin],
   props,
+  names: [EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK],
   computed: {
     // Used by render function to trigger wrapping in '<nav>' element
     isNav() {
@@ -136,7 +142,7 @@ export const BPaginationNav = /*#__PURE__*/ defineComponent({
       const target = evt.currentTarget || evt.target
 
       // Emit a user-cancelable `page-click` event
-      const clickEvt = new BvEvent('page-click', {
+      const clickEvt = new BvEvent(EVENT_NAME_PAGE_CLICK, {
         cancelable: true,
         vueTarget: this,
         target
@@ -151,7 +157,7 @@ export const BPaginationNav = /*#__PURE__*/ defineComponent({
       // native browser click handling of a link
       requestAF(() => {
         this.currentPage = pageNumber
-        this.$emit('change', pageNumber)
+        this.$emit(EVENT_NAME_CHANGE, pageNumber)
       })
 
       // Emulate native link click page reloading behaviour by blurring the

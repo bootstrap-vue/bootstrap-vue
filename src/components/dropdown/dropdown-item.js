@@ -1,4 +1,5 @@
 import { defineComponent, h } from '../../vue'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
@@ -6,8 +7,11 @@ import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BLink, props as BLinkProps } from '../link/link'
 
+// --- Props ---
+
 export const props = omit(BLinkProps, ['event', 'routerTag'])
 
+// --- Main component ---
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_ITEM,
@@ -29,6 +33,7 @@ export const BDropdownItem = /*#__PURE__*/ defineComponent({
       // default: null
     }
   },
+  emits: [EVENT_NAME_CLICK],
   computed: {
     computedAttrs() {
       return {
@@ -47,7 +52,7 @@ export const BDropdownItem = /*#__PURE__*/ defineComponent({
       })
     },
     onClick(evt) {
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
       this.closeDropdown()
     }
   },

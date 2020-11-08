@@ -1,13 +1,23 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { CLASS_NAME_SHOW } from '../../constants/class-names'
+import {
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { eventOnOff } from '../../utils/events'
+import { getRootEventName, eventOnOff } from '../../utils/events'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
   EVENT_TOGGLE,
@@ -18,19 +28,18 @@ import {
 
 // --- Constants ---
 
-// Accordion event name we emit on `$root`
-const EVENT_ACCORDION = 'bv::collapse::accordion'
+const ROOT_EVENT_NAME_COLLAPSE_ACCORDION = getRootEventName(NAME_COLLAPSE, 'accordion')
 
 // --- Main component ---
 // @vue/component
 export const BCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
-  model: {
-    prop: 'visible',
-    event: 'input'
-  },
+  mixins: [idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: Boolean,
+      default: false
+    },
     isNav: {
       type: Boolean,
       default: false
@@ -38,10 +47,6 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     accordion: {
       type: String
       // default: null
-    },
-    visible: {
-      type: Boolean,
-      default: false
     },
     tag: {
       type: String,
@@ -53,9 +58,10 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
       default: false
     }
   },
+  emits: [EVENT_NAME_HIDDEN, EVENT_NAME_HIDE, EVENT_NAME_SHOW, EVENT_NAME_SHOWN],
   data() {
     return {
-      show: this.visible,
+      show: this[PROP_NAME_MODEL_VALUE],
       transitioning: false
     }
   },
@@ -66,29 +72,37 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
         collapse: !this.transitioning,
         show: this.show && !this.transitioning
       }
+    },
+    slotScope() {
+      return {
+        visible: this.show,
+        close: () => {
+          this.show = false
+        }
+      }
     }
   },
   watch: {
-    visible(newVal) {
-      if (newVal !== this.show) {
-        this.show = newVal
+    [PROP_NAME_MODEL_VALUE](newValue) {
+      if (newValue !== this.show) {
+        this.show = newValue
       }
     },
-    show(newVal, oldVal) {
-      if (newVal !== oldVal) {
+    show(newValue, oldValue) {
+      if (newValue !== oldValue) {
         this.emitState()
       }
     }
   },
   created() {
-    this.show = this.visible
+    this.show = this[PROP_NAME_MODEL_VALUE]
   },
   mounted() {
-    this.show = this.visible
+    this.show = this[PROP_NAME_MODEL_VALUE]
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
-    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_COLLAPSE_ACCORDION, this.handleAccordionEvt)
     if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true)
@@ -141,28 +155,28 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     onEnter() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
-      this.$emit('show')
+      this.$emit(EVENT_NAME_SHOW)
     },
     onAfterEnter() {
       this.transitioning = false
-      this.$emit('shown')
+      this.$emit(EVENT_NAME_SHOWN)
     },
     onLeave() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
-      this.$emit('hide')
+      this.$emit(EVENT_NAME_HIDE)
     },
     onAfterLeave() {
       this.transitioning = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     emitState() {
-      this.$emit('input', this.show)
+      this.$emit(EVENT_NAME_MODEL_VALUE, this.show)
       // Let `v-b-toggle` know the state of this collapse
       this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
       if (this.accordion && this.show) {
         // Tell the other collapses in this accordion to close
-        this.emitOnRoot(EVENT_ACCORDION, this.safeId(), this.accordion)
+        this.emitOnRoot(ROOT_EVENT_NAME_COLLAPSE_ACCORDION, this.safeId(), this.accordion)
       }
     },
     emitSync() {
@@ -175,48 +189,46 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
       // Check to see if the collapse has `display: block !important` set
       // We can't set `display: none` directly on `this.$el`, as it would
       // trigger a new transition to start (or cancel a current one)
-      const restore = hasClass(this.$el, 'show')
-      removeClass(this.$el, 'show')
+      const { $el } = this
+      const restore = hasClass($el, CLASS_NAME_SHOW)
+      removeClass($el, CLASS_NAME_SHOW)
       const isBlock = getCS(this.$el).display === 'block'
       if (restore) {
-        addClass(this.$el, 'show')
+        addClass($el, CLASS_NAME_SHOW)
       }
       return isBlock
     },
     clickHandler(evt) {
+      const { target } = evt
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
-      const el = evt.target
-      if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
-        /* istanbul ignore next: can't test getComputedStyle in JSDOM */
+      /* istanbul ignore next: can't test `getComputedStyle()` in JSDOM */
+      if (!this.isNav || !target || getCS(this.$el).display !== 'block') {
         return
       }
-      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
-        if (!this.checkDisplayBlock()) {
-          // Only close the collapse if it is not forced to be `display: block !important`
-          this.show = false
-        }
+      // Only close the collapse if it is not forced to be `display: block !important`
+      if (
+        (matches(target, '.nav-link,.dropdown-item') ||
+          closest('.nav-link,.dropdown-item', target)) &&
+        !this.checkDisplayBlock()
+      ) {
+        this.show = false
       }
     },
-    handleToggleEvt(target) {
-      if (target !== this.safeId()) {
-        return
+    handleToggleEvt(id) {
+      if (id === this.safeId()) {
+        this.toggle()
       }
-      this.toggle()
     },
-    handleAccordionEvt(openedId, accordion) {
-      if (!this.accordion || accordion !== this.accordion) {
+    handleAccordionEvt(openedId, openAccordion) {
+      const { accordion, show } = this
+      if (!accordion || accordion !== openAccordion) {
         return
       }
-      if (openedId === this.safeId()) {
-        // Open this collapse if not shown
-        if (!this.show) {
-          this.toggle()
-        }
-      } else {
-        // Close this collapse if shown
-        if (this.show) {
-          this.toggle()
-        }
+      const isThis = openedId === this.safeId()
+      // Open this collapse if not shown or
+      // close this collapse if shown
+      if ((isThis && !show) || (!isThis && show)) {
+        this.toggle()
       }
     },
     handleResize() {
@@ -225,11 +237,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const scope = {
-      visible: this.show,
-      close: () => (this.show = false)
-    }
-    const content = h(
+    const $content = h(
       this.tag,
       {
         class: this.classObject,
@@ -237,8 +245,9 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot(SLOT_NAME_DEFAULT, scope)]
+      [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)]
     )
+
     return h(
       BVCollapse,
       {
@@ -250,7 +259,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
           afterLeave: this.onAfterLeave
         }
       },
-      [content]
+      [$content]
     )
   }
 })

@@ -1,28 +1,16 @@
-import { h } from '../vue'
+import { defineComponent, h } from '../vue'
+import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import looseEqual from '../utils/loose-equal'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
+import modelMixin from './model'
 import normalizeSlotMixin from './normalize-slot'
 
 // @vue/component
-export default {
-  mixins: [attrsMixin, normalizeSlotMixin],
+export default defineComponent({
+  mixins: [attrsMixin, modelMixin, normalizeSlotMixin],
   inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
   props: {
-    value: {
-      // Value when checked
-      // type: Object,
-      // default: undefined
-    },
-    checked: {
-      // This is the v-model
-      // type: Object,
-      // default: undefined
-    },
     inline: {
       type: Boolean,
       default: false
@@ -54,7 +42,9 @@ export default {
   },
   data() {
     return {
-      localChecked: this.isGroup ? this.bvGroup.checked : this.checked,
+      localChecked: this.isGroup
+        ? this.bvGroup[PROP_NAME_MODEL_VALUE]
+        : this[PROP_NAME_MODEL_VALUE],
       hasFocus: false
     }
   },
@@ -161,7 +151,7 @@ export default {
     }
   },
   watch: {
-    checked(newValue) {
+    [PROP_NAME_MODEL_VALUE](newValue) {
       if (!looseEqual(newValue, this.computedLocalChecked)) {
         this.computedLocalChecked = newValue
       }
@@ -279,4 +269,4 @@ export default {
       )
     }
   }
-}
+})

@@ -209,7 +209,7 @@ describe('icons', () => {
         BIconFakeIconTest: makeIcon('FakeIconTest', '<path class="fake-path" />')
       },
       render() {
-        return h(this.$slots.default)
+        return h(this.$slots.default())
       }
     }
 

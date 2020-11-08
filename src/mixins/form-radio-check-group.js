@@ -1,19 +1,27 @@
-import { h } from '../vue'
+import { defineComponent, h } from '../vue'
+import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import { SLOT_NAME_FIRST } from '../constants/slots'
 import looseEqual from '../utils/loose-equal'
-import normalizeSlotMixin from './normalize-slot'
 import { htmlOrText } from '../utils/html'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
+import modelMixin from './model'
+import normalizeSlotMixin from './normalize-slot'
 
 // @vue/component
-export default {
-  mixins: [normalizeSlotMixin],
-  model: {
-    prop: 'checked',
-    event: 'input'
+export default defineComponent({
+  mixins: [modelMixin, normalizeSlotMixin],
+  provide() {
+    return {
+      bvCheckGroup: this
+    }
   },
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      // type: [Boolean, Number, Object, String]
+      default: null
+    },
     validated: {
       type: Boolean,
       default: false
@@ -41,7 +49,15 @@ export default {
       default: 'secondary'
     }
   },
+  data() {
+    return {
+      localChecked: this[PROP_NAME_MODEL_VALUE] || []
+    }
+  },
   computed: {
+    isRadioGroup() {
+      return false
+    },
     inline() {
       return !this.stacked
     },
@@ -70,14 +86,14 @@ export default {
     }
   },
   watch: {
-    checked(newVal) {
-      if (!looseEqual(newVal, this.localChecked)) {
-        this.localChecked = newVal
+    [PROP_NAME_MODEL_VALUE](newValue) {
+      if (!looseEqual(newValue, this.localChecked)) {
+        this.localChecked = newValue
       }
     },
     localChecked(newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        this.$emit('input', newValue)
+        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
       }
     }
   },
@@ -120,4 +136,4 @@ export default {
       [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot()]
     )
   }
-}
+})

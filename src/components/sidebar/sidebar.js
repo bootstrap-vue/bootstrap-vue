@@ -1,6 +1,8 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
+import { EVENT_NAME_HIDDEN, EVENT_NAME_MODEL_VALUE, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slots'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
@@ -10,6 +12,7 @@ import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
   EVENT_TOGGLE,
@@ -132,13 +135,13 @@ const renderBackdrop = (h, ctx) => {
 export const BSidebar = /*#__PURE__*/ defineComponent({
   name: NAME_SIDEBAR,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: Boolean,
+      default: false
+    },
     title: {
       type: String
       // default: null
@@ -241,18 +244,16 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
     lazy: {
       type: Boolean,
       default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
     }
   },
+  emits: [EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN],
   data() {
+    const show = !!this[PROP_NAME_MODEL_VALUE]
     return {
       // Internal `v-model` state
-      localShow: !!this.visible,
+      localShow: show,
       // For lazy render triggering
-      isOpen: !!this.visible
+      isOpen: show
     }
   },
   computed: {
@@ -296,20 +297,20 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    visible(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.localShow = newVal
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.localShow = newValue
       }
     },
-    localShow(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.emitState(newVal)
-        this.$emit('change', newVal)
+    localShow(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.emitState(newValue)
+        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
       }
     },
     /* istanbul ignore next */
-    $route(newVal = {}, oldVal = {}) /* istanbul ignore next: pain to mock */ {
-      if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
+    $route(newValue = {}, oldValue = {}) /* istanbul ignore next: pain to mock */ {
+      if (!this.noCloseOnRouteChange && newValue.fullPath !== oldValue.fullPath) {
         this.hide()
       }
     }
@@ -391,14 +392,14 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
       if (!contains(el, getActiveElement())) {
         this.enforceFocus(el)
       }
-      this.$emit('shown')
+      this.$emit(EVENT_NAME_SHOWN)
     },
     onAfterLeave() {
       this.enforceFocus(this.$_returnFocusEl)
       this.$_returnFocusEl = null
       // Trigger lazy render
       this.isOpen = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     enforceFocus(el) {
       if (!this.noEnforceFocus) {

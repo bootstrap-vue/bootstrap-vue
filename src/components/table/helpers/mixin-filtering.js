@@ -1,4 +1,5 @@
 import { NAME_TABLE } from '../../../constants/components'
+import { EVENT_NAME_FILTERED } from '../../../constants/events'
 import { RX_SPACES } from '../../../constants/regex'
 import cloneDeep from '../../../utils/clone-deep'
 import identity from '../../../utils/identity'
@@ -10,9 +11,12 @@ import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
 
+// --- Constants ---
+
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
+// @vue/component
 export default {
   props: {
     filter: {
@@ -38,6 +42,7 @@ export default {
       validator: val => /^\d+/.test(String(val))
     }
   },
+  emits: [EVENT_NAME_FILTERED],
   data() {
     return {
       // Flag for displaying which empty slot to show and some event triggering
@@ -140,7 +145,7 @@ export default {
         isFiltered = true
       }
       if (isFiltered) {
-        this.$emit('filtered', filteredItems, filteredItems.length)
+        this.$emit(EVENT_NAME_FILTERED, filteredItems, filteredItems.length)
       }
       this.isFiltered = isFiltered
     },
@@ -148,7 +153,7 @@ export default {
       if (newVal === false && oldVal === true) {
         // We need to emit a filtered event if isFiltered transitions from true to
         // false so that users can update their pagination controls.
-        this.$emit('filtered', this.localItems, this.localItems.length)
+        this.$emit(EVENT_NAME_FILTERED, this.localItems, this.localItems.length)
       }
     }
   },

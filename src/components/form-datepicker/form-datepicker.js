@@ -6,6 +6,13 @@ import {
   CALENDAR_SHORT,
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
+import {
+  EVENT_NAME_CONTEXT,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_SHOWN
+} from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
@@ -13,6 +20,7 @@ import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BCalendar } from '../calendar/calendar'
@@ -26,7 +34,7 @@ const getConfigFallback = prop =>
 // where they appear in the props listing reference section
 const propsMixin = {
   props: {
-    value: {
+    [EVENT_NAME_MODEL_VALUE]: {
       type: [String, Date],
       default: null
     },
@@ -291,15 +299,12 @@ const propsMixin = {
 export const BFormDatepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_DATEPICKER,
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [idMixin, propsMixin, modelMixin, normalizeSlotMixin],
+  emits: [EVENT_NAME_CONTEXT, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN],
   data() {
     return {
       // We always use `YYYY-MM-DD` value internally
-      localYMD: formatYMD(this.value) || '',
+      localYMD: formatYMD(this[PROP_NAME_MODEL_VALUE]) || '',
       // If the popup is open
       isVisible: false,
       // Context data from BCalendar
@@ -321,7 +326,7 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
       const self = this
       return {
         hidden: !self.isVisible,
-        value: self.localYMD,
+        [PROP_NAME_MODEL_VALUE]: self.localYMD,
         min: self.min,
         max: self.max,
         initialDate: self.initialDate,
@@ -364,13 +369,16 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal) {
+    [PROP_NAME_MODEL_VALUE](newVal) {
       this.localYMD = formatYMD(newVal) || ''
     },
     localYMD(newVal) {
       // We only update the v-model when the datepicker is open
       if (this.isVisible) {
-        this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+        this.$emit(
+          EVENT_NAME_MODEL_VALUE,
+          this.valueAsDate ? parseYMD(newVal) || null : newVal || ''
+        )
       }
     },
     calendarYM(newVal, oldVal) /* istanbul ignore next */ {
@@ -424,7 +432,7 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
       this.localYMD = selectedYMD
       this.activeYMD = activeYMD
       // Re-emit the context event
-      this.$emit('context', ctx)
+      this.$emit(EVENT_NAME_CONTEXT, ctx)
     },
     onTodayButton() {
       // Set to today (or min/max if today is out of range)
@@ -443,12 +451,12 @@ export const BFormDatepicker = /*#__PURE__*/ defineComponent({
     onShown() {
       this.$nextTick(() => {
         attemptFocus(this.$refs.calendar)
-        this.$emit('shown')
+        this.$emit(EVENT_NAME_SHOWN)
       })
     },
     onHidden() {
       this.isVisible = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {

@@ -7,18 +7,6 @@ import formSizeMixin from '../../mixins/form-size'
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
-export const props = {
-  switches: {
-    // Custom switch styling
-    type: Boolean,
-    default: false
-  },
-  checked: {
-    type: Array,
-    default: null
-  }
-}
-
 // @vue/component
 export const BFormCheckboxGroup = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_CHECKBOX_GROUP,
@@ -30,20 +18,11 @@ export const BFormCheckboxGroup = /*#__PURE__*/ defineComponent({
     formSizeMixin,
     formStateMixin
   ],
-  provide() {
-    return {
-      bvCheckGroup: this
-    }
-  },
-  props,
-  data() {
-    return {
-      localChecked: this.checked || []
-    }
-  },
-  computed: {
-    isRadioGroup() {
-      return false
+  props: {
+    // Custom switch styling
+    switches: {
+      type: Boolean,
+      default: false
     }
   }
 })

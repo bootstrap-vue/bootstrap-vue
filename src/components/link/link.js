@@ -1,15 +1,21 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
-import { stopEvent } from '../../utils/events'
+import { getRootEventName, stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
 import { pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import attrsMixin from '../../mixins/attrs'
 import listenersMixin from '../../mixins/listeners'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Constants ---
+
+// Accordion event name we emit on `$root`
+export const ROOT_EVENT_NAME_LINK_CLICKED = getRootEventName(NAME_LINK, 'clicked')
 
 // --- Props ---
 
@@ -184,11 +190,12 @@ export const BLink = /*#__PURE__*/ defineComponent({
         // Needed to prevent `vue-router` for doing its thing
         stopEvent(evt, { immediatePropagation: true })
       } else {
-        /* istanbul ignore next: difficult to test, but we know it works */
+        // TODO: Check if this is relevant for Vue 3 / Vue Router 4
+        /* istanbul ignore next */
         if (isRouterLink && evt.currentTarget.__vue__) {
           // Router links do not emit instance `click` events, so we
           // add in an `$emit('click', evt)` on its Vue instance
-          evt.currentTarget.__vue__.$emit('click', evt)
+          evt.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, evt)
         }
         // Call the suppliedHandler(s), if any provided
         concat(suppliedHandler)
@@ -197,7 +204,7 @@ export const BLink = /*#__PURE__*/ defineComponent({
             handler(...arguments)
           })
         // Emit the global `$root` click event
-        this.$root.$emit('clicked::link', evt)
+        this.$root.$emit(ROOT_EVENT_NAME_LINK_CLICKED, evt)
       }
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'

@@ -1,3 +1,4 @@
+import { defineComponent } from '../vue'
 import cloneDeep from './clone-deep'
 import looseEqual from './loose-equal'
 import { isFunction } from './inspect'
@@ -29,16 +30,17 @@ export const makePropWatcher = (propName, normalizePropFn = null) => ({
   }
 })
 
-export const makePropCacheMixin = (propName, proxyPropName, normalizePropFn = null) => ({
-  data() {
-    return {
-      [proxyPropName]: cloneDeep(
-        isFunction(normalizePropFn) ? normalizePropFn(this[propName]) : this[propName]
-      )
+export const makePropCacheMixin = (propName, proxyPropName, normalizePropFn = null) =>
+  defineComponent({
+    data() {
+      return {
+        [proxyPropName]: cloneDeep(
+          isFunction(normalizePropFn) ? normalizePropFn(this[propName]) : this[propName]
+        )
+      }
+    },
+    watch: {
+      // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
+      [propName]: makePropWatcher(proxyPropName, normalizePropFn)
     }
-  },
-  watch: {
-    // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
-    [propName]: makePropWatcher(proxyPropName, normalizePropFn)
-  }
-})
+  })

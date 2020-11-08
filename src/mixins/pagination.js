@@ -1,6 +1,8 @@
-import { h } from '../vue'
+import { defineComponent, h } from '../vue'
 import { NAME_PAGINATION } from '../constants/components'
+import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_SPACE, CODE_UP } from '../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import range from '../utils/range'
 import {
   attemptFocus,
@@ -16,6 +18,7 @@ import { mathFloor, mathMax, mathMin } from '../utils/math'
 import { toInteger } from '../utils/number'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
+import modelMixin from '../mixins/model'
 import normalizeSlotMixin from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
 
@@ -61,12 +64,9 @@ const onSpaceKey = evt => {
 }
 
 // --- Props ---
+
 export const props = {
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  value: {
+  [PROP_NAME_MODEL_VALUE]: {
     type: [Number, String],
     default: null,
     validator(value) /* istanbul ignore next */ {
@@ -76,6 +76,10 @@ export const props = {
       }
       return true
     }
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   },
   limit: {
     type: [Number, String],
@@ -183,16 +187,12 @@ export const props = {
 }
 
 // @vue/component
-export default {
-  mixins: [normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
+export default defineComponent({
+  mixins: [modelMixin, normalizeSlotMixin],
   props,
   data() {
     // `-1` signifies no page initially selected
-    let currentPage = toInteger(this.value, 0)
+    let currentPage = toInteger(this[PROP_NAME_MODEL_VALUE], 0)
     currentPage = currentPage > 0 ? currentPage : -1
     return {
       currentPage,
@@ -333,7 +333,7 @@ export default {
     }
   },
   watch: {
-    value(newValue, oldValue) {
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
       if (newValue !== oldValue) {
         this.currentPage = sanitizeCurrentPage(newValue, this.localNumberOfPages)
       }
@@ -341,7 +341,7 @@ export default {
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
         // Emit `null` if no page selected
-        this.$emit('input', newValue > 0 ? newValue : null)
+        this.$emit(EVENT_NAME_MODEL_VALUE, newValue > 0 ? newValue : null)
       }
     },
     limit(newValue, oldValue) {
@@ -697,4 +697,4 @@ export default {
 
     return $pagination
   }
-}
+})

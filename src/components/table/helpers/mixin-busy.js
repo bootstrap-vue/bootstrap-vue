@@ -1,14 +1,22 @@
 import { h } from '../../../vue'
+import { EVENT_NAME_MODEL_PREFIX } from '../../../constants/events'
 import { stopEvent } from '../../../utils/events'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 
-const busySlotName = 'table-busy'
+// --- Constants ---
 
+const PROP_NAME_BUSY = 'busy'
+
+const EVENT_NAME_MODEL_BUSY = EVENT_NAME_MODEL_PREFIX + PROP_NAME_BUSY
+
+const SLOT_NAME_TABLE_BUSY = 'table-busy'
+
+// @vue/component
 export default {
   props: {
-    busy: {
+    [PROP_NAME_BUSY]: {
       type: Boolean,
       default: false
     }
@@ -20,13 +28,13 @@ export default {
   },
   computed: {
     computedBusy() {
-      return this.busy || this.localBusy
+      return this[PROP_NAME_BUSY] || this.localBusy
     }
   },
   watch: {
-    localBusy(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:busy', newVal)
+    localBusy(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$emit(EVENT_NAME_MODEL_BUSY, newValue)
       }
     }
   },
@@ -43,7 +51,7 @@ export default {
     // Render the busy indicator or return `null` if not busy
     renderBusy() {
       // Return a busy indicator row, or `null` if not busy
-      if (this.computedBusy && this.hasNormalizedSlot(busySlotName)) {
+      if (this.computedBusy && this.hasNormalizedSlot(SLOT_NAME_TABLE_BUSY)) {
         // Show the busy slot
         return h(
           BTr,
@@ -52,16 +60,16 @@ export default {
             staticClass: 'b-table-busy-slot',
             class: [
               isFunction(this.tbodyTrClass)
-                ? /* istanbul ignore next */ this.tbodyTrClass(null, busySlotName)
+                ? /* istanbul ignore next */ this.tbodyTrClass(null, SLOT_NAME_TABLE_BUSY)
                 : this.tbodyTrClass
             ],
             attrs: isFunction(this.tbodyTrAttr)
-              ? /* istanbul ignore next */ this.tbodyTrAttr(null, busySlotName)
+              ? /* istanbul ignore next */ this.tbodyTrAttr(null, SLOT_NAME_TABLE_BUSY)
               : this.tbodyTrAttr
           },
           [
             h(BTd, { props: { colspan: this.computedFields.length || null } }, [
-              this.normalizeSlot(busySlotName)
+              this.normalizeSlot(SLOT_NAME_TABLE_BUSY)
             ])
           ]
         )

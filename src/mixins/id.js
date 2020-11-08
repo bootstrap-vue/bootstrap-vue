@@ -1,9 +1,10 @@
 // SSR safe client-side ID attribute generation
 // ID's can only be generated client-side, after mount
 // `this._uid` is not synched between server and client
+import { defineComponent } from '../vue'
 
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     id: {
       type: String
@@ -42,4 +43,4 @@ export default {
       this.localId_ = `__BVID__${this._uid}`
     })
   }
-}
+})

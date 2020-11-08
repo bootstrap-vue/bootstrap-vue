@@ -1,5 +1,6 @@
 import { defineComponent } from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import looseEqual from '../../utils/loose-equal'
 import idMixin from '../../mixins/id'
 import formMixin from '../../mixins/form'
@@ -23,13 +24,7 @@ export const BFormRadio = /*#__PURE__*/ defineComponent({
       default: false
     }
   },
-  props: {
-    checked: {
-      // v-model
-      // type: [String, Number, Boolean, Object],
-      default: null
-    }
-  },
+  emits: [EVENT_NAME_CHANGE],
   computed: {
     // Radio Groups can only have a single value, so determining if checked is simple
     isChecked() {
@@ -46,7 +41,7 @@ export const BFormRadio = /*#__PURE__*/ defineComponent({
   watch: {
     // Radio Groups can only have a single value, so our watchers are simple
     computedLocalChecked() {
-      this.$emit('input', this.computedLocalChecked)
+      this.$emit(EVENT_NAME_MODEL_VALUE, this.computedLocalChecked)
     }
   },
   methods: {
@@ -54,10 +49,10 @@ export const BFormRadio = /*#__PURE__*/ defineComponent({
       const value = this.value
       this.computedLocalChecked = value
       // Change is only emitted on user interaction
-      this.$emit('change', checked ? value : null)
+      this.$emit(EVENT_NAME_CHANGE, checked ? value : null)
       // If this is a child of form-radio-group, we emit a change event on it as well
       if (this.isGroup) {
-        this.bvGroup.$emit('change', checked ? value : null)
+        this.bvGroup.$emit(EVENT_NAME_CHANGE, checked ? value : null)
       }
     }
   }

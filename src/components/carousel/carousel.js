@@ -1,7 +1,8 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { EVENT_NAME_MODEL_VALUE, EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
 import { getComponentConfig } from '../../utils/config'
@@ -20,7 +21,15 @@ import { isUndefined } from '../../utils/inspect'
 import { mathAbs, mathFloor, mathMax, mathMin } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+
+// --- Constants ---
+
+const EVENT_NAME_PAUSED = 'paused'
+const EVENT_NAME_UNPAUSED = 'unpaused'
+const EVENT_NAME_SLIDING_START = 'sliding-start'
+const EVENT_NAME_SLIDING_END = 'sliding-end'
 
 // Slide directional classes
 const DIRECTION = {
@@ -57,6 +66,8 @@ const TransitionEndEvents = {
   transition: 'transitionend'
 }
 
+// --- Helper methods ---
+
 // Return the browser specific transitionEnd event name
 const getTransitionEndEvent = el => {
   for (const name in TransitionEndEvents) {
@@ -69,18 +80,19 @@ const getTransitionEndEvent = el => {
   return null
 }
 
+// --- Main component ---
 // @vue/component
 export const BCarousel = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL,
-  mixins: [idMixin, normalizeSlotMixin],
+  mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
     return { bvCarousel: this }
   },
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: Number,
+      default: 0
+    },
     labelPrev: {
       type: String,
       default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev')
@@ -147,15 +159,12 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
     background: {
       type: String
       // default: undefined
-    },
-    value: {
-      type: Number,
-      default: 0
     }
   },
+  emits: [EVENT_NAME_PAUSED, EVENT_NAME_SLIDING_END, EVENT_NAME_SLIDING_START, EVENT_NAME_UNPAUSED],
   data() {
     return {
-      index: this.value || 0,
+      index: this[PROP_NAME_MODEL_VALUE] || 0,
       isSliding: false,
       transitionEndEvent: null,
       slides: [],
@@ -172,7 +181,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal, oldVal) {
+    [PROP_NAME_MODEL_VALUE](newVal, oldVal) {
       if (newVal !== oldVal) {
         this.setSlide(toInteger(newVal, 0))
       }
@@ -193,7 +202,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
     },
     isPaused(newVal, oldVal) {
       if (newVal !== oldVal) {
-        this.$emit(newVal ? 'paused' : 'unpaused')
+        this.$emit(newVal ? EVENT_NAME_PAUSED : EVENT_NAME_UNPAUSED)
       }
     },
     index(to, from) {
@@ -206,6 +215,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
   },
   created() {
     // Create private non-reactive props
+    this.$_scheduledSetSlides = []
     this.$_interval = null
     this.$_animationTimeout = null
     this.$_touchTimeout = null
@@ -270,7 +280,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
       // Don't change slide while transitioning, wait until transition is done
       if (this.isSliding) {
         // Schedule slide after sliding complete
-        this.$once('sliding-end', () => {
+        this.$_scheduledSetSlides.push(() => {
           // Wrap in `requestAF()` to allow the slide to properly finish to avoid glitching
           requestAF(() => this.setSlide(slide, direction))
         })
@@ -291,8 +301,8 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
             : slide
       // Ensure the v-model is synched up if no-wrap is enabled
       // and user tried to slide pass either ends
-      if (noWrap && this.index !== slide && this.index !== this.value) {
-        this.$emit('input', this.index)
+      if (noWrap && this.index !== slide && this.index !== this[PROP_NAME_MODEL_VALUE]) {
+        this.$emit(EVENT_NAME_MODEL_VALUE, this.index)
       }
     },
     // Previous slide
@@ -348,15 +358,22 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
       if (isCycling) {
         this.pause(false)
       }
-      this.$emit('sliding-start', to)
+      this.$emit(EVENT_NAME_SLIDING_START, to)
       // Update v-model
-      this.$emit('input', this.index)
+      this.$emit(EVENT_NAME_MODEL_VALUE, this.index)
       if (this.noAnimation) {
         addClass(nextSlide, 'active')
         removeClass(currentSlide, 'active')
         this.isSliding = false
-        // Notify ourselves that we're done sliding (slid)
-        this.$nextTick(() => this.$emit('sliding-end', to))
+        // Notify ourselves that we're done sliding
+        this.$nextTick(() => {
+          this.$emit(EVENT_NAME_SLIDING_END, to)
+          // Execute scheduled `setSlide()` calls that occurred during sliding
+          this.$_scheduledSetSlides.forEach(scheduledSetSlide => {
+            scheduledSetSlide()
+          })
+          this.$_scheduledSetSlides = []
+        })
       } else {
         addClass(nextSlide, overlayClass)
         // Trigger a reflow of next slide
@@ -390,7 +407,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
           this.isSliding = false
           this.direction = null
           // Notify ourselves that we're done sliding (slid)
-          this.$nextTick(() => this.$emit('sliding-end', to))
+          this.$nextTick(() => this.$emit(EVENT_NAME_SLIDING_END, to))
         }
         // Set up transitionend handler
         /* istanbul ignore if: transition events cant be tested in JSDOM */

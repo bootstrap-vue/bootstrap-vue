@@ -1,4 +1,5 @@
 import { defineComponent, h } from '../../vue'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -37,6 +38,7 @@ export const BDropdownItemButton = /*#__PURE__*/ defineComponent({
   },
   inheritAttrs: false,
   props,
+  emits: [EVENT_NAME_CLICK],
   computed: {
     computedAttrs() {
       return {
@@ -54,7 +56,7 @@ export const BDropdownItemButton = /*#__PURE__*/ defineComponent({
       }
     },
     onClick(evt) {
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
       this.closeDropdown()
     }
   },

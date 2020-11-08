@@ -1,6 +1,11 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_FILE } from '../../constants/components'
-import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_OPTIONS_PASSIVE
+} from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
 import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
@@ -19,6 +24,7 @@ import formCustomMixin from '../../mixins/form-custom'
 import formMixin from '../../mixins/form'
 import formStateMixin from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Constants ---
@@ -110,18 +116,18 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
 // @vue/component
 export const BFormFile = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_FILE,
-  mixins: [attrsMixin, idMixin, formMixin, formStateMixin, formCustomMixin, normalizeSlotMixin],
+  mixins: [
+    attrsMixin,
+    idMixin,
+    modelMixin,
+    normalizeSlotMixin,
+    formMixin,
+    formStateMixin,
+    formCustomMixin
+  ],
   inheritAttrs: false,
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
-    size: {
-      type: String,
-      default: () => getComponentConfig('BFormControl', 'size')
-    },
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       type: [File, Array],
       default: null,
       validator: value => {
@@ -132,6 +138,10 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
         }
         return isUndefinedOrNull(value) || isValidValue(value)
       }
+    },
+    size: {
+      type: String,
+      default: () => getComponentConfig('BFormControl', 'size')
     },
     accept: {
       type: String,
@@ -187,6 +197,7 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
       default: null
     }
   },
+  emits: [EVENT_NAME_CHANGE],
   data() {
     return {
       files: [],
@@ -299,7 +310,7 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newValue) {
+    [PROP_NAME_MODEL_VALUE](newValue) {
       if (!newValue || (isArray(newValue) && newValue.length === 0)) {
         this.reset()
       }
@@ -308,18 +319,26 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
       if (!looseEqual(newValue, oldValue)) {
         const { multiple, noTraverse } = this
         const files = !multiple || noTraverse ? flattenDeep(newValue) : newValue
-        this.$emit('input', multiple ? files : files[0] || null)
+        this.$emit(EVENT_NAME_MODEL_VALUE, multiple ? files : files[0] || null)
       }
     }
+  },
+  created() {
+    // Create private non-reactive props
+    this.$_form = null
   },
   mounted() {
     // Listen for form reset events, to reset the file input
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on('hook:beforeDestroy', () => {
-        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      })
+      this.$_form = $form
+    }
+  },
+  beforeDestroy() {
+    const $form = this.$_form
+    if ($form) {
+      eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
     }
   },
   methods: {
@@ -405,7 +424,7 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
       const isDrop = type === 'drop'
 
       // Always emit original event
-      this.$emit('change', evt)
+      this.$emit(EVENT_NAME_CHANGE, evt)
 
       const items = arrayFrom(dataTransfer.items || [])
       if (hasPromiseSupport && items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {

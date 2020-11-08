@@ -30,7 +30,7 @@ describe('mixins/listen-on-document', () => {
         }
       },
       render() {
-        return h('div', this.$slots.default)
+        return h('div', this.$slots.default())
       }
     }
 

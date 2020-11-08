@@ -1,5 +1,14 @@
 import Popper from 'popper.js'
+import { defineComponent } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
+import {
+  EVENT_NAME_CLICK,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_NAME_TOGGLE
+} from '../constants/events'
 import { CODE_DOWN, CODE_ENTER, CODE_ESC, CODE_SPACE, CODE_UP } from '../constants/key-codes'
 import {
   PLACEMENT_TOP_START,
@@ -11,7 +20,7 @@ import {
 } from '../constants/popper'
 import { BvEvent } from '../utils/bv-event.class'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
-import { stopEvent } from '../utils/events'
+import { getRootEventName, stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
 import { mergeDeep } from '../utils/object'
 import { HTMLElement } from '../utils/safe-types'
@@ -19,13 +28,12 @@ import { warn } from '../utils/warn'
 import clickOutMixin from './click-out'
 import focusInMixin from './focus-in'
 import idMixin from './id'
+import listenOnRoot from './listen-on-root'
 
 // --- Constants ---
 
-// Root dropdown event names
-const ROOT_EVENT_PREFIX = 'bv::dropdown::'
-const ROOT_EVENT_SHOWN = `${ROOT_EVENT_PREFIX}shown`
-const ROOT_EVENT_HIDDEN = `${ROOT_EVENT_PREFIX}hidden`
+const ROOT_EVENT_NAME_DROPDOWN_SHOWN = getRootEventName(NAME_DROPDOWN, EVENT_NAME_SHOWN)
+const ROOT_EVENT_NAME_DROPDOWN_HIDDEN = getRootEventName(NAME_DROPDOWN, EVENT_NAME_HIDDEN)
 
 // CSS selectors
 const SELECTOR_FORM_CHILD = '.dropdown form'
@@ -84,8 +92,8 @@ export const commonProps = {
 }
 
 // @vue/component
-export default {
-  mixins: [idMixin, clickOutMixin, focusInMixin],
+export default defineComponent({
+  mixins: [idMixin, listenOnRoot, clickOutMixin, focusInMixin],
   provide() {
     return { bvDropdown: this }
   },
@@ -99,6 +107,14 @@ export default {
       default: false
     }
   },
+  emits: [
+    EVENT_NAME_CLICK,
+    EVENT_NAME_HIDDEN,
+    EVENT_NAME_HIDE,
+    EVENT_NAME_SHOW,
+    EVENT_NAME_SHOWN,
+    EVENT_NAME_TOGGLE
+  ],
   data() {
     return {
       visible: false,
@@ -110,7 +126,7 @@ export default {
       return !isNull(this.bvNavbar)
     },
     toggler() {
-      const toggle = this.$refs.toggle
+      const { toggle } = this.$refs
       return toggle ? toggle.$el || toggle : null
     },
     directionClass() {
@@ -138,7 +154,7 @@ export default {
       }
 
       if (newValue !== oldValue) {
-        const evtName = newValue ? 'show' : 'hide'
+        const evtName = newValue ? EVENT_NAME_SHOW : EVENT_NAME_HIDE
         const bvEvt = new BvEvent(evtName, {
           cancelable: true,
           vueTarget: this,
@@ -155,7 +171,7 @@ export default {
           this.$off('hidden', this.focusToggler)
           return
         }
-        if (evtName === 'show') {
+        if (newValue) {
           this.showMenu()
         } else {
           this.hideMenu()
@@ -190,7 +206,7 @@ export default {
     emitEvent(bvEvt) {
       const { type } = bvEvt
       this.$emit(type, bvEvt)
-      this.$root.$emit(`${ROOT_EVENT_PREFIX}${type}`, bvEvt)
+      this.emitOnRoot(getRootEventName(NAME_DROPDOWN, type))
     },
     showMenu() {
       if (this.disabled) {
@@ -214,7 +230,7 @@ export default {
       }
 
       // Ensure other menus are closed
-      this.$root.$emit(ROOT_EVENT_SHOWN, this)
+      this.emitOnRoot(ROOT_EVENT_NAME_DROPDOWN_SHOWN, this)
 
       // Enable listeners
       this.whileOpenListen(true)
@@ -224,13 +240,13 @@ export default {
         // Focus on the menu container on show
         this.focusMenu()
         // Emit the shown event
-        this.$emit('shown')
+        this.$emit(EVENT_NAME_SHOWN)
       })
     },
     hideMenu() {
       this.whileOpenListen(false)
-      this.$root.$emit(ROOT_EVENT_HIDDEN, this)
-      this.$emit('hidden')
+      this.emitOnRoot(ROOT_EVENT_NAME_DROPDOWN_HIDDEN, this)
+      this.$emit(EVENT_NAME_HIDDEN)
       this.destroyPopper()
     },
     createPopper(element) {
@@ -281,7 +297,7 @@ export default {
       this.listenForFocusIn = isOpen
       // Hide the dropdown when another dropdown is opened
       const method = isOpen ? '$on' : '$off'
-      this.$root[method](ROOT_EVENT_SHOWN, this.rootCloseListener)
+      this.$root[method](ROOT_EVENT_NAME_DROPDOWN_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {
@@ -328,7 +344,7 @@ export default {
         this.visible = false
         return
       }
-      this.$emit('toggle', evt)
+      this.$emit(EVENT_NAME_TOGGLE, evt)
       stopEvent(evt)
       // Toggle visibility
       if (this.visible) {
@@ -380,7 +396,7 @@ export default {
         this.visible = false
         return
       }
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
     },
     // Shared hide handler between click-out and focus-in events
     hideHandler(evt) {
@@ -442,4 +458,4 @@ export default {
       })
     }
   }
-}
+})

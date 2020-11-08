@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { getComponentConfig } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -30,6 +31,7 @@ export const BNavbarToggle = /*#__PURE__*/ defineComponent({
       default: false
     }
   },
+  emits: [EVENT_NAME_CLICK],
   data() {
     return {
       toggleState: false
@@ -43,7 +45,7 @@ export const BNavbarToggle = /*#__PURE__*/ defineComponent({
     onClick(evt) {
       if (!this.disabled) {
         // Emit courtesy `click` event
-        this.$emit('click', evt)
+        this.$emit(EVENT_NAME_CLICK, evt)
       }
     },
     handleStateEvt(id, state) {

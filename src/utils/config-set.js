@@ -1,4 +1,4 @@
-import { Vue as OurVue } from '../vue'
+import { isVue2 } from '../vue'
 import DEFAULTS from './config-defaults'
 import cloneDeep from './clone-deep'
 import { getRaw } from './get'
@@ -100,18 +100,18 @@ class BvConfig {
 }
 
 // Method for applying a global config
-export const setConfig = (config = {}, Vue = OurVue) => {
-  // Ensure we have a $bvConfig Object on the Vue prototype.
-  // We set on Vue and OurVue just in case consumer has not set an alias of `vue`.
-  Vue.prototype[PROP_NAME] = OurVue.prototype[PROP_NAME] =
-    Vue.prototype[PROP_NAME] || OurVue.prototype[PROP_NAME] || new BvConfig()
-  // Apply the config values
-  Vue.prototype[PROP_NAME].setConfig(config)
-}
+export const setConfig = (app, config = {}) => {
+  // Get/Create the current config
+  const bvConfig =
+    (isVue2 ? app.prototype[PROP_NAME] : app.config.globalProperties[PROP_NAME]) || new BvConfig()
 
-// Method for resetting the user config. Exported for testing purposes only.
-export const resetConfig = () => {
-  if (OurVue.prototype[PROP_NAME] && OurVue.prototype[PROP_NAME].resetConfig) {
-    OurVue.prototype[PROP_NAME].resetConfig()
+  // Apply the config values
+  bvConfig.setConfig(config)
+
+  // Re-assign the config
+  if (isVue2) {
+    app.prototype[PROP_NAME] = bvConfig
+  } else {
+    app.config.globalProperties[PROP_NAME] = bvConfig
   }
 }

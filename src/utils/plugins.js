@@ -1,13 +1,15 @@
-import { Vue as OurVue } from '../vue'
+import { isVue2, Vue as OurVue } from '../vue'
+import { ROOT_EVENT_EMITTER_KEY } from '../constants/events'
 import { setConfig } from './config-set'
+import { createEmitter } from './emitter'
 import { hasWindowSupport, isJSDOM } from './env'
 import { warn } from './warn'
 
 /**
- * Checks if there are multiple instances of Vue, and warns (once) about possible issues.
+ * Checks if there are multiple instances of Vue, and warns (once) about possible issues
  * @param {object} Vue
  */
-export const checkMultipleVue = (() => {
+const checkMultipleVue = (() => {
   let checkMultipleVueWarned = false
 
   const MULTIPLE_VUE_WARNING = [
@@ -18,7 +20,7 @@ export const checkMultipleVue = (() => {
 
   return Vue => {
     /* istanbul ignore next */
-    if (!checkMultipleVueWarned && OurVue !== Vue && !isJSDOM) {
+    if (!isVue2 && !checkMultipleVueWarned && OurVue !== Vue && !isJSDOM) {
       warn(MULTIPLE_VUE_WARNING)
     }
     checkMultipleVueWarned = true
@@ -26,22 +28,107 @@ export const checkMultipleVue = (() => {
 })()
 
 /**
- * Plugin install factory function.
- * @param {object} { components, directives }
- * @returns {function} plugin install function
+ * Register a emitter
+ * @param {object} app
  */
-export const installFactory = ({ components, directives, plugins } = {}) => {
-  const install = (Vue, config = {}) => {
+const registerEmitter = (app, key) => {
+  if (isVue2 ? app.prototype[key] : app.config.globalProperties[key]) {
+    return
+  }
+  const emitter = createEmitter()
+  if (isVue2) {
+    app.prototype[key] = emitter
+  } else {
+    app.config.globalProperties[key] = emitter
+  }
+}
+
+/**
+ * Register a component
+ * @param {object} app
+ * @param {string} name
+ * @param {object} component
+ */
+const registerComponent = (app, name, component) => {
+  if (app && name && component) {
+    app.component(name, component)
+  }
+}
+
+/**
+ * Register a group of components
+ * @param {object} app
+ * @param {object} components
+ */
+const registerComponents = (app, components = {}) => {
+  for (const name in components) {
+    registerComponent(app, name, components[name])
+  }
+}
+
+/**
+ * Register a directive
+ * @param {object} pp
+ * @param {string} name
+ * @param {object} directive
+ */
+const registerDirective = (app, name, directive) => {
+  if (app && name && directive) {
+    // Ensure that any leading 'V' is removed from the name,
+    // as Vue adds it automatically
+    app.directive(name.replace(/^VB/, 'B'), directive)
+  }
+}
+
+/**
+ * Register a group of directives
+ * @param {object} app
+ * @param {object} directives of directive definitions
+ */
+const registerDirectives = (app, directives = {}) => {
+  for (const name in directives) {
+    registerDirective(app, name, directives[name])
+  }
+}
+
+/**
+ * Register a group of plugins
+ * @param {object} app
+ * @param {object} plugins
+ */
+const registerPlugins = (app, plugins = {}) => {
+  for (const plugin in plugins) {
+    if (plugin) {
+      app.use(plugin)
+    }
+  }
+}
+
+/**
+ * Plugin install factory function
+ * @param {object} options
+ * @param {boolean} globalConfig
+ * @returns {function}
+ */
+export const installFactory = (
+  { components = {}, directives = {}, plugins = {} } = {},
+  globalConfig = true
+) => {
+  const install = (app, config = {}) => {
+    /* istanbul ignore next */
     if (install.installed) {
-      /* istanbul ignore next */
       return
     }
+    checkMultipleVue(app)
+    if (globalConfig) {
+      setConfig(app, config)
+    }
+    registerEmitter(app, ROOT_EVENT_EMITTER_KEY)
+    registerComponents(app, components)
+    registerComponents(app, components)
+    registerDirectives(app, directives)
+    registerPlugins(app, plugins)
     install.installed = true
-    checkMultipleVue(Vue)
-    setConfig(config, Vue)
-    registerComponents(Vue, components)
-    registerDirectives(Vue, directives)
-    registerPlugins(Vue, plugins)
   }
 
   install.installed = false
@@ -50,32 +137,10 @@ export const installFactory = ({ components, directives, plugins } = {}) => {
 }
 
 /**
- * Plugin install factory function (no plugin config option).
- * @param {object} { components, directives }
- * @returns {function} plugin install function
- */
-export const installFactoryNoConfig = ({ components, directives, plugins } = {}) => {
-  const install = Vue => {
-    if (install.installed) {
-      /* istanbul ignore next */
-      return
-    }
-    install.installed = true
-    checkMultipleVue(Vue)
-    registerComponents(Vue, components)
-    registerDirectives(Vue, directives)
-    registerPlugins(Vue, plugins)
-  }
-
-  install.installed = false
-
-  return install
-}
-
-/**
- * Plugin object factory function.
- * @param {object} { components, directives, plugins }
- * @returns {object} plugin install object
+ * Plugin object factory function
+ * @param {object} options { components, directives, plugins }
+ * @param {object} extend
+ * @returns {object}
  */
 export const pluginFactory = (options = {}, extend = {}) => ({
   ...extend,
@@ -83,87 +148,31 @@ export const pluginFactory = (options = {}, extend = {}) => ({
 })
 
 /**
- * Plugin object factory function (no config option).
- * @param {object} { components, directives, plugins }
- * @returns {object} plugin install object
+ * Plugin object factory function (no config option)
+ * @param {object} options { components, directives, plugins }
+ * @param {object} extend
+ * @returns {object}
  */
 export const pluginFactoryNoConfig = (options = {}, extend = {}) => ({
   ...extend,
-  install: installFactoryNoConfig(options)
+  install: installFactory(options, false)
 })
 
 /**
- * Load a group of plugins.
- * @param {object} Vue
- * @param {object} Plugin definitions
+ * Install plugin if `window.Vue` available
+ * @param {object} plugin
  */
-export const registerPlugins = (Vue, plugins = {}) => {
-  for (const plugin in plugins) {
-    if (plugin && plugins[plugin]) {
-      Vue.use(plugins[plugin])
-    }
+export const vueUse = plugin => {
+  /* istanbul ignore next */
+  if (!isVue2) {
+    return
   }
-}
-
-/**
- * Load a component.
- * @param {object} Vue
- * @param {string} Component name
- * @param {object} Component definition
- */
-export const registerComponent = (Vue, name, def) => {
-  if (Vue && name && def) {
-    Vue.component(name, def)
-  }
-}
-
-/**
- * Load a group of components.
- * @param {object} Vue
- * @param {object} Object of component definitions
- */
-export const registerComponents = (Vue, components = {}) => {
-  for (const component in components) {
-    registerComponent(Vue, component, components[component])
-  }
-}
-
-/**
- * Load a directive.
- * @param {object} Vue
- * @param {string} Directive name
- * @param {object} Directive definition
- */
-export const registerDirective = (Vue, name, def) => {
-  if (Vue && name && def) {
-    // Ensure that any leading V is removed from the
-    // name, as Vue adds it automatically
-    Vue.directive(name.replace(/^VB/, 'B'), def)
-  }
-}
-
-/**
- * Load a group of directives.
- * @param {object} Vue
- * @param {object} Object of directive definitions
- */
-export const registerDirectives = (Vue, directives = {}) => {
-  for (const directive in directives) {
-    registerDirective(Vue, directive, directives[directive])
-  }
-}
-
-/**
- * Install plugin if window.Vue available
- * @param {object} Plugin definition
- */
-export const vueUse = VuePlugin => {
   /* istanbul ignore next */
   if (hasWindowSupport && window.Vue) {
-    window.Vue.use(VuePlugin)
+    window.Vue.use(plugin)
   }
   /* istanbul ignore next */
-  if (hasWindowSupport && VuePlugin.NAME) {
-    window[VuePlugin.NAME] = VuePlugin
+  if (hasWindowSupport && plugin.NAME) {
+    window[plugin.NAME] = plugin
   }
 }

@@ -1,9 +1,9 @@
-import { isVue2 } from '../vue'
+import { defineComponent, isVue2 } from '../vue'
 import { SLOT_NAME_DEFAULT } from '../constants/slots'
 import { hasNormalizedSlot, normalizeSlot } from '../utils/normalize-slot'
 import { concat } from '../utils/array'
 
-export default {
+export default defineComponent({
   methods: {
     hasNormalizedSlot(name = SLOT_NAME_DEFAULT) {
       // Returns `true` if the either a `$scopedSlot` or `$slot` exists with the specified name
@@ -18,4 +18,4 @@ export default {
       return vNodes ? concat(vNodes) : vNodes
     }
   }
-}
+})

@@ -11,7 +11,7 @@ const findIconComponent = (ctx, iconName) => {
   if (!ctx) {
     return null
   }
-  const components = (ctx.$options || {}).components
+  const components = (ctx.$options || {}).components || {}
   const iconComponent = components[iconName]
   return iconComponent || findIconComponent(ctx.$parent, iconName)
 }

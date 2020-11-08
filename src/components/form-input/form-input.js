@@ -12,6 +12,8 @@ import formValidityMixin from '../../mixins/form-validity'
 import idMixin from '../../mixins/id'
 import listenersMixin from '../../mixins/listeners'
 
+// --- Constants ---
+
 // Valid supported input types
 const TYPES = [
   'text',
@@ -31,6 +33,7 @@ const TYPES = [
   'week'
 ]
 
+// --- Main component ---
 // @vue/component
 export const BFormInput = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_INPUT,

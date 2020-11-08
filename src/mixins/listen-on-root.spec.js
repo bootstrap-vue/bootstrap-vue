@@ -1,5 +1,6 @@
 import { h } from 'vue'
 import { mount } from '@vue/test-utils'
+import BootstrapVuePlugin from '../index'
 import listenOnRootMixin from './listen-on-root'
 
 describe('mixins/listen-on-root', () => {
@@ -14,7 +15,7 @@ describe('mixins/listen-on-root', () => {
         this.listenOnRootOnce('root-once', spyOnce)
       },
       render() {
-        return h('div', this.$slots.default)
+        return h('div', this.$slots.default())
       }
     }
 
@@ -32,6 +33,9 @@ describe('mixins/listen-on-root', () => {
     }
 
     const wrapper = mount(App, {
+      global: {
+        plugins: [BootstrapVuePlugin]
+      },
       props: {
         destroy: false
       }

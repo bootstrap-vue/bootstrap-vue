@@ -327,7 +327,7 @@ describe('b-link', () => {
         render() {
           // We just us a simple A tag to render the
           // fake `<g-link>` and assume `to` is a string
-          return h('a', { href: this.to }, [this.$slots.default])
+          return h('a', { href: this.to }, [this.$slots.default()])
         }
       }
 

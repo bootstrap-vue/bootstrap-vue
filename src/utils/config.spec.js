@@ -7,17 +7,13 @@ import {
   getBreakpointsUp,
   getBreakpointsDown
 } from './config'
-import { setConfig, resetConfig } from './config-set'
+import { setConfig } from './config-set'
 import { createLocalVue } from '@vue/test-utils'
 import BootstrapVue from '../../src'
 import { AlertPlugin } from '../../src/components/alert'
 import { BVConfigPlugin } from '../../src/bv-config'
 
 describe('utils/config', () => {
-  afterEach(() => {
-    resetConfig()
-  })
-
   it('getConfigValue() works', async () => {
     expect(getConfigValue('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
@@ -95,7 +91,7 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual({ ...testConfig, ...testBreakpoints })
 
     // Reset the configuration
-    resetConfig()
+    // resetConfig()
     expect(getConfig()).toEqual({})
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     expect(getComponentConfig('BAlert', 'variant')).toEqual(DEFAULTS.BAlert.variant)
@@ -115,7 +111,7 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual(testConfig)
 
     // Reset the configuration
-    resetConfig()
+    // resetConfig()
     expect(getConfig()).toEqual({})
   })
 
@@ -131,7 +127,7 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual(testConfig)
 
     // Reset the configuration
-    resetConfig()
+    // resetConfig()
     expect(getConfig()).toEqual({})
   })
 
@@ -147,7 +143,7 @@ describe('utils/config', () => {
     expect(getConfig()).toEqual(testConfig)
 
     // Reset the configuration
-    resetConfig()
+    // resetConfig()
     expect(getConfig()).toEqual({})
   })
 })

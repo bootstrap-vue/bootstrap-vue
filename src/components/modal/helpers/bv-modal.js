@@ -1,9 +1,11 @@
 // Plugin for adding `$bvModal` property to all Vue instances
 import { defineComponent } from '../../../vue'
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
+import { EVENT_NAME_HIDE, EVENT_NAME_SHOW } from '../../constants/events'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
+import { getRootActionEventName } from '../../../utils/events'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -20,6 +22,9 @@ import { BModal, props as modalProps } from '../modal'
 
 // --- Constants ---
 
+const ROOT_ACTION_EVENT_NAME_MODAL_SHOW = getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW)
+const ROOT_ACTION_EVENT_NAME_MODAL_HIDE = getRootActionEventName(NAME_MODAL, EVENT_NAME_HIDE)
+
 const PROP_NAME = '$bvModal'
 const PROP_NAME_PRIV = '_bv__modal'
 
@@ -29,7 +34,7 @@ const PROP_NAME_PRIV = '_bv__modal'
 // We need to add it in explicitly as it comes from the `idMixin`
 const BASE_PROPS = [
   'id',
-  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', `static`, 'visible']))
+  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'static', 'visible']))
 ]
 
 // Fallback event resolver (returns undefined)
@@ -65,8 +70,10 @@ const plugin = Vue => {
     extends: BModal,
     destroyed() {
       // Make sure we not in document any more
-      if (this.$el && this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
+      const { $el } = this
+      const $parent = $el ? $el.parentNode : null
+      if ($parent) {
+        $parent.removeChild($el)
       }
     },
     mounted() {
@@ -190,14 +197,14 @@ const plugin = Vue => {
     // Show modal with the specified ID args are for future use
     show(id, ...args) {
       if (id && this._root) {
-        this._root.$emit('bv::show::modal', id, ...args)
+        this._root.$emit(ROOT_ACTION_EVENT_NAME_MODAL_SHOW, id, ...args)
       }
     }
 
     // Hide modal with the specified ID args are for future use
     hide(id, ...args) {
       if (id && this._root) {
-        this._root.$emit('bv::hide::modal', id, ...args)
+        this._root.$emit(ROOT_ACTION_EVENT_NAME_MODAL_HIDE, id, ...args)
       }
     }
 

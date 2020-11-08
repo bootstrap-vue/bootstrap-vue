@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
+import { EVENT_NAME_MODEL_PREFIX } from '../../constants/events'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -8,7 +9,19 @@ import { toInteger } from '../../utils/number'
 import { VBVisible } from '../../directives/visible/visible'
 import { BImg } from './img'
 
+// --- Constants ---
+
+const PROP_NAME_SHOW = 'show'
+
+const EVENT_NAME_MODEL_SHOW = EVENT_NAME_MODEL_PREFIX + PROP_NAME_SHOW
+
+// --- Props ---
+
 export const props = {
+  [PROP_NAME_SHOW]: {
+    type: Boolean,
+    default: false
+  },
   src: {
     type: String,
     required: true
@@ -50,10 +63,6 @@ export const props = {
     type: [Number, String]
     // default: null
   },
-  show: {
-    type: Boolean,
-    default: false
-  },
   fluid: {
     type: Boolean,
     default: false
@@ -94,6 +103,7 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BImgLazy = /*#__PURE__*/ defineComponent({
   name: NAME_IMG_LAZY,
@@ -103,7 +113,7 @@ export const BImgLazy = /*#__PURE__*/ defineComponent({
   props,
   data() {
     return {
-      isShown: this.show
+      isShown: this[PROP_NAME_SHOW]
     }
   },
   computed: {
@@ -133,19 +143,19 @@ export const BImgLazy = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    show(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        // If IntersectionObserver support is not available, image is always shown
-        const visible = hasIntersectionObserverSupport ? newVal : true
+    [PROP_NAME_SHOW](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        // If `IntersectionObserver` support is not available, image is always shown
+        const visible = hasIntersectionObserverSupport ? newValue : true
         this.isShown = visible
-        if (visible !== newVal) {
-          // Ensure the show prop is synced (when no IntersectionObserver)
+        if (visible !== newValue) {
+          // Ensure the show prop is synced (when no `IntersectionObserver`)
           this.$nextTick(this.updateShowProp)
         }
       }
     },
-    isShown(newVal, oldVal) {
-      if (newVal !== oldVal) {
+    isShown(newValue, oldValue) {
+      if (newValue !== oldValue) {
         // Update synched show prop
         this.updateShowProp()
       }
@@ -157,7 +167,7 @@ export const BImgLazy = /*#__PURE__*/ defineComponent({
   },
   methods: {
     updateShowProp() {
-      this.$emit('update:show', this.isShown)
+      this.$emit(EVENT_NAME_MODEL_SHOW, this.isShown)
     },
     doShow(visible) {
       // If IntersectionObserver is not supported, the callback

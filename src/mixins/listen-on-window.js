@@ -5,6 +5,8 @@ import { eventOn, eventOff } from '../utils/events'
 import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
+// --- Constants ---
+
 const PROP = '$_bv_windowHandlers_'
 
 // @vue/component

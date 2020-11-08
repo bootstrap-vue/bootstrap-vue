@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
 import { RX_NUMBER } from '../../constants/regex'
 import { getComponentConfig } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
@@ -16,6 +17,8 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 // --- Constants ---
 
 const CLASS_NAME = 'b-avatar'
+
+const EVENT_NAME_IMG_ERROR = 'img-error'
 
 const SIZES = ['sm', null, 'lg']
 
@@ -112,6 +115,7 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
     bvAvatarGroup: { default: null }
   },
   props,
+  emits: [EVENT_NAME_CLICK, EVENT_NAME_IMG_ERROR],
   data() {
     return {
       localSrc: this.src || null
@@ -166,10 +170,10 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
   methods: {
     onImgError(evt) {
       this.localSrc = null
-      this.$emit('img-error', evt)
+      this.$emit(EVENT_NAME_IMG_ERROR, evt)
     },
     onClick(evt) {
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, evt)
     }
   },
   render() {

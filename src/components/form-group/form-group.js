@@ -1,4 +1,4 @@
-import { h } from '../../vue'
+import { defineComponent, h } from '../../vue'
 import { NAME_FORM_GROUP } from '../../constants/components'
 import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slots'
 import cssEscape from '../../utils/css-escape'
@@ -123,10 +123,9 @@ const generateProps = () => {
   }
 }
 
-// We do not use Vue.extend here as that would evaluate the props
-// immediately, which we do not want to happen
+// --- Main component ---
 // @vue/component
-export const BFormGroup = {
+export const BFormGroup = defineComponent({
   name: NAME_FORM_GROUP,
   mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {
@@ -427,4 +426,4 @@ export const BFormGroup = {
       isHorizontal && isFieldset ? [h(BFormRow, [$label, $content])] : [$label, $content]
     )
   }
-}
+})

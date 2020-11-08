@@ -2,7 +2,9 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
+import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { RX_SPACES } from '../../constants/regex'
 import cssEscape from '../../utils/css-escape'
@@ -23,6 +25,7 @@ import { stopEvent } from '../../utils/events'
 import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
@@ -30,6 +33,8 @@ import { BFormText } from '../form/form-text'
 import { BFormTag } from './form-tag'
 
 // --- Constants ---
+
+const EVENT_NAME_TAG_STATE = 'tag-state'
 
 // Supported input types (for built in input)
 const TYPES = ['text', 'email', 'tel', 'url', 'number']
@@ -61,14 +66,12 @@ const cleanTagsState = () => ({
 // @vue/component
 export const BFormTags = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAGS,
-  mixins: [idMixin, normalizeSlotMixin],
-  model: {
-    // Even though this is the default that Vue assumes, we need
-    // to add it for the docs to reflect that this is the model
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [idMixin, modelMixin, normalizeSlotMixin],
   props: {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: Array,
+      default: () => []
+    },
     inputId: {
       type: String
       // default: null
@@ -196,13 +199,9 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       // on element matching the selector (or selectors)
       type: [Array, String],
       default: () => ['.b-form-tag', 'button', 'input', 'select']
-    },
-    value: {
-      // The v-model prop
-      type: Array,
-      default: () => []
     }
   },
+  emits: [EVENT_NAME_TAG_STATE],
   data() {
     return {
       hasFocus: false,
@@ -305,7 +304,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     tags(newVal, oldVal) {
       // Update the `v-model` (if it differs from the value prop)
       if (!looseEqual(newVal, this.value)) {
-        this.$emit('input', newVal)
+        this.$emit(EVENT_NAME_MODEL_VALUE, newVal)
       }
       if (!looseEqual(newVal, oldVal)) {
         newVal = concat(newVal).filter(identity)
@@ -316,7 +315,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     tagsState(newVal, oldVal) {
       // Emit a tag-state event when the `tagsState` object changes
       if (!looseEqual(newVal, oldVal)) {
-        this.$emit('tag-state', newVal.valid, newVal.invalid, newVal.duplicate)
+        this.$emit(EVENT_NAME_TAG_STATE, newVal.valid, newVal.invalid, newVal.duplicate)
       }
     }
   },

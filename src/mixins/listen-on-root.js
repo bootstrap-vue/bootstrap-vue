@@ -1,5 +1,8 @@
+import { defineComponent, isVue2 } from '../vue'
+import { ROOT_EVENT_EMITTER_KEY } from '../constants/events'
+
 // @vue/component
-export default {
+export default defineComponent({
   methods: {
     /**
      * Safely register event listeners on the root Vue node
@@ -16,10 +19,14 @@ export default {
      * @param {function} callback
      */
     listenOnRoot(event, callback) {
-      this.$root.$on(event, callback)
-      this.$on('hook:beforeDestroy', () => {
-        this.$root.$off(event, callback)
-      })
+      this[ROOT_EVENT_EMITTER_KEY].on(event, callback)
+
+      // TODO: Find a way to remove root listener on destroy in Vue 3
+      if (isVue2) {
+        this.$on('hook:beforeDestroy', () => {
+          this[ROOT_EVENT_EMITTER_KEY].off(event, callback)
+        })
+      }
     },
 
     /**
@@ -37,10 +44,14 @@ export default {
      * @param {function} callback
      */
     listenOnRootOnce(event, callback) {
-      this.$root.$once(event, callback)
-      this.$on('hook:beforeDestroy', () => {
-        this.$root.$off(event, callback)
-      })
+      this[ROOT_EVENT_EMITTER_KEY].once(event, callback)
+
+      // TODO: Find a way to remove root listener on destroy in Vue 3
+      if (isVue2) {
+        this.$on('hook:beforeDestroy', () => {
+          this[ROOT_EVENT_EMITTER_KEY].off(event, callback)
+        })
+      }
     },
 
     /**
@@ -50,7 +61,7 @@ export default {
      * @param {*} args
      */
     emitOnRoot(event, ...args) {
-      this.$root.$emit(event, ...args)
+      this[ROOT_EVENT_EMITTER_KEY].emit(event, ...args)
     }
   }
-}
+})

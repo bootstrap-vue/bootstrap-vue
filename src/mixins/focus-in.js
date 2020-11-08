@@ -1,8 +1,9 @@
+import { defineComponent } from '../vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
-export default {
+export default defineComponent({
   data() {
     return {
       listenForFocusIn: false
@@ -40,4 +41,4 @@ export default {
       }
     }
   }
-}
+})

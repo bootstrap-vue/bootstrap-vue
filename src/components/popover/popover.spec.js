@@ -43,7 +43,7 @@ const App = {
           id: 'bar',
           'data-foo': 'bar'
         },
-        [h('template', { slot: 'title' }, this.$slots.title), this.$slots.default || '']
+        [h('template', { slot: 'title' }, this.$slots.title()), this.$slots.default() || '']
       )
     ])
   }

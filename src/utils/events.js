@@ -1,5 +1,7 @@
+import { ROOT_EVENT_NAME_PREFIX, ROOT_EVENT_NAME_SEPARATOR } from '../constants/events'
 import { hasPassiveEventSupport } from './env'
 import { isObject } from './inspect'
+import { kebabCase } from './string'
 
 // --- Utils ---
 
@@ -51,3 +53,21 @@ export const stopEvent = (
     evt.stopImmediatePropagation()
   }
 }
+
+// Helper method to convert a component name to a event name
+// `getComponentEventName('BNavigationItem')` => 'navigation-item'
+const getComponentEventName = componentName => kebabCase(componentName.substring(1))
+
+// Get a root event name by component and event name
+// `getComponentEventName('BModal', 'show')` => 'bv::modal::show'
+export const getRootEventName = (componentName, eventName) =>
+  [ROOT_EVENT_NAME_PREFIX, getComponentEventName(componentName), eventName].join(
+    ROOT_EVENT_NAME_SEPARATOR
+  )
+
+// Get a root action event name by component and action name
+// `getRootActionEventName('BModal', 'show')` => 'bv::show::modal'
+export const getRootActionEventName = (componentName, actionName) =>
+  [ROOT_EVENT_NAME_PREFIX, actionName, getComponentEventName(componentName)].join(
+    ROOT_EVENT_NAME_SEPARATOR
+  )

@@ -1,10 +1,18 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SPINBUTTON, NAME_FORM_TIMEPICKER, NAME_TIME } from '../../constants/components'
+import {
+  EVENT_NAME_CONTEXT,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_SHOWN
+} from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { BVFormBtnLabelControl, dropdownProps } from '../../utils/bv-form-btn-label-control'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BTime } from '../time/time'
@@ -23,7 +31,7 @@ const getConfigFallback = prop => {
 // where they appear in the props listing reference section
 const propsMixin = {
   props: {
-    value: {
+    [EVENT_NAME_MODEL_VALUE]: {
       type: String,
       default: ''
     },
@@ -194,15 +202,11 @@ const propsMixin = {
 export const BFormTimepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TIMEPICKER,
   // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin, propsMixin, normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [idMixin, propsMixin, modelMixin, normalizeSlotMixin],
   data() {
     return {
       // We always use `HH:mm:ss` value internally
-      localHMS: this.value || '',
+      localHMS: this[PROP_NAME_MODEL_VALUE] || '',
       // Context data from BTime
       localLocale: null,
       isRTL: false,
@@ -222,7 +226,7 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
       const self = this
       return {
         hidden: !self.isVisible,
-        value: self.localHMS,
+        [PROP_NAME_MODEL_VALUE]: self.localHMS,
         // Passthrough props
         readonly: self.readonly,
         disabled: self.disabled,
@@ -246,7 +250,7 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal) {
+    [PROP_NAME_MODEL_VALUE](newVal) {
       this.localHMS = newVal || ''
     },
     localHMS(newVal) {
@@ -254,7 +258,7 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
       // is open, to prevent cursor jumps when bound to a
       // text input in button only mode
       if (this.isVisible) {
-        this.$emit('input', newVal || '')
+        this.$emit(EVENT_NAME_MODEL_VALUE, newVal || '')
       }
     }
   },
@@ -289,7 +293,7 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
       this.formattedValue = formatted
       this.localHMS = value || ''
       // Re-emit the context event
-      this.$emit('context', ctx)
+      this.$emit(EVENT_NAME_CONTEXT, ctx)
     },
     onNowButton() {
       const now = new Date()
@@ -311,12 +315,12 @@ export const BFormTimepicker = /*#__PURE__*/ defineComponent({
     onShown() {
       this.$nextTick(() => {
         attemptFocus(this.$refs.time)
-        this.$emit('shown')
+        this.$emit(EVENT_NAME_SHOWN)
       })
     },
     onHidden() {
       this.isVisible = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     // Render function helpers
     defaultButtonFn({ isHovered, hasFocus }) {

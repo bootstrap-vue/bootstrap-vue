@@ -1,5 +1,7 @@
 import { defineComponent } from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
+import { EVENT_NAME_CHANGE } from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { BvEvent } from '../../utils/bv-event.class'
 import { getComponentConfig } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
@@ -9,6 +11,8 @@ import { toInteger } from '../../utils/number'
 import paginationMixin from '../../mixins/pagination'
 
 // --- Constants ---
+
+const EVENT_NAME_PAGE_CLICK = 'page-click'
 
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
@@ -46,6 +50,7 @@ export const BPagination = /*#__PURE__*/ defineComponent({
   name: NAME_PAGINATION,
   mixins: [paginationMixin],
   props,
+  names: [EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK],
   computed: {
     numberOfPages() {
       const result = mathCeil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
@@ -82,7 +87,7 @@ export const BPagination = /*#__PURE__*/ defineComponent({
     // Set the initial page count
     this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
-    const currentPage = toInteger(this.value, 0)
+    const currentPage = toInteger(this[PROP_NAME_MODEL_VALUE], 0)
     if (currentPage > 0) {
       this.currentPage = currentPage
     } else {
@@ -108,7 +113,7 @@ export const BPagination = /*#__PURE__*/ defineComponent({
       const { target } = evt
 
       // Emit a user-cancelable `page-click` event
-      const clickEvt = new BvEvent('page-click', {
+      const clickEvt = new BvEvent(EVENT_NAME_PAGE_CLICK, {
         cancelable: true,
         vueTarget: this,
         target
@@ -121,7 +126,7 @@ export const BPagination = /*#__PURE__*/ defineComponent({
       // Update the `v-model`
       this.currentPage = pageNumber
       // Emit event triggered by user interaction
-      this.$emit('change', this.currentPage)
+      this.$emit(EVENT_NAME_CHANGE, this.currentPage)
 
       // Keep the current button focused if possible
       this.$nextTick(() => {

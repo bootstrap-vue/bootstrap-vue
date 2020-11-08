@@ -1,7 +1,19 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_CANCEL,
+  EVENT_NAME_CLOSE,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_OK,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_NAME_TOGGLE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import BVTransition from '../../utils/bv-transition'
 import identity from '../../utils/identity'
@@ -18,7 +30,7 @@ import {
   select
 } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
-import { eventOn, eventOff } from '../../utils/events'
+import { eventOn, eventOff, getRootEventName, getRootActionEventName } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
 import { HTMLElement } from '../../utils/safe-types'
@@ -28,6 +40,7 @@ import idMixin from '../../mixins/id'
 import listenOnDocumentMixin from '../../mixins/listen-on-document'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import listenOnWindowMixin from '../../mixins/listen-on-window'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
 import { BButton } from '../button/button'
@@ -36,6 +49,13 @@ import { modalManager } from './helpers/modal-manager'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
 
 // --- Constants ---
+
+const ROOT_EVENT_NAME_MODAL_SHOW = getRootEventName(NAME_MODAL, EVENT_NAME_SHOW)
+const ROOT_EVENT_NAME_MODAL_HIDDEN = getRootEventName(NAME_MODAL, EVENT_NAME_HIDDEN)
+
+const ROOT_ACTION_EVENT_NAME_MODAL_SHOW = getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW)
+const ROOT_ACTION_EVENT_NAME_MODAL_HIDE = getRootActionEventName(NAME_MODAL, EVENT_NAME_HIDE)
+const ROOT_ACTION_EVENT_NAME_MODAL_TOGGLE = getRootActionEventName(NAME_MODAL, EVENT_NAME_TOGGLE)
 
 // ObserveDom config to detect changes in modal content
 // so that we can adjust the modal padding if needed
@@ -48,7 +68,12 @@ const OBSERVER_CONFIG = {
 }
 
 // --- Props ---
+
 export const props = {
+  [PROP_NAME_MODEL_VALUE]: {
+    type: Boolean,
+    default: false
+  },
   size: {
     type: String,
     default: () => getComponentConfig(NAME_MODAL, 'size')
@@ -204,10 +229,6 @@ export const props = {
     type: Boolean,
     default: false
   },
-  visible: {
-    type: Boolean,
-    default: false
-  },
   returnFocus: {
     // HTML Element, CSS selector string or Vue component instance
     type: [HTMLElement, String, Object],
@@ -265,23 +286,21 @@ export const props = {
   }
 }
 
+// --- Main component ---
 // @vue/component
 export const BModal = /*#__PURE__*/ defineComponent({
   name: NAME_MODAL,
   mixins: [
     attrsMixin,
     idMixin,
+    modelMixin,
+    normalizeSlotMixin,
     listenOnDocumentMixin,
     listenOnRootMixin,
     listenOnWindowMixin,
-    normalizeSlotMixin,
     scopedStyleAttrsMixin
   ],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
   props,
   data() {
     return {
@@ -443,14 +462,15 @@ export const BModal = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    visible(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this[newVal ? 'show' : 'hide']()
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this[newValue ? 'show' : 'hide']()
       }
     }
   },
   created() {
     // Define non-reactive properties
+    this.$_scheduledShow = null
     this.$_observer = null
   },
   mounted() {
@@ -458,14 +478,14 @@ export const BModal = /*#__PURE__*/ defineComponent({
     this.zIndex = modalManager.getBaseZIndex()
     // Listen for events from others to either open or close ourselves
     // and listen to all modals to enable/disable enforce focus
-    this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_MODAL_SHOW, this.showHandler)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_MODAL_HIDE, this.hideHandler)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_MODAL_TOGGLE, this.toggleHandler)
     // Listen for `bv:modal::show events`, and close ourselves if the
     // opening modal not us
-    this.listenOnRoot('bv::modal::show', this.modalListener)
+    this.listenOnRoot(ROOT_EVENT_NAME_MODAL_SHOW, this.modalListener)
     // Initially show modal?
-    if (this.visible === true) {
+    if (this[PROP_NAME_MODEL_VALUE] === true) {
       this.$nextTick(this.show)
     }
   },
@@ -491,9 +511,9 @@ export const BModal = /*#__PURE__*/ defineComponent({
       }
     },
     // Private method to update the v-model
-    updateModel(val) {
-      if (val !== this.visible) {
-        this.$emit('change', val)
+    updateModel(value) {
+      if (value !== this[PROP_NAME_MODEL_VALUE]) {
+        this.$emit(EVENT_NAME_MODEL_VALUE, value)
       }
     },
     // Private method to create a BvModalEvent object
@@ -513,23 +533,21 @@ export const BModal = /*#__PURE__*/ defineComponent({
     },
     // Public method to show modal
     show() {
+      // If already open, or in the process of opening, do nothing
+      /* istanbul ignore next */
       if (this.isVisible || this.isOpening) {
-        // If already open, or in the process of opening, do nothing
-        /* istanbul ignore next */
         return
       }
+      // If we are in the process of closing, wait until hidden before re-opening
       /* istanbul ignore next */
       if (this.isClosing) {
-        // If we are in the process of closing, wait until hidden before re-opening
-        /* istanbul ignore next */
-        this.$once('hidden', this.show)
-        /* istanbul ignore next */
+        this.$_scheduledShow = this.show
         return
       }
       this.isOpening = true
       // Set the element to return focus to when closed
       this.return_focus = this.return_focus || this.getActiveElement()
-      const showEvt = this.buildEvent('show', {
+      const showEvt = this.buildEvent(EVENT_NAME_SHOW, {
         cancelable: true
       })
       this.emitEvent(showEvt)
@@ -550,17 +568,17 @@ export const BModal = /*#__PURE__*/ defineComponent({
         return
       }
       this.isClosing = true
-      const hideEvt = this.buildEvent('hide', {
+      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, {
         cancelable: trigger !== 'FORCE',
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
       if (trigger === 'ok') {
-        this.$emit('ok', hideEvt)
+        this.$emit(EVENT_NAME_OK, hideEvt)
       } else if (trigger === 'cancel') {
-        this.$emit('cancel', hideEvt)
+        this.$emit(EVENT_NAME_CANCEL, hideEvt)
       } else if (trigger === 'headerclose') {
-        this.$emit('close', hideEvt)
+        this.$emit(EVENT_NAME_CLOSE, hideEvt)
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
@@ -576,6 +594,9 @@ export const BModal = /*#__PURE__*/ defineComponent({
       this.isVisible = false
       // Update the v-model
       this.updateModel(false)
+      // Execute scheduled show, if available
+      this.$_scheduledShow && this.$_scheduledShow()
+      this.$_scheduledShow = null
     },
     // Public method to toggle modal visibility
     toggle(triggerEl) {
@@ -607,7 +628,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
       /* istanbul ignore next: commenting out for now until we can test stacking */
       if (modalManager.modalsAreOpen && this.noStacking) {
         // If another modal(s) is already open, wait for it(them) to close
-        this.listenOnRootOnce('bv::modal::hidden', this.doShow)
+        this.listenOnRootOnce(ROOT_EVENT_NAME_MODAL_HIDDEN, this.doShow)
         return
       }
       modalManager.registerModal(this)
@@ -651,7 +672,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
       // This will allow users to not have to use `$nextTick()` or `requestAF()`
       // when trying to pre-focus an element
       requestAF(() => {
-        this.emitEvent(this.buildEvent('shown'))
+        this.emitEvent(this.buildEvent(EVENT_NAME_SHOWN))
         this.setEnforceFocus(true)
         this.$nextTick(() => {
           // Delayed in a `$nextTick()` to allow users time to pre-focus
@@ -680,7 +701,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
         this.returnFocusTo()
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
-        this.emitEvent(this.buildEvent('hidden'))
+        this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
       })
     },
     // Event emitter
@@ -688,7 +709,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
       const type = bvModalEvt.type
       // We emit on root first incase a global listener wants to cancel
       // the event first before the instance emits its event
-      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.componentId)
+      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvModalEvt, bvModalEvt.componentId)
       this.$emit(type, bvModalEvt)
     },
     // UI event handlers

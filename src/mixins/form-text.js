@@ -1,18 +1,24 @@
+import { defineComponent } from '../vue'
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_UPDATE
+} from '../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
 import { isFunction } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
+import modelMixin from './model'
 
 // @vue/component
-export default {
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
+export default defineComponent({
+  mixins: [modelMixin],
   props: {
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       type: [String, Number],
       default: ''
     },
@@ -63,24 +69,29 @@ export default {
       default: 0
     }
   },
+  emits: [EVENT_NAME_BLUR, EVENT_NAME_CHANGE, EVENT_NAME_UPDATE],
   data() {
+    const value = this[PROP_NAME_MODEL_VALUE]
     return {
-      localValue: toString(this.value),
-      vModelValue: this.value
+      localValue: toString(value),
+      vModelValue: value
     }
   },
   computed: {
     computedClass() {
+      const { plaintext, type } = this
+      const isRange = type === 'range'
+      const isColor = type === 'color'
+
       return [
         {
           // Range input needs class `custom-range`
-          'custom-range': this.type === 'range',
+          'custom-range': isRange,
           // `plaintext` not supported by `type="range"` or `type="color"`
-          'form-control-plaintext':
-            this.plaintext && this.type !== 'range' && this.type !== 'color',
+          'form-control-plaintext': plaintext && !isRange && !isColor,
           // `form-control` not used by `type="range"` or `plaintext`
           // Always used by `type="color"`
-          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
+          'form-control': isColor || (!plaintext && !isRange)
         },
         this.sizeFormClass,
         this.stateClass
@@ -107,14 +118,14 @@ export default {
     }
   },
   watch: {
-    value(newVal) {
-      const stringifyValue = toString(newVal)
-      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+    [PROP_NAME_MODEL_VALUE](newValue) {
+      const stringifyValue = toString(newValue)
+      if (stringifyValue !== this.localValue && newValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newVal
+        this.vModelValue = newValue
       }
     }
   },
@@ -123,16 +134,17 @@ export default {
     this.$_inputDebounceTimer = null
   },
   mounted() {
-    // Set up destroy handler
-    this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state
-    const value = this.value
+    const value = this[PROP_NAME_MODEL_VALUE]
     const stringifyValue = toString(value)
     /* istanbul ignore next */
     if (stringifyValue !== this.localValue && value !== this.vModelValue) {
       this.localValue = stringifyValue
       this.vModelValue = value
     }
+  },
+  beforeDestroy() {
+    this.clearDebounce()
   },
   methods: {
     clearDebounce() {
@@ -158,7 +170,7 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      const lazy = this.lazy
+      const { lazy } = this
       if (lazy && !force) {
         return
       }
@@ -171,7 +183,7 @@ export default {
         value = this.modifyValue(value)
         if (value !== this.vModelValue) {
           this.vModelValue = value
-          this.$emit('update', value)
+          this.$emit(EVENT_NAME_UPDATE, value)
         } else if (this.hasFormatter) {
           // When the `vModelValue` hasn't changed but the actual input value
           // is out of sync, make sure to change it to the given one
@@ -205,7 +217,7 @@ export default {
       if (evt.target.composing) {
         return
       }
-      const value = evt.target.value
+      const { value } = evt.target
       const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
@@ -216,10 +228,10 @@ export default {
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue)
-      this.$emit('input', formattedValue)
+      this.$emit(EVENT_NAME_MODEL_VALUE, formattedValue)
     },
     onChange(evt) {
-      const value = evt.target.value
+      const { value } = evt.target
       const formattedValue = this.formatValue(value, evt)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
@@ -230,12 +242,12 @@ export default {
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue, true)
-      this.$emit('change', formattedValue)
+      this.$emit(EVENT_NAME_CHANGE, formattedValue)
     },
     onBlur(evt) {
       // Apply the `localValue` on blur to prevent cursor jumps
       // on mobile browsers (e.g. caused by autocomplete)
-      const value = evt.target.value
+      const { value } = evt.target
       const formattedValue = this.formatValue(value, evt, true)
       if (formattedValue !== false) {
         // We need to use the modified value here to apply the
@@ -246,7 +258,7 @@ export default {
         this.updateValue(formattedValue, true)
       }
       // Emit native blur event
-      this.$emit('blur', evt)
+      this.$emit(EVENT_NAME_BLUR, evt)
     },
     focus() {
       // For external handler that may want a focus method
@@ -261,4 +273,4 @@ export default {
       }
     }
   }
-}
+})

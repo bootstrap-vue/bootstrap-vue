@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import {
   CODE_DOWN,
   CODE_END,
@@ -8,6 +9,7 @@ import {
   CODE_UP,
   CODE_PAGEDOWN
 } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
@@ -20,6 +22,7 @@ import { toFloat, toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
@@ -46,10 +49,10 @@ const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PA
 export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props: {
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       // Should this really be String, to match native number inputs?
       type: Number,
       default: null
@@ -153,9 +156,10 @@ export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
       default: DEFAULT_REPEAT_MULTIPLIER
     }
   },
+  emits: [EVENT_NAME_CHANGE],
   data() {
     return {
-      localValue: toFloat(this.value, null),
+      localValue: toFloat(this[PROP_NAME_MODEL_VALUE], null),
       hasFocus: false
     }
   },
@@ -279,11 +283,11 @@ export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(value) {
+    [PROP_NAME_MODEL_VALUE](value) {
       this.localValue = toFloat(value, null)
     },
     localValue(value) {
-      this.$emit('input', value)
+      this.$emit(EVENT_NAME_MODEL_VALUE, value)
     },
     disabled(disabled) {
       if (disabled) {
@@ -323,7 +327,7 @@ export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
     },
     // --- Private methods ---
     emitChange() {
-      this.$emit('change', this.localValue)
+      this.$emit(EVENT_NAME_CHANGE, this.localValue)
     },
     stepValue(direction) {
       // Sets a new incremented or decremented value, supporting optional wrapping

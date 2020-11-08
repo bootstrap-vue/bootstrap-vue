@@ -1,5 +1,7 @@
+import { defineComponent } from '../vue'
+
 // @vue/component
-export default {
+export default defineComponent({
   computed: {
     validity: {
       // Expose validity property
@@ -43,4 +45,4 @@ export default {
       return this.$refs.input.reportValidity(...arguments)
     }
   }
-}
+})

@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
+import { EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { BVTransition } from '../../utils/bv-transition'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -84,6 +85,7 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
       default: 10
     }
   },
+  emits: [EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN],
   computed: {
     computedRounded() {
       const rounded = this.rounded
@@ -148,7 +150,7 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
             'position-fixed': this.noWrap && this.fixed
           },
           style: { ...positionCover, zIndex: this.zIndex || 10 },
-          on: { click: evt => this.$emit('click', evt) }
+          on: { click: evt => this.$emit(EVENT_NAME_CLICK, evt) }
         },
         [$background, $content]
       )
@@ -162,8 +164,8 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
           appear: true
         },
         on: {
-          'after-enter': () => this.$emit('shown'),
-          'after-leave': () => this.$emit('hidden')
+          'after-enter': () => this.$emit(EVENT_NAME_SHOWN),
+          'after-leave': () => this.$emit(EVENT_NAME_HIDDEN)
         }
       },
       [$overlay]

@@ -9,6 +9,11 @@ import {
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
 import {
+  EVENT_NAME_CONTEXT,
+  EVENT_NAME_MODEL_VALUE,
+  EVENT_NAME_SELECTED
+} from '../../constants/events'
+import {
   CODE_DOWN,
   CODE_END,
   CODE_ENTER,
@@ -20,6 +25,7 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
@@ -50,6 +56,7 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
   BIconChevronLeft,
@@ -64,16 +71,9 @@ import {
 export const BCalendar = defineComponent({
   name: NAME_CALENDAR,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
-  model: {
-    // Even though this is the default that Vue assumes, we need
-    // to add it for the docs to reflect that this is the model
-    // And also for some validation libraries to work
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
   props: {
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       type: [String, Date]
       // default: null
     },
@@ -271,8 +271,9 @@ export const BCalendar = defineComponent({
       validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     }
   },
+  emits: [EVENT_NAME_CONTEXT, EVENT_NAME_SELECTED],
   data() {
-    const selected = formatYMD(this.value) || ''
+    const selected = formatYMD(this[PROP_NAME_MODEL_VALUE]) || ''
     return {
       // Selected date
       selectedYMD: selected,
@@ -584,9 +585,9 @@ export const BCalendar = defineComponent({
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      const selected = formatYMD(newVal) || ''
-      const old = formatYMD(oldVal) || ''
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+      const selected = formatYMD(newValue) || ''
+      const old = formatYMD(oldValue) || ''
       if (!datesEqual(selected, old)) {
         this.activeYMD = selected || this.activeYMD
         this.selectedYMD = selected
@@ -597,26 +598,31 @@ export const BCalendar = defineComponent({
       //   Should we compare to `formatYMD(this.value)` and emit
       //   only if they are different?
       if (newYMD !== oldYMD) {
-        this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
+        this.$emit(
+          EVENT_NAME_MODEL_VALUE,
+          this.valueAsDate ? parseYMD(newYMD) || null : newYMD || ''
+        )
       }
     },
     context(newVal, oldVal) {
       if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context', newVal)
+        this.$emit(EVENT_NAME_CONTEXT, newVal)
       }
     },
     hidden(newVal) {
       // Reset the active focused day when hidden
       this.activeYMD =
         this.selectedYMD ||
-        formatYMD(this.value || this.constrainDate(this.initialDate || this.getToday()))
+        formatYMD(
+          this[PROP_NAME_MODEL_VALUE] || this.constrainDate(this.initialDate || this.getToday())
+        )
       // Enable/disable the live regions
       this.setLive(!newVal)
     }
   },
   created() {
     this.$nextTick(() => {
-      this.$emit('context', this.context)
+      this.$emit(EVENT_NAME_CONTEXT, this.context)
     })
   },
   mounted() {
@@ -669,7 +675,7 @@ export const BCalendar = defineComponent({
       // Performed in a `$nextTick()` to (probably) ensure
       // the input event has emitted first
       this.$nextTick(() => {
-        this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null)
+        this.$emit(EVENT_NAME_SELECTED, formatYMD(date) || '', parseYMD(date) || null)
       })
     },
     // Event handlers

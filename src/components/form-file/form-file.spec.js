@@ -1,6 +1,8 @@
 import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { BFormFile } from './form-file'
 
 describe('form-file', () => {
@@ -211,15 +213,15 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles([file])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles([file])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     wrapper.unmount()
   })
@@ -245,26 +247,26 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(files)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     // Setting to new array of same files should not emit event
     wrapper.vm.setFiles([file1, file2])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     // Setting to array of new files should emit event
     wrapper.vm.setFiles(files.slice().reverse())
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(files.slice().reverse())
 
     wrapper.unmount()
   })
@@ -295,26 +297,26 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(files)
 
     // Setting to same array of files should not emit event
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     // Setting to new array of same files should not emit event
     wrapper.vm.setFiles([[file1, file2], file3])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     // Setting to array of new files should emit event
     wrapper.vm.setFiles(files.slice().reverse())
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(files.slice().reverse())
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(files.slice().reverse())
 
     wrapper.unmount()
   })
@@ -345,9 +347,9 @@ describe('form-file', () => {
 
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual([file1, file2, file3])
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual([file1, file2, file3])
 
     wrapper.unmount()
   })
@@ -368,16 +370,16 @@ describe('form-file', () => {
     wrapper.vm.setFiles([file1])
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file1)
 
     const $input = wrapper.find('input')
     $input.element.value = ''
     await $input.trigger('change')
     expect(wrapper.emitted('change').length).toEqual(1)
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(null)
 
     wrapper.unmount()
   })
@@ -399,14 +401,14 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file1)
 
     wrapper.vm.reset()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(null)
 
     wrapper.unmount()
   })
@@ -432,14 +434,14 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(files)
 
     wrapper.vm.reset()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual([])
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual([])
 
     wrapper.unmount()
   })
@@ -448,7 +450,7 @@ describe('form-file', () => {
     const wrapper = mount(BFormFile, {
       props: {
         id: 'foo',
-        value: null
+        [PROP_NAME_MODEL_VALUE]: null
       }
     })
 
@@ -460,12 +462,12 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles([file1])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file1)
 
-    await wrapper.setProps({ value: null })
-    expect(wrapper.emitted('input').length).toEqual(1)
+    await wrapper.setProps({ [PROP_NAME_MODEL_VALUE]: null })
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
 
     wrapper.unmount()
   })
@@ -474,7 +476,7 @@ describe('form-file', () => {
     const wrapper = mount(BFormFile, {
       props: {
         id: 'foo',
-        value: [],
+        [PROP_NAME_MODEL_VALUE]: [],
         multiple: true
       }
     })
@@ -492,22 +494,22 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(files)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(files)
 
-    await wrapper.setProps({ value: null })
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual([])
+    await wrapper.setProps({ [PROP_NAME_MODEL_VALUE]: null })
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual([])
 
     wrapper.vm.setFiles(files)
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input').length).toEqual(3)
-    expect(wrapper.emitted('input')[2][0]).toEqual(files)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(3)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[2][0]).toEqual(files)
 
-    await wrapper.setProps({ value: [] })
-    expect(wrapper.emitted('input').length).toEqual(4)
-    expect(wrapper.emitted('input')[3][0]).toEqual([])
+    await wrapper.setProps({ [PROP_NAME_MODEL_VALUE]: [] })
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(4)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[3][0]).toEqual([])
 
     wrapper.unmount()
   })
@@ -516,7 +518,7 @@ describe('form-file', () => {
     const wrapper = mount(BFormFile, {
       props: {
         id: 'foo',
-        value: null
+        [PROP_NAME_MODEL_VALUE]: null
       }
     })
 
@@ -528,13 +530,13 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles([file1])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file1)
 
     await wrapper.find('input').trigger('reset')
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual(null)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(null)
 
     wrapper.unmount()
   })
@@ -561,15 +563,15 @@ describe('form-file', () => {
     // Emulate the files array
     formFile.vm.setFiles([file])
     await waitNT(wrapper.vm)
-    expect(formFile.emitted('input')).toBeDefined()
-    expect(formFile.emitted('input').length).toEqual(1)
-    expect(formFile.emitted('input')[0][0]).toEqual(file)
+    expect(formFile.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(formFile.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(formFile.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file)
 
     // Trigger form's native reset event
     wrapper.find('form').trigger('reset')
     await waitNT(wrapper.vm)
-    expect(formFile.emitted('input').length).toEqual(2)
-    expect(formFile.emitted('input')[1][0]).toEqual(null)
+    expect(formFile.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(2)
+    expect(formFile.emitted(EVENT_NAME_MODEL_VALUE)[1][0]).toEqual(null)
 
     wrapper.unmount()
   })
@@ -597,9 +599,9 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles([file])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file)
 
     // Formatter should have been called, and passed two arrays
     expect(called).toBe(true)
@@ -634,9 +636,9 @@ describe('form-file', () => {
     // Emulate the files array
     wrapper.vm.setFiles([file])
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual(file)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)).toBeDefined()
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE).length).toEqual(1)
+    expect(wrapper.emitted(EVENT_NAME_MODEL_VALUE)[0][0]).toEqual(file)
 
     // Scoped slot should have been called, with expected scope
     expect(slotScope).toEqual({ files: [file], filesTraversed: [file], names: [file.name] })

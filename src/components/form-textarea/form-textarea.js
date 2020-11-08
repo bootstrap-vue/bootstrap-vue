@@ -18,9 +18,7 @@ import { VBVisible } from '../../directives/visible/visible'
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TEXTAREA,
-  directives: {
-    'b-visible': VBVisible
-  },
+  directives: { VBVisible },
   // Mixin order is important!
   mixins: [
     listenersMixin,
@@ -204,7 +202,7 @@ export const BFormTextarea = /*#__PURE__*/ defineComponent({
       style: this.computedStyle,
       directives: [
         {
-          name: 'b-visible',
+          name: 'VBVisible',
           value: this.visibleCallback,
           // If textarea is within 640px of viewport, consider it visible
           modifiers: { '640': true }

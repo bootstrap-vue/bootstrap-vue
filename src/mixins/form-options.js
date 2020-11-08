@@ -1,14 +1,17 @@
+import { defineComponent } from '../vue'
 import get from '../utils/get'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
 import { warn } from '../utils/warn'
 
+// --- Constants ---
+
 const OPTIONS_OBJECT_DEPRECATED_MSG =
   'Setting prop "options" to an object is deprecated. Use the array format instead.'
 
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     options: {
       type: [Array, Object],
@@ -71,4 +74,4 @@ export default {
       return []
     }
   }
-}
+})

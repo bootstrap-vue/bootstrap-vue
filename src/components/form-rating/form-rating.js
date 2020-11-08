@@ -1,6 +1,8 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
+import { EVENT_NAME_MODEL_VALUE, EVENT_NAME_SELECTED } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { arrayIncludes, concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
@@ -12,13 +14,21 @@ import { toInteger, toFloat } from '../../utils/number'
 import { toString } from '../../utils/string'
 import identity from '../../utils/identity'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
 import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 // --- Constants ---
+
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
+
+// --- Utility methods ---
+
+const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
+
+const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 
 // --- Private helper component ---
 // @vue/component
@@ -56,11 +66,12 @@ const BVFormRatingStar = defineComponent({
       default: false
     }
   },
+  emits: [EVENT_NAME_SELECTED],
   methods: {
     onClick(evt) {
       if (!this.disabled && !this.readonly) {
         stopEvent(evt, { propagation: false })
-        this.$emit('selected', this.star)
+        this.$emit(EVENT_NAME_SELECTED, this.star)
       }
     }
   },
@@ -90,23 +101,14 @@ const BVFormRatingStar = defineComponent({
   }
 })
 
-// --- Utility methods ---
-const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
-
-const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
-
-// --- BFormRating ---
+// --- Main component ---
 // @vue/component
 export const BFormRating = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
-  mixins: [idMixin],
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
+  mixins: [idMixin, modelMixin],
   props: {
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       type: [Number, String],
       default: null
     },
@@ -192,7 +194,7 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
     }
   },
   data() {
-    const value = toFloat(this.value, null)
+    const value = toFloat(this[PROP_NAME_MODEL_VALUE], null)
     const stars = computeStars(this.stars)
     return {
       localValue: isNull(value) ? null : clampValue(value, 0, stars),
@@ -240,7 +242,7 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal, oldVal) {
+    [PROP_NAME_MODEL_VALUE](newVal, oldVal) {
       if (newVal !== oldVal) {
         const value = toFloat(newVal, null)
         this.localValue = isNull(value) ? null : clampValue(value, 0, this.computedStars)
@@ -248,7 +250,7 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
     },
     localValue(newVal, oldVal) {
       if (newVal !== oldVal && newVal !== (this.value || 0)) {
-        this.$emit('change', newVal || null)
+        this.$emit(EVENT_NAME_MODEL_VALUE, newVal || null)
       }
     },
     disabled(newVal) {
@@ -380,7 +382,7 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
             focused: hasFocus,
             hasClear: showClear
           },
-          on: { selected: this.onSelected },
+          on: { [EVENT_NAME_SELECTED]: this.onSelected },
           scopedSlots: {
             empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
             half: $scopedSlots['icon-half'] || this.iconHalfFn,

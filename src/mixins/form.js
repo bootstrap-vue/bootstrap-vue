@@ -1,9 +1,12 @@
+import { defineComponent } from '../vue'
 import { attemptFocus, isVisible, matches, requestAF, select } from '../utils/dom'
+
+// --- Constants ---
 
 const SELECTOR = 'input, textarea, select'
 
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     name: {
       type: String
@@ -51,4 +54,4 @@ export default {
       })
     }
   }
-}
+})

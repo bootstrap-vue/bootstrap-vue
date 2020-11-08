@@ -1,5 +1,7 @@
+import { defineComponent } from '../vue'
+
 // @vue/component
-export default {
+export default defineComponent({
   computed: {
     selectionStart: {
       // Expose selectionStart for formatters, etc
@@ -55,4 +57,4 @@ export default {
       this.$refs.input.setRangeText(...arguments)
     }
   }
-}
+})

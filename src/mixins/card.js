@@ -1,5 +1,7 @@
+import { defineComponent } from '../vue'
+
 // @vue/component
-export default {
+export default defineComponent({
   props: {
     tag: {
       type: String,
@@ -18,4 +20,4 @@ export default {
       // default: null
     }
   }
-}
+})
