@@ -4,6 +4,48 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.19.0"></a>
+
+## [v2.19.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.18.1...v2.19.0)
+
+Released: 2020-11-08
+
+### Features v2.19.0
+
+- **b-media:** improve aside right handling
+  ([#5965](https://github.com/bootstrap-vue/bootstrap-vue/issues/5965))
+  ([49a3f00](https://github.com/bootstrap-vue/bootstrap-vue/commit/49a3f00420bf9958deda3a6be0ccb76cc3ea06ba))
+- **config:** improved defaults handling (closes
+  [#4507](https://github.com/bootstrap-vue/bootstrap-vue/issues/4507),
+  [#5138](https://github.com/bootstrap-vue/bootstrap-vue/issues/5138),
+  [#5291](https://github.com/bootstrap-vue/bootstrap-vue/issues/5291),
+  [#5459](https://github.com/bootstrap-vue/bootstrap-vue/issues/5459),
+  [#5958](https://github.com/bootstrap-vue/bootstrap-vue/issues/5958))
+  ([#5981](https://github.com/bootstrap-vue/bootstrap-vue/issues/5981))
+  ([7ea0cc4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ea0cc4a16d27b179eca47d351eaa9fe6fdfd56e))
+
+### Bug Fixes v2.19.0
+
+- **b-avatar:** badge `z-index` handling
+  ([#5975](https://github.com/bootstrap-vue/bootstrap-vue/issues/5975))
+  ([ecb33bd](https://github.com/bootstrap-vue/bootstrap-vue/commit/ecb33bdb510832096bc5a5196a11c97388bf6411))
+- **b-avatar:** prevent avatar from being squished
+  ([#5963](https://github.com/bootstrap-vue/bootstrap-vue/issues/5963))
+  ([b3946ed](https://github.com/bootstrap-vue/bootstrap-vue/commit/b3946ed7a7b327fb7c66b44caaf122460fc24005)),
+  closes [#5962](https://github.com/bootstrap-vue/bootstrap-vue/issues/5962)
+- **b-dropdown:** click handling on close (closes
+  [#5982](https://github.com/bootstrap-vue/bootstrap-vue/issues/5982))
+  ([#6009](https://github.com/bootstrap-vue/bootstrap-vue/issues/6009))
+  ([cf7a1cb](https://github.com/bootstrap-vue/bootstrap-vue/commit/cf7a1cb017e2263939a64e300abbbbac35c121d4))
+- **b-form-checkbox/b-form-radio:** `change` event timing
+  ([#6008](https://github.com/bootstrap-vue/bootstrap-vue/issues/6008))
+  ([37ec7e9](https://github.com/bootstrap-vue/bootstrap-vue/commit/37ec7e9991b66af51ff81420da8eb88928615f9d))
+- **b-form-group:** accessibility when `label-for` prop not set
+  ([#6006](https://github.com/bootstrap-vue/bootstrap-vue/issues/6006))
+  ([16f777b](https://github.com/bootstrap-vue/bootstrap-vue/commit/16f777b14bdcf9ebb6fae0325d355c7f5272bd98))
+
+<a name="2.18.1"></a>
+
 ## [v2.18.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.18.0...v2.18.1)
 
 Released: 2020-10-21
@@ -21,6 +63,8 @@ Released: 2020-10-21
   [#5927](https://github.com/bootstrap-vue/bootstrap-vue/issues/5927))
   ([#5934](https://github.com/bootstrap-vue/bootstrap-vue/issues/5934))
   ([8a367b6](https://github.com/bootstrap-vue/bootstrap-vue/commit/8a367b6296b0aa9700f67633fd60fb351e2f7373))
+
+<a name="2.18.0"></a>
 
 ## [v2.18.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.17.3...v2.18.0)
 
