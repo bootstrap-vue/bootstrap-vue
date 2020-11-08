@@ -1,5 +1,6 @@
 import Vue from '../../vue'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
 import attrsMixin from '../../mixins/attrs'
@@ -18,17 +19,20 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
     }
   },
   inheritAttrs: false,
-  props: {
-    ...props,
-    linkClass: {
-      type: [String, Array, Object]
-      // default: null
+  props: makePropsConfigurable(
+    {
+      ...props,
+      linkClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      variant: {
+        type: String
+        // default: null
+      }
     },
-    variant: {
-      type: String
-      // default: null
-    }
-  },
+    NAME_DROPDOWN_ITEM
+  ),
   computed: {
     computedAttrs() {
       return {

@@ -1,18 +1,17 @@
 import { SLOT_NAME_FIRST } from '../constants/slot-names'
 import looseEqual from '../utils/loose-equal'
-import normalizeSlotMixin from './normalize-slot'
+import { makePropsConfigurable } from '../utils/config'
 import { htmlOrText } from '../utils/html'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
+import formCustomMixin, { props as formCustomProps } from './form-custom'
+import normalizeSlotMixin from './normalize-slot'
 
-// @vue/component
-export default {
-  mixins: [normalizeSlotMixin],
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    ...formCustomProps,
     validated: {
       type: Boolean,
       default: false
@@ -25,10 +24,6 @@ export default {
       type: Boolean,
       default: false
     },
-    plain: {
-      type: Boolean,
-      default: false
-    },
     buttons: {
       // Render as button style
       type: Boolean,
@@ -36,10 +31,22 @@ export default {
     },
     buttonVariant: {
       // Only applicable when rendered with button style
-      type: String,
-      default: 'secondary'
+      type: String
+      // default: null
     }
   },
+  'formRadioCheckGroups'
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  mixins: [formCustomMixin, normalizeSlotMixin],
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props,
   computed: {
     inline() {
       return !this.stacked

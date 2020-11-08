@@ -10,17 +10,21 @@ import {
 } from '../../constants/key-codes'
 import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
-import { isFunction, isNull } from '../../utils/inspect'
+import { isNull, isUndefined } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as formControlProps } from '../../mixins/form-control'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
@@ -41,14 +45,13 @@ const DEFAULT_REPEAT_MULTIPLIER = 4
 
 const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PAGEDOWN]
 
-// --- BFormSpinbutton ---
-// @vue/component
-export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
-  name: NAME_FORM_SPINBUTTON,
-  // Mixin order is important!
-  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
-  inheritAttrs: false,
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    ...omit(formControlProps, ['required', 'autofocus']),
+    ...formSizeProps,
+    ...formStateProps,
     value: {
       // Should this really be String, to match native number inputs?
       type: Number,
@@ -74,39 +77,13 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       type: Function
       // default: null
     },
-    size: {
-      type: String
-      // default: null
-    },
     placeholder: {
       type: String
       // default: null
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
     readonly: {
       type: Boolean,
       default: false
-    },
-    required: {
-      // Only affects the `aria-invalid` attribute
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false`, or `null`
-      type: Boolean,
-      default: null
     },
     inline: {
       type: Boolean,
@@ -126,11 +103,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     labelDecrement: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelDecrement')
+      default: 'Decrement'
     },
     labelIncrement: {
       type: String,
-      default: () => getComponentConfig(NAME_FORM_SPINBUTTON, 'labelIncrement')
+      default: 'Increment'
     },
     locale: {
       type: [String, Array]
@@ -153,6 +130,17 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       default: DEFAULT_REPEAT_MULTIPLIER
     }
   },
+  NAME_FORM_SPINBUTTON
+)
+
+// --- BFormSpinbutton ---
+// @vue/component
+export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
+  name: NAME_FORM_SPINBUTTON,
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],
+  inheritAttrs: false,
+  props,
   data() {
     return {
       localValue: toFloat(this.value, null),
@@ -234,7 +222,12 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       return nf.format
     },
     computedFormatter() {
-      return isFunction(this.formatterFn) ? this.formatterFn : this.defaultFormatter
+      const { formatterFn } = this
+      let result = null
+      try {
+        result = formatterFn()
+      } catch {}
+      return isUndefined(result) ? this.defaultFormatter : formatterFn
     },
     computedAttrs() {
       return {
@@ -306,7 +299,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     this.clearRepeat()
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     this.clearRepeat()
   },
   methods: {
@@ -489,8 +482,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       computedReadonly: readonly,
       vertical,
       disabled,
-      state,
-      size,
       computedFormatter
     } = this
     const hasValue = !isNull(value)
@@ -593,18 +584,19 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'b-form-spinbutton form-control',
-        class: {
-          disabled,
-          readonly,
-          focus: this.hasFocus,
-          [`form-control-${size}`]: !!size,
-          'd-inline-flex': inline || vertical,
-          'd-flex': !inline && !vertical,
-          'align-items-stretch': !vertical,
-          'flex-column': vertical,
-          'is-valid': state === true,
-          'is-invalid': state === false
-        },
+        class: [
+          {
+            disabled,
+            readonly,
+            focus: this.hasFocus,
+            'd-inline-flex': inline || vertical,
+            'd-flex': !inline && !vertical,
+            'align-items-stretch': !vertical,
+            'flex-column': vertical
+          },
+          this.sizeFormClass,
+          this.stateClass
+        ],
         attrs: this.computedAttrs,
         on: {
           keydown: this.onKeydown,

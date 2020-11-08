@@ -1,20 +1,24 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_DROPDOWN_HEADER } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    tag: {
+      type: String,
+      default: 'header'
+    },
+    variant: {
+      type: String
+      // default: null
+    }
   },
-  tag: {
-    type: String,
-    default: 'header'
-  },
-  variant: {
-    type: String
-    // default: null
-  }
-}
+  NAME_DROPDOWN_HEADER
+)
 
 // @vue/component
 export const BDropdownHeader = /*#__PURE__*/ Vue.extend({

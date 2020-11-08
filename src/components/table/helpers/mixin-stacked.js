@@ -1,12 +1,17 @@
 // Mixin for providing stacked tables
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 
 export default {
-  props: {
-    stacked: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      stacked: {
+        type: [Boolean, String],
+        default: false
+      }
+    },
+    NAME_TABLE
+  ),
   computed: {
     isStacked() {
       // `true` when always stacked, or returns breakpoint specified

@@ -1,3 +1,5 @@
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 import { stopEvent } from '../../../utils/events'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -6,12 +8,15 @@ import { BTd } from '../td'
 const busySlotName = 'table-busy'
 
 export default {
-  props: {
-    busy: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      busy: {
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_TABLE
+  ),
   data() {
     return {
       localBusy: false

@@ -1,11 +1,12 @@
 import Vue from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
-import idMixin from '../../mixins/id'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
-import formSizeMixin from '../../mixins/form-size'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
 import looseEqual from '../../utils/loose-equal'
+import { makePropsConfigurable } from '../../utils/config'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
+import idMixin from '../../mixins/id'
 
 // @vue/component
 export const BFormRadio = /*#__PURE__*/ Vue.extend({
@@ -13,7 +14,7 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   mixins: [
     idMixin,
     formRadioCheckMixin, // Includes shared render function
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -23,19 +24,24 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  props: {
-    checked: {
-      // v-model
-      // type: [String, Number, Boolean, Object],
-      default: null
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
+      checked: {
+        // v-model
+        // type: [String, Number, Boolean, Object],
+        default: null
+      }
+    },
+    NAME_FORM_RADIO
+  ),
   computed: {
-    // Radio Groups can only have a single value, so determining if checked is simple
     isChecked() {
       return looseEqual(this.value, this.computedLocalChecked)
     },
-    // Flags for form-radio-check mixin
     isRadio() {
       return true
     },
@@ -44,21 +50,30 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    // Radio Groups can only have a single value, so our watchers are simple
-    computedLocalChecked() {
-      this.$emit('input', this.computedLocalChecked)
+    computedLocalChecked(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit('input', newValue)
+      }
     }
   },
   methods: {
     handleChange({ target: { checked } }) {
-      const value = this.value
+      const { value } = this
+      const localChecked = checked ? value : null
+
       this.computedLocalChecked = value
-      // Change is only emitted on user interaction
-      this.$emit('change', checked ? value : null)
-      // If this is a child of form-radio-group, we emit a change event on it as well
-      if (this.isGroup) {
-        this.bvGroup.$emit('change', checked ? value : null)
-      }
+
+      // Fire events in a `$nextTick()` to ensure the `v-model` is updated
+      this.$nextTick(() => {
+        // Change is only emitted on user interaction
+        this.$emit('change', localChecked)
+
+        // If this is a child of `<form-radio-group>`,
+        // we emit a change event on it as well
+        if (this.isGroup) {
+          this.bvGroup.$emit('change', localChecked)
+        }
+      })
     }
   }
 })

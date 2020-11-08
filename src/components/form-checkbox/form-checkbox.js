@@ -1,12 +1,13 @@
 import Vue from '../../vue'
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { isArray } from '../../utils/inspect'
-import formMixin from '../../mixins/form'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
 // @vue/component
@@ -15,7 +16,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   mixins: [
     formRadioCheckMixin, // Includes shared render function
     idMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -25,32 +26,39 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       default: false
     }
   },
-  props: {
-    value: {
-      // type: [String, Number, Boolean, Object],
-      default: true
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
+      value: {
+        // type: [String, Number, Boolean, Object],
+        default: true
+      },
+      uncheckedValue: {
+        // type: [String, Number, Boolean, Object],
+        // Not applicable in multi-check mode
+        default: false
+      },
+      indeterminate: {
+        // Not applicable in multi-check mode
+        type: Boolean,
+        default: false
+      },
+      switch: {
+        // Custom switch styling
+        type: Boolean,
+        default: false
+      },
+      checked: {
+        // v-model (Array when multiple checkboxes have same name)
+        // type: [String, Number, Boolean, Object, Array],
+        default: null
+      }
     },
-    uncheckedValue: {
-      // type: [String, Number, Boolean, Object],
-      // Not applicable in multi-check mode
-      default: false
-    },
-    indeterminate: {
-      // Not applicable in multi-check mode
-      type: Boolean,
-      default: false
-    },
-    switch: {
-      // Custom switch styling
-      type: Boolean,
-      default: false
-    },
-    checked: {
-      // v-model (Array when multiple checkboxes have same name)
-      // type: [String, Number, Boolean, Object, Array],
-      default: null
-    }
-  },
+    NAME_FORM_CHECKBOX
+  ),
   computed: {
     isChecked() {
       const { value, computedLocalChecked: checked } = this
@@ -102,16 +110,19 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       }
       this.computedLocalChecked = localChecked
 
-      // Change is only emitted on user interaction
-      this.$emit('change', localChecked)
+      // Fire events in a `$nextTick()` to ensure the `v-model` is updated
+      this.$nextTick(() => {
+        // Change is only emitted on user interaction
+        this.$emit('change', localChecked)
 
-      // If this is a child of `<form-checkbox-group>`,
-      // we emit a change event on it as well
-      if (this.isGroup) {
-        this.bvGroup.$emit('change', localChecked)
-      }
+        // If this is a child of `<form-checkbox-group>`,
+        // we emit a change event on it as well
+        if (this.isGroup) {
+          this.bvGroup.$emit('change', localChecked)
+        }
 
-      this.$emit('update:indeterminate', indeterminate)
+        this.$emit('update:indeterminate', indeterminate)
+      })
     },
     setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode

@@ -1,39 +1,42 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_SPINNER } from '../../constants/components'
 import { SLOT_NAME_LABEL } from '../../constants/slot-names'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { normalizeSlot } from '../../utils/normalize-slot'
 
 // @vue/component
 export const BSpinner = /*#__PURE__*/ Vue.extend({
   name: NAME_SPINNER,
   functional: true,
-  props: {
-    type: {
-      type: String,
-      default: 'border' // SCSS currently supports 'border' or 'grow'
+  props: makePropsConfigurable(
+    {
+      type: {
+        type: String,
+        default: 'border' // SCSS currently supports 'border' or 'grow'
+      },
+      label: {
+        type: String
+        // default: null
+      },
+      variant: {
+        type: String
+        // default: undefined
+      },
+      small: {
+        type: Boolean,
+        default: false
+      },
+      role: {
+        type: String,
+        default: 'status'
+      },
+      tag: {
+        type: String,
+        default: 'span'
+      }
     },
-    label: {
-      type: String
-      // default: null
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_SPINNER, 'variant')
-    },
-    small: {
-      type: Boolean,
-      default: false
-    },
-    role: {
-      type: String,
-      default: 'status'
-    },
-    tag: {
-      type: String,
-      default: 'span'
-    }
-  },
+    NAME_SPINNER
+  ),
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}

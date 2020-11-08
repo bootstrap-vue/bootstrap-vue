@@ -1,17 +1,15 @@
 import looseEqual from '../utils/loose-equal'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
+import formCustomMixin, { props as formCustomProps } from './form-custom'
 import normalizeSlotMixin from './normalize-slot'
 
-// @vue/component
-export default {
-  mixins: [attrsMixin, normalizeSlotMixin],
-  inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    ...formCustomProps,
     value: {
       // Value when checked
       // type: Object,
@@ -23,10 +21,6 @@ export default {
       // default: undefined
     },
     inline: {
-      type: Boolean,
-      default: false
-    },
-    plain: {
       type: Boolean,
       default: false
     },
@@ -51,6 +45,19 @@ export default {
       // default: null
     }
   },
+  'formRadioCheckControls'
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  mixins: [attrsMixin, formCustomMixin, normalizeSlotMixin],
+  inheritAttrs: false,
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
+  props,
   data() {
     return {
       localChecked: this.isGroup ? this.bvGroup.checked : this.checked,

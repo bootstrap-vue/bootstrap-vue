@@ -4,7 +4,7 @@ import { CODE_ESC } from '../../constants/key-codes'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
@@ -138,115 +138,118 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     prop: 'visible',
     event: 'change'
   },
-  props: {
-    title: {
-      type: String
-      // default: null
+  props: makePropsConfigurable(
+    {
+      title: {
+        type: String
+        // default: null
+      },
+      right: {
+        type: Boolean,
+        default: false
+      },
+      bgVariant: {
+        type: String,
+        default: 'light'
+      },
+      textVariant: {
+        type: String,
+        default: 'dark'
+      },
+      shadow: {
+        type: [Boolean, String],
+        default: false
+      },
+      width: {
+        type: String
+        // default: undefined
+      },
+      zIndex: {
+        type: [Number, String]
+        // default: null
+      },
+      ariaLabel: {
+        type: String
+        // default: null
+      },
+      ariaLabelledby: {
+        type: String
+        // default: null
+      },
+      closeLabel: {
+        // `aria-label` for close button
+        // Defaults to 'Close'
+        type: String
+        // default: undefined
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      sidebarClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      headerClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      bodyClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      footerClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      backdrop: {
+        // If `true`, shows a basic backdrop
+        type: Boolean,
+        default: false
+      },
+      backdropVariant: {
+        type: String,
+        default: 'dark'
+      },
+      noSlide: {
+        type: Boolean,
+        default: false
+      },
+      noHeader: {
+        type: Boolean,
+        default: false
+      },
+      noHeaderClose: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnEsc: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnBackdrop: {
+        type: Boolean,
+        default: false
+      },
+      noCloseOnRouteChange: {
+        type: Boolean,
+        default: false
+      },
+      noEnforceFocus: {
+        type: Boolean,
+        default: false
+      },
+      lazy: {
+        type: Boolean,
+        default: false
+      },
+      visible: {
+        type: Boolean,
+        default: false
+      }
     },
-    right: {
-      type: Boolean,
-      default: false
-    },
-    bgVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'bgVariant')
-    },
-    textVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'textVariant')
-    },
-    shadow: {
-      type: [Boolean, String],
-      default: () => getComponentConfig(NAME_SIDEBAR, 'shadow')
-    },
-    width: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'width')
-    },
-    zIndex: {
-      type: [Number, String]
-      // default: null
-    },
-    ariaLabel: {
-      type: String
-      // default: null
-    },
-    ariaLabelledby: {
-      type: String
-      // default: null
-    },
-    closeLabel: {
-      // `aria-label` for close button
-      // Defaults to 'Close'
-      type: String
-      // default: undefined
-    },
-    tag: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'tag')
-    },
-    sidebarClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    headerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    bodyClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    footerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    backdrop: {
-      // If `true`, shows a basic backdrop
-      type: Boolean,
-      default: false
-    },
-    backdropVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_SIDEBAR, 'backdropVariant')
-    },
-    noSlide: {
-      type: Boolean,
-      default: false
-    },
-    noHeader: {
-      type: Boolean,
-      default: false
-    },
-    noHeaderClose: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnEsc: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnRouteChange: {
-      type: Boolean,
-      default: false
-    },
-    noEnforceFocus: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_SIDEBAR
+  ),
   data() {
     return {
       // Internal `v-model` state
@@ -308,7 +311,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    $route(newVal = {}, oldVal = {}) /* istanbul ignore next: pain to mock */ {
+    $route(newVal = {}, oldVal = {}) {
       if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
         this.hide()
       }
@@ -328,7 +331,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     })
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.emitSync()
   },
   beforeDestroy() {
@@ -371,12 +374,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    onTopTrapFocus() /* istanbul ignore next */ {
+    onTopTrapFocus() {
       const tabables = getTabables(this.$refs.content)
       this.enforceFocus(tabables.reverse()[0])
     },
     /* istanbul ignore next */
-    onBottomTrapFocus() /* istanbul ignore next */ {
+    onBottomTrapFocus() {
       const tabables = getTabables(this.$refs.content)
       this.enforceFocus(tabables[0])
     },

@@ -1,9 +1,7 @@
 const RX_HYPHENATE = /\B([A-Z])/g
 
 // Converts PascalCase or camelCase to kebab-case
-export const kebabCase = str => {
-  return str.replace(RX_HYPHENATE, '-$1').toLowerCase()
-}
+export const kebabCase = value => value.replace(RX_HYPHENATE, '-$1').toLowerCase()
 
 // Parse a fully qualified version from a string
 export const parseVersion = version => {
@@ -16,6 +14,9 @@ export const parseFullVersion = version => {
   const matches = version.match(/([0-9]+\.[0-9]+\.[0-9]+(-[a-z]+[.-]?[0-9]+)?)/) || []
   return matches.length > 0 ? matches[0] : ''
 }
+
+export const getComponentName = component => kebabCase(component).replace(/{/g, '-{')
+export const getCleanComponentName = component => getComponentName(component).replace(/({|})/g, '')
 
 export const parseUrl = value => {
   const anchor = document.createElement('a')
@@ -93,8 +94,8 @@ export const updateMetaTOC = (tocData = {}, meta = null) => {
       componentToc.push(
         // Add component sub-headings
         ...meta.components.map(({ component }) => {
-          const tag = kebabCase(component).replace('{', '-{')
-          const hash = `#comp-ref-${tag}`.replace('{', '').replace('}', '')
+          const tag = getComponentName(component)
+          const hash = `#comp-ref-${getCleanComponentName(tag)}`
           return { label: `&lt;${tag}&gt;`, href: hash }
         }),
         // Add component import sub-heading

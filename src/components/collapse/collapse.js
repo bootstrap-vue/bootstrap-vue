@@ -2,6 +2,7 @@ import Vue from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import { makePropsConfigurable } from '../../utils/config'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
@@ -30,29 +31,32 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     prop: 'visible',
     event: 'input'
   },
-  props: {
-    isNav: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      isNav: {
+        type: Boolean,
+        default: false
+      },
+      accordion: {
+        type: String
+        // default: null
+      },
+      visible: {
+        type: Boolean,
+        default: false
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      appear: {
+        // If `true` (and `visible` is `true` on mount), animate initially visible
+        type: Boolean,
+        default: false
+      }
     },
-    accordion: {
-      type: String
-      // default: null
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    appear: {
-      // If `true` (and `visible` is `true` on mount), animate initially visible
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_COLLAPSE
+  ),
   data() {
     return {
       show: this.visible,
@@ -111,13 +115,13 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     this.emitSync()
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     if (this.isNav) {
       this.setWindowEvents(true)
     }

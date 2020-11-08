@@ -1,8 +1,9 @@
 import Vue from '../../vue'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { makePropsConfigurable } from '../../utils/config'
 import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
+import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { computeSize } from './avatar'
 
 // --- Main component ---
@@ -13,36 +14,39 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
   provide() {
     return { bvAvatarGroup: this }
   },
-  props: {
-    variant: {
-      // Child avatars will prefer this variant over their own
-      type: String,
-      default: null
+  props: makePropsConfigurable(
+    {
+      variant: {
+        // Child avatars will prefer this variant over their own
+        type: String,
+        default: null
+      },
+      size: {
+        // Child avatars will always use this over their own size
+        type: String
+        // default: null
+      },
+      overlap: {
+        type: [Number, String],
+        default: 0.3
+      },
+      square: {
+        // Child avatars will prefer this prop (if set) over their own
+        type: Boolean,
+        default: false
+      },
+      rounded: {
+        // Child avatars will prefer this prop (if set) over their own
+        type: [Boolean, String],
+        default: false
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      }
     },
-    size: {
-      // Child avatars will always use this over their own size
-      type: String,
-      default: null
-    },
-    overlap: {
-      type: [Number, String],
-      default: 0.3
-    },
-    square: {
-      // Child avatars will prefer this prop (if set) over their own
-      type: Boolean,
-      default: false
-    },
-    rounded: {
-      // Child avatars will prefer this prop (if set) over their own
-      type: [Boolean, String],
-      default: false
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    }
-  },
+    NAME_AVATAR_GROUP
+  ),
   computed: {
     computedSize() {
       return computeSize(this.size)

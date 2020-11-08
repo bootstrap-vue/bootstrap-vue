@@ -1,15 +1,19 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_BREADCRUMB } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { isArray, isObject } from '../../utils/inspect'
 import { toString } from '../../utils/string'
 import { BBreadcrumbItem } from './breadcrumb-item'
 
-export const props = {
-  items: {
-    type: Array,
-    default: null
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    items: {
+      type: Array,
+      default: null
+    }
+  },
+  NAME_BREADCRUMB
+)
 
 // @vue/component
 export const BBreadcrumb = /*#__PURE__*/ Vue.extend({

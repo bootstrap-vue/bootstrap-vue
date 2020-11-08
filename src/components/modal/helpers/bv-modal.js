@@ -109,7 +109,7 @@ const plugin = Vue => {
       parent: $parent,
       // Preset the prop values
       propsData: {
-        ...filterOptions(getComponentConfig(NAME_MODAL) || {}),
+        ...filterOptions(getComponentConfig(NAME_MODAL)),
         // Defaults that user can override
         hideHeaderClose: true,
         hideHeader: !(props.title || props.titleHtml),
@@ -159,7 +159,7 @@ const plugin = Vue => {
 
   // Private utility method to open a user defined message box and returns a promise.
   // Not to be used directly by consumers, as this method may change calling syntax
-  const makeMsgBox = ($parent, content, options = {}, resolver) => {
+  const makeMsgBox = ($parent, content, options = {}, resolver = null) => {
     if (
       !content ||
       warnNoPromiseSupport(PROP_NAME) ||

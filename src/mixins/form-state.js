@@ -7,16 +7,25 @@
  *  - null for no contextual state
  */
 import { isBoolean } from '../utils/inspect'
+import { makePropsConfigurable } from '../utils/config'
 
-// @vue/component
-export default {
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     state: {
       // Tri-state prop: true, false, null (or undefined)
       type: Boolean,
       default: null
     }
   },
+  'formState'
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  props,
   computed: {
     computedState() {
       // If not a boolean, ensure that value is null

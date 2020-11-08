@@ -1,26 +1,37 @@
 import Vue from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
+import identity from '../../utils/identity'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { toString } from '../../utils/string'
-import identity from '../../utils/identity'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as formControlProps } from '../../mixins/form-control'
 import { BIcon } from '../../icons/icon'
 import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 // --- Constants ---
+
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
 
-// --- Private helper component ---
+// --- Utility methods ---
+
+const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
+
+const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
+
+// --- Private helper components ---
+
 // @vue/component
 const BVFormRatingStar = Vue.extend({
   name: NAME_FORM_RATING_STAR,
@@ -90,107 +101,93 @@ const BVFormRatingStar = Vue.extend({
   }
 })
 
-// --- Utility methods ---
-const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
-
-const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
-
-// --- BFormRating ---
+// --- Main component ---
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
-  mixins: [idMixin],
+  mixins: [idMixin, formSizeMixin],
   model: {
     prop: 'value',
     event: 'change'
   },
-  props: {
-    value: {
-      type: [Number, String],
-      default: null
+  props: makePropsConfigurable(
+    {
+      ...omit(formControlProps, ['required', 'autofocus']),
+      ...formSizeProps,
+      value: {
+        type: [Number, String],
+        default: null
+      },
+      stars: {
+        type: [Number, String],
+        default: DEFAULT_STARS,
+        validator(value) {
+          return toInteger(value) >= MIN_STARS
+        }
+      },
+      variant: {
+        type: String
+        // default: undefined
+      },
+      color: {
+        // CSS color string (overrides variant)
+        type: String
+        // default: undefined
+      },
+      showValue: {
+        type: Boolean,
+        default: false
+      },
+      showValueMax: {
+        type: Boolean,
+        default: false
+      },
+      readonly: {
+        type: Boolean,
+        default: false
+      },
+      noBorder: {
+        type: Boolean,
+        default: false
+      },
+      inline: {
+        type: Boolean,
+        default: false
+      },
+      precision: {
+        type: [Number, String],
+        default: null
+      },
+      iconEmpty: {
+        type: String,
+        default: 'star'
+      },
+      iconHalf: {
+        type: String,
+        default: 'star-half'
+      },
+      iconFull: {
+        type: String,
+        default: 'star-fill'
+      },
+      iconClear: {
+        type: String,
+        default: 'x'
+      },
+      locale: {
+        // Locale for the formatted value (if shown)
+        // Defaults to the browser locale. Falls back to `en`
+        type: [String, Array]
+        // default: undefined
+      },
+      showClear: {
+        type: Boolean,
+        default: false
+      }
     },
-    stars: {
-      type: [Number, String],
-      default: DEFAULT_STARS,
-      validator: val => toInteger(val) >= MIN_STARS
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_RATING, 'variant')
-    },
-    color: {
-      // CSS color string (overrides variant)
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_RATING, 'color')
-    },
-    showValue: {
-      type: Boolean,
-      default: false
-    },
-    showValueMax: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    noBorder: {
-      type: Boolean,
-      default: false
-    },
-    inline: {
-      type: Boolean,
-      default: false
-    },
-    precision: {
-      type: [Number, String],
-      default: null
-    },
-    iconEmpty: {
-      type: String,
-      default: 'star'
-    },
-    iconHalf: {
-      type: String,
-      default: 'star-half'
-    },
-    iconFull: {
-      type: String,
-      default: 'star-fill'
-    },
-    iconClear: {
-      type: String,
-      default: 'x'
-    },
-    locale: {
-      // Locale for the formatted value (if shown)
-      // Defaults to the browser locale. Falls back to `en`
-      type: [String, Array]
-      // default: undefined
-    },
-    showClear: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_FORM_RATING
+  ),
   data() {
     const value = toFloat(this.value, null)
     const stars = computeStars(this.stars)
@@ -328,7 +325,6 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     const {
       disabled,
       readonly,
-      size,
       name,
       form,
       inline,
@@ -423,14 +419,16 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       'output',
       {
         staticClass: 'b-rating form-control align-items-center',
-        class: {
-          [`form-control-${size}`]: !!size,
-          'd-inline-flex': inline,
-          'd-flex': !inline,
-          'border-0': noBorder,
-          disabled,
-          readonly: !disabled && readonly
-        },
+        class: [
+          {
+            'd-inline-flex': inline,
+            'd-flex': !inline,
+            'border-0': noBorder,
+            disabled,
+            readonly: !disabled && readonly
+          },
+          this.sizeFormClass
+        ],
         attrs: {
           id: this.safeId(),
           dir: isRTL ? 'rtl' : 'ltr',

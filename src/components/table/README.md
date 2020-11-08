@@ -2202,7 +2202,7 @@ The provider function is called with the following signature:
 provider(ctx, [callback])
 ```
 
-The `ctx` is the context object associated with the table state, and contains the following five
+The `ctx` is the context object associated with the table state, and contains the following
 properties:
 
 | Property      | Type                       | Description                                                                       |
@@ -2234,7 +2234,7 @@ function myProvider() {
 
 **Example: Using callback to return data (asynchronous):**
 
-<!-- eslint-disable no-unused-vars, standard/no-callback-literal -->
+<!-- eslint-disable no-unused-vars, node/no-callback-literal -->
 
 ```js
 function myProvider(ctx, callback) {
@@ -3064,11 +3064,11 @@ your app handles the various inconsistencies with events.
           { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
         ],
         fields: [
-          { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
+          { key: 'name', label: 'Person full name', sortable: true, sortDirection: 'desc' },
           { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
           {
             key: 'isActive',
-            label: 'is Active',
+            label: 'Is Active',
             formatter: (value, key, item) => {
               return value ? 'Yes' : 'No'
             },
@@ -3081,7 +3081,7 @@ your app handles the various inconsistencies with events.
         totalRows: 1,
         currentPage: 1,
         perPage: 5,
-        pageOptions: [5, 10, 15],
+        pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
