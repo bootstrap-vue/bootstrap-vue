@@ -25,7 +25,7 @@ const applyFunctionalRenderArguments = render => {
       children: normalizeSlot(SLOT_NAME_DEFAULT, scopedSlots, slots),
       slots: () => slots,
       scopedSlots,
-      data: {},
+      data: { ...attrs },
       parent,
       // TODO: Check if `listeners` work properly
       listeners: keys(attrs).reduce(
