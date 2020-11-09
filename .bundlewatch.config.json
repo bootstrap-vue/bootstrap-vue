@@ -2,7 +2,7 @@
   "files": [
     {
       "path": "./dist/bootstrap-vue-icons.js",
-      "maxSize": "110 kB"
+      "maxSize": "115 kB"
     },
     {
       "path": "./dist/bootstrap-vue-icons.min.js",

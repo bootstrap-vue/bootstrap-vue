@@ -85,6 +85,11 @@
       <anchored-heading :id="`comp-ref-${componentName}-props`" level="4" class="mb-3">
         Properties
       </anchored-heading>
+
+      <p>
+        All property default values are <b-link href="/docs/reference/settings">globally configurable</b-link>.
+      </p>
+
       <b-table
         :items="propsItems"
         :fields="propsFields"
@@ -98,7 +103,6 @@
         <template #cell(prop)="{ value, item }">
           <code class="text-nowrap notranslate" translate="no">{{ value }}</code><br>
           <b-badge v-if="item.required" variant="info">Required</b-badge>
-          <b-badge v-if="item.settings" variant="dark" href="/docs/reference/settings" title="Configurable in settings">Settings</b-badge>
           <b-badge v-if="item.version" variant="secondary">v{{ item.version }}+</b-badge>
           <b-badge v-if="item.isVModel" variant="primary">v-model</b-badge>
           <b-badge v-if="item.xss" variant="warning">Use with caution</b-badge>
@@ -298,8 +302,7 @@
 <script>
 import Vue from 'vue'
 import commonProps from '../common-props.json'
-import { defaultConfig } from '../content'
-import { kebabCase } from '../utils'
+import { getComponentName, getCleanComponentName, kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 export default {
@@ -425,7 +428,6 @@ export default {
     propsItems() {
       const props = this.componentProps
       const propsMetaObj = this.componentPropsMetaObj
-      const componentSettings = defaultConfig[this.componentOptions.name] || {}
 
       return Object.keys(props).map(prop => {
         const p = props[prop]
@@ -457,8 +459,6 @@ export default {
             ? ''
             : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
-        const settings = Object.prototype.hasOwnProperty.call(componentSettings, prop)
-
         return {
           prop: kebabCase(prop),
           type,
@@ -466,7 +466,6 @@ export default {
           required: p.required || false,
           description: meta.description || '',
           version: meta.version || '',
-          settings,
           xss: /[a-z]Html$/.test(prop),
           isVModel: this.componentVModel && this.componentVModel.prop === prop,
           deprecated: p.deprecated || false,
@@ -478,13 +477,13 @@ export default {
     slotsItems() {
       // We use object spread here so that `_showDetails` doesn't
       // mutate the original array objects
-      return this.slots ? this.slots.map(s => ({ ...s })) : []
+      return this.slots ? this.slots.map(slot => ({ ...slot })) : []
     },
     componentName() {
-      return kebabCase(this.component).replace('{', '-{')
+      return getComponentName(this.component)
     },
     componentNameClean() {
-      return this.componentName.replace('{', '').replace('}', '')
+      return getCleanComponentName(this.component)
     },
     tag() {
       return `<${this.componentName}>`
@@ -523,7 +522,7 @@ ul.component-ref-mini-toc:empty {
   display: none;
 }
 
-/deep/ .word-wrap-normal {
+>>> .word-wrap-normal {
   white-space: normal !important;
   word-break: normal !important;
   overflow-wrap: normal !important;

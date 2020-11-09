@@ -3,7 +3,7 @@ import { NAME_TABLE } from '../../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import identity from '../../../utils/identity'
 import noop from '../../../utils/noop'
-import { getComponentConfig } from '../../../utils/config'
+import { makePropsConfigurable } from '../../../utils/config'
 import { stopEvent } from '../../../utils/events'
 import { htmlOrText } from '../../../utils/html'
 import { isUndefinedOrNull } from '../../../utils/inspect'
@@ -16,25 +16,28 @@ import { BTr } from '../tr'
 import { BTh } from '../th'
 
 export default {
-  props: {
-    headVariant: {
-      type: String, // 'light', 'dark' or `null` (or custom)
-      default: () => getComponentConfig(NAME_TABLE, 'headVariant')
+  props: makePropsConfigurable(
+    {
+      headVariant: {
+        type: String // 'light', 'dark' or `null` (or custom)
+        // default: null
+      },
+      headRowVariant: {
+        // Any Bootstrap theme variant (or custom)
+        type: String
+        // default: null
+      },
+      theadClass: {
+        type: [String, Array, Object]
+        // default: undefined
+      },
+      theadTrClass: {
+        type: [String, Array, Object]
+        // default: undefined
+      }
     },
-    headRowVariant: {
-      // Any Bootstrap theme variant (or custom)
-      type: String
-      // default: null
-    },
-    theadClass: {
-      type: [String, Array, Object]
-      // default: undefined
-    },
-    theadTrClass: {
-      type: [String, Array, Object]
-      // default: undefined
-    }
-  },
+    NAME_TABLE
+  ),
   methods: {
     fieldClasses(field) {
       // Header field (<th>) classes

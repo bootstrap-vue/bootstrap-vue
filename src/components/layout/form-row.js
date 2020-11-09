@@ -1,14 +1,18 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_ROW } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
+  NAME_FORM_ROW
+)
 
 // --- Main component ---
 // @vue/component

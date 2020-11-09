@@ -12,6 +12,7 @@ import {
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { BVCollapse } from '../../utils/bv-collapse'
+import { makePropsConfigurable } from '../../utils/config'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { getRootEventName, eventOnOff } from '../../utils/events'
@@ -35,29 +36,32 @@ const ROOT_EVENT_NAME_COLLAPSE_ACCORDION = getRootEventName(NAME_COLLAPSE, 'acco
 export const BCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE,
   mixins: [idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
-  props: {
-    [PROP_NAME_MODEL_VALUE]: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      [PROP_NAME_MODEL_VALUE]: {
+        type: Boolean,
+        default: false
+      },
+      isNav: {
+        type: Boolean,
+        default: false
+      },
+      accordion: {
+        type: String
+        // default: null
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      appear: {
+        // If `true` (and `visible` is `true` on mount), animate initially visible
+        type: Boolean,
+        default: false
+      }
     },
-    isNav: {
-      type: Boolean,
-      default: false
-    },
-    accordion: {
-      type: String
-      // default: null
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    appear: {
-      // If `true` (and `visible` is `true` on mount), animate initially visible
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_COLLAPSE
+  ),
   emits: [EVENT_NAME_HIDDEN, EVENT_NAME_HIDE, EVENT_NAME_SHOW, EVENT_NAME_SHOWN],
   data() {
     return {
@@ -125,13 +129,13 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     this.emitSync()
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     if (this.isNav) {
       this.setWindowEvents(false)
     }
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     if (this.isNav) {
       this.setWindowEvents(true)
     }

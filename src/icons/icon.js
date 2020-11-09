@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps } from '../vue'
 import { NAME_ICON } from '../constants/components'
 import { RX_ICON_PREFIX } from '../constants/regex'
+import { makePropsConfigurable } from '../utils/config'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { commonIconProps } from './helpers/icon-base'
@@ -23,18 +24,21 @@ const findIconComponent = (ctx, iconName) => {
 export const BIcon = /*#__PURE__*/ defineComponent({
   name: NAME_ICON,
   functional: true,
-  props: {
-    icon: {
-      type: String,
-      default: null
+  props: makePropsConfigurable(
+    {
+      icon: {
+        type: String,
+        default: null
+      },
+      ...commonIconProps,
+      stacked: {
+        type: Boolean,
+        default: false
+      }
     },
-    ...commonIconProps,
-    stacked: {
-      type: Boolean,
-      default: false
-    }
-  },
-  render(_, { props, data, parent }) {
+    NAME_ICON
+  ),
+  render(_, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
 
     // If parent context exists, we check to see if the icon has been registered

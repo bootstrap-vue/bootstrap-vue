@@ -1,6 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_BADGE } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
@@ -13,21 +13,24 @@ const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'span'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'span'
+    },
+    variant: {
+      type: String,
+      default: 'secondary'
+    },
+    pill: {
+      type: Boolean,
+      default: false
+    },
+    ...linkProps
   },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_BADGE, 'variant')
-  },
-  pill: {
-    type: Boolean,
-    default: false
-  },
-  ...linkProps
-}
+  NAME_BADGE
+)
 
 // --- Main component ---
 // @vue/component

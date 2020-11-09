@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
 import { arrayIncludes } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -18,25 +18,28 @@ const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
-export const props = {
-  ...linkProps,
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    ...linkProps,
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    action: {
+      type: Boolean,
+      default: null
+    },
+    button: {
+      type: Boolean,
+      default: null
+    },
+    variant: {
+      type: String
+      // default: undefined
+    }
   },
-  action: {
-    type: Boolean,
-    default: null
-  },
-  button: {
-    type: Boolean,
-    default: null
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_LIST_GROUP_ITEM, 'variant')
-  }
-}
+  NAME_LIST_GROUP_ITEM
+)
 
 // --- Main component ---
 // @vue/component

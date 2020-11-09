@@ -4,11 +4,12 @@ import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_PREFIX } from '../../constants/even
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
+import { makePropsConfigurable } from '../../utils/config'
 import { isArray } from '../../utils/inspect'
-import formMixin from '../../mixins/form'
-import formRadioCheckMixin from '../../mixins/form-radio-check'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 
 // --- Constants ---
@@ -24,7 +25,7 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
   mixins: [
     formRadioCheckMixin, // Includes shared render function
     idMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin
   ],
@@ -34,32 +35,39 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
       default: false
     }
   },
-  props: {
-    [PROP_NAME_MODEL_VALUE]: {
-      // type: [Boolean, Number, Object, String],
-      default: true
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formRadioCheckProps,
+      ...formSizeProps,
+      ...formStateProps,
+      [PROP_NAME_MODEL_VALUE]: {
+        // type: [Boolean, Number, Object, String],
+        default: true
+      },
+      uncheckedValue: {
+        // type: [String, Number, Boolean, Object],
+        // Not applicable in multi-check mode
+        default: false
+      },
+      [PROP_NAME_INDETERMINATE]: {
+        // Not applicable in multi-check mode
+        type: Boolean,
+        default: false
+      },
+      switch: {
+        // Custom switch styling
+        type: Boolean,
+        default: false
+      },
+      checked: {
+        // v-model (Array when multiple checkboxes have same name)
+        // type: [String, Number, Boolean, Object, Array],
+        default: null
+      }
     },
-    uncheckedValue: {
-      // type: [String, Number, Boolean, Object],
-      // Not applicable in multi-check mode
-      default: false
-    },
-    [PROP_NAME_INDETERMINATE]: {
-      // Not applicable in multi-check mode
-      type: Boolean,
-      default: false
-    },
-    switch: {
-      // Custom switch styling
-      type: Boolean,
-      default: false
-    },
-    checked: {
-      // v-model (Array when multiple checkboxes have same name)
-      // type: [String, Number, Boolean, Object, Array],
-      default: null
-    }
-  },
+    NAME_FORM_CHECKBOX
+  ),
   emits: [EVENT_NAME_CHANGE],
   computed: {
     isChecked() {
@@ -112,16 +120,19 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
       }
       this.computedLocalChecked = localChecked
 
-      // Change is only emitted on user interaction
-      this.$emit(EVENT_NAME_CHANGE, localChecked)
+      // Fire events in a `$nextTick()` to ensure the `v-model` is updated
+      this.$nextTick(() => {
+        // Change is only emitted on user interaction
+        this.$emit(EVENT_NAME_CHANGE, localChecked)
 
-      // If this is a child of `<form-checkbox-group>`,
-      // we emit a change event on it as well
-      if (this.isGroup) {
-        this.bvGroup.$emit(EVENT_NAME_CHANGE, localChecked)
-      }
+        // If this is a child of `<form-checkbox-group>`,
+        // we emit a change event on it as well
+        if (this.isGroup) {
+          this.bvGroup.$emit(EVENT_NAME_CHANGE, localChecked)
+        }
 
-      this.$emit(EVENT_NAME_MODEL_INDETERMINATE, indeterminate)
+        this.$emit(EVENT_NAME_MODEL_INDETERMINATE, indeterminate)
+      })
     },
     setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode

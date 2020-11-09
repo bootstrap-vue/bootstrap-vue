@@ -1,9 +1,10 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
 import { SLOT_NAME_TITLE } from '../../constants/slots'
+import { makePropsConfigurable } from '../../utils/config'
+import BVTransition from '../../utils/bv-transition'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import BVTransition from '../../utils/bv-transition'
 
 // @vue/component
 export const BTab = /*#__PURE__*/ defineComponent({
@@ -14,50 +15,53 @@ export const BTab = /*#__PURE__*/ defineComponent({
       default: () => ({})
     }
   },
-  props: {
-    active: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      active: {
+        type: Boolean,
+        default: false
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      },
+      buttonId: {
+        type: String
+        // default: ''
+      },
+      title: {
+        type: String,
+        default: ''
+      },
+      titleItemClass: {
+        // Sniffed by `<b-tabs>` and added to nav `li.nav-item`
+        type: [String, Array, Object]
+        // default: null
+      },
+      titleLinkClass: {
+        // Sniffed by `<b-tabs>` and added to nav `a.nav-link`
+        type: [String, Array, Object]
+        // default: null
+      },
+      titleLinkAttributes: {
+        type: Object
+        // default: null
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      noBody: {
+        type: Boolean,
+        default: false
+      },
+      lazy: {
+        type: Boolean,
+        default: false
+      }
     },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    buttonId: {
-      type: String
-      // default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    titleItemClass: {
-      // Sniffed by `<b-tabs>` and added to nav `li.nav-item`
-      type: [String, Array, Object]
-      // default: null
-    },
-    titleLinkClass: {
-      // Sniffed by `<b-tabs>` and added to nav `a.nav-link`
-      type: [String, Array, Object]
-      // default: null
-    },
-    titleLinkAttributes: {
-      type: Object
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    noBody: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_TAB
+  ),
   data() {
     return {
       localActive: this.active && !this.disabled,

@@ -218,7 +218,7 @@ export const BVPopper = /*#__PURE__*/ defineComponent({
       this.attachment = this.getAttachment(data.placement)
     },
     /* istanbul ignore next */
-    renderTemplate() /* istanbul ignore next */ {
+    renderTemplate() {
       // Will be overridden by templates
       return h('div')
     }

@@ -51,7 +51,7 @@ export default defineComponent({
       )
     }
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     eventOff(
       this.clickOutElement,
       this.clickOutEventName,

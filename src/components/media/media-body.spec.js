@@ -13,7 +13,7 @@ describe('media-body', () => {
     wrapper.unmount()
   })
 
-  it('custom root element when prop tag is set', async () => {
+  it('custom root element when prop `tag` is set', async () => {
     const wrapper = mount(BMediaBody, {
       props: {
         tag: 'article'

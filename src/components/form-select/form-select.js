@@ -4,13 +4,14 @@ import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/event
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_FIRST } from '../../constants/slots'
 import { from as arrayFrom } from '../../utils/array'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { htmlOrText } from '../../utils/html'
 import { isArray } from '../../utils/inspect'
-import formCustomMixin from '../../mixins/form-custom'
-import formMixin from '../../mixins/form'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -25,28 +26,35 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     idMixin,
     modelMixin,
     normalizeSlotMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin,
     formCustomMixin,
     optionsMixin
   ],
-  props: {
-    multiple: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formCustomProps,
+      ...formSizeProps,
+      ...formStateProps,
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      selectSize: {
+        // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
+        // Size of 1 can bork out Firefox
+        type: Number,
+        default: 0
+      },
+      ariaInvalid: {
+        type: [Boolean, String],
+        default: false
+      }
     },
-    selectSize: {
-      // Browsers default size to 0, which shows 4 rows in most browsers in multiple mode
-      // Size of 1 can bork out Firefox
-      type: Number,
-      default: 0
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
+    NAME_FORM_SELECT
+  ),
   emits: [EVENT_NAME_CHANGE],
   data() {
     return {

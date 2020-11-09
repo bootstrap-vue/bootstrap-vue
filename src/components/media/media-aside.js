@@ -1,18 +1,26 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_MEDIA_ASIDE } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    right: {
+      type: Boolean,
+      default: false
+    },
+    verticalAlign: {
+      type: String,
+      default: 'top'
+    }
   },
-  verticalAlign: {
-    type: String,
-    default: 'top'
-  }
-}
+  NAME_MEDIA_ASIDE
+)
 
 // --- Main component ---
 // @vue/component
@@ -21,17 +29,20 @@ export const BMediaAside = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
+    const { verticalAlign } = props
     const align =
-      props.verticalAlign === 'top'
+      verticalAlign === 'top'
         ? 'start'
-        : props.verticalAlign === 'bottom'
+        : verticalAlign === 'bottom'
           ? 'end'
-          : /* istanbul ignore next */ props.verticalAlign
+          : /* istanbul ignore next */ verticalAlign
+
     return h(
       props.tag,
       mergeProps(data, {
-        staticClass: 'd-flex',
+        staticClass: 'media-aside',
         class: {
+          'media-aside-right': props.right,
           [`align-self-${align}`]: align
         }
       }),

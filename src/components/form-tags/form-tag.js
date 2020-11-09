@@ -2,7 +2,7 @@ import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TAG } from '../../constants/components'
 import { EVENT_NAME_REMOVE } from '../../constants/events'
 import { CODE_DELETE } from '../../constants/key-codes'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BBadge } from '../badge/badge'
@@ -11,32 +11,35 @@ import { BButtonClose } from '../button/button-close'
 export const BFormTag = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAG,
   mixins: [idMixin, normalizeSlotMixin],
-  props: {
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAG, 'variant')
+  props: makePropsConfigurable(
+    {
+      variant: {
+        type: String,
+        default: 'secondary'
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      title: {
+        type: String
+        // default: null
+      },
+      pill: {
+        type: Boolean,
+        default: false
+      },
+      removeLabel: {
+        type: String,
+        default: 'Remove tag'
+      },
+      tag: {
+        type: String,
+        default: 'span'
+      }
     },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    title: {
-      type: String
-      // default: null
-    },
-    pill: {
-      type: Boolean,
-      default: false
-    },
-    removeLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAG, 'removeLabel')
-    },
-    tag: {
-      type: String,
-      default: 'span'
-    }
-  },
+    NAME_FORM_TAG
+  ),
   emits: [EVENT_NAME_REMOVE],
   methods: {
     onDelete(evt) {

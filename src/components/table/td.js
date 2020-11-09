@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_TABLE_CELL } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -21,30 +22,33 @@ const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
 
 // --- Props ---
 
-export const props = {
-  variant: {
-    type: String,
-    default: null
+export const props = makePropsConfigurable(
+  {
+    variant: {
+      type: String,
+      default: null
+    },
+    colspan: {
+      type: [Number, String],
+      default: null,
+      validator: spanValidator
+    },
+    rowspan: {
+      type: [Number, String],
+      default: null,
+      validator: spanValidator
+    },
+    stackedHeading: {
+      type: String,
+      default: null
+    },
+    stickyColumn: {
+      type: Boolean,
+      default: false
+    }
   },
-  colspan: {
-    type: [Number, String],
-    default: null,
-    validator: spanValidator
-  },
-  rowspan: {
-    type: [Number, String],
-    default: null,
-    validator: spanValidator
-  },
-  stackedHeading: {
-    type: String,
-    default: null
-  },
-  stickyColumn: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_TABLE_CELL
+)
 
 // --- Main component ---
 // TODO:
@@ -58,7 +62,7 @@ export const BTd = /*#__PURE__*/ defineComponent({
   inject: {
     bvTableTr: {
       /* istanbul ignore next */
-      default() /* istanbul ignore next */ {
+      default() {
         return {}
       }
     }

@@ -6,18 +6,19 @@ import {
   EVENT_NAME_UPDATE
 } from '../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../constants/props'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isFunction } from '../utils/inspect'
+import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
 import modelMixin from './model'
 
-// @vue/component
-export default defineComponent({
-  mixins: [modelMixin],
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     [PROP_NAME_MODEL_VALUE]: {
       type: [String, Number],
       default: ''
@@ -69,6 +70,14 @@ export default defineComponent({
       default: 0
     }
   },
+  'formTextControls'
+)
+
+// --- Mixin ---
+// @vue/component
+export default defineComponent({
+  mixins: [modelMixin],
+  props,
   emits: [EVENT_NAME_BLUR, EVENT_NAME_CHANGE, EVENT_NAME_UPDATE],
   data() {
     const value = this[PROP_NAME_MODEL_VALUE]
@@ -114,7 +123,11 @@ export default defineComponent({
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      return isFunction(this.formatter)
+      let result = null
+      try {
+        result = this.formatter()
+      } catch {}
+      return !isUndefined(result)
     }
   },
   watch: {

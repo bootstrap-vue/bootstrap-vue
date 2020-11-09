@@ -1,6 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_PROGRESS_BAR } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean } from '../../utils/inspect'
 import { mathMax, mathPow } from '../../utils/math'
@@ -14,54 +14,57 @@ export const BProgressBar = /*#__PURE__*/ defineComponent({
   mixins: [normalizeSlotMixin],
   inject: {
     bvProgress: {
-      default() /* istanbul ignore next */ {
+      default() {
         return {}
       }
     }
   },
-  props: {
-    value: {
-      type: [Number, String],
-      default: 0
+  props: makePropsConfigurable(
+    {
+      value: {
+        type: [Number, String],
+        default: 0
+      },
+      label: {
+        type: String
+        // default: null
+      },
+      labelHtml: {
+        type: String
+      },
+      // $parent (this.bvProgress) prop values may take precedence over the following props
+      // Which is why they are defaulted to null
+      max: {
+        type: [Number, String],
+        default: null
+      },
+      precision: {
+        type: [Number, String],
+        default: null
+      },
+      variant: {
+        type: String
+        // default: undefined
+      },
+      striped: {
+        type: Boolean,
+        default: null
+      },
+      animated: {
+        type: Boolean,
+        default: null
+      },
+      showProgress: {
+        type: Boolean,
+        default: null
+      },
+      showValue: {
+        type: Boolean,
+        default: null
+      }
     },
-    label: {
-      type: String
-      // default: null
-    },
-    labelHtml: {
-      type: String
-    },
-    // $parent (this.bvProgress) prop values may take precedence over the following props
-    // Which is why they are defaulted to null
-    max: {
-      type: [Number, String],
-      default: null
-    },
-    precision: {
-      type: [Number, String],
-      default: null
-    },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_PROGRESS_BAR, 'variant')
-    },
-    striped: {
-      type: Boolean,
-      default: null
-    },
-    animated: {
-      type: Boolean,
-      default: null
-    },
-    showProgress: {
-      type: Boolean,
-      default: null
-    },
-    showValue: {
-      type: Boolean,
-      default: null
-    }
-  },
+    NAME_PROGRESS_BAR
+  ),
   computed: {
     progressBarClasses() {
       return [

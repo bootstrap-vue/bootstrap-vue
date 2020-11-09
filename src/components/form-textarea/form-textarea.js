@@ -1,14 +1,15 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
-import formMixin from '../../mixins/form'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formSelectionMixin from '../../mixins/form-selection'
-import formSizeMixin from '../../mixins/form-size'
-import formStateMixin from '../../mixins/form-state'
-import formTextMixin from '../../mixins/form-text'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
+import formTextMixin, { props as formTextProps } from '../../mixins/form-text'
 import formValidityMixin from '../../mixins/form-validity'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
@@ -24,38 +25,45 @@ export const BFormTextarea = /*#__PURE__*/ defineComponent({
     listenersMixin,
     idMixin,
     listenOnRootMixin,
-    formMixin,
+    formControlMixin,
     formSizeMixin,
     formStateMixin,
     formTextMixin,
     formSelectionMixin,
     formValidityMixin
   ],
-  props: {
-    rows: {
-      type: [Number, String],
-      default: 2
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formSizeProps,
+      ...formStateProps,
+      ...formTextProps,
+      rows: {
+        type: [Number, String],
+        default: 2
+      },
+      maxRows: {
+        type: [Number, String]
+        // default: null
+      },
+      wrap: {
+        // 'soft', 'hard' or 'off'. Browser default is 'soft'
+        type: String,
+        default: 'soft'
+      },
+      noResize: {
+        // Disable the resize handle of textarea
+        type: Boolean,
+        default: false
+      },
+      noAutoShrink: {
+        // When in auto resize mode, disable shrinking to content height
+        type: Boolean,
+        default: false
+      }
     },
-    maxRows: {
-      type: [Number, String]
-      // default: null
-    },
-    wrap: {
-      // 'soft', 'hard' or 'off'. Browser default is 'soft'
-      type: String,
-      default: 'soft'
-    },
-    noResize: {
-      // Disable the resize handle of textarea
-      type: Boolean,
-      default: false
-    },
-    noAutoShrink: {
-      // When in auto resize mode, disable shrinking to content height
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_FORM_TEXTAREA
+  ),
   data() {
     return {
       heightInPx: null
@@ -129,7 +137,8 @@ export const BFormTextarea = /*#__PURE__*/ defineComponent({
   },
   methods: {
     // Called by intersection observer directive
-    visibleCallback(visible) /* istanbul ignore next */ {
+    /* istanbul ignore next */
+    visibleCallback(visible) {
       if (visible) {
         // We use a `$nextTick()` here just to make sure any
         // transitions or portalling have completed
@@ -143,7 +152,8 @@ export const BFormTextarea = /*#__PURE__*/ defineComponent({
         })
       })
     },
-    computeHeight() /* istanbul ignore next: can't test getComputedStyle in JSDOM */ {
+    /* istanbul ignore next: can't test getComputedStyle in JSDOM */
+    computeHeight() {
       if (this.$isServer || !isNull(this.computedRows)) {
         return null
       }

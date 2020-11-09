@@ -1,14 +1,18 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_INPUT_GROUP_TEXT } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    }
+  },
+  NAME_INPUT_GROUP_TEXT
+)
 
 // --- Main component ---
 // @vue/component

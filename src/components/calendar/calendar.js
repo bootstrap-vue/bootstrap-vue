@@ -29,7 +29,7 @@ import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   createDate,
   createDateFormatter,
@@ -49,7 +49,7 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isArray, isFunction, isPlainObject, isString } from '../../utils/inspect'
+import { isArray, isPlainObject, isString, isUndefined } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -65,14 +65,10 @@ import {
   BIconCircleFill
 } from '../../icons/icons'
 
-// --- BCalendar component ---
+// --- Props ---
 
-// @vue/component
-export const BCalendar = defineComponent({
-  name: NAME_CALENDAR,
-  // Mixin order is important!
-  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
-  props: {
+export const props = makePropsConfigurable(
+  {
     [PROP_NAME_MODEL_VALUE]: {
       type: [String, Date]
       // default: null
@@ -129,17 +125,17 @@ export const BCalendar = defineComponent({
     selectedVariant: {
       // Variant color to use for the selected date
       type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'selectedVariant')
+      default: 'primary'
     },
     todayVariant: {
       // Variant color to use for today's date (defaults to `selectedVariant`)
-      type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'todayVariant')
+      type: String
+      // default: null
     },
     navButtonVariant: {
       // Variant color to use for the navigation buttons
       type: String,
-      default: getComponentConfig(NAME_CALENDAR, 'navButtonVariant')
+      default: 'secondary'
     },
     noHighlightToday: {
       // Disable highlighting today's date
@@ -198,55 +194,55 @@ export const BCalendar = defineComponent({
     // Labels for buttons and keyboard shortcuts
     labelPrevDecade: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevDecade')
+      default: 'Previous decade'
     },
     labelPrevYear: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevYear')
+      default: 'Previous year'
     },
     labelPrevMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelPrevMonth')
+      default: 'Previous month'
     },
     labelCurrentMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCurrentMonth')
+      default: 'Current month'
     },
     labelNextMonth: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextMonth')
+      default: 'Next month'
     },
     labelNextYear: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextYear')
+      default: 'Next year'
     },
     labelNextDecade: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNextDecade')
+      default: 'Next decade'
     },
     labelToday: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelToday')
+      default: 'Today'
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelSelected')
+      default: 'Selected date'
     },
     labelNoDateSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNoDateSelected')
+      default: 'No date selected'
     },
     labelCalendar: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelCalendar')
+      default: 'Calendar'
     },
     labelNav: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelNav')
+      default: 'Calendar navigation'
     },
     labelHelp: {
       type: String,
-      default: () => getComponentConfig(NAME_CALENDAR, 'labelHelp')
+      default: 'Use cursor keys to navigate calendar dates'
     },
     dateFormatOptions: {
       // `Intl.DateTimeFormat` object
@@ -268,9 +264,21 @@ export const BCalendar = defineComponent({
       // `long` is the full week day name
       // Although some locales may override this (i.e `ar`, etc.)
       default: CALENDAR_SHORT,
-      validator: value => arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+      validator(value) {
+        return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+      }
     }
   },
+  NAME_CALENDAR
+)
+
+// --- Main component ---
+// @vue/component
+export const BCalendar = defineComponent({
+  name: NAME_CALENDAR,
+  // Mixin order is important!
+  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
+  props,
   emits: [EVENT_NAME_CONTEXT, EVENT_NAME_SELECTED],
   data() {
     const selected = formatYMD(this[PROP_NAME_MODEL_VALUE]) || ''
@@ -332,6 +340,23 @@ export const BCalendar = defineComponent({
     computedLocale() {
       // Returns the resolved locale used by the calendar
       return resolveLocale(concat(this.locale).filter(identity), CALENDAR_GREGORY)
+    },
+    computedDateDisabledFn() {
+      const { dateDisabledFn } = this
+      let result = null
+      try {
+        result = dateDisabledFn()
+      } catch {}
+      return isUndefined(result) ? () => false : dateDisabledFn
+    },
+    // TODO: Change `dateInfoFn` to handle events and notes as well as classes
+    computedDateInfoFn() {
+      const { dateInfoFn } = this
+      let result = null
+      try {
+        result = dateInfoFn()
+      } catch {}
+      return isUndefined(result) ? () => ({}) : dateInfoFn
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
@@ -432,13 +457,12 @@ export const BCalendar = defineComponent({
       // We do this as we need to trigger the calendar computed prop
       // to update when these props update
       const rangeFn = this.dateOutOfRange
-      const disabledFn = isFunction(this.dateDisabledFn) ? this.dateDisabledFn : () => false
       // Return the function ref
       return date => {
         // Handle both `YYYY-MM-DD` and `Date` objects
         date = parseYMD(date)
         const ymd = formatYMD(date)
-        return !!(rangeFn(date) || disabledFn(ymd, date))
+        return !!(rangeFn(date) || this.computedDateDisabledFn(ymd, date))
       }
     },
     // Computed props that return date formatter functions
@@ -537,8 +561,6 @@ export const BCalendar = defineComponent({
       const daysInMonth = this.calendarDaysInMonth
       const startIndex = firstDay.getDay() // `0`..`6`
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
-      // TODO: Change `dateInfoFn` to handle events and notes as well as classes
-      const dateInfoFn = isFunction(this.dateInfoFn) ? this.dateInfoFn : () => ({})
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
       for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
@@ -553,7 +575,7 @@ export const BCalendar = defineComponent({
           const dayYMD = formatYMD(date)
           const dayDisabled = this.dateDisabled(date)
           // TODO: This could be a normalizer method
-          let dateInfo = dateInfoFn(dayYMD, parseYMD(dayYMD))
+          let dateInfo = this.computedDateInfoFn(dayYMD, parseYMD(dayYMD))
           dateInfo =
             isString(dateInfo) || isArray(dateInfo)
               ? /* istanbul ignore next */ { class: dateInfo }
@@ -629,11 +651,11 @@ export const BCalendar = defineComponent({
     this.setLive(true)
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.setLive(true)
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     this.setLive(false)
   },
   beforeDestroy() {

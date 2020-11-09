@@ -1,36 +1,134 @@
-import DEFAULTS from './config-defaults'
-import {
-  getConfig,
-  getConfigValue,
-  getComponentConfig,
-  getBreakpoints,
-  getBreakpointsUp,
-  getBreakpointsDown
-} from './config'
-import { setConfig } from './config-set'
-import { createLocalVue } from '@vue/test-utils'
-import BootstrapVue from '../../src'
+import { createLocalVue, mount } from '@vue/test-utils'
+import { BootstrapVue } from '../../src'
 import { AlertPlugin } from '../../src/components/alert'
 import { BVConfigPlugin } from '../../src/bv-config'
+import { setConfig, resetConfig } from './config-set'
+import {
+  getBreakpoints,
+  getBreakpointsDown,
+  getBreakpointsUp,
+  getComponentConfig,
+  getConfig,
+  getConfigValue,
+  makePropsConfigurable
+} from './config'
 
 describe('utils/config', () => {
+  afterEach(() => {
+    resetConfig()
+  })
+
+  it('getConfig() works', async () => {
+    expect(getConfig()).toEqual({})
+  })
+
+  it('setConfig() works', async () => {
+    const config = {
+      BAlert: { variant: 'danger' }
+    }
+    const breakpointsConfig = {
+      breakpoints: ['aa', 'bb', 'cc', 'dd', 'ee']
+    }
+    expect(getConfig()).toEqual({})
+
+    // Try a component config
+    setConfig(config)
+    expect(getConfig()).toEqual(config)
+    expect(getConfig()).not.toBe(config)
+    expect(getComponentConfig('BAlert')).toEqual(config.BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(config.BAlert)
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
+
+    // Try breakpoint config (should merge)
+    setConfig(breakpointsConfig)
+    expect(getBreakpoints()).toEqual(breakpointsConfig.breakpoints)
+    expect(getBreakpoints()).not.toBe(breakpointsConfig.breakpoints)
+    expect(getConfigValue('breakpoints')).toEqual(breakpointsConfig.breakpoints)
+    // should leave previous config
+    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
+    // Should merge config
+    expect(getConfig()).toEqual({ ...config, ...breakpointsConfig })
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+  })
+
+  it('config via Vue.use(BootstrapVue) works', async () => {
+    const localVue = createLocalVue()
+    const config = {
+      BAlert: { variant: 'foobar' }
+    }
+
+    expect(getConfig()).toEqual({})
+
+    localVue.use(BootstrapVue, config)
+    expect(getConfig()).toEqual(config)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+  })
+
+  it('config via Vue.use(ComponentPlugin) works', async () => {
+    const localVue = createLocalVue()
+    const config = {
+      BAlert: { variant: 'foobar' }
+    }
+
+    expect(getConfig()).toEqual({})
+
+    localVue.use(AlertPlugin, config)
+    expect(getConfig()).toEqual(config)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+  })
+
+  it('config via Vue.use(BVConfig) works', async () => {
+    const localVue = createLocalVue()
+    const config = {
+      BAlert: { variant: 'foobar' }
+    }
+
+    expect(getConfig()).toEqual({})
+
+    localVue.use(BVConfigPlugin, config)
+    expect(getConfig()).toEqual(config)
+
+    // Reset the configuration
+    resetConfig()
+    expect(getConfig()).toEqual({})
+  })
+
   it('getConfigValue() works', async () => {
-    expect(getConfigValue('breakpoints')).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
+    const config = {
+      formControls: { size: 'sm' }
+    }
+    setConfig(config)
+
+    expect(getConfigValue('formControls')).toEqual(config.formControls)
     // Should return a deep clone
-    expect(getConfigValue('breakpoints')).not.toBe(getConfigValue('breakpoints'))
+    expect(getConfigValue('formControls')).not.toBe(config.formControls)
     // Shape of returned value should be the same each call
-    expect(getConfigValue('breakpoints')).toEqual(getConfigValue('breakpoints'))
+    expect(getConfigValue('formControls')).toEqual(getConfigValue('formControls'))
     // Should return undefined for not found
     expect(getConfigValue('foo.bar[1].baz')).not.toBeDefined()
   })
 
   it('getComponentConfig() works', async () => {
+    const config = {
+      BAlert: { variant: 'info' }
+    }
+    setConfig(config)
+
     // Specific component config key
     expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
     // Component's full config
-    expect(getComponentConfig('BAlert')).toEqual(DEFAULTS.BAlert)
+    expect(getComponentConfig('BAlert')).toEqual(config.BAlert)
     // Should return a deep clone for full config
-    expect(getComponentConfig('BAlert')).not.toBe(DEFAULTS.BAlert)
+    expect(getComponentConfig('BAlert')).not.toBe(config.BAlert)
     // Should return empty object for not found component
     expect(getComponentConfig('foobar')).toEqual({})
     // Should return undefined for not found component key
@@ -38,10 +136,20 @@ describe('utils/config', () => {
   })
 
   it('getBreakpoints() works', async () => {
+    const breakpointsConfig = {
+      breakpoints: ['aa', 'bb', 'cc', 'dd', 'ee']
+    }
+
     expect(getBreakpoints()).toEqual(['xs', 'sm', 'md', 'lg', 'xl'])
     // Should return a deep clone
     expect(getBreakpoints()).not.toBe(getBreakpoints())
-    expect(getBreakpoints()).not.toBe(DEFAULTS.breakpoints)
+
+    // Set new breakpoints
+    setConfig(breakpointsConfig)
+    expect(getBreakpoints()).toEqual(breakpointsConfig.breakpoints)
+    // Should return a deep clone
+    expect(getBreakpoints()).not.toBe(getBreakpoints())
+    expect(getBreakpoints()).not.toBe(breakpointsConfig.breakpoints)
   })
 
   it('getBreakpointsUp() works', async () => {
@@ -56,94 +164,34 @@ describe('utils/config', () => {
     expect(getBreakpointsDown()).not.toBe(getBreakpointsDown())
   })
 
-  it('getConfig() return current empty user config', async () => {
-    // TODO: will return default config instead of empty object
-    expect(getConfig()).toEqual({})
-  })
-
-  it('setConfig() works', async () => {
-    const testConfig = {
-      BAlert: { variant: 'danger' }
+  it('makePropsConfigurable() works', async () => {
+    const NAME = 'Component'
+    const props = {
+      text: {
+        type: String,
+        default: 'foo'
+      }
     }
-    const testBreakpoints = {
-      breakpoints: ['aa', 'bb', 'cc', 'dd', 'ee']
+    const config = {
+      [NAME]: { text: 'bar' }
     }
-
-    // TODO: getConfig will return default config instead of empty object
-    expect(getConfig()).toEqual({})
-
-    // Try a component config
-    setConfig(testConfig)
-    expect(getConfig()).toEqual(testConfig)
-    expect(getConfig()).not.toBe(testConfig)
-    expect(getComponentConfig('BAlert')).toEqual(testConfig.BAlert)
-    expect(getComponentConfig('BAlert')).not.toBe(testConfig.BAlert)
-    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
-
-    // Try breakpoint config (should merge)
-    setConfig(testBreakpoints)
-    expect(getBreakpoints()).toEqual(testBreakpoints.breakpoints)
-    expect(getBreakpoints()).not.toBe(testBreakpoints.breakpoints)
-    expect(getConfigValue('breakpoints')).toEqual(testBreakpoints.breakpoints)
-    // should leave previous config
-    expect(getComponentConfig('BAlert', 'variant')).toEqual('danger')
-    // Should merge config
-    expect(getConfig()).toEqual({ ...testConfig, ...testBreakpoints })
-
-    // Reset the configuration
-    // resetConfig()
-    expect(getConfig()).toEqual({})
-    expect(getComponentConfig('BAlert', 'variant')).toEqual('info')
-    expect(getComponentConfig('BAlert', 'variant')).toEqual(DEFAULTS.BAlert.variant)
-    expect(getComponentConfig('BAlert')).toEqual(DEFAULTS.BAlert)
-    expect(getBreakpoints()).toEqual(DEFAULTS.breakpoints)
-  })
-
-  it('config via Vue.use(BootstrapVue) works', async () => {
-    const localVue = createLocalVue()
-    const testConfig = {
-      BAlert: { variant: 'foobar' }
+    const ConfigurableComponent = {
+      name: NAME,
+      props: makePropsConfigurable(props, NAME),
+      render(h) {
+        return h('div', this.text)
+      }
     }
 
-    expect(getConfig()).toEqual({})
+    setConfig(config)
 
-    localVue.use(BootstrapVue, testConfig)
-    expect(getConfig()).toEqual(testConfig)
+    const wrapper = mount(ConfigurableComponent)
 
-    // Reset the configuration
-    // resetConfig()
-    expect(getConfig()).toEqual({})
-  })
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.text()).toBe('bar')
 
-  it('config via Vue.use(ComponentPlugin) works', async () => {
-    const localVue = createLocalVue()
-    const testConfig = {
-      BAlert: { variant: 'foobar' }
-    }
-
-    expect(getConfig()).toEqual({})
-
-    localVue.use(AlertPlugin, testConfig)
-    expect(getConfig()).toEqual(testConfig)
-
-    // Reset the configuration
-    // resetConfig()
-    expect(getConfig()).toEqual({})
-  })
-
-  it('config via Vue.use(BVConfig) works', async () => {
-    const localVue = createLocalVue()
-    const testConfig = {
-      BAlert: { variant: 'foobar' }
-    }
-
-    expect(getConfig()).toEqual({})
-
-    localVue.use(BVConfigPlugin, testConfig)
-    expect(getConfig()).toEqual(testConfig)
-
-    // Reset the configuration
-    // resetConfig()
-    expect(getConfig()).toEqual({})
+    await wrapper.setProps({ text: 'baz' })
+    expect(wrapper.text()).toBe('baz')
   })
 })

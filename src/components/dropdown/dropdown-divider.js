@@ -1,14 +1,18 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_DIVIDER } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'hr'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'hr'
+    }
+  },
+  NAME_DROPDOWN_DIVIDER
+)
 
 // --- Main component ---
 // @vue/component

@@ -1,21 +1,26 @@
 import { h } from '../../../vue'
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 import { htmlOrText } from '../../../utils/html'
 
 export default {
-  props: {
-    // `caption-top` is part of table-render mixin (styling)
-    // captionTop: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    caption: {
-      type: String
-      // default: null
+  props: makePropsConfigurable(
+    {
+      // `caption-top` is part of table-render mixin (styling)
+      // captionTop: {
+      //   type: Boolean,
+      //   default: false
+      // },
+      caption: {
+        type: String
+        // default: null
+      },
+      captionHtml: {
+        type: String
+      }
     },
-    captionHtml: {
-      type: String
-    }
-  },
+    NAME_TABLE
+  ),
   computed: {
     captionId() {
       // Even though `this.safeId` looks like a method, it is a computed prop

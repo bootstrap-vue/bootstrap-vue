@@ -1,6 +1,7 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_SKELETON_TABLE } from '../../constants/components'
 import { createAndFillArray } from '../../utils/array'
+import { makePropsConfigurable } from '../../utils/config'
 import { BSkeleton } from './skeleton'
 import { BTableSimple } from '../table'
 
@@ -8,33 +9,40 @@ import { BTableSimple } from '../table'
 export const BSkeletonTable = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_TABLE,
   functional: true,
-  props: {
-    animation: {
-      type: String
+  props: makePropsConfigurable(
+    {
+      animation: {
+        type: String
+      },
+      rows: {
+        type: Number,
+        default: 3,
+        validator(value) {
+          return value > 0
+        }
+      },
+      columns: {
+        type: Number,
+        default: 5,
+        validator(value) {
+          return value > 0
+        }
+      },
+      hideHeader: {
+        type: Boolean,
+        default: false
+      },
+      showFooter: {
+        type: Boolean,
+        default: false
+      },
+      tableProps: {
+        type: Object,
+        default: () => {}
+      }
     },
-    rows: {
-      type: Number,
-      default: 3,
-      validator: value => value > 0
-    },
-    columns: {
-      type: Number,
-      default: 5,
-      validator: value => value > 0
-    },
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    showFooter: {
-      type: Boolean,
-      default: false
-    },
-    tableProps: {
-      type: Object,
-      default: () => {}
-    }
-  },
+    NAME_SKELETON_TABLE
+  ),
   render(_, { props }) {
     const { animation, columns } = props
 

@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { omit } from '../../utils/object'
 import { pluckProps } from '../../utils/props'
@@ -7,21 +8,24 @@ import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = {
-  text: {
-    type: String,
-    default: null
+export const props = makePropsConfigurable(
+  {
+    text: {
+      type: String,
+      default: null
+    },
+    html: {
+      type: String,
+      default: null
+    },
+    ariaCurrent: {
+      type: String,
+      default: 'location'
+    },
+    ...omit(BLinkProps, ['event', 'routerTag'])
   },
-  html: {
-    type: String,
-    default: null
-  },
-  ariaCurrent: {
-    type: String,
-    default: 'location'
-  },
-  ...omit(BLinkProps, ['event', 'routerTag'])
-}
+  NAME_BREADCRUMB_LINK
+)
 
 // --- Main component ---
 // @vue/component

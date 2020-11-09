@@ -11,7 +11,7 @@ import cssEscape from '../../utils/css-escape'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   attemptBlur,
   attemptFocus,
@@ -22,8 +22,12 @@ import {
   select
 } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isEvent, isFunction, isNumber, isString } from '../../utils/inspect'
+import { pick } from '../../utils/object'
+import { isEvent, isNumber, isString, isUndefined } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -63,144 +67,135 @@ const cleanTagsState = () => ({
   duplicate: []
 })
 
+// --- Main component ---
 // @vue/component
 export const BFormTags = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAGS,
-  mixins: [idMixin, modelMixin, normalizeSlotMixin],
-  props: {
-    [PROP_NAME_MODEL_VALUE]: {
-      type: Array,
-      default: () => []
+  mixins: [
+    idMixin,
+    modelMixin,
+    formControlMixin,
+    formSizeMixin,
+    formStateMixin,
+    normalizeSlotMixin
+  ],
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formSizeProps,
+      ...formStateProps,
+      [PROP_NAME_MODEL_VALUE]: {
+        type: Array,
+        default: () => []
+      },
+      placeholder: {
+        type: String,
+        default: 'Add tag...'
+      },
+      inputId: {
+        type: String
+        // default: null
+      },
+      inputType: {
+        type: String,
+        default: 'text',
+        validator(value) {
+          return arrayIncludes(TYPES, value)
+        }
+      },
+      inputClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      inputAttrs: {
+        // Additional attributes to add to the input element
+        type: Object,
+        default: () => ({})
+      },
+      addButtonText: {
+        type: String,
+        default: 'Add'
+      },
+      addButtonVariant: {
+        type: String,
+        default: 'outline-secondary'
+      },
+      tagVariant: {
+        type: String,
+        default: 'secondary'
+      },
+      tagClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      tagPills: {
+        type: Boolean,
+        default: false
+      },
+      tagRemoveLabel: {
+        type: String,
+        default: 'Remove tag'
+      },
+      tagRemovedLabel: {
+        type: String,
+        default: 'Tag removed'
+      },
+      tagValidator: {
+        type: Function
+        // default: null
+      },
+      duplicateTagText: {
+        type: String,
+        default: 'Duplicate tag(s)'
+      },
+      invalidTagText: {
+        type: String,
+        default: 'Invalid tag(s)'
+      },
+      limitTagsText: {
+        type: String,
+        default: 'Tag limit reached'
+      },
+      limit: {
+        type: Number
+        // default: null
+      },
+      separator: {
+        // Character (or characters) that trigger adding tags
+        type: [String, Array]
+        // default: null
+      },
+      removeOnDelete: {
+        // Enable deleting last tag in list when CODE_BACKSPACE is
+        // pressed and input is empty
+        type: Boolean,
+        default: false
+      },
+      addOnChange: {
+        // Enable change event triggering tag addition
+        // Handy if using <select> as the input
+        type: Boolean,
+        default: false
+      },
+      noAddOnEnter: {
+        // Disable ENTER key from triggering tag addition
+        type: Boolean,
+        default: false
+      },
+      noOuterFocus: {
+        // Disable the focus ring on the root element
+        type: Boolean,
+        default: false
+      },
+      ignoreInputFocusSelector: {
+        // Disable the input focus behavior when clicking
+        // on element matching the selector (or selectors)
+        type: [Array, String],
+        default: () => ['.b-form-tag', 'button', 'input', 'select']
+      }
     },
-    inputId: {
-      type: String
-      // default: null
-    },
-    placeholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'placeholder')
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    autofocus: {
-      type: Boolean,
-      default: false
-    },
-    state: {
-      // Tri-state: `true`, `false`, `null`
-      type: Boolean,
-      default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    inputType: {
-      type: String,
-      default: 'text',
-      validator: type => arrayIncludes(TYPES, type)
-    },
-    inputClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    inputAttrs: {
-      // Additional attributes to add to the input element
-      type: Object,
-      default: () => ({})
-    },
-    addButtonText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonText')
-    },
-    addButtonVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'addButtonVariant')
-    },
-    tagVariant: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagVariant')
-    },
-    tagClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    tagPills: {
-      type: Boolean,
-      default: false
-    },
-    tagRemoveLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemoveLabel')
-    },
-    tagRemovedLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'tagRemovedLabel')
-    },
-    tagValidator: {
-      type: Function
-      // default: null
-    },
-    duplicateTagText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'duplicateTagText')
-    },
-    invalidTagText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'invalidTagText')
-    },
-    limitTagsText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_TAGS, 'limitTagsText')
-    },
-    limit: {
-      type: Number
-      // default: null
-    },
-    separator: {
-      // Character (or characters) that trigger adding tags
-      type: [String, Array]
-      // default: null
-    },
-    removeOnDelete: {
-      // Enable deleting last tag in list when CODE_BACKSPACE is
-      // pressed and input is empty
-      type: Boolean,
-      default: false
-    },
-    addOnChange: {
-      // Enable change event triggering tag addition
-      // Handy if using <select> as the input
-      type: Boolean,
-      default: false
-    },
-    noAddOnEnter: {
-      // Disable ENTER key from triggering tag addition
-      type: Boolean,
-      default: false
-    },
-    noOuterFocus: {
-      // Disable the focus ring on the root element
-      type: Boolean,
-      default: false
-    },
-    ignoreInputFocusSelector: {
-      // Disable the input focus behavior when clicking
-      // on element matching the selector (or selectors)
-      type: [Array, String],
-      default: () => ['.b-form-tag', 'button', 'input', 'select']
-    }
-  },
+    NAME_FORM_TAGS
+  ),
   emits: [EVENT_NAME_TAG_STATE],
   data() {
     return {
@@ -323,13 +318,6 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     // We do this in created to make sure an input event emits
     // if the cleaned tags are not equal to the value prop
     this.tags = cleanTags(this.value)
-  },
-  mounted() {
-    this.handleAutofocus()
-  },
-  /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
-    this.handleAutofocus()
   },
   methods: {
     addTag(newTag) {
@@ -525,9 +513,12 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       return parsed
     },
     validateTag(tag) {
-      // Call the user supplied tag validator
-      const validator = this.tagValidator
-      return isFunction(validator) ? validator(tag) : true
+      const { tagValidator } = this
+      let result = null
+      try {
+        result = tagValidator()
+      } catch {}
+      return isUndefined(result) ? true : tagValidator(tag)
     },
     getInput() {
       // Returns the input element reference (or null if not found)
@@ -746,10 +737,12 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
+    const { name, disabled, tags, computedInputId, hasFocus, noOuterFocus } = this
+
     // Scoped slot properties
     const scope = {
       // Array of tags (shallow copy to prevent mutations)
-      tags: this.tags.slice(),
+      tags: tags.slice(),
       // <input> v-bind:inputAttrs
       inputAttrs: this.computedInputAttrs,
       // We don't include this in the attrs, as users may want to override this
@@ -760,7 +753,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       removeTag: this.removeTag,
       addTag: this.addTag,
       // <input> :id="inputId"
-      inputId: this.computedInputId,
+      inputId: computedInputId,
       // Invalid/Duplicate state information
       isInvalid: this.hasInvalidTags,
       invalidTags: this.invalidTags.slice(),
@@ -769,23 +762,25 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       isLimitReached: this.isLimitReached,
       // If the 'Add' button should be disabled
       disableAddButton: this.disableAddButton,
-      // Pass-though values
-      disabled: this.disabled,
-      state: this.state,
-      size: this.size,
-      limit: this.limit,
-      separator: this.separator,
-      placeholder: this.placeholder,
-      inputClass: this.inputClass,
-      tagRemoveLabel: this.tagRemoveLabel,
-      tagVariant: this.tagVariant,
-      tagPills: this.tagPills,
-      tagClass: this.tagClass,
-      addButtonText: this.addButtonText,
-      addButtonVariant: this.addButtonVariant,
-      invalidTagText: this.invalidTagText,
-      duplicateTagText: this.duplicateTagText,
-      limitTagsText: this.limitTagsText
+      // Pass-through props
+      ...pick(this.$props, [
+        'disabled',
+        'state',
+        'size',
+        'limit',
+        'separator',
+        'placeholder',
+        'inputClass',
+        'tagRemoveLabel',
+        'tagVariant',
+        'tagPills',
+        'tagClass',
+        'addButtonText',
+        'addButtonVariant',
+        'invalidTagText',
+        'duplicateTagText',
+        'limitTagsText'
+      ])
     }
 
     // Generate the user interface
@@ -799,8 +794,8 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
         attrs: {
           id: this.safeId('__selected_tags__'),
           role: 'status',
-          for: this.computedInputId,
-          'aria-live': this.hasFocus ? 'polite' : 'off',
+          for: computedInputId,
+          'aria-live': hasFocus ? 'polite' : 'off',
           'aria-atomic': 'true',
           'aria-relevant': 'additions text'
         }
@@ -816,7 +811,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
         attrs: {
           id: this.safeId('__removed_tags__'),
           role: 'status',
-          'aria-live': this.hasFocus ? 'assertive' : 'off',
+          'aria-live': hasFocus ? 'assertive' : 'off',
           'aria-atomic': 'true'
         }
       },
@@ -825,15 +820,15 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
 
     // Add hidden inputs for form submission
     let $hidden = h()
-    if (this.name && !this.disabled) {
+    if (name && !disabled) {
       // We add hidden inputs for each tag if a name is provided
       // for native submission of forms
-      $hidden = this.tags.map(tag => {
+      $hidden = tags.map(tag => {
         return h('input', {
           attrs: {
             type: 'hidden',
             value: tag,
-            name: this.name,
+            name,
             form: this.form || null
           },
           key: `tag_input_${tag}`
@@ -846,17 +841,18 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       'div',
       {
         staticClass: 'b-form-tags form-control h-auto',
-        class: {
-          focus: this.hasFocus && !this.noOuterFocus && !this.disabled,
-          disabled: this.disabled,
-          'is-valid': this.state === true,
-          'is-invalid': this.state === false,
-          [`form-control-${this.size}`]: this.size
-        },
+        class: [
+          {
+            focus: hasFocus && !noOuterFocus && !disabled,
+            disabled
+          },
+          this.sizeFormClass,
+          this.stateClass
+        ],
         attrs: {
           id: this.safeId(),
           role: 'group',
-          tabindex: this.disabled || this.noOuterFocus ? null : '-1',
+          tabindex: disabled || noOuterFocus ? null : '-1',
           'aria-describedby': this.safeId('__selected_tags__')
         },
         on: {

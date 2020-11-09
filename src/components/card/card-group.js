@@ -1,22 +1,26 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_GROUP } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    deck: {
+      type: Boolean,
+      default: false
+    },
+    columns: {
+      type: Boolean,
+      default: false
+    }
   },
-  deck: {
-    type: Boolean,
-    default: false
-  },
-  columns: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_CARD_GROUP
+)
 
 // --- Main component ---
 // @vue/component

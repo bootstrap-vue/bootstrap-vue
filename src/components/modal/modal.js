@@ -19,7 +19,7 @@ import BVTransition from '../../utils/bv-transition'
 import identity from '../../utils/identity'
 import observeDom from '../../utils/observe-dom'
 import { arrayIncludes, concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   attemptFocus,
   closest,
@@ -69,222 +69,225 @@ const OBSERVER_CONFIG = {
 
 // --- Props ---
 
-export const props = {
-  [PROP_NAME_MODEL_VALUE]: {
-    type: Boolean,
-    default: false
-  },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'size')
-  },
-  centered: {
-    type: Boolean,
-    default: false
-  },
-  scrollable: {
-    type: Boolean,
-    default: false
-  },
-  buttonSize: {
-    type: String
-    // default: ''
-  },
-  noStacking: {
-    type: Boolean,
-    default: false
-  },
-  noFade: {
-    type: Boolean,
-    default: false
-  },
-  noCloseOnBackdrop: {
-    type: Boolean,
-    default: false
-  },
-  noCloseOnEsc: {
-    type: Boolean,
-    default: false
-  },
-  noEnforceFocus: {
-    type: Boolean,
-    default: false
-  },
-  ignoreEnforceFocusSelector: {
-    type: [Array, String],
-    default: ''
-  },
-  title: {
-    type: String,
-    default: ''
-  },
-  titleHtml: {
-    type: String
-  },
-  titleTag: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'titleTag')
-  },
-  titleClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  titleSrOnly: {
-    type: Boolean,
-    default: false
-  },
-  ariaLabel: {
-    type: String
-    // default: null
-  },
-  headerBgVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerBgVariant')
-  },
-  headerBorderVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerBorderVariant')
-  },
-  headerTextVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerTextVariant')
-  },
-  headerCloseVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerCloseVariant')
-  },
-  headerClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  bodyBgVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'bodyBgVariant')
-  },
-  bodyTextVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'bodyTextVariant')
-  },
-  modalClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  dialogClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  contentClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  bodyClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  footerBgVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'footerBgVariant')
-  },
-  footerBorderVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'footerBorderVariant')
-  },
-  footerTextVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'footerTextVariant')
-  },
-  footerClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  // TODO: Rename to `noHeader` and deprecate `hideHeader`
-  hideHeader: {
-    type: Boolean,
-    default: false
-  },
-  // TODO: Rename to `noFooter` and deprecate `hideFooter`
-  hideFooter: {
-    type: Boolean,
-    default: false
-  },
-  // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
-  hideHeaderClose: {
-    type: Boolean,
-    default: false
-  },
-  // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
-  hideBackdrop: {
-    type: Boolean,
-    default: false
-  },
-  okOnly: {
-    type: Boolean,
-    default: false
-  },
-  okDisabled: {
-    type: Boolean,
-    default: false
-  },
-  cancelDisabled: {
-    type: Boolean,
-    default: false
-  },
-  returnFocus: {
-    // HTML Element, CSS selector string or Vue component instance
-    type: [HTMLElement, String, Object],
-    default: null
-  },
-  headerCloseContent: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerCloseContent')
-  },
-  headerCloseLabel: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'headerCloseLabel')
-  },
-  cancelTitle: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'cancelTitle')
-  },
-  cancelTitleHtml: {
-    type: String
-  },
-  okTitle: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'okTitle')
-  },
-  okTitleHtml: {
-    type: String
-  },
-  cancelVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'cancelVariant')
-  },
-  okVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_MODAL, 'okVariant')
-  },
-  lazy: {
-    type: Boolean,
-    default: false
-  },
-  busy: {
-    type: Boolean,
-    default: false
-  },
-  static: {
-    type: Boolean,
-    default: false
-  },
-  autoFocusButton: {
-    type: String,
-    default: null,
-    validator /* istanbul ignore next */: val => {
+export const props = makePropsConfigurable(
+  {
+    [PROP_NAME_MODEL_VALUE]: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String,
+      default: 'md'
+    },
+    centered: {
+      type: Boolean,
+      default: false
+    },
+    scrollable: {
+      type: Boolean,
+      default: false
+    },
+    buttonSize: {
+      type: String
+      // default: ''
+    },
+    noStacking: {
+      type: Boolean,
+      default: false
+    },
+    noFade: {
+      type: Boolean,
+      default: false
+    },
+    noCloseOnBackdrop: {
+      type: Boolean,
+      default: false
+    },
+    noCloseOnEsc: {
+      type: Boolean,
+      default: false
+    },
+    noEnforceFocus: {
+      type: Boolean,
+      default: false
+    },
+    ignoreEnforceFocusSelector: {
+      type: [Array, String],
+      default: ''
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    titleHtml: {
+      type: String
+    },
+    titleTag: {
+      type: String,
+      default: 'h5'
+    },
+    titleClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    titleSrOnly: {
+      type: Boolean,
+      default: false
+    },
+    ariaLabel: {
+      type: String
+      // default: null
+    },
+    headerBgVariant: {
+      type: String
+      // default: undefined
+    },
+    headerBorderVariant: {
+      type: String
+      // default: undefined
+    },
+    headerTextVariant: {
+      type: String
+      // default: undefined
+    },
+    headerCloseVariant: {
+      type: String
+      // default: undefined
+    },
+    headerClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    bodyBgVariant: {
+      type: String
+      // default: undefined
+    },
+    bodyTextVariant: {
+      type: String
+      // default: undefined
+    },
+    modalClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    dialogClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    contentClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    bodyClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    footerBgVariant: {
+      type: String
+      // default: undefined
+    },
+    footerBorderVariant: {
+      type: String
+      // default: undefined
+    },
+    footerTextVariant: {
+      type: String
+      // default: undefined
+    },
+    footerClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    // TODO: Rename to `noHeader` and deprecate `hideHeader`
+    hideHeader: {
+      type: Boolean,
+      default: false
+    },
+    // TODO: Rename to `noFooter` and deprecate `hideFooter`
+    hideFooter: {
+      type: Boolean,
+      default: false
+    },
+    // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
+    hideHeaderClose: {
+      type: Boolean,
+      default: false
+    },
+    // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
+    hideBackdrop: {
+      type: Boolean,
+      default: false
+    },
+    okOnly: {
+      type: Boolean,
+      default: false
+    },
+    okDisabled: {
+      type: Boolean,
+      default: false
+    },
+    cancelDisabled: {
+      type: Boolean,
+      default: false
+    },
+    returnFocus: {
+      // HTML Element, CSS selector string or Vue component instance
+      type: [HTMLElement, String, Object],
+      default: null
+    },
+    headerCloseContent: {
+      type: String,
+      default: '&times;'
+    },
+    headerCloseLabel: {
+      type: String,
+      default: 'Close'
+    },
+    cancelTitle: {
+      type: String,
+      default: 'Cancel'
+    },
+    cancelTitleHtml: {
+      type: String
+    },
+    okTitle: {
+      type: String,
+      default: 'OK'
+    },
+    okTitleHtml: {
+      type: String
+    },
+    cancelVariant: {
+      type: String,
+      default: 'secondary'
+    },
+    okVariant: {
+      type: String,
+      default: 'primary'
+    },
+    lazy: {
+      type: Boolean,
+      default: false
+    },
+    busy: {
+      type: Boolean,
+      default: false
+    },
+    static: {
+      type: Boolean,
+      default: false
+    },
+    autoFocusButton: {
+      type: String,
+      default: null,
       /* istanbul ignore next */
-      return isUndefinedOrNull(val) || arrayIncludes(['ok', 'cancel', 'close'], val)
+      validator(value) {
+        return isUndefinedOrNull(value) || arrayIncludes(['ok', 'cancel', 'close'], value)
+      }
     }
-  }
-}
+  },
+  NAME_MODAL
+)
 
 // --- Main component ---
 // @vue/component

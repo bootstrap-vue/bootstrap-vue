@@ -1,21 +1,29 @@
 import { defineComponent, h } from '../vue'
 import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import looseEqual from '../utils/loose-equal'
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import attrsMixin from './attrs'
 import modelMixin from './model'
+import formCustomMixin, { props as formCustomProps } from './form-custom'
 import normalizeSlotMixin from './normalize-slot'
 
-// @vue/component
-export default defineComponent({
-  mixins: [attrsMixin, modelMixin, normalizeSlotMixin],
-  inheritAttrs: false,
-  props: {
-    inline: {
-      type: Boolean,
-      default: false
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    ...formCustomProps,
+    value: {
+      // Value when checked
+      // type: Object,
+      // default: undefined
     },
-    plain: {
+    checked: {
+      // This is the v-model
+      // type: Object,
+      // default: undefined
+    },
+    inline: {
       type: Boolean,
       default: false
     },
@@ -40,6 +48,15 @@ export default defineComponent({
       // default: null
     }
   },
+  'formRadioCheckControls'
+)
+
+// --- Mixin ---
+// @vue/component
+export default defineComponent({
+  mixins: [attrsMixin, modelMixin, formCustomMixin, normalizeSlotMixin],
+  inheritAttrs: false,
+  props,
   data() {
     return {
       localChecked: this.isGroup

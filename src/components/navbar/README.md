@@ -318,7 +318,6 @@ and not an `array`.
     </b-collapse>
   </b-navbar>
 </template>
-
 <!-- b-navbar-toggle-slot.vue -->
 ```
 

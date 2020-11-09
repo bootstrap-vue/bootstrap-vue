@@ -236,7 +236,7 @@ When set to `true` (or the empty string `''`), it uses the Bootstrap default of 
 
 ```html
 <template>
-  <div style="font-size: 2rem;">
+  <div>
     <b-avatar rounded="sm"></b-avatar>
     <b-avatar rounded></b-avatar>
     <b-avatar rounded="lg"></b-avatar>
@@ -381,7 +381,7 @@ Add textual content to the badge by supplying a string to the `badge` prop, or u
 
 ```html
 <template>
-  <div style="font-size: 2rem">
+  <div>
     <b-avatar badge="BV"></b-avatar>
     <b-avatar badge="7" variant="primary" badge-variant="dark"></b-avatar>
     <b-avatar badge-variant="info" src="https://placekitten.com/300/300">

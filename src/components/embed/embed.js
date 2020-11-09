@@ -1,25 +1,34 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { arrayIncludes } from '../../utils/array'
+
+// --- Constants ---
+
+const TYPES = ['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy']
 
 // --- Props ---
 
-export const props = {
-  type: {
-    type: String,
-    default: 'iframe',
-    validator: str =>
-      arrayIncludes(['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy'], str)
+export const props = makePropsConfigurable(
+  {
+    type: {
+      type: String,
+      default: 'iframe',
+      validator(value) {
+        return arrayIncludes(TYPES, value)
+      }
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    aspect: {
+      type: String,
+      default: '16by9'
+    }
   },
-  tag: {
-    type: String,
-    default: 'div'
-  },
-  aspect: {
-    type: String,
-    default: '16by9'
-  }
-}
+  NAME_EMBED
+)
 
 // --- Main component ---
 // @vue/component

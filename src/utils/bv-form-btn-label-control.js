@@ -6,103 +6,86 @@ import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slots'
 import { attemptBlur, attemptFocus } from './dom'
 import { stopEvent } from './events'
+import { omit } from './object'
 import { toString } from './string'
-import dropdownMixin, { commonProps } from '../mixins/dropdown'
+import dropdownMixin, { commonProps as dropdownProps } from '../mixins/dropdown'
+import formSizeMixin, { props as formSizeProps } from '../mixins/form-size'
+import formStateMixin, { props as formStateProps } from '../mixins/form-state'
 import idMixin from '../mixins/id'
 import normalizeSlotMixin from '../mixins/normalize-slot'
+import { props as formControlProps } from '../mixins/form-control'
 import { VBHover } from '../directives/hover/hover'
 import { BIconChevronDown } from '../icons/icons'
 
-// Re-export common dropdown props used for convenience
-export const dropdownProps = commonProps
+// --- Props ---
 
+export const props = {
+  ...omit(formControlProps, ['autofocus']),
+  ...formSizeProps,
+  ...dropdownProps,
+  ...formStateProps,
+  value: {
+    // This is the value placed on the hidden input
+    type: String,
+    default: ''
+  },
+  formattedValue: {
+    // This is the value shown in the label
+    // Defaults back to `value`
+    type: String
+    // default: null
+  },
+  placeholder: {
+    // This is the value placed on the hidden input when no value selected
+    type: String
+    // default: null
+  },
+  labelSelected: {
+    // Value placed in sr-only span inside label when value is present
+    type: String
+    // default: null
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  lang: {
+    type: String
+    // default: null
+  },
+  rtl: {
+    // Tri-state prop: `true`, `false` or `null`
+    type: Boolean,
+    // We must explicitly default to `null` here otherwise
+    // Vue coerces `undefined` into Boolean `false`
+    default: null
+  },
+  buttonOnly: {
+    // When true, renders a btn-group wrapper and visually hides the label
+    type: Boolean,
+    default: false
+  },
+  buttonVariant: {
+    // Applicable in button mode only
+    type: String,
+    default: 'secondary'
+  },
+  menuClass: {
+    // Extra classes to apply to the `dropdown-menu` div
+    type: [String, Array, Object]
+    // default: null
+  }
+}
+
+// --- Main component ---
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,
   directives: {
     BHover: VBHover
   },
-  mixins: [idMixin, normalizeSlotMixin, dropdownMixin],
-  props: {
-    value: {
-      // This is the value placed on the hidden input
-      type: String,
-      default: ''
-    },
-    formattedValue: {
-      // This is the value shown in the label
-      // Defaults back to `value`
-      type: String
-      // default: null
-    },
-    placeholder: {
-      // This is the value placed on the hidden input when no value selected
-      type: String
-      // default: null
-    },
-    labelSelected: {
-      // Value placed in sr-only span inside label when value is present
-      type: String
-      // default: null
-    },
-    state: {
-      // Tri-state prop: `true`, `false`, or `null`
-      type: Boolean,
-      // We must explicitly default to `null` here otherwise
-      // Vue coerces `undefined` into Boolean `false`
-      default: null
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    name: {
-      type: String
-      // default: null
-    },
-    form: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    lang: {
-      type: String
-      // default: null
-    },
-    rtl: {
-      // Tri-state prop: `true`, `false` or `null`
-      type: Boolean,
-      // We must explicitly default to `null` here otherwise
-      // Vue coerces `undefined` into Boolean `false`
-      default: null
-    },
-    buttonOnly: {
-      // When true, renders a btn-group wrapper and visually hides the label
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Applicable in button mode only
-      type: String,
-      default: 'secondary'
-    },
-    menuClass: {
-      // Extra classes to apply to the `dropdown-menu` div
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
+  mixins: [idMixin, formSizeMixin, formStateMixin, dropdownMixin, normalizeSlotMixin],
+  props,
   data() {
     return {
       isHovered: false,
@@ -145,22 +128,26 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const idButton = this.idButton
-    const idLabel = this.idLabel
-    const idMenu = this.idMenu
-    const idWrapper = this.idWrapper
-    const disabled = this.disabled
-    const readonly = this.readonly
-    const required = this.required
-    const isHovered = this.isHovered
-    const hasFocus = this.hasFocus
-    const state = this.state
-    const visible = this.visible
-    const size = this.size
+    const {
+      idButton,
+      idLabel,
+      idMenu,
+      idWrapper,
+      disabled,
+      readonly,
+      required,
+      name,
+      state,
+      visible,
+      size,
+      isHovered,
+      hasFocus,
+      labelSelected,
+      buttonVariant
+    } = this
     const value = toString(this.value) || ''
-    const labelSelected = this.labelSelected
     const buttonOnly = !!this.buttonOnly
-    const buttonVariant = this.buttonVariant
+    const invalid = state === false || (required && !value)
 
     const btnScope = { isHovered, hasFocus, state, opened: visible }
     const $button = h(
@@ -183,7 +170,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
           disabled,
           'aria-haspopup': 'dialog',
           'aria-expanded': visible ? 'true' : 'false',
-          'aria-invalid': state === false || (required && !value) ? 'true' : null,
+          'aria-invalid': invalid ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
         directives: [{ name: 'b-hover', value: this.handleHover }],
@@ -204,11 +191,11 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
 
     // Hidden input
     let $hidden = h()
-    if (this.name && !disabled) {
+    if (name && !disabled) {
       $hidden = h('input', {
         attrs: {
           type: 'hidden',
-          name: this.name || null,
+          name: name || null,
           form: this.form || null,
           value
         }
@@ -247,19 +234,20 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
       'label',
       {
         staticClass: 'form-control text-break text-wrap bg-transparent h-auto',
-        class: {
-          // Hidden in button only mode
-          'sr-only': buttonOnly,
-          // Mute the text if showing the placeholder
-          'text-muted': !value,
-          [`form-control-${size}`]: !!size,
-          'is-invalid': state === false,
-          'is-valid': state === true
-        },
+        class: [
+          {
+            // Hidden in button only mode
+            'sr-only': buttonOnly,
+            // Mute the text if showing the placeholder
+            'text-muted': !value
+          },
+          this.stateClass,
+          this.sizeFormClass
+        ],
         attrs: {
           id: idLabel,
           for: idButton,
-          'aria-invalid': state === false || (required && !value) ? 'true' : null,
+          'aria-invalid': invalid ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
         directives: [{ name: 'b-hover', value: this.handleHover }],
@@ -287,18 +275,20 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
         class: [
           this.directionClass,
           this.boundaryClass,
-          {
-            'btn-group': buttonOnly,
-            'form-control': !buttonOnly,
-            [`form-control-${size}`]: !!size && !buttonOnly,
-            'd-flex': !buttonOnly,
-            'h-auto': !buttonOnly,
-            'align-items-stretch': !buttonOnly,
-            focus: hasFocus && !buttonOnly,
-            show: visible,
-            'is-valid': state === true,
-            'is-invalid': state === false
-          }
+          [
+            {
+              'btn-group': buttonOnly,
+              'form-control': !buttonOnly,
+              'd-flex': !buttonOnly,
+              'h-auto': !buttonOnly,
+              'align-items-stretch': !buttonOnly,
+              focus: hasFocus && !buttonOnly,
+              show: visible,
+              'is-valid': state === true,
+              'is-invalid': state === false
+            },
+            buttonOnly ? null : this.sizeFormClass
+          ]
         ],
         attrs: {
           id: idWrapper,

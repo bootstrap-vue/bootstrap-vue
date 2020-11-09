@@ -134,8 +134,8 @@ describe('dropdown', () => {
     expect($toggle.attributes('type')).toBeDefined()
     expect($toggle.attributes('type')).toEqual('button')
     expect($toggle.findAll('span.sr-only').length).toBe(1)
-    expect($toggle.find('span.sr-only').text()).toEqual('Toggle Dropdown')
-    expect($toggle.text()).toEqual('Toggle Dropdown')
+    expect($toggle.find('span.sr-only').text()).toEqual('Toggle dropdown')
+    expect($toggle.text()).toEqual('Toggle dropdown')
 
     expect(wrapper.findAll('.dropdown-menu').length).toBe(1)
     const $menu = wrapper.find('.dropdown-menu')
@@ -241,7 +241,7 @@ describe('dropdown', () => {
     expect($split.text()).toEqual('foobar')
     expect($toggle.classes()).toContain('dropdown-toggle')
     // Toggle has `sr-only` hidden text
-    expect($toggle.text()).toEqual('Toggle Dropdown')
+    expect($toggle.text()).toEqual('Toggle dropdown')
 
     wrapper.unmount()
   })

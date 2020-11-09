@@ -1,18 +1,22 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_SELECT_OPTION } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  value: {
-    // type: [String, Number, Boolean, Object],
-    required: true
+export const props = makePropsConfigurable(
+  {
+    value: {
+      // type: [String, Number, Boolean, Object],
+      required: true
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_FORM_SELECT_OPTION
+)
 
 // --- Main component ---
 // @vue/component

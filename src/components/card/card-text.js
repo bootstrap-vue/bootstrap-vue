@@ -1,14 +1,18 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_TEXT } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  textTag: {
-    type: String,
-    default: 'p'
-  }
-}
+export const props = makePropsConfigurable(
+  {
+    textTag: {
+      type: String,
+      default: 'p'
+    }
+  },
+  NAME_CARD_TEXT
+)
 
 // --- Main component ---
 // @vue/component

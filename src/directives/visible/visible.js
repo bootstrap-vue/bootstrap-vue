@@ -99,7 +99,7 @@ class VisibilityObserver {
   }
 
   /* istanbul ignore next */
-  handler(entries) /* istanbul ignore next: IntersectionObserver not supported in JSDOM */ {
+  handler(entries) {
     const entry = entries ? entries[0] : {}
     const isIntersecting = Boolean(entry.isIntersecting || entry.intersectionRatio > 0.0)
     if (isIntersecting !== this.visible) {

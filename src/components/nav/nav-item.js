@@ -1,19 +1,14 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
-export const props = omit(BLinkProps, ['event', 'routerTag'])
-
-// --- Main component ---
-// @vue/component
-export const BNavItem = /*#__PURE__*/ defineComponent({
-  name: NAME_NAV_ITEM,
-  functional: true,
-  props: {
-    ...props,
+export const props = makePropsConfigurable(
+  {
+    ...omit(BLinkProps, ['event', 'routerTag']),
     linkAttrs: {
       type: Object,
       default: () => {}
@@ -23,6 +18,15 @@ export const BNavItem = /*#__PURE__*/ defineComponent({
       default: null
     }
   },
+  NAME_NAV_ITEM
+)
+
+// --- Main component ---
+// @vue/component
+export const BNavItem = /*#__PURE__*/ defineComponent({
+  name: NAME_NAV_ITEM,
+  functional: true,
+  props,
   render(_, { props, data, listeners, children }) {
     // We transfer the listeners to the link
     delete data.on

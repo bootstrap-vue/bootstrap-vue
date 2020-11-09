@@ -3,21 +3,19 @@ import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import { SLOT_NAME_FIRST } from '../constants/slots'
 import looseEqual from '../utils/loose-equal'
+import { makePropsConfigurable } from '../utils/config'
 import { htmlOrText } from '../utils/html'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
+import formCustomMixin, { props as formCustomProps } from './form-custom'
 import modelMixin from './model'
 import normalizeSlotMixin from './normalize-slot'
 
-// @vue/component
-export default defineComponent({
-  mixins: [modelMixin, normalizeSlotMixin],
-  provide() {
-    return {
-      bvCheckGroup: this
-    }
-  },
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    ...formCustomProps,
     [PROP_NAME_MODEL_VALUE]: {
       // type: [Boolean, Number, Object, String]
       default: null
@@ -34,10 +32,6 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    plain: {
-      type: Boolean,
-      default: false
-    },
     buttons: {
       // Render as button style
       type: Boolean,
@@ -45,10 +39,24 @@ export default defineComponent({
     },
     buttonVariant: {
       // Only applicable when rendered with button style
-      type: String,
-      default: 'secondary'
+      type: String
+      // default: null
     }
   },
+  'formRadioCheckGroups'
+)
+
+// --- Mixin ---
+
+// @vue/component
+export default defineComponent({
+  mixins: [modelMixin, normalizeSlotMixin, formCustomMixin],
+  provide() {
+    return {
+      bvCheckGroup: this
+    }
+  },
+  props,
   data() {
     return {
       localChecked: this[PROP_NAME_MODEL_VALUE] || []

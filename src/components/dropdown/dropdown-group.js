@@ -1,37 +1,41 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
+import { makePropsConfigurable } from '../../utils/config'
 import identity from '../../utils/identity'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 
 // --- Props ---
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    header: {
+      type: String
+      // default: null
+    },
+    headerTag: {
+      type: String,
+      default: 'header'
+    },
+    headerVariant: {
+      type: String
+      // default: null
+    },
+    headerClasses: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    ariaDescribedby: {
+      type: String
+      // default: null
+    }
   },
-  header: {
-    type: String
-    // default: null
-  },
-  headerTag: {
-    type: String,
-    default: 'header'
-  },
-  headerVariant: {
-    type: String
-    // default: null
-  },
-  headerClasses: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  ariaDescribedby: {
-    type: String
-    // default: null
-  }
-}
+  NAME_DROPDOWN_GROUP
+)
 
 // --- Main component ---
 // @vue/component

@@ -1,27 +1,30 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_TEXT } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    tag: {
+      type: String,
+      default: 'small'
+    },
+    textVariant: {
+      type: String,
+      default: 'muted'
+    },
+    inline: {
+      type: Boolean,
+      default: false
+    }
   },
-  tag: {
-    type: String,
-    default: 'small'
-  },
-  textVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_FORM_TEXT, 'textVariant')
-  },
-  inline: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_FORM_TEXT
+)
 
 // --- Main component ---
 // @vue/component

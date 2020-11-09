@@ -1,22 +1,26 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_HEADER } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    tag: {
+      type: String,
+      default: 'header'
+    },
+    variant: {
+      type: String
+      // default: null
+    }
   },
-  tag: {
-    type: String,
-    default: 'header'
-  },
-  variant: {
-    type: String
-    // default: null
-  }
-}
+  NAME_DROPDOWN_HEADER
+)
 
 // --- Main component ---
 // @vue/component

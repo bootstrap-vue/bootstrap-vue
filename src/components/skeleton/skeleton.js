@@ -1,34 +1,41 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_SKELETON } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 
 // @vue/component
 export const BSkeleton = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON,
   functional: true,
-  props: {
-    animation: {
-      type: String,
-      default: () => getComponentConfig(NAME_SKELETON, 'animation')
+  props: makePropsConfigurable(
+    {
+      animation: {
+        type: String,
+        default: 'wave'
+      },
+      type: {
+        type: String,
+        default: 'text'
+      },
+      width: {
+        type: String
+        // default: null
+      },
+      height: {
+        type: String
+        // default: null
+      },
+      size: {
+        type: String
+        // default: null
+      },
+      variant: {
+        type: String
+        // default: null
+      }
     },
-    type: {
-      type: String,
-      default: 'text'
-    },
-    width: {
-      type: String
-    },
-    height: {
-      type: String
-    },
-    size: {
-      type: String
-    },
-    variant: {
-      type: String
-    }
-  },
-  render(_, { props, data }) {
+    NAME_SKELETON
+  ),
+  render(_, { data, props }) {
     const { size, animation, variant } = props
 
     return h(

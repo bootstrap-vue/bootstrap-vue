@@ -1,23 +1,27 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_LIST_GROUP } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { isString } from '../../utils/inspect'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    flush: {
+      type: Boolean,
+      default: false
+    },
+    horizontal: {
+      type: [Boolean, String],
+      default: false
+    }
   },
-  flush: {
-    type: Boolean,
-    default: false
-  },
-  horizontal: {
-    type: [Boolean, String],
-    default: false
-  }
-}
+  NAME_LIST_GROUP
+)
 
 // --- Main component ---
 // @vue/component

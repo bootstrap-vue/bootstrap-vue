@@ -11,21 +11,29 @@ import cloneDeep from '../../utils/clone-deep'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { from as arrayFrom, flatten, flattenDeep } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
-import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
+import {
+  isArray,
+  isFile,
+  isFunction,
+  isNull,
+  isUndefined,
+  isUndefinedOrNull
+} from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import attrsMixin from '../../mixins/attrs'
-import formCustomMixin from '../../mixins/form-custom'
-import formMixin from '../../mixins/form'
-import formStateMixin from '../../mixins/form-state'
+import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
+import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { props as formSizeProps } from '../../mixins/form-size'
 
 // --- Constants ---
 
@@ -113,6 +121,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
     readDirectoryEntries()
   })
 
+// --- Main component ---
 // @vue/component
 export const BFormFile = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_FILE,
@@ -121,82 +130,86 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
     idMixin,
     modelMixin,
     normalizeSlotMixin,
-    formMixin,
+    formControlMixin,
     formStateMixin,
-    formCustomMixin
+    formCustomMixin,
+    normalizeSlotMixin
   ],
   inheritAttrs: false,
-  props: {
-    [PROP_NAME_MODEL_VALUE]: {
-      type: [File, Array],
-      default: null,
-      validator: value => {
-        /* istanbul ignore next */
-        if (value === '') {
-          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
-          return true
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      ...formCustomProps,
+      ...formStateProps,
+      ...formSizeProps,
+      [PROP_NAME_MODEL_VALUE]: {
+        type: [File, Array],
+        default: null,
+        validator: value => {
+          /* istanbul ignore next */
+          if (value === '') {
+            warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
+            return true
+          }
+          return isUndefinedOrNull(value) || isValidValue(value)
         }
-        return isUndefinedOrNull(value) || isValidValue(value)
+      },
+      accept: {
+        type: String,
+        default: ''
+      },
+      // Instruct input to capture from camera
+      capture: {
+        type: Boolean,
+        default: false
+      },
+      placeholder: {
+        type: String,
+        default: 'No file chosen'
+      },
+      browseText: {
+        type: String,
+        default: 'Browse'
+      },
+      dropPlaceholder: {
+        type: String,
+        default: 'Drop files here'
+      },
+      noDropPlaceholder: {
+        type: String,
+        default: 'Not allowed'
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      directory: {
+        type: Boolean,
+        default: false
+      },
+      // TODO:
+      //   Should we deprecate this and only support flat file structures?
+      //   Nested file structures are only supported when files are dropped
+      //   A Chromium "bug" prevents `webkitEntries` from being populated
+      //   on the file input's `change` event and is marked as "WontFix"
+      //   Mozilla implemented the behavior the same way as Chromium
+      //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
+      //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
+      noTraverse: {
+        type: Boolean,
+        default: false
+      },
+      noDrop: {
+        type: Boolean,
+        default: false
+      },
+      fileNameFormatter: {
+        type: Function
+        // default: null
       }
     },
-    size: {
-      type: String,
-      default: () => getComponentConfig('BFormControl', 'size')
-    },
-    accept: {
-      type: String,
-      default: ''
-    },
-    // Instruct input to capture from camera
-    capture: {
-      type: Boolean,
-      default: false
-    },
-    placeholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'placeholder')
-    },
-    browseText: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'browseText')
-    },
-    dropPlaceholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'dropPlaceholder')
-    },
-    noDropPlaceholder: {
-      type: String,
-      default: () => getComponentConfig(NAME_FORM_FILE, 'noDropPlaceholder')
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    directory: {
-      type: Boolean,
-      default: false
-    },
-    // TODO:
-    //   Should we deprecate this and only support flat file structures?
-    //   Nested file structures are only supported when files are dropped
-    //   A Chromium "bug" prevents `webkitEntries` from being populated
-    //   on the file input's `change` event and is marked as "WontFix"
-    //   Mozilla implemented the behavior the same way as Chromium
-    //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
-    //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
-    noTraverse: {
-      type: Boolean,
-      default: false
-    },
-    noDrop: {
-      type: Boolean,
-      default: false
-    },
-    fileNameFormatter: {
-      type: Function,
-      default: null
-    }
-  },
+    NAME_FORM_FILE
+  ),
   emits: [EVENT_NAME_CHANGE],
   data() {
     return {
@@ -267,6 +280,14 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
         'aria-required': required ? 'true' : null
       }
     },
+    computedFileNameFormatter() {
+      const { fileNameFormatter } = this
+      let result = null
+      try {
+        result = fileNameFormatter()
+      } catch {}
+      return isUndefined(result) ? this.defaultFileNameFormatter : fileNameFormatter
+    },
     clonedFiles() {
       return cloneDeep(this.files)
     },
@@ -294,19 +315,18 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
         return this.normalizeSlot('placeholder') || this.placeholder
       }
 
+      const { flattenedFiles, clonedFiles, fileNames, computedFileNameFormatter } = this
+
       // There is a slot for formatting the files/names
       if (this.hasNormalizedSlot('file-name')) {
         return this.normalizeSlot('file-name', {
-          files: this.flattenedFiles,
-          filesTraversed: this.clonedFiles,
-          names: this.fileNames
+          files: flattenedFiles,
+          filesTraversed: clonedFiles,
+          names: fileNames
         })
       }
 
-      // Use the user supplied formatter, or the built in one
-      return isFunction(this.fileNameFormatter)
-        ? String(this.fileNameFormatter(this.flattenedFiles, this.clonedFiles))
-        : this.fileNames.join(', ')
+      return computedFileNameFormatter(flattenedFiles, clonedFiles, fileNames)
     }
   },
   watch: {
@@ -352,6 +372,9 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
     isFilesArrayValid(files) {
       return isArray(files) ? files.every(file => this.isFileValid(file)) : this.isFileValid(files)
     },
+    defaultFileNameFormatter(flattenedFiles, clonedFiles, fileNames) {
+      return fileNames.join(', ')
+    },
     setFiles(files) {
       // Reset the dragging flags
       this.dropAllowed = !this.noDrop
@@ -363,7 +386,8 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
           : flattenDeep(files)
         : flattenDeep(files).slice(0, 1)
     },
-    setInputFiles(files) /* istanbul ignore next: used by Drag/Drop */ {
+    /* istanbul ignore next: used by Drag/Drop */
+    setInputFiles(files) {
       // Try an set the file input files array so that `required`
       // constraint works for dropped files (will fail in IE11 though)
       // To be used only when dropping files

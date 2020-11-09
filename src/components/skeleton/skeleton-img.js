@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_SKELETON_IMG } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { BAspect } from '../aspect'
 import { BSkeleton } from './skeleton'
 
@@ -7,31 +8,34 @@ import { BSkeleton } from './skeleton'
 export const BSkeletonImg = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_IMG,
   functional: true,
-  props: {
-    animation: {
-      type: String
+  props: makePropsConfigurable(
+    {
+      animation: {
+        type: String
+      },
+      aspect: {
+        type: String,
+        default: '16:9'
+      },
+      noAspect: {
+        type: Boolean,
+        default: false
+      },
+      height: {
+        type: String
+      },
+      width: {
+        type: String
+      },
+      variant: {
+        type: String
+      },
+      cardImg: {
+        type: String
+      }
     },
-    aspect: {
-      type: String,
-      default: '16:9'
-    },
-    noAspect: {
-      type: Boolean,
-      default: false
-    },
-    height: {
-      type: String
-    },
-    width: {
-      type: String
-    },
-    variant: {
-      type: String
-    },
-    cardImg: {
-      type: String
-    }
-  },
+    NAME_SKELETON_IMG
+  ),
   render(_, { props }) {
     const { aspect, width, height, animation, variant, cardImg } = props
 

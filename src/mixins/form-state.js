@@ -8,16 +8,25 @@
  */
 import { defineComponent } from '../vue'
 import { isBoolean } from '../utils/inspect'
+import { makePropsConfigurable } from '../utils/config'
 
-// @vue/component
-export default defineComponent({
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     state: {
       // Tri-state prop: true, false, null (or undefined)
       type: Boolean,
       default: null
     }
   },
+  'formState'
+)
+
+// --- Mixin ---
+// @vue/component
+export default defineComponent({
+  props,
   computed: {
     computedState() {
       // If not a boolean, ensure that value is null

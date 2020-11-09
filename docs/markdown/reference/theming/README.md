@@ -3,7 +3,7 @@
 > Theming is accomplished by Sass variables, Sass maps, and custom CSS. There's no dedicated theme
 > stylesheet; instead, you can enable the built-in theme to add gradients, shadows, and more.
 
-While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue uses custom CSS (i.e.
+While BootstrapVue uses Bootstrap's CSS, certain features of BootstrapVue use custom CSS (i.e.
 stacked tables, etc.). Our custom CSS relies on variables defined the Bootstrap v4.x SCSS. The
 `bootstrap-vue/dist/bootstrap-vue.css` is compiled using the default Bootstrap v4.x variables. By
 using the BootstrapVue source SCSS, you can have your variable overrides (such as breakpoints, theme
@@ -195,10 +195,10 @@ import 'custom.scss'
 
 You can find all of the possible variables in `node_modules/bootstrap/scss/_variables.scss`.
 
-Do not forget to include `node-sass` and `sass-loader` to use `scss` in Vue:
+Do not forget to include `sass` and `sass-loader` to use `scss` in Vue:
 
 ```sh
-npm install --save-dev node-sass sass-loader
+npm install --save-dev sass sass-loader
 ```
 
 **Note:** You may need to adjust the SCSS import paths based on your build environment.

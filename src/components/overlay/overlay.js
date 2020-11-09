@@ -2,89 +2,97 @@ import { defineComponent, h } from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
 import { EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { BVTransition } from '../../utils/bv-transition'
+import { makePropsConfigurable } from '../../utils/config'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BSpinner } from '../spinner/spinner'
 
-const positionCover = { top: 0, left: 0, bottom: 0, right: 0 }
+// --- Constants ---
 
+const POSITION_COVER = { top: 0, left: 0, bottom: 0, right: 0 }
+
+// --- Main component ---
+// @vue/component
 export const BOverlay = /*#__PURE__*/ defineComponent({
   name: NAME_OVERLAY,
   mixins: [normalizeSlotMixin],
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String,
-      default: 'light'
-    },
-    bgColor: {
-      // Alternative to variant, allowing a specific
-      // CSS color to be applied to the overlay
-      type: String
-      // default: null
-    },
-    opacity: {
-      type: [Number, String],
-      default: 0.85,
-      validator(value) {
-        const number = toFloat(value, 0)
-        return number >= 0 && number <= 1
+  props: makePropsConfigurable(
+    {
+      show: {
+        type: Boolean,
+        default: false
+      },
+      variant: {
+        type: String,
+        default: 'light'
+      },
+      bgColor: {
+        // Alternative to variant, allowing a specific
+        // CSS color to be applied to the overlay
+        type: String
+        // default: null
+      },
+      opacity: {
+        type: [Number, String],
+        default: 0.85,
+        validator(value) {
+          const number = toFloat(value, 0)
+          return number >= 0 && number <= 1
+        }
+      },
+      blur: {
+        type: String,
+        default: '2px'
+      },
+      rounded: {
+        type: [Boolean, String],
+        default: false
+      },
+      noCenter: {
+        type: Boolean,
+        default: false
+      },
+      noFade: {
+        type: Boolean,
+        default: false
+      },
+      spinnerType: {
+        type: String,
+        default: 'border'
+      },
+      spinnerVariant: {
+        type: String
+        // default: null
+      },
+      spinnerSmall: {
+        type: Boolean,
+        default: false
+      },
+      overlayTag: {
+        type: String,
+        default: 'div'
+      },
+      wrapTag: {
+        type: String,
+        default: 'div'
+      },
+      noWrap: {
+        // If set, does not render the default slot
+        // and switches to absolute positioning
+        type: Boolean,
+        default: false
+      },
+      fixed: {
+        type: Boolean,
+        default: false
+      },
+      zIndex: {
+        type: [Number, String],
+        default: 10
       }
     },
-    blur: {
-      type: String,
-      default: '2px'
-    },
-    rounded: {
-      type: [Boolean, String],
-      default: false
-    },
-    noCenter: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    spinnerType: {
-      type: String,
-      default: 'border'
-    },
-    spinnerVariant: {
-      type: String
-      // default: null
-    },
-    spinnerSmall: {
-      type: Boolean,
-      default: false
-    },
-    overlayTag: {
-      type: String,
-      default: 'div'
-    },
-    wrapTag: {
-      type: String,
-      default: 'div'
-    },
-    noWrap: {
-      // If set, does not render the default slot
-      // and switches to absolute positioning
-      type: Boolean,
-      default: false
-    },
-    fixed: {
-      type: Boolean,
-      default: false
-    },
-    zIndex: {
-      type: [Number, String],
-      default: 10
-    }
-  },
+    NAME_OVERLAY
+  ),
   emits: [EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN],
   computed: {
     computedRounded() {
@@ -122,7 +130,7 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
         staticClass: 'position-absolute',
         class: [this.computedVariant, this.computedRounded],
         style: {
-          ...positionCover,
+          ...POSITION_COVER,
           opacity: this.opacity,
           backgroundColor: this.bgColor || null,
           backdropFilter: this.blur ? `blur(${this.blur})` : null
@@ -134,7 +142,7 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
         {
           staticClass: 'position-absolute',
           style: this.noCenter
-            ? /* istanbul ignore next */ { ...positionCover }
+            ? /* istanbul ignore next */ { ...POSITION_COVER }
             : { top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }
         },
         [this.normalizeSlot('overlay', scope) || this.defaultOverlayFn(scope)]
@@ -149,7 +157,7 @@ export const BOverlay = /*#__PURE__*/ defineComponent({
             'position-absolute': !this.noWrap || (this.noWrap && !this.fixed),
             'position-fixed': this.noWrap && this.fixed
           },
-          style: { ...positionCover, zIndex: this.zIndex || 10 },
+          style: { ...POSITION_COVER, zIndex: this.zIndex || 10 },
           on: { click: evt => this.$emit(EVENT_NAME_CLICK, evt) }
         },
         [$background, $content]

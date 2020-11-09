@@ -3,11 +3,12 @@ import { NAME_IMG_LAZY } from '../../constants/components'
 import { EVENT_NAME_MODEL_PREFIX } from '../../constants/events'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { hasIntersectionObserverSupport } from '../../utils/env'
 import { toInteger } from '../../utils/number'
+import { omit } from '../../utils/object'
 import { VBVisible } from '../../directives/visible/visible'
-import { BImg } from './img'
+import { BImg, props as BImgProps } from './img'
 
 // --- Constants ---
 
@@ -17,91 +18,39 @@ const EVENT_NAME_MODEL_SHOW = EVENT_NAME_MODEL_PREFIX + PROP_NAME_SHOW
 
 // --- Props ---
 
-export const props = {
-  [PROP_NAME_SHOW]: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    ...omit(BImgProps, ['blank']),
+    [PROP_NAME_SHOW]: {
+      type: Boolean,
+      default: false
+    },
+    blankSrc: {
+      // If null, a blank image is generated
+      type: String,
+      default: null
+    },
+    blankColor: {
+      type: String,
+      default: 'transparent'
+    },
+    blankWidth: {
+      type: [Number, String]
+      // default: null
+    },
+    blankHeight: {
+      type: [Number, String]
+      // default: null
+    },
+    offset: {
+      // Distance away from viewport (in pixels) before being
+      // considered "visible"
+      type: [Number, String],
+      default: 360
+    }
   },
-  src: {
-    type: String,
-    required: true
-  },
-  srcset: {
-    type: [String, Array]
-    // default: null
-  },
-  sizes: {
-    type: [String, Array]
-    // default: null
-  },
-  alt: {
-    type: String
-    // default: null
-  },
-  width: {
-    type: [Number, String]
-    // default: null
-  },
-  height: {
-    type: [Number, String]
-    // default: null
-  },
-  blankSrc: {
-    // If null, a blank image is generated
-    type: String,
-    default: null
-  },
-  blankColor: {
-    type: String,
-    default: () => getComponentConfig(NAME_IMG_LAZY, 'blankColor')
-  },
-  blankWidth: {
-    type: [Number, String]
-    // default: null
-  },
-  blankHeight: {
-    type: [Number, String]
-    // default: null
-  },
-  fluid: {
-    type: Boolean,
-    default: false
-  },
-  fluidGrow: {
-    type: Boolean,
-    default: false
-  },
-  block: {
-    type: Boolean,
-    default: false
-  },
-  thumbnail: {
-    type: Boolean,
-    default: false
-  },
-  rounded: {
-    type: [Boolean, String],
-    default: false
-  },
-  left: {
-    type: Boolean,
-    default: false
-  },
-  right: {
-    type: Boolean,
-    default: false
-  },
-  center: {
-    type: Boolean,
-    default: false
-  },
-  offset: {
-    // Distance away from viewport (in pixels) before being
-    // considered "visible"
-    type: [Number, String],
-    default: 360
-  }
-}
+  NAME_IMG_LAZY
+)
 
 // --- Main component ---
 // @vue/component

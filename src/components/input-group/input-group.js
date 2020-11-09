@@ -1,7 +1,7 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
 import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slots'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BInputGroupAppend } from './input-group-append'
@@ -10,31 +10,34 @@ import { BInputGroupText } from './input-group-text'
 
 // --- Props ---
 
-export const props = {
-  id: {
-    type: String
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+    },
+    size: {
+      type: String
+      // default: undefined
+    },
+    prepend: {
+      type: String
+    },
+    prependHtml: {
+      type: String
+    },
+    append: {
+      type: String
+    },
+    appendHtml: {
+      type: String
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    }
   },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_INPUT_GROUP, 'size')
-  },
-  prepend: {
-    type: String
-  },
-  prependHtml: {
-    type: String
-  },
-  append: {
-    type: String
-  },
-  appendHtml: {
-    type: String
-  },
-  tag: {
-    type: String,
-    default: 'div'
-  }
-}
+  NAME_INPUT_GROUP
+)
 
 // --- Main component ---
 // @vue/component

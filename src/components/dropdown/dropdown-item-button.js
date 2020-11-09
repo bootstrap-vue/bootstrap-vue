@@ -1,31 +1,35 @@
 import { defineComponent, h } from '../../vue'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import attrsMixin from '../../mixins/attrs'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
-export const props = {
-  active: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    active: {
+      type: Boolean,
+      default: false
+    },
+    activeClass: {
+      type: String,
+      default: 'active'
+    },
+    buttonClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    variant: {
+      type: String
+      // default: null
+    }
   },
-  activeClass: {
-    type: String,
-    default: 'active'
-  },
-  buttonClass: {
-    type: [String, Array, Object]
-    // default: null
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  variant: {
-    type: String
-    // default: null
-  }
-}
+  NAME_DROPDOWN_ITEM_BUTTON
+)
 
 // @vue/component
 export const BDropdownItemButton = /*#__PURE__*/ defineComponent({

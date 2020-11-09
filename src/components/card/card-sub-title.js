@@ -1,24 +1,27 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_SUB_TITLE } from '../../constants/components'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { toString } from '../../utils/string'
 
 // --- Props ---
 
-export const props = {
-  subTitle: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    subTitle: {
+      type: String
+      // default: null
+    },
+    subTitleTag: {
+      type: String,
+      default: 'h6'
+    },
+    subTitleTextVariant: {
+      type: String,
+      default: 'muted'
+    }
   },
-  subTitleTag: {
-    type: String,
-    default: 'h6'
-  },
-  subTitleTextVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_CARD_SUB_TITLE, 'subTitleTextVariant')
-  }
-}
+  NAME_CARD_SUB_TITLE
+)
 
 // --- Main component ---
 // @vue/component

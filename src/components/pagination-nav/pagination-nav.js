@@ -3,7 +3,7 @@ import { NAME_PAGINATION_NAV } from '../../constants/components'
 import { EVENT_NAME_CHANGE } from '../../constants/events'
 import looseEqual from '../../utils/loose-equal'
 import { BvEvent } from '../../utils/bv-event.class'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, requestAF } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { isArray, isUndefined, isFunction, isObject } from '../../utils/inspect'
@@ -14,67 +14,21 @@ import { pluckProps } from '../../utils/props'
 import { computeHref, parseQuery } from '../../utils/router'
 import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
-import paginationMixin from '../../mixins/pagination'
+import paginationMixin, { props as paginationProps } from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
 const EVENT_NAME_PAGE_CLICK = 'page-click'
 
-// --- Props ---
-
-const linkProps = omit(BLinkProps, ['event', 'routerTag'])
-
-const props = {
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_PAGINATION_NAV, 'size')
-  },
-  numberOfPages: {
-    type: [Number, String],
-    default: 1,
-    validator(value) /* istanbul ignore next */ {
-      const number = toInteger(value, 0)
-      if (number < 1) {
-        warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
-        return false
-      }
-      return true
-    }
-  },
-  baseUrl: {
-    type: String,
-    default: '/'
-  },
-  useRouter: {
-    type: Boolean,
-    default: false
-  },
-  linkGen: {
-    type: Function
-    // default: null
-  },
-  pageGen: {
-    type: Function
-    // default: null
-  },
-  pages: {
-    // Optional array of page links
-    type: Array
-    // default: null
-  },
-  noPageDetect: {
-    // Disable auto page number detection if true
-    type: Boolean,
-    default: false
-  },
-  ...linkProps
-}
-
 // --- Utility methods ---
 
 // Sanitize the provided number of pages (converting to a number)
 export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
+
+// --- Props ---
+
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 
 // --- Main component ---
 // The render function is brought in via the pagination mixin
@@ -82,8 +36,57 @@ export const sanitizeNumberOfPages = value => mathMax(toInteger(value, 0), 1)
 export const BPaginationNav = /*#__PURE__*/ defineComponent({
   name: NAME_PAGINATION_NAV,
   mixins: [paginationMixin],
-  props,
-  names: [EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK],
+  props: makePropsConfigurable(
+    {
+      ...paginationProps,
+      ...linkProps,
+      size: {
+        type: String
+        // default: null
+      },
+      numberOfPages: {
+        type: [Number, String],
+        default: 1,
+        /* istanbul ignore next */
+        validator(value) {
+          const number = toInteger(value, 0)
+          if (number < 1) {
+            warn('Prop "number-of-pages" must be a number greater than "0"', NAME_PAGINATION_NAV)
+            return false
+          }
+          return true
+        }
+      },
+      baseUrl: {
+        type: String,
+        default: '/'
+      },
+      useRouter: {
+        type: Boolean,
+        default: false
+      },
+      linkGen: {
+        type: Function
+        // default: null
+      },
+      pageGen: {
+        type: Function
+        // default: null
+      },
+      pages: {
+        // Optional array of page links
+        type: Array
+        // default: null
+      },
+      noPageDetect: {
+        // Disable auto page number detection if true
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_PAGINATION_NAV
+  ),
+  emits: [EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK],
   computed: {
     // Used by render function to trigger wrapping in '<nav>' element
     isNav() {
@@ -189,16 +192,24 @@ export const BPaginationNav = /*#__PURE__*/ defineComponent({
       }
     },
     makePage(pageNum) {
+      const { pageGen } = this
       const info = this.getPageInfo(pageNum)
-      if (this.pageGen && isFunction(this.pageGen)) {
-        return this.pageGen(pageNum, info)
+      if (pageGen && isFunction(pageGen)) {
+        const result = pageGen(pageNum, info)
+        if (!isUndefined(result)) {
+          return result
+        }
       }
       return info.text
     },
     makeLink(pageNum) {
+      const { linkGen } = this
       const info = this.getPageInfo(pageNum)
-      if (this.linkGen && isFunction(this.linkGen)) {
-        return this.linkGen(pageNum, info)
+      if (linkGen && isFunction(linkGen)) {
+        const result = linkGen(pageNum, info)
+        if (!isUndefined(result)) {
+          return result
+        }
       }
       return info.link
     },

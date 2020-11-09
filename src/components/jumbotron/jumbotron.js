@@ -1,67 +1,70 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_JUMBOTRON } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slots'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { BContainer } from '../layout/container'
 
 // --- Props ---
 
-export const props = {
-  fluid: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    fluid: {
+      type: Boolean,
+      default: false
+    },
+    containerFluid: {
+      type: [Boolean, String],
+      default: false
+    },
+    header: {
+      type: String
+      // default: null
+    },
+    headerHtml: {
+      type: String
+      // default: null
+    },
+    headerTag: {
+      type: String,
+      default: 'h1'
+    },
+    headerLevel: {
+      type: [Number, String],
+      default: '3'
+    },
+    lead: {
+      type: String
+      // default: null
+    },
+    leadHtml: {
+      type: String
+      // default: null
+    },
+    leadTag: {
+      type: String,
+      default: 'p'
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    bgVariant: {
+      type: String
+      // default: undefined
+    },
+    borderVariant: {
+      type: String
+      // default: undefined
+    },
+    textVariant: {
+      type: String
+      // default: undefined
+    }
   },
-  containerFluid: {
-    type: [Boolean, String],
-    default: false
-  },
-  header: {
-    type: String
-    // default: null
-  },
-  headerHtml: {
-    type: String
-    // default: null
-  },
-  headerTag: {
-    type: String,
-    default: 'h1'
-  },
-  headerLevel: {
-    type: [Number, String],
-    default: '3'
-  },
-  lead: {
-    type: String
-    // default: null
-  },
-  leadHtml: {
-    type: String
-    // default: null
-  },
-  leadTag: {
-    type: String,
-    default: 'p'
-  },
-  tag: {
-    type: String,
-    default: 'div'
-  },
-  bgVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_JUMBOTRON, 'bgVariant')
-  },
-  borderVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_JUMBOTRON, 'borderVariant')
-  },
-  textVariant: {
-    type: String,
-    default: () => getComponentConfig(NAME_JUMBOTRON, 'textVariant')
-  }
-}
+  NAME_JUMBOTRON
+)
 
 // --- Main component ---
 // @vue/component

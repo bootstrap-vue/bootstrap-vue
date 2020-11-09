@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAVBAR_NAV } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { pluckProps } from '../../utils/props'
 import { props as BNavProps } from '../nav/nav'
 
@@ -13,7 +14,10 @@ const computeJustifyContent = value => {
 
 // --- Props ---
 
-export const props = pluckProps(['tag', 'fill', 'justified', 'align', 'small'], BNavProps)
+export const props = makePropsConfigurable(
+  pluckProps(['tag', 'fill', 'justified', 'align', 'small'], BNavProps),
+  NAME_NAVBAR_NAV
+)
 
 // --- Main component ---
 // @vue/component

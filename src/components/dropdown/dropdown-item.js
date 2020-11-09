@@ -1,6 +1,7 @@
 import { defineComponent, h } from '../../vue'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import { NAME_DROPDOWN_ITEM } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { omit } from '../../utils/object'
 import attrsMixin from '../../mixins/attrs'
@@ -22,17 +23,20 @@ export const BDropdownItem = /*#__PURE__*/ defineComponent({
     }
   },
   inheritAttrs: false,
-  props: {
-    ...props,
-    linkClass: {
-      type: [String, Array, Object]
-      // default: null
+  props: makePropsConfigurable(
+    {
+      ...props,
+      linkClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      variant: {
+        type: String
+        // default: null
+      }
     },
-    variant: {
-      type: String
-      // default: null
-    }
-  },
+    NAME_DROPDOWN_ITEM
+  ),
   emits: [EVENT_NAME_CLICK],
   computed: {
     computedAttrs() {

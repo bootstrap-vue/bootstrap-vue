@@ -31,7 +31,7 @@ export default defineComponent({
       eventOn(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
     }
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     eventOff(this.focusInElement, 'focusin', this._focusInHandler, EVENT_OPTIONS_NO_CAPTURE)
   },
   methods: {

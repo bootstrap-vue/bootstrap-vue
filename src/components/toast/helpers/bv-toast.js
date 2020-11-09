@@ -106,7 +106,7 @@ const plugin = Vue => {
       // app `$root`, and it ensures `BToast` is destroyed when parent is destroyed
       parent: $parent,
       propsData: {
-        ...filterOptions(getComponentConfig(NAME_TOAST) || {}),
+        ...filterOptions(getComponentConfig(NAME_TOAST)),
         // Add in (filtered) user supplied props
         ...omit(props, keys(propsToSlots)),
         // Props that can't be overridden

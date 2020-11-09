@@ -1,41 +1,44 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_NAVBAR } from '../../constants/components'
-import { getComponentConfig, getBreakpoints } from '../../utils/config'
+import { makePropsConfigurable, getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'nav'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'nav'
+    },
+    type: {
+      type: String,
+      default: 'light'
+    },
+    variant: {
+      type: String
+      // default: undefined
+    },
+    toggleable: {
+      type: [Boolean, String],
+      default: false
+    },
+    fixed: {
+      type: String
+    },
+    sticky: {
+      type: Boolean,
+      default: false
+    },
+    print: {
+      type: Boolean,
+      default: false
+    }
   },
-  type: {
-    type: String,
-    default: 'light'
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_NAVBAR, 'variant')
-  },
-  toggleable: {
-    type: [Boolean, String],
-    default: false
-  },
-  fixed: {
-    type: String
-  },
-  sticky: {
-    type: Boolean,
-    default: false
-  },
-  print: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_NAVBAR
+)
 
 // --- Main component ---
 // @vue/component

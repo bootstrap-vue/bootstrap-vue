@@ -3,7 +3,7 @@ import { NAME_ALERT } from '../../constants/components'
 import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import BVTransition from '../../utils/bv-transition'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
@@ -44,33 +44,35 @@ const parseShow = show => {
 export const BAlert = /*#__PURE__*/ defineComponent({
   name: NAME_ALERT,
   mixins: [modelMixin, normalizeSlotMixin],
-  props: {
-    [PROP_NAME_MODEL_VALUE]: {
-      type: [Boolean, Number, String],
-      default: false
+  props: makePropsConfigurable(
+    {
+      [PROP_NAME_MODEL_VALUE]: {
+        type: [Boolean, Number, String],
+        default: false
+      },
+      variant: {
+        type: String,
+        default: 'info'
+      },
+      dismissible: {
+        type: Boolean,
+        default: false
+      },
+      dismissLabel: {
+        type: String,
+        default: 'Close'
+      },
+      fade: {
+        type: Boolean,
+        default: false
+      }
     },
-    variant: {
-      type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'variant')
-    },
-    dismissible: {
-      type: Boolean,
-      default: false
-    },
-    dismissLabel: {
-      type: String,
-      default: () => getComponentConfig(NAME_ALERT, 'dismissLabel')
-    },
-    fade: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_ALERT
+  ),
   emits: [EVENT_NAME_DISMISSED, EVENT_NAME_DISMISS_COUNT_DOWN],
   data() {
     return {
       countDown: 0,
-      countDownTimeout: null,
       // If initially shown, we need to set these for SSR
       localShow: parseShow(this[PROP_NAME_MODEL_VALUE])
     }
@@ -92,7 +94,7 @@ export const BAlert = /*#__PURE__*/ defineComponent({
         }
         if (newValue > 0) {
           this.localShow = true
-          this.countDownTimeout = setTimeout(() => {
+          this.$_countDownTimeout = setTimeout(() => {
             this.countDown--
           }, 1000)
         } else {
@@ -118,6 +120,9 @@ export const BAlert = /*#__PURE__*/ defineComponent({
     }
   },
   created() {
+    // Create private non-reactive props
+    this.$_filterTimer = null
+
     const show = this[PROP_NAME_MODEL_VALUE]
     this.countDown = parseCountDown(show)
     this.localShow = parseShow(show)
@@ -137,10 +142,8 @@ export const BAlert = /*#__PURE__*/ defineComponent({
       this.localShow = false
     },
     clearCountDownInterval() {
-      if (this.countDownTimeout) {
-        clearTimeout(this.countDownTimeout)
-        this.countDownTimeout = null
-      }
+      clearTimeout(this.$_countDownTimeout)
+      this.$_countDownTimeout = null
     }
   },
   render() {

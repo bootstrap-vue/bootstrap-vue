@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
 import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
 
@@ -18,35 +19,38 @@ const lazyProps = omit(imgLazyProps, [
   'fluidGrow'
 ])
 
-export const props = {
-  ...lazyProps,
-  top: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    ...lazyProps,
+    top: {
+      type: Boolean,
+      default: false
+    },
+    bottom: {
+      type: Boolean,
+      default: false
+    },
+    start: {
+      type: Boolean,
+      default: false
+    },
+    left: {
+      // alias of 'start'
+      type: Boolean,
+      default: false
+    },
+    end: {
+      type: Boolean,
+      default: false
+    },
+    right: {
+      // alias of 'end'
+      type: Boolean,
+      default: false
+    }
   },
-  bottom: {
-    type: Boolean,
-    default: false
-  },
-  start: {
-    type: Boolean,
-    default: false
-  },
-  left: {
-    // alias of 'start'
-    type: Boolean,
-    default: false
-  },
-  end: {
-    type: Boolean,
-    default: false
-  },
-  right: {
-    // alias of 'end'
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_CARD_IMG_LAZY
+)
 
 // --- Main component ---
 // @vue/component

@@ -39,9 +39,7 @@ describe('form-group', () => {
     expect(wrapper.find('label').exists()).toBe(false)
     expect(wrapper.find('legend').exists()).toBe(false)
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.find('div').attributes('role')).toBeDefined()
     expect(wrapper.find('div').attributes('role')).toEqual('group')
-    expect(wrapper.find('div').attributes('tabindex')).toBeDefined()
     expect(wrapper.find('div').attributes('tabindex')).toEqual('-1')
     expect(wrapper.text()).toEqual('')
 
@@ -61,7 +59,6 @@ describe('form-group', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.find('div').attributes('role')).toBeDefined()
     expect(wrapper.find('div').attributes('role')).toEqual('group')
     expect(wrapper.find('div[role="group"]').text()).toEqual('foobar')
     expect(wrapper.text()).toEqual('foobar')
@@ -82,7 +79,6 @@ describe('form-group', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
     expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
@@ -106,31 +102,29 @@ describe('form-group', () => {
     // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
+    const formGroupId = wrapper.attributes('id')
     expect(wrapper.element.tagName).not.toBe('FIELDSET')
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
-    expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('legend').exists()).toBe(false)
     expect(wrapper.find('label').exists()).toBe(true)
     expect(wrapper.find('label').classes()).toContain('d-block')
     expect(wrapper.find('label').text()).toEqual('test')
-    expect(wrapper.find('label').attributes('for')).toBeDefined()
     expect(wrapper.find('label').attributes('for')).toEqual('input-id')
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.find('div > div').classes()).toContain('bv-no-focus-ring')
     expect(wrapper.find('div > div').classes().length).toBe(1)
     expect(wrapper.find('div > div').attributes('role')).not.toBeDefined()
     expect(wrapper.find('div > div').attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.find('div > div').attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('div > div > input').exists()).toBe(true)
     expect(wrapper.find('div > div > input').attributes('aria-describedby')).not.toBeDefined()
     expect(wrapper.find('div > div > input').attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('div > div').text()).toEqual('')
-    const formGroupId = wrapper.attributes('id')
-    expect(wrapper.find('label').attributes('id')).toBeDefined()
     expect(wrapper.find('label').attributes('id')).toEqual(`${formGroupId}__BV_label_`)
 
     wrapper.unmount()
@@ -160,7 +154,6 @@ describe('form-group', () => {
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
     expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
     expect(wrapper.find('label').exists()).toBe(true)
@@ -176,6 +169,9 @@ describe('form-group', () => {
     expect(wrapper.find('div > div').classes()).toContain('col')
     expect(wrapper.find('div > div').classes()).toContain('bv-no-focus-ring')
     expect(wrapper.find('div > div').classes().length).toBe(2)
+    expect(wrapper.find('div > div').attributes('role')).not.toBeDefined()
+    expect(wrapper.find('div > div').attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.find('div > div').attributes('aria-labelledby')).not.toBeDefined()
 
     wrapper.unmount()
   })
@@ -200,7 +196,6 @@ describe('form-group', () => {
 
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
-    expect($input.attributes('aria-describedby')).toBeDefined()
     expect($input.attributes('aria-describedby')).toEqual('/group-id__BV_description_')
 
     wrapper.unmount()
@@ -249,6 +244,7 @@ describe('form-group', () => {
     expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
     expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
     expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
+    expect(wrapper.find('fieldset > div > div').attributes('aria-labelledby')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -329,7 +325,6 @@ describe('form-group', () => {
 
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
-    expect($input.attributes('aria-describedby')).toBeDefined()
     expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_')
 
     // With state = true, description and valid are visible
@@ -350,11 +345,9 @@ describe('form-group', () => {
       state: false
     })
     await waitNT(wrapper.vm)
-    expect($input.attributes('aria-describedby')).toBeDefined()
     expect($input.attributes('aria-describedby')).toEqual(
       'group-id__BV_description_ group-id__BV_feedback_invalid_'
     )
-    expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toEqual('true')
     expect(wrapper.classes()).not.toContain('is-valid')
     expect(wrapper.classes()).toContain('is-invalid')

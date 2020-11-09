@@ -1,10 +1,11 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slots'
+import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
-import cardMixin from '../../mixins/card'
+import { props as cardProps } from '../../mixins/card'
 import { BCardBody, props as bodyProps } from './card-body'
 import { BCardHeader, props as headerProps } from './card-header'
 import { BCardFooter, props as footerProps } from './card-footer'
@@ -15,21 +16,24 @@ import { BCardImg, props as imgProps } from './card-img'
 const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
 
-export const props = {
-  ...bodyProps,
-  ...headerProps,
-  ...footerProps,
-  ...cardImgProps,
-  ...copyProps(cardMixin.props),
-  align: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    ...bodyProps,
+    ...headerProps,
+    ...footerProps,
+    ...cardImgProps,
+    ...cardProps,
+    align: {
+      type: String
+      // default: null
+    },
+    noBody: {
+      type: Boolean,
+      default: false
+    }
   },
-  noBody: {
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_CARD
+)
 
 // --- Main component ---
 // @vue/component

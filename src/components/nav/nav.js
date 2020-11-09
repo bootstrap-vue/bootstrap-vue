@@ -1,5 +1,6 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_NAV } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Helper methods ---
 
@@ -11,45 +12,48 @@ const computeJustifyContent = value => {
 
 // --- Props ---
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'ul'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'ul'
+    },
+    fill: {
+      type: Boolean,
+      default: false
+    },
+    justified: {
+      type: Boolean,
+      default: false
+    },
+    align: {
+      type: String
+      // default: null
+    },
+    tabs: {
+      type: Boolean,
+      default: false
+    },
+    pills: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
+      type: Boolean,
+      default: false
+    },
+    small: {
+      type: Boolean,
+      default: false
+    },
+    cardHeader: {
+      // Set to true if placing in a card header
+      type: Boolean,
+      default: false
+    }
   },
-  fill: {
-    type: Boolean,
-    default: false
-  },
-  justified: {
-    type: Boolean,
-    default: false
-  },
-  align: {
-    type: String
-    // default: null
-  },
-  tabs: {
-    type: Boolean,
-    default: false
-  },
-  pills: {
-    type: Boolean,
-    default: false
-  },
-  vertical: {
-    type: Boolean,
-    default: false
-  },
-  small: {
-    type: Boolean,
-    default: false
-  },
-  cardHeader: {
-    // Set to true if placing in a card header
-    type: Boolean,
-    default: false
-  }
-}
+  NAME_NAV
+)
 
 // --- Main component ---
 // @vue/component

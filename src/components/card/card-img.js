@@ -1,52 +1,56 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
-export const props = {
-  src: {
-    type: String,
-    required: true
+export const props = makePropsConfigurable(
+  {
+    src: {
+      type: String,
+      required: true
+    },
+    alt: {
+      type: String,
+      default: null
+    },
+    top: {
+      type: Boolean,
+      default: false
+    },
+    bottom: {
+      type: Boolean,
+      default: false
+    },
+    start: {
+      type: Boolean,
+      default: false
+    },
+    left: {
+      // alias of 'start'
+      type: Boolean,
+      default: false
+    },
+    end: {
+      type: Boolean,
+      default: false
+    },
+    right: {
+      // alias of 'end'
+      type: Boolean,
+      default: false
+    },
+    height: {
+      type: [Number, String]
+      // default: null
+    },
+    width: {
+      type: [Number, String]
+      // default: null
+    }
   },
-  alt: {
-    type: String,
-    default: null
-  },
-  top: {
-    type: Boolean,
-    default: false
-  },
-  bottom: {
-    type: Boolean,
-    default: false
-  },
-  start: {
-    type: Boolean,
-    default: false
-  },
-  left: {
-    // alias of 'start'
-    type: Boolean,
-    default: false
-  },
-  end: {
-    type: Boolean,
-    default: false
-  },
-  right: {
-    // alias of 'end'
-    type: Boolean,
-    default: false
-  },
-  height: {
-    type: [Number, String]
-    // default: null
-  },
-  width: {
-    type: [Number, String]
-    // default: null
-  }
-}
+  NAME_CARD_IMG
+)
 
 // --- Main component ---
 // @vue/component

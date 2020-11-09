@@ -1,22 +1,26 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
-import { BForm, props as formProps } from '../form/form'
+import { makePropsConfigurable } from '../../utils/config'
+import { BForm, props as formControlProps } from '../form/form'
 
 // @vue/component
 export const BDropdownForm = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_FORM,
   functional: true,
-  props: {
-    ...formProps,
-    disabled: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      ...formControlProps,
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      formClass: {
+        type: [String, Object, Array]
+        // default: null
+      }
     },
-    formClass: {
-      type: [String, Object, Array]
-      // default: null
-    }
-  },
+    NAME_DROPDOWN_FORM
+  ),
   render(_, { props, data, children }) {
     const $attrs = data.attrs || {}
     const $listeners = data.on || {}

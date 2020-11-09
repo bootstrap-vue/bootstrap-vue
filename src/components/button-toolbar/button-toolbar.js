@@ -1,6 +1,7 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -21,16 +22,19 @@ const ITEM_SELECTOR = [
 export const BButtonToolbar = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
-  props: {
-    justify: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      justify: {
+        type: Boolean,
+        default: false
+      },
+      keyNav: {
+        type: Boolean,
+        default: false
+      }
     },
-    keyNav: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_BUTTON_TOOLBAR
+  ),
   mounted() {
     // Pre-set the tabindexes if the markup does not include
     // `tabindex="-1"` on the toolbar items

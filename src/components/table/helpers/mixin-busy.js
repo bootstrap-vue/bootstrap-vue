@@ -1,5 +1,7 @@
 import { h } from '../../../vue'
 import { EVENT_NAME_MODEL_PREFIX } from '../../../constants/events'
+import { NAME_TABLE } from '../../../constants/components'
+import { makePropsConfigurable } from '../../../utils/config'
 import { stopEvent } from '../../../utils/events'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -13,14 +15,18 @@ const EVENT_NAME_MODEL_BUSY = EVENT_NAME_MODEL_PREFIX + PROP_NAME_BUSY
 
 const SLOT_NAME_TABLE_BUSY = 'table-busy'
 
+// --- Mixin ---
 // @vue/component
 export default {
-  props: {
-    [PROP_NAME_BUSY]: {
-      type: Boolean,
-      default: false
-    }
-  },
+  props: makePropsConfigurable(
+    {
+      busy: {
+        type: Boolean,
+        default: false
+      }
+    },
+    NAME_TABLE
+  ),
   data() {
     return {
       localBusy: false

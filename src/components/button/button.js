@@ -2,7 +2,7 @@ import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { addClass, isTag, removeClass } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction } from '../../utils/inspect'
@@ -17,48 +17,50 @@ const linkProps = omit(BLinkProps, ['event', 'routerTag'])
 delete linkProps.href.default
 delete linkProps.to.default
 
-const btnProps = {
-  block: {
-    type: Boolean,
-    default: false
+export const props = makePropsConfigurable(
+  {
+    block: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String
+      // default: null
+    },
+    variant: {
+      type: String,
+      default: 'secondary'
+    },
+    type: {
+      type: String,
+      default: 'button'
+    },
+    tag: {
+      type: String,
+      default: 'button'
+    },
+    pill: {
+      type: Boolean,
+      default: false
+    },
+    squared: {
+      type: Boolean,
+      default: false
+    },
+    pressed: {
+      // Tri-state: `true`, `false` or `null`
+      // => On, off, not a toggle
+      type: Boolean,
+      default: null
+    },
+    ...linkProps
   },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'size')
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_BUTTON, 'variant')
-  },
-  type: {
-    type: String,
-    default: 'button'
-  },
-  tag: {
-    type: String,
-    default: 'button'
-  },
-  pill: {
-    type: Boolean,
-    default: false
-  },
-  squared: {
-    type: Boolean,
-    default: false
-  },
-  pressed: {
-    // Tri-state: `true`, `false` or `null`
-    // => On, off, not a toggle
-    type: Boolean,
-    default: null
-  }
-}
-
-export const props = { ...btnProps, ...linkProps }
+  NAME_BUTTON
+)
 
 // --- Helper methods ---
 
@@ -87,7 +89,7 @@ const isNonStandardTag = props => !isLink(props) && !isButton(props)
 
 // Compute required classes (non static classes)
 const computeClass = props => [
-  `btn-${props.variant || getComponentConfig(NAME_BUTTON, 'variant')}`,
+  `btn-${props.variant || 'secondary'}`,
   {
     [`btn-${props.size}`]: props.size,
     'btn-block': props.block,

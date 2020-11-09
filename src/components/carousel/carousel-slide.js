@@ -1,5 +1,6 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { hasTouchSupport } from '../../utils/env'
 import { stopEvent } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
@@ -37,39 +38,42 @@ const imgProps = {
   }
 }
 
-export const props = {
-  ...imgProps,
-  contentVisibleUp: {
-    type: String
+export const props = makePropsConfigurable(
+  {
+    ...imgProps,
+    contentVisibleUp: {
+      type: String
+    },
+    contentTag: {
+      type: String,
+      default: 'div'
+    },
+    caption: {
+      type: String
+    },
+    captionHtml: {
+      type: String
+    },
+    captionTag: {
+      type: String,
+      default: 'h3'
+    },
+    text: {
+      type: String
+    },
+    textHtml: {
+      type: String
+    },
+    textTag: {
+      type: String,
+      default: 'p'
+    },
+    background: {
+      type: String
+    }
   },
-  contentTag: {
-    type: String,
-    default: 'div'
-  },
-  caption: {
-    type: String
-  },
-  captionHtml: {
-    type: String
-  },
-  captionTag: {
-    type: String,
-    default: 'h3'
-  },
-  text: {
-    type: String
-  },
-  textHtml: {
-    type: String
-  },
-  textTag: {
-    type: String,
-    default: 'p'
-  },
-  background: {
-    type: String
-  }
-}
+  NAME_CAROUSEL_SLIDE
+)
 
 // --- Main component ---
 // @vue/component
