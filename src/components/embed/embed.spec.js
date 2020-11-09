@@ -78,9 +78,7 @@ describe('embed', () => {
     expect(wrapper.classes()).toContain('embed-responsive')
     expect(wrapper.findAll('iframe').length).toBe(1)
     expect(wrapper.find('iframe').classes()).toContain('embed-responsive-item')
-    expect(wrapper.find('iframe').attributes('src')).toBeDefined()
     expect(wrapper.find('iframe').attributes('src')).toBe('/foo/bar')
-    expect(wrapper.find('iframe').attributes('baz')).toBeDefined()
     expect(wrapper.find('iframe').attributes('baz')).toBe('buz')
 
     wrapper.unmount()
