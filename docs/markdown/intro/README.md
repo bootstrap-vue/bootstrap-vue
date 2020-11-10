@@ -581,7 +581,8 @@ All Icons:
 module.exports = {
   modules: ['bootstrap-vue/nuxt'],
   bootstrapVue: {
-    icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
+    // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
+    icons: true
   }
 }
 ```
