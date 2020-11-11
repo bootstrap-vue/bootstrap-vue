@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
 import { BCardImg } from './card-img'
 
-describe('card-image', () => {
-  it('default has tag "img"', async () => {
+describe('card-img', () => {
+  it('has expected default structure', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25'
@@ -10,29 +10,9 @@ describe('card-image', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
-    wrapper.unmount()
-  })
-
-  it('default has src attribute', async () => {
-    const wrapper = mount(BCardImg, {
-      props: {
-        src: 'https://picsum.photos/600/300/?image=25'
-      }
-    })
-
+    expect(wrapper.classes()).toContain('card-img')
+    expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('src')).toBe('https://picsum.photos/600/300/?image=25')
-
-    wrapper.unmount()
-  })
-
-  it('default does not have attributes alt, width, or height', async () => {
-    const wrapper = mount(BCardImg, {
-      props: {
-        src: 'https://picsum.photos/600/300/?image=25'
-      }
-    })
-
     expect(wrapper.attributes('alt')).not.toBeDefined()
     expect(wrapper.attributes('width')).not.toBeDefined()
     expect(wrapper.attributes('height')).not.toBeDefined()
@@ -40,20 +20,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('default has class "card-img"', async () => {
-    const wrapper = mount(BCardImg, {
-      props: {
-        src: 'https://picsum.photos/600/300/?image=25'
-      }
-    })
-
-    expect(wrapper.classes()).toContain('card-img')
-    expect(wrapper.classes().length).toBe(1)
-
-    wrapper.unmount()
-  })
-
-  it('has class "card-img-top" when prop top=true', async () => {
+  it('has class "card-img-top" when prop `top` is `true`', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -67,7 +34,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('has class "card-img-bottom" when prop bottom=true', async () => {
+  it('has class "card-img-bottom" when prop `bottom` is `true`', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -81,7 +48,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('has class "card-img-top" when props top=true and bottom=true', async () => {
+  it('has class "card-img-top" when props `top` and `bottom` is `true`', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -96,7 +63,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('has class "card-img-left" when prop left=true', async () => {
+  it('has class "card-img-left" when prop `left` is `true`', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -110,7 +77,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('has class "card-img-right" when prop right=true', async () => {
+  it('has class "card-img-right" when prop `right` is `true`', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -124,7 +91,7 @@ describe('card-image', () => {
     wrapper.unmount()
   })
 
-  it('has attribute alt when prop alt set', async () => {
+  it('has `alt` attribute when `alt` prop set', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -132,13 +99,13 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.attributes('alt')).toBeDefined()
+    expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.attributes('alt')).toBe('image')
 
     wrapper.unmount()
   })
 
-  it('has attribute alt when prop `alt` is empty', async () => {
+  it('has `alt` attribute when `alt` prop is empty', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -146,13 +113,14 @@ describe('card-image', () => {
       }
     })
 
+    expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.attributes('alt')).toBeDefined()
     expect(wrapper.attributes('alt')).toBe('')
 
     wrapper.unmount()
   })
 
-  it('has attribute width when prop width set', async () => {
+  it('has `width` attribute when `width` prop set', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -160,13 +128,13 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.attributes('width')).toBeDefined()
+    expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.attributes('width')).toBe('600')
 
     wrapper.unmount()
   })
 
-  it('has attribute height when prop height set', async () => {
+  it('has `height` attribute when `height` prop set', async () => {
     const wrapper = mount(BCardImg, {
       props: {
         src: 'https://picsum.photos/600/300/?image=25',
@@ -174,7 +142,7 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.attributes('height')).toBeDefined()
+    expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.attributes('height')).toBe('300')
 
     wrapper.unmount()
