@@ -28,18 +28,16 @@ const applyFunctionalRenderArguments = render => {
     const children = normalizeSlot(SLOT_NAME_DEFAULT, {}, scopedSlots)
     const slots = () => {}
 
-    const { data, listeners } = keys(attrs).reduce(
-      (result, key) => {
-        const value = attrs[key]
-        if (key.indexOf(LISTENER_KEY_PREFIX) === 0) {
-          result.listeners[lowerFirst(key.substring(LISTENER_KEY_PREFIX.length))] = value
-        } else {
-          result.data[key] = value
-        }
-        return result
-      },
-      { data: {}, listeners: {} }
-    )
+    let data = {}
+    let listeners = {}
+    for (const key in attrs) {
+      const value = attrs[key]
+      if (key.indexOf(LISTENER_KEY_PREFIX) === 0) {
+        listeners[lowerFirst(key.substring(LISTENER_KEY_PREFIX.length))] = value
+      } else {
+        data[key] = value
+      }
+    }
 
     return render.call(this, h, { props, children, slots, scopedSlots, data, parent, listeners })
   }
