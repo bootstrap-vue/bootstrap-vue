@@ -6,7 +6,6 @@ import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { computeSize } from './avatar'
 
-// --- Main component ---
 // @vue/component
 export const BAvatarGroup = /*#__PURE__*/ defineComponent({
   name: NAME_AVATAR_GROUP,
@@ -61,10 +60,22 @@ export const BAvatarGroup = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const $inner = h('div', { staticClass: 'b-avatar-group-inner', style: this.paddingStyle }, [
-      this.normalizeSlot()
-    ])
+    const $inner = h(
+      'div',
+      {
+        staticClass: 'b-avatar-group-inner',
+        style: this.paddingStyle
+      },
+      [this.normalizeSlot()]
+    )
 
-    return h(this.tag, { staticClass: 'b-avatar-group', attrs: { role: 'group' } }, [$inner])
+    return h(
+      this.tag,
+      {
+        staticClass: 'b-avatar-group',
+        attrs: { role: 'group' }
+      },
+      [$inner]
+    )
   }
 })
