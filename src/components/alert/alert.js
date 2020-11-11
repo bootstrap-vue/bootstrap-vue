@@ -1,20 +1,22 @@
 import { defineComponent, h } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
-import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
-import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import BVTransition from '../../utils/bv-transition'
 import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
+import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
-import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BButtonClose } from '../button/button-close'
 
 // --- Constants ---
 
+const PROP_NAME_SHOW = 'show'
+
 const EVENT_NAME_DISMISSED = 'dismissed'
 const EVENT_NAME_DISMISS_COUNT_DOWN = 'dismiss-count-down'
+
+const { mixin: modelMixin, event: EVENT_NAME_UPDATE_SHOW } = makeModelMixin(PROP_NAME_SHOW)
 
 // --- Helper methods ---
 
@@ -46,7 +48,7 @@ export const BAlert = /*#__PURE__*/ defineComponent({
   mixins: [modelMixin, normalizeSlotMixin],
   props: makePropsConfigurable(
     {
-      [PROP_NAME_MODEL_VALUE]: {
+      [PROP_NAME_SHOW]: {
         type: [Boolean, Number, String],
         default: false
       },
@@ -74,23 +76,23 @@ export const BAlert = /*#__PURE__*/ defineComponent({
     return {
       countDown: 0,
       // If initially shown, we need to set these for SSR
-      localShow: parseShow(this[PROP_NAME_MODEL_VALUE])
+      localShow: parseShow(this[PROP_NAME_SHOW])
     }
   },
   watch: {
-    [PROP_NAME_MODEL_VALUE](newVal) {
-      this.countDown = parseCountDown(newVal)
-      this.localShow = parseShow(newVal)
+    [PROP_NAME_SHOW](newValue) {
+      this.countDown = parseCountDown(newValue)
+      this.localShow = parseShow(newValue)
     },
     countDown(newValue) {
       this.clearCountDownInterval()
-      const show = this[PROP_NAME_MODEL_VALUE]
+      const show = this[PROP_NAME_SHOW]
       if (isNumeric(show)) {
         // Ignore if this.show transitions to a boolean value.
         this.$emit(EVENT_NAME_DISMISS_COUNT_DOWN, newValue)
         if (show !== newValue) {
           // Update the v-model if needed
-          this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
+          this.$emit(EVENT_NAME_UPDATE_SHOW, newValue)
         }
         if (newValue > 0) {
           this.localShow = true
@@ -108,14 +110,14 @@ export const BAlert = /*#__PURE__*/ defineComponent({
       }
     },
     localShow(newValue) {
-      const show = this[PROP_NAME_MODEL_VALUE]
+      const show = this[PROP_NAME_SHOW]
       // Only emit dismissed events for dismissible or auto-dismissing alerts
       if (!newValue && (this.dismissible || isNumeric(show))) {
         this.$emit(EVENT_NAME_DISMISSED)
       }
       // Only emit booleans if we weren't passed a number via v-model
       if (!isNumeric(show) && show !== newValue) {
-        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
+        this.$emit(EVENT_NAME_UPDATE_SHOW, newValue)
       }
     }
   },
@@ -123,12 +125,12 @@ export const BAlert = /*#__PURE__*/ defineComponent({
     // Create private non-reactive props
     this.$_filterTimer = null
 
-    const show = this[PROP_NAME_MODEL_VALUE]
+    const show = this[PROP_NAME_SHOW]
     this.countDown = parseCountDown(show)
     this.localShow = parseShow(show)
   },
   mounted() {
-    const show = this[PROP_NAME_MODEL_VALUE]
+    const show = this[PROP_NAME_SHOW]
     this.countDown = parseCountDown(show)
     this.localShow = parseShow(show)
   },
@@ -147,10 +149,11 @@ export const BAlert = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    let $alert // undefined
+    let $alert = h()
     if (this.localShow) {
+      const { dismissible, variant } = this
       let $dismissBtn = h()
-      if (this.dismissible) {
+      if (dismissible) {
         // Add dismiss button
         $dismissBtn = h(
           BButtonClose,
@@ -161,17 +164,15 @@ export const BAlert = /*#__PURE__*/ defineComponent({
       $alert = h(
         'div',
         {
-          key: this._uid,
           staticClass: 'alert',
           class: {
-            'alert-dismissible': this.dismissible,
-            [`alert-${this.variant}`]: this.variant
+            'alert-dismissible': dismissible,
+            [`alert-${variant}`]: !!variant
           },
           attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
         },
         [$dismissBtn, this.normalizeSlot()]
       )
-      $alert = [$alert]
     }
     return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
