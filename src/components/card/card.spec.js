@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { BCard } from './card'
 
 describe('card', () => {
-  it('default has expected structure', async () => {
+  it('has expected default structure', async () => {
     const wrapper = mount(BCard)
 
     // Outer div
