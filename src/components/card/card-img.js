@@ -40,11 +40,11 @@ export const props = makePropsConfigurable(
       type: Boolean,
       default: false
     },
-    height: {
+    width: {
       type: [Number, String]
       // default: null
     },
-    width: {
+    height: {
       type: [Number, String]
       // default: null
     }
@@ -59,6 +59,8 @@ export const BCardImg = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data }) {
+    const { src, alt, width, height } = props
+
     let baseClass = 'card-img'
     if (props.top) {
       baseClass += '-top'
@@ -73,13 +75,8 @@ export const BCardImg = /*#__PURE__*/ defineComponent({
     return h(
       'img',
       mergeProps(data, {
-        class: [baseClass],
-        attrs: {
-          src: props.src || null,
-          alt: props.alt,
-          height: props.height || null,
-          width: props.width || null
-        }
+        class: baseClass,
+        attrs: { src, alt, width, height }
       })
     )
   }
