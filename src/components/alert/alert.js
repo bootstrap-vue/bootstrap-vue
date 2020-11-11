@@ -158,7 +158,10 @@ export const BAlert = /*#__PURE__*/ defineComponent({
         // Add dismiss button
         $dismissButton = h(
           BButtonClose,
-          { attrs: { 'aria-label': this.dismissLabel }, on: { click: this.dismiss } },
+          {
+            attrs: { 'aria-label': this.dismissLabel },
+            on: { click: this.dismiss }
+          },
           [this.normalizeSlot('dismiss')]
         )
       }
@@ -171,7 +174,11 @@ export const BAlert = /*#__PURE__*/ defineComponent({
             'alert-dismissible': dismissible,
             [`alert-${variant}`]: !!variant
           },
-          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
+          attrs: {
+            role: 'alert',
+            'aria-live': 'polite',
+            'aria-atomic': true
+          },
           key: this[COMPONENT_UID_KEY]
         },
         [$dismissButton, this.normalizeSlot()]
