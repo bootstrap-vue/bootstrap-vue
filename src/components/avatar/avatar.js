@@ -48,6 +48,7 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
   },
   props: makePropsConfigurable(
     {
+      ...linkProps,
       src: {
         type: String
         // default: null
@@ -108,7 +109,6 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
         type: String,
         default: '0px'
       },
-      ...linkProps,
       ariaLabel: {
         type: String
         // default: null
@@ -162,9 +162,9 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    src(newSrc, oldSrc) {
-      if (newSrc !== oldSrc) {
-        this.localSrc = newSrc || null
+    src(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.localSrc = newValue || null
       }
     }
   },
