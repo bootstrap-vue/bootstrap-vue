@@ -216,7 +216,14 @@ export const BAvatar = /*#__PURE__*/ defineComponent({
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { staticClass: 'b-avatar-text', style: fontStyle }, [h('span', text)])
+      $content = h(
+        'span',
+        {
+          staticClass: 'b-avatar-text',
+          style: fontStyle
+        },
+        [h('span', text)]
+      )
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
