@@ -66,7 +66,7 @@ export const BAvatarGroup = /*#__PURE__*/ defineComponent({
         staticClass: 'b-avatar-group-inner',
         style: this.paddingStyle
       },
-      [this.normalizeSlot()]
+      this.normalizeSlot()
     )
 
     return h(
