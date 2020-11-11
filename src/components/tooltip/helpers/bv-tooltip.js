@@ -3,7 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import { defineComponent } from '../../../vue'
+import { COMPONENT_UID_KEY, defineComponent } from '../../../vue'
 import { NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
 import getScopId from '../../../utils/get-scope-id'
@@ -135,7 +135,7 @@ export const BVTooltip = /*#__PURE__*/ defineComponent({
       return 'tooltip'
     },
     computedId() {
-      return this.id || `__bv_${this.templateType}_${this._uid}__`
+      return this.id || `__bv_${this.templateType}_${this[COMPONENT_UID_KEY]}__`
     },
     computedDelay() {
       // Normalizes delay into object form

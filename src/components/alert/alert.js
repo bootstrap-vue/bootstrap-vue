@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
 import BVTransition from '../../utils/bv-transition'
 import { makePropsConfigurable } from '../../utils/config'
@@ -169,7 +169,8 @@ export const BAlert = /*#__PURE__*/ defineComponent({
             'alert-dismissible': dismissible,
             [`alert-${variant}`]: !!variant
           },
-          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true }
+          attrs: { role: 'alert', 'aria-live': 'polite', 'aria-atomic': true },
+          key: this[COMPONENT_UID_KEY]
         },
         [$dismissBtn, this.normalizeSlot()]
       )

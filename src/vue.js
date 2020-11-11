@@ -20,6 +20,8 @@ import { normalizeSlot } from './utils/normalize-slot'
 const LISTENER_KEY_PREFIX = 'on'
 const NATIV_LISTENER_KEY_PREFIX = 'nativeOn'
 
+const COMPONENT_UID_KEY = isVue2 ? '_uid' : 'uid'
+
 // --- Helper methods ---
 
 const applyFunctionalRenderArguments = render => {
@@ -117,4 +119,11 @@ const h = (...args) =>
       : _h(...args)
 
 export * from 'vue-demi'
-export { defineComponent, h, mergeProps, normalizeDefineComponentData, normalizeCreateElementData }
+export {
+  COMPONENT_UID_KEY,
+  defineComponent,
+  h,
+  mergeProps,
+  normalizeDefineComponentData,
+  normalizeCreateElementData
+}

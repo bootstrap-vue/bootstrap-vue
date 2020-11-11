@@ -1,7 +1,8 @@
+import { COMPONENT_UID_KEY, defineComponent } from '../vue'
+
 // SSR safe client-side ID attribute generation
 // ID's can only be generated client-side, after mount
-// `this._uid` is not synched between server and client
-import { defineComponent } from '../vue'
+// `this[COMPONENT_UID_KEY]` is not synched between server and client
 
 // @vue/component
 export default defineComponent({
@@ -40,7 +41,7 @@ export default defineComponent({
     this.$nextTick(() => {
       // Update DOM with auto-generated ID after mount
       // to prevent SSR hydration errors
-      this.localId_ = `__BVID__${this._uid}`
+      this.localId_ = `__BVID__${this[COMPONENT_UID_KEY]}`
     })
   }
 })

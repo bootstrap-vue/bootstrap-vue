@@ -1,5 +1,5 @@
 import { Portal, Wormhole } from 'portal-vue'
-import { defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
 import { NAME_TOAST } from '../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
@@ -405,11 +405,11 @@ export const BToast = /*#__PURE__*/ defineComponent({
       const $toast = h(
         'div',
         {
-          key: `toast-${this._uid}`,
-          ref: 'toast',
           staticClass: 'toast',
           class: this.toastClass,
-          attrs: this.computedAttrs
+          attrs: this.computedAttrs,
+          key: `toast-${this[COMPONENT_UID_KEY]}`,
+          ref: 'toast'
         },
         [$header, $body]
       )
@@ -422,7 +422,7 @@ export const BToast = /*#__PURE__*/ defineComponent({
     }
 
     const { bvAttrs } = this
-    const name = `b-toast-${this._uid}`
+    const name = `b-toast-${this[COMPONENT_UID_KEY]}`
     // If scoped styles are applied and the toast is not static,
     // make sure the scoped style data attribute is applied
     const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}

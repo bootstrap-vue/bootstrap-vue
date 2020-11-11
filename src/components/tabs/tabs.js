@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -266,30 +266,30 @@ export const BTabs = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    currentTab(newVal) {
-      let index = -1
+    currentTab(newValue) {
+      let currentIndex = -1
       // Ensure only one tab is active at most
-      this.tabs.forEach((tab, idx) => {
-        if (newVal === idx && !tab.disabled) {
+      this.tabs.forEach((tab, index) => {
+        if (newValue === index && !tab.disabled) {
           tab.localActive = true
-          index = idx
+          currentIndex = index
         } else {
           tab.localActive = false
         }
       })
       // Update the v-model
-      this.$emit('input', index)
+      this.$emit('input', currentIndex)
     },
-    value(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        newVal = toInteger(newVal, -1)
-        oldVal = toInteger(oldVal, 0)
+    value(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        newValue = toInteger(newValue, -1)
+        oldValue = toInteger(oldValue, 0)
         const tabs = this.tabs
-        if (tabs[newVal] && !tabs[newVal].disabled) {
-          this.activateTab(tabs[newVal])
+        if (tabs[newValue] && !tabs[newValue].disabled) {
+          this.activateTab(tabs[newValue])
         } else {
           // Try next or prev tabs
-          if (newVal < oldVal) {
+          if (newValue < oldValue) {
             this.previousTab()
           } else {
             this.nextTab()
@@ -298,37 +298,42 @@ export const BTabs = /*#__PURE__*/ defineComponent({
       }
     },
     registeredTabs() {
-      // Each b-tab will register/unregister itself.
+      // Each b-tab will register/unregister itself
       // We use this to detect when tabs are added/removed
-      // to trigger the update of the tabs.
+      // to trigger the update of the tabs
       this.$nextTick(() => {
         requestAF(() => {
           this.updateTabs()
         })
       })
     },
-    tabs(newVal, oldVal) {
-      // If tabs added, removed, or re-ordered, we emit a `changed` event.
-      // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
-      // in a nextTick if no explicit ID is provided, causing duplicate emits.
-      if (!looseEqual(newVal.map(t => t._uid), oldVal.map(t => t._uid))) {
-        // In a nextTick to ensure currentTab has been set first.
+    tabs(newValue, oldValue) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event
+      // We use `tab[COMPONENT_UID_KEY]` instead of `tab.safeId()`, as the later is changed
+      // In a `$nextTick()` if no explicit ID is provided, causing duplicate emits
+      if (
+        !looseEqual(
+          newValue.map(t => t[COMPONENT_UID_KEY]),
+          oldValue.map(t => t[COMPONENT_UID_KEY])
+        )
+      ) {
+        // In a `$nextTick()` to ensure `currentTab` has been set first
         this.$nextTick(() => {
           // We emit shallow copies of the new and old arrays of tabs, to
-          // prevent users from potentially mutating the internal arrays.
-          this.$emit('changed', newVal.slice(), oldVal.slice())
+          // prevent users from potentially mutating the internal arrays
+          this.$emit('changed', newValue.slice(), oldValue.slice())
         })
       }
     },
-    isMounted(newVal) {
+    isMounted(newValue) {
       // Trigger an update after mounted.  Needed for tabs inside lazy modals.
-      if (newVal) {
+      if (newValue) {
         requestAF(() => {
           this.updateTabs()
         })
       }
       // Enable or disable the observer
-      this.setObserver(newVal)
+      this.setObserver(newValue)
     }
   },
   created() {
@@ -612,10 +617,6 @@ export const BTabs = /*#__PURE__*/ defineComponent({
         }
       }
       return h(BVTabButton, {
-        key: tab._uid || index,
-        ref: 'buttons',
-        // Needed to make `this.$refs.buttons` an array
-        refInFor: true,
         props: {
           tab,
           tabs,
@@ -634,7 +635,11 @@ export const BTabs = /*#__PURE__*/ defineComponent({
           prev: previousTab,
           next: nextTab,
           last: lastTab
-        }
+        },
+        key: tab[COMPONENT_UID_KEY] || index,
+        ref: 'buttons',
+        // Needed to make `this.$refs.buttons` an array
+        refInFor: true
       })
     })
 

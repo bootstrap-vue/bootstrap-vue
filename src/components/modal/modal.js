@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import {
   EVENT_NAME_CANCEL,
@@ -1119,7 +1119,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
           class: bvAttrs.class,
           style: [this.modalOuterStyle, bvAttrs.style],
           attrs: this.computedAttrs,
-          key: `modal-outer-${this._uid}`
+          key: `modal-outer-${this[COMPONENT_UID_KEY]}`
         },
         [$modal, $backdrop]
       )

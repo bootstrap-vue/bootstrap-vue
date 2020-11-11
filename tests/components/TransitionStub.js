@@ -1,3 +1,5 @@
+import { COMPONENT_UID_KEY } from '../../src/vue'
+
 /* istanbul ignore file */
 const getRealChild = vnode => {
   const compOptions = vnode && vnode.componentOptions
@@ -69,7 +71,7 @@ export default {
       return rawChild
     }
 
-    const id = `__transition-${this._uid}-`
+    const id = `__transition-${this[COMPONENT_UID_KEY]}-`
     child.key =
       child.key == null
         ? child.isComment
