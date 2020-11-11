@@ -152,6 +152,7 @@ export const BAlert = /*#__PURE__*/ defineComponent({
     let $alert = h()
     if (this.localShow) {
       const { dismissible, variant } = this
+
       let $dismissButton = h()
       if (dismissible) {
         // Add dismiss button
@@ -161,6 +162,7 @@ export const BAlert = /*#__PURE__*/ defineComponent({
           [this.normalizeSlot('dismiss')]
         )
       }
+
       $alert = h(
         'div',
         {
@@ -175,6 +177,7 @@ export const BAlert = /*#__PURE__*/ defineComponent({
         [$dismissButton, this.normalizeSlot()]
       )
     }
+
     return h(BVTransition, { props: { noFade: !this.fade } }, $alert)
   }
 })
