@@ -52,6 +52,7 @@ describe('avatar', () => {
         href: '#foo'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -64,12 +65,11 @@ describe('avatar', () => {
     expect(wrapper.text()).toEqual('')
     expect(wrapper.find('.b-icon').exists()).toBe(true)
     expect(wrapper.find('img').exists()).toBe(false)
-
     expect(wrapper.emitted('click')).toBeUndefined()
 
     await wrapper.trigger('click')
 
-    expect(wrapper.emitted('click')).not.toBeUndefined()
+    expect(wrapper.emitted('click')).toBeDefined()
     expect(wrapper.emitted('click').length).toBe(1)
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
 
