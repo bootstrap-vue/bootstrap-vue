@@ -5,6 +5,7 @@ import { BAvatar } from './avatar'
 describe('avatar', () => {
   it('should have expected default structure', async () => {
     const wrapper = mount(BAvatar)
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -12,6 +13,7 @@ describe('avatar', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('type')).not.toBeDefined()
+
     wrapper.unmount()
   })
 
@@ -21,6 +23,7 @@ describe('avatar', () => {
         button: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -32,12 +35,11 @@ describe('avatar', () => {
     expect(wrapper.text()).toEqual('')
     expect(wrapper.find('.b-icon').exists()).toBe(true)
     expect(wrapper.find('img').exists()).toBe(false)
-
     expect(wrapper.emitted('click')).toBeUndefined()
 
     await wrapper.trigger('click')
 
-    expect(wrapper.emitted('click')).not.toBeUndefined()
+    expect(wrapper.emitted('click')).toBeDefined()
     expect(wrapper.emitted('click').length).toBe(1)
     expect(wrapper.emitted('click')[0][0]).toBeInstanceOf(Event)
 
@@ -80,6 +82,7 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -90,6 +93,7 @@ describe('avatar', () => {
     expect(wrapper.text()).toContain('BV')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(false)
+
     wrapper.unmount()
   })
 
@@ -102,6 +106,7 @@ describe('avatar', () => {
         default: 'BAR'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -113,6 +118,7 @@ describe('avatar', () => {
     expect(wrapper.text()).not.toContain('FOO')
     expect(wrapper.find('.b-icon').exists()).toBe(false)
     expect(wrapper.find('img').exists()).toBe(false)
+
     wrapper.unmount()
   })
 
@@ -123,6 +129,7 @@ describe('avatar', () => {
         text: 'BV'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -173,9 +180,11 @@ describe('avatar', () => {
     expect(wrapper.attributes('href')).not.toBeDefined()
     expect(wrapper.attributes('type')).not.toBeDefined()
     expect(wrapper.text()).toEqual('')
+
     const $icon = wrapper.find('.b-icon')
     expect($icon.exists()).toBe(true)
     expect($icon.classes()).toContain('bi-person')
+
     wrapper.unmount()
   })
 
@@ -222,6 +231,7 @@ describe('avatar', () => {
         badge: true
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('SPAN')
     expect(wrapper.classes()).toContain('b-avatar')
@@ -283,7 +293,7 @@ describe('avatar', () => {
     wrapper2.unmount()
   })
 
-  it('should handle b-avatar-group size', async () => {
+  it('should handle `bvAvatarGroup` size', async () => {
     const wrapper1 = mount(BAvatar, {
       props: {
         size: '5em'
@@ -339,7 +349,7 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should not render `alt` attribute if `alt` prop is null', async () => {
+  it('should not render `alt` attribute if `alt` prop is `null`', async () => {
     const wrapper = mount(BAvatar, {
       props: {
         src: '/foo/bar',
