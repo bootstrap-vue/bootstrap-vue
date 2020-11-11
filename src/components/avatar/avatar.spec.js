@@ -17,7 +17,7 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should have expected structure when prop `button` set', async () => {
+  it('should have expected structure when `button` prop is set', async () => {
     const wrapper = mount(BAvatar, {
       props: {
         button: true
@@ -46,7 +46,7 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should have expected structure when prop `href` set', async () => {
+  it('should have expected structure when `href` prop is set', async () => {
     const wrapper = mount(BAvatar, {
       props: {
         href: '#foo'
@@ -122,7 +122,7 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should have expected structure when prop `src` set', async () => {
+  it('should have expected structure when `src` prop is set', async () => {
     const wrapper = mount(BAvatar, {
       props: {
         src: '/foo/bar',
@@ -160,7 +160,7 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should have expected structure when prop `icon` set', async () => {
+  it('should have expected structure when `icon` prop is set', async () => {
     const wrapper = mount(BAvatar, {
       global: {
         components: {
@@ -225,7 +225,7 @@ describe('avatar', () => {
     wrapper8.unmount()
   })
 
-  it('should have expected structure when prop badge is set', async () => {
+  it('should have expected structure when `badge` prop is set', async () => {
     const wrapper = mount(BAvatar, {
       props: {
         badge: true
@@ -257,11 +257,13 @@ describe('avatar', () => {
     wrapper.unmount()
   })
 
-  it('should handle b-avatar-group variant', async () => {
+  it('should handle `bvAvatarGroup` variant', async () => {
     const wrapper1 = mount(BAvatar, {
-      provide: {
-        // Emulate `undefined`/`null` props
-        bvAvatarGroup: {}
+      global: {
+        provide: {
+          // Emulate `undefined`/`null` props
+          bvAvatarGroup: {}
+        }
       }
     })
 
@@ -275,9 +277,11 @@ describe('avatar', () => {
     wrapper1.unmount()
 
     const wrapper2 = mount(BAvatar, {
-      provide: {
-        bvAvatarGroup: {
-          variant: 'danger'
+      global: {
+        provide: {
+          bvAvatarGroup: {
+            variant: 'danger'
+          }
         }
       }
     })
@@ -295,12 +299,14 @@ describe('avatar', () => {
 
   it('should handle `bvAvatarGroup` size', async () => {
     const wrapper1 = mount(BAvatar, {
+      global: {
+        provide: {
+          // Emulate `undefined`/`null` props
+          bvAvatarGroup: {}
+        }
+      },
       props: {
         size: '5em'
-      },
-      provide: {
-        // Emulate `undefined`/`null` props
-        bvAvatarGroup: {}
       }
     })
 
@@ -314,13 +320,15 @@ describe('avatar', () => {
     wrapper1.unmount()
 
     const wrapper2 = mount(BAvatar, {
+      global: {
+        provide: {
+          bvAvatarGroup: {
+            size: '5em'
+          }
+        }
+      },
       props: {
         size: '2em'
-      },
-      provide: {
-        bvAvatarGroup: {
-          size: '5em'
-        }
       }
     })
 
