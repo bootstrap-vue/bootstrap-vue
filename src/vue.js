@@ -12,27 +12,36 @@ import { mergeData } from 'vue-functional-data-merge'
 import { SLOT_NAME_DEFAULT } from './constants/slots'
 import { isPlainObject, isUndefined } from './utils/inspect'
 import { keys } from './utils/object'
-import { upperFirst } from './utils/string'
+import { upperFirst, lowerFirst } from './utils/string'
 import { normalizeSlot } from './utils/normalize-slot'
+
+// --- Constants ---
+
+const LISTENER_KEY_PREFIX = 'on'
+const NATIV_LISTENER_KEY_PREFIX = 'nativeOn'
+
+// --- Helper methods ---
 
 const applyFunctionalRenderArguments = render => {
   return function() {
-    const { $props: props, $attrs: attrs, $slots: slots, $parent: parent } = this
-    const scopedSlots = {}
+    const { $props: props, $attrs: attrs, $slots: scopedSlots, $parent: parent } = this
+    const children = normalizeSlot(SLOT_NAME_DEFAULT, {}, scopedSlots)
+    const slots = () => {}
 
-    return render.call(this, h, {
-      props,
-      children: normalizeSlot(SLOT_NAME_DEFAULT, scopedSlots, slots),
-      slots: () => slots,
-      scopedSlots,
-      data: { ...attrs },
-      parent,
-      // TODO: Check if `listeners` work properly
-      listeners: keys(attrs).reduce(
-        (result, key) => (key.indexOf('on') === 0 ? { ...result, [key]: attrs[key] } : result),
-        {}
-      )
-    })
+    const { data, listeners } = keys(attrs).reduce(
+      (result, key) => {
+        const value = attrs[key]
+        if (key.indexOf(LISTENER_KEY_PREFIX) === 0) {
+          result.listeners[lowerFirst(key.substring(LISTENER_KEY_PREFIX.length))] = value
+        } else {
+          result.data[key] = value
+        }
+        return result
+      },
+      { data: {}, listeners: {} }
+    )
+
+    return render.call(this, h, { props, children, slots, scopedSlots, data, parent, listeners })
   }
 }
 
@@ -76,16 +85,26 @@ const normalizeCreateElementData = data => {
     ...otherData,
     ...attrs,
     ...domProps,
-    // TODO: Check if `nativeOn` event listeners are handled properly
     ...keys(nativeOn).reduce(
-      (result, key) => ({ ...result, [`nativeOn${upperFirst(key)}`]: nativeOn[key] }),
+      (result, key) => ({
+        ...result,
+        [NATIV_LISTENER_KEY_PREFIX + upperFirst(key)]: nativeOn[key]
+      }),
       {}
     ),
-    ...keys(on).reduce((result, key) => ({ ...result, [`on${upperFirst(key)}`]: on[key] }), {}),
+    ...keys(on).reduce(
+      (result, key) => ({
+        ...result,
+        [LISTENER_KEY_PREFIX + upperFirst(key)]: on[key]
+      }),
+      {}
+    ),
     class: [staticClass, otherData.class],
     style: [staticStyle, otherData.style]
   }
 }
+
+// --- Overwrite methods ---
 
 const mergeProps = (...args) =>
   isVue2 ? mergeData(...args) : _mergeProps(...args.map(data => normalizeCreateElementData(data)))
