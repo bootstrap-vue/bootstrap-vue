@@ -46,20 +46,22 @@ export const BFormInvalidFeedback = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
+    const { tooltip, ariaLive } = props
     const show = props.forceShow === true || props.state === false
+
     return h(
       props.tag,
       mergeProps(data, {
         class: {
-          'invalid-feedback': !props.tooltip,
-          'invalid-tooltip': props.tooltip,
-          'd-block': show
+          'd-block': show,
+          'invalid-feedback': !tooltip,
+          'invalid-tooltip': tooltip
         },
         attrs: {
           id: props.id || null,
           role: props.role || null,
-          'aria-live': props.ariaLive || null,
-          'aria-atomic': props.ariaLive ? 'true' : null
+          'aria-live': ariaLive || null,
+          'aria-atomic': ariaLive ? 'true' : null
         }
       }),
       children
