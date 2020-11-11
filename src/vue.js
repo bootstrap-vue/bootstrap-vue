@@ -26,7 +26,7 @@ const COMPONENT_UID_KEY = isVue2 ? '_uid' : 'uid'
 
 const applyFunctionalRenderArguments = render => {
   return function() {
-    const { $props: props, $attrs: attrs, $slots: scopedSlots, $parent: parent } = this
+    const { $attrs: attrs, $slots: scopedSlots, $parent: parent } = this
     const children = normalizeSlot(SLOT_NAME_DEFAULT, {}, scopedSlots)
     const slots = () => {}
 
@@ -40,6 +40,8 @@ const applyFunctionalRenderArguments = render => {
         data[key] = value
       }
     }
+
+    const props = { ...this.$props, ...(data.props || {}) }
 
     return render.call(this, h, { props, children, slots, scopedSlots, data, parent, listeners })
   }
