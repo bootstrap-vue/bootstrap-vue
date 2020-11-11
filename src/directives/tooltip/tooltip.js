@@ -1,3 +1,4 @@
+import { defineDirective } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
@@ -250,7 +251,7 @@ const removeTooltip = el => {
 }
 
 // Export our directive
-export const VBTooltip = {
+export const VBTooltip = defineDirective({
   bind(el, bindings, vnode) {
     applyTooltip(el, bindings, vnode)
   },
@@ -265,4 +266,4 @@ export const VBTooltip = {
   unbind(el) {
     removeTooltip(el)
   }
-}
+})

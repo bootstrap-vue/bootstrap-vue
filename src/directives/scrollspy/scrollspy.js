@@ -1,9 +1,10 @@
-import ScrollSpy from './scrollspy.class'
+import { defineDirective } from '../../vue'
 import { isBrowser } from '../../utils/env'
 import { isNumber, isObject, isString } from '../../utils/inspect'
 import { mathRound } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
+import ScrollSpy from './scrollspy.class'
 
 // Key we use to store our instance
 const BV_SCROLLSPY = '__BV_ScrollSpy__'
@@ -83,7 +84,7 @@ const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
 /*
  * Export our directive
  */
-export const VBScrollspy = {
+export const VBScrollspy = defineDirective({
   /* istanbul ignore next: not easy to test */
   bind(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
@@ -91,12 +92,6 @@ export const VBScrollspy = {
   /* istanbul ignore next: not easy to test */
   inserted(el, bindings, vnode) {
     applyScrollspy(el, bindings, vnode)
-  },
-  /* istanbul ignore next: not easy to test */
-  update(el, bindings, vnode) {
-    if (bindings.value !== bindings.oldValue) {
-      applyScrollspy(el, bindings, vnode)
-    }
   },
   /* istanbul ignore next: not easy to test */
   componentUpdated(el, bindings, vnode) {
@@ -108,4 +103,4 @@ export const VBScrollspy = {
   unbind(el) {
     removeScrollspy(el)
   }
-}
+})

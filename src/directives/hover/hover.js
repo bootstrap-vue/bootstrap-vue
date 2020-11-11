@@ -1,4 +1,4 @@
-// v-b-hover directive
+import { defineDirective } from '../../vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { isBrowser } from '../../utils/env'
 import { eventOnOff } from '../../utils/events'
@@ -45,10 +45,10 @@ const directive = (el, { value: handler = null }) => {
 
 // VBHover directive
 
-export const VBHover = {
+export const VBHover = defineDirective({
   bind: directive,
   componentUpdated: directive,
   unbind(el) {
     directive(el, { value: null })
   }
-}
+})

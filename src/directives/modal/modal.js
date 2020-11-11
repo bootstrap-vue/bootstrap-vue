@@ -1,3 +1,4 @@
+import { defineDirective } from '../../vue'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
@@ -95,14 +96,11 @@ const componentUpdated = (el, binding, vnode) => {
   setRole(trigger)
 }
 
-const updated = () => {}
-
 /*
  * Export our directive
  */
-export const VBModal = {
+export const VBModal = defineDirective({
   inserted: componentUpdated,
-  updated,
   componentUpdated,
   unbind
-}
+})

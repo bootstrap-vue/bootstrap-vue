@@ -1,3 +1,4 @@
+import { defineDirective } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
@@ -254,7 +255,7 @@ const removePopover = el => {
 }
 
 // Export our directive
-export const VBPopover = {
+export const VBPopover = defineDirective({
   bind(el, bindings, vnode) {
     applyPopover(el, bindings, vnode)
   },
@@ -269,4 +270,4 @@ export const VBPopover = {
   unbind(el) {
     removePopover(el)
   }
-}
+})

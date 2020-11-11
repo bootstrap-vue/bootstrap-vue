@@ -106,6 +106,22 @@ const normalizeCreateElementData = data => {
   }
 }
 
+const defineDirective = data => {
+  if (isVue2) {
+    return data
+  }
+
+  const {
+    bind: beforeMount,
+    inserted: mounted,
+    componentUpdated: updated,
+    unbind: unmounted,
+    ...otherData
+  } = data
+
+  return { beforeMount, mounted, updated, unmounted, ...otherData }
+}
+
 // --- Overwrite methods ---
 
 const mergeProps = (...args) =>
@@ -124,8 +140,9 @@ export * from 'vue-demi'
 export {
   COMPONENT_UID_KEY,
   defineComponent,
+  defineDirective,
   h,
   mergeProps,
-  normalizeDefineComponentData,
-  normalizeCreateElementData
+  normalizeCreateElementData,
+  normalizeDefineComponentData
 }

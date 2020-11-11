@@ -31,6 +31,7 @@
 //     )
 //   }
 
+import { defineDirective } from '../../vue'
 import { RX_DIGITS } from '../../constants/regex'
 import looseEqual from '../../utils/loose-equal'
 import { requestAF } from '../../utils/dom'
@@ -176,8 +177,8 @@ const unbind = el => {
 }
 
 // Export the directive
-export const VBVisible = {
+export const VBVisible = defineDirective({
   bind,
   componentUpdated,
   unbind
-}
+})

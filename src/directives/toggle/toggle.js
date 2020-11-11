@@ -1,3 +1,4 @@
+import { defineDirective } from '../../vue'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { RX_HASH, RX_HASH_ID, RX_SPACE_SPLIT } from '../../constants/regex'
@@ -231,7 +232,7 @@ const handleUpdate = (el, binding, vnode) => {
 /*
  * Export our directive
  */
-export const VBToggle = {
+export const VBToggle = defineDirective({
   bind(el, binding, vnode) {
     // State is initially collapsed until we receive a state event
     el[BV_TOGGLE_STATE] = false
@@ -243,7 +244,6 @@ export const VBToggle = {
     handleUpdate(el, binding, vnode)
   },
   componentUpdated: handleUpdate,
-  updated: handleUpdate,
   unbind(el, binding, vnode) {
     removeClickListener(el)
     // Remove our $root listener
@@ -261,4 +261,4 @@ export const VBToggle = {
     removeAttr(el, ATTR_ROLE)
     removeStyle(el, STYLE_OVERFLOW_ANCHOR)
   }
-}
+})
