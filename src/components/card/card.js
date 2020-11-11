@@ -6,21 +6,21 @@ import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 import { copyProps, pluckProps, prefixPropName, unprefixPropName } from '../../utils/props'
 import { props as cardProps } from '../../mixins/card'
-import { BCardBody, props as bodyProps } from './card-body'
-import { BCardHeader, props as headerProps } from './card-header'
-import { BCardFooter, props as footerProps } from './card-footer'
-import { BCardImg, props as imgProps } from './card-img'
+import { BCardBody, props as BCardBodyProps } from './card-body'
+import { BCardHeader, props as BCardHeaderProps } from './card-header'
+import { BCardFooter, props as BCardFooterProps } from './card-footer'
+import { BCardImg, props as BCardImgProps } from './card-img'
 
 // --- Props ---
 
-const cardImgProps = copyProps(imgProps, prefixPropName.bind(null, 'img'))
+const cardImgProps = copyProps(BCardImgProps, prefixPropName.bind(null, 'img'))
 cardImgProps.imgSrc.required = false
 
 export const props = makePropsConfigurable(
   {
-    ...bodyProps,
-    ...headerProps,
-    ...footerProps,
+    ...BCardBodyProps,
+    ...BCardHeaderProps,
+    ...BCardFooterProps,
     ...cardImgProps,
     ...cardProps,
     align: {
@@ -82,7 +82,7 @@ export const BCard = /*#__PURE__*/ defineComponent({
       $header = h(
         BCardHeader,
         {
-          props: pluckProps(headerProps, props),
+          props: pluckProps(BCardHeaderProps, props),
           domProps: hasHeaderSlot ? {} : htmlOrText(headerHtml, header)
         },
         normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots)
@@ -93,7 +93,7 @@ export const BCard = /*#__PURE__*/ defineComponent({
 
     // Wrap content in `<card-body>` when `noBody` prop set
     if (!props.noBody) {
-      $content = h(BCardBody, { props: pluckProps(bodyProps, props) }, $content)
+      $content = h(BCardBody, { props: pluckProps(BCardBodyProps, props) }, $content)
 
       // When the `overlap` prop is set we need to wrap the `<b-card-img>` and `<b-card-body>`
       // into a relative positioned wrapper to don't distract a potential header or footer
@@ -111,7 +111,7 @@ export const BCard = /*#__PURE__*/ defineComponent({
       $footer = h(
         BCardFooter,
         {
-          props: pluckProps(footerProps, props),
+          props: pluckProps(BCardFooterProps, props),
           domProps: hasHeaderSlot ? {} : htmlOrText(footerHtml, footer)
         },
         normalizeSlot(SLOT_NAME_FOOTER, slotScope, $scopedSlots, $slots)
