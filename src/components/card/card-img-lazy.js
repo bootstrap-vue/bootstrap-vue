@@ -2,52 +2,15 @@ import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
-import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
+import { BImgLazy, props as BImgLazyProps } from '../image/img-lazy'
+import { props as BCardImgProps } from './card-img'
 
 // --- Props ---
 
-// Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
-// The `omit()` util creates a new object, so we can just pass the original props
-const lazyProps = omit(imgLazyProps, [
-  'left',
-  'right',
-  'center',
-  'block',
-  'rounded',
-  'thumbnail',
-  'fluid',
-  'fluidGrow'
-])
-
 export const props = makePropsConfigurable(
   {
-    ...lazyProps,
-    top: {
-      type: Boolean,
-      default: false
-    },
-    bottom: {
-      type: Boolean,
-      default: false
-    },
-    start: {
-      type: Boolean,
-      default: false
-    },
-    left: {
-      // alias of 'start'
-      type: Boolean,
-      default: false
-    },
-    end: {
-      type: Boolean,
-      default: false
-    },
-    right: {
-      // alias of 'end'
-      type: Boolean,
-      default: false
-    }
+    ...omit(BImgLazyProps, ['center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow']),
+    ...omit(BCardImgProps, ['src', 'alt', 'width', 'height'])
   },
   NAME_CARD_IMG_LAZY
 )
