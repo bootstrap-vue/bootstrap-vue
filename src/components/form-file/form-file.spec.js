@@ -700,6 +700,7 @@ describe('form-file', () => {
     expect($label.text()).toContain('NO_DROP_HERE')
 
     await wrapper.trigger('dragleave')
+    await waitNT(wrapper.vm)
     expect($label.text()).toContain('PLACEHOLDER')
     expect($label.text()).not.toContain('DROP_HERE')
 
