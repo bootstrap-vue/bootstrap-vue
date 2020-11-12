@@ -1,19 +1,14 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_CARD_IMG } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
+import { pick } from '../../utils/object'
+import { props as BImgProps } from '../image/img'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    src: {
-      type: String,
-      required: true
-    },
-    alt: {
-      type: String,
-      default: null
-    },
+    ...pick(BImgProps, ['src', 'alt', 'width', 'height', 'left', 'right']),
     top: {
       type: Boolean,
       default: false
@@ -26,27 +21,9 @@ export const props = makePropsConfigurable(
       type: Boolean,
       default: false
     },
-    left: {
-      // alias of 'start'
-      type: Boolean,
-      default: false
-    },
     end: {
       type: Boolean,
       default: false
-    },
-    right: {
-      // alias of 'end'
-      type: Boolean,
-      default: false
-    },
-    width: {
-      type: [Number, String]
-      // default: null
-    },
-    height: {
-      type: [Number, String]
-      // default: null
     }
   },
   NAME_CARD_IMG
