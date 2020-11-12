@@ -1,4 +1,4 @@
-import { h, mergeProps } from '../../vue'
+import { h, defineComponent, mergeProps } from '../../vue'
 import { NAME_COL } from '../../constants/components'
 import { RX_COL_CLASS } from '../../constants/regex'
 import identity from '../../utils/identity'
@@ -122,7 +122,7 @@ const generateProps = () => {
 
 // --- Main component ---
 // @vue/component
-export const BCol = {
+export const BCol = defineComponent({
   name: NAME_COL,
   functional: true,
   get props() {
@@ -134,17 +134,19 @@ export const BCol = {
     return (this.props = generateProps())
   },
   render(_, { props, data, children }) {
-    const classList = []
+    const { cols, offset, order, alignSelf } = props
+
     // Loop through `col`, `offset`, `order` breakpoint props
+    const classList = []
     for (const type in breakpointPropMap) {
       // Returns colSm, offset, offsetSm, orderMd, etc.
       const keys = breakpointPropMap[type]
-      for (let i = 0; i < keys.length; i++) {
+      for (const key of keys) {
         // computeBreakpoint(col, colSm => Sm, value=[String, Number, Boolean])
-        const c = computeBreakpointClass(type, keys[i].replace(type, ''), props[keys[i]])
+        const breakpointClass = computeBreakpointClass(type, key.replace(type, ''), props[key])
         // If a class is returned, push it onto the array.
-        if (c) {
-          classList.push(c)
+        if (breakpointClass) {
+          classList.push(breakpointClass)
         }
       }
     }
@@ -153,13 +155,13 @@ export const BCol = {
 
     classList.push({
       // Default to .col if no other col-{bp}-* classes generated nor `cols` specified.
-      col: props.col || (!hasColClasses && !props.cols),
-      [`col-${props.cols}`]: props.cols,
-      [`offset-${props.offset}`]: props.offset,
-      [`order-${props.order}`]: props.order,
-      [`align-self-${props.alignSelf}`]: props.alignSelf
+      col: props.col || (!hasColClasses && !cols),
+      [`col-${cols}`]: !!cols,
+      [`offset-${offset}`]: !!offset,
+      [`order-${order}`]: !!order,
+      [`align-self-${alignSelf}`]: !!alignSelf
     })
 
     return h(props.tag, mergeProps(data, { class: classList }), children)
   }
-}
+})
