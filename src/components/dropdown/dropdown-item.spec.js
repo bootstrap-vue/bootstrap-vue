@@ -1,7 +1,7 @@
-import { h } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown-item', () => {

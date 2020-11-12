@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
 

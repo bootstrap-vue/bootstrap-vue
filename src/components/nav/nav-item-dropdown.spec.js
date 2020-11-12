@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BNavItemDropdown } from './nav-item-dropdown'
 
 describe('nav-item-dropdown', () => {

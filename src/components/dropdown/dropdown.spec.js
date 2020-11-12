@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BDropdown } from './dropdown'
 import { BDropdownItem } from './dropdown-item'
 

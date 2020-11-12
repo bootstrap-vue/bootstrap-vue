@@ -1,7 +1,7 @@
-import { h } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BLink } from './link'
 
 describe('b-link', () => {

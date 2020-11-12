@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { BFormFile } from './form-file'

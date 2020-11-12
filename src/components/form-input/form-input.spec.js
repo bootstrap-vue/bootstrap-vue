@@ -1,6 +1,6 @@
-import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BFormInput } from './form-input'
 
 describe('form-input', () => {

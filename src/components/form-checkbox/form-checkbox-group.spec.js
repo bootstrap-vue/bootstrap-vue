@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BFormCheckboxGroup } from './form-checkbox-group'
 import { BFormCheckbox } from './form-checkbox'
 

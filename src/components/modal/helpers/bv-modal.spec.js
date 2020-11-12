@@ -1,7 +1,7 @@
-import { h } from 'vue'
 import { config as vtuConfig, createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
 import { TransitionStub } from '../../../../tests/components'
+import { h } from '../../vue'
 import { ModalPlugin } from '../index'
 
 // Stub `<transition>` component

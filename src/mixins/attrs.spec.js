@@ -1,5 +1,5 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
+import { h } from '../../vue'
 import attrsMixin from './attrs'
 
 // Note: The following tests indirectly test `utils/cache`

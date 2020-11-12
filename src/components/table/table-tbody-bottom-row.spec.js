@@ -1,5 +1,5 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
+import { h } from '../../vue'
 import { BTable } from './table'
 import normalizeFields from './helpers/normalize-fields'
 

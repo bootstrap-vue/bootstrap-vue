@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BButton } from '../button/button'
 import { BButtonGroup } from '../button-group/button-group'
 import { BButtonToolbar } from './button-toolbar'

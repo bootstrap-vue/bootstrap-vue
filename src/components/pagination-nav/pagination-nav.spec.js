@@ -1,7 +1,7 @@
-import { h } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BPaginationNav } from './pagination-nav'
 
 // The majority of tests for the core of pagination mixin are performed

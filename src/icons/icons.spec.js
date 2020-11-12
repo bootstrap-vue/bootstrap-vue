@@ -1,5 +1,5 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
+import { h } from '../../vue'
 import { IconsPlugin } from './index'
 import { BIcon } from './icon'
 import { makeIcon } from './helpers/make-icon'

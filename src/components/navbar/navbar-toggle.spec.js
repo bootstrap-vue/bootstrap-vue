@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BNavbarToggle } from './navbar-toggle'
 
 describe('navbar-toggle', () => {

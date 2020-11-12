@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
+import { h } from '../../vue'
 import normalizeFields from './helpers/normalize-fields'
 import { BTable } from './table'
 

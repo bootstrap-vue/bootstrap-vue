@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BLink } from '../link/link'
 import { BTab } from './tab'
 import { BTabs } from './tabs'

@@ -1,6 +1,6 @@
-import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
+import { h } from '../../vue'
 import { BTransporterSingle } from './transporter'
 
 describe('utils/transporter component', () => {
