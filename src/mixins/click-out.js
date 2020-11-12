@@ -50,7 +50,7 @@ export default {
       )
     }
   },
-  beforeDestroy() /* istanbul ignore next */ {
+  beforeDestroy() {
     eventOff(
       this.clickOutElement,
       this.clickOutEventName,

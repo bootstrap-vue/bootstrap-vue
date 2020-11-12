@@ -1,7 +1,8 @@
 import Vue from '../../vue'
 import { NAME_LINK } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
@@ -67,39 +68,42 @@ export const nuxtLinkProps = {
   }
 }
 
-export const props = {
-  href: {
-    type: String,
-    default: null
+export const props = makePropsConfigurable(
+  {
+    href: {
+      type: String,
+      default: null
+    },
+    rel: {
+      type: String,
+      // Must be `null` if no value provided
+      default: null
+    },
+    target: {
+      type: String,
+      default: '_self'
+    },
+    active: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    ...routerLinkProps,
+    ...nuxtLinkProps,
+    // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
+    // Default is to auto choose between `<router-link>` and `<nuxt-link>`
+    // Gridsome doesn't provide a mechanism to auto detect and has caveats
+    // such as not supporting FQDN URLs or hash only URLs
+    routerComponentName: {
+      type: String
+      // default: undefined
+    }
   },
-  rel: {
-    type: String,
-    // Must be `null` if no value provided
-    default: null
-  },
-  target: {
-    type: String,
-    default: '_self'
-  },
-  active: {
-    type: Boolean,
-    default: false
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  ...routerLinkProps,
-  ...nuxtLinkProps,
-  // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
-  // Default is to auto choose between `<router-link>` and `<nuxt-link>`
-  // Gridsome doesn't provide a mechanism to auto detect and has caveats
-  // such as not supporting FQDN URLs or hash only URLs
-  routerComponentName: {
-    type: String,
-    default: () => getComponentConfig(NAME_LINK, 'routerComponentName')
-  }
-}
+  NAME_LINK
+)
 
 // --- Main component ---
 // @vue/component

@@ -1,17 +1,21 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_CONTAINER } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  tag: {
-    type: String,
-    default: 'div'
+export const props = makePropsConfigurable(
+  {
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    fluid: {
+      // String breakpoint name new in Bootstrap v4.4.x
+      type: [Boolean, String],
+      default: false
+    }
   },
-  fluid: {
-    // String breakpoint name new in Bootstrap v4.4.x
-    type: [Boolean, String],
-    default: false
-  }
-}
+  NAME_CONTAINER
+)
 
 // @vue/component
 export const BContainer = /*#__PURE__*/ Vue.extend({

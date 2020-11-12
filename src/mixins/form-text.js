@@ -1,17 +1,15 @@
+import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isFunction } from '../utils/inspect'
+import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
 
-// @vue/component
-export default {
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     value: {
       type: [String, Number],
       default: ''
@@ -63,6 +61,17 @@ export default {
       default: 0
     }
   },
+  'formTextControls'
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  model: {
+    prop: 'value',
+    event: 'update'
+  },
+  props,
   data() {
     return {
       localValue: toString(this.value),
@@ -103,7 +112,11 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      return isFunction(this.formatter)
+      let result = null
+      try {
+        result = this.formatter()
+      } catch {}
+      return !isUndefined(result)
     }
   },
   watch: {

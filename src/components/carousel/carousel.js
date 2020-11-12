@@ -4,7 +4,7 @@ import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
 import noop from '../../utils/noop'
 import observeDom from '../../utils/observe-dom'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import {
   addClass,
   getActiveElement,
@@ -80,79 +80,82 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: {
-    labelPrev: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelPrev')
+  props: makePropsConfigurable(
+    {
+      labelPrev: {
+        type: String,
+        default: 'Previous slide'
+      },
+      labelNext: {
+        type: String,
+        default: 'Next slide'
+      },
+      labelGotoSlide: {
+        type: String,
+        default: 'Goto slide'
+      },
+      labelIndicators: {
+        type: String,
+        default: 'Select a slide to display'
+      },
+      interval: {
+        type: Number,
+        default: 5000
+      },
+      indicators: {
+        type: Boolean,
+        default: false
+      },
+      controls: {
+        type: Boolean,
+        default: false
+      },
+      noAnimation: {
+        // Disable slide/fade animation
+        type: Boolean,
+        default: false
+      },
+      fade: {
+        // Enable cross-fade animation instead of slide animation
+        type: Boolean,
+        default: false
+      },
+      noWrap: {
+        // Disable wrapping/looping when start/end is reached
+        type: Boolean,
+        default: false
+      },
+      noTouch: {
+        // Sniffed by carousel-slide
+        type: Boolean,
+        default: false
+      },
+      noHoverPause: {
+        // Disable pause on hover
+        type: Boolean,
+        default: false
+      },
+      imgWidth: {
+        // Sniffed by carousel-slide
+        type: [Number, String]
+        // default: undefined
+      },
+      imgHeight: {
+        // Sniffed by carousel-slide
+        type: [Number, String]
+        // default: undefined
+      },
+      background: {
+        type: String
+        // default: undefined
+      },
+      value: {
+        type: Number,
+        default: 0
+      }
     },
-    labelNext: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelNext')
-    },
-    labelGotoSlide: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelGotoSlide')
-    },
-    labelIndicators: {
-      type: String,
-      default: () => getComponentConfig(NAME_CAROUSEL, 'labelIndicators')
-    },
-    interval: {
-      type: Number,
-      default: 5000
-    },
-    indicators: {
-      type: Boolean,
-      default: false
-    },
-    controls: {
-      type: Boolean,
-      default: false
-    },
-    noAnimation: {
-      // Disable slide/fade animation
-      type: Boolean,
-      default: false
-    },
-    fade: {
-      // Enable cross-fade animation instead of slide animation
-      type: Boolean,
-      default: false
-    },
-    noWrap: {
-      // Disable wrapping/looping when start/end is reached
-      type: Boolean,
-      default: false
-    },
-    noTouch: {
-      // Sniffed by carousel-slide
-      type: Boolean,
-      default: false
-    },
-    noHoverPause: {
-      // Disable pause on hover
-      type: Boolean,
-      default: false
-    },
-    imgWidth: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-      // default: undefined
-    },
-    imgHeight: {
-      // Sniffed by carousel-slide
-      type: [Number, String]
-      // default: undefined
-    },
-    background: {
-      type: String
-      // default: undefined
-    },
-    value: {
-      type: Number,
-      default: 0
-    }
-  },
+    NAME_CAROUSEL
+  ),
   data() {
     return {
       index: this.value || 0,
@@ -324,7 +327,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
     },
     // Restart auto rotate slides when focus/hover leaves the carousel
     /* istanbul ignore next */
-    restart() /* istanbul ignore next: difficult to test */ {
+    restart() {
       if (!this.$el.contains(getActiveElement())) {
         this.start()
       }
@@ -442,8 +445,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         fn()
       }
     },
-    /* istanbul ignore next */
-    handleSwipe() /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    handleSwipe() {
       const absDeltaX = mathAbs(this.touchDeltaX)
       if (absDeltaX <= SWIPE_THRESHOLD) {
         return
@@ -460,16 +463,16 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.next()
       }
     },
-    /* istanbul ignore next */
-    touchStart(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchStart(evt) {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchStartX = evt.clientX
       } else if (!hasPointerEventSupport) {
         this.touchStartX = evt.touches[0].clientX
       }
     },
-    /* istanbul ignore next */
-    touchMove(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchMove(evt) {
       // Ensure swiping with one touch and not pinching
       if (evt.touches && evt.touches.length > 1) {
         this.touchDeltaX = 0
@@ -477,8 +480,8 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
         this.touchDeltaX = evt.touches[0].clientX - this.touchStartX
       }
     },
-    /* istanbul ignore next */
-    touchEnd(evt) /* istanbul ignore next: JSDOM doesn't support touch events */ {
+    /* istanbul ignore next: JSDOM doesn't support touch events */
+    touchEnd(evt) {
       if (hasPointerEventSupport && PointerType[evt.pointerType.toUpperCase()]) {
         this.touchDeltaX = evt.clientX - this.touchStartX
       }

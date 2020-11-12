@@ -200,11 +200,13 @@ prop. Note, only plain text is supported. HTML and components are not supported.
 
 ### File name formatter function
 
-Set the prop `file-name-formatter` to a function that accepts two arguments which both are arrays of
-[`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) objects. The first argument is
-always a flat array and the second one reflects the current array structure depending on
-[`directory` mode](#directory-mode). Regardless of the `multiple` prop, the arguments will
-**always** be arrays.
+Set the prop `file-name-formatter` to a function that accepts three arguments:
+
+| Argument             | Type  | Description                                                                   |
+| -------------------- | ----- | ----------------------------------------------------------------------------- |
+| [1] `files`          | Array | Flat array of `File` objects                                                  |
+| [2] `filesTraversed` | Array | Array of arrays of `File` objects when in [`directory` mode](#directory-mode) |
+| [3] `names`          | Array | Flat array of file names (strings)                                            |
 
 The function should return a single formatted string (HTML is not supported). The formatter will not
 be called if no files are selected.

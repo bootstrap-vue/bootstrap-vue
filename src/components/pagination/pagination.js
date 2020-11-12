@@ -1,7 +1,7 @@
 import Vue from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
 import { BvEvent } from '../../utils/bv-event.class'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathCeil, mathMax } from '../../utils/math'
@@ -13,25 +13,6 @@ import paginationMixin from '../../mixins/pagination'
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0
 
-const props = {
-  size: {
-    type: String,
-    default: () => getComponentConfig(NAME_PAGINATION, 'size')
-  },
-  perPage: {
-    type: [Number, String],
-    default: DEFAULT_PER_PAGE
-  },
-  totalRows: {
-    type: [Number, String],
-    default: DEFAULT_TOTAL_ROWS
-  },
-  ariaControls: {
-    type: String
-    // default: null
-  }
-}
-
 // --- Helper methods ---
 
 // Sanitize the provided per page number (converting to a number)
@@ -40,12 +21,33 @@ const sanitizePerPage = val => mathMax(toInteger(val) || DEFAULT_PER_PAGE, 1)
 // Sanitize the provided total rows number (converting to a number)
 const sanitizeTotalRows = val => mathMax(toInteger(val) || DEFAULT_TOTAL_ROWS, 0)
 
+// --- Main component ---
 // The render function is brought in via the `paginationMixin`
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
   name: NAME_PAGINATION,
   mixins: [paginationMixin],
-  props,
+  props: makePropsConfigurable(
+    {
+      size: {
+        type: String
+        // default: null
+      },
+      perPage: {
+        type: [Number, String],
+        default: DEFAULT_PER_PAGE
+      },
+      totalRows: {
+        type: [Number, String],
+        default: DEFAULT_TOTAL_ROWS
+      },
+      ariaControls: {
+        type: String
+        // default: null
+      }
+    },
+    NAME_PAGINATION
+  ),
   computed: {
     numberOfPages() {
       const result = mathCeil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))

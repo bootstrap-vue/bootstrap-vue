@@ -1,7 +1,7 @@
 import Vue from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import listenOnRootMixin from '../../mixins/listen-on-root'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { VBToggle, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle/toggle'
@@ -16,20 +16,23 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR_TOGGLE,
   directives: { VBToggle },
   mixins: [listenOnRootMixin, normalizeSlotMixin],
-  props: {
-    label: {
-      type: String,
-      default: () => getComponentConfig(NAME_NAVBAR_TOGGLE, 'label')
+  props: makePropsConfigurable(
+    {
+      label: {
+        type: String,
+        default: 'Toggle navigation'
+      },
+      target: {
+        type: [Array, String],
+        required: true
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      }
     },
-    target: {
-      type: [Array, String],
-      required: true
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_NAVBAR_TOGGLE
+  ),
   data() {
     return {
       toggleState: false

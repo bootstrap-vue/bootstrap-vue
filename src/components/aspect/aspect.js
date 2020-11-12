@@ -1,6 +1,7 @@
 import Vue from '../../vue'
 import { NAME_ASPECT } from '../../constants/components'
 import { RX_ASPECT, RX_ASPECT_SEPARATOR } from '../../constants/regex'
+import { makePropsConfigurable } from '../../utils/config'
 import { mathAbs } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
@@ -12,18 +13,21 @@ const CLASS_NAME = 'b-aspect'
 export const BAspect = /*#__PURE__*/ Vue.extend({
   name: NAME_ASPECT,
   mixins: [normalizeSlotMixin],
-  props: {
-    aspect: {
-      // Accepts a number (i.e. `16 / 9`, `1`, `4 / 3`)
-      // Or a string (i.e. '16/9', '16:9', '4:3' '1:1')
-      type: [Number, String],
-      default: '1:1'
+  props: makePropsConfigurable(
+    {
+      aspect: {
+        // Accepts a number (i.e. `16 / 9`, `1`, `4 / 3`)
+        // Or a string (i.e. '16/9', '16:9', '4:3' '1:1')
+        type: [Number, String],
+        default: '1:1'
+      },
+      tag: {
+        type: String,
+        default: 'div'
+      }
     },
-    tag: {
-      type: String,
-      default: 'div'
-    }
-  },
+    NAME_ASPECT
+  ),
   computed: {
     padding() {
       const aspect = this.aspect

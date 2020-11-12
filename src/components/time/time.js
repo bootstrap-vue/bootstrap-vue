@@ -1,12 +1,12 @@
 // BTime control (not form input control)
 import Vue from '../../vue'
-import { NAME_FORM_SPINBUTTON, NAME_TIME } from '../../constants/components'
+import { NAME_TIME } from '../../constants/components'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
 import { RX_TIME } from '../../constants/regex'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
 import { concat } from '../../utils/array'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { createDate, createDateFormatter } from '../../utils/date'
 import { attemptBlur, attemptFocus, contains, getActiveElement, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
@@ -14,21 +14,17 @@ import { isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
+import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { BFormSpinbutton } from '../form-spinbutton/form-spinbutton'
+import { BFormSpinbutton, props as formSpinbuttonProps } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
 
 // --- Constants ---
 
 const NUMERIC = 'numeric'
 
-// --- Helpers ---
-
-// Fallback to BFormSpinbutton prop if no value found
-const getConfigFallback = prop => {
-  return getComponentConfig(NAME_TIME, prop) || getComponentConfig(NAME_FORM_SPINBUTTON, prop)
-}
+// --- Helper methods ---
 
 const padLeftZeros = num => {
   return `00${num || ''}`.slice(-2)
@@ -56,15 +52,10 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
   return hms.map(padLeftZeros).join(':')
 }
 
-// @vue/component
-export const BTime = /*#__PURE__*/ Vue.extend({
-  name: NAME_TIME,
-  mixins: [idMixin, normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-  props: {
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
     value: {
       type: String,
       default: ''
@@ -112,52 +103,56 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     },
     labelNoTimeSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelNoTimeSelected')
+      default: 'No time selected'
     },
     labelSelected: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSelected')
+      default: 'Selected time'
     },
     labelHours: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelHours')
+      default: 'Hours'
     },
     labelMinutes: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelMinutes')
+      default: 'Minutes'
     },
     labelSeconds: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelSeconds')
+      default: 'Seconds'
     },
     labelAmpm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAmpm')
+      default: 'AM/PM'
     },
     labelAm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelAm')
+      default: 'AM'
     },
     labelPm: {
       type: String,
-      default: () => getComponentConfig(NAME_TIME, 'labelPm')
+      default: 'PM'
     },
     // Passed to the spin buttons
-    labelIncrement: {
-      type: String,
-      // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback('labelIncrement')
-    },
-    labelDecrement: {
-      type: String,
-      // Falls back to BFormSpinbutton label
-      default: () => getConfigFallback('labelDecrement')
-    },
+    ...pick(formSpinbuttonProps, ['labelIncrement', 'labelDecrement']),
     hidden: {
       type: Boolean,
       default: false
     }
   },
+  NAME_TIME
+)
+
+// --- Main component ---
+// @vue/component
+export const BTime = /*#__PURE__*/ Vue.extend({
+  name: NAME_TIME,
+  mixins: [idMixin, normalizeSlotMixin],
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props,
   data() {
     const parsed = parseHMS(this.value || '')
     return {
@@ -344,11 +339,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     this.setLive(true)
   },
   /* istanbul ignore next */
-  activated() /* istanbul ignore next */ {
+  activated() {
     this.setLive(true)
   },
   /* istanbul ignore next */
-  deactivated() /* istanbul ignore next */ {
+  deactivated() {
     this.setLive(false)
   },
   beforeDestroy() {

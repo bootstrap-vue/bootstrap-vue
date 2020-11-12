@@ -1,37 +1,41 @@
 import Vue, { mergeData } from '../../vue'
 import { NAME_FORM_INVALID_FEEDBACK } from '../../constants/components'
+import { makePropsConfigurable } from '../../utils/config'
 
-export const props = {
-  id: {
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      type: String
+      // default: null
+    },
+    tag: {
+      type: String,
+      default: 'div'
+    },
+    tooltip: {
+      type: Boolean,
+      default: false
+    },
+    forceShow: {
+      type: Boolean,
+      default: false
+    },
+    state: {
+      // Tri-state prop: `true`, `false`, or `null`
+      type: Boolean,
+      default: null
+    },
+    ariaLive: {
+      type: String
+      // default: null
+    },
+    role: {
+      type: String
+      // default: null
+    }
   },
-  tag: {
-    type: String,
-    default: 'div'
-  },
-  tooltip: {
-    type: Boolean,
-    default: false
-  },
-  forceShow: {
-    type: Boolean,
-    default: false
-  },
-  state: {
-    // Tri-state prop: `true`, `false`, or `null`
-    type: Boolean,
-    default: null
-  },
-  ariaLive: {
-    type: String
-    // default: null
-  },
-  role: {
-    type: String
-    // default: null
-  }
-}
+  NAME_FORM_INVALID_FEEDBACK
+)
 
 // @vue/component
 export const BFormInvalidFeedback = /*#__PURE__*/ Vue.extend({

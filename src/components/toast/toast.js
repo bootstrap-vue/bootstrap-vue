@@ -5,7 +5,7 @@ import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import BVTransition from '../../utils/bv-transition'
 import { BvEvent } from '../../utils/bv-event.class'
-import { getComponentConfig } from '../../utils/config'
+import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
 import { eventOnOff } from '../../utils/events'
 import { mathMax } from '../../utils/math'
@@ -30,81 +30,84 @@ const MIN_DURATION = 1000
 
 const linkProps = pick(BLinkProps, ['href', 'to'])
 
-export const props = {
-  id: {
-    // Even though the ID prop is provided by idMixin, we
-    // add it here for $bvToast props filtering
-    type: String
-    // default: null
+export const props = makePropsConfigurable(
+  {
+    id: {
+      // Even though the ID prop is provided by idMixin, we
+      // add it here for $bvToast props filtering
+      type: String
+      // default: null
+    },
+    title: {
+      type: String
+      // default: null
+    },
+    toaster: {
+      type: String,
+      default: 'b-toaster-top-right'
+    },
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    variant: {
+      type: String
+      // default: null
+    },
+    isStatus: {
+      // Switches role to 'status' and aria-live to 'polite'
+      type: Boolean,
+      default: false
+    },
+    appendToast: {
+      type: Boolean,
+      default: false
+    },
+    noAutoHide: {
+      type: Boolean,
+      default: false
+    },
+    autoHideDelay: {
+      type: [Number, String],
+      default: 5000
+    },
+    noCloseButton: {
+      type: Boolean,
+      default: false
+    },
+    noFade: {
+      type: Boolean,
+      default: false
+    },
+    noHoverPause: {
+      type: Boolean,
+      default: false
+    },
+    solid: {
+      type: Boolean,
+      default: false
+    },
+    toastClass: {
+      type: [String, Object, Array]
+      // default: undefined
+    },
+    headerClass: {
+      type: [String, Object, Array]
+      // default: undefined
+    },
+    bodyClass: {
+      type: [String, Object, Array]
+      // default: undefined
+    },
+    static: {
+      // Render the toast in place, rather than in a portal-target
+      type: Boolean,
+      default: false
+    },
+    ...linkProps
   },
-  title: {
-    type: String
-    // default: null
-  },
-  toaster: {
-    type: String,
-    default: () => getComponentConfig(NAME_TOAST, 'toaster')
-  },
-  visible: {
-    type: Boolean,
-    default: false
-  },
-  variant: {
-    type: String,
-    default: () => getComponentConfig(NAME_TOAST, 'variant')
-  },
-  isStatus: {
-    // Switches role to 'status' and aria-live to 'polite'
-    type: Boolean,
-    default: false
-  },
-  appendToast: {
-    type: Boolean,
-    default: false
-  },
-  noAutoHide: {
-    type: Boolean,
-    default: false
-  },
-  autoHideDelay: {
-    type: [Number, String],
-    default: () => getComponentConfig(NAME_TOAST, 'autoHideDelay')
-  },
-  noCloseButton: {
-    type: Boolean,
-    default: false
-  },
-  noFade: {
-    type: Boolean,
-    default: false
-  },
-  noHoverPause: {
-    type: Boolean,
-    default: false
-  },
-  solid: {
-    type: Boolean,
-    default: false
-  },
-  toastClass: {
-    type: [String, Object, Array],
-    default: () => getComponentConfig(NAME_TOAST, 'toastClass')
-  },
-  headerClass: {
-    type: [String, Object, Array],
-    default: () => getComponentConfig(NAME_TOAST, 'headerClass')
-  },
-  bodyClass: {
-    type: [String, Object, Array],
-    default: () => getComponentConfig(NAME_TOAST, 'bodyClass')
-  },
-  static: {
-    // Render the toast in place, rather than in a portal-target
-    type: Boolean,
-    default: false
-  },
-  ...linkProps
-}
+  NAME_TOAST
+)
 
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
@@ -124,7 +127,6 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       isTransitioning: false,
       isHiding: false,
       order: 0,
-      timer: null,
       dismissStarted: 0,
       resumeDismiss: 0
     }
@@ -176,18 +178,22 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       }
     },
     /* istanbul ignore next */
-    toaster() /* istanbul ignore next */ {
+    toaster() {
       // If toaster target changed, make sure toaster exists
       this.$nextTick(this.ensureToaster)
     },
     /* istanbul ignore next */
-    static(newVal) /* istanbul ignore next */ {
+    static(newVal) {
       // If static changes to true, and the toast is showing,
       // ensure the toaster target exists
       if (newVal && this.localShow) {
         this.ensureToaster()
       }
     }
+  },
+  created() {
+    // Create private non-reactive props
+    this.$_dismissTimer = null
   },
   mounted() {
     this.isMounted = true
@@ -289,14 +295,14 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     startDismissTimer() {
       this.clearDismissTimer()
       if (!this.noAutoHide) {
-        this.timer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
+        this.$_dismissTimer = setTimeout(this.hide, this.resumeDismiss || this.computedDuration)
         this.dismissStarted = Date.now()
         this.resumeDismiss = 0
       }
     },
     clearDismissTimer() {
-      clearTimeout(this.timer)
-      this.timer = null
+      clearTimeout(this.$_dismissTimer)
+      this.$_dismissTimer = null
     },
     setHoverHandler(on) {
       const el = this.$refs['b-toast']
@@ -305,7 +311,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     onPause() {
       // Determine time remaining, and then pause timer
-      if (this.noAutoHide || this.noHoverPause || !this.timer || this.resumeDismiss) {
+      if (this.noAutoHide || this.noHoverPause || !this.$_dismissTimer || this.resumeDismiss) {
         return
       }
       const passed = Date.now() - this.dismissStarted

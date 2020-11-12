@@ -1,85 +1,94 @@
+import { NAME_TABLE } from '../../../constants/components'
 import stableSort from '../../../utils/stable-sort'
 import { arrayIncludes } from '../../../utils/array'
+import { makePropsConfigurable } from '../../../utils/config'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { trim } from '../../../utils/string'
 import defaultSortCompare from './default-sort-compare'
 
+const SORT_DIRECTIONS = ['asc', 'desc', 'last']
+
 export default {
-  props: {
-    sortBy: {
-      type: String,
-      default: ''
-    },
-    sortDesc: {
-      // TODO: Make this tri-state: true, false, null
-      type: Boolean,
-      default: false
-    },
-    sortDirection: {
-      // This prop is named incorrectly
-      // It should be `initialSortDirection` as it is a bit misleading
-      // (not to mention it screws up the ARIA label on the headers)
-      type: String,
-      default: 'asc',
-      validator: direction => arrayIncludes(['asc', 'desc', 'last'], direction)
-    },
-    sortCompare: {
-      type: Function
-      // default: null
-    },
-    sortCompareOptions: {
-      // Supported localCompare options, see `options` section of:
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
-      type: Object,
-      default: () => {
-        return { numeric: true }
+  props: makePropsConfigurable(
+    {
+      sortBy: {
+        type: String,
+        default: ''
+      },
+      sortDesc: {
+        // TODO: Make this tri-state: true, false, null
+        type: Boolean,
+        default: false
+      },
+      sortDirection: {
+        // This prop is named incorrectly
+        // It should be `initialSortDirection` as it is a bit misleading
+        // (not to mention it screws up the ARIA label on the headers)
+        type: String,
+        default: 'asc',
+        validator(value) {
+          return arrayIncludes(SORT_DIRECTIONS, value)
+        }
+      },
+      sortCompare: {
+        type: Function
+        // default: null
+      },
+      sortCompareOptions: {
+        // Supported localCompare options, see `options` section of:
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+        type: Object,
+        default: () => {
+          return { numeric: true }
+        }
+      },
+      sortCompareLocale: {
+        // String: locale code
+        // Array: array of Locale strings
+        type: [String, Array]
+        // default: undefined
+      },
+      sortNullLast: {
+        // Sort null and undefined to appear last
+        type: Boolean,
+        default: false
+      },
+      noSortReset: {
+        // Another prop that should have had a better name.
+        // It should be noSortClear (on non-sortable headers).
+        // We will need to make sure the documentation is clear on what
+        // this prop does (as well as in the code for future reference)
+        type: Boolean,
+        default: false
+      },
+      labelSortAsc: {
+        type: String,
+        default: 'Click to sort Ascending'
+      },
+      labelSortDesc: {
+        type: String,
+        default: 'Click to sort Descending'
+      },
+      labelSortClear: {
+        type: String,
+        default: 'Click to clear sorting'
+      },
+      noLocalSorting: {
+        type: Boolean,
+        default: false
+      },
+      noFooterSorting: {
+        type: Boolean,
+        default: false
+      },
+      sortIconLeft: {
+        // Place the sorting icon on the left of the header cells
+        type: Boolean,
+        default: false
       }
     },
-    sortCompareLocale: {
-      // String: locale code
-      // Array: array of Locale strings
-      type: [String, Array]
-      // default: undefined
-    },
-    sortNullLast: {
-      // Sort null and undefined to appear last
-      type: Boolean,
-      default: false
-    },
-    noSortReset: {
-      // Another prop that should have had a better name.
-      // It should be noSortClear (on non-sortable headers).
-      // We will need to make sure the documentation is clear on what
-      // this prop does (as well as in the code for future reference)
-      type: Boolean,
-      default: false
-    },
-    labelSortAsc: {
-      type: String,
-      default: 'Click to sort Ascending'
-    },
-    labelSortDesc: {
-      type: String,
-      default: 'Click to sort Descending'
-    },
-    labelSortClear: {
-      type: String,
-      default: 'Click to clear sorting'
-    },
-    noLocalSorting: {
-      type: Boolean,
-      default: false
-    },
-    noFooterSorting: {
-      type: Boolean,
-      default: false
-    },
-    sortIconLeft: {
-      // Place the sorting icon on the left of the header cells
-      type: Boolean,
-      default: false
-    }
-  },
+    NAME_TABLE
+  ),
   data() {
     return {
       localSortBy: this.sortBy || '',
@@ -142,7 +151,7 @@ export default {
   },
   watch: {
     /* istanbul ignore next: pain in the butt to test */
-    isSortable(newVal) /* istanbul ignore next: pain in the butt to test */ {
+    isSortable(newVal) {
       if (newVal) {
         if (this.isSortable) {
           this.$on('head-clicked', this.handleSort)

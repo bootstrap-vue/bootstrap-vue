@@ -123,7 +123,7 @@
 <script>
 import startCase from 'lodash/startCase'
 import hljs from '../utils/hljs'
-import { kebabCase } from '../utils'
+import { getComponentName, kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
 const importPath = 'bootstrap-vue'
@@ -196,7 +196,7 @@ export default {
       const firstComponentImport = this.componentImports[0]
       return [
         `import { ${firstComponent} } from '${firstComponentImport.importPath}'`,
-        `Vue.component('${this.componentName(firstComponent)}', ${firstComponent})`
+        `Vue.component('${getComponentName(firstComponent)}', ${firstComponent})`
       ].join('\n')
     },
     directiveImportCode() {
@@ -221,11 +221,8 @@ export default {
     })
   },
   methods: {
-    componentName(component) {
-      return kebabCase(component).replace('{', '-{')
-    },
     componentTag(component) {
-      return `<${this.componentName(component)}>`
+      return `<${getComponentName(component)}>`
     },
     directiveName(directive) {
       return kebabCase(directive)

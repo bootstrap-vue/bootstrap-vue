@@ -3,7 +3,7 @@ import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slot-nam
 import cssEscape from '../../utils/css-escape'
 import memoize from '../../utils/memoize'
 import { arrayIncludes } from '../../utils/array'
-import { getBreakpointsUpCached } from '../../utils/config'
+import { getBreakpointsUpCached, makePropsConfigurable } from '../../utils/config'
 import {
   select,
   selectAll,
@@ -18,7 +18,7 @@ import { isBoolean } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
 import { keys, create } from '../../utils/object'
 import { upperFirst } from '../../utils/string'
-import formStateMixin from '../../mixins/form-state'
+import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
 import idMixin from '../../mixins/id'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BCol } from '../layout/col'
@@ -65,61 +65,65 @@ const generateProps = () => {
     return props
   }, create(null))
 
-  return {
-    label: {
-      type: String
-      // default: null
+  return makePropsConfigurable(
+    {
+      ...formStateProps,
+      label: {
+        type: String
+        // default: null
+      },
+      labelFor: {
+        type: String
+        // default: null
+      },
+      labelSize: {
+        type: String
+        // default: null
+      },
+      labelSrOnly: {
+        type: Boolean,
+        default: false
+      },
+      // label-cols prop and all label-cols-{bp} props
+      ...bpLabelColProps,
+      // label-align prop and all label-align-{bp} props
+      ...bpLabelAlignProps,
+      labelClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      description: {
+        type: String
+        // default: null
+      },
+      invalidFeedback: {
+        type: String
+        // default: null
+      },
+      validFeedback: {
+        type: String
+        // default: null
+      },
+      tooltip: {
+        // Enable tooltip style feedback
+        type: Boolean,
+        default: false
+      },
+      feedbackAriaLive: {
+        type: String,
+        default: 'assertive'
+      },
+      validated: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
+        type: Boolean,
+        default: false
+      }
     },
-    labelFor: {
-      type: String
-      // default: null
-    },
-    labelSize: {
-      type: String
-      // default: null
-    },
-    labelSrOnly: {
-      type: Boolean,
-      default: false
-    },
-    // label-cols prop and all label-cols-{bp} props
-    ...bpLabelColProps,
-    // label-align prop and all label-align-{bp} props
-    ...bpLabelAlignProps,
-    labelClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    description: {
-      type: String
-      // default: null
-    },
-    invalidFeedback: {
-      type: String
-      // default: null
-    },
-    validFeedback: {
-      type: String
-      // default: null
-    },
-    tooltip: {
-      // Enable tooltip style feedback
-      type: Boolean,
-      default: false
-    },
-    feedbackAriaLive: {
-      type: String,
-      default: 'assertive'
-    },
-    validated: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
-  }
+    NAME_FORM_GROUP
+  )
 }
 
 // We do not use Vue.extend here as that would evaluate the props
@@ -383,7 +387,8 @@ export const BFormGroup = {
         staticClass: 'bv-no-focus-ring',
         attrs: {
           tabindex: isFieldset ? '-1' : null,
-          role: isFieldset ? 'group' : null
+          role: isFieldset ? 'group' : null,
+          'aria-labelledby': isFieldset ? labelId : null
         }
       },
       [normalizeSlot() || h(), $invalidFeedback, $validFeedback, $description]

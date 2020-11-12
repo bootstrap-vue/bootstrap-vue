@@ -1,31 +1,34 @@
 import { NAME_TABLE } from '../../../constants/components'
-import { getComponentConfig } from '../../../utils/config'
+import { makePropsConfigurable } from '../../../utils/config'
 import { BTfoot } from '../tfoot'
 
 export default {
-  props: {
-    footClone: {
-      type: Boolean,
-      default: false
+  props: makePropsConfigurable(
+    {
+      footClone: {
+        type: Boolean,
+        default: false
+      },
+      footVariant: {
+        type: String // 'dark', 'light', or `null` (or custom)
+        // default: null
+      },
+      footRowVariant: {
+        // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`
+        type: String
+        // default: null
+      },
+      tfootClass: {
+        type: [String, Array, Object]
+        // default: null
+      },
+      tfootTrClass: {
+        type: [String, Array, Object]
+        // default: null
+      }
     },
-    footVariant: {
-      type: String, // 'dark', 'light', or `null` (or custom)
-      default: () => getComponentConfig(NAME_TABLE, 'footVariant')
-    },
-    footRowVariant: {
-      // Any Bootstrap theme variant (or custom). Falls back to `headRowVariant`
-      type: String
-      // default: null
-    },
-    tfootClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    tfootTrClass: {
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
+    NAME_TABLE
+  ),
   methods: {
     renderTFootCustom() {
       const h = this.$createElement
