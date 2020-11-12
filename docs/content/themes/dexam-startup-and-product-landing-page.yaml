@@ -1,8 +1,10 @@
 title: 'Dexam - Startup & Product Landing Page'
 type: 'landing page'
 category: 'Landing Page'
-img: 'https://raw.githubusercontent.com/mh-rafi/vue-landing/master/preview.png?token=ADAAYN6HJGIO53OHN7MX3SC7VERDM'
+img: 'https://i.ibb.co/1MyVr6S/preview-dexam.png'
 href: 'https://1.envato.market/rVP4d'
-description: 'Dexam is a clean startup and product landing page built with Vue Cli and BootstrapVue. It comes with 10+ home and colors variations. A HTML version is included.'
+description:
+  'Dexam is a clean startup and product landing page built with Vue Cli and BootstrapVue. It comes
+  with 10+ home and colors variations. A HTML version is included.'
 provider: 'UI Lib'
 price: '$22.00'
