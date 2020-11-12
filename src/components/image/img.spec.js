@@ -21,8 +21,6 @@ describe('img', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
-    expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toEqual('/foo/bar')
     expect(wrapper.attributes('width')).not.toBeDefined()
     expect(wrapper.attributes('height')).not.toBeDefined()
@@ -174,7 +172,6 @@ describe('img', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
     expect(wrapper.attributes('width')).toBe('1')
@@ -192,7 +189,6 @@ describe('img', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
     expect(wrapper.attributes('src')).toContain('blue')
@@ -210,7 +206,6 @@ describe('img', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain('data:image/svg+xml;charset=UTF-8')
     expect(wrapper.attributes('width')).toBe('300')
@@ -229,7 +224,6 @@ describe('img', () => {
     })
 
     expect(wrapper.element.tagName).toBe('IMG')
-
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toEqual('/foo/bar')
     expect(wrapper.attributes('width')).toBe('300')
