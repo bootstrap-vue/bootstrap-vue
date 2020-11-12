@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BFormGroup } from './form-group'
 
 describe('form-group', () => {
@@ -27,21 +28,23 @@ describe('form-group', () => {
     const wrapper = mount(BFormGroup)
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('FIELDSET')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
-    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeUndefined()
+
     expect(wrapper.find('label').exists()).toBe(false)
+
     expect(wrapper.find('legend').exists()).toBe(false)
-    expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.find('div').attributes('role')).toEqual('group')
-    expect(wrapper.find('div').attributes('tabindex')).toEqual('-1')
-    expect(wrapper.text()).toEqual('')
+
+    const $content = wrapper.find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.attributes('role')).toEqual('group')
+    expect($content.attributes('tabindex')).toEqual('-1')
+    expect($content.text()).toEqual('')
 
     wrapper.unmount()
   })
@@ -54,14 +57,12 @@ describe('form-group', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.find('div').attributes('role')).toEqual('group')
-    expect(wrapper.find('div[role="group"]').text()).toEqual('foobar')
-    expect(wrapper.text()).toEqual('foobar')
+    const $content = wrapper.find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.attributes('role')).toEqual('group')
+    expect($content.text()).toEqual('foobar')
 
     wrapper.unmount()
   })
@@ -74,13 +75,16 @@ describe('form-group', () => {
         id: 'foo'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
     expect(wrapper.attributes('id')).toEqual('foo')
-    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeUndefined()
+
     expect(wrapper.find('label').attributes('id')).toEqual('foo__BV_label_')
 
     wrapper.unmount()
@@ -93,39 +97,43 @@ describe('form-group', () => {
         labelFor: 'input-id'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    const formGroupId = wrapper.attributes('id')
-    expect(wrapper.element.tagName).not.toBe('FIELDSET')
     expect(wrapper.element.tagName).toBe('DIV')
+    const formGroupId = wrapper.attributes('id')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('role')).toEqual('group')
-    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeUndefined()
+
     expect(wrapper.find('legend').exists()).toBe(false)
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').classes()).toContain('d-block')
-    expect(wrapper.find('label').text()).toEqual('test')
-    expect(wrapper.find('label').attributes('for')).toEqual('input-id')
-    expect(wrapper.find('div > div').exists()).toBe(true)
-    expect(wrapper.find('div > div').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('div > div').classes().length).toBe(1)
-    expect(wrapper.find('div > div').attributes('role')).not.toBeDefined()
-    expect(wrapper.find('div > div').attributes('tabindex')).not.toBeDefined()
-    expect(wrapper.find('div > div').attributes('aria-labelledby')).not.toBeDefined()
-    expect(wrapper.find('div > div > input').exists()).toBe(true)
-    expect(wrapper.find('div > div > input').attributes('aria-describedby')).not.toBeDefined()
-    expect(wrapper.find('div > div > input').attributes('aria-labelledby')).not.toBeDefined()
-    expect(wrapper.find('div > div').text()).toEqual('')
-    expect(wrapper.find('label').attributes('id')).toEqual(`${formGroupId}__BV_label_`)
+
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.classes()).toContain('d-block')
+    expect($label.text()).toEqual('test')
+    expect($label.attributes('for')).toEqual('input-id')
+    expect($label.attributes('id')).toEqual(`${formGroupId}__BV_label_`)
+
+    const $content = wrapper.find('div').find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.classes()).toContain('bv-no-focus-ring')
+    expect($content.classes().length).toBe(1)
+    expect($content.attributes('role')).toBeUndefined()
+    expect($content.attributes('tabindex')).toBeUndefined()
+    expect($content.attributes('aria-labelledby')).toBeUndefined()
+    expect($content.text()).toEqual('')
+
+    const $input = $content.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('aria-describedby')).toBeUndefined()
+    expect($input.attributes('aria-labelledby')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -142,36 +150,41 @@ describe('form-group', () => {
         labelColsXl: 5
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
 
-    expect(wrapper.element.tagName).not.toBe('FIELDSET')
-    expect(wrapper.find('legend').exists()).toBe(false)
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes()).toContain('form-row')
     expect(wrapper.classes().length).toBe(2)
     expect(wrapper.attributes('role')).toEqual('group')
-    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').classes()).toContain('col-form-label')
-    expect(wrapper.find('label').classes()).toContain('col-1')
-    expect(wrapper.find('label').classes()).toContain('col-sm-2')
-    expect(wrapper.find('label').classes()).toContain('col-md-3')
-    expect(wrapper.find('label').classes()).toContain('col-lg-4')
-    expect(wrapper.find('label').classes()).toContain('col-xl-5')
-    expect(wrapper.find('label').classes().length).toBe(6)
-    expect(wrapper.find('label').text()).toEqual('test')
-    expect(wrapper.find('div > div').exists()).toBe(true)
-    expect(wrapper.find('div > div').classes()).toContain('col')
-    expect(wrapper.find('div > div').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('div > div').classes().length).toBe(2)
-    expect(wrapper.find('div > div').attributes('role')).not.toBeDefined()
-    expect(wrapper.find('div > div').attributes('tabindex')).not.toBeDefined()
-    expect(wrapper.find('div > div').attributes('aria-labelledby')).not.toBeDefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeUndefined()
+
+    expect(wrapper.find('legend').exists()).toBe(false)
+
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.classes()).toContain('col-form-label')
+    expect($label.classes()).toContain('col-1')
+    expect($label.classes()).toContain('col-sm-2')
+    expect($label.classes()).toContain('col-md-3')
+    expect($label.classes()).toContain('col-lg-4')
+    expect($label.classes()).toContain('col-xl-5')
+    expect($label.classes().length).toBe(6)
+    expect($label.text()).toEqual('test')
+
+    const $content = wrapper.find('div').find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.classes()).toContain('col')
+    expect($content.classes()).toContain('bv-no-focus-ring')
+    expect($content.classes().length).toBe(2)
+    expect($content.attributes('role')).toBeUndefined()
+    expect($content.attributes('tabindex')).toBeUndefined()
+    expect($content.attributes('aria-labelledby')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -185,13 +198,11 @@ describe('form-group', () => {
         description: 'foo' // Description is needed to set "aria-describedby"
       },
       slots: {
-        default: '<input id="/input-id" type="text">'
+        default: h('input', { attrs: { id: '/input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
     const $input = wrapper.find('input')
@@ -212,39 +223,38 @@ describe('form-group', () => {
         labelColsXl: 5
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('FIELDSET')
-    expect(wrapper.element.tagName).not.toBe('DIV')
-    expect(wrapper.find('legend').exists()).toBe(true)
-    expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
     expect(wrapper.attributes('aria-labelledby')).toBeDefined()
-    expect(wrapper.find('legend').classes()).toContain('col-form-label')
-    expect(wrapper.find('legend').classes()).toContain('col-1')
-    expect(wrapper.find('legend').classes()).toContain('col-sm-2')
-    expect(wrapper.find('legend').classes()).toContain('col-md-3')
-    expect(wrapper.find('legend').classes()).toContain('col-lg-4')
-    expect(wrapper.find('legend').classes()).toContain('col-xl-5')
-    expect(wrapper.find('legend').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('legend').classes().length).toBe(7)
-    expect(wrapper.find('legend').text()).toEqual('test')
-    expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
-    expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
-    expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
-    expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
-    expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
-    expect(wrapper.find('fieldset > div > div').attributes('aria-labelledby')).toBeDefined()
+
+    const $legend = wrapper.find('legend')
+    expect($legend.classes()).toContain('col-form-label')
+    expect($legend.classes()).toContain('col-1')
+    expect($legend.classes()).toContain('col-sm-2')
+    expect($legend.classes()).toContain('col-md-3')
+    expect($legend.classes()).toContain('col-lg-4')
+    expect($legend.classes()).toContain('col-xl-5')
+    expect($legend.classes()).toContain('bv-no-focus-ring')
+    expect($legend.classes().length).toBe(7)
+    expect($legend.text()).toEqual('test')
+
+    const $content = wrapper.find('div').find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.classes()).toContain('col')
+    expect($content.classes()).toContain('bv-no-focus-ring')
+    expect($content.classes().length).toBe(2)
+    expect($content.attributes('role')).toEqual('group')
+    expect($content.attributes('tabindex')).toEqual('-1')
+    expect($content.attributes('aria-labelledby')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -255,33 +265,32 @@ describe('form-group', () => {
         labelCols: 1
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('FIELDSET')
-    expect(wrapper.element.tagName).not.toBe('DIV')
-    expect(wrapper.find('legend').exists()).toBe(true)
-    expect(wrapper.find('fieldset > div > legend').exists()).toBe(true)
     expect(wrapper.classes()).toContain('form-group')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('role')).not.toBeDefined()
-    expect(wrapper.attributes('aria-labelledby')).not.toBeDefined()
-    expect(wrapper.find('legend').classes()).toContain('col-form-label')
-    expect(wrapper.find('legend').classes()).toContain('col-1')
-    expect(wrapper.find('legend').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('legend').text()).toEqual('')
-    expect(wrapper.find('fieldset > div > div').exists()).toBe(true)
-    expect(wrapper.find('fieldset > div > div').classes()).toContain('col')
-    expect(wrapper.find('fieldset > div > div').classes()).toContain('bv-no-focus-ring')
-    expect(wrapper.find('fieldset > div > div').classes().length).toBe(2)
-    expect(wrapper.find('fieldset > div > div').attributes('role')).toEqual('group')
-    expect(wrapper.find('fieldset > div > div').attributes('tabindex')).toEqual('-1')
+    expect(wrapper.attributes('role')).toBeUndefined()
+    expect(wrapper.attributes('aria-labelledby')).toBeUndefined()
+
+    const $legend = wrapper.find('legend')
+    expect($legend.classes()).toContain('col-form-label')
+    expect($legend.classes()).toContain('col-1')
+    expect($legend.classes()).toContain('bv-no-focus-ring')
+    expect($legend.text()).toEqual('')
+
+    const $content = wrapper.find('div').find('div')
+    expect($content.exists()).toBe(true)
+    expect($content.classes()).toContain('col')
+    expect($content.classes()).toContain('bv-no-focus-ring')
+    expect($content.classes().length).toBe(2)
+    expect($content.attributes('role')).toEqual('group')
+    expect($content.attributes('tabindex')).toEqual('-1')
 
     wrapper.unmount()
   })
@@ -297,60 +306,63 @@ describe('form-group', () => {
         validFeedback: 'baz'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    // With state = null (default), all helpers are rendered
-    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
-    expect(wrapper.find('.invalid-feedback').attributes('role')).toEqual('alert')
-    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('assertive')
-    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
-    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
-    expect(wrapper.find('.valid-feedback').attributes('role')).toEqual('alert')
-    expect(wrapper.find('.valid-feedback').attributes('aria-live')).toEqual('assertive')
-    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
-    expect(wrapper.find('.form-text').exists()).toBe(true)
-    expect(wrapper.find('.form-text').text()).toEqual('foo')
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('is-invalid')
     expect(wrapper.classes()).not.toContain('is-valid')
+
+    // With state = null (default), all helpers are rendered
+    const $invalidFeedback = wrapper.find('.invalid-feedback')
+    expect($invalidFeedback.exists()).toBe(true)
+    expect($invalidFeedback.text()).toEqual('bar')
+    expect($invalidFeedback.attributes('role')).toEqual('alert')
+    expect($invalidFeedback.attributes('aria-live')).toEqual('assertive')
+    expect($invalidFeedback.attributes('aria-atomic')).toEqual('true')
+
+    const $validFeedback = wrapper.find('.valid-feedback')
+    expect($validFeedback.exists()).toBe(true)
+    expect($validFeedback.text()).toEqual('baz')
+    expect($validFeedback.attributes('role')).toEqual('alert')
+    expect($validFeedback.attributes('aria-live')).toEqual('assertive')
+    expect($validFeedback.attributes('aria-atomic')).toEqual('true')
+
+    const $formText = wrapper.find('.form-text')
+    expect($formText.exists()).toBe(true)
+    expect($formText.text()).toEqual('foo')
 
     const $input = wrapper.find('input')
     expect($input.exists()).toBe(true)
     expect($input.attributes('aria-describedby')).toEqual('group-id__BV_description_')
 
     // With state = true, description and valid are visible
-    await wrapper.setProps({
-      state: true
-    })
+    await wrapper.setProps({ state: true })
     await waitNT(wrapper.vm)
-    expect($input.attributes('aria-describedby')).toBeDefined()
-    expect($input.attributes('aria-describedby')).toEqual(
-      'group-id__BV_description_ group-id__BV_feedback_valid_'
-    )
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('is-invalid')
     expect(wrapper.classes()).toContain('is-valid')
-
-    // With state = true, description and valid are visible
-    await wrapper.setProps({
-      state: false
-    })
-    await waitNT(wrapper.vm)
-    expect($input.attributes('aria-describedby')).toEqual(
-      'group-id__BV_description_ group-id__BV_feedback_invalid_'
+    expect(wrapper.find('input').attributes('aria-describedby')).toEqual(
+      'group-id__BV_description_ group-id__BV_feedback_valid_'
     )
+
+    // With state = false, description and invalid are visible
+    await wrapper.setProps({ state: false })
+    await waitNT(wrapper.vm)
+
     expect(wrapper.attributes('aria-invalid')).toEqual('true')
     expect(wrapper.classes()).not.toContain('is-valid')
     expect(wrapper.classes()).toContain('is-invalid')
+    expect(wrapper.find('input').attributes('aria-describedby')).toEqual(
+      'group-id__BV_description_ group-id__BV_feedback_invalid_'
+    )
+
+    wrapper.unmount()
   })
 
   it('validation elements respect feedback-aria-live attribute', async () => {
@@ -364,42 +376,44 @@ describe('form-group', () => {
         feedbackAriaLive: 'polite'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
-
-    // Auto ID is created after mounted
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
-    expect(wrapper.find('.invalid-feedback').attributes('role')).toEqual('alert')
-    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('polite')
-    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
-    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
-    expect(wrapper.find('.valid-feedback').attributes('role')).toEqual('alert')
-    expect(wrapper.find('.valid-feedback').attributes('aria-live')).toEqual('polite')
-    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).toEqual('true')
+    let $invalidFeedback = wrapper.find('.invalid-feedback')
+    expect($invalidFeedback.exists()).toBe(true)
+    expect($invalidFeedback.text()).toEqual('bar')
+    expect($invalidFeedback.attributes('role')).toEqual('alert')
+    expect($invalidFeedback.attributes('aria-live')).toEqual('polite')
+    expect($invalidFeedback.attributes('aria-atomic')).toEqual('true')
+
+    let $validFeedback = wrapper.find('.valid-feedback')
+    expect($validFeedback.exists()).toBe(true)
+    expect($validFeedback.text()).toEqual('baz')
+    expect($validFeedback.attributes('role')).toEqual('alert')
+    expect($validFeedback.attributes('aria-live')).toEqual('polite')
+    expect($validFeedback.attributes('aria-atomic')).toEqual('true')
 
     // With feedback-aria-live set to null
-    await wrapper.setProps({
-      feedbackAriaLive: null
-    })
+    await wrapper.setProps({ feedbackAriaLive: null })
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.invalid-feedback').text()).toEqual('bar')
-    expect(wrapper.find('.invalid-feedback').attributes('role')).not.toBeDefined()
-    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).not.toBeDefined()
-    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).not.toBeDefined()
-    expect(wrapper.find('.valid-feedback').exists()).toBe(true)
-    expect(wrapper.find('.valid-feedback').text()).toEqual('baz')
-    expect(wrapper.find('.valid-feedback').attributes('role')).not.toBeDefined()
-    expect(wrapper.find('.valid-feedback').attributes('aria-live')).not.toBeDefined()
-    expect(wrapper.find('.valid-feedback').attributes('aria-atomic')).not.toBeDefined()
+    $invalidFeedback = wrapper.find('.invalid-feedback')
+    expect($invalidFeedback.exists()).toBe(true)
+    expect($invalidFeedback.text()).toEqual('bar')
+    expect($invalidFeedback.attributes('role')).toBeUndefined()
+    expect($invalidFeedback.attributes('aria-live')).toBeUndefined()
+    expect($invalidFeedback.attributes('aria-atomic')).toBeUndefined()
+
+    $validFeedback = wrapper.find('.valid-feedback')
+    expect($validFeedback.exists()).toBe(true)
+    expect($validFeedback.text()).toEqual('baz')
+    expect($validFeedback.attributes('role')).toBeUndefined()
+    expect($validFeedback.attributes('aria-live')).toBeUndefined()
+    expect($validFeedback.attributes('aria-atomic')).toBeUndefined()
   })
 
   it('Label alignment works', async () => {
@@ -413,12 +427,13 @@ describe('form-group', () => {
         labelAlignXl: 'right'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
+
     const $label = wrapper.find('label')
     expect($label.exists()).toBe(true)
     expect($label.classes()).toContain('text-left')
@@ -428,7 +443,7 @@ describe('form-group', () => {
     wrapper.unmount()
   })
 
-  it('Label sr-only works', async () => {
+  it('label sr-only works', async () => {
     const wrapper = mount(BFormGroup, {
       props: {
         id: 'group-id',
@@ -437,7 +452,7 @@ describe('form-group', () => {
         labelSrOnly: true
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
@@ -458,7 +473,7 @@ describe('form-group', () => {
         label: 'test'
       },
       slots: {
-        default: '<input id="input-id" type="text">'
+        default: h('input', { attrs: { id: 'input-id', type: 'text' } })
       }
     })
 
