@@ -4,6 +4,10 @@ import { ROOT_EVENT_EMITTER_KEY } from '../constants/events'
 // @vue/component
 export default defineComponent({
   methods: {
+    getRootEmitter() {
+      return this[ROOT_EVENT_EMITTER_KEY]
+    },
+
     /**
      * Safely register event listeners on the root Vue node
      * While Vue automatically removes listeners for individual components,
@@ -19,7 +23,7 @@ export default defineComponent({
      * @param {function} callback
      */
     listenOnRoot(event, callback) {
-      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      const emitter = this.getRootEmitter()
       if (!emitter) {
         return
       }
@@ -49,7 +53,7 @@ export default defineComponent({
      * @param {function} callback
      */
     listenOnRootOnce(event, callback) {
-      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      const emitter = this.getRootEmitter()
       if (!emitter) {
         return
       }
@@ -71,7 +75,7 @@ export default defineComponent({
      * @param {*} args
      */
     emitOnRoot(event, ...args) {
-      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      const emitter = this.getRootEmitter()
       if (emitter) {
         emitter.emit(event, ...args)
       }
