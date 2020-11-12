@@ -117,7 +117,7 @@ describe('navbar-toggle', () => {
     }
     wrapper.vm.$root.$on('bv::toggle::collapse', onRootClick)
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
     expect(rootClicked).toBe(false)
 
     await wrapper.trigger('click')
@@ -173,12 +173,12 @@ describe('navbar-toggle', () => {
       }
     })
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
     expect(wrapper.element.hasAttribute('disabled')).toBe(true)
     expect(wrapper.classes()).toContain('disabled')
 
     await wrapper.trigger('click')
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
 
     wrapper.unmount()
   })

@@ -29,10 +29,10 @@ describe('icons', () => {
     expect(wrapper.attributes('height')).toBe('1em')
     expect(wrapper.attributes('viewBox')).toBe('0 0 16 16')
     expect(wrapper.attributes('fill')).toBe('currentColor')
-    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.attributes('style')).toBeUndefined()
     expect(wrapper.element.style.fontSize).toEqual('')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g > path').exists()).toBe(true)
 
     wrapper.unmount()
@@ -64,10 +64,10 @@ describe('icons', () => {
     expect(wrapper.attributes('height')).not.toBe('1em')
     expect(wrapper.attributes('viewBox')).toBe('0 0 16 16')
     expect(wrapper.attributes('fill')).toBe('currentColor')
-    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.attributes('style')).toBeUndefined()
     expect(wrapper.element.style.fontSize).toEqual('')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g > path').exists()).toBe(false)
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
 
@@ -115,7 +115,7 @@ describe('icons', () => {
     expect(wrapper.text()).toBe('')
     expect(wrapper.element.tagName).toBe('svg')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
     wrapper.unmount()
@@ -138,7 +138,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi-blank')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g').element).toBeEmptyDOMElement()
 
     wrapper.unmount()
@@ -166,7 +166,7 @@ describe('icons', () => {
     expect(wrapper.attributes('aria-label')).toBe('alarm fill')
     expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('path').exists()).toBe(true)
 
     wrapper.unmount()
@@ -195,7 +195,7 @@ describe('icons', () => {
     expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.element.style.fontSize).toEqual('125%')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('path').exists()).toBe(true)
 
     wrapper.unmount()
@@ -231,7 +231,7 @@ describe('icons', () => {
     expect(wrapper.classes()).toContain('bi-fake-icon-test')
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g > path.fake-path').exists()).toBe(true)
 
     wrapper.unmount()
@@ -480,7 +480,7 @@ describe('icons', () => {
     expect(wrapper.find('svg > g').attributes('transform')).toBeDefined()
     expect(wrapper.find('svg > g').attributes('transform')).toEqual('translate(8 -16)')
     expect(wrapper.find('svg > g > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g > g > path').exists()).toBe(true)
 
     wrapper.unmount()

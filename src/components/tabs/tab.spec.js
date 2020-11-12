@@ -19,8 +19,8 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
     expect(wrapper.attributes('role')).toBe('tabpanel')
     expect(wrapper.attributes('aria-hidden')).toBe('true')
-    expect(wrapper.attributes('labelledby')).not.toBeDefined()
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('labelledby')).toBeUndefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.unmount()

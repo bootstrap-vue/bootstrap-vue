@@ -13,9 +13,9 @@ describe('card-img', () => {
     expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('src')).toBe('https://picsum.photos/600/300/?image=25')
-    expect(wrapper.attributes('alt')).not.toBeDefined()
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+    expect(wrapper.attributes('alt')).toBeUndefined()
+    expect(wrapper.attributes('width')).toBeUndefined()
+    expect(wrapper.attributes('height')).toBeUndefined()
 
     wrapper.unmount()
   })

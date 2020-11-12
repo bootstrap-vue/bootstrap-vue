@@ -49,9 +49,9 @@ describe('mixins > listeners', () => {
     expect($test.vm).toBeDefined()
 
     expect($test.vm.bvListeners).toBeDefined()
-    expect($test.vm.bvListeners.click).not.toBeDefined()
-    expect($test.vm.bvListeners.focus).not.toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
+    expect($test.vm.bvListeners.focus).toBeUndefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     // Correctly adds new listeners
     await wrapper.setProps({
@@ -61,7 +61,7 @@ describe('mixins > listeners', () => {
 
     expect($test.vm.bvListeners.click).toBeDefined()
     expect($test.vm.bvListeners.focus).toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     // Correctly updates listeners
     await wrapper.setProps({
@@ -69,7 +69,7 @@ describe('mixins > listeners', () => {
       listenBlur: true
     })
 
-    expect($test.vm.bvListeners.click).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
     expect($test.vm.bvListeners.focus).toBeDefined()
     expect($test.vm.bvListeners.blur).toBeDefined()
 
@@ -80,9 +80,9 @@ describe('mixins > listeners', () => {
       listenBlur: false
     })
 
-    expect($test.vm.bvListeners.click).not.toBeDefined()
-    expect($test.vm.bvListeners.focus).not.toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
+    expect($test.vm.bvListeners.focus).toBeUndefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     wrapper.unmount()
   })

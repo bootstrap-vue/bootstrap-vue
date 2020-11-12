@@ -469,7 +469,7 @@ describe('table-lite', () => {
 
     expect(wrapper.findAll('tbody > tr > *')[1].element.tagName).toBe('TD')
     expect(wrapper.findAll('tbody > tr > *')[1].attributes('role')).toBe('cell')
-    expect(wrapper.findAll('tbody > tr > *')[1].attributes('scope')).not.toBeDefined()
+    expect(wrapper.findAll('tbody > tr > *')[1].attributes('scope')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -501,15 +501,15 @@ describe('table-lite', () => {
     const $tds = wrapper.findAll('tbody > tr > td')
 
     expect($tds[0].attributes('data-foo')).toBe('bar')
-    expect($tds[0].attributes('data-parent')).not.toBeDefined()
+    expect($tds[0].attributes('data-parent')).toBeUndefined()
     expect($tds[0].classes().length).toBe(0)
 
     expect($tds[1].classes()).toContain('baz')
-    expect($tds[1].attributes('data-foo')).not.toBeDefined()
-    expect($tds[1].attributes('data-parent')).not.toBeDefined()
+    expect($tds[1].attributes('data-foo')).toBeUndefined()
+    expect($tds[1].attributes('data-parent')).toBeUndefined()
 
     expect($tds[2].attributes('data-parent')).toBe('parent')
-    expect($tds[2].attributes('data-foo')).not.toBeDefined()
+    expect($tds[2].attributes('data-foo')).toBeUndefined()
     expect($tds[2].classes().length).toBe(0)
 
     wrapper.unmount()
@@ -550,20 +550,20 @@ describe('table-lite', () => {
 
     const $headerThs = wrapper.findAll('thead > tr > th')
     expect($headerThs[0].attributes('data-foo')).toBe('bar')
-    expect($headerThs[0].attributes('data-type')).not.toBeDefined()
+    expect($headerThs[0].attributes('data-type')).toBeUndefined()
     expect($headerThs[0].classes().length).toBe(0)
 
-    expect($headerThs[1].attributes('data-foo')).not.toBeDefined()
+    expect($headerThs[1].attributes('data-foo')).toBeUndefined()
     expect($headerThs[1].attributes('data-type')).toBe('head')
     expect($headerThs[1].classes().length).toBe(0)
 
-    expect($headerThs[2].attributes('data-foo')).not.toBeDefined()
+    expect($headerThs[2].attributes('data-foo')).toBeUndefined()
     expect($headerThs[2].attributes('data-type')).toBe('head')
     expect($headerThs[2].classes().length).toBe(0)
 
     const $bodyThs = wrapper.findAll('tbody > tr > th')
 
-    expect($bodyThs[0].attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs[0].attributes('data-foo')).toBeUndefined()
     expect($bodyThs[0].attributes('data-type')).toBe('row')
     expect($bodyThs[0].classes().length).toBe(0)
 

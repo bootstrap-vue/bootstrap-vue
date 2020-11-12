@@ -95,7 +95,7 @@ describe('table > sorting', () => {
     expect($ths[1].find('.sr-only').text()).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths[2].attributes('aria-sort')).not.toBeDefined()
+    expect($ths[2].attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect($ths[2].find('.sr-only').text()).toContain(wrapper.vm.labelSortClear)
 
@@ -125,7 +125,7 @@ describe('table > sorting', () => {
     expect($ths[1].find('.sr-only').text()).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths[2].attributes('aria-sort')).not.toBeDefined()
+    expect($ths[2].attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect($ths[2].find('.sr-only').text()).toContain(wrapper.vm.labelSortClear)
 
@@ -158,7 +158,7 @@ describe('table > sorting', () => {
     expect($ths[1].find('.sr-only').text()).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths[2].attributes('aria-sort')).not.toBeDefined()
+    expect($ths[2].attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect($ths[2].find('.sr-only').exists()).toBe(false)
 
@@ -214,7 +214,7 @@ describe('table > sorting', () => {
     // Should not be sorted
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -302,7 +302,7 @@ describe('table > sorting', () => {
     // Should not be sorted
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -403,7 +403,7 @@ describe('table > sorting', () => {
     // Should not be sorted
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
@@ -419,7 +419,7 @@ describe('table > sorting', () => {
 
     // Click first column
     await wrapper.findAll('tfoot > tr > th')[0].trigger('click')
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -435,7 +435,7 @@ describe('table > sorting', () => {
 
     // Click third column header
     await wrapper.findAll('tfoot > tr > th')[2].trigger('click')
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -491,7 +491,7 @@ describe('table > sorting', () => {
     expect($ths[1].find('.sr-only').text()).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
-    expect($ths[2].attributes('aria-sort')).not.toBeDefined()
+    expect($ths[2].attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect($ths[2].find('.sr-only').exists()).toBe(false)
 
@@ -521,7 +521,7 @@ describe('table > sorting', () => {
     expect($ths[1].find('.sr-only').text()).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
-    expect($ths[2].attributes('aria-sort')).not.toBeDefined()
+    expect($ths[2].attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect($ths[2].find('.sr-only').text()).toContain(wrapper.vm.labelSortClear)
 
@@ -545,7 +545,7 @@ describe('table > sorting', () => {
     // Should not be sorted
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value

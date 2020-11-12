@@ -204,8 +204,8 @@ describe('alert', () => {
     expect($div.classes()).toContain('alert-dismissible')
 
     expect($div.find('button').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
-    expect(wrapper.emitted('update:show')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
+    expect(wrapper.emitted('update:show')).toBeUndefined()
 
     await $div.find('button').trigger('click')
 
@@ -248,7 +248,7 @@ describe('alert', () => {
 
     expect(wrapper.find('div').exists()).toBe(false)
     // Dismissed won't be emitted unless dismissible=true or show is a number
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -266,7 +266,7 @@ describe('alert', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
@@ -315,7 +315,7 @@ describe('alert', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(3) // 3 - 0
@@ -364,7 +364,7 @@ describe('alert', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0
@@ -438,7 +438,7 @@ describe('alert', () => {
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('div').exists()).toBe(true)
-    expect(wrapper.emitted('dismissed')).not.toBeDefined()
+    expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
     expect(wrapper.emitted('dismiss-count-down')[0][0]).toBe(2) // 2 - 0

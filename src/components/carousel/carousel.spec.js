@@ -288,9 +288,9 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -315,14 +315,14 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     await $next.trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
@@ -377,14 +377,14 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     await $next.trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
@@ -439,14 +439,14 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     await $indicators[3].trigger('click')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(3)
 
@@ -501,14 +501,14 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     await $indicators[3].trigger('keydown.space')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(3)
 
@@ -560,14 +560,14 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     await $carousel.trigger('keydown.right')
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
 
@@ -618,9 +618,9 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('unpaused')).not.toBeDefined()
-    expect($carousel.emitted('paused')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('unpaused')).toBeUndefined()
+    expect($carousel.emitted('paused')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.interval).toBe(0)
 
@@ -628,8 +628,8 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($carousel.emitted('unpaused')).not.toBeDefined()
-    expect($carousel.emitted('paused')).not.toBeDefined()
+    expect($carousel.emitted('unpaused')).toBeUndefined()
+    expect($carousel.emitted('paused')).toBeUndefined()
 
     await wrapper.setProps({
       interval: 1000
@@ -645,7 +645,7 @@ describe('carousel', () => {
 
     expect($carousel.emitted('unpaused')).toBeDefined()
     expect($carousel.emitted('unpaused').length).toBe(1)
-    expect($carousel.emitted('paused')).not.toBeDefined()
+    expect($carousel.emitted('paused')).toBeUndefined()
 
     jest.runOnlyPendingTimers()
     await waitNT(wrapper.vm)
@@ -701,9 +701,9 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
@@ -716,7 +716,7 @@ describe('carousel', () => {
     await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
     expect($carousel.vm.isSliding).toBe(true)
@@ -780,9 +780,9 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
@@ -843,9 +843,9 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.index).toBe(0)
     expect($carousel.vm.isSliding).toBe(false)
@@ -858,7 +858,7 @@ describe('carousel', () => {
     await waitRAF()
 
     expect($carousel.emitted('sliding-start')).toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     expect($carousel.emitted('sliding-start').length).toBe(1)
     expect($carousel.emitted('sliding-start')[0][0]).toEqual(1)
     expect($carousel.vm.index).toBe(1)
@@ -924,9 +924,9 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
@@ -991,9 +991,9 @@ describe('carousel', () => {
     const $indicators = $carousel.findAll('.carousel-indicators > li')
     expect($indicators.length).toBe(4)
 
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
+    expect($carousel.emitted('input')).toBeUndefined()
 
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
@@ -1003,10 +1003,10 @@ describe('carousel', () => {
     await waitNT(wrapper.vm)
 
     // Should not slide to start
-    expect($carousel.emitted('sliding-start')).not.toBeDefined()
-    expect($carousel.emitted('sliding-end')).not.toBeDefined()
+    expect($carousel.emitted('sliding-start')).toBeUndefined()
+    expect($carousel.emitted('sliding-end')).toBeUndefined()
     // Should have index of 3 (no input event emitted since value set to 3)
-    expect($carousel.emitted('input')).not.toBeDefined()
+    expect($carousel.emitted('input')).toBeUndefined()
     expect($carousel.vm.index).toBe(3)
     expect($carousel.vm.isSliding).toBe(false)
 

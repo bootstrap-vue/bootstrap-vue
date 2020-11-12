@@ -120,9 +120,9 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).not.toBeDefined()
-    expect($button.attributes('data-original-title')).not.toBeDefined()
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('title')).toBeUndefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-tooltip> wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -161,8 +161,8 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).not.toBeDefined()
-    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('title')).toBeUndefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
@@ -189,7 +189,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
@@ -247,8 +247,8 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).not.toBeDefined()
-    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('title')).toBeUndefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
@@ -315,7 +315,7 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-tooltip> wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -375,7 +375,7 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-tooltip> wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -440,7 +440,7 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-tooltip> wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -477,7 +477,7 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     // Tooltip element should not be in the document
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
@@ -517,7 +517,7 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-tooltip> wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -556,7 +556,7 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     // Tooltip element should not be in the document
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
     expect(document.body.contains(tip)).toBe(false)
     expect(document.getElementById(adb)).toBe(null)
 
@@ -595,7 +595,7 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // b-tooltip wrapper
     const $tipHolder = wrapper.findComponent(BTooltip)
@@ -610,7 +610,7 @@ describe('b-tooltip', () => {
     await waitRAF()
 
     // Tooltip should not have opened
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Now enable the tooltip
     await wrapper.setProps({ disabled: false })
@@ -660,7 +660,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // expect($button.attributes('aria-describedby')).not.toBeDefined()
+    // expect($button.attributes('aria-describedby')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -722,7 +722,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
@@ -809,7 +809,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
@@ -953,7 +953,7 @@ describe('b-tooltip', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)
@@ -1250,8 +1250,8 @@ describe('b-tooltip', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('title')).not.toBeDefined()
-    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('title')).toBeUndefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
     expect($button.attributes('aria-describedby')).toBeDefined()
     // ID of the tooltip that will be in the body
     const adb = $button.attributes('aria-describedby')
@@ -1477,8 +1477,8 @@ describe('b-tooltip', () => {
     expect($button.attributes('id')).toEqual('foo')
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('bar')
-    expect($button.attributes('data-original-title')).not.toBeDefined()
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Show tooltip
     await wrapper.setProps({ show: true })
@@ -1516,8 +1516,8 @@ describe('b-tooltip', () => {
 
     expect($button.attributes('title')).toBeDefined()
     expect($button.attributes('title')).toEqual('bar')
-    expect($button.attributes('data-original-title')).not.toBeDefined()
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Tooltip element should not be in the document
     expect(document.body.contains(tip)).toBe(false)

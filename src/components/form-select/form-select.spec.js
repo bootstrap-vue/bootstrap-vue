@@ -24,14 +24,14 @@ describe('form-select', () => {
 
   it('does not have attr multiple by default', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.attributes('multiple')).not.toBeDefined()
+    expect(wrapper.attributes('multiple')).toBeUndefined()
 
     wrapper.unmount()
   })
 
   it('does not have attr required by default', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.attributes('required')).not.toBeDefined()
+    expect(wrapper.attributes('required')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -49,7 +49,7 @@ describe('form-select', () => {
 
   it('does not have attr form by default', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.attributes('form')).not.toBeDefined()
+    expect(wrapper.attributes('form')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -86,7 +86,7 @@ describe('form-select', () => {
     })
     expect(wrapper.attributes('size')).toBeDefined()
     expect(wrapper.attributes('size')).toBe('4')
-    expect(wrapper.attributes('multiple')).not.toBeDefined()
+    expect(wrapper.attributes('multiple')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -113,7 +113,7 @@ describe('form-select', () => {
 
   it('does not have attr size by default', async () => {
     const wrapper = mount(BFormSelect)
-    expect(wrapper.attributes('size')).not.toBeDefined()
+    expect(wrapper.attributes('size')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -189,7 +189,7 @@ describe('form-select', () => {
         state: true
       }
     })
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
     expect(wrapper.classes()).toContain('is-valid')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
@@ -513,8 +513,8 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     // select 3rd option
     $options[2].setSelected()
@@ -570,8 +570,8 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 3rd option
     $options[2].setSelected()
@@ -597,8 +597,8 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 2nd and 3rd option
     $options[1].element.selected = true
@@ -628,8 +628,8 @@ describe('form-select', () => {
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 2nd and 3rd option
     $options[1].element.selected = true

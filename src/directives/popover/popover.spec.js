@@ -107,7 +107,7 @@ describe('v-b-popover directive', () => {
     expect($button.element[BV_POPOVER]).toBeDefined()
     expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Trigger click
     await $button.trigger('click')

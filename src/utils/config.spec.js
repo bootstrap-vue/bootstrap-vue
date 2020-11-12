@@ -114,7 +114,7 @@ describe('utils/config', () => {
     // Shape of returned value should be the same each call
     expect(getConfigValue('formControls')).toEqual(getConfigValue('formControls'))
     // Should return undefined for not found
-    expect(getConfigValue('foo.bar[1].baz')).not.toBeDefined()
+    expect(getConfigValue('foo.bar[1].baz')).toBeUndefined()
   })
 
   it('getComponentConfig() works', async () => {
@@ -132,7 +132,7 @@ describe('utils/config', () => {
     // Should return empty object for not found component
     expect(getComponentConfig('foobar')).toEqual({})
     // Should return undefined for not found component key
-    expect(getComponentConfig('BAlert', 'foobar')).not.toBeDefined()
+    expect(getComponentConfig('BAlert', 'foobar')).toBeUndefined()
   })
 
   it('getBreakpoints() works', async () => {

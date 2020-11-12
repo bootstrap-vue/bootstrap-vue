@@ -72,7 +72,7 @@ describe('table > busy state', () => {
         items: testItems
       }
     })
-    expect(wrapper.emitted('update:busy')).not.toBeDefined()
+    expect(wrapper.emitted('update:busy')).toBeUndefined()
 
     await wrapper.setData({
       localBusy: true

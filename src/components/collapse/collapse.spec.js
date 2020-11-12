@@ -149,11 +149,11 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(false)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
@@ -178,11 +178,11 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
@@ -208,16 +208,16 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeUndefined()
 
     rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test')
     await waitNT(wrapper.vm)
@@ -246,7 +246,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(false)
@@ -293,7 +293,7 @@ describe('collapse', () => {
     await waitRAF()
 
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
@@ -528,16 +528,16 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeUndefined()
 
     expect(scope).not.toBe(null)
     expect(scope.visible).toBe(true)

@@ -13,7 +13,7 @@ describe('button-toolbar', () => {
     expect(wrapper.classes()).toContain('btn-toolbar')
     expect(wrapper.classes()).not.toContain('justify-content-between')
     expect(wrapper.attributes('role')).toBe('toolbar')
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
 
     wrapper.unmount()
   })

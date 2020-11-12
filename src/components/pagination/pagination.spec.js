@@ -648,16 +648,16 @@ describe('pagination', () => {
     expect($lis.length).toBe(9)
 
     expect(pagination.vm.computedCurrentPage).toBe(1)
-    expect(pagination.emitted('input')).not.toBeDefined()
-    expect(pagination.emitted('change')).not.toBeDefined()
-    expect(pagination.emitted('page-click')).not.toBeDefined()
+    expect(pagination.emitted('input')).toBeUndefined()
+    expect(pagination.emitted('change')).toBeUndefined()
+    expect(pagination.emitted('page-click')).toBeUndefined()
 
     // Click on current (1st) page button (does nothing)
     await $lis[2].find('button').trigger('click')
     expect(pagination.vm.computedCurrentPage).toBe(1)
-    expect(pagination.emitted('input')).not.toBeDefined()
-    expect(pagination.emitted('change')).not.toBeDefined()
-    expect(pagination.emitted('page-click')).not.toBeDefined()
+    expect(pagination.emitted('input')).toBeUndefined()
+    expect(pagination.emitted('change')).toBeUndefined()
+    expect(pagination.emitted('page-click')).toBeUndefined()
 
     // Click on 2nd button
     await $lis[3].find('button').trigger('click')
@@ -731,7 +731,7 @@ describe('pagination', () => {
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.vm.currentPage).toBe(10)
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Change total rows to larger value. Should not change page number
     await wrapper.setProps({
@@ -739,7 +739,7 @@ describe('pagination', () => {
     })
     await waitNT(wrapper.vm)
     expect(wrapper.vm.currentPage).toBe(10)
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Change to page 20
     await wrapper.setProps({
@@ -793,7 +793,7 @@ describe('pagination', () => {
     expect(wrapper.vm).toBeDefined()
 
     expect(wrapper.vm.currentPage).toBe(4)
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Change perPage
     await wrapper.setProps({

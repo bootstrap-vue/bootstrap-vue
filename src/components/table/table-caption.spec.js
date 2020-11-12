@@ -35,7 +35,7 @@ describe('table > caption', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
-    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBeUndefined()
     expect(wrapper.find('table').classes()).not.toContain('b-table-caption-top')
 
     wrapper.unmount()
@@ -82,7 +82,7 @@ describe('table > caption', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
-    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBeUndefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
 
     wrapper.unmount()
@@ -106,7 +106,7 @@ describe('table > caption', () => {
         .exists()
     ).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
-    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBeUndefined()
     expect(wrapper.find('caption').classes()).not.toContain('b-table-caption-top')
 
     wrapper.unmount()
@@ -125,7 +125,7 @@ describe('table > caption', () => {
     expect(wrapper.element.tagName).toBe('TABLE')
     expect(wrapper.find('table > caption').exists()).toBe(true)
     expect(wrapper.find('caption').text()).toBe('foobar')
-    expect(wrapper.find('caption').attributes('id')).not.toBeDefined()
+    expect(wrapper.find('caption').attributes('id')).toBeUndefined()
     expect(wrapper.find('table').classes()).toContain('b-table-caption-top')
 
     wrapper.unmount()

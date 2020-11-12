@@ -182,7 +182,7 @@ describe('overlay', () => {
     const $overlay = wrapper.find('.b-overlay')
     expect($overlay.exists()).toBe(true)
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
 
     await $overlay.trigger('click')
     expect(wrapper.emitted('click')).toBeDefined()

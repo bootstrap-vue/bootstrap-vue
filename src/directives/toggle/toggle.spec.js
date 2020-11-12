@@ -39,7 +39,7 @@ describe('v-b-toggle directive', () => {
     const $button = wrapper.find('button')
     expect($button.attributes('aria-controls')).toBe('test')
     expect($button.attributes('aria-expanded')).toBe('false')
-    expect($button.attributes('tabindex')).not.toBeDefined()
+    expect($button.attributes('tabindex')).toBeUndefined()
     expect($button.classes()).toContain('collapsed')
     expect($button.classes()).not.toContain('not-collapsed')
 
@@ -51,7 +51,7 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect($button.attributes('aria-controls')).toBe('test')
     expect($button.attributes('aria-expanded')).toBe('false')
-    expect($button.attributes('tabindex')).not.toBeDefined()
+    expect($button.attributes('tabindex')).toBeUndefined()
     expect($button.classes()).toContain('collapsed')
     expect($button.classes()).not.toContain('not-collapsed')
 
@@ -173,7 +173,7 @@ describe('v-b-toggle directive', () => {
     const $link = wrapper.find('a')
     expect($link.attributes('aria-controls')).toBe('test')
     expect($link.attributes('aria-expanded')).toBe('false')
-    expect($link.attributes('tabindex')).not.toBeDefined()
+    expect($link.attributes('tabindex')).toBeUndefined()
     expect($link.classes()).toContain('collapsed')
     expect($link.classes()).not.toContain('not-collapsed')
 
@@ -185,7 +185,7 @@ describe('v-b-toggle directive', () => {
     // current state, the classes and attrs remain the same
     expect($link.attributes('aria-controls')).toBe('test')
     expect($link.attributes('aria-expanded')).toBe('false')
-    expect($link.attributes('tabindex')).not.toBeDefined()
+    expect($link.attributes('tabindex')).toBeUndefined()
     expect($link.classes()).toContain('collapsed')
     expect($link.classes()).not.toContain('not-collapsed')
 

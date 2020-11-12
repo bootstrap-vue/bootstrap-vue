@@ -100,7 +100,7 @@ describe('form-tag', () => {
     expect($btn.classes()).toContain('b-form-tag-remove')
     expect($btn.attributes('aria-label')).toBe('Remove tag')
 
-    expect(wrapper.emitted('remove')).not.toBeDefined()
+    expect(wrapper.emitted('remove')).toBeUndefined()
 
     await $btn.trigger('click')
 

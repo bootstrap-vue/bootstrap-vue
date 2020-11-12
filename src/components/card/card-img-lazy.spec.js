@@ -13,7 +13,7 @@ describe('card-img-lazy', () => {
     expect(wrapper.classes()).toContain('card-img')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.attributes('src')).toBe('https://picsum.photos/600/300/?image=25')
-    expect(wrapper.attributes('alt')).not.toBeDefined()
+    expect(wrapper.attributes('alt')).toBeUndefined()
     expect(wrapper.attributes('width')).toBe('1')
     expect(wrapper.attributes('height')).toBe('1')
 

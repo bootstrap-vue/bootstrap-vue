@@ -439,17 +439,17 @@ describe('pagination-nav', () => {
     expect(lis.length).toBe(9)
 
     expect(paginationNav.vm.computedCurrentPage).toBe(1)
-    expect(paginationNav.emitted('input')).not.toBeDefined()
-    expect(paginationNav.emitted('change')).not.toBeDefined()
-    expect(paginationNav.emitted('page-click')).not.toBeDefined()
+    expect(paginationNav.emitted('input')).toBeUndefined()
+    expect(paginationNav.emitted('change')).toBeUndefined()
+    expect(paginationNav.emitted('page-click')).toBeUndefined()
 
     // Click on current (1st) page link (does nothing)
     await lis[2].find('a').trigger('click')
     await waitRAF()
     expect(paginationNav.vm.computedCurrentPage).toBe(1)
-    expect(paginationNav.emitted('input')).not.toBeDefined()
-    expect(paginationNav.emitted('change')).not.toBeDefined()
-    expect(paginationNav.emitted('page-click')).not.toBeDefined()
+    expect(paginationNav.emitted('input')).toBeUndefined()
+    expect(paginationNav.emitted('change')).toBeUndefined()
+    expect(paginationNav.emitted('page-click')).toBeUndefined()
 
     // Click on 2nd page link
     await lis[3].find('a').trigger('click')
@@ -509,8 +509,8 @@ describe('pagination-nav', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
 
-      expect(wrapper.vm.$router).not.toBeDefined()
-      expect(wrapper.vm.$route).not.toBeDefined()
+      expect(wrapper.vm.$router).toBeUndefined()
+      expect(wrapper.vm.$route).toBeUndefined()
 
       expect(wrapper.element.tagName).toBe('NAV')
       const $ul = wrapper.find('ul.pagination')

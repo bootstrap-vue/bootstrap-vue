@@ -244,7 +244,7 @@ describe('sidebar', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test-sync') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeUndefined()
 
     rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test-sync')
     await waitNT(wrapper.vm)

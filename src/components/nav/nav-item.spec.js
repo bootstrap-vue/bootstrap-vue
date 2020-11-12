@@ -17,7 +17,7 @@ describe('nav-item', () => {
     expect($link.classes().length).toBe(1)
     expect($link.attributes('href')).toBeDefined()
     expect($link.attributes('href')).toBe('#')
-    expect($link.attributes('role')).not.toBeDefined()
+    expect($link.attributes('role')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -29,7 +29,7 @@ describe('nav-item', () => {
       }
     })
 
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
 
     const $link = wrapper.findComponent(BLink)
     expect($link.exists()).toBe(true)

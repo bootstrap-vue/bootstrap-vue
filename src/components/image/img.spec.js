@@ -7,8 +7,8 @@ describe('img', () => {
 
     expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.classes().length).toBe(0)
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+    expect(wrapper.attributes('width')).toBeUndefined()
+    expect(wrapper.attributes('height')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -22,8 +22,8 @@ describe('img', () => {
 
     expect(wrapper.element.tagName).toBe('IMG')
     expect(wrapper.attributes('src')).toEqual('/foo/bar')
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+    expect(wrapper.attributes('width')).toBeUndefined()
+    expect(wrapper.attributes('height')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -35,9 +35,9 @@ describe('img', () => {
       }
     })
 
-    expect(wrapper.attributes('alt')).not.toBeDefined()
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+    expect(wrapper.attributes('alt')).toBeUndefined()
+    expect(wrapper.attributes('width')).toBeUndefined()
+    expect(wrapper.attributes('height')).toBeUndefined()
 
     wrapper.unmount()
   })

@@ -134,7 +134,7 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
-      expect($modal.attributes('aria-hidden')).not.toBeDefined()
+      expect($modal.attributes('aria-hidden')).toBeUndefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
@@ -215,7 +215,7 @@ describe('modal', () => {
       // Main modal wrapper
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
-      expect($modal.attributes('aria-hidden')).not.toBeDefined()
+      expect($modal.attributes('aria-hidden')).toBeUndefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.element.style.display).toEqual('block')
@@ -235,7 +235,7 @@ describe('modal', () => {
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
-      expect($modal.attributes('aria-modal')).not.toBeDefined()
+      expect($modal.attributes('aria-modal')).toBeUndefined()
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
@@ -426,7 +426,7 @@ describe('modal', () => {
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
       expect(evt).toEqual(null)
 
@@ -505,7 +505,7 @@ describe('modal', () => {
       const $ok = $buttons[1]
       expect($ok.text()).toContain('OK')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal (but we prevent it)
@@ -573,7 +573,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via ESC
@@ -594,8 +594,8 @@ describe('modal', () => {
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
 
-      expect(wrapper.emitted('ok')).not.toBeDefined()
-      expect(wrapper.emitted('cancel')).not.toBeDefined()
+      expect(wrapper.emitted('ok')).toBeUndefined()
+      expect(wrapper.emitted('cancel')).toBeUndefined()
 
       wrapper.unmount()
     })
@@ -628,7 +628,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via click out
@@ -649,8 +649,8 @@ describe('modal', () => {
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
 
-      expect(wrapper.emitted('ok')).not.toBeDefined()
-      expect(wrapper.emitted('cancel')).not.toBeDefined()
+      expect(wrapper.emitted('ok')).toBeUndefined()
+      expect(wrapper.emitted('cancel')).toBeUndefined()
 
       wrapper.unmount()
     })
@@ -691,7 +691,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via a "dragged" click out

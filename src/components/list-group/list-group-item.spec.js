@@ -46,7 +46,7 @@ describe('list-group > list-group-item', () => {
   it('default should not have type attribute', async () => {
     const wrapper = mount(BListGroupItem)
 
-    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.attributes('type')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -54,7 +54,7 @@ describe('list-group > list-group-item', () => {
   it('default should not have disabled attribute', async () => {
     const wrapper = mount(BListGroupItem)
 
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -189,7 +189,7 @@ describe('list-group > list-group-item', () => {
     })
 
     expect(wrapper.element.tagName).toBe('BUTTON')
-    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('href')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -230,7 +230,7 @@ describe('list-group > list-group-item', () => {
       props: { button: true }
     })
 
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
 
     wrapper.unmount()
   })
