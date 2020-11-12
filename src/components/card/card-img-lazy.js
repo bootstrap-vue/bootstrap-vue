@@ -33,13 +33,12 @@ export const BCardImgLazy = /*#__PURE__*/ defineComponent({
       baseClass += '-left'
     }
 
-    // False out the left/center/right props before passing to b-img-lazy
-    const lazyProps = { ...props, left: false, right: false, center: false }
     return h(
       BImgLazy,
       mergeProps(data, {
         class: [baseClass],
-        props: lazyProps
+        // Exclude `left` and `right` props before passing to `<b-img-lazy>`
+        props: omit(props, ['left', 'right'])
       })
     )
   }
