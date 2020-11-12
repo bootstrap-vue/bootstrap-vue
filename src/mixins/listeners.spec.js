@@ -139,29 +139,29 @@ describe('mixins > listeners', () => {
     expect($inputs1.length).toBe(2)
     expect($inputs1[0]).toBeDefined()
     expect($inputs1[1]).toBeDefined()
-    expect(wrapper1.emitted().focus1).not.toBeTruthy()
-    expect(wrapper1.emitted().focus2).not.toBeTruthy()
+    expect(wrapper1.emitted('focus1')).not.toBeTruthy()
+    expect(wrapper1.emitted('focus2')).not.toBeTruthy()
     expect(input1RenderCount).toBe(2)
 
     await $inputs1[0].trigger('focus')
-    expect(wrapper1.emitted().focus1).not.toBeTruthy()
+    expect(wrapper1.emitted('focus1')).not.toBeTruthy()
     await $inputs1[1].trigger('focus')
-    expect(wrapper1.emitted().focus2).not.toBeTruthy()
+    expect(wrapper1.emitted('focus2')).not.toBeTruthy()
     expect(input1RenderCount).toBe(2)
 
     // Enable focus events for the first input and trigger it
     await wrapper1.setProps({ listenFocus1: true })
     await $inputs1[0].trigger('focus')
-    expect(wrapper1.emitted().focus1).toBeTruthy()
-    expect(wrapper1.emitted().focus2).not.toBeTruthy()
+    expect(wrapper1.emitted('focus1')).toBeTruthy()
+    expect(wrapper1.emitted('focus2')).not.toBeTruthy()
     // Both `Input1`'s are re-rendered (See: https://github.com/vuejs/vue/issues/7257)
     expect(input1RenderCount).toBe(4)
 
     // Enable focus events for the second input and trigger it
     await wrapper1.setProps({ listenFocus2: true })
     await $inputs1[1].trigger('focus')
-    expect(wrapper1.emitted().focus1).toBeTruthy()
-    expect(wrapper1.emitted().focus2).toBeTruthy()
+    expect(wrapper1.emitted('focus1')).toBeTruthy()
+    expect(wrapper1.emitted('focus2')).toBeTruthy()
     // Both `Input1`'s are re-rendered (See: https://github.com/vuejs/vue/issues/7257)
     expect(input1RenderCount).toBe(6)
 
@@ -171,29 +171,29 @@ describe('mixins > listeners', () => {
     expect($inputs2.length).toBe(2)
     expect($inputs2[0]).toBeDefined()
     expect($inputs2[1]).toBeDefined()
-    expect(wrapper2.emitted().focus1).not.toBeTruthy()
-    expect(wrapper2.emitted().focus2).not.toBeTruthy()
+    expect(wrapper2.emitted('focus1')).not.toBeTruthy()
+    expect(wrapper2.emitted('focus2')).not.toBeTruthy()
     expect(input2RenderCount).toBe(2)
 
     await $inputs2[0].trigger('focus')
-    expect(wrapper2.emitted().focus1).not.toBeTruthy()
+    expect(wrapper2.emitted('focus1')).not.toBeTruthy()
     await $inputs2[1].trigger('focus')
-    expect(wrapper2.emitted().focus2).not.toBeTruthy()
+    expect(wrapper2.emitted('focus2')).not.toBeTruthy()
     expect(input2RenderCount).toBe(2)
 
     // Enable focus events for the first input and trigger it
     await wrapper2.setProps({ listenFocus1: true })
     await $inputs2[0].trigger('focus')
-    expect(wrapper2.emitted().focus1).toBeTruthy()
-    expect(wrapper2.emitted().focus2).not.toBeTruthy()
+    expect(wrapper2.emitted('focus1')).toBeTruthy()
+    expect(wrapper2.emitted('focus2')).not.toBeTruthy()
     // With `listenersMixin` only the affected `Input2` is re-rendered
     expect(input2RenderCount).toBe(2)
 
     // Enable focus events for the second input and trigger it
     await wrapper2.setProps({ listenFocus2: true })
     await $inputs2[1].trigger('focus')
-    expect(wrapper2.emitted().focus1).toBeTruthy()
-    expect(wrapper2.emitted().focus2).toBeTruthy()
+    expect(wrapper2.emitted('focus1')).toBeTruthy()
+    expect(wrapper2.emitted('focus2')).toBeTruthy()
     // With `listenersMixin` only the affected `Input2` is re-rendered
     expect(input2RenderCount).toBe(2)
 
