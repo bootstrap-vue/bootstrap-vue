@@ -21,12 +21,6 @@ export const BFormRow = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
-    return h(
-      props.tag,
-      mergeProps(data, {
-        staticClass: 'form-row'
-      }),
-      children
-    )
+    return h(props.tag, mergeProps(data, { staticClass: 'form-row' }), children)
   }
 })
