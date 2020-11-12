@@ -23,6 +23,9 @@ Released: 2020-11-08
   [#5958](https://github.com/bootstrap-vue/bootstrap-vue/issues/5958))
   ([#5981](https://github.com/bootstrap-vue/bootstrap-vue/issues/5981))
   ([7ea0cc4](https://github.com/bootstrap-vue/bootstrap-vue/commit/7ea0cc4a16d27b179eca47d351eaa9fe6fdfd56e))
+- **icons:** update Bootstrap Icons to v1.1.0
+  ([#5420](https://github.com/bootstrap-vue/bootstrap-vue/issues/5977))
+  ([3208309](https://github.com/bootstrap-vue/bootstrap-vue/commit/8e45ad4d2d62c667113fe85db4fd755821c2eada))
 
 ### Bug Fixes v2.19.0
 
@@ -190,6 +193,9 @@ Released: 2020-09-13
 - **docs:** auto-detect settings props in component reference
   ([#5761](https://github.com/bootstrap-vue/bootstrap-vue/issues/5761))
   ([0ddb2e0](https://github.com/bootstrap-vue/bootstrap-vue/commit/0ddb2e051c0ce42bdd599415ba93e82e1a6584f1))
+- **icons:** update Bootstrap Icons to v1.0.0
+  ([#5420](https://github.com/bootstrap-vue/bootstrap-vue/issues/5708))
+  ([3208309](https://github.com/bootstrap-vue/bootstrap-vue/commit/edc2d35dfc3eb9a550517b10e18f53673670e145))
 
 ### Bug Fixes v2.17.0
 
@@ -277,6 +283,9 @@ Released: 2020-07-27
 - **docs:** launch themes page with first BootstrapVue theme
   ([#5549](https://github.com/bootstrap-vue/bootstrap-vue/issues/5549))
   ([ec51ef0](https://github.com/bootstrap-vue/bootstrap-vue/commit/ec51ef062f7ed39339cde59b2d9d4cee40347dcc))
+- **icons:** update Bootstrap Icons to v1.0.0-alpha5
+  ([#5420](https://github.com/bootstrap-vue/bootstrap-vue/issues/5533))
+  ([3208309](https://github.com/bootstrap-vue/bootstrap-vue/commit/d52ce0bd400e94c9a7c99787356e7c277e8d8f0c))
 
 ### Bug Fixes v2.16.0
 
@@ -316,7 +325,7 @@ Released: 2020-05-22
 - **css:** update Bootstrap to v4.5.0
   ([#5395](https://github.com/bootstrap-vue/bootstrap-vue/issues/5395))
   ([ba7a55e](https://github.com/bootstrap-vue/bootstrap-vue/commit/ba7a55ea094049fd1e3ae492a5a95196252b1da9))
-- **icons:** upgrade to Bootstrap Icons 1.0.0-alpha4
+- **icons:** update Bootstrap Icons to v1.0.0-alpha4
   ([#5420](https://github.com/bootstrap-vue/bootstrap-vue/issues/5420))
   ([3208309](https://github.com/bootstrap-vue/bootstrap-vue/commit/3208309c649b4cce73c68643d7c911237a713ebc))
 - **b-sidebar:** add prop `backdrop-variant`
@@ -663,7 +672,7 @@ Released: 2020-03-22
 
 ### Features v2.8.0
 
-- **icons:** upgrade to Bootstrap Icons `1.0.0.alpha3`
+- **icons:** update Bootstrap Icons to v1.0.0.alpha3
   ([#4966](https://github.com/bootstrap-vue/bootstrap-vue/issues/4966))
   ([d481365](https://github.com/bootstrap-vue/bootstrap-vue/commit/d481365c9f8014e1573026881c3588f2d51999ee))
   - 200+ new icons
