@@ -6,33 +6,15 @@ import { BButtonGroup } from '../button-group/button-group'
 import { BButtonToolbar } from './button-toolbar'
 
 describe('button-toolbar', () => {
-  it('toolbar root should be "div"', async () => {
+  it('has expected default structure', async () => {
     const wrapper = mount(BButtonToolbar)
+
     expect(wrapper.element.tagName).toBe('DIV')
-    wrapper.unmount()
-  })
-
-  it('toolbar should contain base class', async () => {
-    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).toContain('btn-toolbar')
-    wrapper.unmount()
-  })
-
-  it('toolbar should not have class "justify-content-between"', async () => {
-    const wrapper = mount(BButtonToolbar)
     expect(wrapper.classes()).not.toContain('justify-content-between')
-    wrapper.unmount()
-  })
-
-  it('toolbar should have role', async () => {
-    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('role')).toBe('toolbar')
-    wrapper.unmount()
-  })
-
-  it('toolbar should not have tabindex by default', async () => {
-    const wrapper = mount(BButtonToolbar)
     expect(wrapper.attributes('tabindex')).not.toBeDefined()
+
     wrapper.unmount()
   })
 
@@ -42,8 +24,10 @@ describe('button-toolbar', () => {
         justify: true
       }
     })
-    expect(wrapper.classes()).toContain('justify-content-between')
+
     expect(wrapper.classes()).toContain('btn-toolbar')
+    expect(wrapper.classes()).toContain('justify-content-between')
+
     wrapper.unmount()
   })
 
@@ -53,9 +37,11 @@ describe('button-toolbar', () => {
         keyNav: true
       }
     })
-    expect(wrapper.attributes('tabindex')).toBeDefined()
+
+    expect(wrapper.classes()).toContain('btn-toolbar')
     expect(wrapper.attributes('tabindex')).toBe('0')
     expect(wrapper.element.tabIndex).toBe(0)
+
     wrapper.unmount()
   })
 
