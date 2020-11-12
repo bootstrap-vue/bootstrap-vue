@@ -19,12 +19,17 @@ export default defineComponent({
      * @param {function} callback
      */
     listenOnRoot(event, callback) {
-      this[ROOT_EVENT_EMITTER_KEY].on(event, callback)
+      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      if (!emitter) {
+        return
+      }
+
+      emitter.on(event, callback)
 
       // TODO: Find a way to remove root listener on destroy in Vue 3
       if (isVue2) {
         this.$on('hook:beforeDestroy', () => {
-          this[ROOT_EVENT_EMITTER_KEY].off(event, callback)
+          emitter.off(event, callback)
         })
       }
     },
@@ -44,12 +49,17 @@ export default defineComponent({
      * @param {function} callback
      */
     listenOnRootOnce(event, callback) {
-      this[ROOT_EVENT_EMITTER_KEY].once(event, callback)
+      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      if (!emitter) {
+        return
+      }
+
+      emitter.once(event, callback)
 
       // TODO: Find a way to remove root listener on destroy in Vue 3
       if (isVue2) {
         this.$on('hook:beforeDestroy', () => {
-          this[ROOT_EVENT_EMITTER_KEY].off(event, callback)
+          emitter.off(event, callback)
         })
       }
     },
@@ -61,7 +71,10 @@ export default defineComponent({
      * @param {*} args
      */
     emitOnRoot(event, ...args) {
-      this[ROOT_EVENT_EMITTER_KEY].emit(event, ...args)
+      const emitter = this[ROOT_EVENT_EMITTER_KEY]
+      if (emitter) {
+        emitter.emit(event, ...args)
+      }
     }
   }
 })
