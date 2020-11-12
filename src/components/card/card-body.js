@@ -33,16 +33,16 @@ export const BCardBody = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
-    let cardTitle = h()
-    let cardSubTitle = h()
-    const cardContent = children || [h()]
+    const { bodyBgVariant, bodyBorderVariant, bodyTextVariant } = props
 
+    let $title = h()
     if (props.title) {
-      cardTitle = h(BCardTitle, { props: pluckProps(titleProps, props) })
+      $title = h(BCardTitle, { props: pluckProps(titleProps, props) })
     }
 
+    let $subTitle = h()
     if (props.subTitle) {
-      cardSubTitle = h(BCardSubTitle, {
+      $subTitle = h(BCardSubTitle, {
         props: pluckProps(subTitleProps, props),
         class: ['mb-2']
       })
@@ -55,14 +55,14 @@ export const BCardBody = /*#__PURE__*/ defineComponent({
         class: [
           {
             'card-img-overlay': props.overlay,
-            [`bg-${props.bodyBgVariant}`]: props.bodyBgVariant,
-            [`border-${props.bodyBorderVariant}`]: props.bodyBorderVariant,
-            [`text-${props.bodyTextVariant}`]: props.bodyTextVariant
+            [`bg-${bodyBgVariant}`]: !!bodyBgVariant,
+            [`border-${bodyBorderVariant}`]: !!bodyBorderVariant,
+            [`text-${bodyTextVariant}`]: !!bodyTextVariant
           },
-          props.bodyClass || {}
+          props.bodyClass
         ]
       }),
-      [cardTitle, cardSubTitle, ...cardContent]
+      [$title, $subTitle, children]
     )
   }
 })
