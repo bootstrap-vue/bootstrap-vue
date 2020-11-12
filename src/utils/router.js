@@ -1,7 +1,7 @@
 import { RX_ENCODED_COMMA, RX_ENCODE_REVERSE, RX_PLUS, RX_QUERY_START } from '../constants/regex'
 import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
-import { keys } from './object'
+import { hasOwnProperty, keys } from './object'
 import { toString } from './string'
 
 const ANCHOR_TAG = 'a'
@@ -88,7 +88,7 @@ export const isLink = props => !!(props.href || props.to)
 export const isRouterLink = tag => !!(tag && !isTag(tag, 'a'))
 
 export const computeTag = ({ to, disabled, routerComponentName }, thisOrParent) => {
-  const hasRouter = !!thisOrParent.$router
+  const hasRouter = hasOwnProperty(thisOrParent, '$router')
   if (!hasRouter || (hasRouter && (disabled || !to))) {
     return ANCHOR_TAG
   }
