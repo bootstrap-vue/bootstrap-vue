@@ -174,8 +174,8 @@ the viewport, Nuxt.js will automatically prefetch the code splitted page. Settin
 
 Prefetching support requires
 [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-to be supported (see [CanIUse](https://caniuse.com/#feat=intersectionobserver)). For browsers that
-do not support IntersectionObserver, you can use the following conditional polyfill in
+to be supported (see [Can I use](https://caniuse.com/intersectionobserver)). For browsers that do
+not support IntersectionObserver, you can use the following conditional polyfill in
 `nuxt.config.js`:
 
 ```js

@@ -172,7 +172,7 @@ disabled in auto-height mode.
 
 Auto-height works by computing the resulting height via CSS queries, hence the input has to be in
 document (DOM) and visible (not hidden via `display: none`). Initial height is computed on mount. If
-the browser client supports [`IntersectionObserver`](https://caniuse.com/#feat=intersectionobserver)
+the browser client supports [`IntersectionObserver`](https://caniuse.com/intersectionobserver)
 (either natively or via [a polyfill](/docs#js)), `<b-form-textarea>` will take advantage of this to
 determine when the textarea becomes visible and will then compute the height. Refer to the
 [Browser support](/docs#browser) section on the getting started page.
