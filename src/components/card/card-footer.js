@@ -3,13 +3,13 @@ import { NAME_CARD_FOOTER } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
 import { copyProps, prefixPropName } from '../../utils/props'
-import { props as cardProps } from '../../mixins/card'
+import { props as BCardProps } from '../../mixins/card'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    ...copyProps(cardProps, prefixPropName.bind(null, 'footer')),
+    ...copyProps(BCardProps, prefixPropName.bind(null, 'footer')),
     footer: {
       type: String
       // default: null
