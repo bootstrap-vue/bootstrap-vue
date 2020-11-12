@@ -44,7 +44,7 @@ describe('form-input', () => {
 
     const $input = wrapper.find('input')
     expect($input.classes()).not.toContain('form-control-plaintext')
-    expect($input.attributes('readonly')).not.toBeDefined()
+    expect($input.attributes('readonly')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -166,7 +166,7 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput)
 
     const $input = wrapper.find('input')
-    expect($input.attributes('list')).not.toBeDefined()
+    expect($input.attributes('list')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -193,7 +193,7 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    expect($input.attributes('list')).not.toBeDefined()
+    expect($input.attributes('list')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -280,7 +280,7 @@ describe('form-input', () => {
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormInput)
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -292,7 +292,7 @@ describe('form-input', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -357,7 +357,7 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    expect(!!$input.attributes('disabled')).toBe(true)
+    expect($input.attributes('disabled')).toBeDefined()
     expect($input.element.disabled).toBe(true)
 
     wrapper.unmount()
@@ -371,7 +371,7 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    expect(!!$input.attributes('disabled')).toBe(false)
+    expect($input.attributes('disabled')).toBeUndefined()
     expect($input.element.disabled).toBe(false)
 
     wrapper.unmount()
@@ -384,9 +384,9 @@ describe('form-input', () => {
     $input.element.value = 'test'
     await $input.trigger('input')
 
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted().input[0].length).toEqual(1)
-    expect(wrapper.emitted().input[0][0]).toEqual('test')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')[0].length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('test')
 
     wrapper.unmount()
   })
@@ -411,7 +411,7 @@ describe('form-input', () => {
   it('emits a blur event with native event as only arg', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: 'TEST'
+        modelValue: 'TEST'
       }
     })
 
@@ -444,9 +444,9 @@ describe('form-input', () => {
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('test')
 
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('test')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('test')
 
     wrapper.unmount()
   })
@@ -466,14 +466,14 @@ describe('form-input', () => {
     $input.element.value = 'TEST'
     await $input.trigger('input')
 
+    expect(wrapper.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect($input.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -481,7 +481,7 @@ describe('form-input', () => {
   it('applies formatter on blur when lazy', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         },
@@ -496,21 +496,21 @@ describe('form-input', () => {
     $input.element.value = 'TEST'
     await $input.trigger('input')
 
-    expect($input.vm.localValue).toEqual('TEST')
+    expect(wrapper.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
 
     await $input.trigger('blur')
 
+    expect(wrapper.vm.localValue).toEqual('test')
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual('test')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur').length).toEqual(1)
-    expect($input.vm.localValue).toEqual('test')
 
     wrapper.unmount()
   })
@@ -518,7 +518,7 @@ describe('form-input', () => {
   it('does not apply formatter when value supplied on mount and not lazy', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: 'TEST',
+        modelValue: 'TEST',
         formatter(value) {
           return String(value).toLowerCase()
         }
@@ -526,12 +526,11 @@ describe('form-input', () => {
       attachTo: createContainer()
     })
 
-    const $input = wrapper.find('input')
-    expect($input.vm.localValue).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.vm.localValue).toEqual('TEST')
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -539,7 +538,7 @@ describe('form-input', () => {
   it('does not apply formatter when value prop updated and not lazy', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         }
@@ -548,13 +547,13 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    await wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ modelValue: 'TEST' })
 
     expect($input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasn't changed
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined() // Note emitted as value hasn't changed
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -562,7 +561,7 @@ describe('form-input', () => {
   it('does not apply formatter when value prop updated and lazy', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         },
@@ -572,13 +571,13 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    await wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ modelValue: 'TEST' })
 
     expect($input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined() // Not emitted when value doesnt change
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined() // Not emitted when value doesnt change
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -586,7 +585,7 @@ describe('form-input', () => {
   it('does not update value when non-lazy formatter returns false', async () => {
     const wrapper = mount(BFormInput, {
       props: {
-        value: 'abc',
+        modelValue: 'abc',
         formatter() {
           return false
         }
@@ -600,8 +599,8 @@ describe('form-input', () => {
     await $input.trigger('focus')
     await $input.setValue('TEST')
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // v-model should not change
     expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
@@ -617,7 +616,7 @@ describe('form-input', () => {
       props: {
         noWheel: true,
         type: 'number',
-        value: '123'
+        modelValue: '123'
       },
       attrs: {
         onBlur: spy
@@ -644,7 +643,7 @@ describe('form-input', () => {
       props: {
         noWheel: false,
         type: 'number',
-        value: '123'
+        modelValue: '123'
       },
       attrs: {
         onBlur: spy
@@ -673,7 +672,7 @@ describe('form-input', () => {
       props: {
         noWheel: false,
         type: 'number',
-        value: '123'
+        modelValue: '123'
       },
       attrs: {
         onBlur: spy
@@ -726,10 +725,10 @@ describe('form-input', () => {
     expect(wrapper.emitted('update')[0].length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
     // Pre converted value as string (raw input value)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0].length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('123.450')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toBe(1)
+    expect(wrapper.emitted('update:modelValue')[0].length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('123.450')
 
     // Update the input to be different string-wise, but same numerically
     $input.element.value = '123.4500'
@@ -737,14 +736,14 @@ describe('form-input', () => {
 
     expect($input.element.value).toBe('123.4500')
     // Should emit a new input event
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual('123.4500')
+    expect(wrapper.emitted('update:modelValue').length).toEqual(2)
+    expect(wrapper.emitted('update:modelValue')[1][0]).toEqual('123.4500')
     // `v-model` value stays the same and update event shouldn't be emitted again
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0][0]).toBeCloseTo(123.45)
 
     // Updating the `v-model` to new numeric value
-    await wrapper.setProps({ value: 45.6 })
+    await wrapper.setProps({ modelValue: 45.6 })
     expect($input.element.value).toBe('45.6')
 
     wrapper.unmount()
@@ -763,13 +762,13 @@ describe('form-input', () => {
     await $input.trigger('input')
     expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     $input.element.value = 'ab'
     await $input.trigger('input')
     expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     // trigger a change event
     await $input.trigger('change')
@@ -806,7 +805,7 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput, {
       props: {
         type: 'text',
-        value: '',
+        modelValue: '',
         debounce: 100
       }
     })
@@ -816,20 +815,20 @@ describe('form-input', () => {
     await $input.trigger('input')
     expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // `input` event should be emitted
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe('a')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toBe(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe('a')
 
     $input.element.value = 'ab'
     await $input.trigger('input')
     expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // `input` event should be emitted
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toBe('ab')
+    expect(wrapper.emitted('update:modelValue').length).toBe(2)
+    expect(wrapper.emitted('update:modelValue')[1][0]).toBe('ab')
 
     // Advance timer
     jest.runOnlyPendingTimers()
@@ -840,7 +839,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update').length).toBe(1)
     expect(wrapper.emitted('update')[0][0]).toBe('ab')
     // `input` event should not have emitted new event
-    expect(wrapper.emitted('input').length).toBe(2)
+    expect(wrapper.emitted('update:modelValue').length).toBe(2)
 
     // Update input
     $input.element.value = 'abc'
@@ -849,8 +848,8 @@ describe('form-input', () => {
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(1)
     // `input` event should be emitted
-    expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[2][0]).toBe('abc')
+    expect(wrapper.emitted('update:modelValue').length).toBe(3)
+    expect(wrapper.emitted('update:modelValue')[2][0]).toBe('abc')
 
     // Update input
     $input.element.value = 'abcd'
@@ -859,8 +858,8 @@ describe('form-input', () => {
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toEqual(1)
     // `input` event should be emitted
-    expect(wrapper.emitted('input').length).toBe(4)
-    expect(wrapper.emitted('input')[3][0]).toBe('abcd')
+    expect(wrapper.emitted('update:modelValue').length).toBe(4)
+    expect(wrapper.emitted('update:modelValue')[3][0]).toBe('abcd')
 
     // Trigger a `change` event
     await $input.trigger('change')
@@ -869,7 +868,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toBe('abcd')
     // `input` event should not have emitted new event
-    expect(wrapper.emitted('input').length).toBe(4)
+    expect(wrapper.emitted('update:modelValue').length).toBe(4)
 
     $input.element.value = 'abc'
     await $input.trigger('input')
@@ -877,8 +876,8 @@ describe('form-input', () => {
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(2)
     // `input` event should be emitted
-    expect(wrapper.emitted('input').length).toBe(5)
-    expect(wrapper.emitted('input')[4][0]).toBe('abc')
+    expect(wrapper.emitted('update:modelValue').length).toBe(5)
+    expect(wrapper.emitted('update:modelValue')[4][0]).toBe('abc')
 
     $input.element.value = 'abcd'
     await $input.trigger('input')
@@ -886,8 +885,8 @@ describe('form-input', () => {
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(2)
     // `input` event should be emitted
-    expect(wrapper.emitted('input').length).toBe(6)
-    expect(wrapper.emitted('input')[5][0]).toBe('abcd')
+    expect(wrapper.emitted('update:modelValue').length).toBe(6)
+    expect(wrapper.emitted('update:modelValue')[5][0]).toBe('abcd')
 
     // Advance timer
     jest.runOnlyPendingTimers()
@@ -896,7 +895,7 @@ describe('form-input', () => {
     // `v-model` update event should not have emitted new event
     expect(wrapper.emitted('update').length).toBe(2)
     // `input` event should not have emitted new event
-    expect(wrapper.emitted('input').length).toBe(6)
+    expect(wrapper.emitted('update:modelValue').length).toBe(6)
 
     wrapper.unmount()
   })
