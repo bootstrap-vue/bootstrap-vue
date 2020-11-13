@@ -4,21 +4,19 @@ import { CLASS_NAME_SHOW } from '../../constants/class-names'
 import {
   EVENT_NAME_HIDDEN,
   EVENT_NAME_HIDE,
-  EVENT_NAME_MODEL_VALUE,
   EVENT_NAME_SHOW,
   EVENT_NAME_SHOWN,
   EVENT_OPTIONS_NO_CAPTURE
 } from '../../constants/events'
-import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { BVCollapse } from '../../utils/bv-collapse'
 import { makePropsConfigurable } from '../../utils/config'
 import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
 import { isBrowser } from '../../utils/env'
 import { getRootEventName, eventOnOff } from '../../utils/events'
+import { makeModelMixin } from '../../utils/model'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
   EVENT_TOGGLE,
@@ -29,7 +27,11 @@ import {
 
 // --- Constants ---
 
+const PROP_NAME_VISIBLE = 'show'
+
 const ROOT_EVENT_NAME_COLLAPSE_ACCORDION = getRootEventName(NAME_COLLAPSE, 'accordion')
+
+const { mixin: modelMixin, event: EVENT_NAME_UPDATE_VISIBLE } = makeModelMixin(PROP_NAME_VISIBLE)
 
 // --- Main component ---
 // @vue/component
@@ -38,7 +40,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
   mixins: [idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
   props: makePropsConfigurable(
     {
-      [PROP_NAME_MODEL_VALUE]: {
+      [PROP_NAME_VISIBLE]: {
         type: Boolean,
         default: false
       },
@@ -65,16 +67,18 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
   emits: [EVENT_NAME_HIDDEN, EVENT_NAME_HIDE, EVENT_NAME_SHOW, EVENT_NAME_SHOWN],
   data() {
     return {
-      show: this[PROP_NAME_MODEL_VALUE],
+      show: this[PROP_NAME_VISIBLE],
       transitioning: false
     }
   },
   computed: {
     classObject() {
+      const { transitioning } = this
+
       return {
         'navbar-collapse': this.isNav,
-        collapse: !this.transitioning,
-        show: this.show && !this.transitioning
+        collapse: !transitioning,
+        show: this.show && !transitioning
       }
     },
     slotScope() {
@@ -87,7 +91,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    [PROP_NAME_MODEL_VALUE](newValue) {
+    [PROP_NAME_VISIBLE](newValue) {
       if (newValue !== this.show) {
         this.show = newValue
       }
@@ -99,10 +103,10 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
     }
   },
   created() {
-    this.show = this[PROP_NAME_MODEL_VALUE]
+    this.show = this[PROP_NAME_VISIBLE]
   },
   mounted() {
-    this.show = this[PROP_NAME_MODEL_VALUE]
+    this.show = this[PROP_NAME_VISIBLE]
     // Listen for toggle events to open/close us
     this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
@@ -175,12 +179,16 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
       this.$emit(EVENT_NAME_HIDDEN)
     },
     emitState() {
-      this.$emit(EVENT_NAME_MODEL_VALUE, this.show)
+      const { show, accordion } = this
+      const id = this.safeId()
+
+      this.$emit(EVENT_NAME_UPDATE_VISIBLE, show)
+
       // Let `v-b-toggle` know the state of this collapse
-      this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
-      if (this.accordion && this.show) {
+      this.emitOnRoot(EVENT_STATE, id, show)
+      if (accordion && show) {
         // Tell the other collapses in this accordion to close
-        this.emitOnRoot(ROOT_EVENT_NAME_COLLAPSE_ACCORDION, this.safeId(), this.accordion)
+        this.emitOnRoot(ROOT_EVENT_NAME_COLLAPSE_ACCORDION, id, accordion)
       }
     },
     emitSync() {
@@ -196,7 +204,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
       const { $el } = this
       const restore = hasClass($el, CLASS_NAME_SHOW)
       removeClass($el, CLASS_NAME_SHOW)
-      const isBlock = getCS(this.$el).display === 'block'
+      const isBlock = getCS($el).display === 'block'
       if (restore) {
         addClass($el, CLASS_NAME_SHOW)
       }
@@ -249,7 +257,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)]
+      this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)
     )
 
     return h(
