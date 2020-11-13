@@ -8,7 +8,7 @@ import { ModalPlugin } from '../index'
 vtuConfig.global.stubs.transition = TransitionStub
 
 describe('$bvModal', () => {
-  it('$bvModal.show() and $bvModal.hide() works', async () => {
+  it('`show()` and `hide()` works', async () => {
     const App = {
       render() {
         return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
@@ -58,7 +58,7 @@ describe('$bvModal', () => {
     wrapper.unmount()
   })
 
-  it('$bvModal.msgBoxOk() works', async () => {
+  it('`msgBoxOk()` works', async () => {
     const App = {
       render() {
         return h('div', 'app')
@@ -122,7 +122,7 @@ describe('$bvModal', () => {
     expect(document.querySelector('#test2')).toBe(null)
   })
 
-  it('$bvModal.msgBoxConfirm() works', async () => {
+  it('`msgBoxConfirm()` works', async () => {
     const App = {
       render() {
         return h('div', 'app')
