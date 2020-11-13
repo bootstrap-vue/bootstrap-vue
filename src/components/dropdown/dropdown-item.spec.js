@@ -7,22 +7,25 @@ import { BDropdownItem } from './dropdown-item'
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
     const wrapper = mount(BDropdownItem)
+
     expect(wrapper.element.tagName).toBe('LI')
 
-    const item = wrapper.find('a')
-    expect(item.element.tagName).toBe('A')
-    expect(item.attributes('href')).toBe('#')
+    const $a = wrapper.find('a')
+    expect($a.exists()).toBe(true)
+    expect($a.attributes('href')).toBe('#')
 
     wrapper.unmount()
   })
 
   it('has class "dropdown-item"', async () => {
     const wrapper = mount(BDropdownItem)
+
     expect(wrapper.element.tagName).toBe('LI')
 
-    const item = wrapper.find('a')
-    expect(item.classes()).toContain('dropdown-item')
-    expect(item.attributes('href')).toBe('#')
+    const $a = wrapper.find('a')
+    expect($a.exists()).toBe(true)
+    expect($a.classes()).toContain('dropdown-item')
+    expect($a.attributes('href')).toBe('#')
 
     wrapper.unmount()
   })
@@ -44,9 +47,9 @@ describe('dropdown-item', () => {
     })
     expect(wrapper.element.tagName).toBe('LI')
 
-    const item = wrapper.find('a')
-    expect(item).toBeDefined()
-    await item.trigger('click')
+    const $a = wrapper.find('a')
+    expect($a.exists()).toBe(true)
+    await $a.trigger('click')
     await waitRAF()
     expect(called).toBe(true)
     expect(refocus).toBe(true)
@@ -72,9 +75,9 @@ describe('dropdown-item', () => {
     })
     expect(wrapper.element.tagName).toBe('LI')
 
-    const item = wrapper.find('a')
-    expect(item).toBeDefined()
-    await item.trigger('click')
+    const $a = wrapper.find('a')
+    expect($a.exists()).toBe(true)
+    await $a.trigger('click')
     await waitRAF()
     expect(called).toBe(false)
     expect(refocus).toBe(null)
@@ -88,11 +91,13 @@ describe('dropdown-item', () => {
         linkClass: 'link-class'
       }
     })
+
     expect(wrapper.element.tagName).toBe('LI')
 
-    const item = wrapper.find('a')
-    expect(item.classes()).toContain('link-class')
-    expect(item.classes()).toContain('dropdown-item')
+    const $a = wrapper.find('a')
+    expect($a.exists()).toBe(true)
+    expect($a.classes()).toContain('link-class')
+    expect($a.classes()).toContain('dropdown-item')
 
     wrapper.unmount()
   })
