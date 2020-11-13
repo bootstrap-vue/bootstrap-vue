@@ -129,12 +129,16 @@ const mergeProps = (...args) =>
 
 const defineComponent = data => _defineComponent(normalizeDefineComponentData(data))
 
-const h = (...args) =>
-  isUndefined(args[0]) && !isVue2
-    ? null
-    : args.length >= 2 && isPlainObject(args[1])
-      ? _h(args[0], normalizeCreateElementData(args[1]), args[2])
-      : _h(...args)
+const h = (...args) => {
+  let [tag, data, children] = args
+  if (isUndefined(tag) && !isVue2) {
+    return null
+  }
+  if (isPlainObject(data)) {
+    data = normalizeCreateElementData(data)
+  }
+  return _h(...[tag, data, children].slice(0, args.length))
+}
 
 export * from 'vue-demi'
 export {
