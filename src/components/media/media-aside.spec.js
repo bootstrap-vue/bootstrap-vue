@@ -31,7 +31,7 @@ describe('media-aside', () => {
 
   it('has correct class when prop `right` set', async () => {
     const wrapper = mount(BMediaAside, {
-      propsData: {
+      props: {
         right: true
       }
     })
