@@ -5,7 +5,8 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
-import { defineComponent, h, mergeProps } from '../vue'
+import { defineComponent, h, isVue2, mergeProps, Transition } from '../vue'
+import { CLASS_NAME_SHOW } from '../constants/class-names'
 import { NAME_COLLAPSE_HELPER } from '../constants/components'
 import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
 
@@ -39,16 +40,19 @@ const onAfterLeave = el => {
 
 // --- Constants ---
 
+const CLASS_NAME_COLLAPSE = 'collapse'
+const CLASS_NAME_COLLAPSING = 'collapsing'
+
 // Default transition props
 // `appear` will use the enter classes
 const TRANSITION_PROPS = {
   css: true,
-  enterClass: '',
-  enterActiveClass: 'collapsing',
-  enterToClass: 'collapse show',
-  leaveClass: 'collapse show',
-  leaveActiveClass: 'collapsing',
-  leaveToClass: 'collapse'
+  [isVue2 ? 'enterClass' : 'enterFromClass']: '',
+  enterActiveClass: CLASS_NAME_COLLAPSING,
+  enterToClass: [CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW],
+  [isVue2 ? 'leaveClass' : 'leaveFromClass']: [CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW],
+  leaveActiveClass: CLASS_NAME_COLLAPSING,
+  leaveToClass: CLASS_NAME_COLLAPSE
 }
 
 // Default transition handlers
@@ -74,7 +78,7 @@ export const BVCollapse = /*#__PURE__*/ defineComponent({
   },
   render(_, { props, data, children }) {
     return h(
-      'transition',
+      Transition,
       // We merge in the `appear` prop last
       mergeProps(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
       // Note: `<transition>` supports a single root element only
