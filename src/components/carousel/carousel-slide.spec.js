@@ -24,6 +24,7 @@ describe('carousel-slide', () => {
 
   it('does not have "img" by default', async () => {
     const wrapper = mount(BCarouselSlide)
+
     expect(wrapper.find('img').exists()).toBe(false)
 
     wrapper.unmount()
@@ -31,6 +32,7 @@ describe('carousel-slide', () => {
 
   it('does not have caption tag "h3" by default', async () => {
     const wrapper = mount(BCarouselSlide)
+
     expect(wrapper.find('h3').exists()).toBe(false)
 
     wrapper.unmount()
@@ -51,8 +53,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').text()).toContain('foobar')
+    const $content = wrapper.find('.carousel-caption')
+    expect($content.exists()).toBe(true)
+    expect($content.text()).toContain('foobar')
 
     wrapper.unmount()
   })
@@ -64,9 +67,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    const content = wrapper.find('.carousel-caption')
-    expect(content.find('h3').exists()).toBe(true)
-    expect(content.find('h3').text()).toBe('foobar')
+    const $h3 = wrapper.find('.carousel-caption').find('h3')
+    expect($h3.exists()).toBe(true)
+    expect($h3.text()).toBe('foobar')
 
     wrapper.unmount()
   })
@@ -78,9 +81,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    const content = wrapper.find('.carousel-caption')
-    expect(content.find('p').exists()).toBe(true)
-    expect(content.find('p').text()).toBe('foobar')
+    const $p = wrapper.find('.carousel-caption').find('p')
+    expect($p.exists()).toBe(true)
+    expect($p.text()).toBe('foobar')
 
     wrapper.unmount()
   })
@@ -95,8 +98,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').element.tagName).toBe('SPAN')
+    const $content = wrapper.find('.carousel-caption')
+    expect($content.exists()).toBe(true)
+    expect($content.element.tagName).toBe('SPAN')
 
     wrapper.unmount()
   })
@@ -111,10 +115,11 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('.carousel-caption').exists()).toBe(true)
-    expect(wrapper.find('.carousel-caption').classes()).toContain('d-none')
-    expect(wrapper.find('.carousel-caption').classes()).toContain('d-lg-block')
-    expect(wrapper.find('.carousel-caption').classes().length).toBe(3)
+    const $content = wrapper.find('.carousel-caption')
+    expect($content.exists()).toBe(true)
+    expect($content.classes()).toContain('d-none')
+    expect($content.classes()).toContain('d-lg-block')
+    expect($content.classes().length).toBe(3)
 
     wrapper.unmount()
   })
@@ -143,9 +148,11 @@ describe('carousel-slide', () => {
 
   it('has style background inherited from carousel parent', async () => {
     const wrapper = mount(BCarouselSlide, {
-      provide: {
-        bvCarousel: {
-          background: 'rgb(1, 2, 3)'
+      global: {
+        provide: {
+          bvCarousel: {
+            background: 'rgb(1, 2, 3)'
+          }
         }
       }
     })
@@ -165,9 +172,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    const content = wrapper.find('.carousel-caption')
-    expect(content.find('h1').exists()).toBe(true)
-    expect(content.find('h1').text()).toBe('foobar')
+    const $h1 = wrapper.find('.carousel-caption').find('h1')
+    expect($h1.exists()).toBe(true)
+    expect($h1.text()).toBe('foobar')
 
     wrapper.unmount()
   })
@@ -180,9 +187,9 @@ describe('carousel-slide', () => {
       }
     })
 
-    const content = wrapper.find('.carousel-caption')
-    expect(content.find('span').exists()).toBe(true)
-    expect(content.find('span').text()).toBe('foobar')
+    const $span = wrapper.find('.carousel-caption').find('span')
+    expect($span.exists()).toBe(true)
+    expect($span.text()).toBe('foobar')
 
     wrapper.unmount()
   })
@@ -194,9 +201,10 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.find('img').attributes('src')).toBeDefined()
-    expect(wrapper.find('img').attributes('src')).toBe('https://picsum.photos/1024/480/?image=52')
+    const $img = wrapper.find('img')
+    expect($img.exists()).toBe(true)
+    expect($img.attributes('src')).toBeDefined()
+    expect($img.attributes('src')).toBe('https://picsum.photos/1024/480/?image=52')
 
     wrapper.unmount()
   })
@@ -208,9 +216,10 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.find('img').attributes('src')).toBeDefined()
-    expect(wrapper.find('img').attributes('src')).toContain('data:')
+    const $img = wrapper.find('img')
+    expect($img.exists()).toBe(true)
+    expect($img.attributes('src')).toBeDefined()
+    expect($img.attributes('src')).toContain('data:')
 
     wrapper.unmount()
   })
@@ -223,10 +232,11 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.find('img').attributes('src')).toBeDefined()
-    expect(wrapper.find('img').attributes('alt')).toBeDefined()
-    expect(wrapper.find('img').attributes('alt')).toBe('foobar')
+    const $img = wrapper.find('img')
+    expect($img.exists()).toBe(true)
+    expect($img.attributes('src')).toBeDefined()
+    expect($img.attributes('alt')).toBeDefined()
+    expect($img.attributes('alt')).toBe('foobar')
 
     wrapper.unmount()
   })
@@ -240,23 +250,26 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.find('img').attributes('src')).toBeDefined()
-    expect(wrapper.find('img').attributes('width')).toBeDefined()
-    expect(wrapper.find('img').attributes('width')).toBe('1024')
-    expect(wrapper.find('img').attributes('height')).toBeDefined()
-    expect(wrapper.find('img').attributes('height')).toBe('480')
+    const $img = wrapper.find('img')
+    expect($img.exists()).toBe(true)
+    expect($img.attributes('src')).toBeDefined()
+    expect($img.attributes('width')).toBeDefined()
+    expect($img.attributes('width')).toBe('1024')
+    expect($img.attributes('height')).toBeDefined()
+    expect($img.attributes('height')).toBe('480')
 
     wrapper.unmount()
   })
 
   it('has image with "width" and "height" attrs inherited from carousel parent', async () => {
     const wrapper = mount(BCarouselSlide, {
-      provide: {
-        // Mock carousel injection
-        bvCarousel: {
-          imgWidth: '1024',
-          imgHeight: '480'
+      global: {
+        provide: {
+          // Mock carousel injection
+          bvCarousel: {
+            imgWidth: '1024',
+            imgHeight: '480'
+          }
         }
       },
       props: {
@@ -264,12 +277,13 @@ describe('carousel-slide', () => {
       }
     })
 
-    expect(wrapper.find('img').exists()).toBe(true)
-    expect(wrapper.find('img').attributes('src')).toBeDefined()
-    expect(wrapper.find('img').attributes('width')).toBeDefined()
-    expect(wrapper.find('img').attributes('width')).toBe('1024')
-    expect(wrapper.find('img').attributes('height')).toBeDefined()
-    expect(wrapper.find('img').attributes('height')).toBe('480')
+    const $img = wrapper.find('img')
+    expect($img.exists()).toBe(true)
+    expect($img.attributes('src')).toBeDefined()
+    expect($img.attributes('width')).toBeDefined()
+    expect($img.attributes('width')).toBe('1024')
+    expect($img.attributes('height')).toBeDefined()
+    expect($img.attributes('height')).toBe('480')
 
     wrapper.unmount()
   })
