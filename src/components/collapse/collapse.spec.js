@@ -50,7 +50,7 @@ describe('collapse', () => {
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).not.toContain('navbar-collapse')
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
     expect(wrapper.text()).toEqual('')
 
     wrapper.unmount()
@@ -74,7 +74,7 @@ describe('collapse', () => {
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).toContain('navbar-collapse')
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
     expect(wrapper.text()).toEqual('')
 
     wrapper.unmount()
@@ -99,7 +99,7 @@ describe('collapse', () => {
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.text()).toEqual('foobar')
 
@@ -126,7 +126,7 @@ describe('collapse', () => {
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).toContain('collapse')
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
     expect(wrapper.find('div > div').exists()).toBe(true)
     expect(wrapper.text()).toEqual('foobar')
 
@@ -157,7 +157,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     wrapper.unmount()
   })
@@ -187,7 +187,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
 
     wrapper.unmount()
   })
@@ -208,7 +208,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
     expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('update:visible')).toBeDefined()
     expect(wrapper.emitted('update:visible').length).toBe(1)
@@ -255,7 +255,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     // Change visible prop
     await wrapper.setProps({ visible: true })
@@ -269,7 +269,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // Visible state
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
 
     wrapper.unmount()
   })
@@ -291,7 +291,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
     expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('update:visible')).toBeDefined()
     expect(wrapper.emitted('update:visible').length).toBe(1)
@@ -316,7 +316,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // The event we just emitted
     expect(rootWrapper.emitted(EVENT_ACCORDION)[1][0]).toBe('test')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[1][1]).toBe('bar')
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
 
     // Should respond to accordion events
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'nottest', 'foo')
@@ -333,7 +333,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // The event we just emitted
     expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('nottest')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[2][1]).toBe('foo')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     // Toggling this closed collapse emits accordion event
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
@@ -350,7 +350,7 @@ describe('collapse', () => {
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(4) // The event emitted by collapse
     expect(rootWrapper.emitted(EVENT_ACCORDION)[3][0]).toBe('test')
     expect(rootWrapper.emitted(EVENT_ACCORDION)[3][1]).toBe('foo')
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
 
     // Toggling this open collapse to be closed
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
@@ -358,7 +358,7 @@ describe('collapse', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     // Should respond to accordion events targeting this ID when closed
     wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'foo')
@@ -366,7 +366,7 @@ describe('collapse', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
 
     wrapper.unmount()
   })
@@ -408,7 +408,7 @@ describe('collapse', () => {
     await waitRAF()
 
     expect($collapse.classes()).toContain('show')
-    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.isVisible()).toEqual(true)
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
@@ -416,7 +416,7 @@ describe('collapse', () => {
     await waitRAF()
     await waitRAF()
     expect($collapse.classes()).not.toContain('show')
-    expect($collapse.element.style.display).toEqual('none')
+    expect($collapse.isVisible()).toEqual(false)
 
     wrapper.unmount()
   })
@@ -464,7 +464,7 @@ describe('collapse', () => {
     await waitRAF()
 
     expect($collapse.classes()).toContain('show')
-    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.isVisible()).toEqual(true)
     expect($collapse.find('.nav-link').exists()).toBe(true)
 
     // Click on link
@@ -472,7 +472,7 @@ describe('collapse', () => {
     await waitRAF()
     await waitRAF()
     expect($collapse.classes()).toContain('show')
-    expect($collapse.element.style.display).toEqual('')
+    expect($collapse.isVisible()).toEqual(true)
 
     wrapper.unmount()
   })
@@ -493,7 +493,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     // Emit root event with different ID
     wrapper.vm.$root.$emit(EVENT_TOGGLE, 'not-test')
@@ -502,7 +502,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.classes()).not.toContain('show')
-    expect(wrapper.element.style.display).toEqual('none')
+    expect(wrapper.isVisible()).toEqual(false)
 
     wrapper.unmount()
   })
@@ -528,7 +528,7 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.element.style.display).toEqual('')
+    expect(wrapper.isVisible()).toEqual(true)
     expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('update:visible')).toBeDefined()
     expect(wrapper.emitted('update:visible').length).toBe(1)

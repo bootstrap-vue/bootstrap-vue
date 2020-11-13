@@ -60,7 +60,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Modal dialog wrapper
       const $dialog = $modal.find('div.modal-dialog')
@@ -138,7 +138,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
@@ -218,7 +218,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeUndefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Should have a backdrop
       const $backdrop = wrapper.find('div.modal-backdrop')
@@ -236,7 +236,7 @@ describe('modal', () => {
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
       expect($modal.attributes('aria-modal')).toBeUndefined()
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Backdrop should be removed
       expect(wrapper.find('div.modal-backdrop').exists()).toBe(false)
@@ -415,7 +415,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       const $buttons = wrapper.findAll('header button')
       expect($buttons.length).toBe(1)
@@ -441,7 +441,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should still be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal (and not prevent it)
       cancelHide = false
@@ -457,7 +457,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -492,7 +492,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       const $buttons = wrapper.findAll('footer button')
       expect($buttons.length).toBe(2)
@@ -518,7 +518,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should still be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal (and not prevent it)
       cancelHide = false
@@ -532,7 +532,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Modal should have emitted these events
       expect(wrapper.emitted('ok')).toBeDefined()
@@ -571,7 +571,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
@@ -586,7 +586,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Modal should have emitted these events
       expect(wrapper.emitted('hide')).toBeDefined()
@@ -626,7 +626,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
@@ -641,7 +641,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Modal should have emitted these events
       expect(wrapper.emitted('hide')).toBeDefined()
@@ -689,7 +689,7 @@ describe('modal', () => {
       const $footer = wrapper.find('footer.modal-footer')
       expect($footer.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
@@ -705,7 +705,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Modal should not be closed
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal via a "dragged" click out
       // starting from inside modal and finishing on backdrop
@@ -718,7 +718,7 @@ describe('modal', () => {
       expect(trigger).toEqual(null)
 
       // Modal should not be closed
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal via click out
       await $modal.trigger('click')
@@ -728,7 +728,7 @@ describe('modal', () => {
       expect(trigger).toEqual('backdrop')
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -753,7 +753,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Try and open modal via `bv::show::modal`
       wrapper.vm.$root.$emit('bv::show::modal', 'test')
@@ -764,7 +764,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal via `bv::hide::modal`
       wrapper.vm.$root.$emit('bv::hide::modal', 'test')
@@ -775,7 +775,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -800,7 +800,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Try and open modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
@@ -811,7 +811,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal via `bv::toggle::modal`
       wrapper.vm.$root.$emit('bv::toggle::modal', 'test')
@@ -822,7 +822,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Try and open modal via `bv::toggle::modal` with wrong ID
       wrapper.vm.$root.$emit('bv::toggle::modal', 'not-test')
@@ -833,7 +833,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should not be open
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -860,7 +860,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.vm.$on('show', bvEvt => {
         called = true
@@ -879,7 +879,7 @@ describe('modal', () => {
 
       // Modal should not open
       expect(called).toBe(true)
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -900,7 +900,7 @@ describe('modal', () => {
 
       // Modal should now be open
       expect(called).toBe(true)
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       wrapper.unmount()
     })
@@ -925,7 +925,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       // Try and open modal via `.toggle()` method
       wrapper.vm.toggle()
@@ -936,7 +936,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Try and close modal via `.toggle()` method
       wrapper.vm.toggle()
@@ -947,7 +947,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -973,7 +973,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
 
       // Simulate an other modal opening (by emitting a fake BvEvent)
       // `bvEvent.vueTarget` is normally a Vue instance, but in this
@@ -986,7 +986,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
 
       wrapper.unmount()
     })
@@ -1022,7 +1022,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
       expect(document.activeElement).toBe(document.body)
 
       // Set the active element to the button
@@ -1042,7 +1042,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).not.toBe($button.element)
       expect($modal.element.contains(document.activeElement)).toBe(true)
@@ -1060,7 +1060,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
       expect(document.activeElement).toBe($button.element)
 
       wrapper.unmount()
@@ -1102,7 +1102,7 @@ describe('modal', () => {
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
       expect(document.activeElement).toBe(document.body)
 
       // Set the active element to the button
@@ -1122,7 +1122,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be open
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).not.toBe($button.element)
       expect(document.activeElement).not.toBe($button2.element)
@@ -1141,7 +1141,7 @@ describe('modal', () => {
       await waitRAF()
 
       // Modal should now be closed
-      expect($modal.element.style.display).toEqual('none')
+      expect($modal.isVisible()).toEqual(false)
       expect(document.activeElement).toBe($button2.element)
 
       wrapper.unmount()
@@ -1180,7 +1180,7 @@ describe('modal', () => {
       const $content = $modal.find('div.modal-content')
       expect($content.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).toBe($content.element)
 
@@ -1277,7 +1277,7 @@ describe('modal', () => {
       const $content = $modal.find('div.modal-content')
       expect($content.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).toBe($content.element)
 
@@ -1345,7 +1345,7 @@ describe('modal', () => {
       const $content = $modal.find('div.modal-content')
       expect($content.exists()).toBe(true)
 
-      expect($modal.element.style.display).toEqual('block')
+      expect($modal.isVisible()).toEqual(true)
       expect(document.activeElement).not.toBe(document.body)
       expect(document.activeElement).toBe($content.element)
 

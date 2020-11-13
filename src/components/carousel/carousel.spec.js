@@ -94,7 +94,7 @@ describe('carousel', () => {
     expect($indicators.attributes('aria-hidden')).toEqual('true')
     expect($indicators.attributes('aria-label')).toBeDefined()
     expect($indicators.attributes('aria-label')).toEqual('Select a slide to display')
-    expect($indicators.element.style.display).toEqual('none')
+    expect($indicators.isVisible()).toEqual(false)
     expect($indicators.findAll('li').length).toBe(0) // no slides
 
     wrapper.unmount()
@@ -158,7 +158,7 @@ describe('carousel', () => {
     const $indicators = wrapper.find('.carousel > ol')
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
-    expect($indicators.element.style.display).toEqual('none')
+    expect($indicators.isVisible()).toEqual(false)
 
     wrapper.unmount()
   })
@@ -205,7 +205,7 @@ describe('carousel', () => {
     const $indicators = wrapper.find('.carousel > ol')
     expect($indicators.classes()).toContain('carousel-indicators')
     expect($indicators.classes().length).toBe(1)
-    expect($indicators.element.style.display).toEqual('')
+    expect($indicators.isVisible()).toEqual(true)
 
     wrapper.unmount()
   })
