@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h, Transition } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import {
   EVENT_NAME_CANCEL,
@@ -1075,7 +1075,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
       // transition durations for `.modal` and `.modal-dialog`
       // At least until https://github.com/vuejs/vue/issues/9986 is resolved
       $modal = h(
-        'transition',
+        Transition,
         {
           props: {
             enterClass: '',

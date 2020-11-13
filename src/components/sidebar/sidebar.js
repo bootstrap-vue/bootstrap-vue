@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, Transition } from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
 import { EVENT_NAME_HIDDEN, EVENT_NAME_MODEL_VALUE, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
@@ -437,7 +437,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
     )
 
     $sidebar = h(
-      'transition',
+      Transition,
       {
         props: this.transitionProps,
         on: {

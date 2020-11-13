@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, TransitionGroup } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
@@ -53,7 +53,7 @@ export const DefaultTransition = /*#__PURE__*/ defineComponent({
   },
   render() {
     return h(
-      'transition-group',
+      TransitionGroup,
       {
         props: { tag: 'div', name: this.name },
         on: { afterEnter: this.onAfterEnter }
