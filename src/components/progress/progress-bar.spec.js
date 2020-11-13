@@ -37,9 +37,11 @@ describe('progress-bar', () => {
 
   it('has class bg-info when parent variant=info', async () => {
     const wrapper = mount(BProgressBar, {
-      provide: {
-        bvProgress: {
-          variant: 'info'
+      global: {
+        provide: {
+          bvProgress: {
+            variant: 'info'
+          }
         }
       }
     })
@@ -52,9 +54,11 @@ describe('progress-bar', () => {
 
   it('has class bg-primary when prop variant=primary and parent variant=info', async () => {
     const wrapper = mount(BProgressBar, {
-      provide: {
-        bvProgress: {
-          variant: 'info'
+      global: {
+        provide: {
+          bvProgress: {
+            variant: 'info'
+          }
         }
       },
       props: {
@@ -82,9 +86,11 @@ describe('progress-bar', () => {
 
   it('has class progress-bar-striped when parent prop striped set', async () => {
     const wrapper = mount(BProgressBar, {
-      provide: {
-        bvProgress: {
-          striped: true
+      global: {
+        provide: {
+          bvProgress: {
+            striped: true
+          }
         }
       }
     })
@@ -111,9 +117,11 @@ describe('progress-bar', () => {
 
   it('has class progress-bar-animated and progress-bar-striped when parent prop animated set', async () => {
     const wrapper = mount(BProgressBar, {
-      provide: {
-        bvProgress: {
-          animated: true
+      global: {
+        provide: {
+          bvProgress: {
+            animated: true
+          }
         }
       }
     })
@@ -158,9 +166,11 @@ describe('progress-bar', () => {
 
   it('has max set when parent max set', async () => {
     const wrapper = mount(BProgressBar, {
-      provide: {
-        bvProgress: {
-          max: 50
+      global: {
+        provide: {
+          bvProgress: {
+            max: 50
+          }
         }
       },
       props: {
