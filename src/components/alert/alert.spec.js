@@ -8,7 +8,7 @@ describe('alert', () => {
     const wrapper = mount(BAlert)
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.unmount()
   })
@@ -21,7 +21,7 @@ describe('alert', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.unmount()
   })
@@ -34,7 +34,7 @@ describe('alert', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     wrapper.unmount()
   })
@@ -46,15 +46,14 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-info')
-    expect($div.classes()).not.toContain('fade')
-    expect($div.classes()).not.toContain('show')
-    expect($div.attributes('role')).toBe('alert')
-    expect($div.attributes('aria-live')).toBe('polite')
-    expect($div.attributes('aria-atomic')).toBe('true')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.attributes('role')).toBe('alert')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
 
     wrapper.unmount()
   })
@@ -66,15 +65,14 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-info')
-    expect($div.classes()).not.toContain('fade')
-    expect($div.classes()).not.toContain('show')
-    expect($div.attributes('role')).toBe('alert')
-    expect($div.attributes('aria-live')).toBe('polite')
-    expect($div.attributes('aria-atomic')).toBe('true')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-info')
+    expect(wrapper.classes()).not.toContain('fade')
+    expect(wrapper.classes()).not.toContain('show')
+    expect(wrapper.attributes('role')).toBe('alert')
+    expect(wrapper.attributes('aria-live')).toBe('polite')
+    expect(wrapper.attributes('aria-atomic')).toBe('true')
 
     wrapper.unmount()
   })
@@ -87,10 +85,9 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-success')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-success')
 
     wrapper.unmount()
   })
@@ -105,11 +102,10 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
 
-    const $article = $div.find('article')
+    const $article = wrapper.find('article')
     expect($article.exists()).toBe(true)
     expect($article.text()).toBe('foobar')
 
@@ -120,13 +116,12 @@ describe('alert', () => {
     const wrapper = mount(BAlert)
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     await wrapper.setProps({ show: true })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
 
     wrapper.unmount()
   })
@@ -139,10 +134,9 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-dismissible')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
     wrapper.unmount()
   })
@@ -155,12 +149,11 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-dismissible')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
-    const $button = $div.find('button')
+    const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
     expect($button.classes()).toContain('close')
     expect($button.attributes('aria-label')).toBe('Close')
@@ -177,12 +170,11 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-dismissible')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
-    const $button = $div.find('button')
+    const $button = wrapper.find('button')
     expect($button.exists()).toBe(true)
     expect($button.classes()).toContain('close')
     expect($button.attributes('aria-label')).toBe('foobar')
@@ -198,18 +190,17 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-dismissible')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
-    expect($div.find('button').exists()).toBe(true)
+    expect(wrapper.find('button').exists()).toBe(true)
     expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('update:show')).toBeUndefined()
 
-    await $div.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
     expect(wrapper.emitted('update:show')).toBeDefined()
@@ -228,16 +219,13 @@ describe('alert', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
     await wrapper.setProps({ show: true })
-    await waitRAF()
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    // TODO: Find a way to test transition active classes
-    // expect($div.classes()).toContain('fade')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('fade')
 
     await waitRAF()
     await waitRAF()
@@ -246,7 +234,7 @@ describe('alert', () => {
     await wrapper.setProps({ show: false })
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     // Dismissed won't be emitted unless dismissible=true or show is a number
     expect(wrapper.emitted('dismissed')).toBeUndefined()
 
@@ -261,11 +249,11 @@ describe('alert', () => {
       }
     })
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -274,28 +262,28 @@ describe('alert', () => {
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
@@ -314,7 +302,7 @@ describe('alert', () => {
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -323,28 +311,28 @@ describe('alert', () => {
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(0) // 3 - 3
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
@@ -359,11 +347,11 @@ describe('alert', () => {
       }
     })
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -372,35 +360,35 @@ describe('alert', () => {
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     // Reset countdown
     await wrapper.setProps({ show: 3 })
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(3) // 3 - 0
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(4)
     expect(wrapper.emitted('dismiss-count-down')[3][0]).toBe(2) // 3 - 1
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(5)
     expect(wrapper.emitted('dismiss-count-down')[4][0]).toBe(1) // 3 - 2
 
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
     expect(wrapper.emitted('dismiss-count-down')[5][0]).toBe(0) // 3 - 3
 
@@ -408,13 +396,13 @@ describe('alert', () => {
     jest.runAllTimers()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(6)
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
@@ -430,14 +418,13 @@ describe('alert', () => {
       }
     })
 
-    const $div = wrapper.find('div')
-    expect($div.exists()).toBe(true)
-    expect($div.classes()).toContain('alert')
-    expect($div.classes()).toContain('alert-dismissible')
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('alert')
+    expect(wrapper.classes()).toContain('alert-dismissible')
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismissed')).toBeUndefined()
     expect(wrapper.emitted('dismiss-count-down')).toBeDefined()
     expect(wrapper.emitted('dismiss-count-down').length).toBe(1)
@@ -446,14 +433,14 @@ describe('alert', () => {
     jest.runTimersToTime(1000)
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(true)
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.emitted('dismiss-count-down').length).toBe(2)
     expect(wrapper.emitted('dismiss-count-down')[1][0]).toBe(1) // 2 - 1
 
     await wrapper.find('button').trigger('click')
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
     expect(wrapper.emitted('dismiss-count-down')[2][0]).toBe(0)
 
@@ -461,13 +448,13 @@ describe('alert', () => {
     jest.runAllTimers()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismiss-count-down').length).toBe(3)
 
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('div').exists()).toBe(false)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
     expect(wrapper.emitted('dismissed')).toBeDefined()
     expect(wrapper.emitted('dismissed').length).toBe(1)
 
