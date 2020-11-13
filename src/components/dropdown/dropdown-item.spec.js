@@ -31,11 +31,13 @@ describe('dropdown-item', () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItem, {
-      provide: {
-        bvDropdown: {
-          hide(arg) {
-            called = true
-            refocus = arg
+      global: {
+        provide: {
+          bvDropdown: {
+            hide(arg) {
+              called = true
+              refocus = arg
+            }
           }
         }
       }
@@ -56,15 +58,17 @@ describe('dropdown-item', () => {
     let called = false
     let refocus = null
     const wrapper = mount(BDropdownItem, {
-      props: { disabled: true },
-      provide: {
-        bvDropdown: {
-          hide(arg) {
-            called = true
-            refocus = arg
+      global: {
+        provide: {
+          bvDropdown: {
+            hide(arg) {
+              called = true
+              refocus = arg
+            }
           }
         }
-      }
+      },
+      props: { disabled: true }
     })
     expect(wrapper.element.tagName).toBe('LI')
 
