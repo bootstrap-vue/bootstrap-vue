@@ -4,7 +4,7 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
-import { defineComponent, h, isVue2, mergeProps } from '../vue'
+import { defineComponent, h, isVue2, mergeProps, Transition } from '../vue'
 import { CLASS_NAME_FADE, CLASS_NAME_SHOW } from '../constants/class-names'
 import { NAME_TRANSITION } from '../constants/components'
 import { isPlainObject } from './inspect'
@@ -75,7 +75,7 @@ export const BVTransition = /*#__PURE__*/ defineComponent({
     transProps.css = true
 
     return h(
-      'transition',
+      Transition,
       // Any transition event listeners will get merged here
       mergeProps(data, { props: transProps }),
       children
