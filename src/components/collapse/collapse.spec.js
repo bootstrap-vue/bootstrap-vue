@@ -37,16 +37,15 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test'
       }
     })
-    // const rootWrapper = createWrapper(wrapper.vm.$root)
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).not.toContain('navbar-collapse')
@@ -57,21 +56,20 @@ describe('collapse', () => {
     wrapper.unmount()
   })
 
-  it('should have expected structure when prop is-nav is set', async () => {
+  it('should have expected structure when prop `is-nav` is set', async () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         isNav: true
       }
     })
-    // const rootWrapper = createWrapper(wrapper.vm.$root)
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).toContain('navbar-collapse')
@@ -86,18 +84,18 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test'
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('collapse')
     expect(wrapper.classes()).not.toContain('show')
@@ -112,19 +110,19 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         visible: true
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('test')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.classes()).toContain('collapse')
@@ -139,20 +137,21 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test'
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.emitted('show')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(false)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(false)
     expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
@@ -167,21 +166,22 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         visible: true
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
@@ -196,22 +196,23 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         visible: true
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.style.display).toEqual('')
     expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
@@ -234,22 +235,22 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         visible: false
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.emitted('show')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(false)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(false)
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
@@ -257,16 +258,14 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
-    await wrapper.setProps({
-      visible: true
-    })
+    await wrapper.setProps({ visible: true })
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toBe(true)
+    expect(wrapper.emitted('update:visible').length).toBe(2)
+    expect(wrapper.emitted('update:visible')[1][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // Visible state
@@ -279,24 +278,24 @@ describe('collapse', () => {
     const wrapper = mount(BCollapse, {
       attachTo: createContainer(),
       props: {
-        // 'id' is a required prop
         id: 'test',
         accordion: 'foo',
         visible: true
       },
       slots: {
-        default: '<div>foobar</div>'
+        default: h('div', 'foobar')
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.element.style.display).toEqual('')
     expect(wrapper.emitted('show')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
@@ -311,8 +310,8 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
     expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // The event we just emitted
     expect(rootWrapper.emitted(EVENT_ACCORDION)[1][0]).toBe('test')
@@ -326,8 +325,8 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input').length).toBe(2)
-    expect(wrapper.emitted('input')[1][0]).toBe(false)
+    expect(wrapper.emitted('update:visible').length).toBe(2)
+    expect(wrapper.emitted('update:visible')[1][0]).toBe(false)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
     expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // Visible state
@@ -343,8 +342,8 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input').length).toBe(3)
-    expect(wrapper.emitted('input')[2][0]).toBe(true)
+    expect(wrapper.emitted('update:visible').length).toBe(3)
+    expect(wrapper.emitted('update:visible')[2][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(3)
     expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // ID
     expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // Visible state
@@ -489,7 +488,7 @@ describe('collapse', () => {
         default: '<div>foobar</div>'
       }
     })
-    // const rootWrapper = createWrapper(wrapper.vm.$root)
+
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -524,14 +523,16 @@ describe('collapse', () => {
         }
       }
     })
+
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.element.style.display).toEqual('')
     expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toBe(1)
-    expect(wrapper.emitted('input')[0][0]).toBe(true)
+    expect(wrapper.emitted('update:visible')).toBeDefined()
+    expect(wrapper.emitted('update:visible').length).toBe(1)
+    expect(wrapper.emitted('update:visible')[0][0]).toBe(true)
     expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeUndefined()
     expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
     expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
