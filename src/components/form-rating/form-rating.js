@@ -100,7 +100,7 @@ const BVFormRatingStar = defineComponent({
         attrs: { tabindex: !disabled && !readonly ? '-1' : null },
         on: { click: this.onClick }
       },
-      [h('span', { staticClass: 'b-rating-icon' }, [this.normalizeSlot(type, slotScope)])]
+      [h('span', { staticClass: 'b-rating-icon' }, this.normalizeSlot(type, slotScope))]
     )
   }
 })
