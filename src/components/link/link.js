@@ -184,8 +184,8 @@ export const BLink = /*#__PURE__*/ defineComponent({
   },
   methods: {
     onClick(evt) {
+      const { isRouterLink } = this
       const evtIsEvent = isEvent(evt)
-      const isRouterLink = this.isRouterLink
       const suppliedHandler = this.bvListeners.click
       if (evtIsEvent && this.disabled) {
         // Stop event from bubbling up
