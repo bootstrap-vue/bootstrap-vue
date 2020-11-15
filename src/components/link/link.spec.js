@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { RouterLink, createRouter, createWebHistory } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../../tests/utils'
 import { h } from '../../vue'
@@ -164,6 +164,7 @@ describe('b-link', () => {
         disabled: true
       }
     })
+
     expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toEqual('true')
 
@@ -176,6 +177,7 @@ describe('b-link', () => {
         disabled: true
       }
     })
+
     expect(wrapper.classes()).toContain('disabled')
 
     wrapper.unmount()
@@ -190,10 +192,11 @@ describe('b-link', () => {
     })
 
     expect(wrapper.element.tagName).toBe('A')
-
     expect(document.activeElement).not.toBe(wrapper.element)
+
     wrapper.vm.focus()
     expect(document.activeElement).toBe(wrapper.element)
+
     wrapper.vm.blur()
     expect(document.activeElement).not.toBe(wrapper.element)
 
@@ -212,9 +215,11 @@ describe('b-link', () => {
           }
         }
       })
+
       expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
+
       await wrapper.find('a').trigger('click')
       expect(called).toBe(1)
       expect(evt).toBeInstanceOf(MouseEvent)
@@ -230,9 +235,11 @@ describe('b-link', () => {
           onClick: [spy1, spy2]
         }
       })
+
       expect(wrapper.element.tagName).toBe('A')
       expect(spy1).not.toHaveBeenCalled()
       expect(spy2).not.toHaveBeenCalled()
+
       await wrapper.find('a').trigger('click')
       expect(spy1).toHaveBeenCalled()
       expect(spy2).toHaveBeenCalled()
@@ -254,9 +261,11 @@ describe('b-link', () => {
           }
         }
       })
+
       expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
+
       await wrapper.find('a').trigger('click')
       expect(called).toBe(0)
       expect(evt).toEqual(null)
@@ -265,14 +274,16 @@ describe('b-link', () => {
     })
 
     it('should NOT invoke click handler bound via "addEventListener" when disabled and clicked', async () => {
+      const spy = jest.fn()
       const wrapper = mount(BLink, {
         props: {
           disabled: true
         }
       })
-      const spy = jest.fn()
+
       expect(wrapper.element.tagName).toBe('A')
       wrapper.find('a').element.addEventListener('click', spy)
+
       await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 
@@ -327,24 +338,23 @@ describe('b-link', () => {
         render() {
           // We just us a simple A tag to render the
           // fake `<g-link>` and assume `to` is a string
-          return h('a', { href: this.to }, [this.$slots.default()])
+          return h('a', { attrs: { href: this.to } }, this.$slots.default())
         }
       }
 
       const App = {
-        components: { BLink },
         render() {
           return h('main', [
             // router-link
-            h('b-link', { props: { to: '/a' } }, ['to-a']),
+            h(BLink, { props: { to: '/a' } }, 'to-a'),
             // regular link
-            h('b-link', { props: { href: '/a' } }, ['href-a']),
+            h(BLink, { props: { href: '/a' } }, 'href-a'),
             // router-link
-            h('b-link', { props: { to: { path: '/b' } } }, ['to-path-b']),
+            h(BLink, { props: { to: { path: '/b' } } }, 'to-path-b'),
             // regular link
-            h('b-link', { props: { href: '/b' } }, ['href-a']),
+            h(BLink, { props: { href: '/b' } }, 'href-a'),
             // g-link
-            h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['g-link-a']),
+            h(BLink, { props: { routerComponentName: 'g-link', to: '/a' } }, 'g-link-a'),
             h('router-view')
           ])
         }
@@ -365,7 +375,7 @@ describe('b-link', () => {
       const wrapper = mount(App, {
         attachTo: createContainer(),
         global: {
-          components: { GLink },
+          components: { GLink, BLink },
           plugins: [router]
         }
       })
@@ -373,32 +383,23 @@ describe('b-link', () => {
       expect(wrapper.vm).toBeDefined()
       expect(wrapper.element.tagName).toBe('MAIN')
 
-      expect(wrapper.findAll('a').length).toBe(5)
+      const $links = wrapper.findAllComponents(BLink)
+      expect($links.length).toBe(5)
 
-      const $links = wrapper.findAll('a')
+      expect($links[0].exists()).toBe(true)
+      expect($links[0].findComponent(RouterLink).exists()).toBe(true)
 
-      expect($links[0].vm).toBeDefined()
-      expect($links[0].vm.$options.name).toBe('BLink')
-      expect($links[0].vm.$children.length).toBe(1)
-      expect($links[0].vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[1].exists()).toBe(true)
+      expect($links[1].findComponent(RouterLink).exists()).toBe(false)
 
-      expect($links[1].vm).toBeDefined()
-      expect($links[1].vm.$options.name).toBe('BLink')
-      expect($links[1].vm.$children.length).toBe(0)
+      expect($links[2].exists()).toBe(true)
+      expect($links[2].findComponent(RouterLink).exists()).toBe(true)
 
-      expect($links[2].vm).toBeDefined()
-      expect($links[2].vm.$options.name).toBe('BLink')
-      expect($links[2].vm.$children.length).toBe(1)
-      expect($links[2].vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[3].exists()).toBe(true)
+      expect($links[3].findComponent(RouterLink).exists()).toBe(false)
 
-      expect($links[3].vm).toBeDefined()
-      expect($links[3].vm.$options.name).toBe('BLink')
-      expect($links[3].vm.$children.length).toBe(0)
-
-      expect($links[4].vm).toBeDefined()
-      expect($links[4].vm.$options.name).toBe('BLink')
-      expect($links[4].vm.$children.length).toBe(1)
-      expect($links[4].vm.$children[0].$options.name).toBe('GLink')
+      expect($links[4].exists()).toBe(true)
+      expect($links[4].findComponent(GLink).exists()).toBe(true)
 
       wrapper.unmount()
     })
