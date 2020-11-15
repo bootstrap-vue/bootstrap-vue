@@ -9,16 +9,17 @@ describe('form-radio-group', () => {
 
   it('default has structure <div></div>', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
-    const children = wrapper.element.children
-    expect(children.length).toEqual(0)
+    expect(wrapper.element.children.length).toEqual(0)
 
     wrapper.unmount()
   })
 
   it('default has no classes on wrapper other than focus ring', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper.classes().length).toEqual(1)
     expect(wrapper.classes()).toContain('bv-no-focus-ring')
 
@@ -29,8 +30,9 @@ describe('form-radio-group', () => {
     const wrapper = mount(BFormRadioGroup, {
       attachTo: createContainer()
     })
+
     await waitNT(wrapper.vm)
-    // Auto ID not generated until after mount
+
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.unmount()
@@ -38,6 +40,7 @@ describe('form-radio-group', () => {
 
   it('default has tabindex set to -1', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('-1')
 
@@ -46,6 +49,7 @@ describe('form-radio-group', () => {
 
   it('default does not have aria-required set', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper.attributes('aria-required')).toBeUndefined()
 
     wrapper.unmount()
@@ -53,6 +57,7 @@ describe('form-radio-group', () => {
 
   it('default does not have aria-invalid set', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.unmount()
@@ -60,6 +65,7 @@ describe('form-radio-group', () => {
 
   it('default has attribute role=radiogroup', async () => {
     const wrapper = mount(BFormRadioGroup)
+
     expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('radiogroup')
 
@@ -73,6 +79,7 @@ describe('form-radio-group', () => {
         id: 'test'
       }
     })
+
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('test')
 
@@ -86,6 +93,7 @@ describe('form-radio-group', () => {
         validated: true
       }
     })
+
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes()).toContain('was-validated')
 
@@ -99,6 +107,7 @@ describe('form-radio-group', () => {
         state: false
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
@@ -112,6 +121,7 @@ describe('form-radio-group', () => {
         state: true
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.unmount()
@@ -124,6 +134,7 @@ describe('form-radio-group', () => {
         state: null
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.unmount()
@@ -136,6 +147,7 @@ describe('form-radio-group', () => {
         ariaInvalid: true
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
@@ -149,6 +161,7 @@ describe('form-radio-group', () => {
         ariaInvalid: 'true'
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
@@ -162,6 +175,7 @@ describe('form-radio-group', () => {
         ariaInvalid: ''
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
 
@@ -177,6 +191,7 @@ describe('form-radio-group', () => {
         buttons: true
       }
     })
+
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.classes()).toContain('btn-group')
@@ -194,6 +209,7 @@ describe('form-radio-group', () => {
         stacked: true
       }
     })
+
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes().length).toBe(3)
     expect(wrapper.classes()).toContain('btn-group-vertical')
@@ -211,6 +227,7 @@ describe('form-radio-group', () => {
         size: 'lg'
       }
     })
+
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.classes()).toContain('btn-group')
@@ -230,6 +247,7 @@ describe('form-radio-group', () => {
         size: 'lg'
       }
     })
+
     expect(wrapper.classes()).toBeDefined()
     expect(wrapper.classes().length).toBe(4)
     expect(wrapper.classes()).toContain('btn-group-vertical')
@@ -264,17 +282,18 @@ describe('form-radio-group', () => {
     const wrapper = mount(App, {
       attachTo: createContainer()
     })
+
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
 
     // Find all the labels with .btn class
-    const btns = wrapper.findAll('label.btn')
-    expect(btns).toBeDefined()
-    expect(btns.length).toBe(3)
+    const $buttons = wrapper.findAll('label.btn')
+    expect($buttons).toBeDefined()
+    expect($buttons.length).toBe(3)
     // Expect them to have the correct variant classes
-    expect(btns[0].classes()).toContain('btn-primary')
-    expect(btns[1].classes()).toContain('btn-primary')
-    expect(btns[2].classes()).toContain('btn-danger')
+    expect($buttons[0].classes()).toContain('btn-primary')
+    expect($buttons[1].classes()).toContain('btn-primary')
+    expect($buttons[2].classes()).toContain('btn-danger')
 
     wrapper.unmount()
   })
@@ -289,11 +308,10 @@ describe('form-radio-group', () => {
         checked: ''
       }
     })
-    expect(wrapper.classes()).toBeDefined()
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
+
     expect(wrapper.vm.localChecked).toEqual('')
-    expect(radios.wrappers.every(c => c.find('input[type=radio]').exists())).toBe(true)
+    expect(wrapper.classes()).toBeDefined()
+    expect(wrapper.findAll('input[type=radio]').length).toBe(3)
 
     wrapper.unmount()
   })
@@ -306,14 +324,15 @@ describe('form-radio-group', () => {
         checked: ''
       }
     })
-    expect(wrapper.classes()).toBeDefined()
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
+
     expect(wrapper.vm.localChecked).toEqual('')
-    expect(radios.wrappers.every(c => c.find('input[type=radio]').exists())).toBe(true)
-    expect(radios[0].attributes('disabled')).toBeUndefined()
-    expect(radios[1].attributes('disabled')).toBeUndefined()
-    expect(radios[2].attributes('disabled')).toBeDefined()
+    expect(wrapper.classes()).toBeDefined()
+
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+    expect($radios[0].attributes('disabled')).toBeUndefined()
+    expect($radios[1].attributes('disabled')).toBeUndefined()
+    expect($radios[2].attributes('disabled')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -332,13 +351,15 @@ describe('form-radio-group', () => {
     // computed in a `$nextTick()` on mount
     await waitNT(wrapper.vm)
 
-    expect(wrapper.classes()).toBeDefined()
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('')
-    expect(radios.wrappers.every(c => c.find('input[type=radio]'))).toBe(true)
-    expect(radios.wrappers.every(c => c.find('input[required]'))).toBe(true)
-    expect(radios.wrappers.every(c => c.find('input[aria-required="true"]'))).toBe(true)
+    expect(wrapper.classes()).toBeDefined()
+
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+    $radios.forEach($radio => {
+      expect($radio.attributes('required')).toBeDefined()
+      expect($radio.attributes('aria-required')).toBe('true')
+    })
 
     wrapper.unmount()
   })
@@ -351,12 +372,14 @@ describe('form-radio-group', () => {
         checked: ''
       }
     })
-    expect(wrapper.classes()).toBeDefined()
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
-    expect(wrapper.vm.localChecked).toEqual('')
 
-    await radios[0].trigger('click')
+    expect(wrapper.vm.localChecked).toEqual('')
+    expect(wrapper.classes()).toBeDefined()
+
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+
+    await $radios[0].trigger('click')
     expect(wrapper.vm.localChecked).toEqual('one')
     expect(wrapper.emitted('change')).toBeDefined()
     expect(wrapper.emitted('change').length).toBe(1)
@@ -365,14 +388,14 @@ describe('form-radio-group', () => {
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('one')
 
-    await radios[2].trigger('click')
+    await $radios[2].trigger('click')
     expect(wrapper.vm.localChecked).toEqual('three')
     expect(wrapper.emitted('change').length).toBe(2)
     expect(wrapper.emitted('change')[1][0]).toEqual('three')
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toEqual('three')
 
-    await radios[0].trigger('click')
+    await $radios[0].trigger('click')
     expect(wrapper.vm.localChecked).toEqual('one')
     expect(wrapper.emitted('change').length).toBe(3)
     expect(wrapper.emitted('change')[2][0]).toEqual('one')
@@ -390,24 +413,25 @@ describe('form-radio-group', () => {
         checked: 'two'
       }
     })
-    expect(wrapper.classes()).toBeDefined()
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
+
     expect(wrapper.vm.localChecked).toEqual('two')
-    expect(radios.wrappers.every(w => w.attributes('type') === 'radio')).toBe(true)
-    expect(radios[0].element.checked).toBe(false)
-    expect(radios[1].element.checked).toBe(true)
-    expect(radios[2].element.checked).toBe(false)
+    expect(wrapper.classes()).toBeDefined()
+
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+
+    expect($radios[0].element.checked).toBe(false)
+    expect($radios[1].element.checked).toBe(true)
+    expect($radios[2].element.checked).toBe(false)
 
     await wrapper.setProps({ checked: 'three' })
     await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.vm.localChecked).toEqual('three')
-    expect(radios.wrappers.every(w => w.attributes('type') === 'radio')).toBe(true)
-    expect(radios[0].element.checked).toBe(false)
-    expect(radios[1].element.checked).toBe(false)
-    expect(radios[2].element.checked).toBe(true)
+    expect($radios[0].element.checked).toBe(false)
+    expect($radios[1].element.checked).toBe(false)
+    expect($radios[2].element.checked).toBe(true)
 
     wrapper.unmount()
   })
