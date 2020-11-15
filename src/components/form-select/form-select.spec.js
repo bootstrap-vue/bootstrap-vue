@@ -312,7 +312,9 @@ describe('form-select', () => {
     expect($options[0].attributes('value')).toBe('one')
     expect($options[1].attributes('value')).toBe('two')
     expect($options[2].attributes('value')).toBe('three')
-    expect($options.wrappers.every(o => o.find('[disabled]').exists())).toBe(false)
+    $options.forEach($option => {
+      expect($option.attributes('disabled')).toBeUndefined()
+    })
 
     wrapper.unmount()
   })
