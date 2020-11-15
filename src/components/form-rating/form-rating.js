@@ -110,7 +110,7 @@ const BVFormRatingStar = defineComponent({
 export const BFormRating = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
-  mixins: [idMixin, modelMixin, formSizeMixin],
+  mixins: [idMixin, modelMixin, formSizeMixin, normalizeSlotMixin],
   props: makePropsConfigurable(
     {
       ...omit(formControlProps, ['required', 'autofocus']),
@@ -337,14 +337,13 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
       formattedRating,
       showClear,
       isRTL,
-      isInteractive,
-      $scopedSlots
+      isInteractive
     } = this
     const $content = []
 
     if (showClear && !disabled && !readonly) {
       const $icon = h('span', { staticClass: 'b-rating-icon' }, [
-        ($scopedSlots['icon-clear'] || this.iconClearFn)()
+        this.normalizeSlot('icon-clear') || this.iconClearFn()
       ])
       $content.push(
         h(
@@ -378,9 +377,9 @@ export const BFormRating = /*#__PURE__*/ defineComponent({
           },
           on: { [EVENT_NAME_SELECTED]: this.onSelected },
           scopedSlots: {
-            empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
-            half: $scopedSlots['icon-half'] || this.iconHalfFn,
-            full: $scopedSlots['icon-full'] || this.iconFullFn
+            empty: this.normalizeSlot('icon-empty') || this.iconEmptyFn,
+            half: this.normalizeSlot('icon-half') || this.iconHalfFn,
+            full: this.normalizeSlot('icon-full') || this.iconFullFn
           },
           key: index
         })
