@@ -42,7 +42,7 @@ describe('media-aside', () => {
     expect(wrapper.classes()).toContain('align-self-start')
     expect(wrapper.classes().length).toBe(3)
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('has alignment class when prop `vertical-align` set', async () => {
