@@ -235,7 +235,7 @@ describe('form-textarea', () => {
 
   it('does mot emit an update event on mount when value is set and no formatter', async () => {
     const wrapper = mount(BFormTextarea, {
-      value: 'foobar'
+      modelValue: 'foobar'
     })
     expect(wrapper.emitted('update')).toBeUndefined()
 
@@ -247,9 +247,9 @@ describe('form-textarea', () => {
 
     wrapper.element.value = 'test'
     await wrapper.trigger('input')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input')[0].length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('test')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')[0].length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('test')
 
     wrapper.unmount()
   })
@@ -312,16 +312,16 @@ describe('form-textarea', () => {
 
   it('does not emit an update, input or change event when value prop changed', async () => {
     const wrapper = mount(BFormTextarea, {
-      value: ''
+      modelValue: ''
     })
 
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
-    await wrapper.setProps({ value: 'test' })
+    await wrapper.setProps({ modelValue: 'test' })
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
     wrapper.unmount()
@@ -570,7 +570,7 @@ describe('form-textarea', () => {
   //   const input = mount(BFormTextarea, {
   //     attachTo: createContainer(),
   //     props: {
-  //       value: '',
+  //       modelValue: '',
   //       rows: 2,
   //       maxRows: 10
   //     }
@@ -601,7 +601,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         }
@@ -616,9 +616,9 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('test')
     // Followed by an input event with formatted value
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('test')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('test')
     // And no change event
     expect(wrapper.emitted('change')).toBeUndefined()
 
@@ -629,7 +629,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         }
@@ -648,7 +648,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
     // And no input event
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -672,9 +672,9 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
     // Followed by an input
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('TEST')
     expect(wrapper.vm.localValue).toEqual('TEST')
 
     await wrapper.trigger('change')
@@ -701,7 +701,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('blur')[0][0].type).toEqual('blur')
 
     // Expected number of events from above sequence
-    expect(wrapper.emitted('input').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('blur').length).toEqual(1)
     expect(wrapper.emitted('update').length).toEqual(2)
@@ -713,14 +713,14 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: 'TEST',
+        modelValue: 'TEST',
         formatter(value) {
           return value.toLowerCase()
         }
       }
     })
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
@@ -732,7 +732,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: 'TEST',
+        modelValue: 'TEST',
         formatter(value) {
           return value.toLowerCase()
         },
@@ -740,7 +740,7 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
@@ -752,7 +752,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         }
@@ -760,13 +760,13 @@ describe('form-textarea', () => {
     })
 
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('')
 
-    await wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ modelValue: 'TEST' })
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
@@ -777,7 +777,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         formatter(value) {
           return value.toLowerCase()
         },
@@ -786,14 +786,14 @@ describe('form-textarea', () => {
     })
 
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('')
 
     // Does not emit any events
-    await wrapper.setProps({ value: 'TEST' })
+    await wrapper.setProps({ modelValue: 'TEST' })
     expect(wrapper.emitted('update')).toBeUndefined()
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
@@ -804,7 +804,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         trim: true
       }
     })
@@ -818,9 +818,9 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('TEST')
 
     wrapper.element.value = 'TEST  '
     await wrapper.trigger('input')
@@ -829,9 +829,9 @@ describe('form-textarea', () => {
     // `v-model` value stays the same and update event shouldn't be emitted again
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual('TEST  ')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(2)
+    expect(wrapper.emitted('update:modelValue')[1][0]).toEqual('TEST  ')
 
     wrapper.element.value = '  TEST  '
     await wrapper.trigger('input')
@@ -840,9 +840,9 @@ describe('form-textarea', () => {
     // `v-model` value stays the same and update event shouldn't be emitted again
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(3)
-    expect(wrapper.emitted('input')[2][0]).toEqual('  TEST  ')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(3)
+    expect(wrapper.emitted('update:modelValue')[2][0]).toEqual('  TEST  ')
 
     await wrapper.trigger('input')
 
@@ -850,9 +850,9 @@ describe('form-textarea', () => {
     // `v-model` value stays the same and update event shouldn't be emitted again
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(1)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(4)
-    expect(wrapper.emitted('input')[3][0]).toEqual('  TEST  ')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(4)
+    expect(wrapper.emitted('update:modelValue')[3][0]).toEqual('  TEST  ')
 
     await wrapper.trigger('change')
 
@@ -871,7 +871,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       attachTo: createContainer(),
       props: {
-        value: '',
+        modelValue: '',
         number: true
       }
     })
@@ -886,10 +886,10 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(1)
     expect(wrapper.emitted('update')[0][0]).toEqual('TEST')
     expect(typeof wrapper.emitted('update')[0][0]).toEqual('string')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(1)
-    expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
-    expect(typeof wrapper.emitted('input')[0][0]).toEqual('string')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(1)
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual('TEST')
+    expect(typeof wrapper.emitted('update:modelValue')[0][0]).toEqual('string')
 
     wrapper.element.value = '123.45'
     await wrapper.trigger('input')
@@ -899,10 +899,10 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual(123.45)
     expect(typeof wrapper.emitted('update')[1][0]).toEqual('number')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(2)
-    expect(wrapper.emitted('input')[1][0]).toEqual('123.45')
-    expect(typeof wrapper.emitted('input')[1][0]).toEqual('string')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(2)
+    expect(wrapper.emitted('update:modelValue')[1][0]).toEqual('123.45')
+    expect(typeof wrapper.emitted('update:modelValue')[1][0]).toEqual('string')
 
     wrapper.element.value = '0123.450'
     await wrapper.trigger('input')
@@ -912,10 +912,10 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update')).toBeDefined()
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual(123.45)
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(3)
-    expect(wrapper.emitted('input')[2][0]).toEqual('0123.450')
-    expect(typeof wrapper.emitted('input')[2][0]).toEqual('string')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(3)
+    expect(wrapper.emitted('update:modelValue')[2][0]).toEqual('0123.450')
+    expect(typeof wrapper.emitted('update:modelValue')[2][0]).toEqual('string')
 
     wrapper.element.value = '0123 450'
     await wrapper.trigger('input')
@@ -925,10 +925,10 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('update').length).toEqual(3)
     expect(wrapper.emitted('update')[2][0]).toEqual(123)
     expect(typeof wrapper.emitted('update')[2][0]).toEqual('number')
-    expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('input').length).toEqual(4)
-    expect(wrapper.emitted('input')[3][0]).toEqual('0123 450')
-    expect(typeof wrapper.emitted('input')[3][0]).toEqual('string')
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue').length).toEqual(4)
+    expect(wrapper.emitted('update:modelValue')[3][0]).toEqual('0123 450')
+    expect(typeof wrapper.emitted('update:modelValue')[3][0]).toEqual('string')
 
     wrapper.unmount()
   })
