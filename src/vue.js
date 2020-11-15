@@ -6,7 +6,9 @@ import {
   defineComponent as _defineComponent,
   h as _h,
   isVue2,
-  mergeProps as _mergeProps
+  mergeProps as _mergeProps,
+  resolveComponent as _resolveComponent,
+  resolveDirective as _resolveDirective
 } from 'vue-demi'
 import { mergeData } from 'vue-functional-data-merge'
 import { SLOT_NAME_DEFAULT } from './constants/slots'
@@ -140,6 +142,10 @@ const h = (...args) => {
   return _h(...[tag, data, children].slice(0, args.length))
 }
 
+const resolveComponent = value => (isVue2 ? value : _resolveComponent(value))
+
+const resolveDirective = value => (isVue2 ? value : _resolveDirective(value))
+
 export * from 'vue-demi'
 export {
   COMPONENT_UID_KEY,
@@ -148,5 +154,7 @@ export {
   h,
   mergeProps,
   normalizeCreateElementData,
-  normalizeDefineComponentData
+  normalizeDefineComponentData,
+  resolveComponent,
+  resolveDirective
 }
