@@ -1,4 +1,4 @@
-import { h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_ROW } from '../../constants/components'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
@@ -90,7 +90,7 @@ const generateProps = () => {
 
 // --- Main component ---
 // @vue/component
-export const BRow = {
+export const BRow = defineComponent({
   name: NAME_ROW,
   functional: true,
   get props() {
@@ -119,4 +119,4 @@ export const BRow = {
     })
     return h(props.tag, mergeProps(data, { staticClass: 'row', class: classList }), children)
   }
-}
+})
