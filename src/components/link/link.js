@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveComponent } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import { concat } from '../../utils/array'
@@ -223,17 +223,17 @@ export const BLink = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const { active, disabled, bvAttrs } = this
+    const { active, disabled, computedTag, isRouterLink, bvAttrs } = this
 
     return h(
-      this.computedTag,
+      isRouterLink ? resolveComponent(computedTag) : computedTag,
       {
         class: [{ active, disabled }, bvAttrs.class],
         style: bvAttrs.style,
         attrs: this.computedAttrs,
         props: this.computedProps,
         // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`
-        [this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
+        [isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
       },
       this.normalizeSlot()
     )
