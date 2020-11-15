@@ -479,7 +479,7 @@ describe('table > tbody row events', () => {
     await waitNT(wrapper.vm)
     const $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
-    expect($rows.wrappers.every(w => w.attributes('tabindex') === '0')).toBe(true)
+    expect($rows.every(w => w.attributes('tabindex') === '0')).toBe(true)
 
     expect(document.activeElement).not.toBe($rows[0].element)
     expect(document.activeElement).not.toBe($rows[1].element)
