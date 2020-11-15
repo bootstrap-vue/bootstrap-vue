@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../../tests/utils'
+import { BIcon } from '../../icons'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
@@ -30,9 +31,9 @@ describe('form-rating', () => {
 
     const $stars = wrapper.findAll('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.wrappers.every(s => s.find('.flex-grow-1'))).toBe(true)
+    expect($stars.every(s => s.find('.flex-grow-1'))).toBe(true)
     // Since value is `null` all stars will be empty
-    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty'))).toBe(true)
+    expect($stars.every(s => s.find('.b-rating-star-empty'))).toBe(true)
 
     // `show-value` is `false` by default
     const $value = wrapper.find('.b-rating-value')
@@ -59,16 +60,16 @@ describe('form-rating', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    const $stars = wrapper.findAll('.b-rating-star')
+    const $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars.length).toBe(5)
-    expect($stars.wrappers.every(s => s.find('.flex-grow-1').exists())).toBe(true)
-    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
+    expect($stars.every(s => s.find('.flex-grow-1').exists())).toBe(true)
+    expect($stars.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
 
-    const $icons = wrapper.findAll('.b-icon')
+    const $icons = wrapper.findAllComponents(BIcon)
     expect($icons.length).toBe(5)
-    expect($icons.wrappers.every(i => i.find('.bi-star').exists())).toBe(true)
-    expect($icons.wrappers.every(i => i.find('.text-primary').exists())).toBe(true)
-    expect($icons.wrappers.every(i => i.find('.text-warning').exists())).toBe(false)
+    expect($icons.every(i => i.find('.bi-star').exists())).toBe(true)
+    expect($icons.every(i => i.find('.text-primary').exists())).toBe(true)
+    expect($icons.every(i => i.find('.text-warning').exists())).toBe(false)
 
     wrapper.unmount()
   })
@@ -83,10 +84,10 @@ describe('form-rating', () => {
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    const $stars = wrapper.findAll('.b-rating-star')
+    const $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars.length).toBe(10)
-    expect($stars.wrappers.every(s => s.find('.flex-grow-1').exists())).toBe(true)
-    expect($stars.wrappers.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
+    expect($stars.every(s => s.find('.flex-grow-1').exists())).toBe(true)
+    expect($stars.every(s => s.find('.b-rating-star-empty').exists())).toBe(true)
 
     wrapper.unmount()
   })
@@ -95,7 +96,7 @@ describe('form-rating', () => {
     const wrapper = mount(BFormRating, {
       props: {
         name: 'foo',
-        value: 3.5
+        modelValue: 3.5
       }
     })
 
@@ -114,16 +115,16 @@ describe('form-rating', () => {
   it('has expected structure when prop `value` set', async () => {
     const wrapper = mount(BFormRating, {
       props: {
-        value: '1'
+        modelValue: '1'
       }
     })
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update:change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(1)
-    const $stars = wrapper.findAll('.b-rating-star')
+    let $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars.length).toBe(5)
     expect($stars[0].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[1].find('.b-rating-star-empty').exists()).toBe(true)
@@ -131,26 +132,24 @@ describe('form-rating', () => {
     expect($stars[3].find('.b-rating-star-empty').exists()).toBe(true)
     expect($stars[4].find('.b-rating-star-empty').exists()).toBe(true)
 
-    await wrapper.setProps({
-      value: 3.5
-    })
+    await wrapper.setProps({ modelValue: 3.5 })
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update:change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(3.5)
+    $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars[0].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[1].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[2].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[3].find('.b-rating-star-half').exists()).toBe(true)
     expect($stars[4].find('.b-rating-star-empty').exists()).toBe(true)
 
-    await wrapper.setProps({
-      value: 1
-    })
+    await wrapper.setProps({ modelValue: 1 })
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update:change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(1)
+    $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars[0].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[1].find('.b-rating-star-empty').exists()).toBe(true)
     expect($stars[2].find('.b-rating-star-empty').exists()).toBe(true)
@@ -159,10 +158,11 @@ describe('form-rating', () => {
 
     // Click 5th star
     await $stars[4].trigger('click')
-    expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('change').length).toBe(1)
-    expect(wrapper.emitted('change')[0][0]).toBe(5)
+    expect(wrapper.emitted('update:change')).toBeDefined()
+    expect(wrapper.emitted('update:change').length).toBe(1)
+    expect(wrapper.emitted('update:change')[0][0]).toBe(5)
     expect(wrapper.vm.localValue).toBe(5)
+    $stars = wrapper.findAllComponents('.b-rating-star')
     expect($stars[0].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[1].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[2].find('.b-rating-star-full').exists()).toBe(true)
@@ -171,8 +171,8 @@ describe('form-rating', () => {
 
     // Click 2nd star
     await $stars[1].trigger('click')
-    expect(wrapper.emitted('change').length).toBe(2)
-    expect(wrapper.emitted('change')[1][0]).toBe(2)
+    expect(wrapper.emitted('update:change').length).toBe(2)
+    expect(wrapper.emitted('update:change')[1][0]).toBe(2)
     expect(wrapper.vm.localValue).toBe(2)
     expect($stars[0].find('.b-rating-star-full').exists()).toBe(true)
     expect($stars[1].find('.b-rating-star-full').exists()).toBe(true)
@@ -187,14 +187,14 @@ describe('form-rating', () => {
     const wrapper = mount(BFormRating, {
       props: {
         showClear: true,
-        value: 3
+        modelValue: 3
       }
     })
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
 
-    const $stars = wrapper.findAll('.b-rating-star')
+    const $stars = wrapper.findAllComponents('.b-rating-star')
     // The clear button is a "star"
     expect($stars.length).toBe(6)
     expect($stars[0].find('.b-rating-star-clear').exists()).toBe(true)
@@ -202,12 +202,12 @@ describe('form-rating', () => {
 
     const $clear = wrapper.find('.b-rating-star-clear')
     expect($clear.exists()).toBe(true)
-    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update:change')).toBeUndefined()
 
     await $clear.trigger('click')
-    expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('change').length).toBe(1)
-    expect(wrapper.emitted('change')[0][0]).toEqual(null)
+    expect(wrapper.emitted('update:change')).toBeDefined()
+    expect(wrapper.emitted('update:change').length).toBe(1)
+    expect(wrapper.emitted('update:change')[0][0]).toEqual(null)
 
     wrapper.unmount()
   })
@@ -217,7 +217,7 @@ describe('form-rating', () => {
       props: {
         locale: 'en',
         showValue: true,
-        value: '3.5',
+        modelValue: '3.5',
         precision: 2
       }
     })
@@ -233,14 +233,14 @@ describe('form-rating', () => {
     expect($value.text()).toEqual('3.50')
 
     await wrapper.setProps({
-      value: null
+      modelValue: null
     })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('')
 
     await wrapper.setProps({
-      value: '1.236'
+      modelValue: '1.236'
     })
     await waitNT(wrapper.vm)
 
@@ -255,7 +255,7 @@ describe('form-rating', () => {
         locale: 'en',
         showValue: true,
         showValueMax: true,
-        value: '3.5',
+        modelValue: '3.5',
         precision: 2
       }
     })
@@ -270,16 +270,12 @@ describe('form-rating', () => {
     expect($value.exists()).toBe(true)
     expect($value.text()).toEqual('3.50/5')
 
-    await wrapper.setProps({
-      value: null
-    })
+    await wrapper.setProps({ modelValue: null })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('-/5')
 
-    await wrapper.setProps({
-      value: '1.236'
-    })
+    await wrapper.setProps({ modelValue: '1.236' })
     await waitNT(wrapper.vm)
 
     expect($value.text()).toEqual('1.24/5')
@@ -294,7 +290,7 @@ describe('form-rating', () => {
         locale: 'en',
         showValue: true,
         disabled: false,
-        value: '3.5',
+        modelValue: '3.5',
         precision: 2
       }
     })
@@ -343,7 +339,7 @@ describe('form-rating', () => {
       props: {
         locale: 'en',
         showValue: true,
-        value: null
+        modelValue: null
       }
     })
 
