@@ -8,7 +8,8 @@ import {
   isVue2,
   mergeProps as _mergeProps,
   resolveComponent as _resolveComponent,
-  resolveDirective as _resolveDirective
+  resolveDirective as _resolveDirective,
+  withDirectives
 } from 'vue-demi'
 import { mergeData } from 'vue-functional-data-merge'
 import { SLOT_NAME_DEFAULT } from './constants/slots'
@@ -68,7 +69,7 @@ const normalizeDefineComponentData = data => {
   }
 }
 
-const normalizeCreateElementData = data => {
+const normalizeVNodeData = data => {
   if (isVue2) {
     return data
   }
@@ -108,6 +109,11 @@ const normalizeCreateElementData = data => {
   }
 }
 
+const normalizeVNodeDirectives = directives =>
+  isVue2
+    ? directives
+    : directives.map(({ name, value, arg, modifiers }) => [name, value, arg, modifiers])
+
 const defineDirective = data => {
   if (isVue2) {
     return data
@@ -127,19 +133,31 @@ const defineDirective = data => {
 // --- Overwrite methods ---
 
 const mergeProps = (...args) =>
-  isVue2 ? mergeData(...args) : _mergeProps(...args.map(data => normalizeCreateElementData(data)))
+  isVue2 ? mergeData(...args) : _mergeProps(...args.map(data => normalizeVNodeData(data)))
 
 const defineComponent = data => _defineComponent(normalizeDefineComponentData(data))
 
 const h = (...args) => {
+  if (isVue2) {
+    return _h(...args)
+  }
+
   let [tag, data, children] = args
+  let normalizedDirectives = []
+
   if (isUndefined(tag) && !isVue2) {
     return null
   }
+
   if (isPlainObject(data)) {
-    data = normalizeCreateElementData(data)
+    const { directives = [], ...otherData } = data
+    data = normalizeVNodeData(otherData)
+    normalizedDirectives = normalizeVNodeDirectives(directives)
   }
-  return _h(...[tag, data, children].slice(0, args.length))
+
+  const vNode = _h(...[tag, data, children].slice(0, args.length))
+
+  return normalizedDirectives.length > 0 ? withDirectives(vNode, normalizedDirectives) : vNode
 }
 
 const resolveComponent = value => (isVue2 ? value : _resolveComponent(value))
@@ -153,8 +171,9 @@ export {
   defineDirective,
   h,
   mergeProps,
-  normalizeCreateElementData,
   normalizeDefineComponentData,
+  normalizeVNodeData,
+  normalizeVNodeDirectives,
   resolveComponent,
   resolveDirective
 }
