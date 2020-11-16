@@ -221,10 +221,14 @@ describe('form-input', () => {
   })
 
   it('renders text input when type not supported', async () => {
-    const { warnHandler } = Vue.config
-    Vue.config.warnHandler = jest.fn()
+    const warnHandler = jest.fn()
 
     const wrapper = mount(BFormInput, {
+      global: {
+        config: {
+          warnHandler
+        }
+      },
       props: {
         type: 'foobar'
       }
@@ -233,8 +237,7 @@ describe('form-input', () => {
     const $input = wrapper.find('input')
     expect($input.attributes('type')).toBe('text')
 
-    expect(Vue.config.warnHandler).toHaveBeenCalled()
-    Vue.config.warnHandler = warnHandler
+    expect(warnHandler).toHaveBeenCalled()
 
     wrapper.unmount()
   })
