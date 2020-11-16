@@ -1,7 +1,7 @@
 // Plugin for adding `$bvModal` property to all Vue instances
 import { defineComponent } from '../../../vue'
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
-import { EVENT_NAME_HIDE, EVENT_NAME_SHOW } from '../../constants/events'
+import { EVENT_NAME_HIDE, EVENT_NAME_SHOW } from '../../../constants/events'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
