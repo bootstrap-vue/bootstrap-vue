@@ -27,7 +27,7 @@ import {
 
 // --- Constants ---
 
-const PROP_NAME_VISIBLE = 'show'
+const PROP_NAME_VISIBLE = 'visible'
 
 const ROOT_EVENT_NAME_COLLAPSE_ACCORDION = getRootEventName(NAME_COLLAPSE, 'accordion')
 
