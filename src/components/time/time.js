@@ -1,7 +1,9 @@
 // BTime control (not form input control)
 import { defineComponent, h } from '../../vue'
 import { NAME_TIME } from '../../constants/components'
+import { EVENT_NAME_CONTEXT, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { RX_TIME } from '../../constants/regex'
 import identity from '../../utils/identity'
 import looseEqual from '../../utils/loose-equal'
@@ -16,6 +18,7 @@ import { toInteger } from '../../utils/number'
 import { toString } from '../../utils/string'
 import { pick } from '../../utils/object'
 import idMixin from '../../mixins/id'
+import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import { BFormSpinbutton, props as formSpinbuttonProps } from '../form-spinbutton/form-spinbutton'
 import { BIconCircleFill, BIconChevronUp } from '../../icons/icons'
@@ -56,7 +59,7 @@ const formatHMS = ({ hours, minutes, seconds }, requireSeconds = false) => {
 
 export const props = makePropsConfigurable(
   {
-    value: {
+    [PROP_NAME_MODEL_VALUE]: {
       type: String,
       default: ''
     },
@@ -147,14 +150,11 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BTime = /*#__PURE__*/ defineComponent({
   name: NAME_TIME,
-  mixins: [idMixin, normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [idMixin, modelMixin, normalizeSlotMixin],
   props,
+  emits: [EVENT_NAME_CONTEXT],
   data() {
-    const parsed = parseHMS(this.value || '')
+    const parsed = parseHMS(this[PROP_NAME_MODEL_VALUE] || '')
     return {
       // Spin button models
       modelHours: parsed.hours,
@@ -290,48 +290,48 @@ export const BTime = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      if (newVal !== oldVal && !looseEqual(parseHMS(newVal), parseHMS(this.computedHMS))) {
-        const { hours, minutes, seconds, ampm } = parseHMS(newVal)
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+      if (newValue !== oldValue && !looseEqual(parseHMS(newValue), parseHMS(this.computedHMS))) {
+        const { hours, minutes, seconds, ampm } = parseHMS(newValue)
         this.modelHours = hours
         this.modelMinutes = minutes
         this.modelSeconds = seconds
         this.modelAmpm = ampm
       }
     },
-    computedHMS(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('input', newVal)
+    computedHMS(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
       }
     },
-    context(newVal, oldVal) {
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context', newVal)
+    context(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(EVENT_NAME_CONTEXT, newValue)
       }
     },
-    modelAmpm(newVal, oldVal) {
-      if (newVal !== oldVal) {
+    modelAmpm(newValue, oldValue) {
+      if (newValue !== oldValue) {
         const hours = isNull(this.modelHours) ? 0 : this.modelHours
         this.$nextTick(() => {
-          if (newVal === 0 && hours > 11) {
+          if (newValue === 0 && hours > 11) {
             // Switched to AM
             this.modelHours = hours - 12
-          } else if (newVal === 1 && hours < 12) {
+          } else if (newValue === 1 && hours < 12) {
             // Switched to PM
             this.modelHours = hours + 12
           }
         })
       }
     },
-    modelHours(newHours, oldHours) {
-      if (newHours !== oldHours) {
-        this.modelAmpm = newHours > 11 ? 1 : 0
+    modelHours(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.modelAmpm = newValue > 11 ? 1 : 0
       }
     }
   },
   created() {
     this.$nextTick(() => {
-      this.$emit('context', this.context)
+      this.$emit(EVENT_NAME_CONTEXT, this.context)
     })
   },
   mounted() {
