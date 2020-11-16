@@ -2,9 +2,9 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
+import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
-import { PROP_NAME_MODEL_VALUE } from '../constants/props'
+import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { RX_SPACES } from '../../constants/regex'
 import cssEscape from '../../utils/css-escape'
