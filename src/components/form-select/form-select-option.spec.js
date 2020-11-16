@@ -5,12 +5,11 @@ describe('form-select-option', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        value: 'foo'
+        modelValue: 'foo'
       }
     })
 
     expect(wrapper.element.tagName).toBe('OPTION')
-    expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
 
@@ -20,7 +19,7 @@ describe('form-select-option', () => {
   it('renders default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        value: 'foo'
+        modelValue: 'foo'
       },
       slots: {
         default: 'foobar'
@@ -28,7 +27,6 @@ describe('form-select-option', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTION')
-    expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.text()).toEqual('foobar')
 
@@ -38,7 +36,7 @@ describe('form-select-option', () => {
   it('renders HTML as default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        value: 'foo'
+        modelValue: 'foo'
       },
       slots: {
         default: '<b>Bold</b>'
@@ -46,7 +44,6 @@ describe('form-select-option', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTION')
-    expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
 
     const $bold = wrapper.find('b')
@@ -58,16 +55,14 @@ describe('form-select-option', () => {
   it('has disabled attribute applied when disabled=true', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        value: 'foo',
+        modelValue: 'foo',
         disabled: true
       }
     })
 
     expect(wrapper.element.tagName).toBe('OPTION')
-    expect(wrapper.attributes('value')).toBeDefined()
     expect(wrapper.attributes('value')).toEqual('foo')
     expect(wrapper.attributes('disabled')).toBeDefined()
-    expect(wrapper.attributes('disabled')).toEqual('disabled')
     expect(wrapper.text()).toEqual('')
 
     wrapper.unmount()
