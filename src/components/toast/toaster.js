@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import { defineComponent, h, TransitionGroup } from '../../vue'
+import { TransitionGroup, defineComponent, h } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
