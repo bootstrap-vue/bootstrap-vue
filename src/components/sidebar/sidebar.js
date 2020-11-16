@@ -1,18 +1,17 @@
 import { Transition, defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
-import { EVENT_NAME_HIDDEN, EVENT_NAME_MODEL_VALUE, EVENT_NAME_SHOWN } from '../../constants/events'
+import { EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
-import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slots'
 import BVTransition from '../../utils/bv-transition'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { makePropsConfigurable } from '../../utils/config'
 import { isBrowser } from '../../utils/env'
+import { makeModelMixin } from '../../utils/model'
 import { toString } from '../../utils/string'
 import attrsMixin from '../../mixins/attrs'
 import idMixin from '../../mixins/id'
 import listenOnRootMixin from '../../mixins/listen-on-root'
-import modelMixin from '../../mixins/model'
 import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
   EVENT_TOGGLE,
@@ -26,6 +25,10 @@ import { BIconX } from '../../icons/icons'
 // --- Constants ---
 
 const CLASS_NAME = 'b-sidebar'
+
+const PROP_NAME_VISIBLE = 'visible'
+
+const { mixin: modelMixin, event: EVENT_NAME_UPDATE_VISIBLE } = makeModelMixin(PROP_NAME_VISIBLE)
 
 // --- Render methods ---
 const renderHeaderTitle = (h, ctx) => {
@@ -139,7 +142,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
   inheritAttrs: false,
   props: makePropsConfigurable(
     {
-      [PROP_NAME_MODEL_VALUE]: {
+      [PROP_NAME_VISIBLE]: {
         type: Boolean,
         default: false
       },
@@ -251,7 +254,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
   ),
   emits: [EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN],
   data() {
-    const show = !!this[PROP_NAME_MODEL_VALUE]
+    const show = !!this[PROP_NAME_VISIBLE]
     return {
       // Internal `v-model` state
       localShow: show,
@@ -274,11 +277,8 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
           }
     },
     slotScope() {
-      return {
-        visible: this.localShow,
-        right: this.right,
-        hide: this.hide
-      }
+      const { localShow: visible, right, hide } = this
+      return { visible, right, hide }
     },
     computedTile() {
       return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
@@ -300,7 +300,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+    [PROP_NAME_VISIBLE](newValue, oldValue) {
       if (newValue !== oldValue) {
         this.localShow = newValue
       }
@@ -308,7 +308,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
     localShow(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.emitState(newValue)
-        this.$emit(EVENT_NAME_MODEL_VALUE, newValue)
+        this.$emit(EVENT_NAME_UPDATE_VISIBLE, newValue)
       }
     },
     /* istanbul ignore next */
