@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { h } from '../../vue'
 import { BFormSelect } from './form-select'
 
 describe('form-select', () => {
@@ -9,6 +10,7 @@ describe('form-select', () => {
 
   it('has select as root element', async () => {
     const wrapper = mount(BFormSelect)
+
     expect(wrapper.element.tagName).toBe('SELECT')
 
     wrapper.unmount()
@@ -16,6 +18,7 @@ describe('form-select', () => {
 
   it('has class custom-select', async () => {
     const wrapper = mount(BFormSelect)
+
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
 
@@ -24,6 +27,7 @@ describe('form-select', () => {
 
   it('does not have attr multiple by default', async () => {
     const wrapper = mount(BFormSelect)
+
     expect(wrapper.attributes('multiple')).toBeUndefined()
 
     wrapper.unmount()
@@ -42,6 +46,7 @@ describe('form-select', () => {
         required: true
       }
     })
+
     expect(wrapper.attributes('required')).toBeDefined()
 
     wrapper.unmount()
@@ -49,6 +54,7 @@ describe('form-select', () => {
 
   it('does not have attr form by default', async () => {
     const wrapper = mount(BFormSelect)
+
     expect(wrapper.attributes('form')).toBeUndefined()
 
     wrapper.unmount()
@@ -60,6 +66,7 @@ describe('form-select', () => {
         form: 'foobar'
       }
     })
+
     expect(wrapper.attributes('form')).toBeDefined()
     expect(wrapper.attributes('form')).toBe('foobar')
 
@@ -70,9 +77,10 @@ describe('form-select', () => {
     const wrapper = mount(BFormSelect, {
       props: {
         multiple: true,
-        value: []
+        modelValue: []
       }
     })
+
     expect(wrapper.attributes('multiple')).toBeDefined()
 
     wrapper.unmount()
@@ -84,6 +92,7 @@ describe('form-select', () => {
         selectSize: 4
       }
     })
+
     expect(wrapper.attributes('size')).toBeDefined()
     expect(wrapper.attributes('size')).toBe('4')
     expect(wrapper.attributes('multiple')).toBeUndefined()
@@ -93,7 +102,9 @@ describe('form-select', () => {
 
   it('has auto ID attr by default', async () => {
     const wrapper = mount(BFormSelect)
-    await waitNT(wrapper.vm) // Auto-ID assigned after mount
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.unmount()
@@ -105,6 +116,7 @@ describe('form-select', () => {
         id: 'foobar'
       }
     })
+
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toBe('foobar')
 
@@ -113,6 +125,7 @@ describe('form-select', () => {
 
   it('does not have attr size by default', async () => {
     const wrapper = mount(BFormSelect)
+
     expect(wrapper.attributes('size')).toBeUndefined()
 
     wrapper.unmount()
@@ -124,6 +137,7 @@ describe('form-select', () => {
         plain: true
       }
     })
+
     expect(wrapper.attributes('size')).toBeDefined()
     expect(wrapper.attributes('size')).toBe('0')
 
@@ -136,6 +150,7 @@ describe('form-select', () => {
         size: 'sm'
       }
     })
+
     expect(wrapper.classes()).toContain('custom-select-sm')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
@@ -149,6 +164,7 @@ describe('form-select', () => {
         size: 'lg'
       }
     })
+
     expect(wrapper.classes()).toContain('custom-select-lg')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
@@ -162,6 +178,7 @@ describe('form-select', () => {
         size: 'foo'
       }
     })
+
     expect(wrapper.classes()).toContain('custom-select-foo')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(2)
@@ -175,6 +192,7 @@ describe('form-select', () => {
         state: false
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBe('true')
     expect(wrapper.classes()).toContain('is-invalid')
     expect(wrapper.classes()).toContain('custom-select')
@@ -189,6 +207,7 @@ describe('form-select', () => {
         state: true
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBeUndefined()
     expect(wrapper.classes()).toContain('is-valid')
     expect(wrapper.classes()).toContain('custom-select')
@@ -203,6 +222,7 @@ describe('form-select', () => {
         ariaInvalid: 'true'
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBe('true')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
@@ -216,6 +236,7 @@ describe('form-select', () => {
         ariaInvalid: true
       }
     })
+
     expect(wrapper.attributes('aria-invalid')).toBe('true')
     expect(wrapper.classes()).toContain('custom-select')
     expect(wrapper.classes().length).toBe(1)
@@ -229,6 +250,7 @@ describe('form-select', () => {
         plain: true
       }
     })
+
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(1)
     expect(wrapper.element.tagName).toBe('SELECT')
@@ -243,6 +265,7 @@ describe('form-select', () => {
         plain: true
       }
     })
+
     expect(wrapper.classes()).toContain('form-control-lg')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
@@ -257,6 +280,7 @@ describe('form-select', () => {
         plain: true
       }
     })
+
     expect(wrapper.classes()).toContain('form-control-sm')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
@@ -271,6 +295,7 @@ describe('form-select', () => {
         plain: true
       }
     })
+
     expect(wrapper.classes()).toContain('form-control-foo')
     expect(wrapper.classes()).toContain('form-control')
     expect(wrapper.classes().length).toBe(2)
@@ -304,6 +329,7 @@ describe('form-select', () => {
         options: ['one', 'two', 'three']
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
     expect($options[0].text()).toBe('one')
@@ -338,9 +364,9 @@ describe('form-select', () => {
     expect($options[0].attributes('value')).toBe('1')
     expect($options[1].attributes('value')).toBe('2')
     expect($options[2].attributes('value')).toBe('3')
-    expect($options[0].find('[disabled]').exists()).toBe(false)
-    expect($options[1].find('[disabled]').exists()).toBe(true)
-    expect($options[2].find('[disabled]').exists()).toBe(false)
+    expect($options[0].attributes('disabled')).toBeUndefined()
+    expect($options[1].attributes('disabled')).toBeDefined()
+    expect($options[2].attributes('disabled')).toBeUndefined()
 
     wrapper.unmount()
   })
@@ -374,9 +400,9 @@ describe('form-select', () => {
     expect($options[0].attributes('value')).toBe('1.5')
     expect($options[1].attributes('value')).toBe('5')
     expect($options[2].attributes('value')).toBe('50.75')
-    expect($options[0].find('[disabled]').exists()).toBe(false)
-    expect($options[1].find('[disabled]').exists()).toBe(false)
-    expect($options[2].find('[disabled]').exists()).toBe(true)
+    expect($options[0].attributes('disabled')).toBeUndefined()
+    expect($options[1].attributes('disabled')).toBeUndefined()
+    expect($options[2].attributes('disabled')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -414,10 +440,10 @@ describe('form-select', () => {
     expect($options[1].attributes('value')).toBe('2')
     expect($options[2].attributes('value')).toBe('3')
     expect($options[3].attributes('value')).toBe('4')
-    expect($options[0].find('[disabled]').exists()).toBe(false)
-    expect($options[1].find('[disabled]').exists()).toBe(false)
-    expect($options[2].find('[disabled]').exists()).toBe(false)
-    expect($options[3].find('[disabled]').exists()).toBe(true)
+    expect($options[0].attributes('disabled')).toBeUndefined()
+    expect($options[1].attributes('disabled')).toBeUndefined()
+    expect($options[2].attributes('disabled')).toBeUndefined()
+    expect($options[3].attributes('disabled')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -451,10 +477,10 @@ describe('form-select', () => {
     expect($options[1].attributes('value')).toBe('2')
     expect($options[2].attributes('value')).toBe('3')
     expect($options[3].attributes('value')).toBe('4')
-    expect($options[0].find('[disabled]').exists()).toBe(false)
-    expect($options[1].find('[disabled]').exists()).toBe(false)
-    expect($options[2].find('[disabled]').exists()).toBe(false)
-    expect($options[3].find('[disabled]').exists()).toBe(true)
+    expect($options[0].attributes('disabled')).toBeUndefined()
+    expect($options[1].attributes('disabled')).toBeUndefined()
+    expect($options[2].attributes('disabled')).toBeUndefined()
+    expect($options[3].attributes('disabled')).toBeDefined()
 
     wrapper.unmount()
   })
@@ -487,9 +513,9 @@ describe('form-select', () => {
     const wrapper = mount(BFormSelect, {
       slots: {
         default: [
-          '<option value="1">one</option>',
-          '<option value="2">two</option>',
-          '<option value="3">three</option>'
+          h('option', { value: 1 }, 'one'),
+          h('option', { value: 2 }, 'two'),
+          h('option', { value: 3 }, 'three')
         ]
       }
     })
@@ -512,19 +538,20 @@ describe('form-select', () => {
         options: ['one', 'two', 'three']
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
     // select 3rd option
     $options[2].setSelected()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toBe('three')
+    expect(wrapper.emitted('update:modelValue')[0][0]).toBe('three')
     expect(wrapper.emitted('change')[0][0]).toBe('three')
 
     wrapper.unmount()
@@ -534,26 +561,20 @@ describe('form-select', () => {
     const wrapper = mount(BFormSelect, {
       props: {
         options: ['one', 'two', { text: 'three', value: { three: 3 } }],
-        value: 'one'
+        modelValue: 'one'
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
-
     expect($options[0].element.selected).toBe(true)
 
     // Select 2nd option
-    await wrapper.setProps({
-      value: 'two'
-    })
-
+    await wrapper.setProps({ modelValue: 'two' })
     expect($options[1].element.selected).toBe(true)
 
     // Select 3rd option
-    await wrapper.setProps({
-      value: { three: 3 }
-    })
-
+    await wrapper.setProps({ modelValue: { three: 3 } })
     expect($options[2].element.selected).toBe(true)
 
     wrapper.unmount()
@@ -569,19 +590,20 @@ describe('form-select', () => {
         ]
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 3rd option
     $options[2].setSelected()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toEqual({ c: 3 })
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual({ c: 3 })
     expect(wrapper.emitted('change')[0][0]).toEqual({ c: 3 })
 
     wrapper.unmount()
@@ -593,22 +615,23 @@ describe('form-select', () => {
         multiple: true,
         selectSize: 3,
         options: ['one', 'two', 'three'],
-        value: []
+        modelValue: []
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 2nd and 3rd option
     $options[1].element.selected = true
     $options[2].element.selected = true
     await wrapper.trigger('change')
-    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toEqual(['two', 'three'])
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual(['two', 'three'])
     expect(wrapper.emitted('change')[0][0]).toEqual(['two', 'three'])
 
     wrapper.unmount()
@@ -619,7 +642,7 @@ describe('form-select', () => {
       props: {
         multiple: true,
         selectSize: 3,
-        value: [],
+        modelValue: [],
         options: [
           { text: 'one', value: { a: 1 } },
           { text: 'two', value: { b: 2 } },
@@ -627,19 +650,20 @@ describe('form-select', () => {
         ]
       }
     })
+
     const $options = wrapper.findAll('option')
     expect($options.length).toBe(3)
 
-    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
     expect(wrapper.emitted('change')).toBeUndefined()
 
     // Select 2nd and 3rd option
     $options[1].element.selected = true
     $options[2].element.selected = true
     await wrapper.trigger('change')
-    expect(wrapper.emitted('input')).toBeDefined()
+    expect(wrapper.emitted('update:modelValue')).toBeDefined()
     expect(wrapper.emitted('change')).toBeDefined()
-    expect(wrapper.emitted('input')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
+    expect(wrapper.emitted('update:modelValue')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
     expect(wrapper.emitted('change')[0][0]).toEqual([{ b: 2 }, { c: 3 }])
 
     wrapper.unmount()
@@ -675,6 +699,7 @@ describe('form-select', () => {
           options: ['a', 'b', 'c']
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -695,6 +720,7 @@ describe('form-select', () => {
           options: ['a', 'b', 'c']
         }
       })
+
       expect(wrapper.vm).toBeDefined()
       await waitNT(wrapper.vm)
       await waitRAF()
