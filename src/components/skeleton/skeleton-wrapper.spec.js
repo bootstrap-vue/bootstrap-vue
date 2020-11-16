@@ -31,8 +31,9 @@ describe('skeleton-wrapper', () => {
       }
     })
 
-    expect(wrapper.element.tagName).toBe('BUTTON')
-    expect(wrapper.text()).toBe('Action')
+    const $button = wrapper.find('button')
+    expect($button.exists()).toBe(true)
+    expect($button.text()).toBe('Action')
   })
 
   it('root element has correct aria attributes in loading state', async () => {
