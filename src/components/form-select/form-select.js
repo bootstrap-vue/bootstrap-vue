@@ -3,6 +3,7 @@ import { NAME_FORM_SELECT } from '../../constants/components'
 import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_FIRST } from '../../constants/slots'
+import looseEqual from '../../utils/loose-equal'
 import { from as arrayFrom } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
@@ -83,8 +84,10 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     }
   },
   watch: {
-    [PROP_NAME_MODEL_VALUE](newVal) {
-      this.localValue = newVal
+    [PROP_NAME_MODEL_VALUE](newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.localValue = newValue
+      }
     },
     localValue() {
       this.$emit(EVENT_NAME_MODEL_VALUE, this.localValue)
@@ -102,7 +105,9 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
       const selectedVal = arrayFrom(target.options)
         .filter(o => o.selected)
         .map(o => ('_value' in o ? o._value : o.value))
+
       this.localValue = target.multiple ? selectedVal : selectedVal[0]
+
       this.$nextTick(() => {
         this.$emit(EVENT_NAME_CHANGE, this.localValue)
       })
@@ -112,13 +117,13 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     const { name, disabled, required, computedSelectSize: size, localValue: value } = this
 
     const $options = this.formOptions.map((option, index) => {
-      const { value, label, options, disabled } = option
+      const { value: modelValue, label, options, disabled } = option
       const key = `option_${index}`
 
       return isArray(options)
         ? h(BFormSelectOptionGroup, { props: { label, options }, key })
         : h(BFormSelectOption, {
-            props: { value, disabled },
+            props: { modelValue, disabled },
             domProps: htmlOrText(option.html, option.text),
             key
           })
