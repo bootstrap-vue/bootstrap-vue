@@ -1,4 +1,4 @@
-import { defineComponent, h, Transition } from '../../vue'
+import { Transition, defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
 import { EVENT_NAME_HIDDEN, EVENT_NAME_MODEL_VALUE, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
@@ -123,7 +123,7 @@ const renderBackdrop = (h, ctx) => {
   const { backdropVariant } = ctx
 
   return h('div', {
-    directives: [{ name: 'show', value: ctx.localShow }],
+    directives: [{ name: resolveDirective('show'), value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
     class: { [`bg-${backdropVariant}`]: !!backdropVariant },
     on: { click: ctx.onBackdropClick }
@@ -418,7 +418,7 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
       this.tag,
       {
         ref: 'content',
-        directives: [{ name: 'show', value: localShow }],
+        directives: [{ name: resolveDirective('show'), value: localShow }],
         staticClass: CLASS_NAME,
         class: [
           {

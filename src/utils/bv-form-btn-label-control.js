@@ -1,7 +1,7 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
-import { defineComponent, h } from '../vue'
+import { defineComponent, h, resolveDirective } from '../vue'
 import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slots'
 import { attemptBlur, attemptFocus } from './dom'
@@ -81,9 +81,7 @@ export const props = {
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,
-  directives: {
-    BHover: VBHover
-  },
+  directives: { VBHover },
   mixins: [idMixin, formSizeMixin, formStateMixin, dropdownMixin, normalizeSlotMixin],
   props,
   data() {
@@ -173,7 +171,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
           'aria-invalid': invalid ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
+        directives: [{ name: resolveDirective('VBHover'), value: this.handleHover }],
         on: {
           mousedown: this.onMousedown,
           click: this.toggle,
@@ -250,7 +248,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
           'aria-invalid': invalid ? 'true' : null,
           'aria-required': required ? 'true' : null
         },
-        directives: [{ name: 'b-hover', value: this.handleHover }],
+        directives: [{ name: resolveDirective('VBHover'), value: this.handleHover }],
         on: {
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening

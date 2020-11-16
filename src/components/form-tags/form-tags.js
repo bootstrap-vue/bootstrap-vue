@@ -1,6 +1,6 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import { EVENT_NAME_MODEL_VALUE } from '../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
@@ -596,7 +596,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       const $input = h('input', {
         ref: 'input',
         // Directive needed to get `evt.target.composing` set (if needed)
-        directives: [{ name: 'model', value: inputAttrs.value }],
+        directives: [{ name: resolveDirective('model'), value: inputAttrs.value }],
         staticClass: 'b-form-tags-input w-100 flex-grow-1 p-0 m-0 bg-transparent border-0',
         class: inputClass,
         style: { outline: 0, minWidth: '5rem' },

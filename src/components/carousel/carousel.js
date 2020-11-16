@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { EVENT_NAME_MODEL_VALUE, EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
@@ -601,9 +601,7 @@ export const BCarousel = /*#__PURE__*/ defineComponent({
       'ol',
       {
         class: ['carousel-indicators'],
-        directives: [
-          { name: 'show', rawName: 'v-show', value: this.indicators, expression: 'indicators' }
-        ],
+        directives: [{ name: resolveDirective('show'), value: this.indicators }],
         attrs: {
           id: this.safeId('__BV_indicators_'),
           'aria-hidden': this.indicators ? 'false' : 'true',

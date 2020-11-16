@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, defineComponent, h, Transition } from '../../vue'
+import { COMPONENT_UID_KEY, Transition, defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import {
   EVENT_NAME_CANCEL,
@@ -1064,7 +1064,7 @@ export const BModal = /*#__PURE__*/ defineComponent({
           style: this.modalStyles,
           attrs: this.computedModalAttrs,
           on: { keydown: this.onEsc, click: this.onClickOut },
-          directives: [{ name: 'show', value: this.isVisible }],
+          directives: [{ name: resolveDirective('show'), value: this.isVisible }],
           ref: 'modal'
         },
         [$modalDialog]

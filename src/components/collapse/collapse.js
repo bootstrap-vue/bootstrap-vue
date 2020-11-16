@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { CLASS_NAME_SHOW } from '../../constants/class-names'
 import {
@@ -253,7 +253,7 @@ export const BCollapse = /*#__PURE__*/ defineComponent({
       this.tag,
       {
         class: this.classObject,
-        directives: [{ name: 'show', value: this.show }],
+        directives: [{ name: resolveDirective('show'), value: this.show }],
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },

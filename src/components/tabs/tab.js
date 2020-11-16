@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
 import { SLOT_NAME_TITLE } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -179,14 +179,7 @@ export const BTab = /*#__PURE__*/ defineComponent({
         ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
-        directives: [
-          {
-            name: 'show',
-            rawName: 'v-show',
-            value: localActive,
-            expression: 'localActive'
-          }
-        ],
+        directives: [{ name: resolveDirective('show'), value: localActive }],
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),

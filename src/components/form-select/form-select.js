@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_VALUE } from '../../constants/events'
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
@@ -140,7 +140,7 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
           'aria-invalid': this.computedAriaInvalid
         },
         on: { change: this.onChange },
-        directives: [{ name: 'model', value }],
+        directives: [{ name: resolveDirective('model'), value }],
         ref: 'input'
       },
       [this.normalizeSlot(SLOT_NAME_FIRST), $options, this.normalizeSlot()]

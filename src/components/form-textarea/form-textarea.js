@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
@@ -212,7 +212,7 @@ export const BFormTextarea = /*#__PURE__*/ defineComponent({
       style: this.computedStyle,
       directives: [
         {
-          name: 'VBVisible',
+          name: resolveDirective('VBVisible'),
           value: this.visibleCallback,
           // If textarea is within 640px of viewport, consider it visible
           modifiers: { '640': true }

@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
 import { EVENT_NAME_MODEL_PREFIX } from '../../constants/events'
 import identity from '../../utils/identity'
@@ -56,9 +56,7 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BImgLazy = /*#__PURE__*/ defineComponent({
   name: NAME_IMG_LAZY,
-  directives: {
-    bVisible: VBVisible
-  },
+  directives: { VBVisible },
   props,
   data() {
     return {
@@ -133,7 +131,7 @@ export const BImgLazy = /*#__PURE__*/ defineComponent({
       directives.push({
         // Visible directive will silently do nothing if
         // IntersectionObserver is not supported
-        name: 'b-visible',
+        name: resolveDirective('VBVisible'),
         // Value expects a callback (passed one arg of `visible` = `true` or `false`)
         value: this.doShow,
         modifiers: {

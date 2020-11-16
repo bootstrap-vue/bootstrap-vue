@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
@@ -67,7 +67,7 @@ export const BNavbarToggle = /*#__PURE__*/ defineComponent({
       {
         staticClass: CLASS_NAME,
         class: { disabled },
-        directives: [{ name: 'VBToggle', value: this.target }],
+        directives: [{ name: resolveDirective('VBToggle'), value: this.target }],
         attrs: {
           type: 'button',
           disabled,

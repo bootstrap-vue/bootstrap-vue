@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../vue'
+import { defineComponent, h, resolveDirective } from '../vue'
 import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import looseEqual from '../utils/loose-equal'
 import { makePropsConfigurable } from '../utils/config'
@@ -220,14 +220,7 @@ export default defineComponent({
         // https://github.com/bootstrap-vue/bootstrap-vue/issues/2911
         'position-static': this.isPlain && !defaultSlot
       },
-      directives: [
-        {
-          name: 'model',
-          rawName: 'v-model',
-          value: this.computedLocalChecked,
-          expression: 'computedLocalChecked'
-        }
-      ],
+      directives: [{ name: resolveDirective('model'), value: this.computedLocalChecked }],
       attrs: this.computedAttrs,
       domProps: {
         value: this.value,

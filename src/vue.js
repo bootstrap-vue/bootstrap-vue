@@ -9,6 +9,8 @@ import {
   mergeProps as _mergeProps,
   resolveComponent as _resolveComponent,
   resolveDirective as _resolveDirective,
+  vModelDynamic,
+  vShow,
   withDirectives
 } from 'vue-demi'
 import { mergeData } from 'vue-functional-data-merge'
@@ -162,7 +164,20 @@ const h = (...args) => {
 
 const resolveComponent = value => (isVue2 ? value : _resolveComponent(value))
 
-const resolveDirective = value => (isVue2 ? value : _resolveDirective(value))
+const resolveDirective = value => {
+  if (isVue2) {
+    return value
+  }
+
+  if (value === 'show') {
+    return vShow
+  }
+  if (value === 'model') {
+    return vModelDynamic
+  }
+
+  return _resolveDirective(value)
+}
 
 export * from 'vue-demi'
 export {

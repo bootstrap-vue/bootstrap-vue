@@ -6,14 +6,12 @@ describe('v-b-hover directive', () => {
     let hovered1 = false
     let hovered2 = false
     const App = {
+      directives: { BHover: VBHover },
       data() {
         return {
           text: 'FOO',
           changeHandler: false
         }
-      },
-      directives: {
-        BHover: VBHover
       },
       methods: {
         handleHover1(isHovered) {
