@@ -1,4 +1,11 @@
-import { COMPONENT_UID_KEY, Transition, defineComponent, h, resolveDirective } from '../../vue'
+import {
+  COMPONENT_UID_KEY,
+  Transition,
+  defineComponent,
+  h,
+  normalizeTransitionProps,
+  resolveDirective
+} from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import {
   EVENT_NAME_CANCEL,
@@ -1077,14 +1084,14 @@ export const BModal = /*#__PURE__*/ defineComponent({
       $modal = h(
         Transition,
         {
-          props: {
+          props: normalizeTransitionProps({
             enterClass: '',
             enterToClass: '',
             enterActiveClass: '',
             leaveClass: '',
             leaveActiveClass: '',
             leaveToClass: ''
-          },
+          }),
           on: {
             beforeEnter: this.onBeforeEnter,
             enter: this.onEnter,

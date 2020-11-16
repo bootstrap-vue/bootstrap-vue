@@ -4,27 +4,29 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
-import { Transition, defineComponent, h, isVue2, mergeProps } from '../vue'
+import { Transition, defineComponent, h, mergeProps, normalizeTransitionProps } from '../vue'
 import { CLASS_NAME_FADE, CLASS_NAME_SHOW } from '../constants/class-names'
 import { NAME_TRANSITION } from '../constants/components'
 import { isPlainObject } from './inspect'
 
 // --- Constants ---
 
-const NO_FADE_PROPS = {
+const NO_FADE_PROPS = normalizeTransitionProps({
   name: '',
-  [isVue2 ? 'enterClass' : 'enterFromClass']: '',
+  enterClass: '',
   enterActiveClass: '',
   enterToClass: CLASS_NAME_SHOW,
-  [isVue2 ? 'leaveClass' : 'leaveFromClass']: CLASS_NAME_SHOW,
+  leaveClass: CLASS_NAME_SHOW,
   leaveActiveClass: '',
   leaveToClass: ''
-}
+})
 
 const FADE_PROPS = {
   ...NO_FADE_PROPS,
-  enterActiveClass: CLASS_NAME_FADE,
-  leaveActiveClass: CLASS_NAME_FADE
+  ...normalizeTransitionProps({
+    enterActiveClass: CLASS_NAME_FADE,
+    leaveActiveClass: CLASS_NAME_FADE
+  })
 }
 
 // --- Main component ---

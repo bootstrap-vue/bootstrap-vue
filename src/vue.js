@@ -71,6 +71,16 @@ const normalizeDefineComponentData = data => {
   }
 }
 
+const normalizeTransitionProps = props => {
+  if (isVue2) {
+    return props
+  }
+
+  const { enterClass: enterFromClass, leaveClass: leaveFromClass, ...otherProps } = props
+
+  return { enterFromClass, leaveFromClass, ...otherProps }
+}
+
 const normalizeVNodeData = data => {
   if (isVue2) {
     return data
@@ -187,6 +197,7 @@ export {
   h,
   mergeProps,
   normalizeDefineComponentData,
+  normalizeTransitionProps,
   normalizeVNodeData,
   normalizeVNodeDirectives,
   resolveComponent,

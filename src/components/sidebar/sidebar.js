@@ -1,4 +1,10 @@
-import { Transition, defineComponent, h, resolveDirective } from '../../vue'
+import {
+  Transition,
+  defineComponent,
+  h,
+  normalizeTransitionProps,
+  resolveDirective
+} from '../../vue'
 import { NAME_SIDEBAR } from '../../constants/components'
 import { EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
@@ -264,17 +270,20 @@ export const BSidebar = /*#__PURE__*/ defineComponent({
   },
   computed: {
     transitionProps() {
-      return this.noSlide
-        ? /* istanbul ignore next */ { css: true }
-        : {
-            css: true,
-            enterClass: '',
-            enterActiveClass: 'slide',
-            enterToClass: 'show',
-            leaveClass: 'show',
-            leaveActiveClass: 'slide',
-            leaveToClass: ''
-          }
+      let transitionProps = { css: true }
+      if (!this.noSlide) {
+        transitionProps = {
+          ...transitionProps,
+          enterClass: '',
+          enterActiveClass: 'slide',
+          enterToClass: 'show',
+          leaveClass: 'show',
+          leaveActiveClass: 'slide',
+          leaveToClass: ''
+        }
+      }
+
+      return normalizeTransitionProps(transitionProps)
     },
     slotScope() {
       const { localShow: visible, right, hide } = this
