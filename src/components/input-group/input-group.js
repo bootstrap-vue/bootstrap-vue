@@ -40,6 +40,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BInputGroup = /*#__PURE__*/ defineComponent({
   name: NAME_INPUT_GROUP,

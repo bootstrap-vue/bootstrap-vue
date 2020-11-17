@@ -30,6 +30,7 @@ const FADE_PROPS = {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BVTransition = /*#__PURE__*/ defineComponent({
   name: NAME_TRANSITION,

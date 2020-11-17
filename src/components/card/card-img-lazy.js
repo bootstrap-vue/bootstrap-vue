@@ -16,6 +16,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCardImgLazy = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_IMG_LAZY,

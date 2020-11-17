@@ -27,6 +27,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BFormText = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TEXT,

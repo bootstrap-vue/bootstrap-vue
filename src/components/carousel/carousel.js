@@ -81,6 +81,7 @@ const getTransitionEndEvent = el => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BCarousel = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL,

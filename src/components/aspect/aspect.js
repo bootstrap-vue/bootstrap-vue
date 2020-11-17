@@ -11,6 +11,7 @@ import normalizeSlotMixin from '../../mixins/normalize-slot'
 const CLASS_NAME = 'b-aspect'
 
 // --- Main component ---
+
 // @vue/component
 export const BAspect = /*#__PURE__*/ defineComponent({
   name: NAME_ASPECT,

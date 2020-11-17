@@ -128,6 +128,7 @@ const generateProps = () => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BFormGroup = defineComponent({
   name: NAME_FORM_GROUP,

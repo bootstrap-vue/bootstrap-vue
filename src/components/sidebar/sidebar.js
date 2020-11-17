@@ -140,6 +140,7 @@ const renderBackdrop = (h, ctx) => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BSidebar = /*#__PURE__*/ defineComponent({
   name: NAME_SIDEBAR,

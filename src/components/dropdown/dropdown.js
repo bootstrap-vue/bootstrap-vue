@@ -97,6 +97,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BDropdown = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN,

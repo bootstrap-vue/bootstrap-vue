@@ -20,6 +20,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BNavbarNav = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR_NAV,

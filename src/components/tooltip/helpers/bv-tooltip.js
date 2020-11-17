@@ -110,6 +110,7 @@ const templateData = {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ defineComponent({
   name: NAME_TOOLTIP_HELPER,

@@ -36,6 +36,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCard = /*#__PURE__*/ defineComponent({
   name: NAME_CARD,

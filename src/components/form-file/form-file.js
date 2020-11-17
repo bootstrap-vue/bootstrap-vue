@@ -122,6 +122,7 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
   })
 
 // --- Main component ---
+
 // @vue/component
 export const BFormFile = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_FILE,

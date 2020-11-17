@@ -42,6 +42,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BListGroupItem = /*#__PURE__*/ defineComponent({
   name: NAME_LIST_GROUP_ITEM,

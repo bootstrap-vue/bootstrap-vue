@@ -17,6 +17,7 @@ const PROP_NAME_INDETERMINATE = 'indeterminate'
 const EVENT_NAME_UPDATE_INDETERMINATE = EVENT_NAME_MODEL_PREFIX + PROP_NAME_INDETERMINATE
 
 // --- Main component ---
+
 // @vue/component
 export const BFormCheckbox = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_CHECKBOX,

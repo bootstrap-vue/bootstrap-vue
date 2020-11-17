@@ -297,6 +297,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BModal = /*#__PURE__*/ defineComponent({
   name: NAME_MODAL,

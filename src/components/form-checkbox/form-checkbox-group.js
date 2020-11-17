@@ -25,6 +25,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BFormCheckboxGroup = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_CHECKBOX_GROUP,

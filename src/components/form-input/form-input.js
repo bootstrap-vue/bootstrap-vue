@@ -35,6 +35,7 @@ const TYPES = [
 ]
 
 // --- Main component ---
+
 // @vue/component
 export const BFormInput = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_INPUT,

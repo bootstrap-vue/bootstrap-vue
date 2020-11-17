@@ -33,6 +33,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BBadge = /*#__PURE__*/ defineComponent({
   name: NAME_BADGE,

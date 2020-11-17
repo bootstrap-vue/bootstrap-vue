@@ -15,6 +15,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BInputGroupText = /*#__PURE__*/ defineComponent({
   name: NAME_INPUT_GROUP_TEXT,

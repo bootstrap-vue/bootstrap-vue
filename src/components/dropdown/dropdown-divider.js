@@ -15,6 +15,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BDropdownDivider = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_DIVIDER,

@@ -106,6 +106,7 @@ const BVFormRatingStar = defineComponent({
 })
 
 // --- Main component ---
+
 // @vue/component
 export const BFormRating = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RATING,

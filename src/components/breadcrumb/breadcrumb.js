@@ -18,6 +18,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BBreadcrumb = /*#__PURE__*/ defineComponent({
   name: NAME_BREADCRUMB,

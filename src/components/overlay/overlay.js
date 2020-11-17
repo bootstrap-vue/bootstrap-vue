@@ -12,6 +12,7 @@ import { BSpinner } from '../spinner/spinner'
 const POSITION_COVER = { top: 0, left: 0, bottom: 0, right: 0 }
 
 // --- Main component ---
+
 // @vue/component
 export const BOverlay = /*#__PURE__*/ defineComponent({
   name: NAME_OVERLAY,

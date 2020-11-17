@@ -23,6 +23,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BMediaAside = /*#__PURE__*/ defineComponent({
   name: NAME_MEDIA_ASIDE,

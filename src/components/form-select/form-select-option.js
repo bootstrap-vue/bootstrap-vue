@@ -19,6 +19,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BFormSelectOption = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_SELECT_OPTION,

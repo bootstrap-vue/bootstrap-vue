@@ -65,6 +65,7 @@ const TRANSITION_HANDLERS = {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BVCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE_HELPER,

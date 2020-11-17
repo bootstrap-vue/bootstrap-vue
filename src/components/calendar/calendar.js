@@ -273,6 +273,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCalendar = defineComponent({
   name: NAME_CALENDAR,

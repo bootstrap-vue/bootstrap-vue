@@ -111,6 +111,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BImg = /*#__PURE__*/ defineComponent({
   name: NAME_IMG,

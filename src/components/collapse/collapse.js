@@ -34,6 +34,7 @@ const ROOT_EVENT_NAME_COLLAPSE_ACCORDION = getRootEventName(NAME_COLLAPSE, 'acco
 const { mixin: modelMixin, event: EVENT_NAME_UPDATE_VISIBLE } = makeModelMixin(PROP_NAME_VISIBLE)
 
 // --- Main component ---
+
 // @vue/component
 export const BCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE,

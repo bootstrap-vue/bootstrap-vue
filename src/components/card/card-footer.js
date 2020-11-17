@@ -27,6 +27,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCardFooter = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_FOOTER,

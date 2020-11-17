@@ -13,6 +13,7 @@ import { BLink, props as BLinkProps } from '../link/link'
 export const props = omit(BLinkProps, ['event', 'routerTag'])
 
 // --- Main component ---
+
 // @vue/component
 export const BDropdownItem = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_ITEM,

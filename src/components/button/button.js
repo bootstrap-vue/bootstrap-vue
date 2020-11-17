@@ -140,6 +140,7 @@ const computeAttrs = (props, data) => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BButton = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON,

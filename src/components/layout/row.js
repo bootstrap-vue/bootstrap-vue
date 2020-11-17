@@ -89,6 +89,7 @@ const generateProps = () => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BRow = defineComponent({
   name: NAME_ROW,

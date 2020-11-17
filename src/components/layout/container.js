@@ -20,6 +20,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BContainer = /*#__PURE__*/ defineComponent({
   name: NAME_CONTAINER,

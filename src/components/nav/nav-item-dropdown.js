@@ -21,6 +21,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BNavItemDropdown = /*#__PURE__*/ defineComponent({
   name: NAME_NAV_ITEM_DROPDOWN,

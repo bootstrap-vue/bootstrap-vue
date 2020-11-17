@@ -12,6 +12,7 @@ import { VBToggle, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle
 const CLASS_NAME = 'navbar-toggler'
 
 // --- Main component ---
+
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ defineComponent({
   name: NAME_NAVBAR_TOGGLE,

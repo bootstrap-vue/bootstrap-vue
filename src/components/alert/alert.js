@@ -42,6 +42,7 @@ const parseShow = show => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BAlert = /*#__PURE__*/ defineComponent({
   name: NAME_ALERT,

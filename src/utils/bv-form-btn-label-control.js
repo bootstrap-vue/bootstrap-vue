@@ -78,6 +78,7 @@ export const props = {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,

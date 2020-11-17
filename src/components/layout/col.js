@@ -121,6 +121,7 @@ const generateProps = () => {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BCol = defineComponent({
   name: NAME_COL,

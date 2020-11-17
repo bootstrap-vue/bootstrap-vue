@@ -15,6 +15,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BMediaBody = /*#__PURE__*/ defineComponent({
   name: NAME_MEDIA_BODY,

@@ -21,6 +21,7 @@ export const commonProps = {
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BInputGroupAddon = /*#__PURE__*/ defineComponent({
   name: NAME_INPUT_GROUP_ADDON,

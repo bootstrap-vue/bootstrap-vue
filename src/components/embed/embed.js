@@ -31,6 +31,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BEmbed = /*#__PURE__*/ defineComponent({
   name: NAME_EMBED,

@@ -40,6 +40,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BFormValidFeedback = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_VALID_FEEDBACK,

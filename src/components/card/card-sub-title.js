@@ -24,6 +24,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCardSubTitle = /*#__PURE__*/ defineComponent({
   name: NAME_CARD_SUB_TITLE,

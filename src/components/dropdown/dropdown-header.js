@@ -23,6 +23,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BDropdownHeader = /*#__PURE__*/ defineComponent({
   name: NAME_DROPDOWN_HEADER,

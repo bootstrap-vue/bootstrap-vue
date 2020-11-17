@@ -76,6 +76,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCarouselSlide = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL_SLIDE,

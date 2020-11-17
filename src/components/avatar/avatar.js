@@ -39,6 +39,7 @@ export const computeSize = value => {
 const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
 // --- Main component ---
+
 // @vue/component
 export const BAvatar = /*#__PURE__*/ defineComponent({
   name: NAME_AVATAR,

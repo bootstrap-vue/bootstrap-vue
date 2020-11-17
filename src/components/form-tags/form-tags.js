@@ -68,6 +68,7 @@ const cleanTagsState = () => ({
 })
 
 // --- Main component ---
+
 // @vue/component
 export const BFormTags = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAGS,
