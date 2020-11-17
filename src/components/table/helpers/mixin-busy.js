@@ -16,6 +16,7 @@ const EVENT_NAME_MODEL_BUSY = EVENT_NAME_MODEL_PREFIX + PROP_NAME_BUSY
 const SLOT_NAME_TABLE_BUSY = 'table-busy'
 
 // --- Mixin ---
+
 // @vue/component
 export default {
   props: makePropsConfigurable(

@@ -1,47 +1,36 @@
 import { defineComponent } from '../../vue'
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
 import { EVENT_NAME_CHANGE, EVENT_NAME_MODEL_PREFIX } from '../../constants/events'
-import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import looseEqual from '../../utils/loose-equal'
 import looseIndexOf from '../../utils/loose-index-of'
 import { makePropsConfigurable } from '../../utils/config'
 import { isArray } from '../../utils/inspect'
-import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
-import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
+import formRadioCheckMixin, {
+  EVENT_NAME_UPDATE_CHECKED,
+  props as formRadioCheckProps
+} from '../../mixins/form-radio-check'
 
 // --- Constants ---
 
 const PROP_NAME_INDETERMINATE = 'indeterminate'
 
-const EVENT_NAME_MODEL_INDETERMINATE = EVENT_NAME_MODEL_PREFIX + PROP_NAME_INDETERMINATE
+const EVENT_NAME_UPDATE_INDETERMINATE = EVENT_NAME_MODEL_PREFIX + PROP_NAME_INDETERMINATE
 
 // --- Main component ---
 // @vue/component
 export const BFormCheckbox = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_CHECKBOX,
-  mixins: [
-    formRadioCheckMixin, // Includes shared render function
-    idMixin,
-    formControlMixin,
-    formSizeMixin,
-    formStateMixin
-  ],
+  mixins: [formRadioCheckMixin],
   inject: {
     bvGroup: {
       from: 'bvCheckGroup',
-      default: false
+      default: null
     }
   },
   props: makePropsConfigurable(
     {
-      ...formControlProps,
       ...formRadioCheckProps,
-      ...formSizeProps,
-      ...formStateProps,
-      [PROP_NAME_MODEL_VALUE]: {
+      value: {
         // type: [Boolean, Number, Object, String],
         default: true
       },
@@ -59,16 +48,10 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
         // Custom switch styling
         type: Boolean,
         default: false
-      },
-      checked: {
-        // v-model (Array when multiple checkboxes have same name)
-        // type: [String, Number, Boolean, Object, Array],
-        default: null
       }
     },
     NAME_FORM_CHECKBOX
   ),
-  emits: [EVENT_NAME_CHANGE],
   computed: {
     isChecked() {
       const { value, computedLocalChecked: checked } = this
@@ -76,24 +59,13 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
     },
     isRadio() {
       return false
-    },
-    isCheck() {
-      return true
     }
   },
   watch: {
-    computedLocalChecked(newValue, oldValue) {
+    [PROP_NAME_INDETERMINATE](newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        this.$emit(PROP_NAME_MODEL_VALUE, newValue)
-
-        const $input = this.$refs.input
-        if ($input) {
-          this.$emit(EVENT_NAME_MODEL_INDETERMINATE, $input.indeterminate)
-        }
+        this.setIndeterminate(newValue)
       }
-    },
-    [PROP_NAME_INDETERMINATE](newVal) {
-      this.setIndeterminate(newVal)
     }
   },
   mounted() {
@@ -101,6 +73,17 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
     this.setIndeterminate(this[PROP_NAME_INDETERMINATE])
   },
   methods: {
+    computedLocalCheckedWatcher(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(EVENT_NAME_UPDATE_CHECKED, newValue)
+
+        const $input = this.$refs.input
+        if ($input) {
+          this.$emit(EVENT_NAME_UPDATE_INDETERMINATE, $input.indeterminate)
+        }
+      }
+    },
+
     handleChange({ target: { checked, indeterminate } }) {
       const { value, uncheckedValue } = this
 
@@ -125,15 +108,15 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
         // Change is only emitted on user interaction
         this.$emit(EVENT_NAME_CHANGE, localChecked)
 
-        // If this is a child of `<form-checkbox-group>`,
-        // we emit a change event on it as well
+        // If this is a child of a group, we emit a change event on it as well
         if (this.isGroup) {
           this.bvGroup.$emit(EVENT_NAME_CHANGE, localChecked)
         }
 
-        this.$emit(EVENT_NAME_MODEL_INDETERMINATE, indeterminate)
+        this.$emit(EVENT_NAME_UPDATE_INDETERMINATE, indeterminate)
       })
     },
+
     setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode
       if (isArray(this.computedLocalChecked)) {
@@ -144,7 +127,7 @@ export const BFormCheckbox = /*#__PURE__*/ defineComponent({
       if ($input) {
         $input.indeterminate = state
         // Emit update event to prop
-        this.$emit(EVENT_NAME_MODEL_INDETERMINATE, state)
+        this.$emit(EVENT_NAME_UPDATE_INDETERMINATE, state)
       }
     }
   }

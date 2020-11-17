@@ -109,6 +109,7 @@ export const props = {
 }
 
 // --- Mixin ---
+
 // @vue/component
 export default defineComponent({
   mixins: [idMixin, listenOnRoot, clickOutMixin, focusInMixin],

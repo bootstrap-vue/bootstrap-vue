@@ -41,6 +41,7 @@ export const props = {
 }
 
 // --- Mixin ---
+
 // @vue/component
 export default defineComponent({
   props,

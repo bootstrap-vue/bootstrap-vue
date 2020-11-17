@@ -14,6 +14,7 @@ export const props = makePropsConfigurable(
 )
 
 // --- Mixin ---
+
 // @vue/component
 export default defineComponent({
   props,
