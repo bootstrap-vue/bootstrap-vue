@@ -77,10 +77,11 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
       ]
     },
     computedAriaInvalid() {
-      if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
+      const { ariaInvalid } = this
+      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
         return 'true'
       }
-      return this.stateClass === 'is-invalid' ? 'true' : null
+      return this.computedState === false ? 'true' : null
     }
   },
   watch: {
