@@ -1,7 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { RouterLink, createRouter, createWebHistory } from 'vue-router'
 import { mount } from '@vue/test-utils'
 import { createContainer, waitRAF } from '../../../tests/utils'
 import { h } from '../../vue'
+import { BLink } from '../link'
 import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown-item', () => {
@@ -145,25 +146,20 @@ describe('dropdown-item', () => {
       expect(wrapper.findAll('li').length).toBe(4)
       expect(wrapper.findAll('a').length).toBe(4)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents(BLink)
+      expect($links.length).toBe(4)
 
-      expect($links[0].vm).toBeDefined()
-      expect($links[0].vm.$options.name).toBe('BLink')
-      expect($links[0].vm.$children.length).toBe(1)
-      expect($links[0].vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[0].exists()).toBe(true)
+      expect($links[0].findComponent(RouterLink).exists()).toBe(true)
 
-      expect($links[1].vm).toBeDefined()
-      expect($links[1].vm.$options.name).toBe('BLink')
-      expect($links[1].vm.$children.length).toBe(0)
+      expect($links[1].exists()).toBe(true)
+      expect($links[1].findComponent(RouterLink).exists()).toBe(false)
 
-      expect($links[2].vm).toBeDefined()
-      expect($links[2].vm.$options.name).toBe('BLink')
-      expect($links[2].vm.$children.length).toBe(1)
-      expect($links[2].vm.$children[0].$options.name).toBe('RouterLink')
+      expect($links[2].exists()).toBe(true)
+      expect($links[2].findComponent(RouterLink).exists()).toBe(true)
 
-      expect($links[3].vm).toBeDefined()
-      expect($links[3].vm.$options.name).toBe('BLink')
-      expect($links[3].vm.$children.length).toBe(0)
+      expect($links[3].exists()).toBe(true)
+      expect($links[3].findComponent(RouterLink).exists()).toBe(false)
 
       wrapper.unmount()
     })
