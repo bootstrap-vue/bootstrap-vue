@@ -25,21 +25,23 @@ export const BNavForm = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, listeners, children }) {
-    const attrs = data.attrs
-    // The following data properties are cleared out
-    // as they will be passed to BForm directly
-    data.attrs = {}
-    data.on = {}
     const $form = h(
       BForm,
       {
         class: props.formClass,
         props: { ...props, inline: true },
-        attrs,
+        attrs: data.attrs,
         on: listeners
       },
       children
     )
-    return h('li', mergeProps(data, { staticClass: 'form-inline' }), [$form])
+
+    return h(
+      'li',
+      mergeProps(omit(data, ['attrs', 'on']), {
+        staticClass: 'form-inline'
+      }),
+      [$form]
+    )
   }
 })
