@@ -118,13 +118,13 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
     const { name, disabled, required, computedSelectSize: size, localValue: value } = this
 
     const $options = this.formOptions.map((option, index) => {
-      const { value: modelValue, label, options, disabled } = option
+      const { value, label, options, disabled } = option
       const key = `option_${index}`
 
       return isArray(options)
         ? h(BFormSelectOptionGroup, { props: { label, options }, key })
         : h(BFormSelectOption, {
-            props: { modelValue, disabled },
+            props: { value, disabled },
             domProps: htmlOrText(option.html, option.text),
             key
           })
