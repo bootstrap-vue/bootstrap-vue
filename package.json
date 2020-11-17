@@ -151,7 +151,7 @@
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "standard-version": "^9.0.0",
-    "terser": "^5.3.8",
+    "terser": "^5.4.0",
     "vue": "^2.6.12",
     "vue-jest": "^3.0.7",
     "vue-router": "^3.4.9",
