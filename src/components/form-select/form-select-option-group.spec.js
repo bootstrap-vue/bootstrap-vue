@@ -15,7 +15,6 @@ describe('form-select-option-group', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTGROUP')
-    expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
     expect(wrapper.text()).toEqual('')
 
@@ -31,7 +30,6 @@ describe('form-select-option-group', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTGROUP')
-    expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
     const $options = wrapper.findAll('option')
@@ -62,7 +60,6 @@ describe('form-select-option-group', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTGROUP')
-    expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
     const $options = wrapper.findAll('option')
@@ -90,7 +87,6 @@ describe('form-select-option-group', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTGROUP')
-    expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
     const $options = wrapper.findAll('option')
@@ -124,7 +120,6 @@ describe('form-select-option-group', () => {
     })
 
     expect(wrapper.element.tagName).toBe('OPTGROUP')
-    expect(wrapper.attributes('label')).toBeDefined()
     expect(wrapper.attributes('label')).toEqual('foo')
 
     const $options = wrapper.findAll('option')
