@@ -30,10 +30,9 @@ export const BNavItem = /*#__PURE__*/ defineComponent({
   props,
   render(_, { props, data, listeners, children }) {
     // We transfer the listeners to the link
-    delete data.on
     return h(
       'li',
-      mergeProps(data, {
+      mergeProps(omit(data, ['on']), {
         staticClass: 'nav-item'
       }),
       [
