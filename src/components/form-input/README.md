@@ -75,7 +75,7 @@ rendered and a console warning will be issued.
 **Caveats with input types:**
 
 - Not all browsers support all input types, nor do some types render in the same format across
-  browser types/versions. Refer to [caniuse.com](https://caniuse.com/#search=input).
+  browser types/versions. Refer to [Can I use](https://caniuse.com/?search=input).
 - Browsers that do not support a particular type will fall back to a `text` input type (even though
   the rendered `type` attribute markup shows the requested type).
 - No testing is performed to see if the requested input type is supported by the browser.
@@ -474,7 +474,7 @@ from an array of options.
 - Datalists **cannot** be applied to input fields with type `password`, `range` or `color`.
 - Not all browsers fully support `<datalist>` and implementations can be buggy. It is recommended
   that datalists be treated as an enhancement and not be relied upon at this time. Check
-  [Can I Use](https://caniuse.com/#feat=datalist) for full support details on all browsers.
+  [Can I use](https://caniuse.com/datalist) for full support details on all browsers.
 
 ## `v-model` modifiers
 
