@@ -1,6 +1,7 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
+import { omit } from '../../utils/object'
 import { BForm, props as formControlProps } from '../form/form'
 
 // @vue/component
@@ -21,29 +22,31 @@ export const BDropdownForm = /*#__PURE__*/ defineComponent({
     },
     NAME_DROPDOWN_FORM
   ),
-  render(_, { props, data, children }) {
-    const $attrs = data.attrs || {}
-    const $listeners = data.on || {}
-    data.attrs = {}
-    data.on = {}
-    return h('li', mergeProps(data, { attrs: { role: 'presentation' } }), [
-      h(
-        BForm,
-        {
-          ref: 'form',
-          staticClass: 'b-dropdown-form',
-          class: [props.formClass, { disabled: props.disabled }],
-          props,
-          attrs: {
-            ...$attrs,
-            disabled: props.disabled,
-            // Tab index of -1 for keyboard navigation
-            tabindex: props.disabled ? null : '-1'
+  render(_, { props, data, listeners, children }) {
+    return h(
+      'li',
+      mergeProps(omit(data, ['attrs', 'on']), {
+        attrs: { role: 'presentation' }
+      }),
+      [
+        h(
+          BForm,
+          {
+            ref: 'form',
+            staticClass: 'b-dropdown-form',
+            class: [props.formClass, { disabled: props.disabled }],
+            props,
+            attrs: {
+              ...(data.attrs || {}),
+              disabled: props.disabled,
+              // Tab index of -1 for keyboard navigation
+              tabindex: props.disabled ? null : '-1'
+            },
+            on: listeners
           },
-          on: $listeners
-        },
-        children
-      )
-    ])
+          children
+        )
+      ]
+    )
   }
 })
