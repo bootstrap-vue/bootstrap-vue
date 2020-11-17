@@ -108,16 +108,11 @@ export default defineComponent({
       ]
     },
     computedAriaInvalid() {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // `this.ariaInvalid` is `null` or `false` or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit `:aria-invalid="true"`
+      const { ariaInvalid } = this
+      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
         return 'true'
       }
-      // Most likely a string value (which could be the string 'true')
-      return this.ariaInvalid
+      return this.computedState === false ? 'true' : null
     },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
