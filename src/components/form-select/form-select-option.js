@@ -1,13 +1,12 @@
 import { defineComponent, h, mergeProps } from '../../vue'
 import { NAME_FORM_SELECT_OPTION } from '../../constants/components'
-import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { makePropsConfigurable } from '../../utils/config'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    [PROP_NAME_MODEL_VALUE]: {
+    value: {
       // type: [String, Number, Boolean, Object],
       required: true
     },
@@ -26,13 +25,13 @@ export const BFormSelectOption = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
-    const { disabled } = props
+    const { value, disabled } = props
 
     return h(
       'option',
       mergeProps(data, {
         attrs: { disabled },
-        domProps: { value: props[PROP_NAME_MODEL_VALUE] }
+        domProps: { value }
       }),
       children
     )
