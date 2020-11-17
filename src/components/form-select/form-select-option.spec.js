@@ -5,7 +5,7 @@ describe('form-select-option', () => {
   it('has expected default structure', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        modelValue: 'foo'
+        value: 'foo'
       }
     })
 
@@ -19,7 +19,7 @@ describe('form-select-option', () => {
   it('renders default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        modelValue: 'foo'
+        value: 'foo'
       },
       slots: {
         default: 'foobar'
@@ -36,7 +36,7 @@ describe('form-select-option', () => {
   it('renders HTML as default slot content', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        modelValue: 'foo'
+        value: 'foo'
       },
       slots: {
         default: '<b>Bold</b>'
@@ -55,7 +55,7 @@ describe('form-select-option', () => {
   it('has disabled attribute applied when disabled=true', async () => {
     const wrapper = mount(BFormSelectOption, {
       props: {
-        modelValue: 'foo',
+        value: 'foo',
         disabled: true
       }
     })
