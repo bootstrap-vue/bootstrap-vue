@@ -22,17 +22,19 @@ const BFormSelectOptionGroup = /*#__PURE__*/ defineComponent({
     NAME_FORM_SELECT_OPTION_GROUP
   ),
   render() {
+    const { label } = this
+
     const $options = this.formOptions.map((option, index) => {
       const { value, text, html, disabled } = option
 
       return h(BFormSelectOption, {
-        attrs: { value, disabled },
+        props: { value, disabled },
         domProps: htmlOrText(html, text),
         key: `option_${index}`
       })
     })
 
-    return h('optgroup', { attrs: { label: this.label } }, [
+    return h('optgroup', { attrs: { label } }, [
       this.normalizeSlot(SLOT_NAME_FIRST),
       $options,
       this.normalizeSlot()
