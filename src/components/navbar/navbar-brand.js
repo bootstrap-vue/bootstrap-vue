@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_NAVBAR_BRAND } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
@@ -35,7 +35,7 @@ export const BNavbarBrand = /*#__PURE__*/ defineComponent({
 
     return h(
       tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'navbar-brand',
         props: isLink ? pluckProps(linkProps, props) : {}
       }),

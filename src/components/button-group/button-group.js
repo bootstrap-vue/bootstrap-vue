@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_BUTTON_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { pick } from '../../utils/object'
@@ -39,7 +39,7 @@ export const BButtonGroup = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         class: {
           'btn-group': !props.vertical,
           'btn-group-vertical': props.vertical,

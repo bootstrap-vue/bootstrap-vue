@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_SUB_TITLE } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { toString } from '../../utils/string'
@@ -33,7 +33,7 @@ export const BCardSubTitle = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.subTitleTag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'card-subtitle',
         class: [props.subTitleTextVariant ? `text-${props.subTitleTextVariant}` : null]
       }),

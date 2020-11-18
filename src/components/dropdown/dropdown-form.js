@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
@@ -25,7 +25,7 @@ export const BDropdownForm = /*#__PURE__*/ defineComponent({
   render(_, { props, data, listeners, children }) {
     return h(
       'li',
-      mergeProps(omit(data, ['attrs', 'on']), {
+      mergeData(omit(data, ['attrs', 'on']), {
         attrs: { role: 'presentation' }
       }),
       [

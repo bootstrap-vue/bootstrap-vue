@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -73,7 +73,7 @@ export const BDropdownGroup = /*#__PURE__*/ defineComponent({
       .join(' ')
       .trim()
 
-    return h('li', mergeProps(data, { attrs: { role: 'presentation' } }), [
+    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
       header || h(),
       h(
         'ul',

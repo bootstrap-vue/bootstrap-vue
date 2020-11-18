@@ -6,7 +6,6 @@ import {
   defineComponent as _defineComponent,
   h as _h,
   isVue2,
-  mergeProps as _mergeProps,
   resolveComponent as _resolveComponent,
   resolveDirective as _resolveDirective,
   vModelDynamic,
@@ -144,9 +143,6 @@ const defineDirective = data => {
 
 // --- Overwrite methods ---
 
-const mergeProps = (...args) =>
-  isVue2 ? mergeData(...args) : _mergeProps(...args.map(data => normalizeVNodeData(data)))
-
 const defineComponent = data => _defineComponent(normalizeDefineComponentData(data))
 
 const h = (...args) => {
@@ -195,7 +191,7 @@ export {
   defineComponent,
   defineDirective,
   h,
-  mergeProps,
+  mergeData,
   normalizeDefineComponentData,
   normalizeTransitionProps,
   normalizeVNodeData,

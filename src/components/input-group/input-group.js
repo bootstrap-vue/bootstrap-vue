@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
 import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -74,7 +74,7 @@ export const BInputGroup = /*#__PURE__*/ defineComponent({
 
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'input-group',
         class: { [`input-group-${size}`]: size },
         attrs: {

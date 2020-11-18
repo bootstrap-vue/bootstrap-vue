@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -32,7 +32,7 @@ export const BCardGroup = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         class: props.deck ? 'card-deck' : props.columns ? 'card-columns' : 'card-group'
       }),
       children

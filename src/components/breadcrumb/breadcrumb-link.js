@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -47,6 +47,6 @@ export const BBreadcrumbLink = /*#__PURE__*/ defineComponent({
       componentData.domProps = htmlOrText(suppliedProps.html, suppliedProps.text)
     }
 
-    return h(tag, mergeProps(data, componentData), children)
+    return h(tag, mergeData(data, componentData), children)
   }
 })

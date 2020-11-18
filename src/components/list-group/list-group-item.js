@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
 import { arrayIncludes } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
@@ -71,7 +71,7 @@ export const BListGroupItem = /*#__PURE__*/ defineComponent({
 
     return h(
       tag,
-      mergeProps(data, {
+      mergeData(data, {
         attrs,
         props: itemProps,
         staticClass: 'list-group-item',

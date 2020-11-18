@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_TEXT } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -22,6 +22,6 @@ export const BCardText = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
-    return h(props.textTag, mergeProps(data, { staticClass: 'card-text' }), children)
+    return h(props.textTag, mergeData(data, { staticClass: 'card-text' }), children)
   }
 })

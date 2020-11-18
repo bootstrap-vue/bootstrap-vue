@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_NAVBAR_NAV } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { pluckProps } from '../../utils/props'
@@ -29,7 +29,7 @@ export const BNavbarNav = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'navbar-nav',
         class: {
           'nav-fill': props.fill,

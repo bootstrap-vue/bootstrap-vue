@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_IMG } from '../../constants/components'
 import identity from '../../utils/identity'
 import { concat } from '../../utils/array'
@@ -155,7 +155,7 @@ export const BImg = /*#__PURE__*/ defineComponent({
     }
     return h(
       'img',
-      mergeProps(data, {
+      mergeData(data, {
         attrs: {
           src,
           alt: props.alt,

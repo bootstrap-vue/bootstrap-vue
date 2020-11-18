@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_FORM_TEXT } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -36,7 +36,7 @@ export const BFormText = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         class: {
           'form-text': !props.inline,
           [`text-${props.textVariant}`]: props.textVariant

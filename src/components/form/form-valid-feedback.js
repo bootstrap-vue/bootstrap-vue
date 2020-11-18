@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -50,7 +50,7 @@ export const BFormValidFeedback = /*#__PURE__*/ defineComponent({
     const show = props.forceShow === true || props.state === true
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         class: {
           'valid-feedback': !props.tooltip,
           'valid-tooltip': props.tooltip,

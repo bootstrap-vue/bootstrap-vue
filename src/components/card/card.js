@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -121,7 +121,7 @@ export const BCard = /*#__PURE__*/ defineComponent({
 
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'card',
         class: {
           'flex-row': imgLeft || imgStart,

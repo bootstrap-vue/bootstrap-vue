@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { arrayIncludes } from '../../utils/array'
@@ -47,7 +47,7 @@ export const BEmbed = /*#__PURE__*/ defineComponent({
           [`embed-responsive-${props.aspect}`]: props.aspect
         }
       },
-      [h(props.type, mergeProps(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
+      [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
     )
   }
 })

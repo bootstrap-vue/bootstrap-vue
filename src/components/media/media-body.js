@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_MEDIA_BODY } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -22,6 +22,6 @@ export const BMediaBody = /*#__PURE__*/ defineComponent({
   functional: true,
   props,
   render(_, { props, data, children }) {
-    return h(props.tag, mergeProps(data, { staticClass: 'media-body' }), children)
+    return h(props.tag, mergeData(data, { staticClass: 'media-body' }), children)
   }
 })

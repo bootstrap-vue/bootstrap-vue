@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_TEXT } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -24,7 +24,7 @@ export const BInputGroupText = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'input-group-text'
       }),
       children

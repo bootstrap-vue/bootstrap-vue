@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { concat } from '../../utils/array'
@@ -197,6 +197,6 @@ export const BButton = /*#__PURE__*/ defineComponent({
       on
     }
 
-    return h(link ? BLink : props.tag, mergeProps(data, componentData), children)
+    return h(link ? BLink : props.tag, mergeData(data, componentData), children)
   }
 })

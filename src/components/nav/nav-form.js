@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_NAV_FORM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
@@ -38,7 +38,7 @@ export const BNavForm = /*#__PURE__*/ defineComponent({
 
     return h(
       'li',
-      mergeProps(omit(data, ['attrs', 'on']), {
+      mergeData(omit(data, ['attrs', 'on']), {
         staticClass: 'form-inline'
       }),
       [$form]

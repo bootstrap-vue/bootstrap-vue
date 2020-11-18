@@ -1,4 +1,4 @@
-import { h, defineComponent, mergeProps } from '../../vue'
+import { h, defineComponent, mergeData } from '../../vue'
 import { NAME_COL } from '../../constants/components'
 import { RX_COL_CLASS } from '../../constants/regex'
 import identity from '../../utils/identity'
@@ -163,6 +163,6 @@ export const BCol = defineComponent({
       [`align-self-${alignSelf}`]: !!alignSelf
     })
 
-    return h(props.tag, mergeProps(data, { class: classList }), children)
+    return h(props.tag, mergeData(data, { class: classList }), children)
   }
 })

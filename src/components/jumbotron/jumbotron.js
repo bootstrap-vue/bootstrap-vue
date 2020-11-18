@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_JUMBOTRON } from '../../constants/components'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -120,7 +120,7 @@ export const BJumbotron = /*#__PURE__*/ defineComponent({
 
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'jumbotron',
         class: {
           'jumbotron-fluid': props.fluid,

@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../vue'
+import { defineComponent, h, mergeData } from '../vue'
 import { NAME_ICONSTACK } from '../constants/components'
 import { makePropsConfigurable } from '../utils/config'
 import { commonIconProps, BVIconBase } from './helpers/icon-base'
@@ -11,7 +11,7 @@ export const BIconstack = /*#__PURE__*/ defineComponent({
   render(_, { data, props, children }) {
     return h(
       BVIconBase,
-      mergeProps(data, { staticClass: 'b-iconstack', props: { ...props, stacked: false } }),
+      mergeData(data, { staticClass: 'b-iconstack', props: { ...props, stacked: false } }),
       children
     )
   }

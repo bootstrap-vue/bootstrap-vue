@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_LIST_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { isString } from '../../utils/inspect'
@@ -41,6 +41,6 @@ export const BListGroup = /*#__PURE__*/ defineComponent({
         [`list-group-horizontal-${horizontal}`]: isString(horizontal)
       }
     }
-    return h(props.tag, mergeProps(data, componentData), children)
+    return h(props.tag, mergeData(data, componentData), children)
   }
 })

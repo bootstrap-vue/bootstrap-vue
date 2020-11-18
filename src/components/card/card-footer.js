@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_FOOTER } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
@@ -38,7 +38,7 @@ export const BCardFooter = /*#__PURE__*/ defineComponent({
 
     return h(
       props.footerTag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'card-footer',
         class: [
           props.footerClass,

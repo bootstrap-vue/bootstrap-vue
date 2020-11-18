@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -25,7 +25,7 @@ export const BSkeletonWrapper = /*#__PURE__*/ defineComponent({
     if (props.loading) {
       return h(
         'div',
-        mergeProps(data, {
+        mergeData(data, {
           attrs: {
             role: 'alert',
             'aria-live': 'polite',

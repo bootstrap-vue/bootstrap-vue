@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_BUTTON_CLOSE } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -62,7 +62,7 @@ export const BButtonClose = /*#__PURE__*/ defineComponent({
     }
     return h(
       'button',
-      mergeProps(data, componentData),
+      mergeData(data, componentData),
       normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
     )
   }

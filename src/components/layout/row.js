@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_ROW } from '../../constants/components'
 import identity from '../../utils/identity'
 import memoize from '../../utils/memoize'
@@ -118,6 +118,6 @@ export const BRow = defineComponent({
       [`justify-content-${props.alignH}`]: props.alignH,
       [`align-content-${props.alignContent}`]: props.alignContent
     })
-    return h(props.tag, mergeProps(data, { staticClass: 'row', class: classList }), children)
+    return h(props.tag, mergeData(data, { staticClass: 'row', class: classList }), children)
   }
 })

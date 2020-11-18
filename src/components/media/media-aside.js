@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_MEDIA_ASIDE } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -40,7 +40,7 @@ export const BMediaAside = /*#__PURE__*/ defineComponent({
 
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'media-aside',
         class: {
           'media-aside-right': props.right,

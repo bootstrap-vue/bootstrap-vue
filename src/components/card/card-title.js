@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_TITLE } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { toString } from '../../utils/string'
@@ -29,7 +29,7 @@ export const BCardTitle = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       props.titleTag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'card-title'
       }),
       children || toString(props.title)

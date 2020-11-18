@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_FORM_SELECT_OPTION } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -30,7 +30,7 @@ export const BFormSelectOption = /*#__PURE__*/ defineComponent({
 
     return h(
       'option',
-      mergeProps(data, {
+      mergeData(data, {
         attrs: { disabled },
         domProps: { value }
       }),

@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_IMG } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { pick } from '../../utils/object'
@@ -52,7 +52,7 @@ export const BCardImg = /*#__PURE__*/ defineComponent({
 
     return h(
       'img',
-      mergeProps(data, {
+      mergeData(data, {
         class: baseClass,
         attrs: { src, alt, width, height }
       })

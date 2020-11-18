@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_MEDIA } from '../../constants/components'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { makePropsConfigurable } from '../../utils/config'
@@ -58,6 +58,6 @@ export const BMedia = /*#__PURE__*/ defineComponent({
       }
     }
 
-    return h(props.tag, mergeProps(data, { staticClass: 'media' }), $children)
+    return h(props.tag, mergeData(data, { staticClass: 'media' }), $children)
   }
 })

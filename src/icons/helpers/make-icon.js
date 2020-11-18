@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { commonIconProps, BVIconBase } from './icon-base'
 
@@ -32,7 +32,7 @@ export const makeIcon = (name, content) => {
     render(_, { props, data }) {
       return h(
         BVIconBase,
-        mergeProps(
+        mergeData(
           // Defaults
           {
             props: { title: iconTitle },

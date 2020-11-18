@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_ICON_BASE } from '../../constants/components'
 import identity from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
@@ -145,7 +145,7 @@ export const BVIconBase = /*#__PURE__*/ defineComponent({
 
     return h(
       'svg',
-      mergeProps(
+      mergeData(
         {
           staticClass: 'b-icon bi',
           class: {

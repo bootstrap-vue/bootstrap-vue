@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_BODY } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { copyProps, pluckProps, prefixPropName } from '../../utils/props'
@@ -51,7 +51,7 @@ export const BCardBody = /*#__PURE__*/ defineComponent({
 
     return h(
       props.bodyTag,
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'card-body',
         class: [
           {

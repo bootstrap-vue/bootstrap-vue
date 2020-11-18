@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
@@ -32,7 +32,7 @@ export const BNavItem = /*#__PURE__*/ defineComponent({
     // We transfer the listeners to the link
     return h(
       'li',
-      mergeProps(omit(data, ['on']), {
+      mergeData(omit(data, ['on']), {
         staticClass: 'nav-item'
       }),
       [

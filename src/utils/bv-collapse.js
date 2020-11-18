@@ -5,7 +5,7 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
-import { Transition, defineComponent, h, normalizeTransitionProps, mergeProps } from '../vue'
+import { Transition, defineComponent, h, normalizeTransitionProps, mergeData } from '../vue'
 import { CLASS_NAME_SHOW } from '../constants/class-names'
 import { NAME_COLLAPSE_HELPER } from '../constants/components'
 import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
@@ -81,7 +81,7 @@ export const BVCollapse = /*#__PURE__*/ defineComponent({
     return h(
       Transition,
       // We merge in the `appear` prop last
-      mergeProps(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
+      mergeData(data, { props: TRANSITION_PROPS, on: TRANSITION_HANDLERS }, { props }),
       // Note: `<transition>` supports a single root element only
       children
     )

@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_FORM } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -36,7 +36,7 @@ export const BForm = /*#__PURE__*/ defineComponent({
   render(_, { props, data, children }) {
     return h(
       'form',
-      mergeProps(data, {
+      mergeData(data, {
         class: {
           'form-inline': props.inline,
           'was-validated': props.validated

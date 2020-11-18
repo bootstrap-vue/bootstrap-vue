@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { omit } from '../../utils/object'
@@ -36,7 +36,7 @@ export const BCardImgLazy = /*#__PURE__*/ defineComponent({
 
     return h(
       BImgLazy,
-      mergeProps(data, {
+      mergeData(data, {
         class: [baseClass],
         // Exclude `left` and `right` props before passing to `<b-img-lazy>`
         props: omit(props, ['left', 'right'])

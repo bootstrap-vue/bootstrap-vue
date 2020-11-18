@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_BREADCRUMB } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { isArray, isObject } from '../../utils/inspect'
@@ -48,6 +48,6 @@ export const BBreadcrumb = /*#__PURE__*/ defineComponent({
       })
     }
 
-    return h('ol', mergeProps(data, { staticClass: 'breadcrumb' }), childNodes)
+    return h('ol', mergeData(data, { staticClass: 'breadcrumb' }), childNodes)
   }
 })

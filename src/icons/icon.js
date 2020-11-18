@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../vue'
+import { defineComponent, h, mergeData } from '../vue'
 import { NAME_ICON } from '../constants/components'
 import { RX_ICON_PREFIX } from '../constants/regex'
 import { makePropsConfigurable } from '../utils/config'
@@ -46,7 +46,7 @@ export const BIcon = /*#__PURE__*/ defineComponent({
     // If not registered, we render a blank icon
     return h(
       icon ? findIconComponent(parent, `BIcon${icon}`) || BIconBlank : BIconBlank,
-      mergeProps(data, { props: { ...props, icon: null } })
+      mergeData(data, { props: { ...props, icon: null } })
     )
   }
 })

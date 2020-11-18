@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_SKELETON } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -40,7 +40,7 @@ export const BSkeleton = /*#__PURE__*/ defineComponent({
 
     return h(
       'div',
-      mergeProps(data, {
+      mergeData(data, {
         staticClass: 'b-skeleton',
         style: {
           width: size || props.width,

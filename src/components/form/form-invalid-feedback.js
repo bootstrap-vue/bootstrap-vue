@@ -1,4 +1,4 @@
-import { defineComponent, h, mergeProps } from '../../vue'
+import { defineComponent, h, mergeData } from '../../vue'
 import { NAME_FORM_INVALID_FEEDBACK } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 
@@ -52,7 +52,7 @@ export const BFormInvalidFeedback = /*#__PURE__*/ defineComponent({
 
     return h(
       props.tag,
-      mergeProps(data, {
+      mergeData(data, {
         class: {
           'd-block': show,
           'invalid-feedback': !tooltip,
