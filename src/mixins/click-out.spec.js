@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
-import { h } from '../../vue'
+import { h } from '../vue'
 import clickOutMixin from './click-out'
 
 describe('utils/click-out', () => {
