@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
-import { h } from '../../vue'
+import { h } from '../vue'
 import listenOnDocumentMixin from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
