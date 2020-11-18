@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { h } from '../../vue'
+import { h } from '../vue'
 import BootstrapVuePlugin from '../index'
 import listenOnRootMixin from './listen-on-root'
 
