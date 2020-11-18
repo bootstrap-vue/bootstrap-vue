@@ -144,7 +144,7 @@
     "postcss-cli": "^8.2.0",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
-    "rollup": "^2.33.2",
+    "rollup": "^2.33.3",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
