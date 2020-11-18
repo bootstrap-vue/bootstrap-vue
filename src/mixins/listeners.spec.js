@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { h } from '../../vue'
+import { h } from '../vue'
 import listenersMixin from './listeners'
 
 // Note: The following tests indirectly test `utils/cache`
