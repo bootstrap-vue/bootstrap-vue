@@ -87,7 +87,9 @@ const normalizeVNodeData = data => {
 
   const {
     staticClass,
+    class: classes,
     staticStyle,
+    style,
     attrs = {},
     props = {},
     domProps = {},
@@ -115,8 +117,8 @@ const normalizeVNodeData = data => {
       }),
       {}
     ),
-    class: [staticClass, otherData.class],
-    style: [staticStyle, otherData.style]
+    ...(staticClass || classes ? { class: [staticClass, classes] } : {}),
+    ...(staticStyle || style ? { style: [staticStyle, style] } : {})
   }
 }
 
