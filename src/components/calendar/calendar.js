@@ -43,7 +43,7 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import {isArray, isPlainObject, isString, isUndefinedOrNull} from '../../utils/inspect'
+import { isArray, isPlainObject, isString, isUndefinedOrNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'

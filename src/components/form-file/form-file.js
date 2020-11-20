@@ -10,13 +10,7 @@ import { makePropsConfigurable } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
-import {
-  isArray,
-  isFile,
-  isFunction,
-  isNull,
-  isUndefinedOrNull
-} from '../../utils/inspect'
+import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'

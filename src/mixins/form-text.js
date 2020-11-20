@@ -1,7 +1,7 @@
 import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import {isUndefined, isUndefinedOrNull} from '../utils/inspect'
+import { isUndefinedOrNull } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
