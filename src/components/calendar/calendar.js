@@ -43,7 +43,7 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isArray, isPlainObject, isString, isUndefined } from '../../utils/inspect'
+import {isArray, isPlainObject, isString, isUndefinedOrNull} from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -346,7 +346,7 @@ export const BCalendar = Vue.extend({
       try {
         result = dateDisabledFn()
       } catch {}
-      return isUndefined(result) ? () => false : dateDisabledFn
+      return isUndefinedOrNull(result) ? () => false : dateDisabledFn
     },
     // TODO: Change `dateInfoFn` to handle events and notes as well as classes
     computedDateInfoFn() {
@@ -355,7 +355,7 @@ export const BCalendar = Vue.extend({
       try {
         result = dateInfoFn()
       } catch {}
-      return isUndefined(result) ? () => ({}) : dateInfoFn
+      return isUndefinedOrNull(result) ? () => ({}) : dateInfoFn
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)

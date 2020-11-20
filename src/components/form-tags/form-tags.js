@@ -21,7 +21,7 @@ import {
 } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { pick } from '../../utils/object'
-import { isEvent, isNumber, isString, isUndefined } from '../../utils/inspect'
+import {isEvent, isNumber, isString, isUndefinedOrNull} from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
@@ -512,7 +512,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       try {
         result = tagValidator()
       } catch {}
-      return isUndefined(result) ? true : tagValidator(tag)
+      return isUndefinedOrNull(result) ? true : tagValidator(tag)
     },
     getInput() {
       // Returns the input element reference (or null if not found)

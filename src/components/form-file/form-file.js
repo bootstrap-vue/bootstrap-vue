@@ -15,7 +15,6 @@ import {
   isFile,
   isFunction,
   isNull,
-  isUndefined,
   isUndefinedOrNull
 } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
@@ -280,7 +279,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       try {
         result = fileNameFormatter()
       } catch {}
-      return isUndefined(result) ? this.defaultFileNameFormatter : fileNameFormatter
+      return isUndefinedOrNull(result) ? this.defaultFileNameFormatter : fileNameFormatter
     },
     clonedFiles() {
       return cloneDeep(this.files)
