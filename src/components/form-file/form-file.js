@@ -10,14 +10,7 @@ import { makePropsConfigurable } from '../../utils/config'
 import { closest } from '../../utils/dom'
 import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
-import {
-  isArray,
-  isFile,
-  isFunction,
-  isNull,
-  isUndefined,
-  isUndefinedOrNull
-} from '../../utils/inspect'
+import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
 import { File } from '../../utils/safe-types'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
@@ -276,11 +269,9 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     computedFileNameFormatter() {
       const { fileNameFormatter } = this
-      let result = null
-      try {
-        result = fileNameFormatter()
-      } catch {}
-      return isUndefined(result) ? this.defaultFileNameFormatter : fileNameFormatter
+      return fileNameFormatter.name !== 'default'
+        ? fileNameFormatter
+        : this.defaultFileNameFormatter
     },
     clonedFiles() {
       return cloneDeep(this.files)
