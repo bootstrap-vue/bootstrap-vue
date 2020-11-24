@@ -73,9 +73,10 @@ export default {
   },
   props,
   data() {
+    const { value } = this
     return {
-      localValue: toString(this.value),
-      vModelValue: this.value
+      localValue: toString(value),
+      vModelValue: this.modifyValue(value)
     }
   },
   computed: {
@@ -120,14 +121,15 @@ export default {
     }
   },
   watch: {
-    value(newVal) {
-      const stringifyValue = toString(newVal)
-      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+    value(newValue) {
+      const stringifyValue = toString(newValue)
+      const modifiedValue = this.modifyValue(newValue)
+      if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newVal
+        this.vModelValue = modifiedValue
       }
     }
   },
@@ -138,14 +140,6 @@ export default {
   mounted() {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
-    // Preset the internal state
-    const value = this.value
-    const stringifyValue = toString(value)
-    /* istanbul ignore next */
-    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
-      this.localValue = stringifyValue
-      this.vModelValue = value
-    }
   },
   methods: {
     clearDebounce() {
@@ -160,6 +154,7 @@ export default {
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -171,7 +166,7 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      const lazy = this.lazy
+      const { lazy } = this
       if (lazy && !force) {
         return
       }
