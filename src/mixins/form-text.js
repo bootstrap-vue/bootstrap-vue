@@ -95,18 +95,6 @@ export default {
         this.stateClass
       ]
     },
-    computedAriaInvalid() {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // `this.ariaInvalid` is `null` or `false` or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit `:aria-invalid="true"`
-        return 'true'
-      }
-      // Most likely a string value (which could be the string 'true')
-      return this.ariaInvalid
-    },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
       return mathMax(toInteger(this.debounce, 0), 0)
