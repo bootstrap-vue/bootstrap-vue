@@ -518,7 +518,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
             touchstart: handler
           }
         },
-        [h('div', [this.normalizeSlot(slotName, scope) || $icon])]
+        [this.normalizeSlot(slotName, scope) || $icon]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min
