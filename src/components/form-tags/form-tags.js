@@ -212,14 +212,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return arrayIncludes(TYPES, this.inputType) ? this.inputType : 'text'
     },
     computedInputAttrs() {
+      const { disabled, form } = this
+
       return {
         // Merge in user supplied attributes
         ...this.inputAttrs,
         // Must have attributes
         id: this.computedInputId,
         value: this.newTag,
-        disabled: this.disabled || null,
-        form: this.form || null
+        disabled,
+        form
       }
     },
     computedInputHandlers() {
