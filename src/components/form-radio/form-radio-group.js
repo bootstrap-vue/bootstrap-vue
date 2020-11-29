@@ -19,10 +19,5 @@ export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
     return {
       bvRadioGroup: this
     }
-  },
-  computed: {
-    isRadioGroup() {
-      return true
-    }
   }
 })
