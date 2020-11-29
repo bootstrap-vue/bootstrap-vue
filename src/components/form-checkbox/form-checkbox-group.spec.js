@@ -311,11 +311,11 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.classes()).toBeDefined()
+    expect(wrapper.vm.isRadioGroup).toEqual(false)
+    expect(wrapper.vm.localChecked).toEqual([])
 
     const $inputs = wrapper.findAll('input')
     expect($inputs.length).toBe(3)
-    expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
 
     wrapper.destroy()
