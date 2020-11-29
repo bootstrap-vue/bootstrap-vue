@@ -100,14 +100,21 @@ describe('form-tags', () => {
   it('has hidden inputs when name is set', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
-        value: ['apple', 'orange'],
-        name: 'foo'
+        value: [],
+        name: 'foo',
+        required: true
       }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    const $hidden = wrapper.findAll('input[type=hidden]')
+    let $hidden = wrapper.find('input.sr-only')
+    expect($hidden.attributes('value')).toEqual('')
+    expect($hidden.attributes('name')).toEqual('foo')
+    expect($hidden.attributes('required')).toBeDefined()
+
+    await wrapper.setProps({ value: ['apple', 'orange'] })
+    $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
     expect($hidden.at(0).attributes('value')).toEqual('apple')
     expect($hidden.at(0).attributes('name')).toEqual('foo')
