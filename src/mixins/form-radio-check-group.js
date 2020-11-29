@@ -4,14 +4,27 @@ import { makePropsConfigurable } from '../utils/config'
 import { htmlOrText } from '../utils/html'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
+import formControlMixin, { props as formControlProps } from './form-control'
 import formCustomMixin, { props as formCustomProps } from './form-custom'
+import formOptionsMixin, { props as formOptionsProps } from './form-options'
+import formSizeMixin, { props as formSizeProps } from './form-size'
+import formStateMixin, { props as formStateProps } from './form-state'
+import idMixin from './id'
 import normalizeSlotMixin from './normalize-slot'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
+    ...formControlProps,
+    ...formOptionsProps,
+    ...formSizeProps,
+    ...formStateProps,
     ...formCustomProps,
+    checked: {
+      // type: [Boolean, Number, Object, String]
+      default: null
+    },
     validated: {
       type: Boolean,
       default: false
@@ -39,14 +52,28 @@ export const props = makePropsConfigurable(
 )
 
 // --- Mixin ---
+
 // @vue/component
 export default {
-  mixins: [formCustomMixin, normalizeSlotMixin],
+  mixins: [
+    idMixin,
+    normalizeSlotMixin,
+    formControlMixin,
+    formOptionsMixin,
+    formSizeMixin,
+    formStateMixin,
+    formCustomMixin
+  ],
   model: {
     prop: 'checked',
     event: 'input'
   },
   props,
+  data() {
+    return {
+      localChecked: this.checked
+    }
+  },
   computed: {
     inline() {
       return !this.stacked
@@ -57,28 +84,28 @@ export default {
       return this.name || this.safeId()
     },
     groupClasses() {
+      const { inline, size, validated } = this
+
+      let classes = { 'was-validated': validated }
       if (this.buttons) {
-        return [
+        classes = [
+          classes,
           'btn-group-toggle',
-          this.inline ? 'btn-group' : 'btn-group-vertical',
-          this.size ? `btn-group-${this.size}` : '',
-          this.validated ? `was-validated` : ''
+          {
+            'btn-group': inline,
+            'btn-group-vertical': !inline,
+            [`btn-group-${size}`]: !!size
+          }
         ]
       }
-      return [this.validated ? `was-validated` : '']
-    },
-    computedAriaInvalid() {
-      const ariaInvalid = this.ariaInvalid
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
+
+      return classes
     }
   },
   watch: {
-    checked(newVal) {
-      if (!looseEqual(newVal, this.localChecked)) {
-        this.localChecked = newVal
+    checked(newValue) {
+      if (!looseEqual(newValue, this.localChecked)) {
+        this.localChecked = newValue
       }
     },
     localChecked(newValue, oldValue) {
@@ -88,11 +115,14 @@ export default {
     }
   },
   render(h) {
+    const { isRadioGroup } = this
+    const optionComponent = isRadioGroup ? BFormRadio : BFormCheckbox
+
     const $inputs = this.formOptions.map((option, index) => {
       const key = `BV_option_${index}`
 
       return h(
-        this.isRadioGroup ? BFormRadio : BFormCheckbox,
+        optionComponent,
         {
           props: {
             id: this.safeId(key),
@@ -116,7 +146,7 @@ export default {
         class: [this.groupClasses, 'bv-no-focus-ring'],
         attrs: {
           id: this.safeId(),
-          role: this.isRadioGroup ? 'radiogroup' : 'group',
+          role: isRadioGroup ? 'radiogroup' : 'group',
           // Add `tabindex="-1"` to allow group to be focused if needed by screen readers
           tabindex: '-1',
           'aria-required': this.required ? 'true' : null,

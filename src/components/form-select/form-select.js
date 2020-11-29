@@ -77,12 +77,6 @@ export const BFormSelect = /*#__PURE__*/ Vue.extend({
         this.size && !this.plain ? `custom-select-${this.size}` : null,
         this.stateClass
       ]
-    },
-    computedAriaInvalid() {
-      if (this.ariaInvalid === true || this.ariaInvalid === 'true') {
-        return 'true'
-      }
-      return this.stateClass === 'is-invalid' ? 'true' : null
     }
   },
   watch: {
