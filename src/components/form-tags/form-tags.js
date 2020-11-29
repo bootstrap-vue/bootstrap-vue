@@ -211,7 +211,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return arrayIncludes(TYPES, this.inputType) ? this.inputType : 'text'
     },
     computedInputAttrs() {
-      const { disabled, form } = this
+      const { disabled, required, form } = this
 
       return {
         // Merge in user supplied attributes
@@ -220,6 +220,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         id: this.computedInputId,
         value: this.newTag,
         disabled,
+        required,
         form
       }
     },
@@ -731,7 +732,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { name, disabled, required, form, tags, computedInputId, hasFocus, noOuterFocus } = this
+    const { name, disabled, form, tags, computedInputId, hasFocus, noOuterFocus } = this
 
     // Scoped slot properties
     const scope = {
@@ -823,7 +824,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             type: 'hidden',
             value: tag,
             name,
-            required,
             form
           },
           key: `tag_input_${tag}`
