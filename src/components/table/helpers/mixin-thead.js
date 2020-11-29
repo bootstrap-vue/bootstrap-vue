@@ -115,8 +115,9 @@ export default {
           props: { variant, stickyColumn },
           style: field.thStyle || {},
           attrs: {
-            // We only add a tabindex of 0 if there is a head-clicked listener
-            tabindex: hasHeadClickListener ? '0' : null,
+            // We only add a `tabindex` of `0` if there is a head-clicked listener
+            // and the current field is sortable
+            tabindex: hasHeadClickListener && field.sortable ? '0' : null,
             abbr: field.headerAbbr || null,
             title: field.headerTitle || null,
             'aria-colindex': colIndex + 1,
