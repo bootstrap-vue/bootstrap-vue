@@ -211,14 +211,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return arrayIncludes(TYPES, this.inputType) ? this.inputType : 'text'
     },
     computedInputAttrs() {
+      const { disabled, form } = this
+
       return {
         // Merge in user supplied attributes
         ...this.inputAttrs,
         // Must have attributes
         id: this.computedInputId,
         value: this.newTag,
-        disabled: this.disabled || null,
-        form: this.form || null
+        disabled,
+        form
       }
     },
     computedInputHandlers() {
@@ -729,7 +731,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { name, disabled, tags, computedInputId, hasFocus, noOuterFocus } = this
+    const { name, disabled, required, form, tags, computedInputId, hasFocus, noOuterFocus } = this
 
     // Scoped slot properties
     const scope = {
@@ -757,6 +759,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Pass-through props
       ...pick(this.$props, [
         'disabled',
+        'required',
+        'form',
         'state',
         'size',
         'limit',
@@ -814,14 +818,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     let $hidden = h()
     if (name && !disabled) {
       // We add hidden inputs for each tag if a name is provided
-      // for native submission of forms
-      $hidden = tags.map(tag => {
+      // When there are currently no tags, a visually hidden input
+      // with empty value is rendered for proper required handling
+      const hasTags = tags.length > 0
+      $hidden = (hasTags ? tags : ['']).map(tag => {
         return h('input', {
+          class: { 'sr-only': !hasTags },
           attrs: {
-            type: 'hidden',
+            type: hasTags ? 'hidden' : 'text',
             value: tag,
+            required,
             name,
-            form: this.form || null
+            form
           },
           key: `tag_input_${tag}`
         })
