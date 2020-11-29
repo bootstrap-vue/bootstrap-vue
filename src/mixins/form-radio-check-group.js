@@ -75,9 +75,6 @@ export default {
     }
   },
   computed: {
-    isRadioGroup() {
-      return true
-    },
     inline() {
       return !this.stacked
     },
