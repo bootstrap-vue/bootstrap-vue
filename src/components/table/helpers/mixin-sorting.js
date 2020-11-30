@@ -38,9 +38,7 @@ export default {
         // Supported localCompare options, see `options` section of:
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
         type: Object,
-        default: () => {
-          return { numeric: true }
-        }
+        default: () => ({ numeric: true })
       },
       sortCompareLocale: {
         // String: locale code
@@ -102,17 +100,20 @@ export default {
     isSortable() {
       return this.computedFields.some(f => f.sortable)
     },
+    // Sorts the filtered items and returns a new array of the sorted items
+    // When not sorted, the original items array will be returned
     sortedItems() {
-      // Sorts the filtered items and returns a new array of the sorted items
-      // or the original items array if not sorted.
+      const {
+        localSortBy: sortBy,
+        localSortDesc: sortDesc,
+        sortCompareLocale: locale,
+        sortNullLast: nullLast,
+        sortCompare,
+        localSorting
+      } = this
       const items = (this.filteredItems || this.localItems || []).slice()
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
-      const localSorting = this.localSorting
-      const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
-      const sortLocale = this.sortCompareLocale || undefined
-      const nullLast = this.sortNullLast
+      const localeOptions = { ...this.sortCompareOptions, usage: 'sort' }
+
       if (sortBy && localSorting) {
         const field = this.computedFieldsObj[sortBy] || {}
         const sortByFormatted = field.sortByFormatted
@@ -121,31 +122,33 @@ export default {
           : sortByFormatted
             ? this.getFieldFormatter(sortBy)
             : undefined
+
         // `stableSort` returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
+          // Call user provided `sortCompare` routine first
           if (isFunction(sortCompare)) {
-            // Call user provided sortCompare routine
-            result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
+            // TODO:
+            //   Change the `sortCompare` signature to the one of `defaultSortCompare`
+            //   with the next major version bump
+            result = sortCompare(a, b, sortBy, sortDesc, formatter, localeOptions, locale)
           }
+          // Fallback to built-in `defaultSortCompare` if `sortCompare`
+          // is not defined or returns `null`/`false`
           if (isUndefinedOrNull(result) || result === false) {
-            // Fallback to built-in defaultSortCompare if sortCompare
-            // is not defined or returns null/false
-            result = defaultSortCompare(
-              a,
-              b,
+            result = defaultSortCompare(a, b, {
               sortBy,
-              sortDesc,
               formatter,
-              sortOptions,
-              sortLocale,
+              locale,
+              localeOptions,
               nullLast
-            )
+            })
           }
           // Negate result if sorting in descending order
           return (result || 0) * (sortDesc ? -1 : 1)
         })
       }
+
       return items
     }
   },

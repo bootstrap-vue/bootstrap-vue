@@ -240,7 +240,7 @@ describe('table > sorting', () => {
         sortDesc: false,
         sortCompare: (a, b, sortBy) => {
           // We just use our default sort compare to test passing a function
-          return defaultSortCompare(a, b, sortBy)
+          return defaultSortCompare(a, b, { sortBy })
         }
       }
     })
