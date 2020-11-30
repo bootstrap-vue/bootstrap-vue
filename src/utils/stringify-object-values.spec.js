@@ -1,6 +1,6 @@
 import stringifyObjectValues from './stringify-object-values'
 
-describe('table/helpers/default-sort-compare', () => {
+describe('stringifyObjectValues()', () => {
   it('handles `null` and `undefined`', async () => {
     expect(stringifyObjectValues(null)).toBe('')
     expect(stringifyObjectValues(undefined)).toBe('')
