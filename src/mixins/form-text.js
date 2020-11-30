@@ -122,6 +122,14 @@ export default {
   mounted() {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
+    // Preset the internal state
+    const { value } = this
+    const stringifyValue = toString(value)
+    /* istanbul ignore next */
+    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
+      this.localValue = stringifyValue
+      this.vModelValue = value
+    }
   },
   methods: {
     clearDebounce() {
@@ -136,7 +144,6 @@ export default {
       return value
     },
     modifyValue(value) {
-      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
