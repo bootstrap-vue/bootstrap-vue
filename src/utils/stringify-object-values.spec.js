@@ -20,15 +20,13 @@ describe('stringifyObjectValues()', () => {
   })
 
   it('converts dates to native string format', async () => {
-    expect(stringifyObjectValues(new Date(2020, 1, 1))).toBe(
-      'Sat Feb 01 2020 00:00:00 GMT+0100 (Central European Standard Time)'
-    )
-    expect(stringifyObjectValues(new Date(2030, 1, 1))).toBe(
-      'Fri Feb 01 2030 00:00:00 GMT+0100 (Central European Standard Time)'
-    )
-    expect(stringifyObjectValues(new Date(1970, 1, 1))).toBe(
-      'Sun Feb 01 1970 00:00:00 GMT+0100 (Central European Standard Time)'
-    )
+    const date1 = new Date(2020, 1, 1)
+    const date2 = new Date(2030, 1, 1)
+    const date3 = new Date(1970, 1, 1)
+
+    expect(stringifyObjectValues(date1)).toBe(date1.toString())
+    expect(stringifyObjectValues(date2)).toBe(date2.toString())
+    expect(stringifyObjectValues(date3)).toBe(date3.toString())
   })
 
   it('converts array values to a string', async () => {
