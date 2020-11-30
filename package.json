@@ -150,7 +150,7 @@
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "standard-version": "^9.0.0",
-    "terser": "^5.5.0",
+    "terser": "^5.5.1",
     "vue": "^2.6.12",
     "vue-jest": "^3.0.7",
     "vue-router": "^3.4.9",
