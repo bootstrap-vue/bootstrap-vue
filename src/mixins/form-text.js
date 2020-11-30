@@ -107,7 +107,7 @@ export default {
     value(newValue) {
       const stringifyValue = toString(newValue)
       const modifiedValue = this.modifyValue(newValue)
-      if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
+      if (stringifyValue !== this.localValue && modifiedValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
@@ -128,7 +128,7 @@ export default {
     const stringifyValue = toString(value)
     const modifiedValue = this.modifyValue(value)
     /* istanbul ignore next */
-    if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
+    if (stringifyValue !== this.localValue && modifiedValue !== this.vModelValue) {
       this.localValue = stringifyValue
       this.vModelValue = modifiedValue
     }
