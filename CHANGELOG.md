@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.20.0"></a>
+
+## [v2.20.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.19.0...v2.20.0)
+
+Released: 2020-11-30
+
+### Features v2.20.0
+
+- **b-form-tags:** add `reset` method
+  ([#6104](https://github.com/bootstrap-vue/bootstrap-vue/issues/6104))
+  ([d610291](https://github.com/bootstrap-vue/bootstrap-vue/commit/d6102913a5f9a3295f646fad50ba58ffc31533e8))
+
+### Bug Fixes v2.20.0
+
+- **b-form-input:** modified value handling
+  ([#6084](https://github.com/bootstrap-vue/bootstrap-vue/issues/6084))
+  ([d6d8e3c](https://github.com/bootstrap-vue/bootstrap-vue/commit/d6d8e3c0f309ca16ede0c874bb787ab2fed7b380))
+- **b-form-spinbutton:** button markup
+  ([#6101](https://github.com/bootstrap-vue/bootstrap-vue/issues/6101))
+  ([5082976](https://github.com/bootstrap-vue/bootstrap-vue/commit/5082976e90264cadd84a4c9dbf339ce90fe49456))
+- **b-form-tags:** required handling (closes
+  [#6094](https://github.com/bootstrap-vue/bootstrap-vue/issues/6094))
+  ([#6103](https://github.com/bootstrap-vue/bootstrap-vue/issues/6103))
+  ([2dc6b9d](https://github.com/bootstrap-vue/bootstrap-vue/commit/2dc6b9d5bc5fcb3cf1febda7d9e5b03d1ee9a3d0))
+- **b-table:** only set `tabindex="0"` for sortable TH's
+  ([#6102](https://github.com/bootstrap-vue/bootstrap-vue/issues/6102))
+  ([dd23742](https://github.com/bootstrap-vue/bootstrap-vue/commit/dd237425e4e7a7e73d5c17210780b02dab2110e2))
+- **b-table:** sort handling for numeric string values (closes
+  [#6092](https://github.com/bootstrap-vue/bootstrap-vue/issues/6092))
+  ([#6105](https://github.com/bootstrap-vue/bootstrap-vue/issues/6105))
+  ([29fbcb5](https://github.com/bootstrap-vue/bootstrap-vue/commit/29fbcb58c5efed0dbbafa8b0bb5fc1d1651079cd))
+- user supplied prop function detection
+  ([#6070](https://github.com/bootstrap-vue/bootstrap-vue/issues/6070))
+  ([cea6051](https://github.com/bootstrap-vue/bootstrap-vue/commit/cea6051efc901325d63c22f65381242bd6e774e7))
+
 <a name="2.19.0"></a>
 
 ## [v2.19.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.18.1...v2.19.0)
