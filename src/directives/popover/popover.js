@@ -1,4 +1,4 @@
-import { defineDirective } from '../../vue'
+import { defineDirective, isVue2 } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
@@ -192,20 +192,23 @@ const applyPopover = (el, bindings, vnode) => {
       _scopeId: getScopId($parent, undefined)
     })
     el[BV_POPOVER].__bv_prev_data__ = {}
-    el[BV_POPOVER].$on('show', () => /* istanbul ignore next: for now */ {
-      // Before showing the popover, we update the title
-      // and content if they are functions
-      const data = {}
-      if (isFunction(config.title)) {
-        data.title = config.title(el)
-      }
-      if (isFunction(config.content)) {
-        data.content = config.content(el)
-      }
-      if (keys(data).length > 0) {
-        el[BV_POPOVER].updateData(data)
-      }
-    })
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      el[BV_POPOVER].$on('show', () => /* istanbul ignore next: for now */ {
+        // Before showing the popover, we update the title
+        // and content if they are functions
+        const data = {}
+        if (isFunction(config.title)) {
+          data.title = config.title(el)
+        }
+        if (isFunction(config.content)) {
+          data.content = config.content(el)
+        }
+        if (keys(data).length > 0) {
+          el[BV_POPOVER].updateData(data)
+        }
+      })
+    }
   }
   const data = {
     title: config.title,

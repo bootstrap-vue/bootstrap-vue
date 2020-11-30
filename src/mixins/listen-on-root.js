@@ -30,7 +30,7 @@ export default defineComponent({
 
       emitter.on(event, callback)
 
-      // TODO: Find a way to remove root listener on destroy in Vue 3
+      // TODO: Find a way to do this in Vue 3
       if (isVue2) {
         this.$on('hook:beforeDestroy', () => {
           emitter.off(event, callback)
@@ -60,7 +60,7 @@ export default defineComponent({
 
       emitter.once(event, callback)
 
-      // TODO: Find a way to remove root listener on destroy in Vue 3
+      // TODO: Find a way to do this in Vue 3
       if (isVue2) {
         this.$on('hook:beforeDestroy', () => {
           emitter.off(event, callback)

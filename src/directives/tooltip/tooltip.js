@@ -1,4 +1,4 @@
-import { defineDirective } from '../../vue'
+import { defineDirective, isVue2 } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import identity from '../../utils/identity'
@@ -197,14 +197,17 @@ const applyTooltip = (el, bindings, vnode) => {
       _scopeId: getScopId($parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
-    el[BV_TOOLTIP].$on('show', () => /* istanbul ignore next: for now */ {
-      // Before showing the tooltip, we update the title if it is a function
-      if (isFunction(config.title)) {
-        el[BV_TOOLTIP].updateData({
-          title: config.title(el)
-        })
-      }
-    })
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      el[BV_TOOLTIP].$on('show', () => /* istanbul ignore next: for now */ {
+        // Before showing the tooltip, we update the title if it is a function
+        if (isFunction(config.title)) {
+          el[BV_TOOLTIP].updateData({
+            title: config.title(el)
+          })
+        }
+      })
+    }
   }
   const data = {
     title: config.title,

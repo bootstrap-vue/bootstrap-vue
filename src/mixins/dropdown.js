@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import { defineComponent } from '../vue'
+import { defineComponent, isVue2 } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
 import {
   EVENT_NAME_CLICK,
@@ -181,7 +181,10 @@ export default defineComponent({
           this.visibleChangePrevented = true
           this.visible = oldValue
           // Just in case a child element triggered `this.hide(true)`
-          this.$off('hidden', this.focusToggler)
+          // TODO: Find a way to do this in Vue 3
+          if (isVue2) {
+            this.$off('hidden', this.focusToggler)
+          }
           return
         }
         if (newValue) {
@@ -343,7 +346,10 @@ export default defineComponent({
       this.visible = false
       if (refocus) {
         // Child element is closing the dropdown on click
-        this.$once('hidden', this.focusToggler)
+        // TODO: Find a way to do this in Vue 3
+        if (isVue2) {
+          this.$once('hidden', this.focusToggler)
+        }
       }
     },
     // Called only by a button that toggles the menu
@@ -405,7 +411,10 @@ export default defineComponent({
         this.visible = false
         stopEvent(evt)
         // Return focus to original trigger button
-        this.$once('hidden', this.focusToggler)
+        // TODO: Find a way to do this in Vue 3
+        if (isVue2) {
+          this.$once('hidden', this.focusToggler)
+        }
       }
     },
     // Called only in split button mode, for the split button

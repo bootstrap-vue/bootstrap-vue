@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, defineComponent, h } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent, h, isVue2 } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import {
   CODE_DOWN,
@@ -380,9 +380,12 @@ export const BTabs = /*#__PURE__*/ defineComponent({
     registerTab(tab) {
       if (!arrayIncludes(this.registeredTabs, tab)) {
         this.registeredTabs.push(tab)
-        tab.$once('hook:destroyed', () => {
-          this.unregisterTab(tab)
-        })
+        // TODO: Find a way to do this in Vue 3
+        if (isVue2) {
+          tab.$once('hook:destroyed', () => {
+            this.unregisterTab(tab)
+          })
+        }
       }
     },
     unregisterTab(tab) {

@@ -3,7 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import { COMPONENT_UID_KEY, defineComponent } from '../../../vue'
+import { COMPONENT_UID_KEY, defineComponent, isVue2 } from '../../../vue'
 import { NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
 import getScopId from '../../../utils/get-scope-id'
@@ -230,14 +230,17 @@ export const BVTooltip = /*#__PURE__*/ defineComponent({
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
-      this.$parent.$once('hook:beforeDestroy', () => {
-        this.$nextTick(() => {
-          // In a `requestAF()` to release control back to application
-          requestAF(() => {
-            this.$destroy()
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        this.$parent.$once('hook:beforeDestroy', () => {
+          this.$nextTick(() => {
+            // In a `requestAF()` to release control back to application
+            requestAF(() => {
+              this.$destroy()
+            })
           })
         })
-      })
+      }
     }
 
     this.$nextTick(() => {
@@ -330,23 +333,30 @@ export const BVTooltip = /*#__PURE__*/ defineComponent({
       // We set the initial reactive data (values that can be changed while open)
       this.handleTemplateUpdate()
       // Template transition phase events (handled once only)
-      // When the template has mounted, but not visibly shown yet
-      $tip.$once('show', this.onTemplateShow)
-      // When the template has completed showing
-      $tip.$once('shown', this.onTemplateShown)
-      // When the template has started to hide
-      $tip.$once('hide', this.onTemplateHide)
-      // When the template has completed hiding
-      $tip.$once('hidden', this.onTemplateHidden)
-      // When the template gets destroyed for any reason
-      $tip.$once('hook:destroyed', this.destroyTemplate)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        // When the template has mounted, but not visibly shown yet
+        $tip.$once('show', this.onTemplateShow)
+        // When the template has completed showing
+        $tip.$once('shown', this.onTemplateShown)
+        // When the template has started to hide
+        $tip.$once('hide', this.onTemplateHide)
+        // When the template has completed hiding
+        $tip.$once('hidden', this.onTemplateHidden)
+        // When the template gets destroyed for any reason
+        $tip.$once('hook:destroyed', this.destroyTemplate)
+      }
+
       // Convenience events from template
       // To save us from manually adding/removing DOM
       // listeners to tip element when it is open
-      $tip.$on('focusin', this.handleEvent)
-      $tip.$on('focusout', this.handleEvent)
-      $tip.$on('mouseenter', this.handleEvent)
-      $tip.$on('mouseleave', this.handleEvent)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        $tip.$on('focusin', this.handleEvent)
+        $tip.$on('focusout', this.handleEvent)
+        $tip.$on('mouseenter', this.handleEvent)
+        $tip.$on('mouseleave', this.handleEvent)
+      }
       // Mount (which triggers the `show`)
       $tip.$mount(container.appendChild(document.createElement('div')))
       // Template will automatically remove its markup from DOM when hidden

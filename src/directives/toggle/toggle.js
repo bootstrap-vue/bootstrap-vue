@@ -1,4 +1,4 @@
-import { defineDirective } from '../../vue'
+import { defineDirective, isVue2 } from '../../vue'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { RX_HASH, RX_HASH_ID, RX_SPACE_SPLIT } from '../../constants/regex'
@@ -128,7 +128,10 @@ const addClickListener = (el, vnode) => {
 
 const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    vnode.context.$root.$off([EVENT_STATE, EVENT_STATE_SYNC], el[BV_TOGGLE_ROOT_HANDLER])
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      vnode.context.$root.$off([EVENT_STATE, EVENT_STATE_SYNC], el[BV_TOGGLE_ROOT_HANDLER])
+    }
   }
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
@@ -147,7 +150,10 @@ const addRootListeners = (el, vnode) => {
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
     // Listen for toggle state changes (public) and sync (private)
-    vnode.context.$root.$on([EVENT_STATE, EVENT_STATE_SYNC], handler)
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      vnode.context.$root.$on([EVENT_STATE, EVENT_STATE_SYNC], handler)
+    }
   }
 }
 

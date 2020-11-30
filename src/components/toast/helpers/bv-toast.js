@@ -2,7 +2,7 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
-import { defineComponent } from '../../../vue'
+import { defineComponent, isVue2 } from '../../../vue'
 import { NAME_TOAST, NAME_TOAST_POP } from '../../../constants/components'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
@@ -80,10 +80,13 @@ const plugin = Vue => {
           })
         })
       }
-      // Self destruct if parent destroyed
-      this.$parent.$once('hook:destroyed', handleDestroy)
-      // Self destruct after hidden
-      this.$once('hidden', handleDestroy)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        // Self destruct if parent destroyed
+        this.$parent.$once('hook:destroyed', handleDestroy)
+        // Self destruct after hidden
+        this.$once('hidden', handleDestroy)
+      }
       // Self destruct when toaster is destroyed
       this.listenOnRoot('bv::toaster::destroyed', toaster => {
         /* istanbul ignore next: hard to test */

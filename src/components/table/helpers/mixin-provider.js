@@ -1,3 +1,4 @@
+import { isVue2 } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import looseEqual from '../../../utils/loose-equal'
 import { makePropsConfigurable } from '../../../utils/config'
@@ -103,12 +104,18 @@ export default {
   methods: {
     refresh() {
       // Public Method: Force a refresh of the provider function
-      this.$off('refreshed', this.refresh)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        this.$off('refreshed', this.refresh)
+      }
       if (this.computedBusy) {
         // Can't force an update when forced busy by user (busy prop === true)
         if (this.localBusy && this.hasProvider) {
           // But if provider running (localBusy), re-schedule refresh once `refreshed` emitted
-          this.$on('refreshed', this.refresh)
+          // TODO: Find a way to do this in Vue 3
+          if (isVue2) {
+            this.$on('refreshed', this.refresh)
+          }
         }
       } else {
         this.clearSelected()
@@ -179,7 +186,10 @@ export default {
           // and clear the busy state
           warn(`Provider function error [${e.name}] ${e.message}.`, NAME_TABLE)
           this.localBusy = false
-          this.$off('refreshed', this.refresh)
+          // TODO: Find a way to do this in Vue 3
+          if (isVue2) {
+            this.$off('refreshed', this.refresh)
+          }
         }
       })
     }

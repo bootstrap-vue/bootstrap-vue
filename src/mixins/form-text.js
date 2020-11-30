@@ -1,4 +1,4 @@
-import { defineComponent } from '../vue'
+import { defineComponent, isVue2 } from '../vue'
 import {
   EVENT_NAME_BLUR,
   EVENT_NAME_CHANGE,
@@ -133,7 +133,10 @@ export default defineComponent({
   },
   mounted() {
     // Set up destroy handler
-    this.$on('hook:beforeDestroy', this.clearDebounce)
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      this.$on('hook:beforeDestroy', this.clearDebounce)
+    }
   },
   beforeDestroy() {
     this.clearDebounce()

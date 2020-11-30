@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import { TransitionGroup, defineComponent, h } from '../../vue'
+import { TransitionGroup, defineComponent, h, isVue2 } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/config'
 import { removeClass, requestAF } from '../../utils/dom'
@@ -87,11 +87,14 @@ export const BToaster = /*#__PURE__*/ defineComponent({
       this.dead = true
     } else {
       this.doRender = true
-      this.$once('hook:beforeDestroy', () => {
-        // Let toasts made with `this.$bvToast.toast()` know that this toaster
-        // is being destroyed and should should also destroy/hide themselves
-        this.$root.$emit('bv::toaster::destroyed', this.staticName)
-      })
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        this.$once('hook:beforeDestroy', () => {
+          // Let toasts made with `this.$bvToast.toast()` know that this toaster
+          // is being destroyed and should should also destroy/hide themselves
+          this.$root.$emit('bv::toaster::destroyed', this.staticName)
+        })
+      }
     }
   },
   destroyed() {

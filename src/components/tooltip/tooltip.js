@@ -1,4 +1,4 @@
-import { defineComponent, h } from '../../vue'
+import { defineComponent, h, isVue2 } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import getScopId from '../../utils/get-scope-id'
 import { arrayIncludes } from '../../utils/array'
@@ -192,10 +192,14 @@ export const BTooltip = /*#__PURE__*/ defineComponent({
   },
   beforeDestroy() {
     // Shutdown our local event listeners
-    this.$off('open', this.doOpen)
-    this.$off('close', this.doClose)
-    this.$off('disable', this.doDisable)
-    this.$off('enable', this.doEnable)
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      this.$off('open', this.doOpen)
+      this.$off('close', this.doClose)
+      this.$off('disable', this.doDisable)
+      this.$off('enable', this.doEnable)
+    }
+
     // Destroy the tip instance
     if (this.$_toolpop) {
       this.$_toolpop.$destroy()
@@ -222,25 +226,31 @@ export const BTooltip = /*#__PURE__*/ defineComponent({
       // Set the initial data
       $toolpop.updateData(this.templateData)
       // Set listeners
-      $toolpop.$on('show', this.onShow)
-      $toolpop.$on('shown', this.onShown)
-      $toolpop.$on('hide', this.onHide)
-      $toolpop.$on('hidden', this.onHidden)
-      $toolpop.$on('disabled', this.onDisabled)
-      $toolpop.$on('enabled', this.onEnabled)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        $toolpop.$on('show', this.onShow)
+        $toolpop.$on('shown', this.onShown)
+        $toolpop.$on('hide', this.onHide)
+        $toolpop.$on('hidden', this.onHidden)
+        $toolpop.$on('disabled', this.onDisabled)
+        $toolpop.$on('enabled', this.onEnabled)
+      }
       // Initially disabled?
       if (this.disabled) {
         // Initially disabled
         this.doDisable()
       }
-      // Listen to open signals from others
-      this.$on('open', this.doOpen)
-      // Listen to close signals from others
-      this.$on('close', this.doClose)
-      // Listen to disable signals from others
-      this.$on('disable', this.doDisable)
-      // Listen to enable signals from others
-      this.$on('enable', this.doEnable)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        // Listen to open signals from others
+        this.$on('open', this.doOpen)
+        // Listen to close signals from others
+        this.$on('close', this.doClose)
+        // Listen to disable signals from others
+        this.$on('disable', this.doDisable)
+        // Listen to enable signals from others
+        this.$on('enable', this.doEnable)
+      }
       // Initially show tooltip?
       if (this.localShow) {
         $toolpop.show()

@@ -6,7 +6,7 @@
 //
 
 import Popper from 'popper.js'
-import { defineComponent, h } from '../../../vue'
+import { defineComponent, h, isVue2 } from '../../../vue'
 import { NAME_POPPER } from '../../../constants/components'
 import { BVTransition } from '../../../utils/bv-transition'
 import { getCS, requestAF, select } from '../../../utils/dom'
@@ -135,22 +135,25 @@ export const BVPopper = /*#__PURE__*/ defineComponent({
     // Ensure we show as we mount
     this.localShow = true
     // Create popper instance before shown
-    this.$on('show', el => {
-      this.popperCreate(el)
-    })
-    // Self destruct handler
-    const handleDestroy = () => {
-      this.$nextTick(() => {
-        // In a `requestAF()` to release control back to application
-        requestAF(() => {
-          this.$destroy()
-        })
+    // TODO: Find a way to do this in Vue 3
+    if (isVue2) {
+      this.$on('show', el => {
+        this.popperCreate(el)
       })
+      // Self destruct handler
+      const handleDestroy = () => {
+        this.$nextTick(() => {
+          // In a `requestAF()` to release control back to application
+          requestAF(() => {
+            this.$destroy()
+          })
+        })
+      }
+      // Self destruct if parent destroyed
+      this.$parent.$once('hook:destroyed', handleDestroy)
+      // Self destruct after hidden
+      this.$once('hidden', handleDestroy)
     }
-    // Self destruct if parent destroyed
-    this.$parent.$once('hook:destroyed', handleDestroy)
-    // Self destruct after hidden
-    this.$once('hidden', handleDestroy)
   },
   beforeMount() {
     // Ensure that the attachment position is correct before mounting

@@ -3,7 +3,7 @@
  * Handles controlling modal stacking zIndexes and body adjustments/classes
  */
 
-import { computed, readonly, ref, watch } from '../../../vue'
+import { computed, isVue2, readonly, ref, watch } from '../../../vue'
 import {
   addClass,
   getAttr,
@@ -80,9 +80,11 @@ const createModalManager = () => {
       // Add modal to modals array
       modals.value.push(modal)
       // TODO: Find a way to do this in Vue 3
-      // modal.$once('hook:beforeDestroy', () => {
-      //   unregisterModal(modal)
-      // })
+      if (isVue2) {
+        modal.$once('hook:beforeDestroy', () => {
+          unregisterModal(modal)
+        })
+      }
     }
   }
 

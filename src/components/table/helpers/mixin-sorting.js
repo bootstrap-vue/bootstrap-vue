@@ -1,3 +1,4 @@
+import { isVue2 } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import stableSort from '../../../utils/stable-sort'
 import { arrayIncludes } from '../../../utils/array'
@@ -157,10 +158,16 @@ export default {
     isSortable(newVal) {
       if (newVal) {
         if (this.isSortable) {
-          this.$on('head-clicked', this.handleSort)
+          // TODO: Find a way to do this in Vue 3
+          if (isVue2) {
+            this.$on('head-clicked', this.handleSort)
+          }
         }
       } else {
-        this.$off('head-clicked', this.handleSort)
+        // TODO: Find a way to do this in Vue 3
+        if (isVue2) {
+          this.$off('head-clicked', this.handleSort)
+        }
       }
     },
     sortDesc(newVal) {
@@ -192,7 +199,10 @@ export default {
   },
   created() {
     if (this.isSortable) {
-      this.$on('head-clicked', this.handleSort)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        this.$on('head-clicked', this.handleSort)
+      }
     }
   },
   methods: {

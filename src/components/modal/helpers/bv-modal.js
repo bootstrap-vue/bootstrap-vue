@@ -1,5 +1,5 @@
 // Plugin for adding `$bvModal` property to all Vue instances
-import { defineComponent } from '../../../vue'
+import { defineComponent, isVue2 } from '../../../vue'
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
 import { EVENT_NAME_HIDE, EVENT_NAME_SHOW } from '../../../constants/events'
 import { concat } from '../../../utils/array'
@@ -86,16 +86,19 @@ const plugin = Vue => {
           })
         })
       }
-      // Self destruct if parent destroyed
-      this.$parent.$once('hook:destroyed', handleDestroy)
-      // Self destruct after hidden
-      this.$once('hidden', handleDestroy)
-      // Self destruct on route change
-      /* istanbul ignore if */
-      if (this.$router && this.$route) {
-        // Destroy ourselves if route changes
-        /* istanbul ignore next */
-        this.$once('hook:beforeDestroy', this.$watch('$router', handleDestroy))
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        // Self destruct if parent destroyed
+        this.$parent.$once('hook:destroyed', handleDestroy)
+        // Self destruct after hidden
+        this.$once('hidden', handleDestroy)
+        // Self destruct on route change
+        /* istanbul ignore if */
+        if (this.$router && this.$route) {
+          // Destroy ourselves if route changes
+          /* istanbul ignore next */
+          this.$once('hook:beforeDestroy', this.$watch('$router', handleDestroy))
+        }
       }
       // Show the `BMsgBox`
       this.show()
@@ -142,22 +145,25 @@ const plugin = Vue => {
     // Return a promise that resolves when hidden, or rejects on destroyed
     return new Promise((resolve, reject) => {
       let resolved = false
-      msgBox.$once('hook:destroyed', () => {
-        if (!resolved) {
-          /* istanbul ignore next */
-          reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
-        }
-      })
-      msgBox.$on('hide', bvModalEvt => {
-        if (!bvModalEvt.defaultPrevented) {
-          const result = resolver(bvModalEvt)
-          // If resolver didn't cancel hide, we resolve
-          if (!bvModalEvt.defaultPrevented) {
-            resolved = true
-            resolve(result)
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        msgBox.$once('hook:destroyed', () => {
+          if (!resolved) {
+            /* istanbul ignore next */
+            reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
           }
-        }
-      })
+        })
+        msgBox.$on('hide', bvModalEvt => {
+          if (!bvModalEvt.defaultPrevented) {
+            const result = resolver(bvModalEvt)
+            // If resolver didn't cancel hide, we resolve
+            if (!bvModalEvt.defaultPrevented) {
+              resolved = true
+              resolve(result)
+            }
+          }
+        })
+      }
       // Create a mount point (a DIV) and mount the msgBo which will trigger it to show
       const div = document.createElement('div')
       document.body.appendChild(div)

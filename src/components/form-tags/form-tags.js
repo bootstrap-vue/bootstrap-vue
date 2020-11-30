@@ -1,6 +1,6 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import { defineComponent, h, resolveDirective } from '../../vue'
+import { defineComponent, h, isVue2, resolveDirective } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import { EVENT_NAME_MODEL_VALUE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
@@ -328,9 +328,12 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on('hook:beforeDestroy', () => {
-        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      })
+      // TODO: Find a way to do this in Vue 3
+      if (isVue2) {
+        this.$on('hook:beforeDestroy', () => {
+          eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+        })
+      }
     }
   },
   methods: {
