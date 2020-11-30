@@ -419,7 +419,7 @@ export const BFormGroup = {
           id: this.safeId(),
           disabled: isFieldset ? this.disabled : null,
           role: isFieldset ? null : 'group',
-          'aria-invalid': state === false ? 'true' : null,
+          'aria-invalid': this.computedAriaInvalid,
           // Only apply aria-labelledby if we are a horizontal fieldset
           // as the legend is no longer a direct child of fieldset
           'aria-labelledby': isFieldset && isHorizontal ? labelId : null,

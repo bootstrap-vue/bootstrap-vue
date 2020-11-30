@@ -59,7 +59,7 @@ files are selected the return value will be an array of JavaScript
     <strong>CAUTION:</strong> Directory mode is a <em>non-standard</em> feature. While being
     supported by all modern browsers, it should not be relied on for production.
     Read more on <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">MDN</a>
-    and <a class="alert-link" href="https://caniuse.com/#feat=input-file-directory">Can I use</a>.
+    and <a class="alert-link" href="https://caniuse.com/input-file-directory">Can I use</a>.
   </p>
 </div>
 

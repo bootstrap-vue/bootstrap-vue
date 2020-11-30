@@ -100,14 +100,21 @@ describe('form-tags', () => {
   it('has hidden inputs when name is set', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
-        value: ['apple', 'orange'],
-        name: 'foo'
+        value: [],
+        name: 'foo',
+        required: true
       }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    const $hidden = wrapper.findAll('input[type=hidden]')
+    let $hidden = wrapper.find('input.sr-only')
+    expect($hidden.attributes('value')).toEqual('')
+    expect($hidden.attributes('name')).toEqual('foo')
+    expect($hidden.attributes('required')).toBeDefined()
+
+    await wrapper.setProps({ value: ['apple', 'orange'] })
+    $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
     expect($hidden.at(0).attributes('value')).toEqual('apple')
     expect($hidden.at(0).attributes('name')).toEqual('foo')
@@ -517,6 +524,155 @@ describe('form-tags', () => {
     expect($button.classes()).toContain('invisible')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+
+    wrapper.destroy()
+  })
+
+  it('reset() method works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['one', 'two'],
+        addOnChange: true,
+        tagValidator: tag => tag.length < 4
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('three')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.tagsState.invalid).toContain('three')
+
+    const $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(wrapper.vm.tags).toEqual(['one'])
+    expect(wrapper.vm.removedTags).toContain('two')
+
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual([])
+    expect(wrapper.vm.removedTags).toEqual([])
+    expect(wrapper.vm.tagsState.invalid).toEqual([])
+
+    wrapper.destroy()
+  })
+
+  it('native reset event works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['one', 'two'],
+        addOnChange: true,
+        tagValidator: tag => tag.length < 4
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('three')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.tagsState.invalid).toContain('three')
+
+    const $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(wrapper.vm.tags).toEqual(['one'])
+    expect(wrapper.vm.removedTags).toContain('two')
+
+    await $input.trigger('reset')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual([])
+    expect(wrapper.vm.removedTags).toEqual([])
+    expect(wrapper.vm.tagsState.invalid).toEqual([])
+
+    wrapper.destroy()
+  })
+
+  it('form native reset event triggers reset', async () => {
+    const App = {
+      render(h) {
+        return h('form', [
+          h(BFormTags, {
+            props: {
+              value: ['one', 'two'],
+              addOnChange: true,
+              tagValidator: tag => tag.length < 4
+            }
+          })
+        ])
+      }
+    }
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    expect(wrapper.element.tagName).toBe('FORM')
+
+    const formTags = wrapper.findComponent(BFormTags)
+    expect(formTags.exists()).toBe(true)
+    expect(formTags.element.tagName).toBe('DIV')
+    expect(formTags.vm.tags).toEqual(['one', 'two'])
+    expect(formTags.vm.newTag).toEqual('')
+
+    const $input = formTags.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(formTags.vm.newTag).toEqual('three')
+    expect(formTags.vm.tags).toEqual(['one', 'two'])
+    expect(formTags.vm.tagsState.invalid).toContain('three')
+
+    const $tags = formTags.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(formTags.vm.tags).toEqual(['one'])
+    expect(formTags.vm.removedTags).toContain('two')
+
+    // Trigger form's native reset event
+    wrapper.find('form').trigger('reset')
+    await waitNT(formTags.vm)
+
+    expect(formTags.vm.newTag).toEqual('')
+    expect(formTags.vm.tags).toEqual([])
+    expect(formTags.vm.removedTags).toEqual([])
+    expect(formTags.vm.tagsState.invalid).toEqual([])
 
     wrapper.destroy()
   })

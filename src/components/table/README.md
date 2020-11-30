@@ -1966,8 +1966,8 @@ sorts _before_ `z`) or Swedish set `sort-compare-locale="sv"` (in Swedish, `ä` 
   [MDN locales documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locales_argument)
   for details on locale values.
 - Not all browsers (or Node.js) support the `locale` and `options` with
-  `String.prototype.localeCompare()`. Refer to [Can I Use](https://caniuse.com/#feat=localecompare)
-  for browser support. For Node.js, you may need to add in
+  `String.prototype.localeCompare()`. Refer to [Can I use](https://caniuse.com/localecompare) for
+  browser support. For Node.js, you may need to add in
   [Intl support](https://nodejs.org/api/intl.html) for handling locales, other than the default, to
   prevent [SSR hydration mismatch errors](https://ssr.vuejs.org/guide/hydration.html).
 

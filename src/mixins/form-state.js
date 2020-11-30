@@ -34,6 +34,13 @@ export default {
     stateClass() {
       const state = this.computedState
       return state === true ? 'is-valid' : state === false ? 'is-invalid' : null
+    },
+    computedAriaInvalid() {
+      const { ariaInvalid } = this
+      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
+        return 'true'
+      }
+      return this.computedState === false ? 'true' : ariaInvalid
     }
   }
 }
