@@ -106,13 +106,12 @@ export default {
   watch: {
     value(newValue) {
       const stringifyValue = toString(newValue)
-      const modifiedValue = this.modifyValue(newValue)
-      if (stringifyValue !== this.localValue && modifiedValue !== this.vModelValue) {
+      if (stringifyValue !== this.localValue && newValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = modifiedValue
+        this.vModelValue = this.modifyValue(newValue)
       }
     }
   },
@@ -123,15 +122,6 @@ export default {
   mounted() {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
-    // Preset the internal state
-    const { value } = this
-    const stringifyValue = toString(value)
-    const modifiedValue = this.modifyValue(value)
-    /* istanbul ignore next */
-    if (stringifyValue !== this.localValue && modifiedValue !== this.vModelValue) {
-      this.localValue = stringifyValue
-      this.vModelValue = modifiedValue
-    }
   },
   methods: {
     clearDebounce() {
