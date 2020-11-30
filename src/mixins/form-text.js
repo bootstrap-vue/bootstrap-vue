@@ -75,7 +75,7 @@ export default {
     const { value } = this
     return {
       localValue: toString(value),
-      vModelValue: this.modifyValue(value)
+      vModelValue: value
     }
   },
   computed: {
@@ -111,7 +111,7 @@ export default {
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = this.modifyValue(newValue)
+        this.vModelValue = newValue
       }
     }
   },
@@ -136,6 +136,7 @@ export default {
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
