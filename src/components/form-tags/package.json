@@ -139,28 +139,14 @@
                 "description": "Object of attributes to apply to native input elements via 'v-bind=\"inputAttrs\"'"
               },
               {
-                "prop": "inputHandlers",
-                "type": "Object",
-                "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
-              },
-              {
                 "prop": "inputType",
                 "version": "2.3.0",
                 "description": "The type of input to use: 'type', 'email', 'tel', 'url', or 'number'. Default is 'text'. Normalized value of the 'input-type' prop"
               },
               {
-                "prop": "inputId",
-                "type": "String",
-                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id'"
-              },
-              {
-                "prop": "inputClass",
-                "type": [
-                  "String",
-                  "Array",
-                  "Object"
-                ],
-                "description": "Class (or classes) to apply to the new tag input element. Value of the 'input-class' prop"
+                "prop": "inputHandlers",
+                "type": "Object",
+                "description": "Object of event handlers to apply to native input elements via 'v-on=\"inputHandlers\"'"
               },
               {
                 "prop": "removeTag",
@@ -173,14 +159,29 @@
                 "description": "Method to add a new tag. Assumes the tag is the value of the input, but optionally accepts one argument which is the tag value to be added"
               },
               {
+                "prop": "remove",
+                "type": "Function",
+                "description": "Method to fully reset the tags input"
+              },
+              {
+                "prop": "inputId",
+                "type": "String",
+                "description": "ID to add to the new tag input element. Defaults to prop 'input-id'. If not provided a unique ID is auto-generated. Also available via 'inputAttrs.id'"
+              },
+              {
+                "prop": "isInvalid",
+                "type": "Boolean",
+                "description": "Will be `true` if the input has invalid tag(s). Requires a validator function via the 'tag-validator' prop"
+              },
+              {
                 "prop": "invalidTags",
                 "type": "Array",
                 "description": "Array of invalid tag(s) that could not be added. Requires a validator function via the 'tag-validator' prop"
               },
               {
-                "prop": "isInvalid",
+                "prop": "isDuplicate",
                 "type": "Boolean",
-                "description": "Will be true if the input has invalid tag(s). Requires a validator function via the 'tag-validator' prop"
+                "description": "Will be `true` if the user has attempted to add duplicate tag(s)"
               },
               {
                 "prop": "duplicateTags",
@@ -188,19 +189,29 @@
                 "description": "Array of duplicate tag(s) that could not be added"
               },
               {
-                "prop": "isDuplicate",
+                "prop": "isLimitReached",
                 "type": "Boolean",
-                "description": "Will be true if the user has attempted to add duplicate tag(s)"
+                "description": "Will be `true` if the input has reached the maximum amount of tags defined by the 'limit' prop"
               },
               {
                 "prop": "disableAddButton",
                 "type": "Boolean",
-                "description": "Will be true if the tag(s) in the input cannot be added (all invalid and/or duplicates)"
+                "description": "Will be `true` if the tag(s) in the input cannot be added (all invalid and/or duplicates)"
               },
               {
                 "prop": "disabled",
                 "type": "Boolean",
                 "description": "If the component is in the disabled state. Value of the 'disabled' prop"
+              },
+              {
+                "prop": "required",
+                "type": "Boolean",
+                "description": "Value of the 'required' prop"
+              },
+              {
+                "prop": "form",
+                "type": "String",
+                "description": "Value of the 'form' prop"
               },
               {
                 "prop": "state",
@@ -226,14 +237,13 @@
                 "description": "The value of the 'placeholder' prop"
               },
               {
-                "prop": "invalidTagText",
-                "type": "String",
-                "description": "The value of the 'invalid-tag-text' prop"
-              },
-              {
-                "prop": "duplicateTagText",
-                "type": "String",
-                "description": "The value of the 'duplicate-tag-text' prop"
+                "prop": "inputClass",
+                "type": [
+                  "String",
+                  "Array",
+                  "Object"
+                ],
+                "description": "Class (or classes) to apply to the new tag input element. Value of the 'input-class' prop"
               },
               {
                 "prop": "tagRemoveLabel",
@@ -241,14 +251,14 @@
                 "description": "ARIA label for the remove button on tags. Value of the 'tag-remove-label' prop"
               },
               {
-                "prop": "tagPills",
-                "type": "Boolean",
-                "description": "Value of the `tag-pills` prop"
-              },
-              {
                 "prop": "tagVariant",
                 "type": "String",
                 "description": "Value of the 'tag-variant' prop"
+              },
+              {
+                "prop": "tagPills",
+                "type": "Boolean",
+                "description": "Value of the `tag-pills` prop"
               },
               {
                 "prop": "tagClass",
@@ -268,6 +278,21 @@
                 "prop": "addButtonVariant",
                 "type": "String",
                 "description": "Value of the 'add-button-variant' prop"
+              },
+              {
+                "prop": "invalidTagText",
+                "type": "String",
+                "description": "The value of the 'invalid-tag-text' prop"
+              },
+              {
+                "prop": "duplicateTagText",
+                "type": "String",
+                "description": "The value of the 'duplicate-tag-text' prop"
+              },
+              {
+                "prop": "limitTagsText",
+                "type": "String",
+                "description": "The value of the 'limit-tag-text' prop"
               }
             ]
           }

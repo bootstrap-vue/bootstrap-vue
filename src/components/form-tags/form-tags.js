@@ -3,6 +3,7 @@
 import Vue from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
+import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
 import { RX_SPACES } from '../../constants/regex'
 import cssEscape from '../../utils/css-escape'
@@ -19,7 +20,7 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { stopEvent } from '../../utils/events'
+import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { pick } from '../../utils/object'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
@@ -227,7 +228,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return {
         input: this.onInputInput,
         change: this.onInputChange,
-        keydown: this.onInputKeydown
+        keydown: this.onInputKeydown,
+        reset: this.reset
       }
     },
     computedSeparator() {
@@ -315,6 +317,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // if the cleaned tags are not equal to the value prop
     this.tags = cleanTags(this.value)
   },
+  mounted() {
+    // Listen for form reset events, to reset the tags input
+    const $form = closest('form', this.$el)
+    if ($form) {
+      eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      this.$on('hook:beforeDestroy', () => {
+        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      })
+    }
+  },
   methods: {
     addTag(newTag) {
       newTag = isString(newTag) ? newTag : this.newTag
@@ -366,6 +378,15 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Return focus to the input (if possible)
       this.$nextTick(() => {
         this.focus()
+      })
+    },
+    reset() {
+      this.newTag = ''
+      this.tags = []
+
+      this.$nextTick(() => {
+        this.removedTags = []
+        this.tagsState = cleanTagsState()
       })
     },
     // --- Input element event handlers ---
@@ -746,6 +767,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
+      reset: this.reset,
       // <input> :id="inputId"
       inputId: computedInputId,
       // Invalid/Duplicate state information
