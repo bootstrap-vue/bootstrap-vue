@@ -1,6 +1,7 @@
 import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
+import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
@@ -72,10 +73,9 @@ export default {
   },
   props,
   data() {
-    const { value } = this
     return {
-      localValue: toString(value),
-      vModelValue: value
+      localValue: toString(this.value),
+      vModelValue: this.value
     }
   },
   computed: {
@@ -100,18 +100,22 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      return this.formatter.name !== 'default'
+      let result = null
+      try {
+        result = this.formatter()
+      } catch {}
+      return !isUndefined(result)
     }
   },
   watch: {
-    value(newValue) {
-      const stringifyValue = toString(newValue)
-      if (stringifyValue !== this.localValue && newValue !== this.vModelValue) {
+    value(newVal) {
+      const stringifyValue = toString(newVal)
+      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newValue
+        this.vModelValue = newVal
       }
     }
   },
@@ -123,7 +127,7 @@ export default {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state
-    const { value } = this
+    const value = this.value
     const stringifyValue = toString(value)
     /* istanbul ignore next */
     if (stringifyValue !== this.localValue && value !== this.vModelValue) {
@@ -155,7 +159,7 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      const { lazy } = this
+      const lazy = this.lazy
       if (lazy && !force) {
         return
       }
