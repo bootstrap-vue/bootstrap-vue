@@ -75,13 +75,6 @@ export const BFormSelect = /*#__PURE__*/ defineComponent({
         this.size && !this.plain ? `custom-select-${this.size}` : null,
         this.stateClass
       ]
-    },
-    computedAriaInvalid() {
-      const { ariaInvalid } = this
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
     }
   },
   watch: {

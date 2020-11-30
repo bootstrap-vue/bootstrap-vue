@@ -15,7 +15,7 @@ import { arrayIncludes, concat } from '../../utils/array'
 import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
-import { isNull, isUndefined } from '../../utils/inspect'
+import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
 import { toFloat, toInteger } from '../../utils/number'
@@ -227,11 +227,7 @@ export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
     },
     computedFormatter() {
       const { formatterFn } = this
-      let result = null
-      try {
-        result = formatterFn()
-      } catch {}
-      return isUndefined(result) ? this.defaultFormatter : formatterFn
+      return formatterFn.name !== 'default' ? formatterFn : this.defaultFormatter
     },
     computedAttrs() {
       return {
@@ -526,7 +522,7 @@ export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
             touchstart: handler
           }
         },
-        [h('div', [this.normalizeSlot(slotName, scope) || $icon])]
+        [this.normalizeSlot(slotName, scope) || $icon]
       )
     }
     // TODO: Add button disabled state when `wrap` is `false` and at value max/min

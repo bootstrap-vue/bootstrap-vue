@@ -49,7 +49,7 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import { isArray, isPlainObject, isString, isUndefined } from '../../utils/inspect'
+import { isArray, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
@@ -344,20 +344,12 @@ export const BCalendar = defineComponent({
     },
     computedDateDisabledFn() {
       const { dateDisabledFn } = this
-      let result = null
-      try {
-        result = dateDisabledFn()
-      } catch {}
-      return isUndefined(result) ? () => false : dateDisabledFn
+      return dateDisabledFn.name !== 'default' ? dateDisabledFn : () => false
     },
     // TODO: Change `dateInfoFn` to handle events and notes as well as classes
     computedDateInfoFn() {
       const { dateInfoFn } = this
-      let result = null
-      try {
-        result = dateInfoFn()
-      } catch {}
-      return isUndefined(result) ? () => ({}) : dateInfoFn
+      return dateInfoFn.name !== 'default' ? dateInfoFn : () => ({})
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)

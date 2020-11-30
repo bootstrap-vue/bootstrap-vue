@@ -1,6 +1,6 @@
-import { keys } from '../../../utils/object'
-import { isDate, isObject, isUndefinedOrNull } from '../../../utils/inspect'
-import { toString } from '../../../utils/string'
+import { isDate, isObject, isUndefinedOrNull } from './inspect'
+import { keys } from './object'
+import { toString } from './string'
 
 // Recursively stringifies the values of an object, space separated, in an
 // SSR safe deterministic way (keys are sorted before stringification)
@@ -10,24 +10,24 @@ import { toString } from '../../../utils/string'
 //   becomes
 //     'one 3 2 zzz 10 12 11'
 //
-// Primitives (numbers/strings) are returned as-is
-// Null and undefined values are filtered out
+// Strings are returned as-is
+// Numbers get converted to string
+// `null` and `undefined` values are filtered out
 // Dates are converted to their native string format
-const stringifyObjectValues = val => {
-  if (isUndefinedOrNull(val)) {
-    /* istanbul ignore next */
+const stringifyObjectValues = value => {
+  if (isUndefinedOrNull(value)) {
     return ''
   }
   // Arrays are also object, and keys just returns the array indexes
   // Date objects we convert to strings
-  if (isObject(val) && !isDate(val)) {
-    return keys(val)
+  if (isObject(value) && !isDate(value)) {
+    return keys(value)
       .sort() // Sort to prevent SSR issues on pre-rendered sorted tables
-      .filter(v => !isUndefinedOrNull(v)) // Ignore undefined/null values
-      .map(k => stringifyObjectValues(val[k]))
+      .map(k => stringifyObjectValues(value[k]))
+      .filter(v => !!v) // Ignore empty strings
       .join(' ')
   }
-  return toString(val)
+  return toString(value)
 }
 
 export default stringifyObjectValues

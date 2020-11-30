@@ -2,7 +2,7 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { defineComponent, h, resolveDirective } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import { EVENT_NAME_MODEL_VALUE } from '../../constants/events'
+import { EVENT_NAME_MODEL_VALUE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import { PROP_NAME_MODEL_VALUE } from '../../constants/props'
 import { SLOT_NAME_DEFAULT } from '../../constants/slots'
@@ -21,9 +21,9 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { stopEvent } from '../../utils/events'
+import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { pick } from '../../utils/object'
-import { isEvent, isNumber, isString, isUndefined } from '../../utils/inspect'
+import { isEvent, isNumber, isString } from '../../utils/inspect'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
 import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
@@ -218,21 +218,24 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       return arrayIncludes(TYPES, this.inputType) ? this.inputType : 'text'
     },
     computedInputAttrs() {
+      const { disabled, form } = this
+
       return {
         // Merge in user supplied attributes
         ...this.inputAttrs,
         // Must have attributes
         id: this.computedInputId,
         value: this.newTag,
-        disabled: this.disabled || null,
-        form: this.form || null
+        disabled,
+        form
       }
     },
     computedInputHandlers() {
       return {
         input: this.onInputInput,
         change: this.onInputChange,
-        keydown: this.onInputKeydown
+        keydown: this.onInputKeydown,
+        reset: this.reset
       }
     },
     computedSeparator() {
@@ -320,6 +323,16 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     // if the cleaned tags are not equal to the value prop
     this.tags = cleanTags(this.value)
   },
+  mounted() {
+    // Listen for form reset events, to reset the tags input
+    const $form = closest('form', this.$el)
+    if ($form) {
+      eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      this.$on('hook:beforeDestroy', () => {
+        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
+      })
+    }
+  },
   methods: {
     addTag(newTag) {
       newTag = isString(newTag) ? newTag : this.newTag
@@ -371,6 +384,15 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       // Return focus to the input (if possible)
       this.$nextTick(() => {
         this.focus()
+      })
+    },
+    reset() {
+      this.newTag = ''
+      this.tags = []
+
+      this.$nextTick(() => {
+        this.removedTags = []
+        this.tagsState = cleanTagsState()
       })
     },
     // --- Input element event handlers ---
@@ -515,11 +537,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     },
     validateTag(tag) {
       const { tagValidator } = this
-      let result = null
-      try {
-        result = tagValidator()
-      } catch {}
-      return isUndefined(result) ? true : tagValidator(tag)
+      return tagValidator.name !== 'default' ? tagValidator(tag) : true
     },
     getInput() {
       // Returns the input element reference (or null if not found)
@@ -738,7 +756,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     }
   },
   render() {
-    const { name, disabled, tags, computedInputId, hasFocus, noOuterFocus } = this
+    const { name, disabled, required, form, tags, computedInputId, hasFocus, noOuterFocus } = this
 
     // Scoped slot properties
     const scope = {
@@ -753,6 +771,7 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       // Methods
       removeTag: this.removeTag,
       addTag: this.addTag,
+      reset: this.reset,
       // <input> :id="inputId"
       inputId: computedInputId,
       // Invalid/Duplicate state information
@@ -766,6 +785,8 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
       // Pass-through props
       ...pick(this.$props, [
         'disabled',
+        'required',
+        'form',
         'state',
         'size',
         'limit',
@@ -823,14 +844,18 @@ export const BFormTags = /*#__PURE__*/ defineComponent({
     let $hidden = h()
     if (name && !disabled) {
       // We add hidden inputs for each tag if a name is provided
-      // for native submission of forms
-      $hidden = tags.map(tag => {
+      // When there are currently no tags, a visually hidden input
+      // with empty value is rendered for proper required handling
+      const hasTags = tags.length > 0
+      $hidden = (hasTags ? tags : ['']).map(tag => {
         return h('input', {
+          class: { 'sr-only': !hasTags },
           attrs: {
-            type: 'hidden',
+            type: hasTags ? 'hidden' : 'text',
             value: tag,
+            required,
             name,
-            form: this.form || null
+            form
           },
           key: `tag_input_${tag}`
         })

@@ -6,7 +6,7 @@ import identity from '../../../utils/identity'
 import looseEqual from '../../../utils/loose-equal'
 import { concat } from '../../../utils/array'
 import { makePropsConfigurable } from '../../../utils/config'
-import { isFunction, isString, isRegExp, isUndefined } from '../../../utils/inspect'
+import { isFunction, isString, isRegExp } from '../../../utils/inspect'
 import { toInteger } from '../../../utils/number'
 import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
@@ -87,11 +87,7 @@ export default {
     localFilterFn() {
       // Return `null` to signal to use internal filter function
       const { filterFunction } = this
-      let result = null
-      try {
-        result = filterFunction()
-      } catch {}
-      return isUndefined(result) ? null : filterFunction
+      return filterFunction.name !== 'default' ? filterFunction : null
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting

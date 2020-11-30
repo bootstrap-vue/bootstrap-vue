@@ -312,8 +312,7 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.classes()).toBeDefined()
-
+    expect(wrapper.vm.isRadioGroup).toEqual(false)
     expect(wrapper.vm.localChecked).toEqual([])
     expect(wrapper.findAll('input[type=checkbox]').length).toBe(3)
 

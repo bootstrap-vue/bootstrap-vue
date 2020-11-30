@@ -9,6 +9,7 @@ export declare const FormTagsPlugin: BvPlugin
 export declare class BFormTags extends BvComponent {
   focus: () => void
   blur: () => void
+  reset: () => void
 }
 
 // Component: b-form-tag

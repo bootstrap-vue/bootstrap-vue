@@ -20,6 +20,7 @@ export const BFormRadioGroup = /*#__PURE__*/ defineComponent({
       bvRadioGroup: this
     }
   },
+  props,
   computed: {
     isRadioGroup() {
       return true

@@ -82,9 +82,6 @@ export default defineComponent({
     }
   },
   computed: {
-    isRadioGroup() {
-      return true
-    },
     inline() {
       return !this.stacked
     },
@@ -110,13 +107,6 @@ export default defineComponent({
       }
 
       return classes
-    },
-    computedAriaInvalid() {
-      const { ariaInvalid } = this
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
     }
   },
   watch: {

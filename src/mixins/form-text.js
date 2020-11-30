@@ -9,7 +9,6 @@ import { PROP_NAME_MODEL_VALUE } from '../constants/props'
 import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
@@ -84,7 +83,7 @@ export default defineComponent({
     const value = this[PROP_NAME_MODEL_VALUE]
     return {
       localValue: toString(value),
-      vModelValue: value
+      vModelValue: this.modifyValue(value)
     }
   },
   computed: {
@@ -107,34 +106,24 @@ export default defineComponent({
         this.stateClass
       ]
     },
-    computedAriaInvalid() {
-      const { ariaInvalid } = this
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
-    },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      let result = null
-      try {
-        result = this.formatter()
-      } catch {}
-      return !isUndefined(result)
+      return this.formatter.name !== 'default'
     }
   },
   watch: {
     [PROP_NAME_MODEL_VALUE](newValue) {
       const stringifyValue = toString(newValue)
-      if (stringifyValue !== this.localValue && newValue !== this.vModelValue) {
+      const modifiedValue = this.modifyValue(newValue)
+      if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newValue
+        this.vModelValue = modifiedValue
       }
     }
   },
@@ -143,14 +132,8 @@ export default defineComponent({
     this.$_inputDebounceTimer = null
   },
   mounted() {
-    // Preset the internal state
-    const value = this[PROP_NAME_MODEL_VALUE]
-    const stringifyValue = toString(value)
-    /* istanbul ignore next */
-    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
-      this.localValue = stringifyValue
-      this.vModelValue = value
-    }
+    // Set up destroy handler
+    this.$on('hook:beforeDestroy', this.clearDebounce)
   },
   beforeDestroy() {
     this.clearDebounce()
@@ -168,6 +151,7 @@ export default defineComponent({
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()

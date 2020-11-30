@@ -379,6 +379,8 @@ The default slot scope properties are as follows:
 | `isLimitReached`   | Boolean                  | <span class="badge badge-secondary">v2.17.0+</span> `true` if a `limit` is configured and the amount of tags has reached the limit                     |
 | `disableAddButton` | Boolean                  | Will be `true` if the tag(s) in the input cannot be added (all invalid and/or duplicates)                                                              |
 | `disabled`         | Boolean                  | `true` if the component is in the disabled state. Value of the `disabled` prop                                                                         |
+| `required`         | Boolean                  | <span class="badge badge-secondary">v2.20.0+</span> The value of the `required` prop                                                                   |
+| `form`             | String                   | <span class="badge badge-secondary">v2.20.0+</span> The value of the `form` prop                                                                       |
 | `state`            | Boolean                  | The contextual state of the component. Value of the `state` prop. Possible values are `true`, `false` or `null`                                        |
 | `size`             | String                   | The value of the `size` prop                                                                                                                           |
 | `limit`            | String                   | <span class="badge badge-secondary">v2.17.0+</span> The value of the `limit` prop                                                                      |

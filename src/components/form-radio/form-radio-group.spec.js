@@ -309,8 +309,8 @@ describe('form-radio-group', () => {
       }
     })
 
+    expect(wrapper.vm.isRadioGroup).toEqual(true)
     expect(wrapper.vm.localChecked).toEqual('')
-    expect(wrapper.classes()).toBeDefined()
     expect(wrapper.findAll('input[type=radio]').length).toBe(3)
 
     wrapper.unmount()
