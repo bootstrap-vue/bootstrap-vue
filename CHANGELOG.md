@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.20.1"></a>
+
+## [v2.20.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.20.0...v2.20.1)
+
+Released: 2020-12-01
+
+### Bug Fixes v2.20.1
+
+- user supplied prop function detection (closes
+  [#6112](https://github.com/bootstrap-vue/bootstrap-vue/issues/6112))
+  ([#6113](https://github.com/bootstrap-vue/bootstrap-vue/issues/6113))
+  ([1d85839](https://github.com/bootstrap-vue/bootstrap-vue/commit/1d85839fa76c88f1a411a81945d03a4c895b3f4f))
+
 <a name="2.20.0"></a>
 
 ## [v2.20.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.19.0...v2.20.0)
