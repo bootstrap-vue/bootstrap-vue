@@ -273,7 +273,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     computedFileNameFormatter() {
       const { fileNameFormatter } = this
-      return fileNameFormatter !== props.fileNameFormatter.default
+      return fileNameFormatter.name !== props.fileNameFormatter.default.name
         ? fileNameFormatter
         : this.defaultFileNameFormatter
     },

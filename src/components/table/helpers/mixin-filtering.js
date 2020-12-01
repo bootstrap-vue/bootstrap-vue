@@ -91,7 +91,7 @@ export default {
     localFilterFn() {
       // Return `null` to signal to use internal filter function
       const { filterFunction } = this
-      return filterFunction !== props.filterFunction.default ? filterFunction : null
+      return filterFunction.name !== props.filterFunction.default.name ? filterFunction : null
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting

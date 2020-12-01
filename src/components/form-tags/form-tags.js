@@ -535,7 +535,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     validateTag(tag) {
       const { tagValidator } = this
-      return tagValidator !== props.tagValidator.default ? tagValidator(tag) : true
+      return tagValidator.name !== props.tagValidator.default.name ? tagValidator(tag) : true
     },
     getInput() {
       // Returns the input element reference (or null if not found)
