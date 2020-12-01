@@ -1,7 +1,6 @@
 import { makePropsConfigurable } from '../utils/config'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
 import { toInteger, toFloat } from '../utils/number'
 import { toString } from '../utils/string'
@@ -100,11 +99,7 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      let result = null
-      try {
-        result = this.formatter()
-      } catch {}
-      return !isUndefined(result)
+      return this.formatter.name !== 'default'
     }
   },
   watch: {
