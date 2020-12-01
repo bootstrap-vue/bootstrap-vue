@@ -72,9 +72,10 @@ export default {
   },
   props,
   data() {
+    const { value } = this
     return {
-      localValue: toString(this.value),
-      vModelValue: this.value
+      localValue: toString(value),
+      vModelValue: this.modifyValue(value)
     }
   },
   computed: {
@@ -99,19 +100,19 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      console.log(this.formatter.name, props.formatter.default.name)
       return this.formatter.name !== props.formatter.default.name
     }
   },
   watch: {
-    value(newVal) {
-      const stringifyValue = toString(newVal)
-      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+    value(newValue) {
+      const stringifyValue = toString(newValue)
+      const modifiedValue = this.modifyValue(newValue)
+      if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newVal
+        this.vModelValue = modifiedValue
       }
     }
   },
@@ -123,12 +124,13 @@ export default {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
     // Preset the internal state
-    const value = this.value
+    const { value } = this
     const stringifyValue = toString(value)
+    const modifiedValue = this.modifyValue(value)
     /* istanbul ignore next */
-    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
+    if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
       this.localValue = stringifyValue
-      this.vModelValue = value
+      this.vModelValue = modifiedValue
     }
   },
   methods: {
@@ -144,6 +146,7 @@ export default {
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -155,7 +158,7 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      const lazy = this.lazy
+      const { lazy } = this
       if (lazy && !force) {
         return
       }
