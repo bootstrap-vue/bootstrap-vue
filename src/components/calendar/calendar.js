@@ -342,12 +342,14 @@ export const BCalendar = Vue.extend({
     },
     computedDateDisabledFn() {
       const { dateDisabledFn } = this
-      return dateDisabledFn.name !== 'default' ? dateDisabledFn : () => false
+      return dateDisabledFn.name !== props.dateDisabledFn.default.name
+        ? dateDisabledFn
+        : () => false
     },
     // TODO: Change `dateInfoFn` to handle events and notes as well as classes
     computedDateInfoFn() {
       const { dateInfoFn } = this
-      return dateInfoFn.name !== 'default' ? dateInfoFn : () => ({})
+      return dateInfoFn.name !== props.dateInfoFn.default.name ? dateInfoFn : () => ({})
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)

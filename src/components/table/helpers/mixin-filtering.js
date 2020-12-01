@@ -11,39 +11,47 @@ import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
 import stringifyRecordValues from './stringify-record-values'
 
+// --- Constants ---
+
 const DEBOUNCE_DEPRECATED_MSG =
   'Prop "filter-debounce" is deprecated. Use the debounce feature of "<b-form-input>" instead.'
 
-export default {
-  props: makePropsConfigurable(
-    {
-      filter: {
-        type: [String, RegExp, Object, Array],
-        default: null
-      },
-      filterFunction: {
-        type: Function
-        // default: null
-      },
-      filterIgnoredFields: {
-        type: Array
-        // default: undefined
-      },
-      filterIncludedFields: {
-        type: Array
-        // default: undefined
-      },
-      filterDebounce: {
-        type: [Number, String],
-        deprecated: DEBOUNCE_DEPRECATED_MSG,
-        default: 0,
-        validator(value) {
-          return /^\d+/.test(String(value))
-        }
-      }
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    filter: {
+      type: [String, RegExp, Object, Array],
+      default: null
     },
-    NAME_TABLE
-  ),
+    filterFunction: {
+      type: Function
+      // default: null
+    },
+    filterIgnoredFields: {
+      type: Array
+      // default: undefined
+    },
+    filterIncludedFields: {
+      type: Array
+      // default: undefined
+    },
+    filterDebounce: {
+      type: [Number, String],
+      deprecated: DEBOUNCE_DEPRECATED_MSG,
+      default: 0,
+      validator(value) {
+        return /^\d+/.test(String(value))
+      }
+    }
+  },
+  NAME_TABLE
+)
+
+// --- Mixin ---
+// @vue/component
+export default {
+  props,
   data() {
     return {
       // Flag for displaying which empty slot to show and some event triggering
@@ -83,7 +91,7 @@ export default {
     localFilterFn() {
       // Return `null` to signal to use internal filter function
       const { filterFunction } = this
-      return filterFunction.name !== 'default' ? filterFunction : null
+      return filterFunction.name !== props.filterFunction.default.name ? filterFunction : null
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting
