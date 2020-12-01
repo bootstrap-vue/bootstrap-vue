@@ -377,4 +377,70 @@ describe('calendar', () => {
     expect($buttons.at(3).classes()).toContain('btn-outline-primary')
     expect($buttons.at(4).classes()).toContain('btn-outline-primary')
   })
+
+  it('disables dates based on `date-disabled-fn` prop', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-01-01',
+        dateDisabledFn(ymd) {
+          return ymd === '2020-01-02'
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    let $cell = $grid.find('[data-date="2020-01-01"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toBeUndefined()
+
+    $cell = $grid.find('[data-date="2020-01-02"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toEqual('true')
+
+    $cell = $grid.find('[data-date="2020-01-03"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('applies classes on dates based on `date-info-fn` prop', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-01-01',
+        dateInfoFn(ymd) {
+          return ymd === '2020-01-02' ? 'my-info' : null
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    let $cell = $grid.find('[data-date="2020-01-01"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).not.toContain('my-info')
+
+    $cell = $grid.find('[data-date="2020-01-02"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).toContain('my-info')
+
+    $cell = $grid.find('[data-date="2020-01-03"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).not.toContain('my-info')
+
+    wrapper.destroy()
+  })
 })
