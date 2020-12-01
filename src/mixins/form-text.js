@@ -99,8 +99,8 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      console.log(this.formatter.name)
-      return this.formatter.name !== 'default'
+      console.log(this.formatter.name, props.formatter.default.name)
+      return this.formatter.name !== props.formatter.default.name
     }
   },
   watch: {
