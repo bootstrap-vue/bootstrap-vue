@@ -123,15 +123,6 @@ export default {
   mounted() {
     // Set up destroy handler
     this.$on('hook:beforeDestroy', this.clearDebounce)
-    // Preset the internal state
-    const { value } = this
-    const stringifyValue = toString(value)
-    const modifiedValue = this.modifyValue(value)
-    /* istanbul ignore next */
-    if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
-      this.localValue = stringifyValue
-      this.vModelValue = modifiedValue
-    }
   },
   methods: {
     clearDebounce() {
