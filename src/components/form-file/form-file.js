@@ -114,6 +114,83 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
     readDirectoryEntries()
   })
 
+// --- Props ---
+
+const props = makePropsConfigurable(
+  {
+    ...formControlProps,
+    ...formCustomProps,
+    ...formStateProps,
+    ...formSizeProps,
+    [PROP_NAME_MODEL_VALUE]: {
+      type: [File, Array],
+      default: null,
+      validator: value => {
+        /* istanbul ignore next */
+        if (value === '') {
+          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
+          return true
+        }
+        return isUndefinedOrNull(value) || isValidValue(value)
+      }
+    },
+    accept: {
+      type: String,
+      default: ''
+    },
+    // Instruct input to capture from camera
+    capture: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String,
+      default: 'No file chosen'
+    },
+    browseText: {
+      type: String,
+      default: 'Browse'
+    },
+    dropPlaceholder: {
+      type: String,
+      default: 'Drop files here'
+    },
+    noDropPlaceholder: {
+      type: String,
+      default: 'Not allowed'
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    directory: {
+      type: Boolean,
+      default: false
+    },
+    // TODO:
+    //   Should we deprecate this and only support flat file structures?
+    //   Nested file structures are only supported when files are dropped
+    //   A Chromium "bug" prevents `webkitEntries` from being populated
+    //   on the file input's `change` event and is marked as "WontFix"
+    //   Mozilla implemented the behavior the same way as Chromium
+    //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
+    //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
+    noTraverse: {
+      type: Boolean,
+      default: false
+    },
+    noDrop: {
+      type: Boolean,
+      default: false
+    },
+    fileNameFormatter: {
+      type: Function
+      // default: null
+    }
+  },
+  NAME_FORM_FILE
+)
+
 // --- Main component ---
 
 // @vue/component
@@ -130,80 +207,7 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
     normalizeSlotMixin
   ],
   inheritAttrs: false,
-  props: makePropsConfigurable(
-    {
-      ...formControlProps,
-      ...formCustomProps,
-      ...formStateProps,
-      ...formSizeProps,
-      [PROP_NAME_MODEL_VALUE]: {
-        type: [File, Array],
-        default: null,
-        validator: value => {
-          /* istanbul ignore next */
-          if (value === '') {
-            warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
-            return true
-          }
-          return isUndefinedOrNull(value) || isValidValue(value)
-        }
-      },
-      accept: {
-        type: String,
-        default: ''
-      },
-      // Instruct input to capture from camera
-      capture: {
-        type: Boolean,
-        default: false
-      },
-      placeholder: {
-        type: String,
-        default: 'No file chosen'
-      },
-      browseText: {
-        type: String,
-        default: 'Browse'
-      },
-      dropPlaceholder: {
-        type: String,
-        default: 'Drop files here'
-      },
-      noDropPlaceholder: {
-        type: String,
-        default: 'Not allowed'
-      },
-      multiple: {
-        type: Boolean,
-        default: false
-      },
-      directory: {
-        type: Boolean,
-        default: false
-      },
-      // TODO:
-      //   Should we deprecate this and only support flat file structures?
-      //   Nested file structures are only supported when files are dropped
-      //   A Chromium "bug" prevents `webkitEntries` from being populated
-      //   on the file input's `change` event and is marked as "WontFix"
-      //   Mozilla implemented the behavior the same way as Chromium
-      //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
-      //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
-      noTraverse: {
-        type: Boolean,
-        default: false
-      },
-      noDrop: {
-        type: Boolean,
-        default: false
-      },
-      fileNameFormatter: {
-        type: Function
-        // default: null
-      }
-    },
-    NAME_FORM_FILE
-  ),
+  props,
   emits: [EVENT_NAME_CHANGE],
   data() {
     return {
@@ -276,7 +280,7 @@ export const BFormFile = /*#__PURE__*/ defineComponent({
     },
     computedFileNameFormatter() {
       const { fileNameFormatter } = this
-      return fileNameFormatter.name !== 'default'
+      return fileNameFormatter.name !== props.fileNameFormatter.default.name
         ? fileNameFormatter
         : this.defaultFileNameFormatter
     },

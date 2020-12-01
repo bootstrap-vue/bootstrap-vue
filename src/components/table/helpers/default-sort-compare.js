@@ -8,7 +8,7 @@ const normalizeValue = value => {
     return ''
   }
   if (isNumeric(value)) {
-    return toFloat(value)
+    return toFloat(value, value)
   }
   return value
 }
