@@ -223,7 +223,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     computedFormatter() {
       const { formatterFn } = this
-      return formatterFn.name !== 'default' ? formatterFn : this.defaultFormatter
+      return formatterFn.name !== props.formatterFn.default.name
+        ? formatterFn
+        : this.defaultFormatter
     },
     computedAttrs() {
       return {

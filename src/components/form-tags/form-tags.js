@@ -63,6 +63,127 @@ const cleanTagsState = () => ({
   duplicate: []
 })
 
+// --- Props ---
+
+const props = makePropsConfigurable(
+  {
+    ...formControlProps,
+    ...formSizeProps,
+    ...formStateProps,
+    value: {
+      // The v-model prop
+      type: Array,
+      default: () => []
+    },
+    placeholder: {
+      type: String,
+      default: 'Add tag...'
+    },
+    inputId: {
+      type: String
+      // default: null
+    },
+    inputType: {
+      type: String,
+      default: 'text',
+      validator(value) {
+        return arrayIncludes(TYPES, value)
+      }
+    },
+    inputClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    inputAttrs: {
+      // Additional attributes to add to the input element
+      type: Object,
+      default: () => ({})
+    },
+    addButtonText: {
+      type: String,
+      default: 'Add'
+    },
+    addButtonVariant: {
+      type: String,
+      default: 'outline-secondary'
+    },
+    tagVariant: {
+      type: String,
+      default: 'secondary'
+    },
+    tagClass: {
+      type: [String, Array, Object]
+      // default: null
+    },
+    tagPills: {
+      type: Boolean,
+      default: false
+    },
+    tagRemoveLabel: {
+      type: String,
+      default: 'Remove tag'
+    },
+    tagRemovedLabel: {
+      type: String,
+      default: 'Tag removed'
+    },
+    tagValidator: {
+      type: Function
+      // default: null
+    },
+    duplicateTagText: {
+      type: String,
+      default: 'Duplicate tag(s)'
+    },
+    invalidTagText: {
+      type: String,
+      default: 'Invalid tag(s)'
+    },
+    limitTagsText: {
+      type: String,
+      default: 'Tag limit reached'
+    },
+    limit: {
+      type: Number
+      // default: null
+    },
+    separator: {
+      // Character (or characters) that trigger adding tags
+      type: [String, Array]
+      // default: null
+    },
+    removeOnDelete: {
+      // Enable deleting last tag in list when CODE_BACKSPACE is
+      // pressed and input is empty
+      type: Boolean,
+      default: false
+    },
+    addOnChange: {
+      // Enable change event triggering tag addition
+      // Handy if using <select> as the input
+      type: Boolean,
+      default: false
+    },
+    noAddOnEnter: {
+      // Disable ENTER key from triggering tag addition
+      type: Boolean,
+      default: false
+    },
+    noOuterFocus: {
+      // Disable the focus ring on the root element
+      type: Boolean,
+      default: false
+    },
+    ignoreInputFocusSelector: {
+      // Disable the input focus behavior when clicking
+      // on element matching the selector (or selectors)
+      type: [Array, String],
+      default: () => ['.b-form-tag', 'button', 'input', 'select']
+    }
+  },
+  NAME_FORM_TAGS
+)
+
 // --- Main component ---
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
@@ -74,124 +195,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     prop: 'value',
     event: 'input'
   },
-  props: makePropsConfigurable(
-    {
-      ...formControlProps,
-      ...formSizeProps,
-      ...formStateProps,
-      value: {
-        // The v-model prop
-        type: Array,
-        default: () => []
-      },
-      placeholder: {
-        type: String,
-        default: 'Add tag...'
-      },
-      inputId: {
-        type: String
-        // default: null
-      },
-      inputType: {
-        type: String,
-        default: 'text',
-        validator(value) {
-          return arrayIncludes(TYPES, value)
-        }
-      },
-      inputClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      inputAttrs: {
-        // Additional attributes to add to the input element
-        type: Object,
-        default: () => ({})
-      },
-      addButtonText: {
-        type: String,
-        default: 'Add'
-      },
-      addButtonVariant: {
-        type: String,
-        default: 'outline-secondary'
-      },
-      tagVariant: {
-        type: String,
-        default: 'secondary'
-      },
-      tagClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      tagPills: {
-        type: Boolean,
-        default: false
-      },
-      tagRemoveLabel: {
-        type: String,
-        default: 'Remove tag'
-      },
-      tagRemovedLabel: {
-        type: String,
-        default: 'Tag removed'
-      },
-      tagValidator: {
-        type: Function
-        // default: null
-      },
-      duplicateTagText: {
-        type: String,
-        default: 'Duplicate tag(s)'
-      },
-      invalidTagText: {
-        type: String,
-        default: 'Invalid tag(s)'
-      },
-      limitTagsText: {
-        type: String,
-        default: 'Tag limit reached'
-      },
-      limit: {
-        type: Number
-        // default: null
-      },
-      separator: {
-        // Character (or characters) that trigger adding tags
-        type: [String, Array]
-        // default: null
-      },
-      removeOnDelete: {
-        // Enable deleting last tag in list when CODE_BACKSPACE is
-        // pressed and input is empty
-        type: Boolean,
-        default: false
-      },
-      addOnChange: {
-        // Enable change event triggering tag addition
-        // Handy if using <select> as the input
-        type: Boolean,
-        default: false
-      },
-      noAddOnEnter: {
-        // Disable ENTER key from triggering tag addition
-        type: Boolean,
-        default: false
-      },
-      noOuterFocus: {
-        // Disable the focus ring on the root element
-        type: Boolean,
-        default: false
-      },
-      ignoreInputFocusSelector: {
-        // Disable the input focus behavior when clicking
-        // on element matching the selector (or selectors)
-        type: [Array, String],
-        default: () => ['.b-form-tag', 'button', 'input', 'select']
-      }
-    },
-    NAME_FORM_TAGS
-  ),
+  props,
   data() {
     return {
       hasFocus: false,
@@ -531,7 +535,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     validateTag(tag) {
       const { tagValidator } = this
-      return tagValidator.name !== 'default' ? tagValidator(tag) : true
+      return tagValidator.name !== props.tagValidator.default.name ? tagValidator(tag) : true
     },
     getInput() {
       // Returns the input element reference (or null if not found)
