@@ -138,7 +138,7 @@
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.20",
     "marked": "^1.2.5",
-    "nuxt": "^2.14.7",
+    "nuxt": "^2.14.9",
     "postcss": "^8.1.10",
     "postcss-cli": "^8.3.0",
     "prettier": "1.14.3",
