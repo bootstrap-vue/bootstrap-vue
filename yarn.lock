@@ -4469,7 +4469,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-require@^1.1.1:
+create-require@^1.1.0, create-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
@@ -12225,10 +12225,10 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.34.0:
-  version "2.34.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.34.0.tgz#ecc7f1d4ce2cb88bb51bec2f56b984f3c35b8271"
-  integrity sha512-dW5iLvttZzdVehjEuNJ1bWvuMEJjOWGmnuFS82WeKHTGXDkRHQeq/ExdifkSyJv9dLcR86ysKRmrIDyR6O0X8g==
+rollup@^2.34.1:
+  version "2.34.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.34.1.tgz#a387230df02c58b242794a213dfb68b42de2c8fb"
+  integrity sha512-tGveB6NU5x4MS/iXaIsjfUkEv4hxzJJ4o0FRy5LO62Ndx3R2cmE1qsLYlSfRkvHUUPqWiFoxEm8pRftzh1a5HA==
   optionalDependencies:
     fsevents "~2.1.2"
 
