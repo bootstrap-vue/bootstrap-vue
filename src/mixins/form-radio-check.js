@@ -83,12 +83,6 @@ export const formRadioCheckMixin = Vue.extend({
         }
       }
     },
-    isChecked() {
-      return looseEqual(this.value, this.computedLocalChecked)
-    },
-    isRadio() {
-      return true
-    },
     isGroup() {
       // Is this check/radio a child of check-group or radio-group?
       return !!this.bvGroup
