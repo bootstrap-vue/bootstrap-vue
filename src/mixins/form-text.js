@@ -100,7 +100,7 @@ export default {
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      return this.formatter.name !== props.formatter.default.name
+      return this.formatter ? this.formatter.name !== props.formatter.default.name : false
     }
   },
   watch: {
