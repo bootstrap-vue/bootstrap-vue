@@ -154,7 +154,7 @@ export const formRadioCheckMixin = Vue.extend({
         'btn',
         `btn-${this.computedButtonVariant}`,
         {
-          [`btn-${computedSize}`]: !!computedSize,
+          [`btn-${computedSize}`]: computedSize,
           // 'disabled' class makes "button" look disabled
           disabled: this.isDisabled,
           // 'active' class makes "button" look pressed
@@ -320,7 +320,7 @@ export const formRadioCheckMixin = Vue.extend({
             'custom-switch': isSwitch,
             'custom-radio': isCustom && isRadio,
             // Temporary until Bootstrap v4 supports sizing (most likely in V5)
-            [`b-custom-control-${computedSize}`]: !!computedSize && !isBtnMode
+            [`b-custom-control-${computedSize}`]: computedSize && !isBtnMode
           },
           bvAttrs.class
         ],
