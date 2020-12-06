@@ -77,20 +77,16 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     templateListeners() {
       // Used for hover/focus trigger listeners
       return {
-        mouseenter: event => {
-          /* istanbul ignore next: difficult to test in JSDOM */
+        mouseenter: /* istanbul ignore next */ event => {
           this.$emit(EVENT_NAME_MOUSEENTER, event)
         },
-        mouseleave: event => {
-          /* istanbul ignore next: difficult to test in JSDOM */
+        mouseleave: /* istanbul ignore next */ event => {
           this.$emit(EVENT_NAME_MOUSELEAVE, event)
         },
-        focusin: event => {
-          /* istanbul ignore next: difficult to test in JSDOM */
+        focusin: /* istanbul ignore next */ event => {
           this.$emit(EVENT_NAME_FOCUSIN, event)
         },
-        focusout: event => {
-          /* istanbul ignore next: difficult to test in JSDOM */
+        focusout: /* istanbul ignore next */ event => {
           this.$emit(EVENT_NAME_FOCUSOUT, event)
         }
       }
