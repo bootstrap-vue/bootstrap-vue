@@ -1,6 +1,6 @@
 import { HAS_WINDOW_SUPPORT, WINDOW } from './env'
 
-export const Element = HAS_WINDOW_SUPPORT ? WINDOW.Element : class Element extends Object {}
+const Element = HAS_WINDOW_SUPPORT ? WINDOW.Element : class Element extends Object {}
 
 export const HTMLElement = HAS_WINDOW_SUPPORT
   ? WINDOW.HTMLElement
