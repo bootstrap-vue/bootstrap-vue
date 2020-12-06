@@ -36,8 +36,7 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   },
   inject: {
     bvTableRowGroup: {
-      /* istanbul ignore next */
-      default: () => ({})
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
