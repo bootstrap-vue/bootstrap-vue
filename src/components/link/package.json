@@ -23,8 +23,30 @@
         ],
         "events": [
           {
+            "event": "bv::link::clicked",
+            "description": "Emitted on `$root` when link was clicked",
+            "args": [
+              {
+                "name": "event",
+                "type": "MouseEvent",
+                "description": "Native click event"
+              }
+            ]
+          },
+          {
             "event": "click",
-            "description": "when link clicked",
+            "description": "Emitted when link was clicked",
+            "args": [
+              {
+                "name": "event",
+                "type": "MouseEvent",
+                "description": "Native click event"
+              }
+            ]
+          },
+          {
+            "event": "clicked::link",
+            "description": "Emitted on `$root` when link was clicked. Deprecated in favor of 'bv::link::clicked'",
             "args": [
               {
                 "name": "event",

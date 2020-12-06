@@ -78,7 +78,7 @@
       },
       {
         "name": "window",
-        "description": "sets the boundary constrain to the window"
+        "description": "Sets the boundary constrain to the window"
       },
       {
         "name": "v-{variant}",

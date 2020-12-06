@@ -41,7 +41,9 @@
           }
         ]
       },
-      "BMediaBody"
+      {
+        "component": "BMediaBody"
+      }
     ]
   }
 }

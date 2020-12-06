@@ -22,16 +22,16 @@
         "component": "BListGroupItem",
         "props": [
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
+            "prop": "action",
+            "description": "When set, give the item the appearance of having an action. Not needed when props 'to', 'href' or 'button' are used"
           },
           {
             "prop": "button",
             "description": "When true renders the list-group-item as a button element"
           },
           {
-            "prop": "action",
-            "description": "When set, give the item the appearance of having an action. Not needed when props 'to', 'href' or 'button' are used"
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
           }
         ]
       }

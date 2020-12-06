@@ -12,12 +12,8 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
-          },
-          {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+            "prop": "ariaInvalid",
+            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
           },
           {
             "prop": "multiple",
@@ -28,8 +24,12 @@
             "description": "When set to a number larger than 0, will set the number of display option rows. Note not all browser will respect this setting"
           },
           {
-            "prop": "ariaInvalid",
-            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "value",
+            "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
           }
         ],
         "slots": [
@@ -39,22 +39,6 @@
           }
         ],
         "events": [
-          {
-            "event": "input",
-            "description": "Emitted with the select value changes",
-            "args": [
-              {
-                "arg": "value",
-                "type": [
-                  "String",
-                  "Number",
-                  "Object",
-                  "Array"
-                ],
-                "description": "current selected value(s) of the select."
-              }
-            ]
-          },
           {
             "event": "change",
             "description": "Emitted with the select value changes via user interaction",
@@ -67,7 +51,23 @@
                   "Object",
                   "Array"
                 ],
-                "description": "current selected value(s) of the select."
+                "description": "Current selected value(s) of the select"
+              }
+            ]
+          },
+          {
+            "event": "input",
+            "description": "Emitted with the select value changes",
+            "args": [
+              {
+                "arg": "value",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "Current selected value(s) of the select"
               }
             ]
           }

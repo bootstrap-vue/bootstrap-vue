@@ -9,10 +9,6 @@
         "component": "BInputGroup",
         "props": [
           {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-          },
-          {
             "prop": "append",
             "description": "Text to append to the input group"
           },
@@ -27,16 +23,20 @@
           {
             "prop": "prependHtml",
             "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop. Use with caution"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           }
         ],
         "slots": [
           {
-            "name": "prepend",
-            "description": "Prepend attachment"
-          },
-          {
             "name": "append",
             "description": "Append attachment"
+          },
+          {
+            "name": "prepend",
+            "description": "Prepend attachment"
           }
         ]
       },
@@ -59,8 +59,7 @@
         ]
       },
       {
-        "component": "BInputGroupText",
-        "props": []
+        "component": "BInputGroupText"
       },
       {
         "component": "BInputGroupAddon",

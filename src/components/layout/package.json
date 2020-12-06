@@ -19,20 +19,16 @@
         "component": "BRow",
         "props": [
           {
-            "prop": "noGutters",
-            "description": "When set, removes the margin from the row and removes the padding from the child columns"
-          },
-          {
-            "prop": "alignV",
-            "description": "Vertical alignment of all columns in a row: 'start', 'center', 'end', 'baseline', or 'stretch'"
+            "prop": "alignContent",
+            "description": "Align columns items together on the cross axis: 'start', 'center', 'end', 'around', 'between' or 'stretch'. Has no effect on single rows of items"
           },
           {
             "prop": "alignH",
             "description": "Horizontal alignment/spacing of all columns: 'start', 'center', 'end', 'around', or 'between'"
           },
           {
-            "prop": "alignContent",
-            "description": "Align columns items together on the cross axis: 'start', 'center', 'end', 'around', 'between' or 'stretch'. Has no effect on single rows of items"
+            "prop": "alignV",
+            "description": "Vertical alignment of all columns in a row: 'start', 'center', 'end', 'baseline', or 'stretch'"
           },
           {
             "prop": "cols",
@@ -40,9 +36,9 @@
             "description": "The number row columns to create at the 'xs' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "colsSm",
+            "prop": "colsLg",
             "version": "2.2.0",
-            "description": "The number row columns to create at the 'sm' breakpoint. Requires Bootstrap v4.4 CSS"
+            "description": "The number row columns to create at the 'lg' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "colsMd",
@@ -50,14 +46,18 @@
             "description": "The number row columns to create at the 'md' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
-            "prop": "colsLg",
+            "prop": "colsSm",
             "version": "2.2.0",
-            "description": "The number row columns to create at the 'lg' breakpoint. Requires Bootstrap v4.4 CSS"
+            "description": "The number row columns to create at the 'sm' breakpoint. Requires Bootstrap v4.4 CSS"
           },
           {
             "prop": "colsXl",
             "version": "2.2.0",
             "description": "The number row columns to create at the 'xl' breakpoint. Requires Bootstrap v4.4 CSS"
+          },
+          {
+            "prop": "noGutters",
+            "description": "When set, removes the margin from the row and removes the padding from the child columns"
           }
         ]
       },
@@ -77,36 +77,28 @@
             "description": "Number of columns the grid cell spans for xs and up breakpoints"
           },
           {
-            "prop": "sm",
-            "description": "Number of columns the grid cell spans for sm and up breakpoints"
+            "prop": "lg",
+            "description": "Number of columns the grid cell spans for lg and up breakpoints"
           },
           {
             "prop": "md",
             "description": "Number of columns the grid cell spans for md and up breakpoints"
           },
           {
-            "prop": "lg",
-            "description": "Number of columns the grid cell spans for lg and up breakpoints"
-          },
-          {
-            "prop": "xl",
-            "description": "Number of columns the grid cell spans for xl and up breakpoints"
-          },
-          {
             "prop": "offset",
             "description": "Number of columns the grid cell is offset for xs and up breakpoints"
           },
           {
-            "prop": "offsetSm",
-            "description": "Number of columns the grid cell is offset for sm and up breakpoints"
+            "prop": "offsetLg",
+            "description": "Number of columns the grid cell is offset for lg and up breakpoints"
           },
           {
             "prop": "offsetMd",
             "description": "Number of columns the grid cell is offset for md and up breakpoints"
           },
           {
-            "prop": "offsetLg",
-            "description": "Number of columns the grid cell is offset for lg and up breakpoints"
+            "prop": "offsetSm",
+            "description": "Number of columns the grid cell is offset for sm and up breakpoints"
           },
           {
             "prop": "offsetXl",
@@ -117,20 +109,28 @@
             "description": "Flex order of the grid cell for xs and up breakpoints"
           },
           {
-            "prop": "orderSm",
-            "description": "Flex order of the grid cell for sm and up breakpoints"
+            "prop": "orderLg",
+            "description": "Flex order of the grid cell for lg and up breakpoints"
           },
           {
             "prop": "orderMd",
             "description": "Flex order of the grid cell for md and up breakpoints"
           },
           {
-            "prop": "orderLg",
-            "description": "Flex order of the grid cell for lg and up breakpoints"
+            "prop": "orderSm",
+            "description": "Flex order of the grid cell for sm and up breakpoints"
           },
           {
             "prop": "orderXl",
             "description": "Flex order of the grid cell for xl and up breakpoints"
+          },
+          {
+            "prop": "sm",
+            "description": "Number of columns the grid cell spans for sm and up breakpoints"
+          },
+          {
+            "prop": "xl",
+            "description": "Number of columns the grid cell spans for xl and up breakpoints"
           }
         ]
       },

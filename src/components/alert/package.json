@@ -28,7 +28,7 @@
         "events": [
           {
             "event": "dismiss-count-down",
-            "description": "When prop show is a number, this event emits every second on countdown.",
+            "description": "When prop show is a number, this event emits every second on countdown",
             "args": [
               {
                 "arg": "dismissCountDown",
@@ -59,7 +59,7 @@
         "slots": [
           {
             "name": "dismiss",
-            "description": "Content for the dismiss button."
+            "description": "Content for the dismiss button"
           }
         ]
       }
