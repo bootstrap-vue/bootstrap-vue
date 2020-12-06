@@ -1,24 +1,24 @@
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_STRING } from '../constants/props'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    size: {
-      type: String
-      // default: null
-    }
+    size: makeProp(PROP_TYPE_STRING)
   },
   'formControls'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const formSizeMixin = Vue.extend({
   props,
   computed: {
     sizeFormClass() {
       return [this.size ? `form-control-${this.size}` : null]
     }
   }
-}
+})

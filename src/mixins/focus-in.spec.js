@@ -1,8 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
-import focusInMixin from './focus-in'
+import { focusInMixin } from './focus-in'
 
-describe('utils/focus-in', () => {
+describe('mixins/focus-in', () => {
   it('works', async () => {
     let count = 0
     const localVue = createLocalVue()

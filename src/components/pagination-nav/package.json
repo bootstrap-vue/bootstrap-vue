@@ -177,9 +177,9 @@
             "version": "2.17.0",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "The `BvEvent` object. Call `bvEvt.preventDefault()` to cancel page selection"
+                "description": "The `BvEvent` object. Call `bvEvent.preventDefault()` to cancel page selection"
               },
               {
                 "arg": "page",

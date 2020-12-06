@@ -94,7 +94,7 @@
             "description": "Emitted when the avatar is clicked when rendered as a button or link. Not emitted otherwise",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "description": "Native Event object"
               }
             ]
@@ -105,7 +105,7 @@
             "description": "Emitted if an image `src` is provided and the image fails to load",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "description": "Native Event object"
               }
             ]

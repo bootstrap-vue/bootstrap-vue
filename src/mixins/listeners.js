@@ -1,3 +1,3 @@
 import { makePropCacheMixin } from '../utils/cache'
 
-export default makePropCacheMixin('$listeners', 'bvListeners')
+export const listenersMixin = makePropCacheMixin('$listeners', 'bvListeners')

@@ -129,7 +129,7 @@ describe('spinner', () => {
   it('does not have role "status" when no label provided', async () => {
     const wrapper = mount(BSpinner)
 
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -156,7 +156,7 @@ describe('spinner', () => {
       }
     })
 
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -193,7 +193,7 @@ describe('spinner', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-hidden')).not.toBeDefined()
+    expect(wrapper.attributes('aria-hidden')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -205,7 +205,7 @@ describe('spinner', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-hidden')).not.toBeDefined()
+    expect(wrapper.attributes('aria-hidden')).toBeUndefined()
 
     wrapper.destroy()
   })

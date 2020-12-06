@@ -1,4 +1,4 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { createLocalVue } from '@vue/test-utils'
 import { BootstrapVue } from '../../src'
 import { AlertPlugin } from '../../src/components/alert'
 import { BVConfigPlugin } from '../../src/bv-config'
@@ -9,8 +9,7 @@ import {
   getBreakpointsUp,
   getComponentConfig,
   getConfig,
-  getConfigValue,
-  makePropsConfigurable
+  getConfigValue
 } from './config'
 
 describe('utils/config', () => {
@@ -114,7 +113,7 @@ describe('utils/config', () => {
     // Shape of returned value should be the same each call
     expect(getConfigValue('formControls')).toEqual(getConfigValue('formControls'))
     // Should return undefined for not found
-    expect(getConfigValue('foo.bar[1].baz')).not.toBeDefined()
+    expect(getConfigValue('foo.bar[1].baz')).toBeUndefined()
   })
 
   it('getComponentConfig() works', async () => {
@@ -132,7 +131,7 @@ describe('utils/config', () => {
     // Should return empty object for not found component
     expect(getComponentConfig('foobar')).toEqual({})
     // Should return undefined for not found component key
-    expect(getComponentConfig('BAlert', 'foobar')).not.toBeDefined()
+    expect(getComponentConfig('BAlert', 'foobar')).toBeUndefined()
   })
 
   it('getBreakpoints() works', async () => {
@@ -162,36 +161,5 @@ describe('utils/config', () => {
     expect(getBreakpointsDown()).toEqual(['xs', 'sm', 'md', 'lg', ''])
     // Should return a deep clone
     expect(getBreakpointsDown()).not.toBe(getBreakpointsDown())
-  })
-
-  it('makePropsConfigurable() works', async () => {
-    const NAME = 'Component'
-    const props = {
-      text: {
-        type: String,
-        default: 'foo'
-      }
-    }
-    const config = {
-      [NAME]: { text: 'bar' }
-    }
-    const ConfigurableComponent = {
-      name: NAME,
-      props: makePropsConfigurable(props, NAME),
-      render(h) {
-        return h('div', this.text)
-      }
-    }
-
-    setConfig(config)
-
-    const wrapper = mount(ConfigurableComponent)
-
-    expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.text()).toBe('bar')
-
-    await wrapper.setProps({ text: 'baz' })
-    expect(wrapper.text()).toBe('baz')
   })
 })

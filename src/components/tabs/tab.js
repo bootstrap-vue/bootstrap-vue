@@ -1,10 +1,46 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
-import { SLOT_NAME_TITLE } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
-import BVTransition from '../../utils/bv-transition'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_TITLE } from '../../constants/slots'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { BVTransition } from '../transition/bv-transition'
+
+// --- Constants ---
+
+const MODEL_PROP_NAME_ACTIVE = 'active'
+const MODEL_EVENT_NAME_ACTIVE = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_ACTIVE
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    [MODEL_PROP_NAME_ACTIVE]: makeProp(PROP_TYPE_BOOLEAN, false),
+    buttonId: makeProp(PROP_TYPE_STRING),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    noBody: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    title: makeProp(PROP_TYPE_STRING),
+    // Sniffed by `<b-tabs>` and added to nav `li.nav-item`
+    titleItemClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    titleLinkAttributes: makeProp(PROP_TYPE_OBJECT),
+    // Sniffed by `<b-tabs>` and added to nav `a.nav-link`
+    titleLinkClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING)
+  }),
+  NAME_TAB
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BTab = /*#__PURE__*/ Vue.extend({
@@ -15,69 +51,25 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       default: () => ({})
     }
   },
-  props: makePropsConfigurable(
-    {
-      active: {
-        type: Boolean,
-        default: false
-      },
-      tag: {
-        type: String,
-        default: 'div'
-      },
-      buttonId: {
-        type: String
-        // default: ''
-      },
-      title: {
-        type: String,
-        default: ''
-      },
-      titleItemClass: {
-        // Sniffed by `<b-tabs>` and added to nav `li.nav-item`
-        type: [String, Array, Object]
-        // default: null
-      },
-      titleLinkClass: {
-        // Sniffed by `<b-tabs>` and added to nav `a.nav-link`
-        type: [String, Array, Object]
-        // default: null
-      },
-      titleLinkAttributes: {
-        type: Object
-        // default: null
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      noBody: {
-        type: Boolean,
-        default: false
-      },
-      lazy: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_TAB
-  ),
+  props,
   data() {
     return {
-      localActive: this.active && !this.disabled,
+      localActive: this[MODEL_PROP_NAME_ACTIVE] && !this.disabled,
       show: false
     }
   },
   computed: {
     tabClasses() {
+      const { localActive: active, disabled } = this
+
       return [
         {
-          active: this.localActive,
-          disabled: this.disabled,
+          active,
+          disabled,
           'card-body': this.bvTabs.card && !this.noBody
         },
         // Apply <b-tabs> `activeTabClass` styles when this tab is active
-        this.localActive ? this.bvTabs.activeTabClass : null
+        active ? this.bvTabs.activeTabClass : null
       ]
     },
     controlledBy() {
@@ -97,9 +89,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   watch: {
     localActive(newValue) {
       // Make `active` prop work with `.sync` modifier
-      this.$emit('update:active', newValue)
+      this.$emit(MODEL_EVENT_NAME_ACTIVE, newValue)
     },
-    active(newValue, oldValue) {
+    [MODEL_PROP_NAME_ACTIVE](newValue, oldValue) {
       if (newValue !== oldValue) {
         if (newValue) {
           // If activated post mount
@@ -109,7 +101,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
           if (!this.deactivate()) {
             // Tab couldn't be deactivated, so we reset the synced active prop
             // Deactivation will fail if no other tabs to activate
-            this.$emit('update:active', this.localActive)
+            this.$emit(MODEL_EVENT_NAME_ACTIVE, this.localActive)
           }
         }
       }
@@ -176,27 +168,30 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     const $content = h(
       this.tag,
       {
-        ref: 'panel',
         staticClass: 'tab-pane',
         class: this.tabClasses,
-        directives: [
-          {
-            name: 'show',
-            rawName: 'v-show',
-            value: localActive,
-            expression: 'localActive'
-          }
-        ],
+        directives: [{ name: 'show', value: localActive }],
         attrs: {
           role: 'tabpanel',
           id: this.safeId(),
           'aria-hidden': localActive ? 'false' : 'true',
           'aria-labelledby': this.controlledBy || null
-        }
+        },
+        ref: 'panel'
       },
       // Render content lazily if requested
       [localActive || !this.computedLazy ? this.normalizeSlot() : h()]
     )
-    return h(BVTransition, { props: { mode: 'out-in', noFade: this.computedNoFade } }, [$content])
+
+    return h(
+      BVTransition,
+      {
+        props: {
+          mode: 'out-in',
+          noFade: this.computedNoFade
+        }
+      },
+      [$content]
+    )
   }
 })

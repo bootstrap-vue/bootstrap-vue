@@ -173,9 +173,9 @@
             "description": "Emitted just before dropdown is shown. Cancelable.",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel show."
               }
             ]
           },
@@ -188,9 +188,9 @@
             "description": "Emitted just before dropdown is hidden. Cancelable.",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel hide."
               }
             ]
           },

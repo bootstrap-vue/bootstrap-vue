@@ -1,9 +1,10 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
-import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slots'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { BInputGroupAppend } from './input-group-append'
 import { BInputGroupPrepend } from './input-group-prepend'
 import { BInputGroupText } from './input-group-text'
@@ -12,34 +13,19 @@ import { BInputGroupText } from './input-group-text'
 
 export const props = makePropsConfigurable(
   {
-    id: {
-      type: String
-    },
-    size: {
-      type: String
-      // default: undefined
-    },
-    prepend: {
-      type: String
-    },
-    prependHtml: {
-      type: String
-    },
-    append: {
-      type: String
-    },
-    appendHtml: {
-      type: String
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    }
+    append: makeProp(PROP_TYPE_STRING),
+    appendHtml: makeProp(PROP_TYPE_STRING),
+    id: makeProp(PROP_TYPE_STRING),
+    prepend: makeProp(PROP_TYPE_STRING),
+    prependHtml: makeProp(PROP_TYPE_STRING),
+    size: makeProp(PROP_TYPE_STRING),
+    tag: makeProp(PROP_TYPE_STRING, 'div')
   },
   NAME_INPUT_GROUP
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BInputGroup = /*#__PURE__*/ Vue.extend({
   name: NAME_INPUT_GROUP,

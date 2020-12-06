@@ -2,65 +2,65 @@ import { BvEvent } from './bv-event.class'
 
 describe('utils/BvEvent class', () => {
   it('works', async () => {
-    const evt = new BvEvent('foobar')
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
+    const event = new BvEvent('foobar')
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
   })
 
   it('throws exception if no type given', async () => {
-    let evt = null
+    let event = null
     let failed = false
     try {
-      evt = new BvEvent()
+      event = new BvEvent()
     } catch (e) {
       failed = true
     }
-    expect(evt).not.toBeInstanceOf(BvEvent)
-    expect(evt).toBe(null)
+    expect(event).not.toBeInstanceOf(BvEvent)
+    expect(event).toBe(null)
     expect(failed).toBe(true)
   })
 
   it('supports cancelable events', async () => {
-    const evt = new BvEvent('foobar', {
+    const event = new BvEvent('foobar', {
       cancelable: true
     })
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.defaultPrevented).toBe(false)
-    evt.preventDefault()
-    expect(evt.defaultPrevented).toBe(true)
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.defaultPrevented).toBe(false)
+    event.preventDefault()
+    expect(event.defaultPrevented).toBe(true)
   })
 
   it('supports non cancelable events', async () => {
-    const evt = new BvEvent('foobar', {
+    const event = new BvEvent('foobar', {
       cancelable: false
     })
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(false)
-    expect(evt.defaultPrevented).toBe(false)
-    evt.preventDefault()
-    expect(evt.defaultPrevented).toBe(false)
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(false)
+    expect(event.defaultPrevented).toBe(false)
+    event.preventDefault()
+    expect(event.defaultPrevented).toBe(false)
   })
 
   it('supports built in properties', async () => {
-    const evt = new BvEvent('foobar', {
+    const event = new BvEvent('foobar', {
       target: 'baz'
     })
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.target).toBe('baz')
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.target).toBe('baz')
   })
 
   it('supports custom properties', async () => {
-    const evt = new BvEvent('foobar', {
+    const event = new BvEvent('foobar', {
       custom: 123
     })
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.custom).toBe(123)
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.custom).toBe(123)
   })
 })

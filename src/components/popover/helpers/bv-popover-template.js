@@ -1,4 +1,4 @@
-import Vue from '../../../vue'
+import { Vue } from '../../../vue'
 import { NAME_POPOVER_TEMPLATE } from '../../../constants/components'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVTooltipTemplate } from '../../tooltip/helpers/bv-tooltip-template'
@@ -32,7 +32,10 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [
-          h('div', { ref: 'arrow', staticClass: 'arrow' }),
+          h('div', {
+            staticClass: 'arrow',
+            ref: 'arrow'
+          }),
           isUndefinedOrNull($title) || $title === ''
             ? /* istanbul ignore next */ h()
             : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title]),

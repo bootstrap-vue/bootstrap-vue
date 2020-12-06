@@ -1,7 +1,8 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_RADIO_GROUP } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import formRadioCheckGroupMixin, {
+import { makePropsConfigurable } from '../../utils/props'
+import {
+  formRadioCheckGroupMixin,
   props as formRadioCheckGroupProps
 } from '../../mixins/form-radio-check-group'
 

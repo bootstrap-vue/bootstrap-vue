@@ -1,15 +1,24 @@
+import { Vue } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
-import { RX_SPACES } from '../../../constants/regex'
-import cloneDeep from '../../../utils/clone-deep'
-import identity from '../../../utils/identity'
-import looseEqual from '../../../utils/loose-equal'
+import { EVENT_NAME_FILTERED } from '../../../constants/events'
+import {
+  PROP_TYPE_REG_EXP,
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_ARRAY,
+  PROP_TYPE_NUMBER_STRING
+} from '../../../constants/props'
+import { RX_DIGITS, RX_SPACES } from '../../../constants/regex'
 import { concat } from '../../../utils/array'
-import { makePropsConfigurable } from '../../../utils/config'
+import { cloneDeep } from '../../../utils/clone-deep'
+import { identity } from '../../../utils/identity'
 import { isFunction, isString, isRegExp } from '../../../utils/inspect'
+import { looseEqual } from '../../../utils/loose-equal'
 import { toInteger } from '../../../utils/number'
+import { hasPropFunction, makeProp } from '../../../utils/props'
 import { escapeRegExp } from '../../../utils/string'
 import { warn } from '../../../utils/warn'
-import stringifyRecordValues from './stringify-record-values'
+import { stringifyRecordValues } from './stringify-record-values'
 
 // --- Constants ---
 
@@ -18,39 +27,20 @@ const DEBOUNCE_DEPRECATED_MSG =
 
 // --- Props ---
 
-export const props = makePropsConfigurable(
-  {
-    filter: {
-      type: [String, RegExp, Object, Array],
-      default: null
-    },
-    filterFunction: {
-      type: Function
-      // default: null
-    },
-    filterIgnoredFields: {
-      type: Array
-      // default: undefined
-    },
-    filterIncludedFields: {
-      type: Array
-      // default: undefined
-    },
-    filterDebounce: {
-      type: [Number, String],
-      deprecated: DEBOUNCE_DEPRECATED_MSG,
-      default: 0,
-      validator(value) {
-        return /^\d+/.test(String(value))
-      }
-    }
-  },
-  NAME_TABLE
-)
+export const props = {
+  filter: makeProp([...PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_REG_EXP]),
+  filterDebounce: makeProp(PROP_TYPE_NUMBER_STRING, 0, value => {
+    return RX_DIGITS.test(String(value))
+  }),
+  filterFunction: makeProp(PROP_TYPE_FUNCTION),
+  filterIgnoredFields: makeProp(PROP_TYPE_ARRAY, []),
+  filterIncludedFields: makeProp(PROP_TYPE_ARRAY, [])
+}
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const filteringMixin = Vue.extend({
   props,
   data() {
     return {
@@ -81,24 +71,20 @@ export default {
     },
     // For watching changes to `filteredItems` vs `localItems`
     filteredCheck() {
-      return {
-        filteredItems: this.filteredItems,
-        localItems: this.localItems,
-        localFilter: this.localFilter
-      }
+      const { filteredItems, localItems, localFilter } = this
+      return { filteredItems, localItems, localFilter }
     },
     // Sanitized/normalize filter-function prop
     localFilterFn() {
       // Return `null` to signal to use internal filter function
       const { filterFunction } = this
-      return filterFunction.name !== props.filterFunction.default.name ? filterFunction : null
+      return hasPropFunction(filterFunction) ? filterFunction : null
     },
     // Returns the records in `localItems` that match the filter criteria
     // Returns the original `localItems` array if not sorting
     filteredItems() {
-      const items = this.localItems || []
       // Note the criteria is debounced and sanitized
-      const criteria = this.localFilter
+      const { localItems: items, localFilter: criteria } = this
 
       // Resolve the filtering function, when requested
       // We prefer the provided filtering function and fallback to the internal one
@@ -114,8 +100,8 @@ export default {
   },
   watch: {
     // Watch for debounce being set to 0
-    computedFilterDebounce(newVal) {
-      if (!newVal && this.$_filterTimer) {
+    computedFilterDebounce(newValue) {
+      if (!newValue && this.$_filterTimer) {
         this.clearFilterTimer()
         this.localFilter = this.filterSanitize(this.filter)
       }
@@ -155,15 +141,16 @@ export default {
         isFiltered = true
       }
       if (isFiltered) {
-        this.$emit('filtered', filteredItems, filteredItems.length)
+        this.$emit(EVENT_NAME_FILTERED, filteredItems, filteredItems.length)
       }
       this.isFiltered = isFiltered
     },
-    isFiltered(newVal, oldVal) {
-      if (newVal === false && oldVal === true) {
-        // We need to emit a filtered event if isFiltered transitions from true to
-        // false so that users can update their pagination controls.
-        this.$emit('filtered', this.localItems, this.localItems.length)
+    isFiltered(newValue, oldValue) {
+      if (newValue === false && oldValue === true) {
+        // We need to emit a filtered event if `isFiltered` transitions from `true` to
+        // `false` so that users can update their pagination controls
+        const { localItems } = this
+        this.$emit(EVENT_NAME_FILTERED, localItems, localItems.length)
       }
     }
   },
@@ -281,4 +268,4 @@ export default {
       return fn
     }
   }
-}
+})

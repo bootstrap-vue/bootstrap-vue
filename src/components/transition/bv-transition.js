@@ -4,9 +4,13 @@
 // the transition has finished the enter transition
 // (show and fade classes are only applied during transition)
 
-import Vue, { mergeData } from '../vue'
-import { NAME_TRANSITION } from '../constants/components'
-import { isPlainObject } from './inspect'
+import { Vue, mergeData } from '../../vue'
+import { NAME_TRANSITION } from '../../constants/components'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_OBJECT, PROP_TYPE_STRING } from '../../constants/props'
+import { isPlainObject } from '../../utils/inspect'
+import { makeProp } from '../../utils/props'
+
+// --- Constants ---
 
 const NO_FADE_PROPS = {
   name: '',
@@ -24,33 +28,27 @@ const FADE_PROPS = {
   leaveActiveClass: 'fade'
 }
 
+// --- Props ---
+
+export const props = {
+  // Has no effect if `trans-props` provided
+  appear: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Can be overridden by user supplied `trans-props`
+  mode: makeProp(PROP_TYPE_STRING),
+  // Only applicable to the built in transition
+  // Has no effect if `trans-props` provided
+  noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+  // For user supplied transitions (if needed)
+  transProps: makeProp(PROP_TYPE_OBJECT)
+}
+
+// --- Main component ---
+
 // @vue/component
 export const BVTransition = /*#__PURE__*/ Vue.extend({
   name: NAME_TRANSITION,
   functional: true,
-  props: {
-    noFade: {
-      // Only applicable to the built in transition
-      // Has no effect if `trans-props` provided
-      type: Boolean,
-      default: false
-    },
-    appear: {
-      // Has no effect if `trans-props` provided
-      type: Boolean,
-      default: false
-    },
-    mode: {
-      // Can be overridden by user supplied trans-props
-      type: String
-      // default: undefined
-    },
-    // For user supplied transitions (if needed)
-    transProps: {
-      type: Object,
-      default: null
-    }
-  },
+  props,
   render(h, { children, data, props }) {
     let transProps = props.transProps
     if (!isPlainObject(transProps)) {
@@ -80,5 +78,3 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
     )
   }
 })
-
-export default BVTransition

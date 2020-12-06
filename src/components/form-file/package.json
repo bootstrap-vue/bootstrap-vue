@@ -104,7 +104,7 @@
             "description": "Original change event of the input",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "type": "Event",
                 "description": "Native change event object"
               }

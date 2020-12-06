@@ -3,13 +3,25 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import Vue from '../../../vue'
-import { NAME_TOOLTIP_HELPER } from '../../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
-import getScopId from '../../../utils/get-scope-id'
-import looseEqual from '../../../utils/loose-equal'
-import { mathMax } from '../../../utils/math'
-import noop from '../../../utils/noop'
+import { COMPONENT_UID_KEY, Vue } from '../../../vue'
+import { NAME_MODAL, NAME_TOOLTIP_HELPER } from '../../../constants/components'
+import {
+  EVENT_NAME_DISABLE,
+  EVENT_NAME_DISABLED,
+  EVENT_NAME_ENABLE,
+  EVENT_NAME_ENABLED,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_OPTIONS_NO_CAPTURE,
+  HOOK_EVENT_NAME_BEFORE_DESTROY,
+  HOOK_EVENT_NAME_DESTROYED
+} from '../../../constants/events'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
 import {
   attemptFocus,
@@ -27,7 +39,15 @@ import {
   select,
   setAttr
 } from '../../../utils/dom'
-import { eventOn, eventOff, eventOnOff } from '../../../utils/events'
+import {
+  eventOff,
+  eventOn,
+  eventOnOff,
+  getRootActionEventName,
+  getRootEventName
+} from '../../../utils/events'
+import { getScopeId } from '../../../utils/get-scope-id'
+import { identity } from '../../../utils/identity'
 import {
   isFunction,
   isNumber,
@@ -36,16 +56,22 @@ import {
   isUndefined,
   isUndefinedOrNull
 } from '../../../utils/inspect'
+import { looseEqual } from '../../../utils/loose-equal'
+import { mathMax } from '../../../utils/math'
+import { noop } from '../../../utils/noop'
 import { toInteger } from '../../../utils/number'
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
+// --- Constants ---
+
 // Modal container selector for appending tooltip/popover
 const MODAL_SELECTOR = '.modal-content'
+
 // Modal `$root` hidden event
-const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
+const ROOT_EVENT_NAME_MODAL_HIDDEN = getRootEventName(NAME_MODAL, EVENT_NAME_HIDDEN)
 
 // Sidebar container selector for appending tooltip/popover
 const SIDEBAR_SELECTOR = '.b-sidebar'
@@ -107,6 +133,8 @@ const templateData = {
   html: false
 }
 
+// --- Main component ---
+
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_HELPER,
@@ -132,7 +160,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return 'tooltip'
     },
     computedId() {
-      return this.id || `__bv_${this.templateType}_${this._uid}__`
+      return this.id || `__bv_${this.templateType}_${this[COMPONENT_UID_KEY]}__`
     },
     computedDelay() {
       // Normalizes delay into object form
@@ -149,7 +177,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Returns the triggers in sorted array form
       // TODO: Switch this to object form for easier lookup
       return concat(this.triggers)
-        .filter(Boolean)
+        .filter(identity)
         .join(' ')
         .trim()
         .toLowerCase()
@@ -165,14 +193,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       return false
     },
     computedTemplateData() {
-      return {
-        title: this.title,
-        content: this.content,
-        variant: this.variant,
-        customClass: this.customClass,
-        noFade: this.noFade,
-        interactive: this.interactive
-      }
+      const { title, content, variant, customClass, noFade, interactive } = this
+      return { title, content, variant, customClass, noFade, interactive }
     }
   },
   watch: {
@@ -226,7 +248,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     // Destroy ourselves when the parent is destroyed
     if (this.$parent) {
-      this.$parent.$once('hook:beforeDestroy', () => {
+      this.$parent.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         this.$nextTick(() => {
           // In a `requestAF()` to release control back to application
           requestAF(() => {
@@ -240,7 +262,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (target && contains(document.body, target)) {
         // Copy the parent's scoped style attribute
-        this.scopeId = getScopId(this.$parent)
+        this.scopeId = getScopeId(this.$parent)
         // Set up all trigger handlers and listeners
         this.listen()
       } else {
@@ -327,22 +349,22 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.handleTemplateUpdate()
       // Template transition phase events (handled once only)
       // When the template has mounted, but not visibly shown yet
-      $tip.$once('show', this.onTemplateShow)
+      $tip.$once(EVENT_NAME_SHOW, this.onTemplateShow)
       // When the template has completed showing
-      $tip.$once('shown', this.onTemplateShown)
+      $tip.$once(EVENT_NAME_SHOWN, this.onTemplateShown)
       // When the template has started to hide
-      $tip.$once('hide', this.onTemplateHide)
+      $tip.$once(EVENT_NAME_HIDE, this.onTemplateHide)
       // When the template has completed hiding
-      $tip.$once('hidden', this.onTemplateHidden)
+      $tip.$once(EVENT_NAME_HIDDEN, this.onTemplateHidden)
       // When the template gets destroyed for any reason
-      $tip.$once('hook:destroyed', this.destroyTemplate)
+      $tip.$once(HOOK_EVENT_NAME_DESTROYED, this.destroyTemplate)
       // Convenience events from template
       // To save us from manually adding/removing DOM
       // listeners to tip element when it is open
-      $tip.$on('focusin', this.handleEvent)
-      $tip.$on('focusout', this.handleEvent)
-      $tip.$on('mouseenter', this.handleEvent)
-      $tip.$on('mouseleave', this.handleEvent)
+      $tip.$on(EVENT_NAME_FOCUSIN, this.handleEvent)
+      $tip.$on(EVENT_NAME_FOCUSOUT, this.handleEvent)
+      $tip.$on(EVENT_NAME_MOUSEENTER, this.handleEvent)
+      $tip.$on(EVENT_NAME_MOUSELEAVE, this.handleEvent)
       // Mount (which triggers the `show`)
       $tip.$mount(container.appendChild(document.createElement('div')))
       // Template will automatically remove its markup from DOM when hidden
@@ -415,7 +437,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // In the process of showing
       this.localShow = true
       // Create a cancelable BvEvent
-      const showEvt = this.buildEvent('show', { cancelable: true })
+      const showEvt = this.buildEvent(EVENT_NAME_SHOW, { cancelable: true })
       this.emitEvent(showEvt)
       // Don't show if event cancelled
       /* istanbul ignore if */
@@ -442,7 +464,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // Emit cancelable BvEvent 'hide'
       // We disable cancelling if `force` is true
-      const hideEvt = this.buildEvent('hide', { cancelable: !force })
+      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, { cancelable: !force })
       this.emitEvent(hideEvt)
       /* istanbul ignore if: ignore for now */
       if (hideEvt.defaultPrevented) {
@@ -461,7 +483,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         return
       }
       // Disable while open listeners/watchers
-      // This is also done in the template `hide` evt handler
+      // This is also done in the template `hide` event handler
       this.setWhileOpenListeners(false)
       // Clear any hover enter/leave event
       this.clearHoverTimeout()
@@ -477,12 +499,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     enable() {
       this.$_enabled = true
       // Create a non-cancelable BvEvent
-      this.emitEvent(this.buildEvent('enabled'))
+      this.emitEvent(this.buildEvent(EVENT_NAME_ENABLED))
     },
     disable() {
       this.$_enabled = false
       // Create a non-cancelable BvEvent
-      this.emitEvent(this.buildEvent('disabled'))
+      this.emitEvent(this.buildEvent(EVENT_NAME_DISABLED))
     },
     // --- Handlers for template events ---
     // When template is inserted into DOM, but not yet shown
@@ -499,7 +521,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.leave(null)
       }
       // Emit a non-cancelable BvEvent 'shown'
-      this.emitEvent(this.buildEvent('shown'))
+      this.emitEvent(this.buildEvent(EVENT_NAME_SHOWN))
     },
     // When template is starting to hide
     onTemplateHide() {
@@ -511,9 +533,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Destroy the template
       this.destroyTemplate()
       // Emit a non-cancelable BvEvent 'shown'
-      this.emitEvent(this.buildEvent('hidden'))
+      this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
     },
-    // --- Utility methods ---
+    // --- Helper methods ---
     getTarget() {
       let { target } = this
       if (isString(target)) {
@@ -658,15 +680,15 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         ...options
       })
     },
-    emitEvent(bvEvt) {
+    emitEvent(bvEvent) {
       // Emits a BvEvent on $root and this instance
-      const evtName = bvEvt.type
+      const eventName = bvEvent.type
       const $root = this.$root
       if ($root && $root.$emit) {
         // Emit an event on $root
-        $root.$emit(`bv::${this.templateType}::${evtName}`, bvEvt)
+        $root.$emit(getRootEventName(this.templateType, eventName), bvEvent)
       }
-      this.$emit(evtName, bvEvt)
+      this.$emit(eventName, bvEvent)
     },
     // --- Event handler setup methods ---
     listen() {
@@ -705,8 +727,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       this.setRootListener(false)
 
       // Clear out any active target listeners
-      events.forEach(evt => {
-        target && eventOff(target, evt, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
+      events.forEach(event => {
+        target && eventOff(target, event, this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
       }, this)
     },
     setRootListener(on) {
@@ -715,10 +737,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       if ($root) {
         const method = on ? '$on' : '$off'
         const type = this.templateType
-        $root[method](`bv::hide::${type}`, this.doHide)
-        $root[method](`bv::show::${type}`, this.doShow)
-        $root[method](`bv::disable::${type}`, this.doDisable)
-        $root[method](`bv::enable::${type}`, this.doEnable)
+        $root[method](getRootActionEventName(type, EVENT_NAME_HIDE), this.doHide)
+        $root[method](getRootActionEventName(type, EVENT_NAME_SHOW), this.doShow)
+        $root[method](getRootActionEventName(type, EVENT_NAME_DISABLE), this.doDisable)
+        $root[method](getRootActionEventName(type, EVENT_NAME_ENABLE), this.doEnable)
       }
     },
     setWhileOpenListeners(on) {
@@ -751,7 +773,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Handle case where tooltip/target is in a modal
       if (this.isInModal()) {
         // We can listen for modal hidden events on `$root`
-        this.$root[on ? '$on' : '$off'](MODAL_CLOSE_EVENT, this.forceHide)
+        this.$root[on ? '$on' : '$off'](ROOT_EVENT_NAME_MODAL_HIDDEN, this.forceHide)
       }
     },
     /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */
@@ -779,11 +801,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Note: Dropdown auto-ID happens in a `$nextTick()` after mount
       //         So the ID lookup would need to be done in a `$nextTick()`
       if (target.__vue__) {
-        target.__vue__[on ? '$on' : '$off']('shown', this.forceHide)
+        target.__vue__[on ? '$on' : '$off'](EVENT_NAME_SHOWN, this.forceHide)
       }
     },
     // --- Event handlers ---
-    handleEvent(evt) {
+    handleEvent(event) {
       // General trigger event handler
       // target is the trigger element
       const target = this.getTarget()
@@ -793,18 +815,18 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // close until no longer disabled or forcefully closed
         return
       }
-      const type = evt.type
+      const type = event.type
       const triggers = this.computedTriggers
 
       if (type === 'click' && arrayIncludes(triggers, 'click')) {
-        this.click(evt)
+        this.click(event)
       } else if (type === 'mouseenter' && arrayIncludes(triggers, 'hover')) {
         // `mouseenter` is a non-bubbling event
-        this.enter(evt)
+        this.enter(event)
       } else if (type === 'focusin' && arrayIncludes(triggers, 'focus')) {
         // `focusin` is a bubbling event
-        // `evt` includes `relatedTarget` (element losing focus)
-        this.enter(evt)
+        // `event` includes `relatedTarget` (element losing focus)
+        this.enter(event)
       } else if (
         (type === 'focusout' &&
           (arrayIncludes(triggers, 'focus') || arrayIncludes(triggers, 'blur'))) ||
@@ -814,26 +836,26 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         // `mouseleave` is a non-bubbling event
         // `tip` is the template (will be null if not open)
         const tip = this.getTemplateElement()
-        // `evtTarget` is the element which is losing focus/hover and
-        const evtTarget = evt.target
+        // `eventTarget` is the element which is losing focus/hover and
+        const eventTarget = event.target
         // `relatedTarget` is the element gaining focus/hover
-        const relatedTarget = evt.relatedTarget
+        const relatedTarget = event.relatedTarget
         /* istanbul ignore next */
         if (
           // From tip to target
-          (tip && contains(tip, evtTarget) && contains(target, relatedTarget)) ||
+          (tip && contains(tip, eventTarget) && contains(target, relatedTarget)) ||
           // From target to tip
-          (tip && contains(target, evtTarget) && contains(tip, relatedTarget)) ||
+          (tip && contains(target, eventTarget) && contains(tip, relatedTarget)) ||
           // Within tip
-          (tip && contains(tip, evtTarget) && contains(tip, relatedTarget)) ||
+          (tip && contains(tip, eventTarget) && contains(tip, relatedTarget)) ||
           // Within target
-          (contains(target, evtTarget) && contains(target, relatedTarget))
+          (contains(target, eventTarget) && contains(target, relatedTarget))
         ) {
           // If focus/hover moves within `tip` and `target`, don't trigger a leave
           return
         }
         // Otherwise trigger a leave
-        this.leave(evt)
+        this.leave(event)
       }
     },
     doHide(id) {
@@ -866,7 +888,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enable()
       }
     },
-    click(evt) {
+    click(event) {
       if (!this.$_enabled || this.dropdownOpen()) {
         /* istanbul ignore next */
         return
@@ -877,7 +899,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/5099
       // We use `currentTarget` rather than `target` to trigger on the
       // element, not the inner content
-      attemptFocus(evt.currentTarget)
+      attemptFocus(event.currentTarget)
       this.activeTrigger.click = !this.activeTrigger.click
       if (this.isWithActiveTrigger) {
         this.enter(null)
@@ -901,11 +923,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         this.enter(null)
       }
     },
-    enter(evt = null) {
+    enter(event = null) {
       // Opening trigger handler
-      // Note: Click events are sent with evt === null
-      if (evt) {
-        this.activeTrigger[evt.type === 'focusin' ? 'focus' : 'hover'] = true
+      // Note: Click events are sent with event === null
+      if (event) {
+        this.activeTrigger[event.type === 'focusin' ? 'focus' : 'hover'] = true
       }
       /* istanbul ignore next */
       if (this.localShow || this.$_hoverState === 'in') {
@@ -929,13 +951,13 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         }, this.computedDelay.show)
       }
     },
-    leave(evt = null) {
+    leave(event = null) {
       // Closing trigger handler
-      // Note: Click events are sent with evt === null
-      if (evt) {
-        this.activeTrigger[evt.type === 'focusout' ? 'focus' : 'hover'] = false
+      // Note: Click events are sent with event === null
+      if (event) {
+        this.activeTrigger[event.type === 'focusout' ? 'focus' : 'hover'] = false
         /* istanbul ignore next */
-        if (evt.type === 'focusout' && arrayIncludes(this.computedTriggers, 'blur')) {
+        if (event.type === 'focusout' && arrayIncludes(this.computedTriggers, 'blur')) {
           // Special case for `blur`: we clear out the other triggers
           this.activeTrigger.click = false
           this.activeTrigger.hover = false

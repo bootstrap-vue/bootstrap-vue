@@ -1,46 +1,33 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_NAVBAR } from '../../constants/components'
-import { makePropsConfigurable, getBreakpoints } from '../../utils/config'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { getBreakpoints } from '../../utils/config'
 import { isTag } from '../../utils/dom'
 import { isString } from '../../utils/inspect'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tag: {
-      type: String,
-      default: 'nav'
-    },
-    type: {
-      type: String,
-      default: 'light'
-    },
-    variant: {
-      type: String
-      // default: undefined
-    },
-    toggleable: {
-      type: [Boolean, String],
-      default: false
-    },
-    fixed: {
-      type: String
-    },
-    sticky: {
-      type: Boolean,
-      default: false
-    },
-    print: {
-      type: Boolean,
-      default: false
-    }
+    fixed: makeProp(PROP_TYPE_STRING),
+    print: makeProp(PROP_TYPE_BOOLEAN, false),
+    sticky: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'nav'),
+    toggleable: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    type: makeProp(PROP_TYPE_STRING, 'light'),
+    variant: makeProp(PROP_TYPE_STRING)
   },
   NAME_NAVBAR
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR,
@@ -51,9 +38,10 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
   props,
   computed: {
     breakpointClass() {
-      let breakpoint = null
+      const { toggleable } = this
       const xs = getBreakpoints()[0]
-      const toggleable = this.toggleable
+
+      let breakpoint = null
       if (toggleable && isString(toggleable) && toggleable !== xs) {
         breakpoint = `navbar-expand-${toggleable}`
       } else if (toggleable === false) {
@@ -64,22 +52,24 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const { tag, type, variant, fixed } = this
+
     return h(
-      this.tag,
+      tag,
       {
         staticClass: 'navbar',
         class: [
           {
             'd-print': this.print,
             'sticky-top': this.sticky,
-            [`navbar-${this.type}`]: this.type,
-            [`bg-${this.variant}`]: this.variant,
-            [`fixed-${this.fixed}`]: this.fixed
+            [`navbar-${type}`]: type,
+            [`bg-${variant}`]: variant,
+            [`fixed-${fixed}`]: fixed
           },
           this.breakpointClass
         ],
         attrs: {
-          role: isTag(this.tag, 'nav') ? null : 'navigation'
+          role: isTag(tag, 'nav') ? null : 'navigation'
         }
       },
       [this.normalizeSlot()]

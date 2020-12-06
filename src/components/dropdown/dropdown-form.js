@@ -1,46 +1,44 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_DROPDOWN_FORM } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_BOOLEAN } from '../../constants/props'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { BForm, props as formControlProps } from '../form/form'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...formControlProps,
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    formClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING)
+  }),
+  NAME_DROPDOWN_FORM
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BDropdownForm = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_FORM,
   functional: true,
-  props: makePropsConfigurable(
-    {
-      ...formControlProps,
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      formClass: {
-        type: [String, Object, Array]
-        // default: null
-      }
-    },
-    NAME_DROPDOWN_FORM
-  ),
-  render(h, { props, data, children }) {
-    const $attrs = data.attrs || {}
-    const $listeners = data.on || {}
-    data.attrs = {}
-    data.on = {}
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
+  props,
+  render(h, { props, data, listeners, children }) {
+    return h('li', mergeData(omit(data, ['attrs', 'on']), { attrs: { role: 'presentation' } }), [
       h(
         BForm,
         {
-          ref: 'form',
           staticClass: 'b-dropdown-form',
           class: [props.formClass, { disabled: props.disabled }],
           props,
           attrs: {
-            ...$attrs,
+            ...(data.attrs || {}),
             disabled: props.disabled,
             // Tab index of -1 for keyboard navigation
             tabindex: props.disabled ? null : '-1'
           },
-          on: $listeners
+          on: listeners,
+          ref: 'form'
         },
         children
       )

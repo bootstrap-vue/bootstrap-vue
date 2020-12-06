@@ -109,9 +109,9 @@
                 "description": "Tab that is currently active (0-based index). Will be -1 if no current active tab"
               },
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel"
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel"
               }
             ]
           },
@@ -182,7 +182,7 @@
             "description": "Emitted when a tab is clicked, or is activated by keyboard navigation",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "type": "MouseEvent",
                 "description": "Original event object"
               }

@@ -1,5 +1,5 @@
 import { RX_ARRAY_NOTATION } from '../constants/regex'
-import identity from './identity'
+import { identity } from './identity'
 import { isArray, isNull, isObject, isUndefinedOrNull } from './inspect'
 
 /**
@@ -59,8 +59,6 @@ export const getRaw = (obj, path, defaultValue = undefined) => {
  * @return {*}
  */
 export const get = (obj, path, defaultValue = null) => {
-  const val = getRaw(obj, path)
-  return isUndefinedOrNull(val) ? defaultValue : val
+  const value = getRaw(obj, path)
+  return isUndefinedOrNull(value) ? defaultValue : value
 }
-
-export default get

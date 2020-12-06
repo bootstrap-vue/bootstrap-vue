@@ -1,58 +1,32 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { HTMLElement } from '../../utils/safe-types'
-import { BTooltip } from '../tooltip/tooltip'
+import { EVENT_NAME_CLICK } from '../../constants/events'
+import { PROP_TYPE_ARRAY_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { BTooltip, props as BTooltipProps } from '../tooltip/tooltip'
 import { BVPopover } from './helpers/bv-popover'
+import { sortKeys } from '../../utils/object'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...BTooltipProps,
+    content: makeProp(PROP_TYPE_STRING),
+    placement: makeProp(PROP_TYPE_STRING, 'right'),
+    triggers: makeProp(PROP_TYPE_ARRAY_STRING, EVENT_NAME_CLICK)
+  }),
+  NAME_POPOVER
+)
+
+// --- Main component ---
+
+// @vue/component
 export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME_POPOVER,
   extends: BTooltip,
   inheritAttrs: false,
-  props: makePropsConfigurable(
-    {
-      title: {
-        type: String
-        // default: undefined
-      },
-      content: {
-        type: String
-        // default: undefined
-      },
-      triggers: {
-        type: [String, Array],
-        default: 'click'
-      },
-      placement: {
-        type: String,
-        default: 'right'
-      },
-      variant: {
-        type: String,
-        default: undefined
-      },
-      customClass: {
-        type: String,
-        default: undefined
-      },
-      delay: {
-        type: [Number, Object, String],
-        default: 50
-      },
-      boundary: {
-        // String: scrollParent, window, or viewport
-        // Element: element reference
-        // Object: Vue component
-        type: [String, HTMLElement, Object],
-        default: 'scrollParent'
-      },
-      boundaryPadding: {
-        type: [Number, String],
-        default: 5
-      }
-    },
-    NAME_POPOVER
-  ),
+  props,
   methods: {
     getComponent() {
       // Overridden by BPopover

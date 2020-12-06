@@ -1,25 +1,25 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_LIST_GROUP } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
 import { isString } from '../../utils/inspect'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    flush: {
-      type: Boolean,
-      default: false
-    },
-    horizontal: {
-      type: [Boolean, String],
-      default: false
-    }
+    flush: makeProp(PROP_TYPE_BOOLEAN, false),
+    horizontal: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div')
   },
   NAME_LIST_GROUP
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BListGroup = /*#__PURE__*/ Vue.extend({

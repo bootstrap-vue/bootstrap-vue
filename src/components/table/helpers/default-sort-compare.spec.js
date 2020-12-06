@@ -1,4 +1,4 @@
-import defaultSortCompare from './default-sort-compare'
+import { defaultSortCompare } from './default-sort-compare'
 
 describe('table/helpers/default-sort-compare', () => {
   it('sorts numbers correctly', async () => {
@@ -52,9 +52,9 @@ describe('table/helpers/default-sort-compare', () => {
   })
 
   it('sorts using provided formatter correctly', async () => {
-    const formatter = val => {
+    const formatter = value => {
       // Reverse the string
-      return val
+      return value
         .split('')
         .reverse()
         .join('')

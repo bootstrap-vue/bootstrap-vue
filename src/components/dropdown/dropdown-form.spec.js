@@ -63,7 +63,7 @@ describe('dropdown-form', () => {
 
     const form = wrapper.find('form')
     expect(form.element.tagName).toBe('FORM')
-    expect(form.attributes('tabindex')).not.toBeDefined()
+    expect(form.attributes('tabindex')).toBeUndefined()
     expect(form.attributes('disabled')).toBeDefined()
     expect(form.classes()).toContain('disabled')
 
@@ -90,7 +90,7 @@ describe('dropdown-form', () => {
     expect(wrapper.element.tagName).toBe('LI')
 
     const form = wrapper.find('form')
-    expect(form.attributes('novalidate')).not.toBeDefined()
+    expect(form.attributes('novalidate')).toBeUndefined()
 
     wrapper.destroy()
   })

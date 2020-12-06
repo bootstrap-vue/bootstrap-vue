@@ -103,7 +103,7 @@ describe('calendar', () => {
 
     const $cell = wrapper.find('[data-date="2020-01-25"]')
     expect($cell.exists()).toBe(true)
-    expect($cell.attributes('aria-selected')).not.toBeDefined()
+    expect($cell.attributes('aria-selected')).toBeUndefined()
     expect($cell.attributes('id')).toBeDefined()
     const $btn = $cell.find('.btn')
     expect($btn.exists()).toBe(true)

@@ -7,7 +7,7 @@ describe('navbar', () => {
 
     expect(wrapper.element.tagName).toBe('NAV')
     // No role added if default tag is used
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
 
     wrapper.destroy()
   })

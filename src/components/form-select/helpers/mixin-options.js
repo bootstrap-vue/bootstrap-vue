@@ -1,25 +1,28 @@
-import get from '../../../utils/get'
-import { makePropsConfigurable } from '../../../utils/config'
+import { Vue } from '../../../vue'
+import { PROP_TYPE_STRING } from '../../../constants/props'
+import { get } from '../../../utils/get'
 import { isNull, isPlainObject, isUndefined } from '../../../utils/inspect'
-import formOptionsMixin, { props as formOptionsProps } from '../../../mixins/form-options'
+import { sortKeys } from '../../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../../utils/props'
+import { formOptionsMixin, props as formOptionsProps } from '../../../mixins/form-options'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...formOptionsProps,
+    labelField: makeProp(PROP_TYPE_STRING, 'label'),
+    optionsField: makeProp(PROP_TYPE_STRING, 'options')
+  }),
+  'formOptions'
+)
+
+// --- Mixin ---
 
 // @vue/component
-export default {
+export const optionsMixin = Vue.extend({
   mixins: [formOptionsMixin],
-  props: makePropsConfigurable(
-    {
-      ...formOptionsProps,
-      labelField: {
-        type: String,
-        default: 'label'
-      },
-      optionsField: {
-        type: String,
-        default: 'options'
-      }
-    },
-    'formOptions'
-  ),
+  props,
   methods: {
     normalizeOption(option, key = null) {
       // When the option is an object, normalize it
@@ -50,4 +53,4 @@ export default {
       }
     }
   }
-}
+})

@@ -1,8 +1,10 @@
-import get from '../utils/get'
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_ARRAY_OBJECT, PROP_TYPE_STRING } from '../constants/props'
+import { get } from '../utils/get'
 import { stripTags } from '../utils/html'
 import { isArray, isPlainObject, isUndefined } from '../utils/inspect'
 import { keys } from '../utils/object'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 import { warn } from '../utils/warn'
 
 // --- Constants ---
@@ -14,26 +16,11 @@ const OPTIONS_OBJECT_DEPRECATED_MSG =
 
 export const props = makePropsConfigurable(
   {
-    options: {
-      type: [Array, Object],
-      default: () => []
-    },
-    valueField: {
-      type: String,
-      default: 'value'
-    },
-    textField: {
-      type: String,
-      default: 'text'
-    },
-    htmlField: {
-      type: String,
-      default: 'html'
-    },
-    disabledField: {
-      type: String,
-      default: 'disabled'
-    }
+    disabledField: makeProp(PROP_TYPE_STRING, 'disabled'),
+    htmlField: makeProp(PROP_TYPE_STRING, 'html'),
+    options: makeProp(PROP_TYPE_ARRAY_OBJECT, []),
+    textField: makeProp(PROP_TYPE_STRING, 'text'),
+    valueField: makeProp(PROP_TYPE_STRING, 'value')
   },
   'formOptionControls'
 )
@@ -41,7 +28,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export default {
+export const formOptionsMixin = Vue.extend({
   props,
   computed: {
     formOptions() {
@@ -83,4 +70,4 @@ export default {
       return []
     }
   }
-}
+})

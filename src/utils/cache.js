@@ -1,5 +1,6 @@
-import cloneDeep from './clone-deep'
-import looseEqual from './loose-equal'
+import { Vue } from '../vue'
+import { cloneDeep } from './clone-deep'
+import { looseEqual } from './loose-equal'
 import { hasOwnProperty, keys } from './object'
 
 const isEmpty = value => !value || keys(value).length === 0
@@ -24,12 +25,13 @@ export const makePropWatcher = propName => ({
   }
 })
 
-export const makePropCacheMixin = (propName, proxyPropName) => ({
-  data() {
-    return { [proxyPropName]: cloneDeep(this[propName]) }
-  },
-  watch: {
-    // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
-    [propName]: makePropWatcher(proxyPropName)
-  }
-})
+export const makePropCacheMixin = (propName, proxyPropName) =>
+  Vue.extend({
+    data() {
+      return { [proxyPropName]: cloneDeep(this[propName]) }
+    },
+    watch: {
+      // Work around unwanted re-renders: https://github.com/vuejs/vue/issues/10115
+      [propName]: makePropWatcher(proxyPropName)
+    }
+  })

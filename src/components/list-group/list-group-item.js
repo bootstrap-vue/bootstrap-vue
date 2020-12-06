@@ -1,10 +1,10 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import { isTag } from '../../utils/dom'
-import { omit } from '../../utils/object'
-import { pluckProps } from '../../utils/props'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
 import { BLink, props as BLinkProps } from '../link/link'
 
@@ -19,29 +19,18 @@ delete linkProps.href.default
 delete linkProps.to.default
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
     ...linkProps,
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    action: {
-      type: Boolean,
-      default: null
-    },
-    button: {
-      type: Boolean,
-      default: null
-    },
-    variant: {
-      type: String
-      // default: undefined
-    }
-  },
+    action: makeProp(PROP_TYPE_BOOLEAN, false),
+    button: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    variant: makeProp(PROP_TYPE_STRING)
+  }),
   NAME_LIST_GROUP_ITEM
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BListGroupItem = /*#__PURE__*/ Vue.extend({
   name: NAME_LIST_GROUP_ITEM,

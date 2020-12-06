@@ -19,8 +19,8 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
     expect(wrapper.attributes('role')).toBe('tabpanel')
     expect(wrapper.attributes('aria-hidden')).toBe('true')
-    expect(wrapper.attributes('labelledby')).not.toBeDefined()
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('labelledby')).toBeUndefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.destroy()
@@ -108,9 +108,9 @@ describe('tab', () => {
 
     let called = false
     let value = null
-    wrapper.vm.$on('update:active', val => {
+    wrapper.vm.$on('update:active', v => {
       called = true
-      value = val
+      value = v
     })
 
     expect(called).toBe(false)

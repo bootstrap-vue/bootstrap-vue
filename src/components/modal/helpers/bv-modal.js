@@ -1,8 +1,15 @@
 // Plugin for adding `$bvModal` property to all Vue instances
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
+import {
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  HOOK_EVENT_NAME_BEFORE_DESTROY,
+  HOOK_EVENT_NAME_DESTROYED
+} from '../../../constants/events'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
+import { getRootActionEventName } from '../../../utils/events'
 import { isUndefined, isFunction } from '../../../utils/inspect'
 import {
   assign,
@@ -28,7 +35,7 @@ const PROP_NAME_PRIV = '_bv__modal'
 // We need to add it in explicitly as it comes from the `idMixin`
 const BASE_PROPS = [
   'id',
-  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', `static`, 'visible']))
+  ...keys(omit(modalProps, ['busy', 'lazy', 'noStacking', 'static', 'visible']))
 ]
 
 // Fallback event resolver (returns undefined)
@@ -42,7 +49,7 @@ const propsToSlots = {
   cancelTitle: 'modal-cancel'
 }
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
@@ -79,15 +86,15 @@ const plugin = Vue => {
         })
       }
       // Self destruct if parent destroyed
-      this.$parent.$once('hook:destroyed', handleDestroy)
+      this.$parent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
       // Self destruct after hidden
-      this.$once('hidden', handleDestroy)
+      this.$once(EVENT_NAME_HIDDEN, handleDestroy)
       // Self destruct on route change
       /* istanbul ignore if */
       if (this.$router && this.$route) {
         // Destroy ourselves if route changes
         /* istanbul ignore next */
-        this.$once('hook:beforeDestroy', this.$watch('$router', handleDestroy))
+        this.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, this.$watch('$router', handleDestroy))
       }
       // Show the `BMsgBox`
       this.show()
@@ -134,13 +141,13 @@ const plugin = Vue => {
     // Return a promise that resolves when hidden, or rejects on destroyed
     return new Promise((resolve, reject) => {
       let resolved = false
-      msgBox.$once('hook:destroyed', () => {
+      msgBox.$once(HOOK_EVENT_NAME_DESTROYED, () => {
         if (!resolved) {
           /* istanbul ignore next */
           reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
         }
       })
-      msgBox.$on('hide', bvModalEvt => {
+      msgBox.$on(EVENT_NAME_HIDE, bvModalEvt => {
         if (!bvModalEvt.defaultPrevented) {
           const result = resolver(bvModalEvt)
           // If resolver didn't cancel hide, we resolve
@@ -189,14 +196,14 @@ const plugin = Vue => {
     // Show modal with the specified ID args are for future use
     show(id, ...args) {
       if (id && this._root) {
-        this._root.$emit('bv::show::modal', id, ...args)
+        this._root.$emit(getRootActionEventName(NAME_MODAL, 'show'), id, ...args)
       }
     }
 
     // Hide modal with the specified ID args are for future use
     hide(id, ...args) {
       if (id && this._root) {
-        this._root.$emit('bv::hide::modal', id, ...args)
+        this._root.$emit(getRootActionEventName(NAME_MODAL, 'hide'), id, ...args)
       }
     }
 

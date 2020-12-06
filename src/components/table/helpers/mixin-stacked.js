@@ -1,30 +1,33 @@
-// Mixin for providing stacked tables
-import { NAME_TABLE } from '../../../constants/components'
-import { makePropsConfigurable } from '../../../utils/config'
+import { Vue } from '../../../vue'
+import { PROP_TYPE_BOOLEAN_STRING } from '../../../constants/props'
+import { makeProp } from '../../../utils/props'
 
-export default {
-  props: makePropsConfigurable(
-    {
-      stacked: {
-        type: [Boolean, String],
-        default: false
-      }
-    },
-    NAME_TABLE
-  ),
+// --- Props ---
+
+export const props = {
+  stacked: makeProp(PROP_TYPE_BOOLEAN_STRING, false)
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const stackedMixin = Vue.extend({
+  props,
   computed: {
     isStacked() {
+      const { stacked } = this
       // `true` when always stacked, or returns breakpoint specified
-      return this.stacked === '' ? true : this.stacked
+      return stacked === '' ? true : stacked
     },
     isStackedAlways() {
       return this.isStacked === true
     },
     stackedTableClasses() {
+      const { isStackedAlways } = this
       return {
-        'b-table-stacked': this.isStackedAlways,
-        [`b-table-stacked-${this.stacked}`]: !this.isStackedAlways && this.isStacked
+        'b-table-stacked': isStackedAlways,
+        [`b-table-stacked-${this.stacked}`]: !isStackedAlways && this.isStacked
       }
     }
   }
-}
+})

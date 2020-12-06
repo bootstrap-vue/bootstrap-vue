@@ -1,4 +1,4 @@
-import stringifyObjectValues from './stringify-object-values'
+import { stringifyObjectValues } from './stringify-object-values'
 
 describe('stringifyObjectValues()', () => {
   it('handles `null` and `undefined`', async () => {
