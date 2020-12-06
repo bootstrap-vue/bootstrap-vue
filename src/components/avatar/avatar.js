@@ -77,7 +77,6 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     bvAvatarGroup: { default: null }
   },
   props,
-  emits: [EVENT_NAME_CLICK, EVENT_NAME_IMG_ERROR],
   data() {
     return {
       localSrc: this.src || null
