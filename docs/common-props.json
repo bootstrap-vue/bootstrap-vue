@@ -11,6 +11,9 @@
   "append": {
     "description": "<router-link> prop: Setting append prop always appends the relative path to the current path"
   },
+  "ariaControls": {
+    "description": "If this component controls another component or element, set this to the ID of the controlled component or element"
+  },
   "ariaDescribedby": {
     "description": "The ID of the element that provides additional context for this component. Used as the value for the `aria-describedby` attribute"
   },

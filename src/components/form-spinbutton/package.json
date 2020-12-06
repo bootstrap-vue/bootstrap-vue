@@ -14,10 +14,6 @@
         ],
         "props": [
           {
-            "prop": "ariaControls",
-            "description": "If this component controls another component or element, set this to the ID of the controlled component or element"
-          },
-          {
             "prop": "ariaLabel",
             "description": "Value to place in the `aria-label` attribute of the spinbutton"
           },

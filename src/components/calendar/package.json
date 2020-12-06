@@ -12,10 +12,6 @@
         "version": "2.5.0",
         "props": [
           {
-            "prop": "ariaControls",
-            "description": "If the calendar controls another component/element, set this prop to the ID of the element the calendar controls"
-          },
-          {
             "prop": "block",
             "description": "Makes the calendar full width"
           },

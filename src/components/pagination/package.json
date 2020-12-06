@@ -13,10 +13,6 @@
             "description": "Alignment of the page buttons: 'start' (or 'left'), 'center', 'end' (or 'right'), or 'fill'"
           },
           {
-            "prop": "ariaControls",
-            "description": "ID of the element or component that this controls. Value is placed in the 'aria-controls' attribute"
-          },
-          {
             "prop": "ariaLabel",
             "description": "Value to place in the 'aria-label' attribute of the pagination control"
           },
