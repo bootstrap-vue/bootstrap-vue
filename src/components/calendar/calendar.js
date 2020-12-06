@@ -30,6 +30,15 @@ import {
   PROP_TYPE_OBJECT,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import {
+  SLOT_NAME_NAV_NEXT_DECADE,
+  SLOT_NAME_NAV_NEXT_MONTH,
+  SLOT_NAME_NAV_NEXT_YEAR,
+  SLOT_NAME_NAV_PEV_DECADE,
+  SLOT_NAME_NAV_PEV_MONTH,
+  SLOT_NAME_NAV_PEV_YEAR,
+  SLOT_NAME_NAV_THIS_MONTH
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
   createDate,
@@ -812,22 +821,25 @@ export const BCalendar = Vue.extend({
     const navPrevProps = { ...navProps, flipH: isRTL }
     const navNextProps = { ...navProps, flipH: !isRTL }
     const $prevDecadeIcon =
-      this.normalizeSlot('nav-prev-decade', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_DECADE, navScope) ||
       h(BIconChevronBarLeft, { props: navPrevProps })
     const $prevYearIcon =
-      this.normalizeSlot('nav-prev-year', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_YEAR, navScope) ||
       h(BIconChevronDoubleLeft, { props: navPrevProps })
     const $prevMonthIcon =
-      this.normalizeSlot('nav-prev-month', navScope) || h(BIconChevronLeft, { props: navPrevProps })
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_MONTH, navScope) ||
+      h(BIconChevronLeft, { props: navPrevProps })
     const $thisMonthIcon =
-      this.normalizeSlot('nav-this-month', navScope) || h(BIconCircleFill, { props: navProps })
+      this.normalizeSlot(SLOT_NAME_NAV_THIS_MONTH, navScope) ||
+      h(BIconCircleFill, { props: navProps })
     const $nextMonthIcon =
-      this.normalizeSlot('nav-next-month', navScope) || h(BIconChevronLeft, { props: navNextProps })
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_MONTH, navScope) ||
+      h(BIconChevronLeft, { props: navNextProps })
     const $nextYearIcon =
-      this.normalizeSlot('nav-next-year', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_YEAR, navScope) ||
       h(BIconChevronDoubleLeft, { props: navNextProps })
     const $nextDecadeIcon =
-      this.normalizeSlot('nav-next-decade', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_DECADE, navScope) ||
       h(BIconChevronBarLeft, { props: navNextProps })
 
     // Utility to create the date navigation buttons

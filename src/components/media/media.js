@@ -1,7 +1,7 @@
 import { Vue, mergeData } from '../../vue'
 import { NAME_MEDIA } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { SLOT_NAME_ASIDE, SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { BMediaAside } from './media-aside'
@@ -39,7 +39,7 @@ export const BMedia = /*#__PURE__*/ Vue.extend({
         h(BMediaBody, normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots))
       )
 
-      const $aside = normalizeSlot('aside', slotScope, $scopedSlots, $slots)
+      const $aside = normalizeSlot(SLOT_NAME_ASIDE, slotScope, $scopedSlots, $slots)
       if ($aside) {
         $children[rightAlign ? 'push' : 'unshift'](
           h(BMediaAside, { props: { right: rightAlign, verticalAlign } }, $aside)

@@ -7,6 +7,7 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import { SLOT_NAME_BADGE } from '../../constants/slots'
 import { RX_NUMBER } from '../../constants/regex'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
@@ -190,7 +191,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
 
     let $badge = h()
-    const hasBadgeSlot = this.hasNormalizedSlot('badge')
+    const hasBadgeSlot = this.hasNormalizedSlot(SLOT_NAME_BADGE)
     if (badge || badge === '' || hasBadgeSlot) {
       const badgeText = badge === true ? '' : badge
       $badge = h(
@@ -200,7 +201,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
           class: { [`badge-${badgeVariant}`]: badgeVariant },
           style: badgeStyle
         },
-        [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
+        [hasBadgeSlot ? this.normalizeSlot(SLOT_NAME_BADGE) : badgeText]
       )
     }
 

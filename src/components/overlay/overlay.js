@@ -7,6 +7,7 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import { SLOT_NAME_OVERLAY } from '../../constants/slots'
 import { toFloat } from '../../utils/number'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -107,7 +108,7 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
             ? /* istanbul ignore next */ { ...POSITION_COVER }
             : { top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }
         },
-        [this.normalizeSlot('overlay', slotScope) || this.defaultOverlayFn(slotScope)]
+        [this.normalizeSlot(SLOT_NAME_OVERLAY, slotScope) || this.defaultOverlayFn(slotScope)]
       )
 
       $overlay = h(

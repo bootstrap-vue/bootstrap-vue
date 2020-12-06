@@ -9,6 +9,7 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../constants/props'
+import { SLOT_NAME_ELLIPSIS_TEXT, SLOT_NAME_PAGE } from '../constants/slots'
 import { createArray } from '../utils/array'
 import {
   attemptFocus,
@@ -466,7 +467,7 @@ export const paginationMixin = Vue.extend({
         },
         [
           h('span', { staticClass: 'page-link' }, [
-            this.normalizeSlot('ellipsis-text') || toString(this.ellipsisText) || h()
+            this.normalizeSlot(SLOT_NAME_ELLIPSIS_TEXT) || toString(this.ellipsisText) || h()
           ])
         ]
       )
@@ -519,7 +520,7 @@ export const paginationMixin = Vue.extend({
                 keydown: onSpaceKey
               }
         },
-        [this.normalizeSlot('page', scope) || btnContent]
+        [this.normalizeSlot(SLOT_NAME_PAGE, scope) || btnContent]
       )
 
       return h(

@@ -1,7 +1,7 @@
 import { Vue, mergeData } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN } from '../../constants/props'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_LOADING } from '../../constants/slots'
 import { normalizeSlot } from '../../utils/normalize-slot'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
 
@@ -38,7 +38,7 @@ export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-skeleton-wrapper',
           key: 'loading'
         }),
-        normalizeSlot('loading', slotScope, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_LOADING, slotScope, $scopedSlots, $slots)
       )
     }
 

@@ -25,7 +25,12 @@ import {
   PROP_TYPE_NUMBER,
   PROP_TYPE_STRING
 } from '../../constants/props'
-import { SLOT_NAME_TITLE } from '../../constants/slots'
+import {
+  SLOT_NAME_EMPTY,
+  SLOT_NAME_TABS_END,
+  SLOT_NAME_TABS_START,
+  SLOT_NAME_TITLE
+} from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
 import { attemptFocus, requestAF, selectAll } from '../../utils/dom'
@@ -643,7 +648,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         },
         ref: 'nav'
       },
-      [this.normalizeSlot('tabs-start') || h(), $buttons, this.normalizeSlot('tabs-end') || h()]
+      [
+        this.normalizeSlot(SLOT_NAME_TABS_START) || h(),
+        $buttons,
+        this.normalizeSlot(SLOT_NAME_TABS_END) || h()
+      ]
     )
 
     $nav = h(
@@ -670,7 +679,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           class: ['tab-pane', 'active', { 'card-body': card }],
           key: 'bv-empty-tab'
         },
-        this.normalizeSlot('empty')
+        this.normalizeSlot(SLOT_NAME_EMPTY)
       )
     }
 

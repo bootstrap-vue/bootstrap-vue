@@ -5,6 +5,7 @@ import {
   PROP_TYPE_BOOLEAN_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import { SLOT_NAME_DISMISS } from '../../constants/slots'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { makeModelMixin } from '../../utils/model'
@@ -158,7 +159,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
             attrs: { 'aria-label': this.dismissLabel },
             on: { click: this.dismiss }
           },
-          [this.normalizeSlot('dismiss')]
+          [this.normalizeSlot(SLOT_NAME_DISMISS)]
         )
       }
 

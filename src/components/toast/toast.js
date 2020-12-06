@@ -16,7 +16,7 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_TOAST_TITLE } from '../../constants/slots'
 import { BvEvent } from '../../utils/bv-event.class'
 import { requestAF } from '../../utils/dom'
 import { getRootActionEventName, getRootEventName, eventOnOff } from '../../utils/events'
@@ -343,7 +343,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       const link = isLink(this)
       const $headerContent = []
 
-      const $title = this.normalizeSlot('toast-title', slotScope)
+      const $title = this.normalizeSlot(SLOT_NAME_TOAST_TITLE, slotScope)
       if ($title) {
         $headerContent.push($title)
       } else if (title) {

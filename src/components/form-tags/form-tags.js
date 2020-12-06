@@ -15,7 +15,7 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { RX_SPACES } from '../../constants/regex'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_ADD_BUTTON_TEXT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { cssEscape } from '../../utils/css-escape'
 import {
@@ -605,7 +605,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           on: { click: () => addTag() },
           ref: 'button'
         },
-        [this.normalizeSlot('add-button-text') || addButtonText]
+        [this.normalizeSlot(SLOT_NAME_ADD_BUTTON_TEXT) || addButtonText]
       )
 
       // ID of the tags + input `<ul>` list

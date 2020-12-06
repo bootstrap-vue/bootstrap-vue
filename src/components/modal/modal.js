@@ -22,7 +22,16 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { HTMLElement } from '../../constants/safe-types'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import {
+  SLOT_NAME_DEFAULT,
+  SLOT_NAME_MODAL_BACKDROP,
+  SLOT_NAME_MODAL_CANCEL,
+  SLOT_NAME_MODAL_FOOTER,
+  SLOT_NAME_MODAL_HEADER,
+  SLOT_NAME_MODAL_HEADER_CLOSE,
+  SLOT_NAME_MODAL_OK,
+  SLOT_NAME_MODAL_TITLE
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
   attemptFocus,
@@ -330,7 +339,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           this.hideHeader ||
           ariaLabel ||
           // TODO: Rename slot to `title` and deprecate `modal-title`
-          !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+          !(this.hasNormalizedSlot(SLOT_NAME_MODAL_TITLE) || this.titleHtml || this.title)
             ? null
             : this.modalTitleId,
         'aria-describedby': this.modalBodyId
@@ -764,7 +773,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let $header = h()
       if (!this.hideHeader) {
         // TODO: Rename slot to `header` and deprecate `modal-header`
-        let $modalHeader = this.normalizeSlot('modal-header', this.slotScope)
+        let $modalHeader = this.normalizeSlot(SLOT_NAME_MODAL_HEADER, this.slotScope)
         if (!$modalHeader) {
           let $closeButton = h()
           if (!this.hideHeaderClose) {
@@ -781,7 +790,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 ref: 'close-button'
               },
               // TODO: Rename slot to `header-close` and deprecate `modal-header-close`
-              [this.normalizeSlot('modal-header-close')]
+              [this.normalizeSlot(SLOT_NAME_MODAL_HEADER_CLOSE)]
             )
           }
 
@@ -793,12 +802,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 class: this.titleClasses,
                 attrs: { id: this.modalTitleId },
                 // TODO: Rename slot to `title` and deprecate `modal-title`
-                domProps: this.hasNormalizedSlot('modal-title')
+                domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_TITLE)
                   ? {}
                   : htmlOrText(this.titleHtml, this.title)
               },
               // TODO: Rename slot to `title` and deprecate `modal-title`
-              this.normalizeSlot('modal-title', this.slotScope)
+              this.normalizeSlot(SLOT_NAME_MODAL_TITLE, this.slotScope)
             ),
             $closeButton
           ]
@@ -832,7 +841,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let $footer = h()
       if (!this.hideFooter) {
         // TODO: Rename slot to `footer` and deprecate `modal-footer`
-        let $modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
+        let $modalFooter = this.normalizeSlot(SLOT_NAME_MODAL_FOOTER, this.slotScope)
         if (!$modalFooter) {
           let $cancelButton = h()
           if (!this.okOnly) {
@@ -845,14 +854,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   disabled: this.cancelDisabled || this.busy || this.isTransitioning
                 },
                 // TODO: Rename slot to `cancel-button` and deprecate `modal-cancel`
-                domProps: this.hasNormalizedSlot('modal-cancel')
+                domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_CANCEL)
                   ? {}
                   : htmlOrText(this.cancelTitleHtml, this.cancelTitle),
                 on: { click: this.onCancel },
                 ref: 'cancel-button'
               },
               // TODO: Rename slot to `cancel-button` and deprecate `modal-cancel`
-              this.normalizeSlot('modal-cancel')
+              this.normalizeSlot(SLOT_NAME_MODAL_CANCEL)
             )
           }
 
@@ -865,14 +874,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 disabled: this.okDisabled || this.busy || this.isTransitioning
               },
               // TODO: Rename slot to `ok-button` and deprecate `modal-ok`
-              domProps: this.hasNormalizedSlot('modal-ok')
+              domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_OK)
                 ? {}
                 : htmlOrText(this.okTitleHtml, this.okTitle),
               on: { click: this.onOk },
               ref: 'ok-button'
             },
             // TODO: Rename slot to `ok-button` and deprecate `modal-ok`
-            this.normalizeSlot('modal-ok')
+            this.normalizeSlot(SLOT_NAME_MODAL_OK)
           )
 
           $modalFooter = [$cancelButton, $okButton]
@@ -984,7 +993,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             attrs: { id: this.modalBackdropId }
           },
           // TODO: Rename slot to `backdrop` and deprecate `modal-backdrop`
-          this.normalizeSlot('modal-backdrop')
+          this.normalizeSlot(SLOT_NAME_MODAL_BACKDROP)
         )
       }
       $backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [$backdrop])

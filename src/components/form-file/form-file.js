@@ -8,6 +8,11 @@ import {
   PROP_TYPE_FUNCTION,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import {
+  SLOT_NAME_DROP_PLACEHOLDER,
+  SLOT_NAME_FILE_NAME,
+  SLOT_NAME_PLACEHOLDER
+} from '../../constants/slots'
 import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
 import { File } from '../../constants/safe-types'
 import { from as arrayFrom, flatten, flattenDeep } from '../../utils/array'
@@ -273,7 +278,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (this.dragging && !this.noDrop) {
         return (
           // TODO: Add additional scope with file count, and other not-allowed reasons
-          this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
+          this.normalizeSlot(SLOT_NAME_DROP_PLACEHOLDER, { allowed: this.dropAllowed }) ||
           (this.dropAllowed
             ? this.dropPlaceholder
             : this.$createElement('span', { staticClass: 'text-danger' }, this.noDropPlaceholder))
@@ -282,14 +287,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
 
       // No file chosen
       if (this.files.length === 0) {
-        return this.normalizeSlot('placeholder') || this.placeholder
+        return this.normalizeSlot(SLOT_NAME_PLACEHOLDER) || this.placeholder
       }
 
       const { flattenedFiles, clonedFiles, fileNames, computedFileNameFormatter } = this
 
       // There is a slot for formatting the files/names
-      if (this.hasNormalizedSlot('file-name')) {
-        return this.normalizeSlot('file-name', {
+      if (this.hasNormalizedSlot(SLOT_NAME_FILE_NAME)) {
+        return this.normalizeSlot(SLOT_NAME_FILE_NAME, {
           files: flattenedFiles,
           filesTraversed: clonedFiles,
           names: fileNames

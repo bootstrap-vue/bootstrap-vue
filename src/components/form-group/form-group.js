@@ -6,7 +6,12 @@ import {
   PROP_TYPE_BOOLEAN_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
-import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slots'
+import {
+  SLOT_NAME_DESCRIPTION,
+  SLOT_NAME_INVALID_FEEDBACK,
+  SLOT_NAME_LABEL,
+  SLOT_NAME_VALID_FEEDBACK
+} from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
 import { getBreakpointsUpCached } from '../../utils/config'
 import { cssEscape } from '../../utils/css-escape'
@@ -270,7 +275,7 @@ export const BFormGroup = {
     }
 
     let $invalidFeedback = h()
-    const invalidFeedbackContent = normalizeSlot('invalid-feedback') || this.invalidFeedback
+    const invalidFeedbackContent = normalizeSlot(SLOT_NAME_INVALID_FEEDBACK) || this.invalidFeedback
     const invalidFeedbackId = invalidFeedbackContent ? this.safeId('_BV_feedback_invalid_') : null
     if (invalidFeedbackContent) {
       $invalidFeedback = h(
@@ -291,7 +296,7 @@ export const BFormGroup = {
     }
 
     let $validFeedback = h()
-    const validFeedbackContent = normalizeSlot('valid-feedback') || this.validFeedback
+    const validFeedbackContent = normalizeSlot(SLOT_NAME_VALID_FEEDBACK) || this.validFeedback
     const validFeedbackId = validFeedbackContent ? this.safeId('_BV_feedback_valid_') : null
     if (validFeedbackContent) {
       $validFeedback = h(

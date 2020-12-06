@@ -2,6 +2,7 @@ import { Vue } from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import { HAS_TOUCH_SUPPORT } from '../../constants/env'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_IMG } from '../../constants/slots'
 import { stopEvent } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
 import { identity } from '../../utils/identity'
@@ -69,7 +70,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let $img = this.normalizeSlot('img')
+    let $img = this.normalizeSlot(SLOT_NAME_IMG)
     if (!$img && (this.imgSrc || this.imgBlank)) {
       const on = {}
       // Touch support event handler

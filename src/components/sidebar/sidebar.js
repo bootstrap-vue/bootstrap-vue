@@ -10,7 +10,12 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slots'
+import {
+  SLOT_NAME_DEFAULT,
+  SLOT_NAME_FOOTER,
+  SLOT_NAME_HEADER_CLOSE,
+  SLOT_NAME_TITLE
+} from '../../constants/slots'
 import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
 import { getRootActionEventName, getRootEventName } from '../../utils/events'
 import { makeModelMixin } from '../../utils/model'
@@ -109,7 +114,7 @@ const renderHeaderClose = (h, ctx) => {
       on: { click: hide },
       ref: 'close-button'
     },
-    [ctx.normalizeSlot('header-close') || h(BIconX)]
+    [ctx.normalizeSlot(SLOT_NAME_HEADER_CLOSE) || h(BIconX)]
   )
 }
 
