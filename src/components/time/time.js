@@ -525,8 +525,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onSpinLeftRight,
-          /* istanbul ignore next */
-          click: event => {
+          click: /* istanbul ignore next */ event => {
             if (event.target === event.currentTarget) {
               this.focus()
             }
