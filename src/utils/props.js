@@ -20,10 +20,10 @@ export const suffixPropName = (suffix, value) => value + (suffix ? upperFirst(su
 
 // Generates a prop object
 export const makeProp = (type = PROP_TYPE_ANY, value = undefined, validator = undefined) => {
-  const required = value === true && concat(type).indexOf(PROP_TYPE_BOOLEAN, false) !== -1
+  const required = value === true && concat(type).indexOf(PROP_TYPE_BOOLEAN) === -1
 
   return {
-    ...(type === PROP_TYPE_ANY ? {} : { type }),
+    ...(type ? { type } : {}),
     ...(required
       ? { required }
       : isUndefined(value)
