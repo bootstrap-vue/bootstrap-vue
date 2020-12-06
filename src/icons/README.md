@@ -790,7 +790,7 @@ font scaled by 125%).
       Morbi leo risus
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="check-box" scale="2" variant="success"></b-icon>
+      <b-icon icon="check-square" scale="2" variant="success"></b-icon>
       Incididunt veniam velit
     </b-list-group-item>
   </b-list-group>
