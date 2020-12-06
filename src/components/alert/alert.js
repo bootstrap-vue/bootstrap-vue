@@ -169,7 +169,7 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
           staticClass: 'alert',
           class: {
             'alert-dismissible': dismissible,
-            [`alert-${variant}`]: !!variant
+            [`alert-${variant}`]: variant
           },
           attrs: {
             role: 'alert',
