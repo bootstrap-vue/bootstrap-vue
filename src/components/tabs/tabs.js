@@ -66,8 +66,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
     bvTabs: {
-      /* istanbul ignore next */
-      default: () => ({})
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   props: {
