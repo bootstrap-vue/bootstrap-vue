@@ -33,8 +33,7 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
   inject: {
     // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     bvTable: {
-      /* istanbul ignore next */
-      default: () => ({})
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
