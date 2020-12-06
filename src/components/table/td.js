@@ -46,8 +46,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inject: {
     bvTableTr: {
-      /* istanbul ignore next */
-      default: () => ({})
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
