@@ -48,7 +48,6 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvTabs: {
-      /* istanbul ignore next */
       default: () => ({})
     }
   },
