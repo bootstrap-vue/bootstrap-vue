@@ -207,8 +207,8 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     clickHandler(event) {
       const { target } = event
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
-      /* istanbul ignore next: can't test `getComputedStyle()` in JSDOM */
       if (!this.isNav || !target || getCS(this.$el).display !== 'block') {
+        /* istanbul ignore next: can't test `getComputedStyle()` in JSDOM */
         return
       }
       // Only close the collapse if it is not forced to be `display: block !important`
