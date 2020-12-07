@@ -31,12 +31,22 @@ const {
 
 // --- Props ---
 
+const timeProps = omit(BTimeProps, ['hidden', 'id', 'value'])
+
+const formBtnLabelControlProps = omit(BVFormBtnLabelControlProps, [
+  'formattedValue',
+  'id',
+  'lang',
+  'rtl',
+  'value'
+])
+
 export const props = makePropsConfigurable(
   sortKeys({
     ...idProps,
     ...modelProps,
-    ...omit(BTimeProps, ['id', 'value']),
-    ...omit(BVFormBtnLabelControlProps, ['formattedValue', 'id', 'lang', 'rtl', 'value']),
+    ...timeProps,
+    ...formBtnLabelControlProps,
     buttonOnly: makeProp(PROP_TYPE_BOOLEAN, false),
     // Applicable in button only mode
     buttonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
@@ -258,7 +268,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-time-control',
         props: {
-          ...pluckProps(BTimeProps, $props),
+          ...pluckProps(timeProps, $props),
           value: localHMS,
           hidden: !this.isVisible
         },
@@ -276,7 +286,7 @@ export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-timepicker',
         props: {
-          ...pluckProps(BVFormBtnLabelControlProps, $props),
+          ...pluckProps(formBtnLabelControlProps, $props),
           id: this.safeId(),
           value: localHMS,
           formattedValue: localHMS ? this.formattedValue : '',
