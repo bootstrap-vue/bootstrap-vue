@@ -9,7 +9,14 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../constants/props'
-import { SLOT_NAME_ELLIPSIS_TEXT, SLOT_NAME_PAGE } from '../constants/slots'
+import {
+  SLOT_NAME_ELLIPSIS_TEXT,
+  SLOT_NAME_PAGE,
+  SLOT_NAME_FIRST_TEXT,
+  SLOT_NAME_PREV_TEXT,
+  SLOT_NAME_NEXT_TEXT,
+  SLOT_NAME_LAST_TEXT
+} from '../constants/slots'
 import { createArray } from '../utils/array'
 import {
   attemptFocus,
@@ -551,7 +558,7 @@ export const paginationMixin = Vue.extend({
       $firstPageBtn = makeEndBtn(
         1,
         this.labelFirstPage,
-        'first-text',
+        SLOT_NAME_FIRST_TEXT,
         this.firstText,
         this.firstClass,
         1,
@@ -565,7 +572,7 @@ export const paginationMixin = Vue.extend({
       makeEndBtn(
         currentPage - 1,
         this.labelPrevPage,
-        'prev-text',
+        SLOT_NAME_PREV_TEXT,
         this.prevText,
         this.prevClass,
         1,
@@ -600,7 +607,7 @@ export const paginationMixin = Vue.extend({
       makeEndBtn(
         currentPage + 1,
         this.labelNextPage,
-        'next-text',
+        SLOT_NAME_NEXT_TEXT,
         this.nextText,
         this.nextClass,
         numberOfPages,
@@ -615,7 +622,7 @@ export const paginationMixin = Vue.extend({
       $lastPageBtn = makeEndBtn(
         numberOfPages,
         this.labelLastPage,
-        'last-text',
+        SLOT_NAME_LAST_TEXT,
         this.lastText,
         this.lastClass,
         numberOfPages,
