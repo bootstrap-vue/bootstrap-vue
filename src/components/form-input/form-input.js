@@ -78,15 +78,16 @@ export const BFormInput = /*#__PURE__*/ Vue.extend({
   computed: {
     localType() {
       // We only allow certain types
-      return arrayIncludes(TYPES, this.type) ? this.type : 'text'
+      const { type } = this
+      return arrayIncludes(TYPES, type) ? type : 'text'
     },
     computedAttrs() {
-      const { localType: type, disabled, placeholder, required, min, max, step } = this
+      const { localType: type, name, form, disabled, placeholder, required, min, max, step } = this
 
       return {
         id: this.safeId(),
-        name: this.name || null,
-        form: this.form || null,
+        name,
+        form,
         type,
         disabled,
         placeholder,
