@@ -424,7 +424,7 @@ export default {
       const sortable = this.slots.length >= SORT_THRESHOLD
       const hasScopedSlots = this.slots.some(s => s.scope)
       return [
-        { key: 'name', label: 'Slot Name', sortable },
+        { key: 'name', label: 'Name', sortable },
         ...(hasScopedSlots ? [{ key: 'scope', label: 'Scoped' }] : []),
         { key: 'description', label: 'Description' }
       ]
