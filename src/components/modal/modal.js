@@ -301,10 +301,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     slotScope() {
       return {
-        ok: this.onOk,
         cancel: this.onCancel,
         close: this.onClose,
         hide: this.hide,
+        ok: this.onOk,
         visible: this.isVisible
       }
     },
