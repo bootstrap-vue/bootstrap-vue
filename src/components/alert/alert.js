@@ -87,11 +87,11 @@ export const BAlert = /*#__PURE__*/ Vue.extend({
     countDown(newValue) {
       this.clearCountDownInterval()
       const show = this[MODEL_PROP_NAME]
+      // Ignore if `show` transitions to a boolean value
       if (isNumeric(show)) {
-        // Ignore if this.show transitions to a boolean value.
         this.$emit(EVENT_NAME_DISMISS_COUNT_DOWN, newValue)
+        // Update the v-model if needed
         if (show !== newValue) {
-          // Update the v-model if needed
           this.$emit(MODEL_EVENT_NAME, newValue)
         }
         if (newValue > 0) {

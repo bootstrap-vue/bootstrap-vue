@@ -30,6 +30,23 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(date4, date4, options)).toBe(0)
   })
 
+  it('sorts date strings correctly', async () => {
+    const date1 = { a: new Date(2020, 1, 1).toISOString() }
+    const date2 = { a: new Date(1999, 11, 31).toISOString() }
+    const date3 = { a: new Date(1999, 1, 1).toISOString() }
+    const date4 = { a: new Date(1999, 1, 1, 12, 12, 12, 12).toISOString() }
+    const options = { sortBy: 'a' }
+
+    expect(defaultSortCompare(date1, date2, options)).toBe(1)
+    expect(defaultSortCompare(date1, date1, options)).toBe(0)
+    expect(defaultSortCompare(date2, date1, options)).toBe(-1)
+    expect(defaultSortCompare(date2, date3, options)).toBe(1)
+    expect(defaultSortCompare(date3, date2, options)).toBe(-1)
+    expect(defaultSortCompare(date3, date4, options)).toBe(-1)
+    expect(defaultSortCompare(date4, date3, options)).toBe(1)
+    expect(defaultSortCompare(date4, date4, options)).toBe(0)
+  })
+
   it('sorts strings correctly', async () => {
     const options = { sortBy: 'a' }
 
