@@ -27,6 +27,7 @@ import { getScopeId } from '../../utils/get-scope-id'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BVTooltip } from './helpers/bv-tooltip'
 
 // --- Constants ---
@@ -81,6 +82,7 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
+  mixins: [normalizeSlotMixin],
   inheritAttrs: false,
   props,
   data() {
@@ -234,7 +236,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Popover: Default slot is `content`, `title` slot is title
       // We pass a scoped slot function reference by default (Vue v2.6x)
       // And pass the title prop as a fallback
-      this.setTitle(this.$scopedSlots.default || this.title)
+      this.setTitle(this.normalizeSlot() || this.title)
     },
     // Helper methods for `updateContent()`
     setTitle(value) {
