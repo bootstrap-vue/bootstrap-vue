@@ -2,6 +2,7 @@ import { Vue } from '../vue'
 import {
   EVENT_NAME_BLUR,
   EVENT_NAME_CHANGE,
+  EVENT_NAME_INPUT,
   EVENT_NAME_UPDATE,
   HOOK_EVENT_NAME_BEFORE_DESTROY
 } from '../constants/events'
@@ -28,7 +29,11 @@ const {
   props: modelProps,
   prop: MODEL_PROP_NAME,
   event: MODEL_EVENT_NAME
-} = makeModelMixin('value', { type: PROP_TYPE_NUMBER_STRING, defaultValue: '' })
+} = makeModelMixin('value', {
+  type: PROP_TYPE_NUMBER_STRING,
+  defaultValue: '',
+  event: EVENT_NAME_UPDATE
+})
 
 export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
 
@@ -132,6 +137,7 @@ export const formTextMixin = Vue.extend({
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -156,7 +162,7 @@ export const formTextMixin = Vue.extend({
         value = this.modifyValue(value)
         if (value !== this.vModelValue) {
           this.vModelValue = value
-          this.$emit(EVENT_NAME_UPDATE, value)
+          this.$emit(MODEL_EVENT_NAME, value)
         } else if (this.hasFormatter) {
           // When the `vModelValue` hasn't changed but the actual input value
           // is out of sync, make sure to change it to the given one
@@ -201,7 +207,7 @@ export const formTextMixin = Vue.extend({
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue)
-      this.$emit(MODEL_EVENT_NAME, formattedValue)
+      this.$emit(EVENT_NAME_INPUT, formattedValue)
     },
     onChange(event) {
       const { value } = event.target
