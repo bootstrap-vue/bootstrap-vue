@@ -92,6 +92,10 @@ export const props = makePropsConfigurable(
         return true
       }
     },
+    xsLimit: {
+      type: Number,
+      default: 3
+    },
     align: {
       type: String,
       default: 'left'
@@ -310,27 +314,27 @@ export default {
       // So add classes to page links to hide them for XS breakpoint
       // Note: Ellipsis will also be hidden on XS screens
       // TODO: Make this visual limit configurable based on breakpoint(s)
-      if (pages.length > 3) {
+      if (pages.length > xsLimit) {
         const idx = currentPage - startNumber
         // THe following is a bootstrap-vue custom utility class
         const classes = 'bv-d-xs-down-none'
         if (idx === 0) {
           // Keep leftmost 3 buttons visible when current page is first page
-          for (let i = 3; i < pages.length; i++) {
+          for (let i = xsLimit; i < pages.length; i++) {
             pages[i].classes = classes
           }
         } else if (idx === pages.length - 1) {
           // Keep rightmost 3 buttons visible when current page is last page
-          for (let i = 0; i < pages.length - 3; i++) {
+          for (let i = 0; i < pages.length - xsLimit; i++) {
             pages[i].classes = classes
           }
         } else {
           // Hide all except current page, current page - 1 and current page + 1
-          for (let i = 0; i < idx - 1; i++) {
+          for (let i = 0; i < idx - (xsLimit % 2); i++) {
             // hide some left button(s)
             pages[i].classes = classes
           }
-          for (let i = pages.length - 1; i > idx + 1; i--) {
+          for (let i = pages.length - 1; i > idx + (xsLimit % 2); i--) {
             // hide some right button(s)
             pages[i].classes = classes
           }
