@@ -22,8 +22,6 @@ updates:
     ignore:
       - dependency-name: "bootstrap"
         versions: [">=5.0.0"]
-      - dependency-name: "highlight.js"
-        versions: [">=10.0.0"]
       - dependency-name: "prettier"
         versions: [">1.14.3"]
       - dependency-name: "@vue/test-utils"
