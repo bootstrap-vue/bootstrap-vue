@@ -17,6 +17,7 @@ import {
   CODE_UP,
   CODE_PAGEDOWN
 } from '../../constants/key-codes'
+import { SLOT_NAME_DECREMENT, SLOT_NAME_INCREMENT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
@@ -493,7 +494,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'inc',
       'ArrowUp',
       false,
-      'increment'
+      SLOT_NAME_INCREMENT
     )
     const $decrement = makeButton(
       this.stepDown,
@@ -502,7 +503,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'dec',
       'ArrowDown',
       false,
-      'decrement'
+      SLOT_NAME_DECREMENT
     )
 
     let $hidden = h()
