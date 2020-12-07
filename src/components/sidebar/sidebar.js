@@ -224,8 +224,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           }
     },
     slotScope() {
-      const { localShow: visible, right, hide } = this
-      return { visible, right, hide }
+      const { hide, right, localShow: visible } = this
+      return { hide, right, visible }
     },
     computedTile() {
       return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
