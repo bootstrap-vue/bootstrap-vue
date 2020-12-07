@@ -1,3 +1,4 @@
+import { RX_NUMBER } from '../constants/regex'
 import { File } from '../constants/safe-types'
 
 // --- Convenience inspection utilities ---
@@ -26,8 +27,7 @@ export const isString = value => toType(value) === 'string'
 
 export const isNumber = value => toType(value) === 'number'
 
-// Is a value number like (i.e. a number or a number as string)
-export const isNumeric = value => !isNaN(parseInt(value, 10))
+export const isNumeric = value => RX_NUMBER.test(String(value))
 
 export const isPrimitive = value => isBoolean(value) || isString(value) || isNumber(value)
 

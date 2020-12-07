@@ -8,8 +8,7 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { SLOT_NAME_BADGE } from '../../constants/slots'
-import { RX_NUMBER } from '../../constants/regex'
-import { isNumber, isString } from '../../utils/inspect'
+import { isNumber, isNumeric, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
 import { omit, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
@@ -33,7 +32,7 @@ const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
 export const computeSize = value => {
   // Parse to number when value is a float-like string
-  value = isString(value) && RX_NUMBER.test(value) ? toFloat(value, 0) : value
+  value = isString(value) && isNumeric(value) ? toFloat(value, 0) : value
   // Convert all numbers to pixel values
   return isNumber(value) ? `${value}px` : value || null
 }
