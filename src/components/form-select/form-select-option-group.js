@@ -14,7 +14,7 @@ import { BFormSelectOption } from './form-select-option'
 export const props = makePropsConfigurable(
   sortKeys({
     ...formOptionsProps,
-    label: makeProp(PROP_TYPE_STRING, true) // Required
+    label: makeProp(PROP_TYPE_STRING, undefined, true) // Required
   }),
   NAME_FORM_SELECT_OPTION_GROUP
 )

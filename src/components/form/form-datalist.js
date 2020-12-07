@@ -12,7 +12,7 @@ import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 export const props = makePropsConfigurable(
   sortKeys({
     ...formOptionsProps,
-    id: makeProp(PROP_TYPE_STRING, true) // Required
+    id: makeProp(PROP_TYPE_STRING, undefined, true) // Required
   }),
   NAME_FORM_DATALIST
 )

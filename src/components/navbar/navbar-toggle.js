@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
   {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
     label: makeProp(PROP_TYPE_STRING, 'Toggle navigation'),
-    target: makeProp(PROP_TYPE_ARRAY_STRING) // Required
+    target: makeProp(PROP_TYPE_ARRAY_STRING, undefined, true) // Required
   },
   NAME_NAVBAR_TOGGLE
 )

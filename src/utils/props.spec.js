@@ -61,17 +61,22 @@ describe('utils/props', () => {
     expect(typeof makeProp(Object, {}).default).toEqual('function')
     expect(makeProp(Object, {}).default()).toEqual({})
 
-    expect(makeProp(Array, true)).toEqual({ type: Array, required: true })
-    expect(makeProp(Boolean, true)).toEqual({ type: Boolean, default: true })
-    expect(makeProp(Function, true)).toEqual({ type: Function, required: true })
-    expect(makeProp(Number, true)).toEqual({ type: Number, required: true })
-    expect(makeProp(Object, true)).toEqual({ type: Object, required: true })
-    expect(makeProp(String, true)).toEqual({ type: String, required: true })
+    expect(makeProp(Array, undefined, true)).toEqual({ type: Array, required: true })
+    expect(makeProp(Boolean, undefined, true)).toEqual({ type: Boolean, required: true })
+    expect(makeProp(Function, undefined, true)).toEqual({ type: Function, required: true })
+    expect(makeProp(Number, undefined, true)).toEqual({ type: Number, required: true })
+    expect(makeProp(Object, undefined, true)).toEqual({ type: Object, required: true })
+    expect(makeProp(String, undefined, true)).toEqual({ type: String, required: true })
 
     const validator = value => !!value
     expect(makeProp(String, '', undefined)).toEqual({ type: String, default: '' })
     expect(makeProp(String, '', validator)).toEqual({ type: String, default: '', validator })
     expect(makeProp(String, undefined, validator)).toEqual({ type: String, validator })
+    expect(makeProp(String, '', true, validator)).toEqual({
+      type: String,
+      required: true,
+      validator
+    })
   })
 
   it('makePropsConfigurable() works', async () => {

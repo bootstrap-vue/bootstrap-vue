@@ -1,5 +1,4 @@
-import { PROP_TYPE_ANY, PROP_TYPE_BOOLEAN } from '../constants/props'
-import { concat } from './array'
+import { PROP_TYPE_ANY } from '../constants/props'
 import { cloneDeep } from './clone-deep'
 import { getComponentConfig } from './config'
 import { identity } from './identity'
@@ -19,8 +18,14 @@ export const unprefixPropName = (prefix, value) => lowerFirst(value.replace(pref
 export const suffixPropName = (suffix, value) => value + (suffix ? upperFirst(suffix) : '')
 
 // Generates a prop object
-export const makeProp = (type = PROP_TYPE_ANY, value = undefined, validator = undefined) => {
-  const required = value === true && concat(type).indexOf(PROP_TYPE_BOOLEAN) === -1
+export const makeProp = (
+  type = PROP_TYPE_ANY,
+  value = undefined,
+  requiredOrValidator = undefined,
+  validator = undefined
+) => {
+  const required = requiredOrValidator === true
+  validator = required ? validator : requiredOrValidator
 
   return {
     ...(type ? { type } : {}),

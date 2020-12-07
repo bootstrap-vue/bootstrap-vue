@@ -8,7 +8,7 @@ import { makeProp, makePropsConfigurable } from '../../utils/props'
 export const props = makePropsConfigurable(
   {
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
-    value: makeProp(PROP_TYPE_ANY, true) // Required
+    value: makeProp(PROP_TYPE_ANY, undefined, true) // Required
   },
   NAME_FORM_SELECT_OPTION
 )

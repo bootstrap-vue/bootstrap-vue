@@ -52,7 +52,7 @@ export const props = makePropsConfigurable(
     // Allowed: 'true' or 'false' or `null`
     ariaAtomic: makeProp(PROP_TYPE_STRING),
     ariaLive: makeProp(PROP_TYPE_STRING),
-    name: makeProp(PROP_TYPE_STRING, true), // Required
+    name: makeProp(PROP_TYPE_STRING, undefined, true), // Required
     // Aria role
     role: makeProp(PROP_TYPE_STRING)
   },
