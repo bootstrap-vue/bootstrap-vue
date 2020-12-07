@@ -98,7 +98,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
 
       // Title can be a scoped slot function
       const $title = isFunction(title)
-        ? this.title({})
+        ? title({})
         : isUndefinedOrNull(title)
           ? /* istanbul ignore next */ h()
           : title
