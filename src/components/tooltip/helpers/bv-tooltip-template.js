@@ -7,7 +7,7 @@ import {
   EVENT_NAME_MOUSELEAVE
 } from '../../../constants/events'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
-import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import { isFunction } from '../../../utils/inspect'
 import { makeProp } from '../../../utils/props'
 import { scopedStyleMixin } from '../../../mixins/scoped-style'
 import { BVPopper } from './bv-popper'
@@ -97,11 +97,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       const { title } = this
 
       // Title can be a scoped slot function
-      const $title = isFunction(title)
-        ? title({})
-        : isUndefinedOrNull(title)
-          ? /* istanbul ignore next */ h()
-          : title
+      const $title = isFunction(title) ? title({}) : title
 
       // Directive versions only
       const domProps = this.html && !isFunction(title) ? { innerHTML: title } : {}
