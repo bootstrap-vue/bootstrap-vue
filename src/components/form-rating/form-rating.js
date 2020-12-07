@@ -9,6 +9,12 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
+import {
+  SLOT_NAME_ICON_CLEAR,
+  SLOT_NAME_ICON_EMPTY,
+  SLOT_NAME_ICON_FULL,
+  SLOT_NAME_ICON_HALF
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
@@ -295,7 +301,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
 
     if (showClear && !disabled && !readonly) {
       const $icon = h('span', { staticClass: 'b-rating-icon' }, [
-        ($scopedSlots['icon-clear'] || this.iconClearFn)()
+        ($scopedSlots[SLOT_NAME_ICON_CLEAR] || this.iconClearFn)()
       ])
       $content.push(
         h(
@@ -329,9 +335,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           },
           on: { selected: this.onSelected },
           scopedSlots: {
-            empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
-            half: $scopedSlots['icon-half'] || this.iconHalfFn,
-            full: $scopedSlots['icon-full'] || this.iconFullFn
+            empty: $scopedSlots[SLOT_NAME_ICON_EMPTY] || this.iconEmptyFn,
+            half: $scopedSlots[SLOT_NAME_ICON_HALF] || this.iconHalfFn,
+            full: $scopedSlots[SLOT_NAME_ICON_FULL] || this.iconFullFn
           },
           key: index
         })
