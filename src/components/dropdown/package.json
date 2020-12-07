@@ -225,6 +225,12 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown item"
+          }
         ]
       },
       {
@@ -252,6 +258,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown item-button"
           }
         ]
       },
@@ -284,18 +296,30 @@
             "prop": "validated",
             "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown form"
+          }
         ]
       },
       {
         "component": "BDropdownText",
+        "aliases": [
+          "BDdText"
+        ],
         "props": [
           {
             "prop": "textClass",
             "description": "Class or classes to apply to the inner element"
           }
         ],
-        "aliases": [
-          "BDdText"
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown text"
+          }
         ]
       },
       {
@@ -311,6 +335,10 @@
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content (items) to place in the dropdown group"
+          },
+          {
             "name": "header",
             "description": "Optional header content for the dropdown group"
           }
@@ -320,6 +348,12 @@
         "component": "BDropdownHeader",
         "aliases": [
           "BDdHeader"
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown header"
+          }
         ]
       }
     ]

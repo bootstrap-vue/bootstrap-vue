@@ -40,12 +40,6 @@
             "description": "When set, adds the Bootstrap class 'was-validated' to the group wrapper"
           }
         ],
-        "slots": [
-          {
-            "name": "first",
-            "description": "Slot to place b-form-radio's so that they appear before radios generated from options prop"
-          }
-        ],
         "events": [
           {
             "event": "change",
@@ -78,6 +72,16 @@
                 "description": "Current selected Value of radio group"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (form radios) to place in the form radio group"
+          },
+          {
+            "name": "first",
+            "description": "Slot to place b-form-radio's so that they appear before radios generated from options prop"
           }
         ]
       },
@@ -144,6 +148,12 @@
                 "description": "Current selected Value of radio group"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form radio"
           }
         ]
       }

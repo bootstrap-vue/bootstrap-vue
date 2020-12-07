@@ -43,17 +43,12 @@
                 "description": "Native click event"
               }
             ]
-          },
+          }
+        ],
+        "slots": [
           {
-            "event": "clicked::link",
-            "description": "Emitted on `$root` when link was clicked. Deprecated in favor of 'bv::link::clicked'",
-            "args": [
-              {
-                "name": "event",
-                "type": "MouseEvent",
-                "description": "Native click event"
-              }
-            ]
+            "name": "default",
+            "description": "Content to place in the link"
           }
         ]
       }

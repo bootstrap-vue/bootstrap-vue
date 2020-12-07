@@ -16,6 +16,12 @@
             "prop": "variant",
             "description": "Applies one of the Bootstrap theme color variants to the component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the badge"
+          }
         ]
       }
     ]

@@ -170,6 +170,12 @@
             "prop": "role",
             "description": "Sets the ARIA attribute 'role' to a specific value"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (toasts) to place in the toaster element"
+          }
         ]
       }
     ]

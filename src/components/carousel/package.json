@@ -98,6 +98,12 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (slides) to place in the carousel"
+          }
         ]
       },
       {
@@ -162,6 +168,10 @@
           }
         ],
         "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the carousel slide"
+          },
           {
             "name": "img",
             "description": "Slot for img element or image component"

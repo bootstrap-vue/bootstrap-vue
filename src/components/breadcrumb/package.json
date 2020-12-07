@@ -12,6 +12,12 @@
             "prop": "items",
             "description": "Array of breadcrumb items to render"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (breadcrumb items) to place in the breadcrumb"
+          }
         ]
       },
       {
@@ -41,6 +47,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the breadcrumb item"
           }
         ]
       }

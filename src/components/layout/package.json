@@ -13,6 +13,12 @@
             "prop": "fluid",
             "description": "When set to true, makes the row 100% wide all the time, or set to one of the Bootstrap breakpoint names for 100% width up to the breakpoint (requires Bootstrap v4.4+ CSS for breakpoint specific value)"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the container"
+          }
         ]
       },
       {
@@ -58,6 +64,12 @@
           {
             "prop": "noGutters",
             "description": "When set, removes the margin from the row and removes the padding from the child columns"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the row"
           }
         ]
       },
@@ -132,10 +144,22 @@
             "prop": "xl",
             "description": "Number of columns the grid cell spans for xl and up breakpoints"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the col"
+          }
         ]
       },
       {
-        "component": "BFormRow"
+        "component": "BFormRow",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form row"
+          }
+        ]
       }
     ]
   }

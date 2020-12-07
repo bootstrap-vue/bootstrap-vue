@@ -44,6 +44,12 @@
             "prop": "vertical",
             "description": "Renders the nav vertically"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav"
+          }
         ]
       },
       {
@@ -57,10 +63,22 @@
             "prop": "linkClasses",
             "description": "CSS class (or classes) to place on the nested link element"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav item"
+          }
         ]
       },
       {
-        "component": "BNavText"
+        "component": "BNavText",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav text"
+          }
+        ]
       },
       {
         "component": "BNavForm",
@@ -85,6 +103,12 @@
                 "description": "Native submit event"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav form"
           }
         ]
       },
@@ -150,23 +174,6 @@
             "description": "CSS class (or classes) to add to the toggle element (link)"
           }
         ],
-        "slots": [
-          {
-            "name": "button-content",
-            "description": "Can be used to implement custom text with icons and more styling"
-          },
-          {
-            "name": "default",
-            "description": "Optionally scoped default slot for dropdown menu content",
-            "scope": [
-              {
-                "prop": "hide",
-                "type": "Function",
-                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button"
-              }
-            ]
-          }
-        ],
         "events": [
           {
             "event": "hidden",
@@ -201,6 +208,23 @@
           {
             "event": "toggle",
             "description": "Emitted when toggle button is clicked"
+          }
+        ],
+        "slots": [
+          {
+            "name": "button-content",
+            "description": "Can be used to implement custom text with icons and more styling"
+          },
+          {
+            "name": "default",
+            "description": "Optionally scoped default slot for dropdown menu content",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button"
+              }
+            ]
           }
         ]
       }

@@ -47,12 +47,16 @@
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content to place in the jumbotron"
+          },
+          {
             "name": "header",
-            "description": "Slot for custom header content. Placed inside 'header-tag'"
+            "description": "Slot for custom header content. Placed inside 'header-tag'. Overrides the `header` and `header-html` props"
           },
           {
             "name": "lead",
-            "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
+            "description": "For custom rendering of lead text content. Placed inside 'lead-tag'. Overrides the `lead` and `lead-html` props"
           }
         ]
       }

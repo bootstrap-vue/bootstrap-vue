@@ -42,7 +42,7 @@
               {
                 "prop": "visible",
                 "type": "Boolean",
-                "description": "Visible state of the collapse: true if the collapse is visible"
+                "description": "Visible state of the collapse. `true` if the collapse is visible"
               }
             ]
           }

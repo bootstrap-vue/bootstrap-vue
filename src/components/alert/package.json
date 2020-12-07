@@ -60,6 +60,10 @@
           {
             "name": "dismiss",
             "description": "Content for the dismiss button"
+          },
+          {
+            "name": "default",
+            "description": "Content to place in the alert"
           }
         ]
       }

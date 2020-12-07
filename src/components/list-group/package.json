@@ -16,6 +16,12 @@
             "prop": "horizontal",
             "description": "When set, renders the list-group horizontally rather than the default of vertical"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (items) to place in the list group"
+          }
         ]
       },
       {
@@ -32,6 +38,12 @@
           {
             "prop": "variant",
             "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the list group item"
           }
         ]
       }

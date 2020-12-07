@@ -136,6 +136,12 @@
             "prop": "variant",
             "description": "Applies one of the Bootstrap theme color variants to all child avatars"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (avatars) to place in the avatar group"
+          }
         ]
       }
     ]

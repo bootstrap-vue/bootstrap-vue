@@ -110,20 +110,24 @@
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content to place in the form group"
+          },
+          {
             "name": "description",
-            "description": "Content to place in the description area"
+            "description": "Content to place in the description area. Overrides the `description` prop"
           },
           {
             "name": "invalid-feedback",
-            "description": "Content to place in the invalid feedback area"
+            "description": "Content to place in the invalid feedback area. Overrides the `invalid-feedback` prop"
           },
           {
             "name": "label",
-            "description": "Content to place inside the <label> element"
+            "description": "Content to place inside the <label> element. Overrides the `label` prop"
           },
           {
             "name": "valid-feedback",
-            "description": "Content to place in the valid feedback area"
+            "description": "Content to place in the valid feedback area. Overrides the `valid-feedback` prop"
           }
         ]
       }

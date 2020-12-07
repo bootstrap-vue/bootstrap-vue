@@ -52,6 +52,12 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the button"
+          }
         ]
       },
       {
@@ -85,6 +91,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the button. Overrides the `content` prop"
           }
         ]
       }

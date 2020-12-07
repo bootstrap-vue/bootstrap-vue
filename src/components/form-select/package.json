@@ -32,12 +32,6 @@
             "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
           }
         ],
-        "slots": [
-          {
-            "name": "first",
-            "description": "Slot to place options or option groups above options provided via the 'options' prop"
-          }
-        ],
         "events": [
           {
             "event": "change",
@@ -71,6 +65,16 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select"
+          },
+          {
+            "name": "first",
+            "description": "Slot to place options or option groups above options provided via the 'options' prop"
+          }
         ]
       },
       {
@@ -84,6 +88,12 @@
             "prop": "value",
             "description": "The value of the option"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select option"
+          }
         ]
       },
       {
@@ -93,6 +103,10 @@
           "BSelectOptionGroup"
         ],
         "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select option group"
+          },
           {
             "name": "first",
             "description": "Slot to place options above options provided via the 'options' prop"

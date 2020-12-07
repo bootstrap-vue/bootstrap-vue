@@ -16,6 +16,12 @@
             "prop": "type",
             "description": "Type of embed. Possible values are 'iframe', 'video', 'embed' and 'object'"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the embed"
+          }
         ]
       }
     ]

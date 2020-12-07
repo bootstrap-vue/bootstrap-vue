@@ -35,6 +35,10 @@
             "description": "Append attachment"
           },
           {
+            "name": "default",
+            "description": "Content to place in the input group"
+          },
+          {
             "name": "prepend",
             "description": "Prepend attachment"
           }
@@ -47,6 +51,12 @@
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group prepend"
+          }
         ]
       },
       {
@@ -56,10 +66,22 @@
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group append"
+          }
         ]
       },
       {
-        "component": "BInputGroupText"
+        "component": "BInputGroupText",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group text"
+          }
+        ]
       },
       {
         "component": "BInputGroupAddon",
@@ -71,6 +93,12 @@
           {
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group addon"
           }
         ]
       }

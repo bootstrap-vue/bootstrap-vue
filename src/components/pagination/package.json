@@ -171,74 +171,74 @@
         "slots": [
           {
             "name": "ellipsis-text",
-            "description": "The '...' indicator content. Not scoped"
+            "description": "The '...' indicator content. Overrides the `ellipsis-text` prop"
           },
           {
             "name": "first-text",
-            "description": "The \"go to first page\" button content. Optionally scoped",
+            "description": "The 'Go to first page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
             "name": "last-text",
-            "description": "The \"go to last page\" button content. Optionally scoped",
+            "description": "The 'Go to last page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
             "name": "next-text",
-            "description": "The \"go to next page\" button content. Optionally scoped",
+            "description": "The 'Go to next page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
             "name": "page",
-            "description": "Page number button content. Always scoped",
+            "description": "Page number button content",
             "scope": [
               {
                 "prop": "active",
@@ -253,38 +253,38 @@
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
             "name": "prev-text",
-            "description": "The \"go to previous page\" button content. Optionally scoped",
+            "description": "The 'Go to previous page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           }

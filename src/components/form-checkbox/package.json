@@ -45,12 +45,6 @@
             "description": "When set, adds the Bootstrap class 'was-validated' to the group wrapper"
           }
         ],
-        "slots": [
-          {
-            "name": "first",
-            "description": "Slot to place b-form-checks so that they appear before checks generated from options prop"
-          }
-        ],
         "events": [
           {
             "event": "change",
@@ -73,6 +67,16 @@
                 "description": "Value of checkboxes. Value will be an array"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (form checkboxes) to place in the form checkbox group"
+          },
+          {
+            "name": "first",
+            "description": "Slot to place b-form-checks so that they appear before checks generated from options prop"
           }
         ]
       },
@@ -154,6 +158,12 @@
                 "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form checkbox"
           }
         ]
       }

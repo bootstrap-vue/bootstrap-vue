@@ -34,6 +34,12 @@
               }
             ]
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form"
+          }
         ]
       },
       {
@@ -46,6 +52,12 @@
           {
             "prop": "textVariant",
             "description": "Applies one of the Bootstrap theme color variants to the text"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form text"
           }
         ]
       },
@@ -64,6 +76,12 @@
             "prop": "tooltip",
             "description": "Renders the feedback text in a rudimentary tooltip style"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form invalid feedback"
+          }
         ]
       },
       {
@@ -81,12 +99,24 @@
             "prop": "tooltip",
             "description": "Renders the feedback text in a rudimentary tooltip style"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form valid feedback element"
+          }
         ]
       },
       {
         "component": "BFormDatalist",
         "aliases": [
           "BDatalist"
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the from datalist"
+          }
         ]
       }
     ]

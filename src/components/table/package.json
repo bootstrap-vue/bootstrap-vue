@@ -1644,6 +1644,12 @@
             "prop": "tableVariant",
             "description": "Apply a Bootstrap theme color variant to the entire table"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the table"
+          }
         ]
       },
       {
@@ -1657,6 +1663,12 @@
             "prop": "tbodyTransitionProps",
             "description": "Vue 'transition-group' properties. When provided will make the tbody a Vue 'transition-group' component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the tbody"
+          }
         ]
       },
       {
@@ -1665,6 +1677,12 @@
           {
             "prop": "headVariant",
             "description": "Header variant: 'light' or 'dark', or unset"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the thead"
           }
         ]
       },
@@ -1675,10 +1693,22 @@
             "prop": "footVariant",
             "description": "Footer variant: 'light' or 'dark', or unset"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the tfoot"
+          }
         ]
       },
       {
-        "component": "BTr"
+        "component": "BTr",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the tr"
+          }
+        ]
       },
       {
         "component": "BTd",
@@ -1698,6 +1728,12 @@
           {
             "prop": "stickyColumn",
             "description": "If this will be a sticky colum. Must be set on all cells in this column. table must be in sticky-header or responsive mode to work"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the td"
           }
         ]
       },

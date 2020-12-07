@@ -134,6 +134,10 @@
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content (tabs) to place in the tabs element"
+          },
+          {
             "name": "empty",
             "description": "Renders this slot if no tabs are present"
           },
