@@ -11,11 +11,11 @@ import {
 } from '../constants/props'
 import {
   SLOT_NAME_ELLIPSIS_TEXT,
-  SLOT_NAME_PAGE,
   SLOT_NAME_FIRST_TEXT,
-  SLOT_NAME_PREV_TEXT,
+  SLOT_NAME_LAST_TEXT,
   SLOT_NAME_NEXT_TEXT,
-  SLOT_NAME_LAST_TEXT
+  SLOT_NAME_PAGE,
+  SLOT_NAME_PREV_TEXT
 } from '../constants/slots'
 import { createArray } from '../utils/array'
 import {
