@@ -6,7 +6,7 @@ import {
   PROP_TYPE_OBJECT_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
-import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
 import { htmlOrText } from '../../utils/html'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -98,9 +98,8 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const { visible, variant, size, block, disabled, split, role, hide, toggle } = this
     const commonProps = { variant, size, block, disabled }
 
-    const buttonContentSlotName = 'button-content'
-    let $buttonChildren = this.normalizeSlot(buttonContentSlotName)
-    let buttonContentDomProps = this.hasNormalizedSlot(buttonContentSlotName)
+    let $buttonChildren = this.normalizeSlot(SLOT_NAME_BUTTON_CONTENT)
+    let buttonContentDomProps = this.hasNormalizedSlot(SLOT_NAME_BUTTON_CONTENT)
       ? {}
       : htmlOrText(this.html, this.text)
 
