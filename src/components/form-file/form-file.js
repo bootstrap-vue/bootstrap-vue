@@ -44,7 +44,7 @@ const {
   event: MODEL_EVENT_NAME
 } = makeModelMixin('value', {
   type: [PROP_TYPE_ARRAY, File],
-  defaultValue: false,
+  defaultValue: null,
   validator: value => {
     /* istanbul ignore next */
     if (value === '') {
