@@ -68,6 +68,7 @@ export const props = makePropsConfigurable(
     // Required
     target: makeProp(
       [HTMLElement, SVGElement, PROP_TYPE_FUNCTION, PROP_TYPE_OBJECT, PROP_TYPE_STRING],
+      undefined,
       true
     ),
     title: makeProp(PROP_TYPE_STRING),
