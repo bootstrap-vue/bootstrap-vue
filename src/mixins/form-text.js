@@ -132,7 +132,6 @@ export const formTextMixin = Vue.extend({
       return value
     },
     modifyValue(value) {
-      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
