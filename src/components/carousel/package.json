@@ -120,7 +120,8 @@
           },
           {
             "prop": "captionHtml",
-            "description": "HTML string content to place in the caption. Use with caution"
+            "description": "HTML string content to place in the caption",
+            "xss": true
           },
           {
             "prop": "captionTag",
@@ -164,7 +165,8 @@
           },
           {
             "prop": "textHtml",
-            "description": "HTML string content to place in the text of the slide. Use with caution"
+            "description": "HTML string content to place in the text of the slide",
+            "xss": true
           }
         ],
         "slots": [

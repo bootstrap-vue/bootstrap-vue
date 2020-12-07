@@ -70,7 +70,8 @@
       },
       {
         "name": "html",
-        "description": "Enables basic HTML in the title/content (use with caution)"
+        "description": "Enables basic HTML in the title/content",
+        "xss": true
       },
       {
         "name": "viewport",

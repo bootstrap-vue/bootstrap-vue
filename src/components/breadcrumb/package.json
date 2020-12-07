@@ -29,7 +29,8 @@
           },
           {
             "prop": "html",
-            "description": "HTML string to render in the breadcrumb item. Use with caution"
+            "description": "HTML string to render in the breadcrumb item",
+            "xss": true
           },
           {
             "prop": "text",

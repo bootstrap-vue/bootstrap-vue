@@ -34,7 +34,8 @@
           },
           {
             "prop": "leadHtml",
-            "description": "HTML string to place in the lead paragraph. Use with caution"
+            "description": "HTML string to place in the lead paragraph",
+            "xss": true
           },
           {
             "prop": "leadTag",

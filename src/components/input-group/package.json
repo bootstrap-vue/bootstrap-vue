@@ -14,7 +14,8 @@
           },
           {
             "prop": "appendHtml",
-            "description": "HTML string to append to the input group. Has precedence over 'append' prop. Use with caution"
+            "description": "HTML string to append to the input group. Has precedence over 'append' prop",
+            "xss": true
           },
           {
             "prop": "prepend",
@@ -22,7 +23,8 @@
           },
           {
             "prop": "prependHtml",
-            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop. Use with caution"
+            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop",
+            "xss": true
           },
           {
             "prop": "size",

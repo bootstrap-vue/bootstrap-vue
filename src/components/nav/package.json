@@ -139,7 +139,8 @@
           },
           {
             "prop": "html",
-            "description": "HTML string to place in the toggle element (link). Use with caution"
+            "description": "HTML string to place in the toggle element (link)",
+            "xss": true
           },
           {
             "prop": "lazy",

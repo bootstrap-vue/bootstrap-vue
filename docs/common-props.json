@@ -90,7 +90,8 @@
     "description": "CSS class (or classes) to apply to the footer"
   },
   "footerHtml": {
-    "description": "HTML string content to place in the footer. Use with caution"
+    "description": "HTML string content to place in the footer",
+    "xss": true
   },
   "footerTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the footer"
@@ -117,7 +118,8 @@
     "description": "CSS class (or classes) to apply to the header"
   },
   "headerHtml": {
-    "description": "HTML string content to place in the header. Use with caution"
+    "description": "HTML string content to place in the header",
+    "xss": true
   },
   "headerTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the header"
@@ -132,7 +134,8 @@
     "description": "<b-link> prop: Denotes the target URL of the link for standard a links"
   },
   "htmlField": {
-    "description": "Field name in the `options` array that should be used for the html label instead of text field. Use with caution"
+    "description": "Field name in the `options` array that should be used for the html label instead of text field",
+    "xss": true
   },
   "id": {
     "description": "Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
@@ -227,7 +230,8 @@
     "description": "CSS class (or classes) to apply to the title"
   },
   "titleHtml": {
-    "description": "HTML string content to place in the title. Use with caution"
+    "description": "HTML string content to place in the title",
+    "xss": true
   },
   "titleTag": {
     "description": "Specify the HTML tag to render instead of the default tag for the title"

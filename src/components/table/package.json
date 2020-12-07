@@ -34,7 +34,8 @@
           },
           {
             "prop": "captionHtml",
-            "description": "HTML string to place in the caption element. Use with caution"
+            "description": "HTML string to place in the caption element",
+            "xss": true
           },
           {
             "prop": "captionTop",
@@ -55,7 +56,8 @@
           },
           {
             "prop": "emptyFilteredHtml",
-            "description": "HTML string to show when the table has no items to show due to filtering. Use with caution"
+            "description": "HTML string to show when the table has no items to show due to filtering",
+            "xss": true
           },
           {
             "prop": "emptyFilteredText",
@@ -63,7 +65,8 @@
           },
           {
             "prop": "emptyHtml",
-            "description": "HTML string to show when the table has no items to show. Use with caution"
+            "description": "HTML string to show when the table has no items to show",
+            "xss": true
           },
           {
             "prop": "emptyText",
@@ -1013,7 +1016,8 @@
           },
           {
             "prop": "captionHtml",
-            "description": "HTML string to place in the caption element. Use with caution"
+            "description": "HTML string to place in the caption element",
+            "xss": true
           },
           {
             "prop": "captionTop",

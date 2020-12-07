@@ -65,7 +65,8 @@
           },
           {
             "prop": "labelHtml",
-            "description": "HTML string to explicitly set the label as. Use with caution"
+            "description": "HTML string to explicitly set the label as",
+            "xss": true
           },
           {
             "prop": "max",

@@ -69,7 +69,8 @@
           },
           {
             "prop": "cancelTitleHtml",
-            "description": "HTML string to place in the default footer Cancel button. Use with caution"
+            "description": "HTML string to place in the default footer Cancel button",
+            "xss": true
           },
           {
             "prop": "cancelVariant",
@@ -191,7 +192,8 @@
           },
           {
             "prop": "okTitleHtml",
-            "description": "HTML string to place in the default footer OK button. Use with caution"
+            "description": "HTML string to place in the default footer OK button",
+            "xss": true
           },
           {
             "prop": "okVariant",

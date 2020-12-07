@@ -34,7 +34,8 @@
           },
           {
             "prop": "html",
-            "description": "HTML string to place in the toggle button, or in the split button is split mode. Use with caution"
+            "description": "HTML string to place in the toggle button, or in the split button is split mode",
+            "xss": true
           },
           {
             "prop": "lazy",
@@ -103,7 +104,8 @@
           },
           {
             "prop": "toggleTag",
-            "description": "Specify the HTML tag to render instead of the default tag. Use with caution"
+            "description": "Specify the HTML tag to render instead of the default tag",
+            "xss": true
           },
           {
             "prop": "toggleText",
