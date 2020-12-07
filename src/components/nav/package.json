@@ -84,6 +84,10 @@
         "component": "BNavForm",
         "props": [
           {
+            "prop": "formClass",
+            "description": "CSS class (or classes) to add to the form"
+          },
+          {
             "prop": "novalidate",
             "description": "When set, disables browser native HTML5 validation on controls in the form"
           },
