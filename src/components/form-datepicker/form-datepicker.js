@@ -32,12 +32,30 @@ const {
 
 // --- Props ---
 
+const calendarProps = omit(BCalendarProps, [
+  'block',
+  'hidden',
+  'id',
+  'noKeyNav',
+  'roleDescription',
+  'value',
+  'width'
+])
+
+const formBtnLabelControlProps = omit(BVFormBtnLabelControlProps, [
+  'formattedValue',
+  'id',
+  'lang',
+  'rtl',
+  'value'
+])
+
 export const props = makePropsConfigurable(
   sortKeys({
     ...idProps,
     ...modelProps,
-    ...omit(BCalendarProps, ['id', 'value']),
-    ...omit(BVFormBtnLabelControlProps, ['formattedValue', 'id', 'lang', 'rtl', 'value']),
+    ...calendarProps,
+    ...formBtnLabelControlProps,
     buttonOnly: makeProp(PROP_TYPE_BOOLEAN, false),
     // Applicable in button only mode
     buttonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
@@ -262,9 +280,10 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-date-calendar w-100',
         props: {
-          ...pluckProps(BCalendarProps, $props),
+          ...pluckProps(calendarProps, $props),
           value: localYMD,
-          hidden: !this.isVisible
+          hidden: !this.isVisible,
+          width: this.calendarWidth
         },
         on: {
           selected: this.onSelected,
@@ -291,7 +310,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'b-form-datepicker',
         props: {
-          ...pluckProps(BVFormBtnLabelControlProps, $props),
+          ...pluckProps(formBtnLabelControlProps, $props),
           id: this.safeId(),
           value: localYMD,
           formattedValue: localYMD ? this.formattedValue : '',
