@@ -110,6 +110,12 @@
         "aliases": [
           "BSelectOptionGroup"
         ],
+        "props": [
+          {
+            "prop": "label",
+            "description": "The label for the option group"
+          }
+        ],
         "slots": [
           {
             "name": "default",
