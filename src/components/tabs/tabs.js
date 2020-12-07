@@ -281,9 +281,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     registeredTabs() {
-      // Each b-tab will register/unregister itself.
+      // Each `<b-tab>` will register/unregister itself
       // We use this to detect when tabs are added/removed
-      // to trigger the update of the tabs.
+      // to trigger the update of the tabs
       this.$nextTick(() => {
         requestAF(() => {
           this.updateTabs()
@@ -323,11 +323,13 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   created() {
     // Create private non-reactive props
     this.$_observer = null
-    this.currentTab = toInteger(this[MODEL_PROP_NAME], -1)
     // For SSR and to make sure only a single tab is shown on mount
-    // We wrap this in a `$nextTick()` to ensure the child tabs have been created
+    // Wrapped in `$nextTick()` and `requestAF()` to ensure the
+    // child tabs have been created
     this.$nextTick(() => {
-      this.updateTabs()
+      requestAF(() => {
+        this.updateTabs()
+      })
     })
   },
   mounted() {
@@ -336,7 +338,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     this.$nextTick(() => {
       // Flag we are now mounted and to switch to DOM for tab probing
       // As `$slots.default` appears to lie about component instances
-      // after b-tabs is destroyed and re-instantiated
+      // after `<b-tabs>` is destroyed and re-instantiated
       // And `$children` does not respect DOM order
       this.isMounted = true
     })
@@ -347,10 +349,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   },
   /* istanbul ignore next */
   activated() {
-    this.currentTab = toInteger(this[MODEL_PROP_NAME], -1)
     this.$nextTick(() => {
-      this.updateTabs()
       this.isMounted = true
+      requestAF(() => {
+        this.updateTabs()
+      })
     })
   },
   beforeDestroy() {
