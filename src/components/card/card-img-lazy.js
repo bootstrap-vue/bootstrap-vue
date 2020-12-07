@@ -1,7 +1,8 @@
 import { Vue, mergeData } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
-import { omit, sortKeys } from '../../utils/object'
+import { keys, omit, sortKeys } from '../../utils/object'
 import { makePropsConfigurable } from '../../utils/props'
+import { props as BImgProps } from '../image/img'
 import { BImgLazy, props as BImgLazyProps } from '../image/img-lazy'
 import { props as BCardImgProps } from './card-img'
 
@@ -9,7 +10,7 @@ import { props as BCardImgProps } from './card-img'
 
 export const props = makePropsConfigurable(
   sortKeys({
-    ...omit(BImgLazyProps, ['center', 'block', 'rounded', 'thumbnail', 'fluid', 'fluidGrow']),
+    ...omit(BImgLazyProps, keys(BImgProps)),
     ...omit(BCardImgProps, ['src', 'alt', 'width', 'height'])
   }),
   NAME_CARD_IMG_LAZY
