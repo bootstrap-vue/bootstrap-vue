@@ -55,7 +55,7 @@
               {
                 "arg": "id",
                 "type": "String",
-                "description": "Changed state collapse id"
+                "description": "Changed state collapse ID"
               },
               {
                 "arg": "state",
