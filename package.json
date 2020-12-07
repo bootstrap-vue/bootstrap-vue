@@ -134,7 +134,7 @@
     "husky": "^4.3.5",
     "improved-yarn-audit": "^2.3.1",
     "jest": "^26.6.3",
-    "lint-staged": "^10.5.2",
+    "lint-staged": "^10.5.3",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.20",
     "marked": "^1.2.5",
