@@ -16,8 +16,16 @@
             "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
           },
           {
+            "prop": "labelField",
+            "description": "The key to use from the option object to get the label"
+          },
+          {
             "prop": "multiple",
             "description": "When set, allows multiple options to be selected (multi-select)"
+          },
+          {
+            "prop": "optionsField",
+            "description": "The key to use from the option object to get the options"
           },
           {
             "prop": "selectSize",
