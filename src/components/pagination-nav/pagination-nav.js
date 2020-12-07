@@ -1,7 +1,7 @@
 import { Vue } from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
-import { EVENT_NAME_CHANGE } from '../../constants/events'
+import { EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK } from '../../constants/events'
 import {
   PROP_TYPE_ARRAY,
   PROP_TYPE_BOOLEAN,
@@ -22,10 +22,6 @@ import { toString } from '../../utils/string'
 import { warn } from '../../utils/warn'
 import { paginationMixin, props as paginationProps } from '../../mixins/pagination'
 import { props as BLinkProps } from '../link/link'
-
-// --- Constants ---
-
-const EVENT_NAME_PAGE_CLICK = 'page-click'
 
 // --- Helper methods ---
 

@@ -2,7 +2,11 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import { EVENT_OPTIONS_PASSIVE, HOOK_EVENT_NAME_BEFORE_DESTROY } from '../../constants/events'
+import {
+  EVENT_NAME_TAG_STATE,
+  EVENT_OPTIONS_PASSIVE,
+  HOOK_EVENT_NAME_BEFORE_DESTROY
+} from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import {
   PROP_TYPE_ARRAY,
@@ -46,8 +50,6 @@ import { BFormText } from '../form/form-text'
 import { BFormTag } from './form-tag'
 
 // --- Constants ---
-
-const EVENT_NAME_TAG_STATE = 'tag-state'
 
 const {
   mixin: modelMixin,

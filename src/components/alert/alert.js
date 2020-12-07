@@ -1,5 +1,6 @@
 import { COMPONENT_UID_KEY, Vue } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
+import { EVENT_NAME_DISMISSED, EVENT_NAME_DISMISS_COUNT_DOWN } from '../../constants/events'
 import {
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_BOOLEAN_NUMBER_STRING,
@@ -17,9 +18,6 @@ import { BButtonClose } from '../button/button-close'
 import { BVTransition } from '../transition/bv-transition'
 
 // --- Constants ---
-
-const EVENT_NAME_DISMISSED = 'dismissed'
-const EVENT_NAME_DISMISS_COUNT_DOWN = 'dismiss-count-down'
 
 const {
   mixin: modelMixin,

@@ -1,6 +1,6 @@
 import { Vue } from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
-import { EVENT_NAME_CLICK } from '../../constants/events'
+import { EVENT_NAME_CLICK, EVENT_NAME_IMG_ERROR } from '../../constants/events'
 import {
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_BOOLEAN_STRING,
@@ -23,8 +23,6 @@ import { BLink, props as BLinkProps } from '../link/link'
 // --- Constants ---
 
 const CLASS_NAME = 'b-avatar'
-
-const EVENT_NAME_IMG_ERROR = 'img-error'
 
 const SIZES = ['sm', null, 'lg']
 

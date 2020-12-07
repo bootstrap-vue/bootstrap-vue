@@ -1,6 +1,6 @@
 import { Vue } from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
-import { EVENT_NAME_CHANGE } from '../../constants/events'
+import { EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK } from '../../constants/events'
 import { PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { BvEvent } from '../../utils/bv-event.class'
 import { attemptFocus, isVisible } from '../../utils/dom'
@@ -12,8 +12,6 @@ import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { MODEL_PROP_NAME, paginationMixin, props as paginationProps } from '../../mixins/pagination'
 
 // --- Constants ---
-
-const EVENT_NAME_PAGE_CLICK = 'page-click'
 
 const DEFAULT_PER_PAGE = 20
 const DEFAULT_TOTAL_ROWS = 0

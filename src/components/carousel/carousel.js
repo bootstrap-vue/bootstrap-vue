@@ -1,7 +1,13 @@
 import { Vue } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { IS_BROWSER, HAS_POINTER_EVENT_SUPPORT, HAS_TOUCH_SUPPORT } from '../../constants/env'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import {
+  EVENT_NAME_PAUSED,
+  EVENT_NAME_SLIDING_END,
+  EVENT_NAME_SLIDING_START,
+  EVENT_NAME_UNPAUSED,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { CODE_ENTER, CODE_LEFT, CODE_RIGHT, CODE_SPACE } from '../../constants/key-codes'
 import {
   PROP_TYPE_BOOLEAN,
@@ -31,11 +37,6 @@ import { idMixin, props as idProps } from '../../mixins/id'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
 // --- Constants ---
-
-const EVENT_NAME_PAUSED = 'paused'
-const EVENT_NAME_UNPAUSED = 'unpaused'
-const EVENT_NAME_SLIDING_START = 'sliding-start'
-const EVENT_NAME_SLIDING_END = 'sliding-end'
 
 const {
   mixin: modelMixin,
