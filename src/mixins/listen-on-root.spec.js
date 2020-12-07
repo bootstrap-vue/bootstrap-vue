@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import listenOnRootMixin from './listen-on-root'
+import { listenOnRootMixin } from './listen-on-root'
 
 describe('mixins/listen-on-root', () => {
   it('works', async () => {

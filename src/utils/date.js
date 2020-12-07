@@ -1,8 +1,8 @@
 // Date utility functions
 import { CALENDAR_GREGORY } from '../constants/date'
 import { RX_DATE, RX_DATE_SPLIT } from '../constants/regex'
-import identity from './identity'
 import { concat } from './array'
+import { identity } from './identity'
 import { isDate, isString } from './inspect'
 import { toInteger } from './number'
 

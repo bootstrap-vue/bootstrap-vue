@@ -1,88 +1,63 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
-import Vue from '../vue'
-import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../constants/components'
-import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../constants/slot-names'
-import { attemptBlur, attemptFocus } from './dom'
-import { stopEvent } from './events'
-import { omit } from './object'
-import { toString } from './string'
-import dropdownMixin, { commonProps as dropdownProps } from '../mixins/dropdown'
-import formSizeMixin, { props as formSizeProps } from '../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../mixins/form-state'
-import idMixin from '../mixins/id'
-import normalizeSlotMixin from '../mixins/normalize-slot'
-import { props as formControlProps } from '../mixins/form-control'
-import { VBHover } from '../directives/hover/hover'
-import { BIconChevronDown } from '../icons/icons'
+import { Vue } from '../../vue'
+import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../../constants/components'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { attemptBlur, attemptFocus } from '../../utils/dom'
+import { stopEvent } from '../../utils/events'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp } from '../../utils/props'
+import { toString } from '../../utils/string'
+import { dropdownMixin, props as dropdownProps } from '../../mixins/dropdown'
+import { props as formControlProps } from '../../mixins/form-control'
+import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { VBHover } from '../../directives/hover/hover'
+import { BIconChevronDown } from '../../icons/icons'
 
 // --- Props ---
 
-export const props = {
-  ...omit(formControlProps, ['autofocus']),
+export const props = sortKeys({
+  ...idProps,
   ...formSizeProps,
-  ...dropdownProps,
   ...formStateProps,
-  value: {
-    // This is the value placed on the hidden input
-    type: String,
-    default: ''
-  },
-  formattedValue: {
-    // This is the value shown in the label
-    // Defaults back to `value`
-    type: String
-    // default: null
-  },
-  placeholder: {
-    // This is the value placed on the hidden input when no value selected
-    type: String
-    // default: null
-  },
-  labelSelected: {
-    // Value placed in sr-only span inside label when value is present
-    type: String
-    // default: null
-  },
-  readonly: {
-    type: Boolean,
-    default: false
-  },
-  lang: {
-    type: String
-    // default: null
-  },
-  rtl: {
-    // Tri-state prop: `true`, `false` or `null`
-    type: Boolean,
-    // We must explicitly default to `null` here otherwise
-    // Vue coerces `undefined` into Boolean `false`
-    default: null
-  },
-  buttonOnly: {
-    // When true, renders a btn-group wrapper and visually hides the label
-    type: Boolean,
-    default: false
-  },
-  buttonVariant: {
-    // Applicable in button mode only
-    type: String,
-    default: 'secondary'
-  },
-  menuClass: {
-    // Extra classes to apply to the `dropdown-menu` div
-    type: [String, Array, Object]
-    // default: null
-  }
-}
+  ...omit(dropdownProps, ['disabled']),
+  ...omit(formControlProps, ['autofocus']),
+  // When `true`, renders a `btn-group` wrapper and visually hides the label
+  buttonOnly: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Applicable in button mode only
+  buttonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
+  // This is the value shown in the label
+  // Defaults back to `value`
+  formattedValue: makeProp(PROP_TYPE_STRING),
+  // Value placed in `.sr-only` span inside label when value is present
+  labelSelected: makeProp(PROP_TYPE_STRING),
+  lang: makeProp(PROP_TYPE_STRING),
+  // Extra classes to apply to the `dropdown-menu` div
+  menuClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+  // This is the value placed on the hidden input when no value selected
+  placeholder: makeProp(PROP_TYPE_STRING),
+  readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Tri-state prop: `true`, `false` or `null`
+  rtl: makeProp(PROP_TYPE_BOOLEAN, null),
+  value: makeProp(PROP_TYPE_STRING, '')
+})
 
 // --- Main component ---
+
 // @vue/component
 export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_BUTTON_LABEL_CONTROL,
   directives: {
-    BHover: VBHover
+    'b-hover': VBHover
   },
   mixins: [idMixin, formSizeMixin, formStateMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -120,8 +95,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         attemptBlur(this.$refs.toggle)
       }
     },
-    setFocus(evt) {
-      this.hasFocus = evt.type === 'focus'
+    setFocus(event) {
+      this.hasFocus = event.type === 'focus'
     },
     handleHover(hovered) {
       this.isHovered = hovered
@@ -143,21 +118,20 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       isHovered,
       hasFocus,
       labelSelected,
-      buttonVariant
+      buttonVariant,
+      buttonOnly
     } = this
     const value = toString(this.value) || ''
-    const buttonOnly = !!this.buttonOnly
     const invalid = state === false || (required && !value)
 
     const btnScope = { isHovered, hasFocus, state, opened: visible }
     const $button = h(
       'button',
       {
-        ref: 'toggle',
         staticClass: 'btn',
         class: {
           [`btn-${buttonVariant}`]: buttonOnly,
-          [`btn-${size}`]: !!size,
+          [`btn-${size}`]: size,
           'h-auto': !buttonOnly,
           // `dropdown-toggle` is needed for proper
           // corner rounding in button only mode
@@ -180,7 +154,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           keydown: this.toggle, // Handle ENTER, SPACE and DOWN
           '!focus': this.setFocus,
           '!blur': this.setFocus
-        }
+        },
+        ref: 'toggle'
       },
       [
         this.hasNormalizedSlot(SLOT_NAME_BUTTON_CONTENT)
@@ -206,7 +181,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const $menu = h(
       'div',
       {
-        ref: 'menu',
         staticClass: 'dropdown-menu',
         class: [
           this.menuClass,
@@ -224,7 +198,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
         },
         on: {
           keydown: this.onKeydown // Handle ESC
-        }
+        },
+        ref: 'menu'
       },
       [this.normalizeSlot(SLOT_NAME_DEFAULT, { opened: visible })]
     )
@@ -255,8 +230,8 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
           // Disable bubbling of the click event to
           // prevent menu from closing and re-opening
 
-          '!click': /* istanbul ignore next */ evt => {
-            stopEvent(evt, { preventDefault: false })
+          '!click': /* istanbul ignore next */ event => {
+            stopEvent(event, { preventDefault: false })
           }
         }
       },

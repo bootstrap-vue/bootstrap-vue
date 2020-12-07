@@ -1,26 +1,34 @@
-import Vue from '../../../vue'
+import { Vue } from '../../../vue'
 import { NAME_TOOLTIP_TEMPLATE } from '../../../constants/components'
-import scopedStyleAttrsMixin from '../../../mixins/scoped-style-attrs'
-import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import {
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_MOUSEENTER,
+  EVENT_NAME_MOUSELEAVE
+} from '../../../constants/events'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
+import { isFunction } from '../../../utils/inspect'
+import { makeProp } from '../../../utils/props'
+import { scopedStyleMixin } from '../../../mixins/scoped-style'
 import { BVPopper } from './bv-popper'
+
+// --- Props ---
+
+export const props = {
+  // Used only by the directive versions
+  html: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Other non-reactive (while open) props are pulled in from BVPopper
+  id: makeProp(PROP_TYPE_STRING)
+}
+
+// --- Main component ---
 
 // @vue/component
 export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_TEMPLATE,
   extends: BVPopper,
-  mixins: [scopedStyleAttrsMixin],
-  props: {
-    // Other non-reactive (while open) props are pulled in from BVPopper
-    id: {
-      type: String
-      // default: null
-    },
-    html: {
-      // Used only by the directive versions
-      type: Boolean
-      // default: false
-    }
-  },
+  mixins: [scopedStyleMixin],
+  props,
   data() {
     // We use data, rather than props to ensure reactivity
     // Parent component will directly set this data
@@ -37,24 +45,28 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
       return 'tooltip'
     },
     templateClasses() {
+      const { variant, attachment, templateType } = this
+
       return [
         {
           // Disables pointer events to hide the tooltip when the user
           // hovers over its content
           noninteractive: !this.interactive,
-          [`b-${this.templateType}-${this.variant}`]: this.variant,
+          [`b-${templateType}-${variant}`]: variant,
           // `attachment` will come from BVToolpop
-          [`bs-${this.templateType}-${this.attachment}`]: this.attachment
+          [`bs-${templateType}-${attachment}`]: attachment
         },
         this.customClass
       ]
     },
     templateAttributes() {
+      const { id } = this
+
       return {
         // Apply attributes from root tooltip component
         ...this.$parent.$parent.$attrs,
 
-        id: this.id,
+        id,
         role: 'tooltip',
         tabindex: '-1',
 
@@ -65,36 +77,30 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
     templateListeners() {
       // Used for hover/focus trigger listeners
       return {
-        mouseenter /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('mouseenter', evt)
+        mouseenter: /* istanbul ignore next */ event => {
+          this.$emit(EVENT_NAME_MOUSEENTER, event)
         },
-        mouseleave /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('mouseleave', evt)
+        mouseleave: /* istanbul ignore next */ event => {
+          this.$emit(EVENT_NAME_MOUSELEAVE, event)
         },
-        focusin /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('focusin', evt)
+        focusin: /* istanbul ignore next */ event => {
+          this.$emit(EVENT_NAME_FOCUSIN, event)
         },
-        focusout /* istanbul ignore next */: evt => {
-          /* istanbul ignore next: difficult to test in JSDOM */
-          this.$emit('focusout', evt)
+        focusout: /* istanbul ignore next */ event => {
+          this.$emit(EVENT_NAME_FOCUSOUT, event)
         }
       }
     }
   },
   methods: {
     renderTemplate(h) {
+      const { title } = this
+
       // Title can be a scoped slot function
-      const $title = isFunction(this.title)
-        ? this.title({})
-        : isUndefinedOrNull(this.title)
-          ? /* istanbul ignore next */ h()
-          : this.title
+      const $title = isFunction(title) ? title({}) : title
 
       // Directive versions only
-      const domProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
+      const domProps = this.html && !isFunction(title) ? { innerHTML: title } : {}
 
       return h(
         'div',
@@ -105,8 +111,18 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [
-          h('div', { ref: 'arrow', staticClass: 'arrow' }),
-          h('div', { staticClass: 'tooltip-inner', domProps }, [$title])
+          h('div', {
+            staticClass: 'arrow',
+            ref: 'arrow'
+          }),
+          h(
+            'div',
+            {
+              staticClass: 'tooltip-inner',
+              domProps
+            },
+            [$title]
+          )
         ]
       )
     }

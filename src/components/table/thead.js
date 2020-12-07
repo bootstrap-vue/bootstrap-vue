@@ -1,20 +1,23 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_THEAD } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import attrsMixin from '../../mixins/attrs'
-import listenersMixin from '../../mixins/listeners'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { attrsMixin } from '../../mixins/attrs'
+import { listenersMixin } from '../../mixins/listeners'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    headVariant: {
-      // Also sniffed by <b-tr> / <b-td> / <b-th>
-      type: String, // Supported values: 'lite', 'dark', or null
-      default: null
-    }
+    // Also sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Supported values: 'lite', 'dark', or `null`
+    headVariant: makeProp(PROP_TYPE_STRING)
   },
   NAME_THEAD
 )
+
+// --- Main component ---
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
@@ -22,7 +25,6 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BThead = /*#__PURE__*/ Vue.extend({
   name: NAME_THEAD,
-  // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
@@ -30,48 +32,45 @@ export const BThead = /*#__PURE__*/ Vue.extend({
     }
   },
   inject: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     bvTable: {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      /* istanbul ignore next */
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isThead() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isDark() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.dark
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isStacked() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isStacked
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isResponsive() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isResponsive
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
+    // Sticky headers only apply to cells in table `thead`
     isStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
-      // Sticky headers only apply to cells in table `thead`
       return !this.isStacked && this.bvTable.stickyHeader
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
     hasStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
       return !this.isStacked && this.bvTable.stickyHeader
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     tableVariant() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
     theadClasses() {

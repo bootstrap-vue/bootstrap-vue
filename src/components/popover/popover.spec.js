@@ -117,7 +117,7 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // <b-popover> wrapper
     const $tipHolder = wrapper.findComponent(BPopover)
@@ -157,7 +157,7 @@ describe('b-popover', () => {
     expect($button.exists()).toBe(true)
     expect($button.attributes('id')).toBeDefined()
     expect($button.attributes('id')).toEqual('foo')
-    expect($button.attributes('data-original-title')).not.toBeDefined()
+    expect($button.attributes('data-original-title')).toBeUndefined()
     // ID of the tooltip that will be in the body
     const $adb = $button.attributes('aria-describedby')
 
@@ -186,7 +186,7 @@ describe('b-popover', () => {
     await waitRAF()
     jest.runOnlyPendingTimers()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Popover element should not be in the document
     expect(document.body.contains($tip)).toBe(false)

@@ -230,7 +230,7 @@ not validated.
       }
     },
     watch: {
-      tags(newVal, oldVal) {
+      tags(newValue, oldValue) {
         // Set the dirty flag on first change to the tags array
         this.dirty = true
       }

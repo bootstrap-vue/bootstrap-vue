@@ -1,115 +1,85 @@
-import { NAME_TABLE } from '../../../constants/components'
-import identity from '../../../utils/identity'
-import { makePropsConfigurable } from '../../../utils/config'
+import { Vue } from '../../../vue'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_STRING
+} from '../../../constants/props'
+import { identity } from '../../../utils/identity'
 import { isBoolean } from '../../../utils/inspect'
+import { makeProp } from '../../../utils/props'
 import { toString } from '../../../utils/string'
-import attrsMixin from '../../../mixins/attrs'
+import { attrsMixin } from '../../../mixins/attrs'
 
 // Main `<table>` render mixin
 // Includes all main table styling options
 
-export default {
-  // Don't place attributes on root element automatically,
-  // as table could be wrapped in responsive `<div>`
-  inheritAttrs: false,
-  // Mixin order is important!
+// --- Props ---
+
+export const props = {
+  bordered: makeProp(PROP_TYPE_BOOLEAN, false),
+  borderless: makeProp(PROP_TYPE_BOOLEAN, false),
+  captionTop: makeProp(PROP_TYPE_BOOLEAN, false),
+  dark: makeProp(PROP_TYPE_BOOLEAN, false),
+  fixed: makeProp(PROP_TYPE_BOOLEAN, false),
+  hover: makeProp(PROP_TYPE_BOOLEAN, false),
+  noBorderCollapse: makeProp(PROP_TYPE_BOOLEAN, false),
+  outlined: makeProp(PROP_TYPE_BOOLEAN, false),
+  responsive: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+  small: makeProp(PROP_TYPE_BOOLEAN, false),
+  // If a string, it is assumed to be the table `max-height` value
+  stickyHeader: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+  striped: makeProp(PROP_TYPE_BOOLEAN, false),
+  tableClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+  tableVariant: makeProp(PROP_TYPE_STRING)
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const tableRendererMixin = Vue.extend({
   mixins: [attrsMixin],
   provide() {
     return {
       bvTable: this
     }
   },
-  props: makePropsConfigurable(
-    {
-      striped: {
-        type: Boolean,
-        default: false
-      },
-      bordered: {
-        type: Boolean,
-        default: false
-      },
-      borderless: {
-        type: Boolean,
-        default: false
-      },
-      outlined: {
-        type: Boolean,
-        default: false
-      },
-      dark: {
-        type: Boolean,
-        default: false
-      },
-      hover: {
-        type: Boolean,
-        default: false
-      },
-      small: {
-        type: Boolean,
-        default: false
-      },
-      fixed: {
-        type: Boolean,
-        default: false
-      },
-      responsive: {
-        type: [Boolean, String],
-        default: false
-      },
-      stickyHeader: {
-        // If a string, it is assumed to be the table `max-height` value
-        type: [Boolean, String],
-        default: false
-      },
-      noBorderCollapse: {
-        type: Boolean,
-        default: false
-      },
-      captionTop: {
-        type: Boolean,
-        default: false
-      },
-      tableVariant: {
-        type: String
-        // default: null
-      },
-      tableClass: {
-        type: [String, Array, Object]
-        // default: null
-      }
-    },
-    NAME_TABLE
-  ),
+  // Don't place attributes on root element automatically,
+  // as table could be wrapped in responsive `<div>`
+  inheritAttrs: false,
+  props,
   computed: {
     // Layout related computed props
     isResponsive() {
-      const responsive = this.responsive === '' ? true : this.responsive
+      let { responsive } = this
+      responsive = responsive === '' ? true : responsive
       return this.isStacked ? false : responsive
     },
     isStickyHeader() {
-      const stickyHeader = this.stickyHeader === '' ? true : this.stickyHeader
+      let { stickyHeader } = this
+      stickyHeader = stickyHeader === '' ? true : stickyHeader
       return this.isStacked ? false : stickyHeader
     },
     wrapperClasses() {
+      const { isResponsive } = this
       return [
         this.isStickyHeader ? 'b-table-sticky-header' : '',
-        this.isResponsive === true
+        isResponsive === true
           ? 'table-responsive'
-          : this.isResponsive
+          : isResponsive
             ? `table-responsive-${this.responsive}`
             : ''
       ].filter(identity)
     },
     wrapperStyles() {
-      return this.isStickyHeader && !isBoolean(this.isStickyHeader)
-        ? { maxHeight: this.isStickyHeader }
-        : {}
+      const { isStickyHeader } = this
+      return isStickyHeader && !isBoolean(isStickyHeader) ? { maxHeight: isStickyHeader } : {}
     },
     tableClasses() {
-      const hover = this.isTableSimple
-        ? this.hover
-        : this.hover && this.computedItems.length > 0 && !this.computedBusy
+      let { hover, tableVariant } = this
+      hover = this.isTableSimple
+        ? hover
+        : hover && this.computedItems.length > 0 && !this.computedBusy
 
       return [
         // User supplied classes
@@ -128,7 +98,7 @@ export default {
           'b-table-caption-top': this.captionTop,
           'b-table-no-border-collapse': this.noBorderCollapse
         },
-        this.tableVariant ? `${this.dark ? 'bg' : 'table'}-${this.tableVariant}` : '',
+        tableVariant ? `${this.dark ? 'bg' : 'table'}-${tableVariant}` : '',
         // Stacked table classes
         this.stackedTableClasses,
         // Selectable classes
@@ -136,14 +106,18 @@ export default {
       ]
     },
     tableAttrs() {
+      const {
+        computedItems: items,
+        filteredItems,
+        computedFields: fields,
+        selectableTableAttrs
+      } = this
+
       // Preserve user supplied aria-describedby, if provided in `$attrs`
       const adb =
         [(this.bvAttrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') ||
         null
-      const items = this.computedItems
-      const filteredItems = this.filteredItems
-      const fields = this.computedFields
-      const selectableAttrs = this.selectableTableAttrs || {}
+
       const ariaAttrs = this.isTableSimple
         ? {}
         : {
@@ -151,6 +125,7 @@ export default {
             'aria-colcount': toString(fields.length),
             'aria-describedby': adb
           }
+
       const rowCount =
         items && filteredItems && filteredItems.length > items.length
           ? toString(filteredItems.length)
@@ -166,47 +141,63 @@ export default {
         id: this.safeId(),
         role: 'table',
         ...ariaAttrs,
-        ...selectableAttrs
+        ...selectableTableAttrs
       }
     }
   },
   render(h) {
-    const $content = []
+    const {
+      wrapperClasses,
+      renderCaption,
+      renderColgroup,
+      renderThead,
+      renderTbody,
+      renderTfoot
+    } = this
 
+    const $content = []
     if (this.isTableSimple) {
       $content.push(this.normalizeSlot())
     } else {
       // Build the `<caption>` (from caption mixin)
-      $content.push(this.renderCaption ? this.renderCaption() : null)
+      $content.push(renderCaption ? renderCaption() : null)
 
       // Build the `<colgroup>`
-      $content.push(this.renderColgroup ? this.renderColgroup() : null)
+      $content.push(renderColgroup ? renderColgroup() : null)
 
       // Build the `<thead>`
-      $content.push(this.renderThead ? this.renderThead() : null)
+      $content.push(renderThead ? renderThead() : null)
 
       // Build the `<tbody>`
-      $content.push(this.renderTbody ? this.renderTbody() : null)
+      $content.push(renderTbody ? renderTbody() : null)
 
       // Build the `<tfoot>`
-      $content.push(this.renderTfoot ? this.renderTfoot() : null)
+      $content.push(renderTfoot ? renderTfoot() : null)
     }
 
     // Assemble `<table>`
     const $table = h(
       'table',
       {
-        key: 'b-table',
         staticClass: 'table b-table',
         class: this.tableClasses,
-        attrs: this.tableAttrs
+        attrs: this.tableAttrs,
+        key: 'b-table'
       },
       $content.filter(identity)
     )
 
     // Add responsive/sticky wrapper if needed and return table
-    return this.wrapperClasses.length > 0
-      ? h('div', { key: 'wrap', class: this.wrapperClasses, style: this.wrapperStyles }, [$table])
+    return wrapperClasses.length > 0
+      ? h(
+          'div',
+          {
+            class: wrapperClasses,
+            style: this.wrapperStyles,
+            key: 'wrap'
+          },
+          [$table]
+        )
       : $table
   }
-}
+})

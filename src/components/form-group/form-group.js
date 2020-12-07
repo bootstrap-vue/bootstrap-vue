@@ -1,9 +1,20 @@
 import { NAME_FORM_GROUP } from '../../constants/components'
-import { SLOT_NAME_DESCRIPTION, SLOT_NAME_LABEL } from '../../constants/slot-names'
-import cssEscape from '../../utils/css-escape'
-import memoize from '../../utils/memoize'
+import { IS_BROWSER } from '../../constants/env'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import {
+  SLOT_NAME_DESCRIPTION,
+  SLOT_NAME_INVALID_FEEDBACK,
+  SLOT_NAME_LABEL,
+  SLOT_NAME_VALID_FEEDBACK
+} from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
-import { getBreakpointsUpCached, makePropsConfigurable } from '../../utils/config'
+import { getBreakpointsUpCached } from '../../utils/config'
+import { cssEscape } from '../../utils/css-escape'
 import {
   select,
   selectAll,
@@ -13,14 +24,14 @@ import {
   getAttr,
   attemptFocus
 } from '../../utils/dom'
-import { isBrowser } from '../../utils/env'
+import { identity } from '../../utils/identity'
 import { isBoolean } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
-import { keys, create } from '../../utils/object'
-import { upperFirst } from '../../utils/string'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { create, keys, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, suffixPropName } from '../../utils/props'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BCol } from '../layout/col'
 import { BFormRow } from '../layout/form-row'
 import { BFormText } from '../form/form-text'
@@ -35,96 +46,38 @@ const INPUT_SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:no
 // A list of interactive elements (tag names) inside `<b-form-group>`'s legend
 const LEGEND_INTERACTIVE_ELEMENTS = ['input', 'select', 'textarea', 'label', 'button', 'a']
 
-// -- BFormGroup prop factory -- used for lazy generation of props
+// --- Props ---
 
-// Memoize this function to return cached values to
-// save time in computed functions
-const makePropName = memoize((breakpoint = '', prefix = '') => `${prefix}${upperFirst(breakpoint)}`)
-
-// BFormGroup prop generator for lazy generation of props
-const generateProps = () => {
-  const CODE_BREAKPOINTS = getBreakpointsUpCached()
-
-  // Generate the `labelCol` breakpoint props
-  const bpLabelColProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
-    // i.e. 'label-cols', 'label-cols-sm', 'label-cols-md', ...
-    props[makePropName(breakpoint, 'labelCols')] = {
-      type: [Number, String, Boolean],
-      default: breakpoint ? false : null
-    }
-    return props
-  }, create(null))
-
-  // Generate the `labelAlign` breakpoint props
-  const bpLabelAlignProps = CODE_BREAKPOINTS.reduce((props, breakpoint) => {
-    // 'label-align', 'bel-align-sm', 'label-align-md', ...
-    props[makePropName(breakpoint, 'labelAlign')] = {
-      type: String // left, right, center
-      // default: null
-    }
-    return props
-  }, create(null))
-
-  return makePropsConfigurable(
-    {
+// Prop generator for lazy generation of props
+export const generateProps = () =>
+  makePropsConfigurable(
+    sortKeys({
+      ...idProps,
       ...formStateProps,
-      label: {
-        type: String
-        // default: null
-      },
-      labelFor: {
-        type: String
-        // default: null
-      },
-      labelSize: {
-        type: String
-        // default: null
-      },
-      labelSrOnly: {
-        type: Boolean,
-        default: false
-      },
-      // label-cols prop and all label-cols-{bp} props
-      ...bpLabelColProps,
-      // label-align prop and all label-align-{bp} props
-      ...bpLabelAlignProps,
-      labelClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      description: {
-        type: String
-        // default: null
-      },
-      invalidFeedback: {
-        type: String
-        // default: null
-      },
-      validFeedback: {
-        type: String
-        // default: null
-      },
-      tooltip: {
-        // Enable tooltip style feedback
-        type: Boolean,
-        default: false
-      },
-      feedbackAriaLive: {
-        type: String,
-        default: 'assertive'
-      },
-      validated: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
-    },
+      ...getBreakpointsUpCached().reduce((props, breakpoint) => {
+        // i.e. 'label-cols', 'label-cols-sm', 'label-cols-md', ...
+        props[suffixPropName(breakpoint, 'labelCols')] = makeProp(PROP_TYPE_BOOLEAN_NUMBER_STRING)
+        // 'label-align', 'label-align-sm', 'label-align-md', ...
+        props[suffixPropName(breakpoint, 'labelAlign')] = makeProp(PROP_TYPE_STRING)
+        return props
+      }, create(null)),
+      description: makeProp(PROP_TYPE_STRING),
+      disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+      feedbackAriaLive: makeProp(PROP_TYPE_STRING, 'assertive'),
+      invalidFeedback: makeProp(PROP_TYPE_STRING),
+      label: makeProp(PROP_TYPE_STRING),
+      labelClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+      labelFor: makeProp(PROP_TYPE_STRING),
+      labelSize: makeProp(PROP_TYPE_STRING),
+      labelSrOnly: makeProp(PROP_TYPE_BOOLEAN, false),
+      tooltip: makeProp(PROP_TYPE_BOOLEAN, false),
+      validFeedback: makeProp(PROP_TYPE_STRING),
+      validated: makeProp(PROP_TYPE_BOOLEAN, false)
+    }),
     NAME_FORM_GROUP
   )
-}
+
+// --- Main component ---
 
 // We do not use Vue.extend here as that would evaluate the props
 // immediately, which we do not want to happen
@@ -150,21 +103,21 @@ export const BFormGroup = {
       const props = {}
       getBreakpointsUpCached().forEach(breakpoint => {
         // Grab the value if the label column breakpoint prop
-        let propVal = this[makePropName(breakpoint, 'labelCols')]
+        let propValue = this[suffixPropName(breakpoint, 'labelCols')]
         // Handle case where the prop's value is an empty string,
         // which represents `true`
-        propVal = propVal === '' ? true : propVal || false
-        if (!isBoolean(propVal) && propVal !== 'auto') {
+        propValue = propValue === '' ? true : propValue || false
+        if (!isBoolean(propValue) && propValue !== 'auto') {
           // Convert to column size to number
-          propVal = toInteger(propVal, 0)
+          propValue = toInteger(propValue, 0)
           // Ensure column size is greater than `0`
-          propVal = propVal > 0 ? propVal : false
+          propValue = propValue > 0 ? propValue : false
         }
-        if (propVal) {
+        if (propValue) {
           // Add the prop to the list of props to give to `<b-col>`
           // If breakpoint is '' (`labelCols` is `true`), then we use the
           // col prop to make equal width at 'xs'
-          props[breakpoint || (isBoolean(propVal) ? 'col' : 'cols')] = propVal
+          props[breakpoint || (isBoolean(propValue) ? 'col' : 'cols')] = propValue
         }
       })
       return props
@@ -173,9 +126,9 @@ export const BFormGroup = {
       const classes = []
       getBreakpointsUpCached().forEach(breakpoint => {
         // Assemble the label column breakpoint align classes
-        const propVal = this[makePropName(breakpoint, 'labelAlign')] || null
-        if (propVal) {
-          const className = breakpoint ? `text-${breakpoint}-${propVal}` : `text-${propVal}`
+        const propValue = this[suffixPropName(breakpoint, 'labelAlign')] || null
+        if (propValue) {
+          const className = breakpoint ? `text-${breakpoint}-${propValue}` : `text-${propValue}`
           classes.push(className)
         }
       })
@@ -202,13 +155,13 @@ export const BFormGroup = {
     })
   },
   methods: {
-    legendClick(evt) {
+    legendClick(event) {
       // Don't do anything if labelFor is set
       /* istanbul ignore next: clicking a label will focus the input, so no need to test */
       if (this.labelFor) {
         return
       }
-      const { target } = evt
+      const { target } = event
       const tagName = target ? target.tagName : ''
       // If clicked an interactive element inside legend,
       // we just let the default happen
@@ -226,7 +179,7 @@ export const BFormGroup = {
     // Optionally accepts a string of IDs to remove as the second parameter
     // Preserves any `aria-describedby` value(s) user may have on input
     setInputDescribedBy(add, remove) {
-      if (this.labelFor && isBrowser) {
+      if (this.labelFor && IS_BROWSER) {
         // We need to escape `labelFor` since it can be user-provided
         const input = select(`#${cssEscape(this.labelFor)}`, this.$refs.content)
         if (input) {
@@ -239,7 +192,7 @@ export const BFormGroup = {
           ids = ids
             .filter(id => !arrayIncludes(remove, id))
             .concat(add)
-            .filter(Boolean)
+            .filter(identity)
           ids = keys(ids.reduce((memo, id) => ({ ...memo, [id]: true }), {}))
             .join(' ')
             .trim()
@@ -322,7 +275,7 @@ export const BFormGroup = {
     }
 
     let $invalidFeedback = h()
-    const invalidFeedbackContent = normalizeSlot('invalid-feedback') || this.invalidFeedback
+    const invalidFeedbackContent = normalizeSlot(SLOT_NAME_INVALID_FEEDBACK) || this.invalidFeedback
     const invalidFeedbackId = invalidFeedbackContent ? this.safeId('_BV_feedback_invalid_') : null
     if (invalidFeedbackContent) {
       $invalidFeedback = h(
@@ -343,7 +296,7 @@ export const BFormGroup = {
     }
 
     let $validFeedback = h()
-    const validFeedbackContent = normalizeSlot('valid-feedback') || this.validFeedback
+    const validFeedbackContent = normalizeSlot(SLOT_NAME_VALID_FEEDBACK) || this.validFeedback
     const validFeedbackId = validFeedbackContent ? this.safeId('_BV_feedback_valid_') : null
     if (validFeedbackContent) {
       $validFeedback = h(
@@ -382,14 +335,14 @@ export const BFormGroup = {
     const $content = h(
       isHorizontal ? BCol : 'div',
       {
-        ref: 'content',
         // Hide focus ring
         staticClass: 'bv-no-focus-ring',
         attrs: {
           tabindex: isFieldset ? '-1' : null,
           role: isFieldset ? 'group' : null,
           'aria-labelledby': isFieldset ? labelId : null
-        }
+        },
+        ref: 'content'
       },
       [normalizeSlot() || h(), $invalidFeedback, $validFeedback, $description]
     )
@@ -403,7 +356,7 @@ export const BFormGroup = {
       state === false ? invalidFeedbackId : null,
       state === true ? validFeedbackId : null
     ]
-      .filter(Boolean)
+      .filter(identity)
       .join(' ')
 
     // Return it wrapped in a form-group

@@ -4,7 +4,7 @@ import { clone, keys, pick } from '../../../utils/object'
 import { IGNORED_FIELD_KEYS } from './constants'
 
 // Return a copy of a row after all reserved fields have been filtered out
-const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
+export const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
   // We first need to format the row based on the field configurations
   // This ensures that we add formatted values for keys that may not
   // exist in the row itself
@@ -37,5 +37,3 @@ const sanitizeRow = (row, ignoreFields, includeFields, fieldsObj = {}) => {
 
   return pick(formattedRow, allowedKeys)
 }
-
-export default sanitizeRow

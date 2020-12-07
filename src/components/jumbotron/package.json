@@ -17,16 +17,12 @@
             "description": "Applies one of the Bootstrap theme color variants to the border"
           },
           {
-            "prop": "textVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the text"
+            "prop": "containerFluid",
+            "description": "When prop 'fluid' is set, this prop will make the inner container wrapper also fluid in width. Can also be set to one of the Bootstrap breakpoint names"
           },
           {
             "prop": "fluid",
             "description": "Makes the jumbotron full width, and without rounded corners. When set, the inner content will automatically be wrapped into a 'b-container' (fixed width at the various breakpoints)"
-          },
-          {
-            "prop": "containerFluid",
-            "description": "When prop 'fluid' is set, this prop will make the inner container wrapper also fluid in width. Can also be set to one of the Bootstrap breakpoint names"
           },
           {
             "prop": "headerLevel",
@@ -38,21 +34,30 @@
           },
           {
             "prop": "leadHtml",
-            "description": "HTML string to place in the lead paragraph. Use with caution"
+            "description": "HTML string to place in the lead paragraph",
+            "xss": true
           },
           {
             "prop": "leadTag",
             "description": "Specify the HTML tag to render instead of the default tag for the lead paragraph"
+          },
+          {
+            "prop": "textVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the text"
           }
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content to place in the jumbotron"
+          },
+          {
             "name": "header",
-            "description": "Slot for custom header content. Placed inside 'header-tag'"
+            "description": "Slot for custom header content. Placed inside 'header-tag'. Overrides the `header` and `header-html` props"
           },
           {
             "name": "lead",
-            "description": "For custom rendering of lead text content. Placed inside 'lead-tag'"
+            "description": "For custom rendering of lead text content. Placed inside 'lead-tag'. Overrides the `lead` and `lead-html` props"
           }
         ]
       }

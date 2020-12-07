@@ -1,5 +1,14 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
+import { EVENT_NAME_CHANGE } from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_NUMBER,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
 import {
   CODE_DOWN,
   CODE_END,
@@ -8,26 +17,38 @@ import {
   CODE_UP,
   CODE_PAGEDOWN
 } from '../../constants/key-codes'
-import identity from '../../utils/identity'
+import { SLOT_NAME_DECREMENT, SLOT_NAME_INCREMENT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { eventOnOff, stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathFloor, mathMax, mathPow, mathRound } from '../../utils/math'
+import { makeModelMixin } from '../../utils/model'
 import { toFloat, toInteger } from '../../utils/number'
-import { omit } from '../../utils/object'
+import { omit, sortKeys } from '../../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import attrsMixin from '../../mixins/attrs'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { attrsMixin } from '../../mixins/attrs'
+import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { props as formControlProps } from '../../mixins/form-control'
 import { BIconPlus, BIconDash } from '../../icons/icons'
 
 // --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  // Should this really be String, to match native number inputs?
+  type: PROP_TYPE_BOOLEAN_NUMBER
+})
 
 // Default for spin button range and step
 const DEFAULT_MIN = 1
@@ -48,102 +69,46 @@ const KEY_CODES = [CODE_UP, CODE_DOWN, CODE_HOME, CODE_END, CODE_PAGEUP, CODE_PA
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
+    ...modelProps,
     ...omit(formControlProps, ['required', 'autofocus']),
     ...formSizeProps,
     ...formStateProps,
-    value: {
-      // Should this really be String, to match native number inputs?
-      type: Number,
-      default: null
-    },
-    min: {
-      type: [Number, String],
-      default: DEFAULT_MIN
-    },
-    max: {
-      type: [Number, String],
-      default: DEFAULT_MAX
-    },
-    step: {
-      type: [Number, String],
-      default: DEFAULT_STEP
-    },
-    wrap: {
-      type: Boolean,
-      default: false
-    },
-    formatterFn: {
-      type: Function
-      // default: null
-    },
-    placeholder: {
-      type: String
-      // default: null
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    inline: {
-      type: Boolean,
-      default: false
-    },
-    vertical: {
-      type: Boolean,
-      default: false
-    },
-    ariaLabel: {
-      type: String
-      // default: null
-    },
-    ariaControls: {
-      type: String
-      // default: null
-    },
-    labelDecrement: {
-      type: String,
-      default: 'Decrement'
-    },
-    labelIncrement: {
-      type: String,
-      default: 'Increment'
-    },
-    locale: {
-      type: [String, Array]
-      // default: null
-    },
-    repeatDelay: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_DELAY
-    },
-    repeatInterval: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_INTERVAL
-    },
-    repeatThreshold: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_THRESHOLD
-    },
-    repeatStepMultiplier: {
-      type: [Number, String],
-      default: DEFAULT_REPEAT_MULTIPLIER
-    }
-  },
+    ariaControls: makeProp(PROP_TYPE_STRING),
+    ariaLabel: makeProp(PROP_TYPE_STRING),
+    formatterFn: makeProp(PROP_TYPE_FUNCTION),
+    inline: makeProp(PROP_TYPE_BOOLEAN, false),
+    labelDecrement: makeProp(PROP_TYPE_STRING, 'Decrement'),
+    labelIncrement: makeProp(PROP_TYPE_STRING, 'Increment'),
+    locale: makeProp(PROP_TYPE_ARRAY_STRING),
+    max: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_MAX),
+    min: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_MIN),
+    placeholder: makeProp(PROP_TYPE_STRING),
+    readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+    repeatDelay: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_REPEAT_DELAY),
+    repeatInterval: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_REPEAT_INTERVAL),
+    repeatStepMultiplier: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_REPEAT_MULTIPLIER),
+    repeatThreshold: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_REPEAT_THRESHOLD),
+    step: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_STEP),
+    vertical: makeProp(PROP_TYPE_BOOLEAN, false),
+    wrap: makeProp(PROP_TYPE_BOOLEAN, false)
+  }),
   NAME_FORM_SPINBUTTON
 )
 
-// --- BFormSpinbutton ---
+// --- Main Component ---
+
 // @vue/component
 export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, idMixin, modelMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props,
   data() {
     return {
-      localValue: toFloat(this.value, null),
+      localValue: toFloat(this[MODEL_PROP_NAME], null),
       hasFocus: false
     }
   },
@@ -223,9 +188,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     computedFormatter() {
       const { formatterFn } = this
-      return formatterFn.name !== props.formatterFn.default.name
-        ? formatterFn
-        : this.defaultFormatter
+      return hasPropFunction(formatterFn) ? formatterFn : this.defaultFormatter
     },
     computedAttrs() {
       return {
@@ -270,11 +233,11 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(value) {
+    [MODEL_PROP_NAME](value) {
       this.localValue = toFloat(value, null)
     },
     localValue(value) {
-      this.$emit('input', value)
+      this.$emit(MODEL_EVENT_NAME, value)
     },
     disabled(disabled) {
       if (disabled) {
@@ -314,7 +277,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     },
     // --- Private methods ---
     emitChange() {
-      this.$emit('change', this.localValue)
+      this.$emit(EVENT_NAME_CHANGE, this.localValue)
     },
     stepValue(direction) {
       // Sets a new incremented or decremented value, supporting optional wrapping
@@ -335,9 +298,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           value > max ? (wrap ? min : max) : value < min ? (wrap ? max : min) : value
       }
     },
-    onFocusBlur(evt) {
+    onFocusBlur(event) {
       if (!this.disabled) {
-        this.hasFocus = evt.type === 'focus'
+        this.hasFocus = event.type === 'focus'
       } else {
         this.hasFocus = false
       }
@@ -358,15 +321,15 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         this.stepValue(-1 * multiplier)
       }
     },
-    onKeydown(evt) {
-      const { keyCode, altKey, ctrlKey, metaKey } = evt
+    onKeydown(event) {
+      const { keyCode, altKey, ctrlKey, metaKey } = event
       /* istanbul ignore if */
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes(KEY_CODES, keyCode)) {
         // https://w3c.github.io/aria-practices/#spinbutton
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         /* istanbul ignore if */
         if (this.$_keyIsDown) {
           // Keypress is already in progress
@@ -377,9 +340,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           // The following use the custom auto-repeat handling
           this.$_keyIsDown = true
           if (keyCode === CODE_UP) {
-            this.handleStepRepeat(evt, this.stepUp)
+            this.handleStepRepeat(event, this.stepUp)
           } else if (keyCode === CODE_DOWN) {
-            this.handleStepRepeat(evt, this.stepDown)
+            this.handleStepRepeat(event, this.stepDown)
           }
         } else {
           // These use native OS key repeating
@@ -395,22 +358,22 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    onKeyup(evt) {
+    onKeyup(event) {
       // Emit a change event when the keyup happens
-      const { keyCode, altKey, ctrlKey, metaKey } = evt
+      const { keyCode, altKey, ctrlKey, metaKey } = event
       /* istanbul ignore if */
       if (this.disabled || this.readonly || altKey || ctrlKey || metaKey) {
         return
       }
       if (arrayIncludes(KEY_CODES, keyCode)) {
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         this.resetTimers()
         this.$_keyIsDown = false
         this.emitChange()
       }
     },
-    handleStepRepeat(evt, stepper) {
-      const { type, button } = evt || {}
+    handleStepRepeat(event, stepper) {
+      const { type, button } = event || {}
       if (!this.disabled && !this.readonly) {
         /* istanbul ignore if */
         if (type === 'mousedown' && button) {
@@ -438,15 +401,15 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         }, delay)
       }
     },
-    onMouseup(evt) {
+    onMouseup(event) {
       // `<body>` listener, only enabled when mousedown starts
-      const { type, button } = evt || {}
+      const { type, button } = event || {}
       /* istanbul ignore if */
       if (type === 'mouseup' && button) {
         // Ignore non left button (main === 0) mouse button click
         return
       }
-      stopEvent(evt, { propagation: false })
+      stopEvent(event, { propagation: false })
       this.resetTimers()
       this.setMouseup(false)
       // Trigger the change event
@@ -490,20 +453,18 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true' }
       })
       const scope = { hasFocus: this.hasFocus }
-      const handler = evt => {
+      const handler = event => {
         if (!disabled && !readonly) {
-          stopEvent(evt, { propagation: false })
+          stopEvent(event, { propagation: false })
           this.setMouseup(true)
           // Since we `preventDefault()`, we must manually focus the button
-          attemptFocus(evt.currentTarget)
-          this.handleStepRepeat(evt, stepper)
+          attemptFocus(event.currentTarget)
+          this.handleStepRepeat(event, stepper)
         }
       }
       return h(
         'button',
         {
-          key: keyRef || null,
-          ref: keyRef,
           staticClass: 'btn btn-sm border-0 rounded-0',
           class: { 'py-0': !vertical },
           attrs: {
@@ -518,7 +479,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           on: {
             mousedown: handler,
             touchstart: handler
-          }
+          },
+          key: keyRef || null,
+          ref: keyRef
         },
         [this.normalizeSlot(slotName, scope) || $icon]
       )
@@ -531,7 +494,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'inc',
       'ArrowUp',
       false,
-      'increment'
+      SLOT_NAME_INCREMENT
     )
     const $decrement = makeButton(
       this.stepDown,
@@ -540,20 +503,20 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       'dec',
       'ArrowDown',
       false,
-      'decrement'
+      SLOT_NAME_DECREMENT
     )
 
     let $hidden = h()
     if (this.name && !disabled) {
       $hidden = h('input', {
-        key: 'hidden',
         attrs: {
           type: 'hidden',
           name: this.name,
           form: this.form || null,
           // TODO: Should this be set to '' if value is out of range?
           value: this.valueAsFixed
-        }
+        },
+        key: 'hidden'
       })
     }
 
@@ -561,8 +524,6 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       // We use 'output' element to make this accept a `<label for="id">` (Except IE)
       'output',
       {
-        ref: 'spinner',
-        key: 'output',
         staticClass: 'flex-grow-1',
         class: {
           'd-flex': vertical,
@@ -573,7 +534,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
           'border-left': !vertical,
           'border-right': !vertical
         },
-        attrs: this.computedSpinAttrs
+        attrs: this.computedSpinAttrs,
+        key: 'output',
+        ref: 'spinner'
       },
       [h('bdi', hasValue ? computedFormatter(value) : this.placeholder || '')]
     )

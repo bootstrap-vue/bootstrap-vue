@@ -1,9 +1,7 @@
-import Vue from '../vue'
+import { Vue } from '../vue'
 import { DEFAULT_BREAKPOINT, PROP_NAME } from '../constants/config'
-import cloneDeep from './clone-deep'
-import memoize from './memoize'
-import { isFunction } from './inspect'
-import { keys } from './object'
+import { cloneDeep } from './clone-deep'
+import { memoize } from './memoize'
 
 // --- Constants ---
 
@@ -72,25 +70,3 @@ export const getBreakpointsDownCached = () => {
   breakpoints[breakpoints.length - 1] = ''
   return breakpoints
 }
-
-// Make a props object configurable by global configuration
-// Replaces the current `default` key of each prop with a `getComponentConfig()`
-// call that falls back to the current default value of the prop
-export const makePropsConfigurable = (props, componentKey) =>
-  keys(props).reduce((result, prop) => {
-    const currentProp = props[prop]
-    const defaultValue = currentProp.default
-
-    result[prop] = {
-      ...cloneDeep(currentProp),
-      default() {
-        return getComponentConfig(
-          componentKey,
-          prop,
-          isFunction(defaultValue) ? defaultValue() : defaultValue
-        )
-      }
-    }
-
-    return result
-  }, {})

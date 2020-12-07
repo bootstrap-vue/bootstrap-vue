@@ -3,80 +3,80 @@ import { BvModalEvent } from './bv-modal-event.class'
 
 describe('modal > BvModalEvent', () => {
   it('works', async () => {
-    const evt = new BvModalEvent('foobar')
-    expect(evt).toBeInstanceOf(BvModalEvent)
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
+    const event = new BvModalEvent('foobar')
+    expect(event).toBeInstanceOf(BvModalEvent)
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
   })
 
   it('throws exception if no type given', async () => {
-    let evt = null
+    let event = null
     let failed = false
     try {
-      evt = new BvModalEvent()
+      event = new BvModalEvent()
     } catch (e) {
       failed = true
     }
-    expect(evt).not.toBeInstanceOf(BvModalEvent)
-    expect(evt).not.toBeInstanceOf(BvEvent)
-    expect(evt).toBe(null)
+    expect(event).not.toBeInstanceOf(BvModalEvent)
+    expect(event).not.toBeInstanceOf(BvEvent)
+    expect(event).toBe(null)
     expect(failed).toBe(true)
   })
 
-  it('supports cancelable events via evt.preventDefault()', async () => {
-    const evt = new BvModalEvent('foobar', {
+  it('supports cancelable events via event.preventDefault()', async () => {
+    const event = new BvModalEvent('foobar', {
       cancelable: true
     })
-    expect(evt).toBeInstanceOf(BvModalEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.defaultPrevented).toBe(false)
-    evt.preventDefault()
-    expect(evt.defaultPrevented).toBe(true)
+    expect(event).toBeInstanceOf(BvModalEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.defaultPrevented).toBe(false)
+    event.preventDefault()
+    expect(event.defaultPrevented).toBe(true)
   })
 
   it('supports non cancelable events', async () => {
-    const evt = new BvModalEvent('foobar', {
+    const event = new BvModalEvent('foobar', {
       cancelable: false
     })
-    expect(evt).toBeInstanceOf(BvModalEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(false)
-    expect(evt.defaultPrevented).toBe(false)
-    evt.preventDefault()
-    expect(evt.defaultPrevented).toBe(false)
+    expect(event).toBeInstanceOf(BvModalEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(false)
+    expect(event.defaultPrevented).toBe(false)
+    event.preventDefault()
+    expect(event.defaultPrevented).toBe(false)
   })
 
   it('supports built in properties', async () => {
-    const evt = new BvModalEvent('foobar', {
+    const event = new BvModalEvent('foobar', {
       target: 'baz',
       trigger: 'ok',
       componentId: 'foo'
     })
-    expect(evt).toBeInstanceOf(BvModalEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.target).toBe('baz')
-    expect(evt.trigger).toBe('ok')
-    expect(evt.componentId).toBe('foo')
+    expect(event).toBeInstanceOf(BvModalEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.target).toBe('baz')
+    expect(event.trigger).toBe('ok')
+    expect(event.componentId).toBe('foo')
 
     let failed = false
     try {
-      evt.trigger = 'foobar'
+      event.trigger = 'foobar'
     } catch (e) {
       failed = true
     }
     expect(failed).toBe(true)
-    expect(evt.trigger).toBe('ok')
+    expect(event.trigger).toBe('ok')
   })
 
   it('supports custom properties', async () => {
-    const evt = new BvEvent('foobar', {
+    const event = new BvEvent('foobar', {
       custom: 123
     })
-    expect(evt).toBeInstanceOf(BvEvent)
-    expect(evt.type).toBe('foobar')
-    expect(evt.cancelable).toBe(true)
-    expect(evt.custom).toBe(123)
+    expect(event).toBeInstanceOf(BvEvent)
+    expect(event.type).toBe('foobar')
+    expect(event.cancelable).toBe(true)
+    expect(event.custom).toBe(123)
   })
 })

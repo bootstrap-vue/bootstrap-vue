@@ -1,7 +1,7 @@
-import get from '../../../utils/get'
-import stringifyObjectValues from '../../../utils/stringify-object-values'
+import { get } from '../../../utils/get'
 import { isDate, isFunction, isNumber, isNumeric, isUndefinedOrNull } from '../../../utils/inspect'
 import { toFloat } from '../../../utils/number'
+import { stringifyObjectValues } from '../../../utils/stringify-object-values'
 
 const normalizeValue = value => {
   if (isUndefinedOrNull(value)) {
@@ -22,7 +22,7 @@ const normalizeValue = value => {
 //   or an array of arrays `[ ['foo','asc'], ['bar','desc'] ]`
 //   Multisort will most likely be handled in `mixin-sort.js` by
 //   calling this method for each sortBy
-const defaultSortCompare = (
+export const defaultSortCompare = (
   a,
   b,
   { sortBy = null, formatter = null, locale = undefined, localeOptions = {}, nullLast = false } = {}
@@ -58,5 +58,3 @@ const defaultSortCompare = (
   // Do localized string comparison
   return stringifyObjectValues(aa).localeCompare(stringifyObjectValues(bb), locale, localeOptions)
 }
-
-export default defaultSortCompare

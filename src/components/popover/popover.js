@@ -1,58 +1,33 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { HTMLElement } from '../../utils/safe-types'
-import { BTooltip } from '../tooltip/tooltip'
+import { EVENT_NAME_CLICK } from '../../constants/events'
+import { PROP_TYPE_ARRAY_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_TITLE } from '../../constants/slots'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { BTooltip, props as BTooltipProps } from '../tooltip/tooltip'
 import { BVPopover } from './helpers/bv-popover'
+import { sortKeys } from '../../utils/object'
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...BTooltipProps,
+    content: makeProp(PROP_TYPE_STRING),
+    placement: makeProp(PROP_TYPE_STRING, 'right'),
+    triggers: makeProp(PROP_TYPE_ARRAY_STRING, EVENT_NAME_CLICK)
+  }),
+  NAME_POPOVER
+)
+
+// --- Main component ---
+
+// @vue/component
 export const BPopover = /*#__PURE__*/ Vue.extend({
   name: NAME_POPOVER,
   extends: BTooltip,
   inheritAttrs: false,
-  props: makePropsConfigurable(
-    {
-      title: {
-        type: String
-        // default: undefined
-      },
-      content: {
-        type: String
-        // default: undefined
-      },
-      triggers: {
-        type: [String, Array],
-        default: 'click'
-      },
-      placement: {
-        type: String,
-        default: 'right'
-      },
-      variant: {
-        type: String,
-        default: undefined
-      },
-      customClass: {
-        type: String,
-        default: undefined
-      },
-      delay: {
-        type: [Number, Object, String],
-        default: 50
-      },
-      boundary: {
-        // String: scrollParent, window, or viewport
-        // Element: element reference
-        // Object: Vue component
-        type: [String, HTMLElement, Object],
-        default: 'scrollParent'
-      },
-      boundaryPadding: {
-        type: [Number, String],
-        default: 5
-      }
-    },
-    NAME_POPOVER
-  ),
+  props,
   methods: {
     getComponent() {
       // Overridden by BPopover
@@ -63,8 +38,8 @@ export const BPopover = /*#__PURE__*/ Vue.extend({
       // Popover: Default slot is `content`, `title` slot is title
       // We pass a scoped slot function references by default (Vue v2.6x)
       // And pass the title prop as a fallback
-      this.setContent(this.$scopedSlots.default || this.content)
-      this.setTitle(this.$scopedSlots.title || this.title)
+      this.setContent(this.normalizeSlot() || this.content)
+      this.setTitle(this.normalizeSlot(SLOT_NAME_TITLE) || this.title)
     }
   }
   // Render function provided by BTooltip

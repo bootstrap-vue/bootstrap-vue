@@ -1,62 +1,61 @@
-import { SLOT_NAME_FIRST } from '../constants/slot-names'
-import looseEqual from '../utils/loose-equal'
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_BOOLEAN_STRING, PROP_TYPE_STRING } from '../constants/props'
+import { SLOT_NAME_FIRST } from '../constants/slots'
 import { htmlOrText } from '../utils/html'
+import { looseEqual } from '../utils/loose-equal'
+import { makeModelMixin } from '../utils/model'
+import { sortKeys } from '../utils/object'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
-import formControlMixin, { props as formControlProps } from './form-control'
-import formCustomMixin, { props as formCustomProps } from './form-custom'
-import formOptionsMixin, { props as formOptionsProps } from './form-options'
-import formSizeMixin, { props as formSizeProps } from './form-size'
-import formStateMixin, { props as formStateProps } from './form-state'
-import idMixin from './id'
-import normalizeSlotMixin from './normalize-slot'
+import { formControlMixin, props as formControlProps } from './form-control'
+import { formCustomMixin, props as formCustomProps } from './form-custom'
+import { formOptionsMixin, props as formOptionsProps } from './form-options'
+import { formSizeMixin, props as formSizeProps } from './form-size'
+import { formStateMixin, props as formStateProps } from './form-state'
+import { idMixin, props as idProps } from './id'
+import { normalizeSlotMixin } from './normalize-slot'
+
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('checked')
+
+export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
+    ...modelProps,
     ...formControlProps,
     ...formOptionsProps,
     ...formSizeProps,
     ...formStateProps,
     ...formCustomProps,
-    checked: {
-      // type: [Boolean, Number, Object, String]
-      default: null
-    },
-    validated: {
-      type: Boolean,
-      default: false
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    stacked: {
-      type: Boolean,
-      default: false
-    },
-    buttons: {
-      // Render as button style
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Only applicable when rendered with button style
-      type: String
-      // default: null
-    }
-  },
+    ariaInvalid: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    // Only applicable when rendered with button style
+    buttonVariant: makeProp(PROP_TYPE_STRING),
+    // Render as button style
+    buttons: makeProp(PROP_TYPE_BOOLEAN, false),
+    stacked: makeProp(PROP_TYPE_BOOLEAN, false),
+    validated: makeProp(PROP_TYPE_BOOLEAN, false)
+  }),
   'formRadioCheckGroups'
 )
 
 // --- Mixin ---
 
 // @vue/component
-export default {
+export const formRadioCheckGroupMixin = Vue.extend({
   mixins: [
     idMixin,
+    modelMixin,
     normalizeSlotMixin,
     formControlMixin,
     formOptionsMixin,
@@ -64,14 +63,10 @@ export default {
     formStateMixin,
     formCustomMixin
   ],
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
   props,
   data() {
     return {
-      localChecked: this.checked
+      localChecked: this[MODEL_PROP_NAME]
     }
   },
   computed: {
@@ -94,7 +89,7 @@ export default {
           {
             'btn-group': inline,
             'btn-group-vertical': !inline,
-            [`btn-group-${size}`]: !!size
+            [`btn-group-${size}`]: size
           }
         ]
       }
@@ -103,14 +98,14 @@ export default {
     }
   },
   watch: {
-    checked(newValue) {
+    [MODEL_PROP_NAME](newValue) {
       if (!looseEqual(newValue, this.localChecked)) {
         this.localChecked = newValue
       }
     },
     localChecked(newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        this.$emit('input', newValue)
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
     }
   },
@@ -156,4 +151,4 @@ export default {
       [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot()]
     )
   }
-}
+})

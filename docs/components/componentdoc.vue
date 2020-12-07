@@ -305,6 +305,8 @@ import commonProps from '../common-props.json'
 import { getComponentName, getCleanComponentName, kebabCase } from '../utils'
 import AnchoredHeading from './anchored-heading'
 
+const SORT_THRESHOLD = 10
+
 export default {
   name: 'BVComponentdoc',
   components: { AnchoredHeading },
@@ -393,34 +395,36 @@ export default {
       }, {})
     },
     propsFields() {
-      const sortable = this.propsItems.length >= 10
+      const sortable = this.propsItems.length >= SORT_THRESHOLD
       const hasDescriptions = this.propsItems.some(p => p.description)
       return [
         { key: 'prop', label: 'Property', sortable },
-        { key: 'type', label: 'Type' },
+        { key: 'type', label: 'Type', sortable },
         { key: 'defaultValue', label: 'Default' },
         ...(hasDescriptions ? [{ key: 'description', label: 'Description' }] : [])
       ]
     },
     eventsFields() {
+      const sortable = this.events.length >= SORT_THRESHOLD
       return [
-        { key: 'event', label: 'Event' },
+        { key: 'event', label: 'Event', sortable },
         { key: 'args', label: 'Arguments' },
         { key: 'description', label: 'Description' }
       ]
     },
     rootEventListenersFields() {
+      const sortable = this.rootEventListeners.length >= SORT_THRESHOLD
       return [
-        { key: 'event', label: 'Event' },
+        { key: 'event', label: 'Event', sortable },
         { key: 'args', label: 'Arguments' },
         { key: 'description', label: 'Description' }
       ]
     },
     slotsFields() {
-      const sortable = this.slotsItems.length >= 10
+      const sortable = this.slots.length >= SORT_THRESHOLD
       const hasScopedSlots = this.slots.some(s => s.scope)
       return [
-        { key: 'name', label: 'Slot Name', sortable },
+        { key: 'name', label: 'Name', sortable },
         ...(hasScopedSlots ? [{ key: 'scope', label: 'Scoped' }] : []),
         { key: 'description', label: 'Description' }
       ]
@@ -429,50 +433,52 @@ export default {
       const props = this.componentProps
       const propsMetaObj = this.componentPropsMetaObj
 
-      return Object.keys(props).map(prop => {
-        const p = props[prop]
-        const meta = {
-          // Fallback descriptions for common props
-          ...(commonProps[prop] || {}),
-          ...(propsMetaObj[prop] || {})
-        }
+      return Object.keys(props)
+        .sort()
+        .map(prop => {
+          const p = props[prop]
+          const meta = {
+            // Fallback descriptions for common props
+            ...(commonProps[prop] || {}),
+            ...(propsMetaObj[prop] || {})
+          }
 
-        // Describe type
-        let type = p.type
-        let types = []
-        if (Array.isArray(type)) {
-          types = type.map(type => type.name)
-        } else {
-          types = type && type.name ? [type.name] : ['Any']
-        }
-        type = types
-          .map(type => `<code class="notranslate" translate="no">${type}</code>`)
-          .join(' or ')
+          // Describe type
+          let type = p.type
+          let types = []
+          if (Array.isArray(type)) {
+            types = type.map(type => type.name)
+          } else {
+            types = type && type.name ? [type.name] : ['Any']
+          }
+          type = types
+            .map(type => `<code class="notranslate" translate="no">${type}</code>`)
+            .join(' or ')
 
-        // Default value
-        let defaultValue = p.default
-        if (defaultValue instanceof Function && !Array.isArray(defaultValue)) {
-          defaultValue = defaultValue()
-        }
-        defaultValue =
-          typeof defaultValue === 'undefined'
-            ? ''
-            : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
+          // Default value
+          let defaultValue = p.default
+          if (defaultValue instanceof Function && !Array.isArray(defaultValue)) {
+            defaultValue = defaultValue()
+          }
+          defaultValue =
+            typeof defaultValue === 'undefined'
+              ? ''
+              : String(JSON.stringify(defaultValue, undefined, 1)).replace(/"/g, "'")
 
-        return {
-          prop: kebabCase(prop),
-          type,
-          defaultValue,
-          required: p.required || false,
-          description: meta.description || '',
-          version: meta.version || '',
-          xss: /[a-z]Html$/.test(prop),
-          isVModel: this.componentVModel && this.componentVModel.prop === prop,
-          deprecated: p.deprecated || false,
-          deprecation: p.deprecation || false,
-          _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
-        }
-      })
+          return {
+            prop: kebabCase(prop),
+            type,
+            defaultValue,
+            required: p.required || false,
+            description: meta.description || '',
+            version: meta.version || '',
+            xss: meta.xss || false,
+            isVModel: this.componentVModel && this.componentVModel.prop === prop,
+            deprecated: p.deprecated || false,
+            deprecation: p.deprecation || false,
+            _showDetails: typeof p.deprecated === 'string' || typeof p.deprecation === 'string'
+          }
+        })
     },
     slotsItems() {
       // We use object spread here so that `_showDetails` doesn't

@@ -21,8 +21,8 @@ describe('form', () => {
 
     expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
-    expect(wrapper.attributes('id')).not.toBeDefined()
-    expect(wrapper.attributes('novalidate')).not.toBeDefined()
+    expect(wrapper.attributes('id')).toBeUndefined()
+    expect(wrapper.attributes('novalidate')).toBeUndefined()
     expect(wrapper.text()).toEqual('foobar')
 
     wrapper.destroy()
@@ -38,8 +38,8 @@ describe('form', () => {
     expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes()).toContain('form-inline')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('id')).not.toBeDefined()
-    expect(wrapper.attributes('novalidate')).not.toBeDefined()
+    expect(wrapper.attributes('id')).toBeUndefined()
+    expect(wrapper.attributes('novalidate')).toBeUndefined()
     expect(wrapper.text()).toEqual('')
 
     wrapper.destroy()
@@ -55,8 +55,8 @@ describe('form', () => {
     expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes()).toContain('was-validated')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.attributes('id')).not.toBeDefined()
-    expect(wrapper.attributes('novalidate')).not.toBeDefined()
+    expect(wrapper.attributes('id')).toBeUndefined()
+    expect(wrapper.attributes('novalidate')).toBeUndefined()
     expect(wrapper.text()).toEqual('')
 
     wrapper.destroy()
@@ -73,7 +73,7 @@ describe('form', () => {
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.attributes('id')).toBeDefined()
     expect(wrapper.attributes('id')).toEqual('foo')
-    expect(wrapper.attributes('novalidate')).not.toBeDefined()
+    expect(wrapper.attributes('novalidate')).toBeUndefined()
     expect(wrapper.text()).toEqual('')
 
     wrapper.destroy()
@@ -88,7 +88,7 @@ describe('form', () => {
 
     expect(wrapper.element.tagName).toBe('FORM')
     expect(wrapper.classes().length).toBe(0)
-    expect(wrapper.attributes('id')).not.toBeDefined()
+    expect(wrapper.attributes('id')).toBeUndefined()
     expect(wrapper.attributes('novalidate')).toBeDefined()
     expect(wrapper.text()).toEqual('')
 

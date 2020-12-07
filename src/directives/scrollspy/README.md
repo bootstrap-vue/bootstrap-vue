@@ -70,9 +70,9 @@ as well.
     methods: {
       // Convenience method to scroll a heading into view.
       // Not required for scrollspy to work
-      scrollIntoView(evt) {
-        evt.preventDefault()
-        const href = evt.target.getAttribute('href')
+      scrollIntoView(event) {
+        event.preventDefault()
+        const href = event.target.getAttribute('href')
         const el = href ? document.querySelector(href) : null
         if (el) {
           this.$refs.content.scrollTop = el.offsetTop

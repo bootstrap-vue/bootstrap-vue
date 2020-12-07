@@ -1,12 +1,33 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_PROGRESS_BAR } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
 import { isBoolean } from '../../utils/inspect'
 import { mathMax, mathPow } from '../../utils/math'
 import { toFixed, toFloat, toInteger } from '../../utils/number'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    animated: makeProp(PROP_TYPE_BOOLEAN, null),
+    label: makeProp(PROP_TYPE_STRING),
+    labelHtml: makeProp(PROP_TYPE_STRING),
+    max: makeProp(PROP_TYPE_NUMBER_STRING, null),
+    precision: makeProp(PROP_TYPE_NUMBER_STRING, null),
+    showProgress: makeProp(PROP_TYPE_BOOLEAN, null),
+    showValue: makeProp(PROP_TYPE_BOOLEAN, null),
+    striped: makeProp(PROP_TYPE_BOOLEAN, null),
+    value: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    variant: makeProp(PROP_TYPE_STRING)
+  },
+  NAME_PROGRESS_BAR
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BProgressBar = /*#__PURE__*/ Vue.extend({
@@ -14,63 +35,17 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
   mixins: [normalizeSlotMixin],
   inject: {
     bvProgress: {
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
-  props: makePropsConfigurable(
-    {
-      value: {
-        type: [Number, String],
-        default: 0
-      },
-      label: {
-        type: String
-        // default: null
-      },
-      labelHtml: {
-        type: String
-      },
-      // $parent (this.bvProgress) prop values may take precedence over the following props
-      // Which is why they are defaulted to null
-      max: {
-        type: [Number, String],
-        default: null
-      },
-      precision: {
-        type: [Number, String],
-        default: null
-      },
-      variant: {
-        type: String
-        // default: undefined
-      },
-      striped: {
-        type: Boolean,
-        default: null
-      },
-      animated: {
-        type: Boolean,
-        default: null
-      },
-      showProgress: {
-        type: Boolean,
-        default: null
-      },
-      showValue: {
-        type: Boolean,
-        default: null
-      }
-    },
-    NAME_PROGRESS_BAR
-  ),
+  props,
   computed: {
     progressBarClasses() {
+      const { computedAnimated, computedVariant } = this
       return [
-        this.computedVariant ? `bg-${this.computedVariant}` : '',
-        this.computedStriped || this.computedAnimated ? 'progress-bar-striped' : '',
-        this.computedAnimated ? 'progress-bar-animated' : ''
+        computedVariant ? `bg-${computedVariant}` : '',
+        this.computedStriped || computedAnimated ? 'progress-bar-striped' : '',
+        computedAnimated ? 'progress-bar-animated' : ''
       ]
     },
     progressBarStyles() {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Popover",
-    "description": "The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive",
+    "description": "The Popover feature provides a tooltip-like behavior, can be easily applied to any interactive element via the <b-popover> component or v-b-popover directive.",
     "plugins": [
       "VBPopoverPlugin"
     ],
@@ -12,32 +12,20 @@
         "component": "BPopover",
         "props": [
           {
-            "prop": "target",
-            "description": "Element string ID, or a reference to an element or component, that you want to trigger the popover."
+            "prop": "boundary",
+            "description": "The boundary constraint of the popover: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement or component"
           },
           {
-            "prop": "title",
-            "description": "Text to place in the popovers title"
+            "prop": "boundaryPadding",
+            "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specified"
+          },
+          {
+            "prop": "container",
+            "description": "The container element to append the rendered popover when visible. Default's to the body element"
           },
           {
             "prop": "content",
             "description": "Text to place in the body of the popover"
-          },
-          {
-            "prop": "triggers",
-            "description": "Specify which triggers will show the popover. Supported values are 'click', 'hover', 'focus'. Refer to the docs for special triggers 'blur' and 'manual'"
-          },
-          {
-            "prop": "placement",
-            "description": "Placement of the popover: One of 'top', 'bottom', 'right', 'left', 'topleft', 'topright', 'bottomleft', 'bottomright', 'lefttop', 'leftbottom', 'righttop', 'rightbottom'"
-          },
-          {
-            "prop": "fallbackPlacement",
-            "description": "placement to use when the popover would be out of boundaries. Refer to the docs for more details"
-          },
-          {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
           },
           {
             "prop": "customClass",
@@ -48,134 +36,47 @@
             "description": "Value for the show and hide delay. Applies to both show and hide when specified as a number or string. Use object form to set show and hide delays individually"
           },
           {
-            "prop": "boundary",
-            "description": "The boundary constraint of the popover: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement or component"
-          },
-          {
-            "prop": "boundaryPadding",
-            "description": "The popover will try and stay away from the edge of the boundary element by the number of pixels specified"
+            "prop": "fallbackPlacement",
+            "description": "Placement to use when the popover would be out of boundaries. Refer to the docs for more details"
           },
           {
             "prop": "offset",
             "description": "Offset (in pixels) for the arrow center compared to the trigger target element"
           },
           {
-            "prop": "container",
-            "description": "The container element to append the rendered popover when visible. Default's to the body element"
+            "prop": "placement",
+            "description": "Placement of the popover: One of 'top', 'bottom', 'right', 'left', 'topleft', 'topright', 'bottomleft', 'bottomright', 'lefttop', 'leftbottom', 'righttop', 'rightbottom'"
           },
           {
             "prop": "show",
             "description": "When set will show the popover"
+          },
+          {
+            "prop": "target",
+            "description": "Element string ID, or a reference to an element or component, that you want to trigger the popover"
+          },
+          {
+            "prop": "title",
+            "description": "Text to place in the popovers title"
+          },
+          {
+            "prop": "triggers",
+            "description": "Specify which triggers will show the popover. Supported values are 'click', 'hover', 'focus'. Refer to the docs for special triggers 'blur' and 'manual'"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
           }
         ],
         "events": [
           {
-            "event": "show",
-            "description": "Emitted when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show.",
+            "event": "bv::popover::disabled",
+            "description": "Emitted on $root when popover becomes disabled",
             "args": [
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "shown",
-            "description": "Emitted when popover is shown",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "hide",
-            "description": "Emitted when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide.",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "hidden",
-            "description": "Emitted when popover is hidden",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "enabled",
-            "description": "Emitted when popover becomes enabled",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "disabled",
-            "description": "Emitted when popover becomes disabled",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "bv::popover::show",
-            "description": "Emitted on $root when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show.",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "bv::popover::shown",
-            "description": "Emitted on $root when popover is shown",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "bv::popover::hide",
-            "description": "Emitted on $root when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide.",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
-              }
-            ]
-          },
-          {
-            "event": "bv::popover::hidden",
-            "description": "Emitted on $root when popover is hidden",
-            "args": [
-              {
-                "arg": "bvEvent",
-                "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "BvEvent object"
               }
             ]
           },
@@ -186,45 +87,122 @@
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "BvEvent object"
               }
             ]
           },
           {
-            "event": "bv::popover::disabled",
-            "description": "Emitted on $root when popover becomes disabled",
+            "event": "bv::popover::hidden",
+            "description": "Emitted on $root when popover is hidden",
             "args": [
               {
                 "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "bvEvent object"
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "bv::popover::hide",
+            "description": "Emitted on $root when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "bv::popover::show",
+            "description": "Emitted on $root when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "bv::popover::shown",
+            "description": "Emitted on $root when popover is shown",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "disabled",
+            "description": "Emitted when popover becomes disabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "enabled",
+            "description": "Emitted when popover becomes enabled",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "description": "Emitted when popover is hidden",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "hide",
+            "description": "Emitted when popover is about to be hidden. Cancelable. Call bvEvent.preventDefault() to cancel hide",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "Emitted when popover is about to be shown. Cancelable. Call bvEvent.preventDefault() to cancel show",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when popover is shown",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
               }
             ]
           }
         ],
         "rootEventListeners": [
-          {
-            "event": "bv::hide::popover",
-            "description": "Close (hide) all or a specific open popover when this event is emitted on $root",
-            "args": [
-              {
-                "arg": "id",
-                "type": "String",
-                "description": "(optional), popover id to hide"
-              }
-            ]
-          },
-          {
-            "event": "bv::show::popover",
-            "description": "Open (show) all or a specific popover when this event is emitted on $root",
-            "args": [
-              {
-                "arg": "id",
-                "type": "String",
-                "description": "(optional), popover id to show"
-              }
-            ]
-          },
           {
             "event": "bv::disable::popover",
             "description": "Disable all or a specific popover when this event is emitted on $root",
@@ -232,7 +210,7 @@
               {
                 "arg": "id",
                 "type": "String",
-                "description": "(optional), popover id to disable"
+                "description": "Popover ID to disable (optional)"
               }
             ]
           },
@@ -243,19 +221,41 @@
               {
                 "arg": "id",
                 "type": "String",
-                "description": "(optional), popover id to enable"
+                "description": "Popover ID to enable (optional)"
+              }
+            ]
+          },
+          {
+            "event": "bv::hide::popover",
+            "description": "Close (hide) all or a specific open popover when this event is emitted on $root",
+            "args": [
+              {
+                "arg": "id",
+                "type": "String",
+                "description": "Popover ID to hide (optional)"
+              }
+            ]
+          },
+          {
+            "event": "bv::show::popover",
+            "description": "Open (show) all or a specific popover when this event is emitted on $root",
+            "args": [
+              {
+                "arg": "id",
+                "type": "String",
+                "description": "Popover ID to show (optional)"
               }
             ]
           }
         ],
         "slots": [
           {
-            "name": "title",
-            "description": "Optional slot for title (HTML/components supported)"
-          },
-          {
             "name": "default",
             "description": "Slot for content (HTML/components supported)"
+          },
+          {
+            "name": "title",
+            "description": "Optional slot for title (HTML/components supported)"
           }
         ]
       }

@@ -1,6 +1,6 @@
-import OurVue from '../vue'
+import { Vue as OurVue } from '../vue'
 import { NAME, PROP_NAME } from '../constants/config'
-import cloneDeep from './clone-deep'
+import { cloneDeep } from './clone-deep'
 import { getRaw } from './get'
 import { isArray, isPlainObject, isString, isUndefined } from './inspect'
 import { getOwnPropertyNames } from './object'

@@ -12,36 +12,42 @@
         ],
         "props": [
           {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+            "prop": "block",
+            "version": "2.1.0",
+            "description": "Renders a 100% width toggle button (expands to the width of its parent container)"
           },
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
-          },
-          {
-            "prop": "text",
-            "description": "Text to place in the toggle button, or in the split button is split mode"
-          },
-          {
-            "prop": "html",
-            "description": "HTML string to place in the toggle button, or in the split button is split mode. Use with caution"
-          },
-          {
-            "prop": "dropup",
-            "description": "When set, positions the menu on the top of the button"
-          },
-          {
-            "prop": "dropright",
-            "description": "When set, positions the menu to the right of the button"
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
           },
           {
             "prop": "dropleft",
             "description": "When set, positions the menu to the left of the button"
           },
           {
-            "prop": "right",
-            "description": "Align the right edge of the menu with the right of the button"
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "html",
+            "description": "HTML string to place in the toggle button, or in the split button is split mode",
+            "xss": true
+          },
+          {
+            "prop": "lazy",
+            "description": "When set, will only mount the menu content into the DOM when the menu is open"
+          },
+          {
+            "prop": "menuClass",
+            "description": "CSS class (or classes) to add to the menu container"
+          },
+          {
+            "prop": "noCaret",
+            "description": "Hide the caret indicator on the toggle button"
           },
           {
             "prop": "noFlip",
@@ -52,41 +58,29 @@
             "description": "Specify the number of pixels to shift the menu by. Negative values supported"
           },
           {
-            "prop": "lazy",
-            "description": "When set, will only mount the menu content into the DOM when the menu is open"
-          },
-          {
             "prop": "popperOpts",
             "description": "Additional configuration to pass to Popper.js"
           },
           {
-            "prop": "toggleText",
-            "description": "ARIA label (sr-only) to set on the toggle when in split mode"
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
           },
           {
-            "prop": "menuClass",
-            "description": "CSS class (or classes) to add to the menu container"
-          },
-          {
-            "prop": "toggleTag",
-            "description": "Specify the HTML tag to render instead of the default tag. Use with caution"
-          },
-          {
-            "prop": "toggleClass",
-            "description": "CSS class (or classes) to add to the toggle button"
-          },
-          {
-            "prop": "block",
-            "version": "2.1.0",
-            "description": "Renders a 100% width toggle button (expands to the width of its parent container)"
-          },
-          {
-            "prop": "noCaret",
-            "description": "Hide the caret indicator on the toggle button"
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           },
           {
             "prop": "split",
             "description": "When set, renders a split button dropdown"
+          },
+          {
+            "prop": "splitButtonType",
+            "description": "Value to place in the 'type' attribute on the split button: 'button', 'submit', 'reset'"
+          },
+          {
+            "prop": "splitClass",
+            "version": "2.2.0",
+            "description": "CSS class (or classes) to add to the split button"
           },
           {
             "prop": "splitHref",
@@ -101,57 +95,53 @@
             "description": "Applies one of the Bootstrap theme color variants to the split button. Defaults to the 'variant' prop value"
           },
           {
-            "prop": "splitButtonType",
-            "description": "Value to place in the 'type' attribute on the split button: 'button', 'submit', 'reset'"
+            "prop": "text",
+            "description": "Text to place in the toggle button, or in the split button is split mode"
           },
           {
-            "prop": "splitClass",
-            "version": "2.2.0",
-            "description": "CSS class (or classes) to add to the split button"
+            "prop": "toggleClass",
+            "description": "CSS class (or classes) to add to the toggle button"
           },
           {
-            "prop": "boundary",
-            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement"
+            "prop": "toggleTag",
+            "description": "Specify the HTML tag to render instead of the default tag",
+            "xss": true
+          },
+          {
+            "prop": "toggleText",
+            "description": "ARIA label (sr-only) to set on the toggle when in split mode"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
           }
         ],
         "events": [
           {
-            "event": "show",
-            "description": "Emitted just before dropdown is shown. Cancelable.",
+            "event": "bv::dropdown::hide",
+            "description": "Emitted on $root just before dropdown is hidden. Cancelable",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel hide"
               }
             ]
           },
           {
-            "event": "shown",
-            "description": "Emitted when dropdown is shown."
-          },
-          {
-            "event": "hide",
-            "description": "Emitted just before dropdown is hidden. Cancelable.",
+            "event": "bv::dropdown::show",
+            "description": "Emitted on $root just before dropdown is shown. Cancelable",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel show"
               }
             ]
-          },
-          {
-            "event": "hidden",
-            "description": "Emitted when dropdown is hidden."
-          },
-          {
-            "event": "toggle",
-            "description": "Emitted when toggle button is clicked."
           },
           {
             "event": "click",
-            "description": "Emitted when split button is clicked in split mode.",
+            "description": "Emitted when split button is clicked in split mode",
             "args": [
               {
                 "arg": "event",
@@ -161,32 +151,44 @@
             ]
           },
           {
-            "event": "bv::dropdown::show",
-            "description": "Emitted on $root just before dropdown is shown. Cancelable.",
+            "event": "hidden",
+            "description": "Emitted when dropdown is hidden"
+          },
+          {
+            "event": "hide",
+            "description": "Emitted just before dropdown is hidden. Cancelable",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel hide"
               }
             ]
           },
           {
-            "event": "bv::dropdown::hide",
-            "description": "Emitted on $root just before dropdown is hidden. Cancelable.",
+            "event": "show",
+            "description": "Emitted just before dropdown is shown. Cancelable",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel show"
               }
             ]
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when dropdown is shown"
+          },
+          {
+            "event": "toggle",
+            "description": "Emitted when toggle button is clicked"
           }
         ],
         "slots": [
           {
             "name": "button-content",
-            "description": "Can be used to implement custom text with icons and more styling."
+            "description": "Can be used to implement custom text with icons and more styling"
           },
           {
             "name": "default",
@@ -195,7 +197,7 @@
               {
                 "prop": "hide",
                 "type": "Function",
-                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button."
+                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button"
               }
             ]
           }
@@ -216,7 +218,7 @@
         "events": [
           {
             "event": "click",
-            "description": "Emitted when item is clicked.",
+            "description": "Emitted when item is clicked",
             "args": [
               {
                 "name": "event",
@@ -224,6 +226,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown item"
           }
         ]
       },
@@ -244,7 +252,7 @@
         "events": [
           {
             "event": "click",
-            "description": "Emitted when button item is clicked.",
+            "description": "Emitted when button item is clicked",
             "args": [
               {
                 "name": "event",
@@ -252,6 +260,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown item-button"
           }
         ]
       },
@@ -268,6 +282,11 @@
         ],
         "props": [
           {
+            "prop": "formClass",
+            "version": "2.2.0",
+            "description": "CSS class (or classes) to add to the form"
+          },
+          {
             "prop": "inline",
             "description": "When set, the form will be in inline mode which display labels, form controls, and buttons on a single horizontal row"
           },
@@ -278,24 +297,31 @@
           {
             "prop": "validated",
             "description": "When set, adds the Bootstrap class 'was-validated' on the form, triggering the native browser validation states"
-          },
+          }
+        ],
+        "slots": [
           {
-            "prop": "formClass",
-            "version": "2.2.0",
-            "description": "CSS class (or classes) to add to the form"
+            "name": "default",
+            "description": "Content to place in the dropdown form"
           }
         ]
       },
       {
         "component": "BDropdownText",
+        "aliases": [
+          "BDdText"
+        ],
         "props": [
           {
             "prop": "textClass",
             "description": "Class or classes to apply to the inner element"
           }
         ],
-        "aliases": [
-          "BDdText"
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown text"
+          }
         ]
       },
       {
@@ -311,8 +337,12 @@
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "Content (items) to place in the dropdown group"
+          },
+          {
             "name": "header",
-            "description": "Optional header content for the dropdown group."
+            "description": "Optional header content for the dropdown group"
           }
         ]
       },
@@ -320,6 +350,12 @@
         "component": "BDropdownHeader",
         "aliases": [
           "BDdHeader"
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the dropdown header"
+          }
         ]
       }
     ]

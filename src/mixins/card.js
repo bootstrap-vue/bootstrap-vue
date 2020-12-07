@@ -1,32 +1,23 @@
+import { Vue } from '../vue'
 import { NAME_CARD } from '../constants/components'
-import { makePropsConfigurable } from '../utils/config'
+import { PROP_TYPE_STRING } from '../constants/props'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    bgVariant: {
-      type: String
-      // default: null
-    },
-    borderVariant: {
-      type: String
-      // default: null
-    },
-    textVariant: {
-      type: String
-      // default: null
-    }
+    bgVariant: makeProp(PROP_TYPE_STRING),
+    borderVariant: makeProp(PROP_TYPE_STRING),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    textVariant: makeProp(PROP_TYPE_STRING)
   },
   NAME_CARD
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const cardMixin = Vue.extend({
   props
-}
+})

@@ -12,29 +12,8 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "The current value of the input.  Result will always be a string, except when the 'number' prop is used"
-          },
-          {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-          },
-          {
             "prop": "ariaInvalid",
             "description": "Sets the 'aria-invalid' attribute with the specified value"
-          },
-          {
-            "prop": "trim",
-            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
-          },
-          {
-            "prop": "number",
-            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
-          },
-          {
-            "prop": "lazy",
-            "version": "2.1.0",
-            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "debounce",
@@ -42,42 +21,74 @@
             "description": "When set to a number of milliseconds greater than zero, will debounce the user input. Has no effect if prop 'lazy' is set"
           },
           {
-            "prop": "type",
-            "description": "The type of input to render. See the docs for supported types"
-          },
-          {
-            "prop": "noWheel",
-            "description": "For number-like inputs, disables the mouse wheel from incrementing or decrementing the value"
-          },
-          {
-            "prop": "list",
-            "description": "The ID of the associated datalist element or component"
-          },
-          {
             "prop": "formatter",
-            "description": "reference to a function for formatting the input"
+            "description": "Reference to a function for formatting the input"
+          },
+          {
+            "prop": "lazy",
+            "version": "2.1.0",
+            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "lazyFormatter",
             "description": "When set, the input is formatted on blur instead of each keystroke (if there is a formatter specified)"
           },
           {
-            "prop": "min",
-            "description": "Value to set in the 'min' attribute on the input. Used by number-like inputs"
+            "prop": "list",
+            "description": "The ID of the associated datalist element or component"
           },
           {
             "prop": "max",
             "description": "Value to set in the 'max' attribute on the input. Used by number-like inputs"
           },
           {
+            "prop": "min",
+            "description": "Value to set in the 'min' attribute on the input. Used by number-like inputs"
+          },
+          {
+            "prop": "noWheel",
+            "description": "For number-like inputs, disables the mouse wheel from incrementing or decrementing the value"
+          },
+          {
+            "prop": "number",
+            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
             "prop": "step",
             "description": "Value to set in the 'step' attribute on the input. Used by number-like inputs"
+          },
+          {
+            "prop": "trim",
+            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
+          },
+          {
+            "prop": "type",
+            "description": "The type of input to render. See the docs for supported types"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the input. Result will always be a string, except when the `number` prop is used"
           }
         ],
         "events": [
           {
-            "event": "input",
-            "description": "Input event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
+            "event": "blur",
+            "description": "Emitted after the input looses focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native blur event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Change event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
             "args": [
               {
                 "arg": "value",
@@ -90,8 +101,8 @@
             ]
           },
           {
-            "event": "change",
-            "description": "Change event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated.",
+            "event": "input",
+            "description": "Input event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
             "args": [
               {
                 "arg": "value",
@@ -114,17 +125,6 @@
                   "Number"
                 ],
                 "description": "Value of input, after any formatting. Not emitted if the value does not change"
-              }
-            ]
-          },
-          {
-            "event": "blur",
-            "description": "Emitted after the input looses focus",
-            "args": [
-              {
-                "arg": "event",
-                "type": "FocusEvent",
-                "description": "Native blur event (before any formatting)"
               }
             ]
           }

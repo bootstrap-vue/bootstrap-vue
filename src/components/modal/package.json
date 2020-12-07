@@ -31,12 +31,54 @@
         "component": "BModal",
         "props": [
           {
-            "prop": "visible",
-            "description": "The current visibility state of the modal"
+            "prop": "ariaLabel",
+            "description": "Explicitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labelledby' will point to the modal's title"
           },
           {
-            "prop": "modalClass",
-            "description": "CSS class (or classes) to apply to the '.modal' wrapper element"
+            "prop": "autoFocusButton",
+            "version": "2.0.0",
+            "description": "Specify which built-in button to focus once the modal opens: 'ok', 'cancel', or 'close'"
+          },
+          {
+            "prop": "bodyBgVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the body background"
+          },
+          {
+            "prop": "bodyClass",
+            "description": "CSS class (or classes) to apply to the '.modal-body' wrapper element"
+          },
+          {
+            "prop": "bodyTextVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the body text"
+          },
+          {
+            "prop": "busy",
+            "description": "Places the built in default footer OK and Cancel buttons in the disabled state"
+          },
+          {
+            "prop": "buttonSize",
+            "description": "Size of the built in footer buttons: 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "cancelDisabled",
+            "description": "Places the default footer Cancel button in the disabled state"
+          },
+          {
+            "prop": "cancelTitle",
+            "description": "Text string to place in the default footer Cancel button"
+          },
+          {
+            "prop": "cancelTitleHtml",
+            "description": "HTML string to place in the default footer Cancel button",
+            "xss": true
+          },
+          {
+            "prop": "cancelVariant",
+            "description": "Button color theme variant to apply to the default footer Cancel button"
+          },
+          {
+            "prop": "centered",
+            "description": "Vertically centers the modal in the viewport"
           },
           {
             "prop": "contentClass",
@@ -47,32 +89,20 @@
             "description": "CSS class (or classes) to apply to the '.modal-dialog' wrapper element"
           },
           {
-            "prop": "bodyClass",
-            "description": "CSS class (or classes) to apply to the '.modal-body' wrapper element"
+            "prop": "footerBgVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the footer background"
           },
           {
-            "prop": "headerClass",
-            "description": "CSS class (or classes) to apply to the '.modal-header' wrapper element"
+            "prop": "footerBorderVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the footer border"
           },
           {
             "prop": "footerClass",
             "description": "CSS class (or classes) to apply to the '.modal-footer' wrapper element"
           },
           {
-            "prop": "size",
-            "description": "Set the size of the modal's width. 'sm', 'md' (default), 'lg', or 'xl'"
-          },
-          {
-            "prop": "centered",
-            "description": "Vertically centers the modal in the viewport"
-          },
-          {
-            "prop": "scrollable",
-            "description": "Enables scrolling of the modal body"
-          },
-          {
-            "prop": "titleTag",
-            "description": "Specify the HTML tag to render instead of the default tag for the title"
+            "prop": "footerTextVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the footer text"
           },
           {
             "prop": "headerBgVariant",
@@ -83,44 +113,54 @@
             "description": "Applies one of the Bootstrap theme color variants to the header border"
           },
           {
-            "prop": "headerTextVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the header text"
+            "prop": "headerClass",
+            "description": "CSS class (or classes) to apply to the '.modal-header' wrapper element"
           },
           {
-            "prop": "bodyBgVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the body background"
+            "prop": "headerCloseContent",
+            "version": "2.3.0",
+            "description": "Content of the header close button"
           },
           {
-            "prop": "bodyTextVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the body text"
-          },
-          {
-            "prop": "footerBgVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the footer background"
-          },
-          {
-            "prop": "footerBorderVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the footer border"
-          },
-          {
-            "prop": "footerTextVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the footer text"
+            "prop": "headerCloseLabel",
+            "description": "Value of the 'aria-label' on the header close button"
           },
           {
             "prop": "headerCloseVariant",
             "description": "Text theme color variant to apply to the header close button"
           },
           {
+            "prop": "headerTextVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the header text"
+          },
+          {
+            "prop": "hideBackdrop",
+            "description": "Disables rendering of the modal backdrop"
+          },
+          {
+            "prop": "hideFooter",
+            "description": "Disables rendering of the modal footer"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "Disables rendering of the modal header"
+          },
+          {
+            "prop": "hideHeaderClose",
+            "description": "Disables rendering of the modal header's close button"
+          },
+          {
+            "prop": "ignoreEnforceFocusSelector",
+            "version": "2.4.0",
+            "description": "Ignore certain elements from the enforce focus routine, specified by css selector(s)"
+          },
+          {
             "prop": "lazy",
             "description": "When the modal has the `static` prop set, renders the modal content lazily"
           },
           {
-            "prop": "buttonSize",
-            "description": "Size of the built in footer buttons: 'sm', 'md' (default), or 'lg'"
-          },
-          {
-            "prop": "noStacking",
-            "description": "Prevents other modals from stacking over this one"
+            "prop": "modalClass",
+            "description": "CSS class (or classes) to apply to the '.modal' wrapper element"
           },
           {
             "prop": "noCloseOnBackdrop",
@@ -135,66 +175,16 @@
             "description": "Disables the enforce focus routine which maintains focus inside the modal"
           },
           {
-            "prop": "ignoreEnforceFocusSelector",
-            "version": "2.4.0",
-            "description": "Ignore certain elements from the enforce focus routine, specified by css selector(s)"
-          },
-          {
-            "prop": "titleSrOnly",
-            "description": "Wraps the title in an '.sr-only' wrapper"
-          },
-          {
-            "prop": "ariaLabel",
-            "description": "Explicitly supply an 'aria-label' attribute for the modal. Should be set when the modal has no title. When not set 'aria-labelledby' will point to the modal's title"
-          },
-          {
-            "prop": "hideHeader",
-            "description": "Disables rendering of the modal header"
-          },
-          {
-            "prop": "hideHeaderClose",
-            "description": "Disables rendering of the modal header's close button"
-          },
-          {
-            "prop": "hideFooter",
-            "description": "Disables rendering of the modal footer"
-          },
-          {
-            "prop": "hideBackdrop",
-            "description": "Disables rendering of the modal backdrop"
-          },
-          {
-            "prop": "okOnly",
-            "description": "Disables rendering of the default footer Cancel button"
+            "prop": "noStacking",
+            "description": "Prevents other modals from stacking over this one"
           },
           {
             "prop": "okDisabled",
             "description": "Places the default footer OK button in the disabled state"
           },
           {
-            "prop": "cancelDisabled",
-            "description": "Places the default footer Cancel button in the disabled state"
-          },
-          {
-            "prop": "headerCloseContent",
-            "version": "2.3.0",
-            "description": "Content of the header close button"
-          },
-          {
-            "prop": "headerCloseLabel",
-            "description": "Value of the 'aria-label' on the header close button"
-          },
-          {
-            "prop": "returnFocus",
-            "description": "HTML Element reference, CSS selector, or component reference to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
-          },
-          {
-            "prop": "cancelTitle",
-            "description": "Text string to place in the default footer Cancel button"
-          },
-          {
-            "prop": "cancelTitleHtml",
-            "description": "HTML string to place in the default footer Cancel button. Use with caution"
+            "prop": "okOnly",
+            "description": "Disables rendering of the default footer Cancel button"
           },
           {
             "prop": "okTitle",
@@ -202,137 +192,45 @@
           },
           {
             "prop": "okTitleHtml",
-            "description": "HTML string to place in the default footer OK button. Use with caution"
-          },
-          {
-            "prop": "cancelVariant",
-            "description": "Button color theme variant to apply to the default footer Cancel button"
+            "description": "HTML string to place in the default footer OK button",
+            "xss": true
           },
           {
             "prop": "okVariant",
             "description": "Button color theme variant to apply to the default footer OK button"
           },
           {
-            "prop": "busy",
-            "description": "Places the built in default footer OK and Cancel buttons in the disabled state"
+            "prop": "returnFocus",
+            "description": "HTML Element reference, CSS selector, or component reference to return focus to when the modal closes. When not set, will return focus to the element that last had focus before the modal opened"
           },
           {
-            "prop": "autoFocusButton",
-            "version": "2.0.0",
-            "description": "Specify which built-in button to focus once the modal opens: 'ok', 'cancel', or 'close'"
+            "prop": "scrollable",
+            "description": "Enables scrolling of the modal body"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the modal's width. 'sm', 'md' (default), 'lg', or 'xl'"
+          },
+          {
+            "prop": "titleSrOnly",
+            "description": "Wraps the title in an '.sr-only' wrapper"
+          },
+          {
+            "prop": "titleTag",
+            "description": "Specify the HTML tag to render instead of the default tag for the title"
+          },
+          {
+            "prop": "visible",
+            "description": "The current visibility state of the modal"
           }
         ],
         "events": [
           {
-            "event": "change",
-            "description": "New modal visibility state. Used to update the v-model",
+            "event": "bv::modal::hidden",
+            "description": "Emitted on `$root` when modal is hidden",
             "args": [
               {
-                "arg": "isVisible",
-                "type": "Boolean",
-                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
-              }
-            ]
-          },
-          {
-            "event": "show",
-            "description": "Always emits just before modal is shown. Cancelable",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel show"
-              }
-            ]
-          },
-          {
-            "event": "shown",
-            "description": "Always emits when modal is shown",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object"
-              }
-            ]
-          },
-          {
-            "event": "hide",
-            "description": "Always emits just before modal has hidden. Cancelable (as long as modal wasn't forcibly hidden)",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Inspect `bvModalEvt.trigger` to find out what action triggered the hide. Call `bvModalEvt.preventDefault()` to cancel hide"
-              }
-            ]
-          },
-          {
-            "event": "hidden",
-            "description": "Always emits after modal is hidden",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object"
-              }
-            ]
-          },
-          {
-            "event": "ok",
-            "description": "When default OK button pressed, just before modal has hidden. Cancelable",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel hide"
-              }
-            ]
-          },
-          {
-            "event": "cancel",
-            "description": "When default CANCEL button pressed, just before modal has hidden. Cancelable",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel hide"
-              }
-            ]
-          },
-          {
-            "event": "close",
-            "description": "When default header close button pressed, just before modal has hidden. Cancelable",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel hide"
-              }
-            ]
-          },
-          {
-            "event": "bv::modal::show",
-            "description": "Emitted on `$root` when modal is about to be shown. Cancelable",
-            "args": [
-              {
-                "arg": "bvModalEvt",
-                "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel show"
-              },
-              {
-                "arg": "modalId",
-                "type": "String",
-                "description": "Modal ID"
-              }
-            ]
-          },
-          {
-            "event": "bv::modal::shown",
-            "description": "Emitted on `$root` when modal is shown",
-            "args": [
-              {
-                "arg": "bvModalEvt",
+                "arg": "bvModalEvent",
                 "type": "BvModalEvent",
                 "description": "BvModalEvent object"
               },
@@ -348,9 +246,9 @@
             "description": "Emitted on `$root` when modal is about to be hidden. Cancelable (as long as modal wasn't forcibly hidden)",
             "args": [
               {
-                "arg": "bvModalEvt",
+                "arg": "bvModalEvent",
                 "type": "BvModalEvent",
-                "description": "BvModalEvent object. Call `bvModalEvt.preventDefault()` to cancel hide"
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel hide"
               },
               {
                 "arg": "modalId",
@@ -360,23 +258,138 @@
             ]
           },
           {
-            "event": "bv::modal::hidden",
-            "description": "Emitted on `$root` when modal is hidden",
+            "event": "bv::modal::show",
+            "description": "Emitted on `$root` when modal is about to be shown. Cancelable",
             "args": [
               {
-                "arg": "bvModalEvt",
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel show"
+              },
+              {
+                "arg": "modalId",
+                "type": "String",
+                "description": "Modal ID"
+              }
+            ]
+          },
+          {
+            "event": "bv::modal::shown",
+            "description": "Emitted on `$root` when modal is shown",
+            "args": [
+              {
+                "arg": "bvModalEvent",
                 "type": "BvModalEvent",
                 "description": "BvModalEvent object"
               },
               {
                 "arg": "modalId",
                 "type": "String",
-                "description": "modal ID"
+                "description": "Modal ID"
+              }
+            ]
+          },
+          {
+            "event": "cancel",
+            "description": "When default CANCEL button pressed, just before modal has hidden. Cancelable",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel hide"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "New modal visibility state. Used to update the v-model",
+            "args": [
+              {
+                "arg": "isVisible",
+                "type": "Boolean",
+                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
+              }
+            ]
+          },
+          {
+            "event": "close",
+            "description": "When default header close button pressed, just before modal has hidden. Cancelable",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel hide"
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "description": "Always emits after modal is hidden",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object"
+              }
+            ]
+          },
+          {
+            "event": "hide",
+            "description": "Always emits just before modal has hidden. Cancelable (as long as modal wasn't forcibly hidden)",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Inspect `bvModalEvent.trigger` to find out what action triggered the hide. Call `bvModalEvent.preventDefault()` to cancel hide"
+              }
+            ]
+          },
+          {
+            "event": "ok",
+            "description": "When default OK button pressed, just before modal has hidden. Cancelable",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel hide"
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "Always emits just before modal is shown. Cancelable",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object. Call `bvModalEvent.preventDefault()` to cancel show"
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "Always emits when modal is shown",
+            "args": [
+              {
+                "arg": "bvModalEvent",
+                "type": "BvModalEvent",
+                "description": "BvModalEvent object"
               }
             ]
           }
         ],
         "rootEventListeners": [
+          {
+            "event": "bv::hide::modal",
+            "description": "Hide modal with specified ID when this event is emitted on `root`",
+            "args": [
+              {
+                "arg": "modalId",
+                "type": "String",
+                "description": "ID of modal to hide"
+              }
+            ]
+          },
           {
             "event": "bv::show::modal",
             "description": "Show modal with specified ID when this event is emitted on `$root`",
@@ -393,17 +406,6 @@
                   "HTMLElement"
                 ],
                 "description": "Specify the element reference, or CSS selector, to return focus to once the modal is closed (optional)"
-              }
-            ]
-          },
-          {
-            "event": "bv::hide::modal",
-            "description": "Hide modal with specified ID when this event is emitted on `root`",
-            "args": [
-              {
-                "arg": "modalId",
-                "type": "String",
-                "description": "ID of modal to hide"
               }
             ]
           },
@@ -429,19 +431,9 @@
         ],
         "slots": [
           {
-            "name": "modal-header",
-            "description": "Entire modal header container contents. Also removes the top right X close button. Optionally scoped",
+            "name": "default",
+            "description": "Content of modal body. Optionally scoped",
             "scope": [
-              {
-                "prop": "visible",
-                "type": "Boolean",
-                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
-              },
-              {
-                "prop": "ok",
-                "type": "Function",
-                "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
-              },
               {
                 "prop": "cancel",
                 "type": "Function",
@@ -456,17 +448,6 @@
                 "prop": "hide",
                 "type": "Function",
                 "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
-              }
-            ]
-          },
-          {
-            "name": "modal-title",
-            "description": "Modal title. If `modal-header` slot is used, this slot will not be shown. Optionally scoped",
-            "scope": [
-              {
-                "prop": "visible",
-                "type": "Boolean",
-                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
               },
               {
                 "prop": "ok",
@@ -474,37 +455,25 @@
                 "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
               },
               {
-                "prop": "cancel",
-                "type": "Function",
-                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `vModalEvent.trigger = 'cancel'`"
-              },
-              {
-                "prop": "close",
-                "type": "Function",
-                "description": "Closes the modal and fires the close and hide events, with `vModalEvent.trigger = 'headerclose'`"
-              },
-              {
-                "prop": "hide",
-                "type": "Function",
-                "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
               }
             ]
+          },
+          {
+            "name": "modal-backdrop",
+            "description": "Modal Backdrop content"
+          },
+          {
+            "name": "modal-cancel",
+            "description": "Modal CANCEL button content"
           },
           {
             "name": "modal-footer",
             "description": "Modal footer content. Also removes default OK and Cancel buttons. Optionally scoped",
             "scope": [
               {
-                "prop": "visible",
-                "type": "Boolean",
-                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
-              },
-              {
-                "prop": "ok",
-                "type": "Function",
-                "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
-              },
-              {
                 "prop": "cancel",
                 "type": "Function",
                 "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `vModalEvent.trigger = 'cancel'`"
@@ -518,6 +487,47 @@
                 "prop": "hide",
                 "type": "Function",
                 "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
+              },
+              {
+                "prop": "ok",
+                "type": "Function",
+                "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
+              }
+            ]
+          },
+          {
+            "name": "modal-header",
+            "description": "Entire modal header container contents. Also removes the top right X close button. Optionally scoped",
+            "scope": [
+              {
+                "prop": "cancel",
+                "type": "Function",
+                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `bvModalEvent.trigger = 'cancel'`"
+              },
+              {
+                "prop": "close",
+                "type": "Function",
+                "description": "Closes the modal and fires the close and hide events, with `bvModalEvent.trigger = 'headerclose'`"
+              },
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
+              },
+              {
+                "prop": "ok",
+                "type": "Function",
+                "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
               }
             ]
           },
@@ -530,21 +540,23 @@
             "description": "Modal OK button content"
           },
           {
-            "name": "modal-cancel",
-            "description": "Modal CANCEL button content"
-          },
-          {
-            "name": "modal-backdrop",
-            "description": "Modal Backdrop content"
-          },
-          {
-            "name": "default",
-            "description": "Content of modal body. Optionally scoped",
+            "name": "modal-title",
+            "description": "Modal title. If `modal-header` slot is used, this slot will not be shown. Optionally scoped",
             "scope": [
               {
-                "prop": "visible",
-                "type": "Boolean",
-                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
+                "prop": "cancel",
+                "type": "Function",
+                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `vModalEvent.trigger = 'cancel'`"
+              },
+              {
+                "prop": "close",
+                "type": "Function",
+                "description": "Closes the modal and fires the close and hide events, with `vModalEvent.trigger = 'headerclose'`"
+              },
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
               },
               {
                 "prop": "ok",
@@ -552,19 +564,9 @@
                 "description": "Closes the modal and fires the 'ok' and 'hide' events, with `bvModalEvent.trigger = 'ok'`"
               },
               {
-                "prop": "cancel",
-                "type": "Function",
-                "description": "Closes the modal and fires the 'cancel' and 'hide' events, with `bvModalEvent.trigger = 'cancel'`"
-              },
-              {
-                "prop": "close",
-                "type": "Function",
-                "description": "Closes the modal and fires the close and hide events, with `bvModalEvent.trigger = 'headerclose'`"
-              },
-              {
-                "prop": "hide",
-                "type": "Function",
-                "description": "Accepts one argument `trigger`. Closes the modal and fires the 'hide' event, with the `bvModalEvent.trigger = trigger` (`trigger` is optional)"
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "The visibility state of the modal. `true` if the modal is visible and `false` if not visible"
               }
             ]
           }

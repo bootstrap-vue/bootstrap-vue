@@ -19,23 +19,23 @@ export const getComponentName = component => kebabCase(component).replace(/{/g, 
 export const getCleanComponentName = component => getComponentName(component).replace(/({|})/g, '')
 
 export const parseUrl = value => {
-  const anchor = document.createElement('a')
-  anchor.href = value
+  const $anchor = document.createElement('a')
+  $anchor.href = value
 
   // We need to add the anchor to the document to make sure the
   // `pathname` is correctly detected in any browser
-  document.body.appendChild(anchor)
+  document.body.appendChild($anchor)
 
   const result = ['hash', 'host', 'hostname', 'pathname', 'port', 'protocol', 'search'].reduce(
     (result, prop) => {
-      result[prop] = anchor[prop] || null
+      result[prop] = $anchor[prop] || null
       return result
     },
     {}
   )
 
   // Make sure to remove the anchor from document as soon as possible
-  document.body.removeChild(anchor)
+  document.body.removeChild($anchor)
 
   // Normalize port
   if (!result.port && result.protocol) {
@@ -146,31 +146,31 @@ export const updateMetaTOC = (tocData = {}, meta = null) => {
   return tocData
 }
 
-export const importAll = r => {
-  const obj = {}
+export const importAll = context => {
+  // Get array of datas by keys from context
+  const datas = context.keys().map(context)
 
-  r.keys()
-    .map(r)
-    .map(m => m.meta || m)
-    .map(m => ({
-      slug:
-        typeof m.slug === 'undefined' ? (m.title || '').replace(' ', '-').toLowerCase() : m.slug,
-      ...m
-    }))
-    .sort((a, b) => {
-      if (a.slug < b.slug) return -1
-      else if (a.slug > b.slug) return 1
-      return 0
-    })
-    .forEach(m => {
-      if (m.components) {
-        // Normalize `meta.components` to array of objects form
-        m.components = m.components.map(c => (typeof c === 'string' ? { component: c } : c))
-      }
-      obj[m.slug] = m
-    })
-
-  return obj
+  return (
+    datas
+      // Filter out private datas
+      .filter(data => !data.private)
+      // Map meta information
+      .map(data => data.meta || data)
+      // Normalize meta information
+      .map(meta => ({
+        ...meta,
+        slug:
+          meta.slug === undefined ? (meta.title || '').replace(' ', '-').toLowerCase() : meta.slug
+      }))
+      // Sort by slug
+      .sort((a, b) => {
+        if (a.slug < b.slug) return -1
+        else if (a.slug > b.slug) return 1
+        return 0
+      })
+      // Build one object keyed by slug
+      .reduce((result, meta) => ({ ...result, [meta.slug]: meta }), {})
+  )
 }
 
 // Smooth Scroll handler methods

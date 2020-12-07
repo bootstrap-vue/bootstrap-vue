@@ -1,5 +1,5 @@
+import { HAS_WINDOW_SUPPORT, HAS_DOCUMENT_SUPPORT } from '../constants/env'
 import { from as arrayFrom } from './array'
-import { hasWindowSupport, hasDocumentSupport } from './env'
 import { isFunction, isNull } from './inspect'
 import { toFloat } from './number'
 import { toString } from './string'
@@ -18,8 +18,8 @@ const TABABLE_SELECTOR = [
   .map(s => `${s}:not(:disabled):not([disabled])`)
   .join(', ')
 
-const w = hasWindowSupport ? window : {}
-const d = hasDocumentSupport ? document : {}
+const w = HAS_WINDOW_SUPPORT ? window : {}
+const d = HAS_DOCUMENT_SUPPORT ? document : {}
 const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
 
 // --- Normalization utils ---
@@ -220,12 +220,12 @@ export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null)
 
 // Get computed style object for an element
 /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
-export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {})
+export const getCS = el => (HAS_WINDOW_SUPPORT && isElement(el) ? w.getComputedStyle(el) : {})
 
 // Returns a `Selection` object representing the range of text selected
 // Returns `null` if no window support is given
 /* istanbul ignore next: getSelection() doesn't work in JSDOM */
-export const getSel = () => (hasWindowSupport && w.getSelection ? w.getSelection() : null)
+export const getSel = () => (HAS_WINDOW_SUPPORT && w.getSelection ? w.getSelection() : null)
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset

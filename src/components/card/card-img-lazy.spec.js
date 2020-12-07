@@ -26,7 +26,7 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.attributes('alt')).not.toBeDefined()
+    expect(wrapper.attributes('alt')).toBeUndefined()
 
     wrapper.destroy()
   })

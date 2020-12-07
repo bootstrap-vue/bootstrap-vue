@@ -495,7 +495,7 @@ control which page is the active via the `v-model` and the `no-page-detect` prop
 You can listen for the `page-click` event, which provides an option to prevent the page from being
 selected. The event is emitted with two arguments:
 
-- `bvEvent`: The `BvEvent` object. Call `bvEvt.preventDefault()` to cancel page selection
+- `bvEvent`: The `BvEvent` object. Call `bvEvent.preventDefault()` to cancel page selection
 - `page`: Page number to select (starting with `1`)
 
 For accessibility reasons, when using the `page-click` event to prevent a page from being selected,

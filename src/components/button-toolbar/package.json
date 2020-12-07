@@ -7,7 +7,9 @@
     "components": [
       {
         "component": "BButtonToolbar",
-        "description": "Group a series of <b-button-group> and/or <b-input-group> together on a single line, with optional keyboard navigation.",
+        "aliases": [
+          "BBtnToolbar"
+        ],
         "props": [
           {
             "prop": "justify",
@@ -18,8 +20,11 @@
             "description": "When set, enabled keyboard navigation mode for the toolbar. Do not set this prop when the toolbar has inputs"
           }
         ],
-        "aliases": [
-          "BBtnToolbar"
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the button toolbar"
+          }
         ]
       }
     ]

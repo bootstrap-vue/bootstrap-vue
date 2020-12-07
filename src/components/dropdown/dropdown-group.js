@@ -1,39 +1,27 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
+import { identity } from '../../utils/identity'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
-import identity from '../../utils/identity'
+import { omit } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    id: {
-      type: String
-      // default: null
-    },
-    header: {
-      type: String
-      // default: null
-    },
-    headerTag: {
-      type: String,
-      default: 'header'
-    },
-    headerVariant: {
-      type: String
-      // default: null
-    },
-    headerClasses: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    ariaDescribedby: {
-      type: String
-      // default: null
-    }
+    ariaDescribedby: makeProp(PROP_TYPE_STRING),
+    header: makeProp(PROP_TYPE_STRING),
+    headerClasses: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
+    headerVariant: makeProp(PROP_TYPE_STRING),
+    id: makeProp(PROP_TYPE_STRING)
   },
   NAME_DROPDOWN_GROUP
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
@@ -43,14 +31,12 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
   render(h, { props, data, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
-    const $attrs = data.attrs || {}
-    data.attrs = {}
-    let header
-    let headerId = null
+    const slotScope = {}
+    const headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
 
+    let $header = h()
     if (hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots) || props.header) {
-      headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
-      header = h(
+      $header = h(
         props.headerTag,
         {
           staticClass: 'dropdown-header',
@@ -60,29 +46,28 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
             role: 'heading'
           }
         },
-        normalizeSlot(SLOT_NAME_HEADER, {}, $scopedSlots, $slots) || props.header
+        normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots) || props.header
       )
     }
 
-    const adb = [headerId, props.ariaDescribedBy]
-      .filter(identity)
-      .join(' ')
-      .trim()
-
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
-      header || h(),
+    return h('li', mergeData(omit(data, ['attrs']), { attrs: { role: 'presentation' } }), [
+      $header,
       h(
         'ul',
         {
           staticClass: 'list-unstyled',
           attrs: {
-            ...$attrs,
+            ...(data.attrs || {}),
             id: props.id || null,
             role: 'group',
-            'aria-describedby': adb || null
+            'aria-describedby':
+              [headerId, props.ariaDescribedBy]
+                .filter(identity)
+                .join(' ')
+                .trim() || null
           }
         },
-        normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
       )
     ])
   }

@@ -338,7 +338,7 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
-    expect(wrapper.emitted('tag-state')).not.toBeDefined()
+    expect(wrapper.emitted('tag-state')).toBeUndefined()
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(false)
 

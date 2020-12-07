@@ -1,41 +1,40 @@
-import { NAME_TABLE } from '../../../constants/components'
-import identity from '../../../utils/identity'
-import looseEqual from '../../../utils/loose-equal'
-import range from '../../../utils/range'
-import { arrayIncludes } from '../../../utils/array'
-import { makePropsConfigurable } from '../../../utils/config'
+import { Vue } from '../../../vue'
+import {
+  EVENT_NAME_CONTEXT_CHANGED,
+  EVENT_NAME_FILTERED,
+  EVENT_NAME_ROW_CLICKED,
+  EVENT_NAME_ROW_SELECTED
+} from '../../../constants/events'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
+import { arrayIncludes, createArray } from '../../../utils/array'
+import { identity } from '../../../utils/identity'
 import { isArray, isNumber } from '../../../utils/inspect'
+import { looseEqual } from '../../../utils/loose-equal'
 import { mathMax, mathMin } from '../../../utils/math'
-import sanitizeRow from './sanitize-row'
+import { makeProp } from '../../../utils/props'
+import { sanitizeRow } from './sanitize-row'
+
+// --- Constants ---
 
 const SELECT_MODES = ['range', 'multi', 'single']
 
-export default {
-  props: makePropsConfigurable(
-    {
-      selectable: {
-        type: Boolean,
-        default: false
-      },
-      selectMode: {
-        type: String,
-        default: 'multi',
-        validator(value) {
-          return arrayIncludes(SELECT_MODES, value)
-        }
-      },
-      selectedVariant: {
-        type: String,
-        default: 'active'
-      },
-      noSelectOnClick: {
-        // Disable use of click handlers for row selection
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_TABLE
-  ),
+// --- Props ---
+
+export const props = {
+  // Disable use of click handlers for row selection
+  noSelectOnClick: makeProp(PROP_TYPE_BOOLEAN, false),
+  selectMode: makeProp(PROP_TYPE_STRING, 'multi', value => {
+    return arrayIncludes(SELECT_MODES, value)
+  }),
+  selectable: makeProp(PROP_TYPE_BOOLEAN, false),
+  selectedVariant: makeProp(PROP_TYPE_STRING, 'active')
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const selectableMixin = Vue.extend({
+  props,
   data() {
     return {
       selectedRows: [],
@@ -53,22 +52,21 @@ export default {
       return true
     },
     selectableHasSelection() {
+      const { selectedRows } = this
       return (
-        this.isSelectable &&
-        this.selectedRows &&
-        this.selectedRows.length > 0 &&
-        this.selectedRows.some(identity)
+        this.isSelectable && selectedRows && selectedRows.length > 0 && selectedRows.some(identity)
       )
     },
     selectableIsMultiSelect() {
       return this.isSelectable && arrayIncludes(['range', 'multi'], this.selectMode)
     },
     selectableTableClasses() {
+      const { isSelectable } = this
       return {
-        'b-table-selectable': this.isSelectable,
-        [`b-table-select-${this.selectMode}`]: this.isSelectable,
+        'b-table-selectable': isSelectable,
+        [`b-table-select-${this.selectMode}`]: isSelectable,
         'b-table-selecting': this.selectableHasSelection,
-        'b-table-selectable-no-click': this.isSelectable && !this.hasSelectableRowClick
+        'b-table-selectable-no-click': isSelectable && !this.hasSelectableRowClick
       }
     },
     selectableTableAttrs() {
@@ -85,34 +83,34 @@ export default {
     }
   },
   watch: {
-    computedItems(newVal, oldVal) {
+    computedItems(newValue, oldValue) {
       // Reset for selectable
       let equal = false
       if (this.isSelectable && this.selectedRows.length > 0) {
         // Quick check against array length
-        equal = isArray(newVal) && isArray(oldVal) && newVal.length === oldVal.length
-        for (let i = 0; equal && i < newVal.length; i++) {
+        equal = isArray(newValue) && isArray(oldValue) && newValue.length === oldValue.length
+        for (let i = 0; equal && i < newValue.length; i++) {
           // Look for the first non-loosely equal row, after ignoring reserved fields
-          equal = looseEqual(sanitizeRow(newVal[i]), sanitizeRow(oldVal[i]))
+          equal = looseEqual(sanitizeRow(newValue[i]), sanitizeRow(oldValue[i]))
         }
       }
       if (!equal) {
         this.clearSelected()
       }
     },
-    selectable(newVal) {
+    selectable(newValue) {
       this.clearSelected()
-      this.setSelectionHandlers(newVal)
+      this.setSelectionHandlers(newValue)
     },
     selectMode() {
       this.clearSelected()
     },
-    hasSelectableRowClick(newVal) {
+    hasSelectableRowClick(newValue) {
       this.clearSelected()
-      this.setSelectionHandlers(!newVal)
+      this.setSelectionHandlers(!newValue)
     },
-    selectedRows(selectedRows, oldVal) {
-      if (this.isSelectable && !looseEqual(selectedRows, oldVal)) {
+    selectedRows(selectedRows, oldValue) {
+      if (this.isSelectable && !looseEqual(selectedRows, oldValue)) {
         const items = []
         // `.forEach()` skips over non-existent indices (on sparse arrays)
         selectedRows.forEach((v, idx) => {
@@ -120,7 +118,7 @@ export default {
             items.push(this.computedItems[idx])
           }
         })
-        this.$emit('row-selected', items)
+        this.$emit(EVENT_NAME_ROW_SELECTED, items)
       }
     }
   },
@@ -160,7 +158,7 @@ export default {
       const length = this.computedItems.length
       if (this.isSelectable && length > 0) {
         this.selectedLastClicked = -1
-        this.selectedRows = this.selectableIsMultiSelect ? range(length).map(() => true) : [true]
+        this.selectedRows = this.selectableIsMultiSelect ? createArray(length, true) : [true]
       }
     },
     isRowSelected(index) {
@@ -180,9 +178,9 @@ export default {
           'b-table-row-selected': true,
           [`${this.dark ? 'bg' : 'table'}-${variant}`]: variant
         }
-      } else {
-        return {}
       }
+
+      return {}
     },
     selectableRowAttrs(index) {
       return {
@@ -192,37 +190,37 @@ export default {
     setSelectionHandlers(on) {
       const method = on && !this.noSelectOnClick ? '$on' : '$off'
       // Handle row-clicked event
-      this[method]('row-clicked', this.selectionHandler)
+      this[method](EVENT_NAME_ROW_CLICKED, this.selectionHandler)
       // Clear selection on filter, pagination, and sort changes
-      this[method]('filtered', this.clearSelected)
-      this[method]('context-changed', this.clearSelected)
+      this[method](EVENT_NAME_FILTERED, this.clearSelected)
+      this[method](EVENT_NAME_CONTEXT_CHANGED, this.clearSelected)
     },
-    selectionHandler(item, index, evt) {
+    selectionHandler(item, index, event) {
       /* istanbul ignore if: should never happen */
       if (!this.isSelectable || this.noSelectOnClick) {
         // Don't do anything if table is not in selectable mode
         this.clearSelected()
         return
       }
-      const selectMode = this.selectMode
+      const { selectMode, selectedLastRow } = this
       let selectedRows = this.selectedRows.slice()
       let selected = !selectedRows[index]
       // Note 'multi' mode needs no special event handling
       if (selectMode === 'single') {
         selectedRows = []
       } else if (selectMode === 'range') {
-        if (this.selectedLastRow > -1 && evt.shiftKey) {
+        if (selectedLastRow > -1 && event.shiftKey) {
           // range
           for (
-            let idx = mathMin(this.selectedLastRow, index);
-            idx <= mathMax(this.selectedLastRow, index);
+            let idx = mathMin(selectedLastRow, index);
+            idx <= mathMax(selectedLastRow, index);
             idx++
           ) {
             selectedRows[idx] = true
           }
           selected = true
         } else {
-          if (!(evt.ctrlKey || evt.metaKey)) {
+          if (!(event.ctrlKey || event.metaKey)) {
             // Clear range selection if any
             selectedRows = []
             selected = true
@@ -234,4 +232,4 @@ export default {
       this.selectedRows = selectedRows
     }
   }
-}
+})

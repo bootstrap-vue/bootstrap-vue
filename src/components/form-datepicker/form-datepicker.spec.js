@@ -313,7 +313,7 @@ describe('form-date', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     const $toggle = wrapper.find('button#test-emit-input')
     const $menu = wrapper.find('.dropdown-menu')

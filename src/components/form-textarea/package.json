@@ -12,29 +12,8 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "The current value of the textarea. Result will always be a string, except when the 'number' prop is used"
-          },
-          {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-          },
-          {
             "prop": "ariaInvalid",
             "description": "Sets the 'aria-invalid' attribute with the specified value"
-          },
-          {
-            "prop": "trim",
-            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
-          },
-          {
-            "prop": "number",
-            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
-          },
-          {
-            "prop": "lazy",
-            "version": "2.1.0",
-            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "debounce",
@@ -43,34 +22,77 @@
           },
           {
             "prop": "formatter",
-            "description": "reference to a function for formatting the textarea"
+            "description": "Reference to a function for formatting the textarea"
+          },
+          {
+            "prop": "lazy",
+            "version": "2.1.0",
+            "description": "When set, updates the v-model on 'change'/'blur' events instead of 'input'. Emulates the Vue '.lazy' v-model modifier"
           },
           {
             "prop": "lazyFormatter",
             "description": "When set, the textarea is formatted on blur instead of each keystroke (if there is a formatter specified)"
           },
           {
-            "prop": "rows",
-            "description": "The minimum number of rows to display. Must be a value greater than 1"
-          },
-          {
             "prop": "maxRows",
             "description": "The maximum number of rows to show. When provided, the textarea will grow (or shrink) to fit the content up to maximum rows"
           },
           {
-            "prop": "wrap",
-            "description": "The value to place on the textarea's 'wrap' attribute. Controls how line break are returned"
+            "prop": "noAutoShrink",
+            "description": "When set, prevents the auto height textarea from shrinking to fit the content"
           },
           {
             "prop": "noResize",
             "description": "When set, disabled the browser's resize handle which prevents the user from changing the height of the textarea. Automatically set when in auto height mode"
           },
           {
-            "prop": "noAutoShrink",
-            "description": "When set, prevents the auto height textarea from shrinking to fit the content"
+            "prop": "number",
+            "description": "When set attempts to convert the input value to a native number. Emulates the Vue '.number' v-model modifier"
+          },
+          {
+            "prop": "rows",
+            "description": "The minimum number of rows to display. Must be a value greater than 1"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "trim",
+            "description": "When set, trims any leading and trailing white space from the input value. Emulates the Vue '.trim' v-model modifier"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the textarea. Result will always be a string, except when the 'number' prop is used"
+          },
+          {
+            "prop": "wrap",
+            "description": "The value to place on the textarea's 'wrap' attribute. Controls how line break are returned"
           }
         ],
         "events": [
+          {
+            "event": "blur",
+            "description": "Emitted after the textarea looses focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native blur event (before any optional formatting occurs)"
+              }
+            ]
+          },
+          {
+            "event": "change",
+            "description": "Change event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
+            "args": [
+              {
+                "arg": "value",
+                "type": "String",
+                "description": "Current value of the textarea"
+              }
+            ]
+          },
           {
             "event": "input",
             "description": "Input event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated",
@@ -83,17 +105,6 @@
             ]
           },
           {
-            "event": "change",
-            "description": "Change event triggered by user interaction. Emitted after any formatting (not including 'trim' or 'number' props) and after the v-model is updated.",
-            "args": [
-              {
-                "arg": "value",
-                "type": "String",
-                "description": "Current value of the textarea"
-              }
-            ]
-          },
-          {
             "event": "update",
             "description": "Emitted to update the v-model",
             "args": [
@@ -101,17 +112,6 @@
                 "arg": "value",
                 "type": "String",
                 "description": "Value of textarea, after any formatting. Not emitted if the value does nto change"
-              }
-            ]
-          },
-          {
-            "event": "blur",
-            "description": "Emitted after the textarea looses focus",
-            "args": [
-              {
-                "arg": "event",
-                "type": "FocusEvent",
-                "description": "Native blur event (before any optional formatting occurs)"
               }
             ]
           }

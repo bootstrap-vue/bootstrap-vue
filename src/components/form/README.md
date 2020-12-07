@@ -81,12 +81,12 @@ supported components, form layout, and more.
       }
     },
     methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
+      onSubmit(event) {
+        event.preventDefault()
         alert(JSON.stringify(this.form))
       },
-      onReset(evt) {
-        evt.preventDefault()
+      onReset(event) {
+        event.preventDefault()
         // Reset our form values
         this.form.email = ''
         this.form.name = ''

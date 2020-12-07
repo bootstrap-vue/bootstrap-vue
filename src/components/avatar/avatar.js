@@ -1,17 +1,24 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
+import { EVENT_NAME_CLICK, EVENT_NAME_IMG_ERROR } from '../../constants/events'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_BADGE } from '../../constants/slots'
 import { RX_NUMBER } from '../../constants/regex'
-import { makePropsConfigurable } from '../../utils/config'
 import { isNumber, isString } from '../../utils/inspect'
 import { toFloat } from '../../utils/number'
-import { omit } from '../../utils/object'
-import { pluckProps } from '../../utils/props'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
-import { BButton } from '../button/button'
-import { BLink, props as BLinkProps } from '../link/link'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BIcon } from '../../icons/icon'
 import { BIconPersonFill } from '../../icons/icons'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { BButton } from '../button/button'
+import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Constants ---
 
@@ -22,7 +29,7 @@ const SIZES = ['sm', null, 'lg']
 const FONT_SIZE_SCALE = 0.4
 const BADGE_FONT_SIZE_SCALE = FONT_SIZE_SCALE * 0.7
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 export const computeSize = value => {
   // Parse to number when value is a float-like string
@@ -35,7 +42,31 @@ export const computeSize = value => {
 
 const linkProps = omit(BLinkProps, ['active', 'event', 'routerTag'])
 
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...linkProps,
+    alt: makeProp(PROP_TYPE_STRING, 'avatar'),
+    ariaLabel: makeProp(PROP_TYPE_STRING),
+    badge: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    badgeLeft: makeProp(PROP_TYPE_BOOLEAN, false),
+    badgeOffset: makeProp(PROP_TYPE_STRING),
+    badgeTop: makeProp(PROP_TYPE_BOOLEAN, false),
+    badgeVariant: makeProp(PROP_TYPE_STRING, 'primary'),
+    button: makeProp(PROP_TYPE_BOOLEAN, false),
+    buttonType: makeProp(PROP_TYPE_STRING, 'button'),
+    icon: makeProp(PROP_TYPE_STRING),
+    rounded: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    size: makeProp(PROP_TYPE_NUMBER_STRING),
+    square: makeProp(PROP_TYPE_BOOLEAN, false),
+    src: makeProp(PROP_TYPE_STRING),
+    text: makeProp(PROP_TYPE_STRING),
+    variant: makeProp(PROP_TYPE_STRING, 'secondary')
+  }),
+  NAME_AVATAR
+)
+
 // --- Main component ---
+
 // @vue/component
 export const BAvatar = /*#__PURE__*/ Vue.extend({
   name: NAME_AVATAR,
@@ -43,76 +74,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   inject: {
     bvAvatarGroup: { default: null }
   },
-  props: makePropsConfigurable(
-    {
-      src: {
-        type: String
-        // default: null
-      },
-      text: {
-        type: String
-        // default: null
-      },
-      icon: {
-        type: String
-        // default: null
-      },
-      alt: {
-        type: String,
-        default: 'avatar'
-      },
-      variant: {
-        type: String,
-        default: 'secondary'
-      },
-      size: {
-        type: [Number, String]
-        // default: null
-      },
-      square: {
-        type: Boolean,
-        default: false
-      },
-      rounded: {
-        type: [Boolean, String],
-        default: false
-      },
-      button: {
-        type: Boolean,
-        default: false
-      },
-      buttonType: {
-        type: String,
-        default: 'button'
-      },
-      badge: {
-        type: [Boolean, String],
-        default: false
-      },
-      badgeVariant: {
-        type: String,
-        default: 'primary'
-      },
-      badgeTop: {
-        type: Boolean,
-        default: false
-      },
-      badgeLeft: {
-        type: Boolean,
-        default: false
-      },
-      badgeOffset: {
-        type: String,
-        default: '0px'
-      },
-      ...linkProps,
-      ariaLabel: {
-        type: String
-        // default: null
-      }
-    },
-    NAME_AVATAR
-  ),
+  props,
   data() {
     return {
       localSrc: this.src || null
@@ -158,19 +120,19 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    src(newSrc, oldSrc) {
-      if (newSrc !== oldSrc) {
-        this.localSrc = newSrc || null
+    src(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.localSrc = newValue || null
       }
     }
   },
   methods: {
-    onImgError(evt) {
+    onImgError(event) {
       this.localSrc = null
-      this.$emit('img-error', evt)
+      this.$emit(EVENT_NAME_IMG_ERROR, event)
     },
-    onClick(evt) {
-      this.$emit('click', evt)
+    onClick(event) {
+      this.$emit(EVENT_NAME_CLICK, event)
     }
   },
   render(h) {
@@ -212,24 +174,31 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
         attrs: { 'aria-hidden': 'true', alt }
       })
     } else if (text) {
-      $content = h('span', { staticClass: 'b-avatar-text', style: fontStyle }, [h('span', text)])
+      $content = h(
+        'span',
+        {
+          staticClass: 'b-avatar-text',
+          style: fontStyle
+        },
+        [h('span', text)]
+      )
     } else {
       // Fallback default avatar content
       $content = h(BIconPersonFill, { attrs: { 'aria-hidden': 'true', alt } })
     }
 
     let $badge = h()
-    const hasBadgeSlot = this.hasNormalizedSlot('badge')
+    const hasBadgeSlot = this.hasNormalizedSlot(SLOT_NAME_BADGE)
     if (badge || badge === '' || hasBadgeSlot) {
       const badgeText = badge === true ? '' : badge
       $badge = h(
         'span',
         {
           staticClass: 'b-avatar-badge',
-          class: { [`badge-${badgeVariant}`]: !!badgeVariant },
+          class: { [`badge-${badgeVariant}`]: badgeVariant },
           style: badgeStyle
         },
-        [hasBadgeSlot ? this.normalizeSlot('badge') : badgeText]
+        [hasBadgeSlot ? this.normalizeSlot(SLOT_NAME_BADGE) : badgeText]
       )
     }
 

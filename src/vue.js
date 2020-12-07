@@ -1,8 +1,8 @@
-//
-// Single point of contact for Vue
-//
 import Vue from 'vue'
 import { mergeData } from 'vue-functional-data-merge'
 
-export default Vue
-export { mergeData }
+// --- Constants ---
+
+const COMPONENT_UID_KEY = '_uid'
+
+export { COMPONENT_UID_KEY, Vue, mergeData }

@@ -1,24 +1,20 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_CARD_GROUP } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    deck: {
-      type: Boolean,
-      default: false
-    },
-    columns: {
-      type: Boolean,
-      default: false
-    }
+    columns: makeProp(PROP_TYPE_BOOLEAN, false),
+    deck: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div')
   },
   NAME_CARD_GROUP
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BCardGroup = /*#__PURE__*/ Vue.extend({

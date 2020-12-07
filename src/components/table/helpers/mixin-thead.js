@@ -1,52 +1,54 @@
-import { NAME_TABLE } from '../../../constants/components'
+import { Vue } from '../../../vue'
+import { EVENT_NAME_HEAD_CLICKED } from '../../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
-import identity from '../../../utils/identity'
-import noop from '../../../utils/noop'
-import { makePropsConfigurable } from '../../../utils/config'
+import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../../constants/props'
+import { SLOT_NAME_THEAD_TOP } from '../../../constants/slots'
 import { stopEvent } from '../../../utils/events'
 import { htmlOrText } from '../../../utils/html'
+import { identity } from '../../../utils/identity'
 import { isUndefinedOrNull } from '../../../utils/inspect'
+import { noop } from '../../../utils/noop'
+import { makeProp } from '../../../utils/props'
 import { startCase } from '../../../utils/string'
-import filterEvent from './filter-event'
-import textSelectionActive from './text-selection-active'
 import { BThead } from '../thead'
 import { BTfoot } from '../tfoot'
 import { BTr } from '../tr'
 import { BTh } from '../th'
+import { filterEvent } from './filter-event'
+import { textSelectionActive } from './text-selection-active'
 
-export default {
-  props: makePropsConfigurable(
-    {
-      headVariant: {
-        type: String // 'light', 'dark' or `null` (or custom)
-        // default: null
-      },
-      headRowVariant: {
-        // Any Bootstrap theme variant (or custom)
-        type: String
-        // default: null
-      },
-      theadClass: {
-        type: [String, Array, Object]
-        // default: undefined
-      },
-      theadTrClass: {
-        type: [String, Array, Object]
-        // default: undefined
-      }
-    },
-    NAME_TABLE
-  ),
+// --- Helper methods ---
+
+const getHeadSlotName = value => `head(${value || ''})`
+
+const getFootSlotName = value => `foot(${value || ''})`
+
+// --- Props ---
+
+export const props = {
+  // Any Bootstrap theme variant (or custom)
+  headRowVariant: makeProp(PROP_TYPE_STRING),
+  // 'light', 'dark' or `null` (or custom)
+  headVariant: makeProp(PROP_TYPE_STRING),
+  theadClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+  theadTrClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING)
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const theadMixin = Vue.extend({
+  props,
   methods: {
     fieldClasses(field) {
       // Header field (<th>) classes
       return [field.class ? field.class : '', field.thClass ? field.thClass : '']
     },
-    headClicked(evt, field, isFoot) {
-      if (this.stopIfBusy && this.stopIfBusy(evt)) {
+    headClicked(event, field, isFoot) {
+      if (this.stopIfBusy && this.stopIfBusy(event)) {
         // If table is busy (via provider) then don't propagate
         return
-      } else if (filterEvent(evt)) {
+      } else if (filterEvent(event)) {
         // Clicked on a non-disabled control so ignore
         return
       } else if (textSelectionActive(this.$el)) {
@@ -54,20 +56,12 @@ export default {
         /* istanbul ignore next: JSDOM doesn't support getSelection() */
         return
       }
-      stopEvent(evt)
-      this.$emit('head-clicked', field.key, field, evt, isFoot)
+      stopEvent(event)
+      this.$emit(EVENT_NAME_HEAD_CLICKED, field.key, field, event, isFoot)
     },
     renderThead(isFoot = false) {
-      const h = this.$createElement
-      const fields = this.computedFields || []
-
-      // In always stacked mode, we don't bother rendering the head/foot
-      // Or if no field headings (empty table)
-      if (this.isStackedAlways || fields.length === 0) {
-        return h()
-      }
-
       const {
+        computedFields: fields,
         isSortable,
         isSelectable,
         headVariant,
@@ -75,7 +69,15 @@ export default {
         headRowVariant,
         footRowVariant
       } = this
-      const hasHeadClickListener = isSortable || this.hasListener('head-clicked')
+      const h = this.$createElement
+
+      // In always stacked mode, we don't bother rendering the head/foot
+      // Or if no field headings (empty table)
+      if (this.isStackedAlways || fields.length === 0) {
+        return h()
+      }
+
+      const hasHeadClickListener = isSortable || this.hasListener(EVENT_NAME_HEAD_CLICKED)
 
       // Reference to `selectAllRows` and `clearSelected()`, if table is selectable
       const selectAllRows = isSelectable ? this.selectAllRows : noop
@@ -95,13 +97,13 @@ export default {
 
         const on = {}
         if (hasHeadClickListener) {
-          on.click = evt => {
-            this.headClicked(evt, field, isFoot)
+          on.click = event => {
+            this.headClicked(event, field, isFoot)
           }
-          on.keydown = evt => {
-            const keyCode = evt.keyCode
+          on.keydown = event => {
+            const keyCode = event.keyCode
             if (keyCode === CODE_ENTER || keyCode === CODE_SPACE) {
-              this.headClicked(evt, field, isFoot)
+              this.headClicked(event, field, isFoot)
             }
           }
         }
@@ -134,10 +136,19 @@ export default {
         // name (attributes become lower cased when parsed by the browser)
         // We have replaced the square bracket syntax with round brackets
         // to prevent confusion with dynamic slot names
-        let slotNames = [`head(${key})`, `head(${key.toLowerCase()})`, 'head()']
+        let slotNames = [
+          getHeadSlotName(key),
+          getHeadSlotName(key.toLowerCase()),
+          getHeadSlotName()
+        ]
         // Footer will fallback to header slot names
         if (isFoot) {
-          slotNames = [`foot(${key})`, `foot(${key.toLowerCase()})`, 'foot()', ...slotNames]
+          slotNames = [
+            getFootSlotName(key),
+            getFootSlotName(key.toLowerCase()),
+            getFootSlotName(),
+            ...slotNames
+          ]
         }
 
         const scope = {
@@ -188,7 +199,7 @@ export default {
           selectAllRows,
           clearSelected
         }
-        $trs.push(this.normalizeSlot('thead-top', scope) || h())
+        $trs.push(this.normalizeSlot(SLOT_NAME_THEAD_TOP, scope) || h())
 
         $trs.push(
           h(
@@ -205,14 +216,14 @@ export default {
       return h(
         isFoot ? BTfoot : BThead,
         {
-          key: isFoot ? 'bv-tfoot' : 'bv-thead',
           class: (isFoot ? this.tfootClass : this.theadClass) || null,
           props: isFoot
             ? { footVariant: footVariant || headVariant || null }
-            : { headVariant: headVariant || null }
+            : { headVariant: headVariant || null },
+          key: isFoot ? 'bv-tfoot' : 'bv-thead'
         },
         $trs
       )
     }
   }
-}
+})
