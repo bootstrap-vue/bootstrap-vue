@@ -39,6 +39,7 @@ import { mathMax } from '../../utils/math'
 import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
 import { omit, sortKeys } from '../../utils/object'
+import { observeDom } from '../../utils/observe-dom'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { idMixin, props as idProps } from '../../mixins/id'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
@@ -294,11 +295,76 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     }
   },
-  destroyed() {
+  created() {
+    // Create private non-reactive props
+    this.$_observer = null
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.updateTabs()
+      this.setObserver(true)
+    })
+  },
+  beforeDestroy() {
+    this.setObserver(false)
     // Ensure no references to child instances exist
     this.tabs = []
   },
   methods: {
+    // DOM observer is needed to detect changes in order of tabs
+    setObserver(on = true) {
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
+
+      if (on) {
+        /* istanbul ignore next: difficult to test mutation observer in JSDOM */
+        const handler = () => {
+          this.$nextTick(() => {
+            this.updateTabs()
+          })
+        }
+
+        // Watch for changes to `<b-tab>` sub components
+        this.$_observer = observeDom(this.$refs.content, handler, {
+          childList: true,
+          subtree: false,
+          attributes: true,
+          attributeFilter: ['id']
+        })
+      }
+    },
+    getTabs() {
+      return this.$children.filter(
+        $tab => $tab && $tab._isTab && $tab.$children.filter($t => $t._isTab).length === 0
+      )
+    },
+    updateTabs() {
+      const $tabs = this.getTabs()
+
+      // Normalize `currentTab`
+      let { currentTab } = this
+      const $tab = $tabs[currentTab]
+      if (!$tab || $tab.disabled) {
+        currentTab = $tabs.indexOf(
+          $tabs
+            .slice()
+            .reverse()
+            .find($tab => $tab.localActive && !$tab.disabled)
+        )
+
+        if (currentTab === -1) {
+          currentTab = $tabs.indexOf($tabs.find(notDisabled))
+        }
+      }
+
+      // Ensure only one tab is active at a time
+      $tabs.forEach(($tab, index) => {
+        $tab.localActive = index === currentTab
+      })
+
+      this.tabs = $tabs
+      this.currentTab = currentTab
+    },
     // Find a button that controls a tab, given the tab reference
     // Returns the button vm instance
     getButtonForTab($tab) {
@@ -346,20 +412,20 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Deactivate a tab given a `<b-tab>` instance
     // Accessed by `<b-tab>`
-    deactivateTab(tab) {
-      if (tab) {
+    deactivateTab($tab) {
+      if ($tab) {
         // Find first non-disabled tab that isn't the one being deactivated
         // If no tabs are available, then don't deactivate current tab
-        return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
+        return this.activateTab(this.tabs.filter($t => $t !== $tab).find(notDisabled))
       }
       /* istanbul ignore next: should never/rarely happen */
       return false
     },
     // Focus a tab button given its `<b-tab>` instance
-    focusButton(tab) {
-      // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
+    focusButton($tab) {
+      // Wrap in `$nextTick()` to ensure DOM has completed rendering
       this.$nextTick(() => {
-        attemptFocus(this.getButtonForTab(tab))
+        attemptFocus(this.getButtonForTab($tab))
       })
     },
     // Emit a click event on a specified `<b-tab>` component instance
@@ -369,48 +435,48 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     // Click handler
-    clickTab(tab, event) {
-      this.activateTab(tab)
-      this.emitTabClick(tab, event)
+    clickTab($tab, event) {
+      this.activateTab($tab)
+      this.emitTabClick($tab, event)
     },
     // Move to first non-disabled tab
     firstTab(focus) {
-      const tab = this.tabs.find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      const $tab = this.tabs.find(notDisabled)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to previous non-disabled tab
     previousTab(focus) {
       const currentIndex = mathMax(this.currentTab, 0)
-      const tab = this.tabs
+      const $tab = this.tabs
         .slice(0, currentIndex)
         .reverse()
         .find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to next non-disabled tab
     nextTab(focus) {
       const currentIndex = mathMax(this.currentTab, -1)
-      const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      const $tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to last non-disabled tab
     lastTab(focus) {
-      const tab = this.tabs
+      const $tab = this.tabs
         .slice()
         .reverse()
         .find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     }
   },
@@ -429,6 +495,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       pills,
       previousTab,
       small,
+      tabs: $tabs,
       vertical
     } = this
 
@@ -455,33 +522,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         key: 'bv-content',
         ref: 'content'
       },
-      [$children || $empty]
+      [$children, $empty]
     )
-
-    const $tabs = ($content.children || [])
-      .map(vNode => vNode.componentInstance)
-      .filter($tab => $tab && $tab._isTab && $tab.$children.filter($t => $t._isTab).length === 0)
-
-    let { currentTab } = this
-    if (currentTab === -1) {
-      currentTab = $tabs.indexOf(
-        $tabs
-          .slice()
-          .reverse()
-          .find($tab => $tab.localActive && !$tab.disabled)
-      )
-
-      if (currentTab === -1) {
-        currentTab = $tabs.indexOf($tabs.find(notDisabled))
-      }
-    }
-
-    this.tabs = $tabs
-    this.currentTab = currentTab
-
-    $tabs.forEach(($tab, index) => {
-      $tab.localActive = index === currentTab
-    })
 
     // Currently active tab
     const $activeTab = $tabs.find($tab => $tab.localActive && !$tab.disabled)
