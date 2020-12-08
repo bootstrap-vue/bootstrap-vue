@@ -584,6 +584,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // Tab button to allow focusing when no active tab found (keynav only)
     const fallbackTab = tabs.find(tab => !tab.disabled)
 
+    console.log('tag: render', tabs.length)
+
     // For each `<b-tab>` found create the tab buttons
     const $buttons = tabs.map((tab, index) => {
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
