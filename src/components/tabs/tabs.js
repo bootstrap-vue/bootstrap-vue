@@ -1,5 +1,6 @@
 import { COMPONENT_UID_KEY, Vue } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
 import {
   EVENT_NAME_ACTIVATE_TAB,
   EVENT_NAME_CHANGED,
@@ -30,9 +31,11 @@ import {
   SLOT_NAME_TABS_START,
   SLOT_NAME_TITLE
 } from '../../constants/slots'
+import { arrayIncludes } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
-import { attemptFocus } from '../../utils/dom'
+import { attemptFocus, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isEvent } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { mathMax } from '../../utils/math'
@@ -41,6 +44,7 @@ import { toInteger } from '../../utils/number'
 import { omit, sortKeys } from '../../utils/object'
 import { observeDom } from '../../utils/observe-dom'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { stableSort } from '../../utils/stable-sort'
 import { idMixin, props as idProps } from '../../mixins/id'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BLink } from '../link/link'
@@ -222,8 +226,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     return {
       // Index of current tab
       currentTab: toInteger(this[MODEL_PROP_NAME], -1),
-      // Array of direct child <b-tab> instances, in DOM order
+      // Array of direct child `<b-tab>` instances, in DOM order
       tabs: [],
+      // Array of child instances registered (for triggering reactive updates)
+      registeredTabs: [],
       // Flag to know if we are mounted or not
       isMounted: false
     }
@@ -293,6 +299,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           this.$emit(EVENT_NAME_CHANGED, newValue.slice(), oldValue.slice())
         })
       }
+    },
+    registeredTabs() {
+      this.updateTabs()
     }
   },
   created() {
@@ -300,10 +309,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     this.$_observer = null
   },
   mounted() {
-    this.$nextTick(() => {
-      this.updateTabs()
-      this.setObserver(true)
-    })
+    this.setObserver(true)
   },
   beforeDestroy() {
     this.setObserver(false)
@@ -311,6 +317,14 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     this.tabs = []
   },
   methods: {
+    registerTab($tab) {
+      if (!arrayIncludes(this.registeredTabs, $tab)) {
+        this.registeredTabs.push($tab)
+      }
+    },
+    unregisterTab($tab) {
+      this.registeredTabs = this.registeredTabs.slice().filter($t => $t !== $tab)
+    },
     // DOM observer is needed to detect changes in order of tabs
     setObserver(on = true) {
       this.$_observer && this.$_observer.disconnect()
@@ -334,9 +348,25 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      return this.$children.filter(
-        $tab => $tab && $tab._isTab && $tab.$children.filter($t => $t._isTab).length === 0
+      const $tabs = this.registeredTabs.filter(
+        $tab => $tab.$children.filter($t => $t._isTab).length === 0
       )
+
+      // DOM Order of Tabs
+      let order = []
+      if (IS_BROWSER && $tabs.length > 0) {
+        // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
+        // `querySelectorAll()` always returns elements in document order, regardless of
+        // order specified in the selector
+        const selector = $tabs.map($tab => `#${$tab.safeId()}`).join(', ')
+        order = selectAll(selector, this.$el)
+          .map($el => $el.id)
+          .filter(identity)
+      }
+
+      // Stable sort keeps the original order if not found in the `order` array,
+      // which will be an empty array before mount
+      return stableSort($tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
     },
     updateTabs() {
       const $tabs = this.getTabs()
