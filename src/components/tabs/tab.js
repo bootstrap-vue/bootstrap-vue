@@ -115,6 +115,10 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       this.$emit(MODEL_EVENT_NAME_ACTIVE, newValue)
     }
   },
+  mounted() {
+    // Inform `<b-tabs>` of our presence
+    this.registerTab()
+  },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
     // Only done if we have a title slot, as the title prop is reactive
@@ -123,7 +127,26 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       updateButton(this)
     }
   },
+  beforeDestroy() {
+    // Inform `<b-tabs>` of our departure
+    this.unregisterTab()
+  },
   methods: {
+    // Private methods
+    registerTab() {
+      // Inform `<b-tabs>` of our presence
+      const { registerTab } = this.bvTabs
+      if (registerTab) {
+        registerTab(this)
+      }
+    },
+    unregisterTab() {
+      // Inform `<b-tabs>` of our departure
+      const { unregisterTab } = this.bvTabs
+      if (unregisterTab) {
+        unregisterTab(this)
+      }
+    },
     // Public methods
     activate() {
       // Not inside a `<b-tabs>` component or tab is disabled
