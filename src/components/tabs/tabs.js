@@ -417,9 +417,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Update list of `<b-tab>` children
     updateTabs() {
-      console.log('tabs: updateTabs')
       // Probe tabs
       const tabs = this.getTabs()
+      console.log('tabs: updateTabs', tabs.length, this.registeredTabs.length)
 
       // Find *last* active non-disabled tab in current tabs
       // We trust tab state over `currentTab`, in case tabs were added/removed/re-ordered
