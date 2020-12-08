@@ -326,7 +326,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // For SSR and to make sure only a single tab is shown on mount
     // Wrapped in `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
-      this.updateTabs()
+      requestAF(() => {
+        console.log('tabs: created')
+        this.updateTabs()
+      })
     })
   },
   mounted() {
@@ -420,6 +423,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // Update list of `<b-tab>` children
     updateTabs() {
+      console.log('tabs: updateTabs')
       // Probe tabs
       const tabs = this.getTabs()
 

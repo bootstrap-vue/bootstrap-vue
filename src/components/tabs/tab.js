@@ -119,8 +119,10 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   },
   created() {
     /* istanbul ignore next */
+    console.log({ IS_BROWSER })
     if (!IS_BROWSER) {
       // Inform b-tabs of our presence
+      console.log('tab: created')
       this.registerTab()
       // Initially show on mount if active and not disabled
       this.show = this.localActive
@@ -147,6 +149,7 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   methods: {
     // Private methods
     registerTab() {
+      console.log('tab: registerTab')
       // Inform `<b-tabs>` of our presence
       const { registerTab } = this.bvTabs
       if (registerTab) {
