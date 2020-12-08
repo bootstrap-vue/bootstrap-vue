@@ -284,11 +284,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Each `<b-tab>` will register/unregister itself
       // We use this to detect when tabs are added/removed
       // to trigger the update of the tabs
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.updateTabs()
-        })
-      })
+      this.updateTabs()
     },
     tabs(newValue, oldValue) {
       // If tabs added, removed, or re-ordered, we emit a `changed` event
@@ -326,10 +322,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // For SSR and to make sure only a single tab is shown on mount
     // Wrapped in `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
-      requestAF(() => {
-        console.log('tabs: created')
-        this.updateTabs()
-      })
+      console.log('tabs: created')
+      this.updateTabs()
     })
   },
   mounted() {
@@ -351,7 +345,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   activated() {
     this.$nextTick(() => {
       this.isMounted = true
-      this.updateTabs()
     })
   },
   beforeDestroy() {
@@ -360,6 +353,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   destroyed() {
     // Ensure no references to child instances exist
     this.tabs = []
+    this.registeredTabs = []
   },
   methods: {
     registerTab(tab) {
