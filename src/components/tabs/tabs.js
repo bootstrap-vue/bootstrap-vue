@@ -19,7 +19,6 @@ import {
   CODE_UP
 } from '../../constants/key-codes'
 import {
-  PROP_TYPE_ARRAY,
   PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_NUMBER,
@@ -82,8 +81,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     setSize: makeProp(PROP_TYPE_NUMBER),
     // Reference to the child <b-tab> instance
     tab: makeProp(),
-    tabIndex: makeProp(PROP_TYPE_NUMBER),
-    tabs: makeProp(PROP_TYPE_ARRAY, [])
+    tabIndex: makeProp(PROP_TYPE_NUMBER)
   },
   methods: {
     focus() {
@@ -284,6 +282,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Each `<b-tab>` will register/unregister itself
       // We use this to detect when tabs are added/removed
       // to trigger the update of the tabs
+      console.log('tabs: registeredTabs')
       this.updateTabs()
     },
     tabs(newValue, oldValue) {
@@ -368,9 +367,10 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
     },
     // DOM observer is needed to detect changes in order of tabs
-    setObserver(on) {
+    setObserver(on = true) {
       this.$_observer && this.$_observer.disconnect()
       this.$_observer = null
+
       if (on) {
         const self = this
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */
@@ -393,33 +393,23 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      let $tabs = []
-      let order = []
-
+      // We use `registeredTabs` as the source of truth for child tab components
+      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
       // Filter out any `<b-tab>` components that are extended
       // `<b-tab>` with a root child `<b-tab>`
-      const filterTabs = $tab => $tab.$children.filter($t => $t._isTab).length === 0
+      const $tabs = this.registeredTabs.filter(
+        $tab => $tab.$children.filter($t => $t._isTab).length === 0
+      )
 
-      if (this.isMounted) {
-        // We use `registeredTabs` as the source of truth for child tab components
-        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-        $tabs = this.registeredTabs.filter(filterTabs)
-
+      let order = []
+      if (this.isMounted && $tabs.length > 0) {
         // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
         // order specified in the selector
         const selector = $tabs.map(tab => `#${tab.safeId()}`).join(', ')
-        order = selector
-          ? selectAll(selector, this.$el)
-              .map($el => $el.id)
-              .filter(identity)
-          : []
-      } else {
-        // We can't rely on `registeredTabs` for SSR, since `<b-tab>`'s
-        // register themselves after our first render
-        $tabs = (this.normalizeSlot() || [])
-          .map(vNode => vNode.componentInstance)
-          .filter(filterTabs)
+        order = selectAll(selector, this.$el)
+          .map($el => $el.id)
+          .filter(identity)
       }
 
       // Stable sort keeps the original order if not found in the `order` array
@@ -586,7 +576,23 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { tabs, noKeyNav, card, vertical, end, firstTab, previousTab, nextTab, lastTab } = this
+    const {
+      align,
+      card,
+      end,
+      fill,
+      firstTab,
+      justified,
+      lastTab,
+      nextTab,
+      noKeyNav,
+      noNavStyle,
+      pills,
+      previousTab,
+      small,
+      tabs,
+      vertical
+    } = this
 
     // Currently active tab
     const activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
@@ -611,14 +617,13 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
 
       return h(BVTabButton, {
         props: {
-          tab,
-          tabs,
-          id: tab.controlledBy || (tab.safeId ? tab.safeId(`_BV_tab_button_`) : null),
           controls: tab.safeId ? tab.safeId() : null,
-          tabIndex,
-          setSize: tabs.length,
+          id: tab.controlledBy || (tab.safeId ? tab.safeId(`_BV_tab_button_`) : null),
+          noKeyNav,
           posInSet: index + 1,
-          noKeyNav
+          setSize: tabs.length,
+          tab,
+          tabIndex
         },
         on: {
           [EVENT_NAME_CLICK]: event => {
@@ -645,13 +650,13 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           id: this.safeId('_BV_tab_controls_')
         },
         props: {
-          fill: this.fill,
-          justified: this.justified,
-          align: this.align,
-          tabs: !this.noNavStyle && !this.pills,
-          pills: !this.noNavStyle && this.pills,
+          fill,
+          justified,
+          align,
+          tabs: !noNavStyle && !pills,
+          pills: !noNavStyle && pills,
           vertical,
-          small: this.small,
+          small,
           cardHeader: card && !vertical
         },
         ref: 'nav'
