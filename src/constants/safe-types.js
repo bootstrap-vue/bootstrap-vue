@@ -1,7 +1,7 @@
 import { HAS_WINDOW_SUPPORT, WINDOW } from './env'
 
 /* istanbul ignore next */
-const Element = HAS_WINDOW_SUPPORT ? WINDOW.Element : class Element extends Object {}
+export const Element = HAS_WINDOW_SUPPORT ? WINDOW.Element : class Element extends Object {}
 
 /* istanbul ignore next */
 export const HTMLElement = HAS_WINDOW_SUPPORT
