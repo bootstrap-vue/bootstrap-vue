@@ -393,26 +393,36 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      // We use `registeredTabs` as the source of truth for child tab components
-      // We also filter out any `<b-tab>` components that are extended
-      // `<b-tab>` with a root child `<b-tab>`
-      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-      const $tabs = this.registeredTabs.filter(
-        tab => tab.$children.filter(t => t._isTab).length === 0
-      )
-      // DOM Order of Tabs
+      let $tabs = []
       let order = []
-      if (this.isMounted && $tabs.length > 0) {
+
+      // Filter out any `<b-tab>` components that are extended
+      // `<b-tab>` with a root child `<b-tab>`
+      const filterTabs = $tab => $tab.$children.filter($t => $t._isTab).length === 0
+
+      if (this.isMounted) {
+        // We use `registeredTabs` as the source of truth for child tab components
+        // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
+        $tabs = this.registeredTabs.filter(filterTabs)
+
         // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
         // order specified in the selector
         const selector = $tabs.map(tab => `#${tab.safeId()}`).join(', ')
-        order = selectAll(selector, this.$el)
-          .map($el => $el.id)
-          .filter(identity)
+        order = selector
+          ? selectAll(selector, this.$el)
+              .map($el => $el.id)
+              .filter(identity)
+          : []
+      } else {
+        // We can't rely on `registeredTabs` for SSR, since `<b-tab>`'s
+        // register themselves after our first render
+        $tabs = (this.normalizeSlot() || [])
+          .map(vNode => vNode.componentInstance)
+          .filter(filterTabs)
       }
-      // Stable sort keeps the original order if not found in the `order` array,
-      // which will be an empty array before mount
+
+      // Stable sort keeps the original order if not found in the `order` array
       return stableSort($tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
     },
     // Update list of `<b-tab>` children
