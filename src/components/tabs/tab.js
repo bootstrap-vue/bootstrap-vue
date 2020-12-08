@@ -1,5 +1,6 @@
 import { Vue } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
@@ -114,6 +115,15 @@ export const BTab = /*#__PURE__*/ Vue.extend({
           firstTab()
         }
       }
+    }
+  },
+  created() {
+    /* istanbul ignore next */
+    if (!IS_BROWSER) {
+      // Inform b-tabs of our presence
+      this.registerTab()
+      // Initially show on mount if active and not disabled
+      this.show = this.localActive
     }
   },
   mounted() {
