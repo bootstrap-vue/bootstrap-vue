@@ -499,32 +499,6 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       vertical
     } = this
 
-    const $children = this.normalizeSlot() || []
-
-    let $empty = h()
-    if ($children.length === 0) {
-      $empty = h(
-        'div',
-        {
-          class: ['tab-pane', 'active', { 'card-body': card }],
-          key: 'bv-empty-tab'
-        },
-        this.normalizeSlot(SLOT_NAME_EMPTY)
-      )
-    }
-
-    const $content = h(
-      'div',
-      {
-        staticClass: 'tab-content',
-        class: [{ col: vertical }, this.contentClass],
-        attrs: { id: this.safeId('_BV_tab_container_') },
-        key: 'bv-content',
-        ref: 'content'
-      },
-      [$children, $empty]
-    )
-
     // Currently active tab
     const $activeTab = $tabs.find($tab => $tab.localActive && !$tab.disabled)
 
@@ -613,6 +587,32 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         key: 'bv-tabs-nav'
       },
       [$nav]
+    )
+
+    const $children = this.normalizeSlot() || []
+
+    let $empty = h()
+    if ($children.length === 0) {
+      $empty = h(
+        'div',
+        {
+          class: ['tab-pane', 'active', { 'card-body': card }],
+          key: 'bv-empty-tab'
+        },
+        this.normalizeSlot(SLOT_NAME_EMPTY)
+      )
+    }
+
+    const $content = h(
+      'div',
+      {
+        staticClass: 'tab-content',
+        class: [{ col: vertical }, this.contentClass],
+        attrs: { id: this.safeId('_BV_tab_container_') },
+        key: 'bv-content',
+        ref: 'content'
+      },
+      [$children, $empty]
     )
 
     // Render final output
