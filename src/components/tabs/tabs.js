@@ -324,12 +324,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     // Create private non-reactive props
     this.$_observer = null
     // For SSR and to make sure only a single tab is shown on mount
-    // Wrapped in `$nextTick()` and `requestAF()` to ensure the
-    // child tabs have been created
+    // Wrapped in `$nextTick()` to ensure the child tabs have been created
     this.$nextTick(() => {
-      requestAF(() => {
-        this.updateTabs()
-      })
+      this.updateTabs()
     })
   },
   mounted() {
@@ -351,9 +348,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   activated() {
     this.$nextTick(() => {
       this.isMounted = true
-      requestAF(() => {
-        this.updateTabs()
-      })
+      this.updateTabs()
     })
   },
   beforeDestroy() {
@@ -405,23 +400,23 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // We also filter out any `<b-tab>` components that are extended
       // `<b-tab>` with a root child `<b-tab>`
       // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-      const tabs = this.registeredTabs.filter(
+      const $tabs = this.registeredTabs.filter(
         tab => tab.$children.filter(t => t._isTab).length === 0
       )
       // DOM Order of Tabs
       let order = []
-      if (this.isMounted && tabs.length > 0) {
+      if (this.isMounted && $tabs.length > 0) {
         // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
         // order specified in the selector
-        const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
+        const selector = $tabs.map(tab => `#${tab.safeId()}`).join(', ')
         order = selectAll(selector, this.$el)
-          .map(el => el.id)
+          .map($el => $el.id)
           .filter(identity)
       }
       // Stable sort keeps the original order if not found in the `order` array,
       // which will be an empty array before mount
-      return stableSort(tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
+      return stableSort($tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
     },
     // Update list of `<b-tab>` children
     updateTabs() {
