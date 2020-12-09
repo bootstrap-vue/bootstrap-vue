@@ -47,20 +47,20 @@
       }
     },
     watch: {
-      loading(newVal, oldValue) {
-        if (newVal !== oldValue) {
+      loading(newValue, oldValue) {
+        if (newValue !== oldValue) {
           this.clearLoadingTimeInterval()
 
-          if (newVal) {
+          if (newValue) {
             this.$_loadingTimeInterval = setInterval(() => {
               this.loadingTime++
             }, 1000)
           }
         }
       },
-      loadingTime(newVal, oldValue) {
-        if (newVal !== oldValue) {
-          if (newVal === this.maxLoadingTime) {
+      loadingTime(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          if (newValue === this.maxLoadingTime) {
             this.loading = false
           }
         }

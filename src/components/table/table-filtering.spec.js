@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import stringifyRecordValues from './helpers/stringify-record-values'
+import { stringifyRecordValues } from './helpers/stringify-record-values'
 import { BTable } from './table'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
@@ -76,7 +76,7 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    expect(wrapper.emitted('filtered')).not.toBeDefined()
+    expect(wrapper.emitted('filtered')).toBeUndefined()
 
     await wrapper.setProps({
       filter: 'z'
@@ -157,7 +157,7 @@ describe('table > filtering', () => {
 
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    expect(wrapper.emitted('filtered')).not.toBeDefined()
+    expect(wrapper.emitted('filtered')).toBeUndefined()
 
     await wrapper.setProps({
       filter: /z/

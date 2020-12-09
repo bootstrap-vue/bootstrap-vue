@@ -1,23 +1,22 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TBODY } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import attrsMixin from '../../mixins/attrs'
-import listenersMixin from '../../mixins/listeners'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { PROP_TYPE_OBJECT } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { attrsMixin } from '../../mixins/attrs'
+import { listenersMixin } from '../../mixins/listeners'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tbodyTransitionProps: {
-      type: Object
-      // default: undefined
-    },
-    tbodyTransitionHandlers: {
-      type: Object
-      // default: undefined
-    }
+    tbodyTransitionHandlers: makeProp(PROP_TYPE_OBJECT),
+    tbodyTransitionProps: makeProp(PROP_TYPE_OBJECT)
   },
   NAME_TBODY
 )
+
+// --- Main component ---
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
@@ -25,7 +24,6 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BTbody = /*#__PURE__*/ Vue.extend({
   name: NAME_TBODY,
-  // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
@@ -33,46 +31,43 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
     }
   },
   inject: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     bvTable: {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      /* istanbul ignore next */
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isTbody() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isDark() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.dark
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isStacked() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isStacked
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isResponsive() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isResponsive
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Sticky headers are only supported in thead
     isStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Sticky headers are only supported in thead
       return false
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
     hasStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
       return !this.isStacked && this.bvTable.stickyHeader
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     tableVariant() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
     isTransitionGroup() {
@@ -82,7 +77,8 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       return { role: 'rowgroup', ...this.bvAttrs }
     },
     tbodyProps() {
-      return this.tbodyTransitionProps ? { ...this.tbodyTransitionProps, tag: 'tbody' } : {}
+      const { tbodyTransitionProps } = this
+      return tbodyTransitionProps ? { ...tbodyTransitionProps, tag: 'tbody' } : {}
     }
   },
   render(h) {
@@ -98,6 +94,7 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
       // Otherwise we place any listeners on the tbody element
       data.on = this.bvListeners
     }
+
     return h(this.isTransitionGroup ? 'transition-group' : 'tbody', data, this.normalizeSlot())
   }
 })

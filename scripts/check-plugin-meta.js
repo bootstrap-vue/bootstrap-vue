@@ -44,8 +44,8 @@ const checkPluginMeta = async plugin => {
     return file.replace(/\.js/, '')
   })
 
-  const { meta } = await import(`${pluginDir}/package.json`)
-  if (!meta) {
+  const { private: isPrivate, meta } = await import(`${pluginDir}/package.json`)
+  if (isPrivate || !meta) {
     return
   }
 

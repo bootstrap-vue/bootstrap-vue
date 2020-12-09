@@ -9,16 +9,28 @@
         "component": "BTabs",
         "props": [
           {
-            "prop": "pills",
-            "description": "Renders the nav items with the appearance of pill buttons"
+            "prop": "activeNavItemClass",
+            "description": "CSS class (or classes) to apply to the active nav item tab control"
           },
           {
-            "prop": "small",
-            "description": "Makes the nav smaller"
+            "prop": "activeTabClass",
+            "description": "CSS class (or classes) to apply to the currently active tab"
           },
           {
             "prop": "align",
             "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
+          },
+          {
+            "prop": "card",
+            "description": "When set to true, renders the tabs the the appropriate styles to be placed into a 'b-card'"
+          },
+          {
+            "prop": "contentClass",
+            "description": "CSS class (or classes) to apply to the tab-content wrapper"
+          },
+          {
+            "prop": "end",
+            "description": "Place the tab controls at the bottom (horizontal tabs), or right (vertical tabs)"
           },
           {
             "prop": "fill",
@@ -29,36 +41,8 @@
             "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
           },
           {
-            "prop": "vertical",
-            "description": "Renders the nav vertically"
-          },
-          {
-            "prop": "card",
-            "description": "When set to true, renders the tabs the the appropriate styles to be placed into a 'b-card'"
-          },
-          {
-            "prop": "vertical",
-            "description": "Renders the tab controls vertically"
-          },
-          {
-            "prop": "end",
-            "description": "Place the tab controls at the bottom (horizontal tabs), or right (vertical tabs)"
-          },
-          {
             "prop": "lazy",
             "description": "Lazily render the b-tab contents when shown"
-          },
-          {
-            "prop": "noNavStyle",
-            "description": "Do not render the tab controls with tab styling"
-          },
-          {
-            "prop": "noKeyNav",
-            "description": "Disable keyboard navigation of the tab controls"
-          },
-          {
-            "prop": "contentClass",
-            "description": "CSS class (or classes) to apply to the tab-content wrapper"
           },
           {
             "prop": "navClass",
@@ -69,30 +53,35 @@
             "description": "CSS class (or classes) to apply to the tab controls wrapper element"
           },
           {
-            "prop": "activeTabClass",
-            "description": "CSS class (or classes) to apply to the currently active tab"
+            "prop": "noKeyNav",
+            "description": "Disable keyboard navigation of the tab controls"
           },
           {
-            "prop": "activeNavItemClass",
-            "description": "CSS class (or classes) to apply to the active nav item tab control"
+            "prop": "noNavStyle",
+            "description": "Do not render the tab controls with tab styling"
+          },
+          {
+            "prop": "pills",
+            "description": "Renders the nav items with the appearance of pill buttons"
+          },
+          {
+            "prop": "small",
+            "description": "Makes the nav smaller"
           },
           {
             "prop": "value",
             "description": "Currently visible tab index (zero-based)"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the nav vertically"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the tab controls vertically"
           }
         ],
         "events": [
-          {
-            "event": "input",
-            "description": "Emitted when a tab is shown. Used to update the v-model",
-            "args": [
-              {
-                "arg": "tabIndex",
-                "type": "Number",
-                "description": "Current selected tab index (0-based index)"
-              }
-            ]
-          },
           {
             "event": "activate-tab",
             "version": "2.1.0",
@@ -109,9 +98,9 @@
                 "description": "Tab that is currently active (0-based index). Will be -1 if no current active tab"
               },
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel"
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel"
               }
             ]
           },
@@ -122,28 +111,43 @@
               {
                 "arg": "currentTabs",
                 "type": "Array",
-                "description": "Array of the current b-tab instances, in document order."
+                "description": "Array of the current b-tab instances, in document order"
               },
               {
                 "arg": "previousTabs",
                 "type": "Array",
-                "description": "Array of the previous b-tab instances, in document order."
+                "description": "Array of the previous b-tab instances, in document order"
+              }
+            ]
+          },
+          {
+            "event": "input",
+            "description": "Emitted when a tab is shown. Used to update the v-model",
+            "args": [
+              {
+                "arg": "tabIndex",
+                "type": "Number",
+                "description": "Current selected tab index (0-based index)"
               }
             ]
           }
         ],
         "slots": [
           {
-            "name": "tabs-start",
-            "description": "Additional tab buttons without tab content placed before content tab buttons"
+            "name": "default",
+            "description": "Content (tabs) to place in the tabs element"
+          },
+          {
+            "name": "empty",
+            "description": "Renders this slot if no tabs are present"
           },
           {
             "name": "tabs-end",
             "description": "Additional tab buttons without tab content placed after content tab buttons"
           },
           {
-            "name": "empty",
-            "description": "Renders this slot if no tabs are present"
+            "name": "tabs-start",
+            "description": "Additional tab buttons without tab content placed before content tab buttons"
           }
         ]
       },
@@ -155,12 +159,16 @@
             "description": "Use a specific ID for this tab's tab control button. If not provided, one will automatically be generated"
           },
           {
-            "prop": "titleItemClass",
-            "description": "CSS class (or classes) to apply to the tab's control button 'li' element"
+            "prop": "lazy",
+            "description": "Lazily render this tab's content when shown"
           },
           {
-            "prop": "titleLinkClass",
-            "description": "CSS class (or classes) to apply to the tab's control button inner link element"
+            "prop": "noBody",
+            "description": "When the parent b-tabs has the 'card' prop set, do not render a card-body wrapper"
+          },
+          {
+            "prop": "titleItemClass",
+            "description": "CSS class (or classes) to apply to the tab's control button 'li' element"
           },
           {
             "prop": "titleLinkAttributes",
@@ -168,12 +176,8 @@
             "description": "Attributes to apply to the tab's control button inner link element"
           },
           {
-            "prop": "noBody",
-            "description": "When the parent b-tabs has the 'card' prop set, do not render a card-body wrapper"
-          },
-          {
-            "prop": "lazy",
-            "description": "Lazily render this tab's content when shown"
+            "prop": "titleLinkClass",
+            "description": "CSS class (or classes) to apply to the tab's control button inner link element"
           }
         ],
         "events": [
@@ -182,7 +186,7 @@
             "description": "Emitted when a tab is clicked, or is activated by keyboard navigation",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "type": "MouseEvent",
                 "description": "Original event object"
               }

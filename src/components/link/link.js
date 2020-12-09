@@ -1,116 +1,81 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { EVENT_NAME_CLICK } from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_OBJECT_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
 import { concat } from '../../utils/array'
-
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
-import { stopEvent } from '../../utils/events'
+import { getRootEventName, stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
-import { pluckProps } from '../../utils/props'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
-import attrsMixin from '../../mixins/attrs'
-import listenersMixin from '../../mixins/listeners'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { attrsMixin } from '../../mixins/attrs'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { listenersMixin } from '../../mixins/listeners'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Constants ---
+
+const ROOT_EVENT_NAME_CLICKED = getRootEventName(NAME_LINK, 'clicked')
 
 // --- Props ---
 
-// <router-link> specific props
+// `<router-link>` specific props
 export const routerLinkProps = {
-  to: {
-    type: [String, Object],
-    default: null
-  },
-  append: {
-    type: Boolean,
-    default: false
-  },
-  replace: {
-    type: Boolean,
-    default: false
-  },
-  event: {
-    type: [String, Array],
-    default: 'click'
-  },
-  activeClass: {
-    type: String
-    // default: undefined
-  },
-  exact: {
-    type: Boolean,
-    default: false
-  },
-  exactActiveClass: {
-    type: String
-    // default: undefined
-  },
-  routerTag: {
-    type: String,
-    default: 'a'
-  }
+  activeClass: makeProp(PROP_TYPE_STRING),
+  append: makeProp(PROP_TYPE_BOOLEAN, false),
+  event: makeProp(PROP_TYPE_ARRAY_STRING, EVENT_NAME_CLICK),
+  exact: makeProp(PROP_TYPE_BOOLEAN, false),
+  exactActiveClass: makeProp(PROP_TYPE_STRING),
+  replace: makeProp(PROP_TYPE_BOOLEAN, false),
+  routerTag: makeProp(PROP_TYPE_STRING, 'a'),
+  to: makeProp(PROP_TYPE_OBJECT_STRING)
 }
 
-// <nuxt-link> specific props
+// `<nuxt-link>` specific props
 export const nuxtLinkProps = {
-  prefetch: {
-    type: Boolean,
-    // Must be `null` to fall back to the value defined in the
-    // `nuxt.config.js` configuration file for `router.prefetchLinks`
-    // We convert `null` to `undefined`, so that Nuxt.js will use the
-    // compiled default. Vue treats `undefined` as default of `false`
-    // for Boolean props, so we must set it as `null` here to be a
-    // true tri-state prop
-    default: null
-  },
-  noPrefetch: {
-    type: Boolean,
-    default: false
-  }
+  noPrefetch: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Must be `null` to fall back to the value defined in the
+  // `nuxt.config.js` configuration file for `router.prefetchLinks`
+  // We convert `null` to `undefined`, so that Nuxt.js will use the
+  // compiled default
+  // Vue treats `undefined` as default of `false` for Boolean props,
+  // so we must set it as `null` here to be a true tri-state prop
+  prefetch: makeProp(PROP_TYPE_BOOLEAN, null)
 }
 
+// All `<b-link>` props
 export const props = makePropsConfigurable(
-  {
-    href: {
-      type: String,
-      default: null
-    },
-    rel: {
-      type: String,
-      // Must be `null` if no value provided
-      default: null
-    },
-    target: {
-      type: String,
-      default: '_self'
-    },
-    active: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    ...routerLinkProps,
+  sortKeys({
     ...nuxtLinkProps,
+    ...routerLinkProps,
+    active: makeProp(PROP_TYPE_BOOLEAN, false),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    href: makeProp(PROP_TYPE_STRING),
+    // Must be `null` if no value provided
+    rel: makeProp(PROP_TYPE_STRING, null),
     // To support 3rd party router links based on `<router-link>` (i.e. `g-link` for Gridsome)
     // Default is to auto choose between `<router-link>` and `<nuxt-link>`
     // Gridsome doesn't provide a mechanism to auto detect and has caveats
     // such as not supporting FQDN URLs or hash only URLs
-    routerComponentName: {
-      type: String
-      // default: undefined
-    }
-  },
+    routerComponentName: makeProp(PROP_TYPE_STRING),
+    target: makeProp(PROP_TYPE_STRING, '_self')
+  }),
   NAME_LINK
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BLink = /*#__PURE__*/ Vue.extend({
   name: NAME_LINK,
   // Mixin order is important!
-  mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, listenersMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
   props,
   computed: {
@@ -178,21 +143,21 @@ export const BLink = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    onClick(evt) {
-      const evtIsEvent = isEvent(evt)
+    onClick(event) {
+      const eventIsEvent = isEvent(event)
       const isRouterLink = this.isRouterLink
       const suppliedHandler = this.bvListeners.click
-      if (evtIsEvent && this.disabled) {
+      if (eventIsEvent && this.disabled) {
         // Stop event from bubbling up
         // Kill the event loop attached to this specific `EventTarget`
         // Needed to prevent `vue-router` for doing its thing
-        stopEvent(evt, { immediatePropagation: true })
+        stopEvent(event, { immediatePropagation: true })
       } else {
         /* istanbul ignore next: difficult to test, but we know it works */
-        if (isRouterLink && evt.currentTarget.__vue__) {
+        if (isRouterLink && event.currentTarget.__vue__) {
           // Router links do not emit instance `click` events, so we
-          // add in an `$emit('click', evt)` on its Vue instance
-          evt.currentTarget.__vue__.$emit('click', evt)
+          // add in an `$emit('click', event)` on its Vue instance
+          event.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, event)
         }
         // Call the suppliedHandler(s), if any provided
         concat(suppliedHandler)
@@ -201,12 +166,14 @@ export const BLink = /*#__PURE__*/ Vue.extend({
             handler(...arguments)
           })
         // Emit the global `$root` click event
-        this.$root.$emit('clicked::link', evt)
+        this.emitOnRoot(ROOT_EVENT_NAME_CLICKED, event)
+        // TODO: Remove deprecated 'clicked::link' event with next major release
+        this.emitOnRoot('clicked::link', event)
       }
       // Stop scroll-to-top behavior or navigation on
       // regular links when href is just '#'
-      if (evtIsEvent && !isRouterLink && this.computedHref === '#') {
-        stopEvent(evt, { propagation: false })
+      if (eventIsEvent && !isRouterLink && this.computedHref === '#') {
+        stopEvent(event, { propagation: false })
       }
     },
     focus() {

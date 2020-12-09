@@ -2,10 +2,11 @@
 // either via `v-on:name` (in the parent) or programmatically
 // via `vm.$on('name', ...)`
 // See: https://github.com/vuejs/vue/issues/10825
+import { Vue } from '../vue'
 import { isArray, isUndefined } from '../utils/inspect'
 
 // @vue/component
-export default {
+export const hasListenerMixin = Vue.extend({
   methods: {
     hasListener(name) {
       // Only includes listeners registered via `v-on:name`
@@ -19,4 +20,4 @@ export default {
       return !isUndefined($listeners[name]) || (isArray($events[name]) && $events[name].length > 0)
     }
   }
-}
+})

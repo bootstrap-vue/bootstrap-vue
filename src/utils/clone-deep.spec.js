@@ -1,4 +1,4 @@
-import cloneDeep from './clone-deep'
+import { cloneDeep } from './clone-deep'
 
 describe('cloneDeep()', () => {
   it('should clone arrays', () => {

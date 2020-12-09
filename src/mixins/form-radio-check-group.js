@@ -1,52 +1,74 @@
-import { SLOT_NAME_FIRST } from '../constants/slot-names'
-import looseEqual from '../utils/loose-equal'
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_BOOLEAN_STRING, PROP_TYPE_STRING } from '../constants/props'
+import { SLOT_NAME_FIRST } from '../constants/slots'
 import { htmlOrText } from '../utils/html'
+import { looseEqual } from '../utils/loose-equal'
+import { makeModelMixin } from '../utils/model'
+import { sortKeys } from '../utils/object'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
-import formCustomMixin, { props as formCustomProps } from './form-custom'
-import normalizeSlotMixin from './normalize-slot'
+import { formControlMixin, props as formControlProps } from './form-control'
+import { formCustomMixin, props as formCustomProps } from './form-custom'
+import { formOptionsMixin, props as formOptionsProps } from './form-options'
+import { formSizeMixin, props as formSizeProps } from './form-size'
+import { formStateMixin, props as formStateProps } from './form-state'
+import { idMixin, props as idProps } from './id'
+import { normalizeSlotMixin } from './normalize-slot'
+
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('checked')
+
+export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ...formControlProps,
+    ...formOptionsProps,
+    ...formSizeProps,
+    ...formStateProps,
     ...formCustomProps,
-    validated: {
-      type: Boolean,
-      default: false
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    stacked: {
-      type: Boolean,
-      default: false
-    },
-    buttons: {
-      // Render as button style
-      type: Boolean,
-      default: false
-    },
-    buttonVariant: {
-      // Only applicable when rendered with button style
-      type: String
-      // default: null
-    }
-  },
+    ariaInvalid: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    // Only applicable when rendered with button style
+    buttonVariant: makeProp(PROP_TYPE_STRING),
+    // Render as button style
+    buttons: makeProp(PROP_TYPE_BOOLEAN, false),
+    stacked: makeProp(PROP_TYPE_BOOLEAN, false),
+    validated: makeProp(PROP_TYPE_BOOLEAN, false)
+  }),
   'formRadioCheckGroups'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
-  mixins: [formCustomMixin, normalizeSlotMixin],
-  model: {
-    prop: 'checked',
-    event: 'input'
-  },
+export const formRadioCheckGroupMixin = Vue.extend({
+  mixins: [
+    idMixin,
+    modelMixin,
+    normalizeSlotMixin,
+    formControlMixin,
+    formOptionsMixin,
+    formSizeMixin,
+    formStateMixin,
+    formCustomMixin
+  ],
   props,
+  data() {
+    return {
+      localChecked: this[MODEL_PROP_NAME]
+    }
+  },
   computed: {
     inline() {
       return !this.stacked
@@ -57,42 +79,45 @@ export default {
       return this.name || this.safeId()
     },
     groupClasses() {
+      const { inline, size, validated } = this
+
+      let classes = { 'was-validated': validated }
       if (this.buttons) {
-        return [
+        classes = [
+          classes,
           'btn-group-toggle',
-          this.inline ? 'btn-group' : 'btn-group-vertical',
-          this.size ? `btn-group-${this.size}` : '',
-          this.validated ? `was-validated` : ''
+          {
+            'btn-group': inline,
+            'btn-group-vertical': !inline,
+            [`btn-group-${size}`]: size
+          }
         ]
       }
-      return [this.validated ? `was-validated` : '']
-    },
-    computedAriaInvalid() {
-      const ariaInvalid = this.ariaInvalid
-      if (ariaInvalid === true || ariaInvalid === 'true' || ariaInvalid === '') {
-        return 'true'
-      }
-      return this.computedState === false ? 'true' : null
+
+      return classes
     }
   },
   watch: {
-    checked(newVal) {
-      if (!looseEqual(newVal, this.localChecked)) {
-        this.localChecked = newVal
+    [MODEL_PROP_NAME](newValue) {
+      if (!looseEqual(newValue, this.localChecked)) {
+        this.localChecked = newValue
       }
     },
     localChecked(newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        this.$emit('input', newValue)
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
     }
   },
   render(h) {
+    const { isRadioGroup } = this
+    const optionComponent = isRadioGroup ? BFormRadio : BFormCheckbox
+
     const $inputs = this.formOptions.map((option, index) => {
       const key = `BV_option_${index}`
 
       return h(
-        this.isRadioGroup ? BFormRadio : BFormCheckbox,
+        optionComponent,
         {
           props: {
             id: this.safeId(key),
@@ -116,7 +141,7 @@ export default {
         class: [this.groupClasses, 'bv-no-focus-ring'],
         attrs: {
           id: this.safeId(),
-          role: this.isRadioGroup ? 'radiogroup' : 'group',
+          role: isRadioGroup ? 'radiogroup' : 'group',
           // Add `tabindex="-1"` to allow group to be focused if needed by screen readers
           tabindex: '-1',
           'aria-required': this.required ? 'true' : null,
@@ -126,4 +151,4 @@ export default {
       [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot()]
     )
   }
-}
+})

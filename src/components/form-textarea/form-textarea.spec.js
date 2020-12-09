@@ -12,7 +12,7 @@ describe('form-textarea', () => {
 
   it('does not have attribute disabled by default', async () => {
     const wrapper = mount(BFormTextarea)
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -30,7 +30,7 @@ describe('form-textarea', () => {
 
   it('does not have attribute readonly by default', async () => {
     const wrapper = mount(BFormTextarea)
-    expect(wrapper.attributes('readonly')).not.toBeDefined()
+    expect(wrapper.attributes('readonly')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -175,7 +175,7 @@ describe('form-textarea', () => {
 
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormTextarea)
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -186,7 +186,7 @@ describe('form-textarea', () => {
         state: true
       }
     })
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -228,7 +228,7 @@ describe('form-textarea', () => {
 
   it('does not emit an update event on mount when value not set', async () => {
     const wrapper = mount(BFormTextarea)
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -237,7 +237,7 @@ describe('form-textarea', () => {
     const wrapper = mount(BFormTextarea, {
       value: 'foobar'
     })
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -315,14 +315,14 @@ describe('form-textarea', () => {
       value: ''
     })
 
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     await wrapper.setProps({ value: 'test' })
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -336,7 +336,7 @@ describe('form-textarea', () => {
     })
 
     await wrapper.trigger('focus')
-    expect(wrapper.emitted('focus')).not.toBeDefined()
+    expect(wrapper.emitted('focus')).toBeUndefined()
     expect(spy).toHaveBeenCalled()
 
     wrapper.destroy()
@@ -414,7 +414,7 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.attributes('rows')).not.toBeDefined()
+    expect(wrapper.attributes('rows')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -620,7 +620,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('test')
     // And no change event
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -648,7 +648,7 @@ describe('form-textarea', () => {
     expect(wrapper.emitted('change').length).toEqual(1)
     expect(wrapper.emitted('change')[0][0]).toEqual('test')
     // And no input event
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -720,9 +720,9 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()
@@ -740,9 +740,9 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()
@@ -759,15 +759,15 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('')
 
     await wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()
@@ -785,16 +785,16 @@ describe('form-textarea', () => {
       }
     })
 
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('')
 
     // Does not emit any events
     await wrapper.setProps({ value: 'TEST' })
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()

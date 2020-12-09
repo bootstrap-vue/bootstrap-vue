@@ -1,38 +1,20 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { EVENT_NAME_DESTROYED, HOOK_EVENT_NAME_BEFORE_DESTROY } from '../../constants/events'
+import { PROP_TYPE_STRING } from '../../constants/props'
 import { removeClass, requestAF } from '../../utils/dom'
+import { getRootEventName } from '../../utils/events'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { warn } from '../../utils/warn'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
-// --- Props ---
-
-export const props = makePropsConfigurable(
-  {
-    name: {
-      type: String,
-      required: true
-    },
-    ariaLive: {
-      type: String,
-      default: undefined
-    },
-    // Allowed: 'true' or 'false' or null
-    ariaAtomic: {
-      type: String
-      // default: undefined
-    },
-    role: {
-      // Aria role
-      type: String
-      // default: undefined
-    }
-  },
-  NAME_TOASTER
-)
+// --- Helper components ---
 
 // @vue/component
 export const DefaultTransition = /*#__PURE__*/ Vue.extend({
+  mixins: [normalizeSlotMixin],
   data() {
     return {
       // Transition classes base name
@@ -58,14 +40,31 @@ export const DefaultTransition = /*#__PURE__*/ Vue.extend({
         props: { tag: 'div', name: this.name },
         on: { afterEnter: this.onAfterEnter }
       },
-      this.$slots.default
+      this.normalizeSlot()
     )
   }
 })
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    // Allowed: 'true' or 'false' or `null`
+    ariaAtomic: makeProp(PROP_TYPE_STRING),
+    ariaLive: makeProp(PROP_TYPE_STRING),
+    name: makeProp(PROP_TYPE_STRING, undefined, true), // Required
+    // Aria role
+    role: makeProp(PROP_TYPE_STRING)
+  },
+  NAME_TOASTER
+)
+
+// --- Main component ---
+
 // @vue/component
 export const BToaster = /*#__PURE__*/ Vue.extend({
   name: NAME_TOASTER,
+  mixins: [listenOnRootMixin],
   props,
   data() {
     return {
@@ -77,28 +76,28 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
     }
   },
   beforeMount() {
-    this.staticName = this.name
+    const { name } = this
+    this.staticName = name
+
     /* istanbul ignore if */
-    if (Wormhole.hasTarget(this.staticName)) {
-      warn(
-        `A "<portal-target>" with name "${this.name}" already exists in the document.`,
-        NAME_TOASTER
-      )
+    if (Wormhole.hasTarget(name)) {
+      warn(`A "<portal-target>" with name "${name}" already exists in the document.`, NAME_TOASTER)
       this.dead = true
     } else {
       this.doRender = true
-      this.$once('hook:beforeDestroy', () => {
+      this.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         // Let toasts made with `this.$bvToast.toast()` know that this toaster
         // is being destroyed and should should also destroy/hide themselves
-        this.$root.$emit('bv::toaster::destroyed', this.staticName)
+        this.emitOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), name)
       })
     }
   },
   destroyed() {
     // Remove from DOM if needed
+    const { $el } = this
     /* istanbul ignore next: difficult to test */
-    if (this.$el && this.$el.parentNode) {
-      this.$el.parentNode.removeChild(this.$el)
+    if ($el && $el.parentNode) {
+      $el.parentNode.removeChild($el)
     }
   },
   render(h) {
@@ -115,6 +114,7 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
           transition: DefaultTransition
         }
       })
+
       $toaster = h(
         'div',
         {
@@ -122,7 +122,8 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
           class: [this.staticName],
           attrs: {
             id: this.staticName,
-            role: this.role || null, // Fallback to null to make sure attribute doesn't exist
+            // Fallback to null to make sure attribute doesn't exist
+            role: this.role || null,
             'aria-live': this.ariaLive,
             'aria-atomic': this.ariaAtomic
           }
@@ -130,6 +131,7 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
         [$target]
       )
     }
+
     return $toaster
   }
 })

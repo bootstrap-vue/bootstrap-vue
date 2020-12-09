@@ -11,56 +11,48 @@
         "version": "2.7.0",
         "props": [
           {
-            "prop": "show",
-            "description": "When set, shows the overlay"
-          },
-          {
-            "prop": "variant",
-            "description": "Background theme color variant to use for the overlay backdrop"
-          },
-          {
             "prop": "bgColor",
             "description": "CSS color to use as the opaque overlay backdrop color. If set, overrides the `variant` prop"
-          },
-          {
-            "prop": "opacity",
-            "description": "Opacity of the overlay backdrop. Valid range is `0` to `1`"
           },
           {
             "prop": "blur",
             "description": "Value for the CSS blur backdrop-filter. Be sure to include the CSS units. Not supported in IE 11. Set to null or an empty string to disable blurring"
           },
           {
-            "prop": "noFade",
-            "description": "Disables the fade transition of the overlay"
-          },
-          {
-            "prop": "rounded",
-            "description": "Apply rounding to the overlay to match your content routing. Valid values are `true`, `'sm'`, `lg`, `circle`, `pill`, `top`, `right`, `bottom`, or `left`"
+            "prop": "fixed",
+            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obscure the entire application page"
           },
           {
             "prop": "noCenter",
             "description": "When set, disables the vertical and horizontal centering of the overlay content"
           },
           {
-            "prop": "overlayTag",
-            "description": "Element tag to use as for the overlay element"
+            "prop": "noFade",
+            "description": "Disables the fade transition of the overlay"
           },
           {
             "prop": "noWrap",
             "description": "Disabled generating the wrapper element, and ignored the default slot. Requires that `<b-overlay>` be placed in an element with position relative set"
           },
           {
-            "prop": "fixed",
-            "description": "When prop `no-wrap` is set, will use fixed positioning instead of absolute positioning. Handy if you want to obscure the entire application page"
+            "prop": "opacity",
+            "description": "Opacity of the overlay backdrop. Valid range is `0` to `1`"
           },
           {
-            "prop": "wrapTag",
-            "description": "Element tag to use for the overall wrapper element. Has no effect if prop `no-wrap` is set"
+            "prop": "overlayTag",
+            "description": "Element tag to use as for the overlay element"
           },
           {
-            "prop": "zIndex",
-            "description": "Z-index value to apply to the overlay. You may need to increase this value to suit your content or placement"
+            "prop": "rounded",
+            "description": "Apply rounding to the overlay to match your content routing. Valid values are `true`, `'sm'`, `lg`, `circle`, `pill`, `top`, `right`, `bottom`, or `left`"
+          },
+          {
+            "prop": "show",
+            "description": "When set, shows the overlay"
+          },
+          {
+            "prop": "spinnerSmall",
+            "description": "When set, renders the default spinner in a smaller size"
           },
           {
             "prop": "spinnerType",
@@ -71,8 +63,16 @@
             "description": "Applies one of the Bootstrap theme color variants to the default spinner. Default is to use the current font color"
           },
           {
-            "prop": "spinnerSmall",
-            "description": "When set, renders the default spinner in a smaller size"
+            "prop": "variant",
+            "description": "Background theme color variant to use for the overlay backdrop"
+          },
+          {
+            "prop": "wrapTag",
+            "description": "Element tag to use for the overall wrapper element. Has no effect if prop `no-wrap` is set"
+          },
+          {
+            "prop": "zIndex",
+            "description": "Z-index value to apply to the overlay. You may need to increase this value to suit your content or placement"
           }
         ],
         "events": [
@@ -89,19 +89,28 @@
             ]
           },
           {
-            "event": "shown",
-            "description": "Emitted when the overlay has been shown"
-          },
-          {
             "event": "hidden",
             "description": "Emitted when the overlay has been hidden"
+          },
+          {
+            "event": "shown",
+            "description": "Emitted when the overlay has been shown"
           }
         ],
         "slots": [
           {
+            "name": "default",
+            "description": "The content to be overlayed. The default slot is ignored if the prop `no-wrap` is set"
+          },
+          {
             "name": "overlay",
             "description": "Custom content to replace the default overlay spinner",
             "scope": [
+              {
+                "prop": "spinnerSmall",
+                "type": "Boolean",
+                "description": ""
+              },
               {
                 "prop": "spinnerType",
                 "type": "String",
@@ -111,17 +120,8 @@
                 "prop": "spinnerVariant",
                 "type": "String",
                 "description": ""
-              },
-              {
-                "prop": "spinnerSmall",
-                "type": "Boolean",
-                "description": ""
               }
             ]
-          },
-          {
-            "name": "default",
-            "description": "The content to be overlayed. The default slot is ignored if the prop `no-wrap` is set"
           }
         ]
       }

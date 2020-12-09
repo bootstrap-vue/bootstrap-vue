@@ -9,12 +9,117 @@
         "component": "BPagination",
         "props": [
           {
-            "prop": "ariaControls",
-            "description": "ID of the element or component that this controls. Value is placed in the 'aria-controls' attribute"
+            "prop": "align",
+            "description": "Alignment of the page buttons: 'start' (or 'left'), 'center', 'end' (or 'right'), or 'fill'"
+          },
+          {
+            "prop": "ariaLabel",
+            "description": "Value to place in the 'aria-label' attribute of the pagination control"
+          },
+          {
+            "prop": "ellipsisClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'ellipsis' placeholders"
+          },
+          {
+            "prop": "ellipsisText",
+            "description": "Content to place in the ellipsis placeholder"
+          },
+          {
+            "prop": "firstClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to first page' button"
+          },
+          {
+            "prop": "firstNumber",
+            "version": "2.3.0",
+            "description": "Display first page number instead of Goto First button"
+          },
+          {
+            "prop": "firstText",
+            "description": "Content to place in the goto first page button"
+          },
+          {
+            "prop": "hideEllipsis",
+            "description": "Do not show ellipsis buttons"
+          },
+          {
+            "prop": "hideGotoEndButtons",
+            "description": "Hides the goto first and goto last page buttons"
+          },
+          {
+            "prop": "labelFirstPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto first page button"
+          },
+          {
+            "prop": "labelLastPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto last page button"
+          },
+          {
+            "prop": "labelNextPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto next page button"
+          },
+          {
+            "prop": "labelPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto page button. Page number will be prepended automatically"
+          },
+          {
+            "prop": "labelPrevPage",
+            "description": "Value to place in the 'aria-label' attribute of the goto previous page button"
+          },
+          {
+            "prop": "lastClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to last page' button"
+          },
+          {
+            "prop": "lastNumber",
+            "version": "2.3.0",
+            "description": "Display last page number instead of Goto Last button"
+          },
+          {
+            "prop": "lastText",
+            "description": "Content to place in the goto last page button"
+          },
+          {
+            "prop": "limit",
+            "description": "Maximum number of buttons to show (including ellipsis if shown, but excluding the bookend buttons)"
+          },
+          {
+            "prop": "nextClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to next page' button"
+          },
+          {
+            "prop": "nextText",
+            "description": "Content to place in the goto next page button"
+          },
+          {
+            "prop": "pageClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to page #' buttons"
           },
           {
             "prop": "perPage",
             "description": "Number of rows per page"
+          },
+          {
+            "prop": "pills",
+            "version": "2.1.0",
+            "description": "Applies pill styling to the pagination buttons"
+          },
+          {
+            "prop": "prevClass",
+            "version": "2.3.0",
+            "description": "Class(es) to apply to the 'Go to previous page' button"
+          },
+          {
+            "prop": "prevText",
+            "description": "Content to place in the goto previous page button"
+          },
+          {
+            "prop": "size",
+            "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
           },
           {
             "prop": "totalRows",
@@ -23,128 +128,9 @@
           {
             "prop": "value",
             "description": "Current page number, starting from 1"
-          },
-          {
-            "prop": "limit",
-            "description": "Maximum number of buttons to show (including ellipsis if shown, but excluding the bookend buttons)"
-          },
-          {
-            "prop": "align",
-            "description": "Alignment of the page buttons: 'start' (or 'left'), 'center', 'end' (or 'right'), or 'fill'"
-          },
-          {
-            "prop": "pills",
-            "version": "2.1.0",
-            "description": "Applies pill styling to the pagination buttons"
-          },
-          {
-            "prop": "hideGotoEndButtons",
-            "description": "Hides the goto first and goto last page buttons"
-          },
-          {
-            "prop": "hideEllipsis",
-            "description": "Do not show ellipsis buttons"
-          },
-          {
-            "prop": "ellipsisText",
-            "description": "Content to place in the ellipsis placeholder"
-          },
-          {
-            "prop": "size",
-            "description": "Size of the rendered buttons: 'sm', 'md' (default), or 'lg'"
-          },
-          {
-            "prop": "ariaLabel",
-            "description": "Value to place in the 'aria-label' attribute of the pagination control"
-          },
-          {
-            "prop": "labelFirstPage",
-            "description": "Value to place in the 'aria-label' attribute of the goto first page button"
-          },
-          {
-            "prop": "firstText",
-            "description": "Content to place in the goto first page button"
-          },
-          {
-            "prop": "labelPrevPage",
-            "description": "Value to place in the 'aria-label' attribute of the goto previous page button"
-          },
-          {
-            "prop": "labelPage",
-            "description": "Value to place in the 'aria-label' attribute of the goto page button. Page number will be prepended automatically"
-          },
-          {
-            "prop": "prevText",
-            "description": "Content to place in the goto previous page button"
-          },
-          {
-            "prop": "labelNextPage",
-            "description": "Value to place in the 'aria-label' attribute of the goto next page button"
-          },
-          {
-            "prop": "nextText",
-            "description": "Content to place in the goto next page button"
-          },
-          {
-            "prop": "labelLastPage",
-            "description": "Value to place in the 'aria-label' attribute of the goto last page button"
-          },
-          {
-            "prop": "lastText",
-            "description": "Content to place in the goto last page button"
-          },
-          {
-            "prop": "firstClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'Go to first page' button"
-          },
-          {
-            "prop": "prevClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'Go to previous page' button"
-          },
-          {
-            "prop": "pageClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'Go to page #' buttons"
-          },
-          {
-            "prop": "nextClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'Go to next page' button"
-          },
-          {
-            "prop": "lastClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'Go to last page' button"
-          },
-          {
-            "prop": "ellipsisClass",
-            "version": "2.3.0",
-            "description": "Class(es) to apply to the 'ellipsis' placeholders"
-          },
-          {
-            "prop": "firstNumber",
-            "version": "2.3.0",
-            "description": "Display first page number instead of Goto First button"
-          },
-          {
-            "prop": "lastNumber",
-            "version": "2.3.0",
-            "description": "Display last page number instead of Goto Last button"
           }
         ],
         "events": [
-          {
-            "event": "input",
-            "description": "Emitted when page changes via user interaction or programmatically",
-            "args": [
-              {
-                "arg": "page",
-                "description": "Selected page number (starting with `1`), or `null` if no page found"
-              }
-            ]
-          },
           {
             "event": "change",
             "description": "Emitted when page changes via user interaction",
@@ -156,14 +142,24 @@
             ]
           },
           {
+            "event": "input",
+            "description": "Emitted when page changes via user interaction or programmatically",
+            "args": [
+              {
+                "arg": "page",
+                "description": "Selected page number (starting with `1`), or `null` if no page found"
+              }
+            ]
+          },
+          {
             "event": "page-click",
             "description": "Emitted when a page button was clicked. Cancelable",
             "version": "2.17.0",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "The `BvEvent` object. Call `bvEvt.preventDefault()` to cancel page selection"
+                "description": "The `BvEvent` object. Call `bvEvent.preventDefault()` to cancel page selection"
               },
               {
                 "arg": "page",
@@ -174,96 +170,75 @@
         ],
         "slots": [
           {
+            "name": "ellipsis-text",
+            "description": "The '...' indicator content. Overrides the `ellipsis-text` prop"
+          },
+          {
             "name": "first-text",
-            "description": "The \"go to first page\" button content. Optionally scoped",
+            "description": "The 'Go to first page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
-              },
-              {
-                "prop": "page",
-                "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
-              }
-            ]
-          },
-          {
-            "name": "prev-text",
-            "description": "The \"go to previous page\" button content. Optionally scoped",
-            "scope": [
-              {
-                "prop": "disabled",
-                "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
                 "prop": "page",
                 "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
-              },
-              {
-                "prop": "index",
-                "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
-              }
-            ]
-          },
-          {
-            "name": "next-text",
-            "description": "The \"go to next page\" button content. Optionally scoped",
-            "scope": [
-              {
-                "prop": "disabled",
-                "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
-              },
-              {
-                "prop": "page",
-                "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
-              },
-              {
-                "prop": "index",
-                "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
             "name": "last-text",
-            "description": "The \"go to last page\" button content. Optionally scoped",
+            "description": "The 'Go to last page' button content",
             "scope": [
               {
                 "prop": "disabled",
                 "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
-              },
-              {
-                "prop": "page",
-                "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
+              },
+              {
+                "prop": "page",
+                "type": "Number",
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           },
           {
-            "name": "ellipsis-text",
-            "description": "The '...' indicator content. Not scoped"
+            "name": "next-text",
+            "description": "The 'Go to next page' button content",
+            "scope": [
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Will be `true` if this button is disabled (non-clickable)"
+              },
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
+              },
+              {
+                "prop": "page",
+                "type": "Number",
+                "description": "Page number (from `1` to `numberOfPages`)"
+              }
+            ]
           },
           {
             "name": "page",
-            "description": "Page number button content. Always scoped",
+            "description": "Page number button content",
             "scope": [
               {
                 "prop": "active",
@@ -271,24 +246,45 @@
                 "description": "If the page is the active page"
               },
               {
-                "prop": "disabled",
-                "type": "Boolean",
-                "description": "Will be true if this button is disabled (non-clickable)"
+                "prop": "content",
+                "type": "String",
+                "description": "Default button content"
               },
               {
-                "prop": "page",
-                "type": "Number",
-                "description": "Page number (from 1 to numberOfPages)"
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Will be `true` if this button is disabled (non-clickable)"
               },
               {
                 "prop": "index",
                 "type": "Number",
-                "description": "Page number (indexed from 0 to numberOfPages -1)"
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
               },
               {
-                "prop": "content",
-                "type": "String",
-                "description": "Default button content"
+                "prop": "page",
+                "type": "Number",
+                "description": "Page number (from `1` to `numberOfPages`)"
+              }
+            ]
+          },
+          {
+            "name": "prev-text",
+            "description": "The 'Go to previous page' button content",
+            "scope": [
+              {
+                "prop": "disabled",
+                "type": "Boolean",
+                "description": "Will be `true` if this button is disabled (non-clickable)"
+              },
+              {
+                "prop": "index",
+                "type": "Number",
+                "description": "Page number (indexed from `0` to `numberOfPages - 1`)"
+              },
+              {
+                "prop": "page",
+                "type": "Number",
+                "description": "Page number (from `1` to `numberOfPages`)"
               }
             ]
           }

@@ -1,64 +1,52 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import looseEqual from '../../utils/loose-equal'
-import looseIndexOf from '../../utils/loose-index-of'
+import { EVENT_NAME_CHANGE, MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
+import { PROP_TYPE_ANY, PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { isArray } from '../../utils/inspect'
-import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
-import formRadioCheckMixin, { props as formRadioCheckProps } from '../../mixins/form-radio-check'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
+import { looseEqual } from '../../utils/loose-equal'
+import { looseIndexOf } from '../../utils/loose-index-of'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import {
+  MODEL_EVENT_NAME,
+  formRadioCheckMixin,
+  props as formRadioCheckProps
+} from '../../mixins/form-radio-check'
+
+// --- Constants ---
+
+const MODEL_PROP_NAME_INDETERMINATE = 'indeterminate'
+const MODEL_EVENT_NAME_INDETERMINATE = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_INDETERMINATE
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...formRadioCheckProps,
+    // Not applicable in multi-check mode
+    [MODEL_PROP_NAME_INDETERMINATE]: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Custom switch styling
+    switch: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Not applicable in multi-check mode
+    uncheckedValue: makeProp(PROP_TYPE_ANY, false),
+    value: makeProp(PROP_TYPE_ANY, true)
+  }),
+  NAME_FORM_CHECKBOX
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_CHECKBOX,
-  mixins: [
-    formRadioCheckMixin, // Includes shared render function
-    idMixin,
-    formControlMixin,
-    formSizeMixin,
-    formStateMixin
-  ],
+  mixins: [formRadioCheckMixin],
   inject: {
     bvGroup: {
       from: 'bvCheckGroup',
-      default: false
+      default: null
     }
   },
-  props: makePropsConfigurable(
-    {
-      ...formControlProps,
-      ...formRadioCheckProps,
-      ...formSizeProps,
-      ...formStateProps,
-      value: {
-        // type: [String, Number, Boolean, Object],
-        default: true
-      },
-      uncheckedValue: {
-        // type: [String, Number, Boolean, Object],
-        // Not applicable in multi-check mode
-        default: false
-      },
-      indeterminate: {
-        // Not applicable in multi-check mode
-        type: Boolean,
-        default: false
-      },
-      switch: {
-        // Custom switch styling
-        type: Boolean,
-        default: false
-      },
-      checked: {
-        // v-model (Array when multiple checkboxes have same name)
-        // type: [String, Number, Boolean, Object, Array],
-        default: null
-      }
-    },
-    NAME_FORM_CHECKBOX
-  ),
+  props,
   computed: {
     isChecked() {
       const { value, computedLocalChecked: checked } = this
@@ -66,31 +54,31 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
     },
     isRadio() {
       return false
-    },
-    isCheck() {
-      return true
     }
   },
   watch: {
-    computedLocalChecked(newValue, oldValue) {
+    [MODEL_PROP_NAME_INDETERMINATE](newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {
-        this.$emit('input', newValue)
-
-        const $input = this.$refs.input
-        if ($input) {
-          this.$emit('update:indeterminate', $input.indeterminate)
-        }
+        this.setIndeterminate(newValue)
       }
-    },
-    indeterminate(newVal) {
-      this.setIndeterminate(newVal)
     }
   },
   mounted() {
     // Set initial indeterminate state
-    this.setIndeterminate(this.indeterminate)
+    this.setIndeterminate(this[MODEL_PROP_NAME_INDETERMINATE])
   },
   methods: {
+    computedLocalCheckedWatcher(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(MODEL_EVENT_NAME, newValue)
+
+        const $input = this.$refs.input
+        if ($input) {
+          this.$emit(MODEL_EVENT_NAME_INDETERMINATE, $input.indeterminate)
+        }
+      }
+    },
+
     handleChange({ target: { checked, indeterminate } }) {
       const { value, uncheckedValue } = this
 
@@ -113,17 +101,17 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       // Fire events in a `$nextTick()` to ensure the `v-model` is updated
       this.$nextTick(() => {
         // Change is only emitted on user interaction
-        this.$emit('change', localChecked)
+        this.$emit(EVENT_NAME_CHANGE, localChecked)
 
-        // If this is a child of `<form-checkbox-group>`,
-        // we emit a change event on it as well
+        // If this is a child of a group, we emit a change event on it as well
         if (this.isGroup) {
-          this.bvGroup.$emit('change', localChecked)
+          this.bvGroup.$emit(EVENT_NAME_CHANGE, localChecked)
         }
 
-        this.$emit('update:indeterminate', indeterminate)
+        this.$emit(MODEL_EVENT_NAME_INDETERMINATE, indeterminate)
       })
     },
+
     setIndeterminate(state) {
       // Indeterminate only supported in single checkbox mode
       if (isArray(this.computedLocalChecked)) {
@@ -134,7 +122,7 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
       if ($input) {
         $input.indeterminate = state
         // Emit update event to prop
-        this.$emit('update:indeterminate', state)
+        this.$emit(MODEL_EVENT_NAME_INDETERMINATE, state)
       }
     }
   }

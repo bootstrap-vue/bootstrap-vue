@@ -159,7 +159,7 @@ describe('time', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     const $spinners = wrapper.findAll('[role="spinbutton"]')
     expect($spinners.length).toBe(4)

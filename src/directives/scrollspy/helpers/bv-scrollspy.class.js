@@ -2,9 +2,8 @@
  * ScrollSpy class definition
  */
 
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
-import { RX_HREF } from '../../constants/regex'
-import observeDom from '../../utils/observe-dom'
+import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
+import { RX_HREF } from '../../../constants/regex'
 import {
   addClass,
   closest,
@@ -19,20 +18,21 @@ import {
   removeClass,
   select,
   selectAll
-} from '../../utils/dom'
-import { eventOn, eventOff } from '../../utils/events'
-import { isString, isUndefined } from '../../utils/inspect'
-import { mathMax } from '../../utils/math'
-import { toInteger } from '../../utils/number'
-import { hasOwnProperty, toString as objectToString } from '../../utils/object'
-import { warn } from '../../utils/warn'
+} from '../../../utils/dom'
+import { getRootEventName, eventOn, eventOff } from '../../../utils/events'
+import { identity } from '../../../utils/identity'
+import { isString, isUndefined } from '../../../utils/inspect'
+import { mathMax } from '../../../utils/math'
+import { toInteger } from '../../../utils/number'
+import { hasOwnProperty, toString as objectToString } from '../../../utils/object'
+import { observeDom } from '../../../utils/observe-dom'
+import { warn } from '../../../utils/warn'
 
 /*
  * Constants / Defaults
  */
 
 const NAME = 'v-b-scrollspy'
-const ACTIVATE_EVENT = 'bv::scrollspy::activate'
 
 const CLASS_NAME_DROPDOWN_ITEM = 'dropdown-item'
 const CLASS_NAME_ACTIVE = 'active'
@@ -44,6 +44,8 @@ const SELECTOR_LIST_ITEMS = '.list-group-item'
 const SELECTOR_DROPDOWN = '.dropdown, .dropup'
 const SELECTOR_DROPDOWN_ITEMS = '.dropdown-item'
 const SELECTOR_DROPDOWN_TOGGLE = '.dropdown-toggle'
+
+const ROOT_EVENT_NAME_ACTIVATE = getRootEventName('BVScrollspy', 'activate')
 
 const METHOD_OFFSET = 'offset'
 const METHOD_POSITION = 'position'
@@ -113,7 +115,7 @@ const typeCheckConfig = (
  */
 
 /* istanbul ignore next: not easy to test */
-class ScrollSpy /* istanbul ignore next: not easy to test */ {
+export class BVScrollSpy /* istanbul ignore next: not easy to test */ {
   constructor(element, config, $root) {
     // The element we activate links in
     this.$el = element
@@ -189,8 +191,8 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     eventOn(window, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
     eventOn(window, 'resize', this, EVENT_OPTIONS_NO_CAPTURE)
     eventOn(window, 'orientationchange', this, EVENT_OPTIONS_NO_CAPTURE)
-    TransitionEndEvents.forEach(evtName => {
-      eventOn(window, evtName, this, EVENT_OPTIONS_NO_CAPTURE)
+    TransitionEndEvents.forEach(eventName => {
+      eventOn(window, eventName, this, EVENT_OPTIONS_NO_CAPTURE)
     })
     this.setObservers(true)
     // Schedule a refresh
@@ -206,8 +208,8 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     eventOff(window, 'scroll', this, EVENT_OPTIONS_NO_CAPTURE)
     eventOff(window, 'resize', this, EVENT_OPTIONS_NO_CAPTURE)
     eventOff(window, 'orientationchange', this, EVENT_OPTIONS_NO_CAPTURE)
-    TransitionEndEvents.forEach(evtName => {
-      eventOff(window, evtName, this, EVENT_OPTIONS_NO_CAPTURE)
+    TransitionEndEvents.forEach(eventName => {
+      eventOff(window, eventName, this, EVENT_OPTIONS_NO_CAPTURE)
     })
   }
 
@@ -247,8 +249,8 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
   }
 
   // General event handler
-  handleEvent(evt) {
-    const type = isString(evt) ? evt : evt.type
+  handleEvent(event) {
+    const type = isString(event) ? event : event.type
 
     const self = this
     const resizeThrottle = () => {
@@ -313,7 +315,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
         }
         return null
       })
-      .filter(Boolean)
+      .filter(identity)
       // Sort them by their offsets (smallest first)
       .sort((a, b) => a.offset - b.offset)
       // record only unique targets/offsets
@@ -455,7 +457,7 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
 
     // Signal event to via $root, passing ID of activated target and reference to array of links
     if (links && links.length > 0 && this.$root) {
-      this.$root.$emit(ACTIVATE_EVENT, target, links)
+      this.$root.$emit(ROOT_EVENT_NAME_ACTIVATE, target, links)
     }
   }
 
@@ -476,5 +478,3 @@ class ScrollSpy /* istanbul ignore next: not easy to test */ {
     }
   }
 }
-
-export default ScrollSpy

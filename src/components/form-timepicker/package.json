@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form Timepicker",
-    "description": "BootstrapVue custom time picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n)",
+    "description": "BootstrapVue custom time picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n).",
     "version": "2.6.0",
     "components": [
       {
@@ -14,52 +14,8 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "Initially selected time value. Accepts a `HH:mm:ss` string. Valid value ranges from `00:00:00` to `23:59:59`"
-          },
-          {
-            "prop": "resetValue",
-            "description": "When the optional `reset` button is clicked, the selected time will be set to this value. Default is to clear the selected value"
-          },
-          {
-            "prop": "disabled",
-            "description": "Places the timepicker in a non-interactive disabled state"
-          },
-          {
-            "prop": "readonly",
-            "description": "Places the timepicker in an interactive readonly state. Disables updating the v-model, while still allowing focusing of spin buttons"
-          },
-          {
-            "prop": "required",
-            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
-          },
-          {
-            "prop": "showSeconds",
-            "description": "When true, shows the seconds spinbutton. If `false` the seconds spin button will not be shown and the seconds portion of the time will always be `0`"
-          },
-          {
-            "prop": "hour12",
-            "description": "Tri-state prop. If `true` forces the interface to 12 hour format. If `false` forces the interface into 24 hour format. If `null` the current locale will determine the 12 or 24 hour interface (default)"
-          },
-          {
-            "prop": "locale",
-            "description": "Locale (or locales) for the component to use. When passing an array of locales, the order of the locales is from most preferred to least preferred. If not provided, defaults to the clients default locale"
-          },
-          {
-            "prop": "secondsStep",
-            "description": "Step value for the seconds spinbutton. Should be a value evenly divided into 60"
-          },
-          {
-            "prop": "minutesStep",
-            "description": "Step value for the minutes spinbutton. Should be a value evenly divided into 60"
-          },
-          {
-            "prop": "hideHeader",
-            "description": "When set, visually hides the selected time header"
-          },
-          {
-            "prop": "hideHeader",
-            "description": "When set, visually hides the selected date header"
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
           },
           {
             "prop": "buttonOnly",
@@ -72,56 +28,48 @@
             "description": "The button variant to use when in `button-only` mode. Has no effect if prop `button-only` is not set"
           },
           {
-            "prop": "menuClass",
-            "description": "Class (or classes) to apply to to popup menu wrapper"
-          },
-          {
-            "prop": "nowButton",
-            "description": "When set, shows the optional `select now` button"
-          },
-          {
-            "prop": "nowButtonVariant",
-            "description": "Button variant to use for the optional `select today` button"
-          },
-          {
-            "prop": "labelNowButton",
-            "description": "Content for the optional `Select now` button"
-          },
-          {
-            "prop": "resetButton",
-            "description": "When set, shows the optional `reset` button"
-          },
-          {
-            "prop": "resetButtonVariant",
-            "description": "Button variant to use for the optional `reset` button"
-          },
-          {
-            "prop": "labelResetButton",
-            "description": "Content for the optional `Reset` button"
-          },
-          {
-            "prop": "noCloseButton",
-            "description": "When set, disables showing the close button"
-          },
-          {
             "prop": "closeButtonVariant",
             "description": "Button variant to use for the optional `close` button"
           },
           {
+            "prop": "disabled",
+            "description": "Places the timepicker in a non-interactive disabled state"
+          },
+          {
+            "prop": "dropleft",
+            "description": "When set, positions the menu to the left of the button"
+          },
+          {
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
+          },
+          {
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected time header"
+          },
+          {
+            "prop": "hideHeader",
+            "description": "When set, visually hides the selected date header"
+          },
+          {
+            "prop": "hour12",
+            "description": "Tri-state prop. If `true` forces the interface to 12 hour format. If `false` forces the interface into 24 hour format. If `null` the current locale will determine the 12 or 24 hour interface (default)"
+          },
+          {
+            "prop": "labelAm",
+            "description": "Text to display in the AM/PM spinbutton when 'AM' is selected"
+          },
+          {
+            "prop": "labelAmpm",
+            "description": "Value of the `aria-label` attribute on the `AM/PM` spinbutton"
+          },
+          {
             "prop": "labelCloseButton",
             "description": "Content for the `Close` button"
-          },
-          {
-            "prop": "labelNoTimeSelected",
-            "description": "String to show when no time is selected"
-          },
-          {
-            "prop": "labelSelected",
-            "description": "Hidden sr-only string when a time is selected"
-          },
-          {
-            "prop": "labelIncrement",
-            "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
           },
           {
             "prop": "labelDecrement",
@@ -132,63 +80,131 @@
             "description": "Value of the `aria-label` attribute on the `Hours` spinbutton"
           },
           {
+            "prop": "labelIncrement",
+            "description": "Value of the `aria-label` attribute on the spinbuttons `+` button"
+          },
+          {
             "prop": "labelMinutes",
             "description": "Value of the `aria-label` attribute on the `Minutes` spinbutton"
           },
           {
-            "prop": "labelSeconds",
-            "description": "Value of the `aria-label` attribute on the `Seconds` spinbutton"
+            "prop": "labelNoTimeSelected",
+            "description": "String to show when no time is selected"
           },
           {
-            "prop": "labelAmpm",
-            "description": "Value of the `aria-label` attribute on the `AM/PM` spinbutton"
-          },
-          {
-            "prop": "labelAm",
-            "description": "Text to display in the AM/PM spinbutton when 'AM' is selected"
+            "prop": "labelNowButton",
+            "description": "Content for the optional `Select now` button"
           },
           {
             "prop": "labelPm",
             "description": "Text to display in the AM/PM spinbutton when 'PM' is selected"
           },
           {
-            "prop": "dropup",
-            "description": "When set, positions the menu on the top of the button"
+            "prop": "labelResetButton",
+            "description": "Content for the optional `Reset` button"
           },
           {
-            "prop": "dropright",
-            "description": "When set, positions the menu to the right of the button"
+            "prop": "labelSeconds",
+            "description": "Value of the `aria-label` attribute on the `Seconds` spinbutton"
           },
           {
-            "prop": "dropleft",
-            "description": "When set, positions the menu to the left of the button"
+            "prop": "labelSelected",
+            "description": "Hidden sr-only string when a time is selected"
           },
           {
-            "prop": "right",
-            "description": "Align the right edge of the menu with the right of the button"
+            "prop": "locale",
+            "description": "Locale (or locales) for the component to use. When passing an array of locales, the order of the locales is from most preferred to least preferred. If not provided, defaults to the clients default locale"
+          },
+          {
+            "prop": "menuClass",
+            "description": "Class (or classes) to apply to to popup menu wrapper"
+          },
+          {
+            "prop": "minutesStep",
+            "description": "Step value for the minutes spinbutton. Should be a value evenly divided into 60"
+          },
+          {
+            "prop": "noCloseButton",
+            "description": "When set, disables showing the close button"
           },
           {
             "prop": "noFlip",
             "description": "Prevent the menu from auto flipping positions"
           },
           {
+            "prop": "nowButton",
+            "description": "When set, shows the optional `select now` button"
+          },
+          {
+            "prop": "nowButtonVariant",
+            "description": "Button variant to use for the optional `select today` button"
+          },
+          {
             "prop": "offset",
             "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
           },
           {
             "prop": "popperOpts",
             "description": "Additional configuration to pass to Popper.js"
           },
           {
-            "prop": "boundary",
-            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
+            "prop": "readonly",
+            "description": "Places the timepicker in an interactive readonly state. Disables updating the v-model, while still allowing focusing of spin buttons"
           },
           {
-            "prop": "placeholder",
-            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
+            "prop": "required",
+            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
+          },
+          {
+            "prop": "resetButton",
+            "description": "When set, shows the optional `reset` button"
+          },
+          {
+            "prop": "resetButtonVariant",
+            "description": "Button variant to use for the optional `reset` button"
+          },
+          {
+            "prop": "resetValue",
+            "description": "When the optional `reset` button is clicked, the selected time will be set to this value. Default is to clear the selected value"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "secondsStep",
+            "description": "Step value for the seconds spinbutton. Should be a value evenly divided into 60"
+          },
+          {
+            "prop": "showSeconds",
+            "description": "When true, shows the seconds spinbutton. If `false` the seconds spin button will not be shown and the seconds portion of the time will always be `0`"
+          },
+          {
+            "prop": "value",
+            "description": "Initially selected time value. Accepts a `HH:mm:ss` string. Valid value ranges from `00:00:00` to `23:59:59`"
           }
         ],
         "events": [
+          {
+            "event": "context",
+            "description": "`b-time` context event. Emitted when the user changes any spinbutton value via mouse or cursor control. Also emitted when the component is first instantiated, or the locale is changed",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The `b-time` context object. See the `b-time` documentaion for details",
+                "type": "Object"
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has hidden"
+          },
           {
             "event": "input",
             "description": "Emitted when updating the v-model",
@@ -204,25 +220,9 @@
             ]
           },
           {
-            "event": "context",
-            "description": "`b-time` context event. Emitted when the user changes any spinbutton value via mouse or cursor control. Also emitted when the component is first instantiated, or the locale is changed",
-            "args": [
-              {
-                "arg": "context",
-                "description": "The `b-time` context object. See the `b-time` documentaion for details",
-                "type": "Object"
-              }
-            ]
-          },
-          {
             "event": "shown",
             "version": "2.9.0",
             "description": "Emitted when the picker popup has shown"
-          },
-          {
-            "event": "hidden",
-            "version": "2.9.0",
-            "description": "Emitted when the picker popup has hidden"
           }
         ],
         "slots": [
@@ -231,24 +231,24 @@
             "description": "Content to place in the timepicker's icon button",
             "scope": [
               {
-                "prop": "isHovered",
-                "type": "Boolean",
-                "description": "`true` if the component is hovered"
-              },
-              {
                 "prop": "hasFocus",
                 "type": "Boolean",
                 "description": "`true` if the timepicker icon button has focus"
               },
               {
-                "prop": "state",
+                "prop": "isHovered",
                 "type": "Boolean",
-                "description": "The value of the `state` prop. `true` (valid), `false` (invalid), or `null`"
+                "description": "`true` if the component is hovered"
               },
               {
                 "prop": "open",
                 "type": "Boolean",
                 "description": "The visibility state of the popup. `true` if the popup is visible and `false` if not"
+              },
+              {
+                "prop": "state",
+                "type": "Boolean",
+                "description": "The value of the `state` prop. `true` (valid), `false` (invalid), or `null`"
               }
             ]
           }

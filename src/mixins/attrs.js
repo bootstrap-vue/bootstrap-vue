@@ -1,3 +1,3 @@
 import { makePropCacheMixin } from '../utils/cache'
 
-export default makePropCacheMixin('$attrs', 'bvAttrs')
+export const attrsMixin = makePropCacheMixin('$attrs', 'bvAttrs')

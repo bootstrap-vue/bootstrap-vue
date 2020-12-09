@@ -663,10 +663,10 @@ describe('pagination', () => {
   it('clicking buttons updates the v-model', async () => {
     const App = {
       methods: {
-        onPageClick(bvEvt, page) {
+        onPageClick(bvEvent, page) {
           // Prevent 3rd page from being selected
           if (page === 3) {
-            bvEvt.preventDefault()
+            bvEvent.preventDefault()
           }
         }
       },

@@ -31,7 +31,7 @@
       },
       {
         "name": "auto",
-        "description": "Position calculation method: `auto` will choose `offset` if scroll element is body, else the method is `position`. This is the default."
+        "description": "Position calculation method: `auto` will choose `offset` if scroll element is body, else the method is `position`. This is the default"
       }
     ]
   }

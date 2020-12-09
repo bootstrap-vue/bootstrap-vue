@@ -1,30 +1,95 @@
-import Vue from '../../vue'
-import { NAME_SIDEBAR } from '../../constants/components'
+import { Vue } from '../../vue'
+import { NAME_COLLAPSE, NAME_SIDEBAR } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
+import { EVENT_NAME_CHANGE, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_TITLE } from '../../constants/slot-names'
-import BVTransition from '../../utils/bv-transition'
-import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
-import { makePropsConfigurable } from '../../utils/config'
-import { isBrowser } from '../../utils/env'
-import { toString } from '../../utils/string'
-import attrsMixin from '../../mixins/attrs'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
 import {
-  EVENT_TOGGLE,
-  EVENT_STATE,
-  EVENT_STATE_REQUEST,
-  EVENT_STATE_SYNC
-} from '../../directives/toggle/toggle'
-import { BButtonClose } from '../button/button-close'
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import {
+  SLOT_NAME_DEFAULT,
+  SLOT_NAME_FOOTER,
+  SLOT_NAME_HEADER_CLOSE,
+  SLOT_NAME_TITLE
+} from '../../constants/slots'
+import { attemptFocus, contains, getActiveElement, getTabables } from '../../utils/dom'
+import { getRootActionEventName, getRootEventName } from '../../utils/events'
+import { makeModelMixin } from '../../utils/model'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { toString } from '../../utils/string'
+import { attrsMixin } from '../../mixins/attrs'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BIconX } from '../../icons/icons'
+import { BButtonClose } from '../button/button-close'
+import { BVTransition } from '../transition/bv-transition'
 
 // --- Constants ---
 
 const CLASS_NAME = 'b-sidebar'
 
+const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = getRootActionEventName(NAME_COLLAPSE, 'request-state')
+const ROOT_ACTION_EVENT_NAME_TOGGLE = getRootActionEventName(NAME_COLLAPSE, 'toggle')
+
+const ROOT_EVENT_NAME_STATE = getRootEventName(NAME_COLLAPSE, 'state')
+const ROOT_EVENT_NAME_SYNC_STATE = getRootEventName(NAME_COLLAPSE, 'sync-state')
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('visible', {
+  type: PROP_TYPE_BOOLEAN,
+  defaultValue: false,
+  event: EVENT_NAME_CHANGE
+})
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ariaLabel: makeProp(PROP_TYPE_STRING),
+    ariaLabelledby: makeProp(PROP_TYPE_STRING),
+    // If `true`, shows a basic backdrop
+    backdrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    backdropVariant: makeProp(PROP_TYPE_STRING, 'dark'),
+    bgVariant: makeProp(PROP_TYPE_STRING, 'light'),
+    bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    // `aria-label` for close button
+    closeLabel: makeProp(PROP_TYPE_STRING),
+    footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCloseOnBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCloseOnEsc: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCloseOnRouteChange: makeProp(PROP_TYPE_BOOLEAN, false),
+    noEnforceFocus: makeProp(PROP_TYPE_BOOLEAN, false),
+    noHeader: makeProp(PROP_TYPE_BOOLEAN, false),
+    noHeaderClose: makeProp(PROP_TYPE_BOOLEAN, false),
+    noSlide: makeProp(PROP_TYPE_BOOLEAN, false),
+    right: makeProp(PROP_TYPE_BOOLEAN, false),
+    shadow: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    sidebarClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    textVariant: makeProp(PROP_TYPE_STRING, 'dark'),
+    title: makeProp(PROP_TYPE_STRING),
+    width: makeProp(PROP_TYPE_STRING),
+    zIndex: makeProp(PROP_TYPE_NUMBER_STRING)
+  }),
+  NAME_SIDEBAR
+)
+
 // --- Render methods ---
+
 const renderHeaderTitle = (h, ctx) => {
   // Render a empty `<span>` when to title was provided
   const title = ctx.computedTile
@@ -45,11 +110,11 @@ const renderHeaderClose = (h, ctx) => {
   return h(
     BButtonClose,
     {
-      ref: 'close-button',
       props: { ariaLabel: closeLabel, textVariant },
-      on: { click: hide }
+      on: { click: hide },
+      ref: 'close-button'
     },
-    [ctx.normalizeSlot('header-close') || h(BIconX)]
+    [ctx.normalizeSlot(SLOT_NAME_HEADER_CLOSE) || h(BIconX)]
   )
 }
 
@@ -64,9 +129,9 @@ const renderHeader = (h, ctx) => {
   return h(
     'header',
     {
-      key: 'header',
       staticClass: `${CLASS_NAME}-header`,
-      class: ctx.headerClass
+      class: ctx.headerClass,
+      key: 'header'
     },
     ctx.right ? [$close, $title] : [$title, $close]
   )
@@ -76,9 +141,9 @@ const renderBody = (h, ctx) => {
   return h(
     'div',
     {
-      key: 'body',
       staticClass: `${CLASS_NAME}-body`,
-      class: ctx.bodyClass
+      class: ctx.bodyClass,
+      key: 'body'
     },
     [ctx.normalizeSlot(SLOT_NAME_DEFAULT, ctx.slotScope)]
   )
@@ -93,9 +158,9 @@ const renderFooter = (h, ctx) => {
   return h(
     'footer',
     {
-      key: 'footer',
       staticClass: `${CLASS_NAME}-footer`,
-      class: ctx.footerClass
+      class: ctx.footerClass,
+      key: 'footer'
     },
     [$footer]
   )
@@ -122,140 +187,26 @@ const renderBackdrop = (h, ctx) => {
   return h('div', {
     directives: [{ name: 'show', value: ctx.localShow }],
     staticClass: 'b-sidebar-backdrop',
-    class: { [`bg-${backdropVariant}`]: !!backdropVariant },
+    class: { [`bg-${backdropVariant}`]: backdropVariant },
     on: { click: ctx.onBackdropClick }
   })
 }
 
 // --- Main component ---
+
 // @vue/component
 export const BSidebar = /*#__PURE__*/ Vue.extend({
   name: NAME_SIDEBAR,
-  // Mixin order is important!
-  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin],
+  mixins: [attrsMixin, idMixin, modelMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
-  props: makePropsConfigurable(
-    {
-      title: {
-        type: String
-        // default: null
-      },
-      right: {
-        type: Boolean,
-        default: false
-      },
-      bgVariant: {
-        type: String,
-        default: 'light'
-      },
-      textVariant: {
-        type: String,
-        default: 'dark'
-      },
-      shadow: {
-        type: [Boolean, String],
-        default: false
-      },
-      width: {
-        type: String
-        // default: undefined
-      },
-      zIndex: {
-        type: [Number, String]
-        // default: null
-      },
-      ariaLabel: {
-        type: String
-        // default: null
-      },
-      ariaLabelledby: {
-        type: String
-        // default: null
-      },
-      closeLabel: {
-        // `aria-label` for close button
-        // Defaults to 'Close'
-        type: String
-        // default: undefined
-      },
-      tag: {
-        type: String,
-        default: 'div'
-      },
-      sidebarClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      headerClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      bodyClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      footerClass: {
-        type: [String, Array, Object]
-        // default: null
-      },
-      backdrop: {
-        // If `true`, shows a basic backdrop
-        type: Boolean,
-        default: false
-      },
-      backdropVariant: {
-        type: String,
-        default: 'dark'
-      },
-      noSlide: {
-        type: Boolean,
-        default: false
-      },
-      noHeader: {
-        type: Boolean,
-        default: false
-      },
-      noHeaderClose: {
-        type: Boolean,
-        default: false
-      },
-      noCloseOnEsc: {
-        type: Boolean,
-        default: false
-      },
-      noCloseOnBackdrop: {
-        type: Boolean,
-        default: false
-      },
-      noCloseOnRouteChange: {
-        type: Boolean,
-        default: false
-      },
-      noEnforceFocus: {
-        type: Boolean,
-        default: false
-      },
-      lazy: {
-        type: Boolean,
-        default: false
-      },
-      visible: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_SIDEBAR
-  ),
+  props,
   data() {
+    const visible = !!this[MODEL_PROP_NAME]
     return {
       // Internal `v-model` state
-      localShow: !!this.visible,
+      localShow: visible,
       // For lazy render triggering
-      isOpen: !!this.visible
+      isOpen: visible
     }
   },
   computed: {
@@ -273,11 +224,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
           }
     },
     slotScope() {
-      return {
-        visible: this.localShow,
-        right: this.right,
-        hide: this.hide
-      }
+      const { hide, right, localShow: visible } = this
+      return { hide, right, visible }
     },
     computedTile() {
       return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
@@ -299,20 +247,20 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    visible(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.localShow = newVal
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.localShow = newValue
       }
     },
-    localShow(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.emitState(newVal)
-        this.$emit('change', newVal)
+    localShow(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.emitState(newValue)
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
     },
     /* istanbul ignore next */
-    $route(newVal = {}, oldVal = {}) {
-      if (!this.noCloseOnRouteChange && newVal.fullPath !== oldVal.fullPath) {
+    $route(newValue = {}, oldValue = {}) {
+      if (!this.noCloseOnRouteChange && newValue.fullPath !== oldValue.fullPath) {
         this.hide()
       }
     }
@@ -323,8 +271,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // Add `$root` listeners
-    this.listenOnRoot(EVENT_TOGGLE, this.handleToggle)
-    this.listenOnRoot(EVENT_STATE_REQUEST, this.handleSync)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_TOGGLE, this.handleToggle)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, this.handleSync)
     // Send out a gratuitous state event to ensure toggle button is synced
     this.$nextTick(() => {
       this.emitState(this.localShow)
@@ -343,10 +291,10 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       this.localShow = false
     },
     emitState(state = this.localShow) {
-      this.emitOnRoot(EVENT_STATE, this.safeId(), state)
+      this.emitOnRoot(ROOT_EVENT_NAME_STATE, this.safeId(), state)
     },
     emitSync(state = this.localShow) {
-      this.emitOnRoot(EVENT_STATE_SYNC, this.safeId(), state)
+      this.emitOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.safeId(), state)
     },
     handleToggle(id) {
       // Note `safeId()` can be null until after mount
@@ -362,8 +310,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    onKeydown(evt) {
-      const { keyCode } = evt
+    onKeydown(event) {
+      const { keyCode } = event
       if (!this.noCloseOnEsc && keyCode === CODE_ESC && this.localShow) {
         this.hide()
       }
@@ -386,7 +334,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     onBeforeEnter() {
       // Returning focus to `document.body` may cause unwanted scrolls,
       // so we exclude setting focus on body
-      this.$_returnFocusEl = getActiveElement(isBrowser ? [document.body] : [])
+      this.$_returnFocusEl = getActiveElement(IS_BROWSER ? [document.body] : [])
       // Trigger lazy render
       this.isOpen = true
     },
@@ -394,14 +342,14 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       if (!contains(el, getActiveElement())) {
         this.enforceFocus(el)
       }
-      this.$emit('shown')
+      this.$emit(EVENT_NAME_SHOWN)
     },
     onAfterLeave() {
       this.enforceFocus(this.$_returnFocusEl)
       this.$_returnFocusEl = null
       // Trigger lazy render
       this.isOpen = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     enforceFocus(el) {
       if (!this.noEnforceFocus) {
@@ -410,27 +358,27 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const localShow = this.localShow
+    const { bgVariant, width, textVariant, localShow } = this
     const shadow = this.shadow === '' ? true : this.shadow
 
     let $sidebar = h(
       this.tag,
       {
-        ref: 'content',
-        directives: [{ name: 'show', value: localShow }],
         staticClass: CLASS_NAME,
         class: [
           {
             shadow: shadow === true,
             [`shadow-${shadow}`]: shadow && shadow !== true,
             [`${CLASS_NAME}-right`]: this.right,
-            [`bg-${this.bgVariant}`]: !!this.bgVariant,
-            [`text-${this.textVariant}`]: !!this.textVariant
+            [`bg-${bgVariant}`]: bgVariant,
+            [`text-${textVariant}`]: textVariant
           },
           this.sidebarClass
         ],
+        style: { width },
         attrs: this.computedAttrs,
-        style: { width: this.width }
+        directives: [{ name: 'show', value: localShow }],
+        ref: 'content'
       },
       [renderContent(h, this)]
     )
@@ -454,7 +402,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
 
     let $tabTrapTop = h()
     let $tabTrapBottom = h()
-    if (this.backdrop && this.localShow) {
+    if (this.backdrop && localShow) {
       $tabTrapTop = h('div', {
         attrs: { tabindex: '0' },
         on: { focus: this.onTopTrapFocus }

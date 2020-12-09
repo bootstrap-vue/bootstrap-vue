@@ -1,5 +1,7 @@
+import { Vue } from '../vue'
+
 // @vue/component
-export default {
+export const formValidityMixin = Vue.extend({
   computed: {
     validity: {
       // Expose validity property
@@ -43,4 +45,4 @@ export default {
       return this.$refs.input.reportValidity(...arguments)
     }
   }
-}
+})

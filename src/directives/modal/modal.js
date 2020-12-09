@@ -1,12 +1,13 @@
-import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import { NAME_MODAL } from '../../constants/components'
+import { EVENT_NAME_SHOW, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../utils/dom'
-import { eventOn, eventOff } from '../../utils/events'
+import { getRootActionEventName, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
 
 // Emitted show event for modal
-const EVENT_SHOW = 'bv::show::modal'
+const ROOT_ACTION_EVENT_NAME_SHOW = getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW)
 
 // Prop name we use to store info on root element
 const PROPERTY = '__bv_modal_directive__'
@@ -40,18 +41,18 @@ const bind = (el, binding, vnode) => {
   const target = getTarget(binding)
   const trigger = getTriggerElement(el)
   if (target && trigger) {
-    const handler = evt => {
+    const handler = event => {
       // `currentTarget` is the element with the listener on it
-      const currentTarget = evt.currentTarget
+      const currentTarget = event.currentTarget
       if (!isDisabled(currentTarget)) {
-        const type = evt.type
-        const key = evt.keyCode
+        const type = event.type
+        const key = event.keyCode
         // Open modal only if trigger is not disabled
         if (
           type === 'click' ||
           (type === 'keydown' && (key === CODE_ENTER || key === CODE_SPACE))
         ) {
-          vnode.context.$root.$emit(EVENT_SHOW, target, currentTarget)
+          vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_SHOW, target, currentTarget)
         }
       }
     }

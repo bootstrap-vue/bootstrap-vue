@@ -56,7 +56,7 @@ describe('table > sticky columns', () => {
     expect(cells.at(1).classes()).toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
+    expect(cells.at(2).vm).toBeUndefined()
     expect(cells.at(2).element.tagName).toBe('TD')
     expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
 
@@ -181,7 +181,7 @@ describe('table > sticky columns', () => {
     expect(cells.at(1).classes()).toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
+    expect(cells.at(2).vm).toBeUndefined()
     expect(cells.at(2).element.tagName).toBe('TD')
     expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
 
@@ -286,17 +286,17 @@ describe('table > sticky columns', () => {
     expect(cells.length).toBe(3)
 
     // First column should be th
-    expect(cells.at(0).vm).not.toBeDefined()
+    expect(cells.at(0).vm).toBeUndefined()
     expect(cells.at(0).element.tagName).toBe('TH')
     expect(cells.at(0).classes()).not.toContain('b-table-sticky-column')
 
     // Second column should be td
-    expect(cells.at(1).vm).not.toBeDefined()
+    expect(cells.at(1).vm).toBeUndefined()
     expect(cells.at(1).element.tagName).toBe('TD')
     expect(cells.at(1).classes()).not.toContain('b-table-sticky-column')
 
     // Third column should be td
-    expect(cells.at(2).vm).not.toBeDefined()
+    expect(cells.at(2).vm).toBeUndefined()
     expect(cells.at(2).element.tagName).toBe('TD')
     expect(cells.at(2).classes()).not.toContain('b-table-sticky-column')
 

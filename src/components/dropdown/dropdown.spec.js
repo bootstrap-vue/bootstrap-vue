@@ -460,7 +460,7 @@ describe('dropdown', () => {
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
 
     expect(wrapper.findAll('button').length).toBe(2)
     const $buttons = wrapper.findAll('button')
@@ -687,9 +687,9 @@ describe('dropdown', () => {
     const wrapper = mount(BDropdown, {
       attachTo: createContainer(),
       listeners: {
-        show: bvEvt => {
+        show: bvEvent => {
           if (prevent) {
-            bvEvt.preventDefault()
+            bvEvent.preventDefault()
           }
         }
       }
@@ -700,7 +700,7 @@ describe('dropdown', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
 
     expect(wrapper.findAll('button').length).toBe(1)
     expect(wrapper.findAll('.dropdown').length).toBe(1)

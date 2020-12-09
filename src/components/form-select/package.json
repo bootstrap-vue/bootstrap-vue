@@ -12,49 +12,35 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
+            "prop": "ariaInvalid",
+            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
           },
           {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+            "prop": "labelField",
+            "description": "The key to use from the option object to get the label"
           },
           {
             "prop": "multiple",
             "description": "When set, allows multiple options to be selected (multi-select)"
           },
           {
+            "prop": "optionsField",
+            "description": "The key to use from the option object to get the options"
+          },
+          {
             "prop": "selectSize",
             "description": "When set to a number larger than 0, will set the number of display option rows. Note not all browser will respect this setting"
           },
           {
-            "prop": "ariaInvalid",
-            "description": "Optional value to set for the 'aria-invalid' attribute. Supported values are 'true' and 'false'. If not set, the 'state' prop will dictate the value"
-          }
-        ],
-        "slots": [
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
           {
-            "name": "first",
-            "description": "Slot to place options or option groups above options provided via the 'options' prop"
+            "prop": "value",
+            "description": "Current value of the select. Should be set to an array when the 'multiple' prop is set"
           }
         ],
         "events": [
-          {
-            "event": "input",
-            "description": "Emitted with the select value changes",
-            "args": [
-              {
-                "arg": "value",
-                "type": [
-                  "String",
-                  "Number",
-                  "Object",
-                  "Array"
-                ],
-                "description": "current selected value(s) of the select."
-              }
-            ]
-          },
           {
             "event": "change",
             "description": "Emitted with the select value changes via user interaction",
@@ -67,9 +53,35 @@
                   "Object",
                   "Array"
                 ],
-                "description": "current selected value(s) of the select."
+                "description": "Current selected value(s) of the select"
               }
             ]
+          },
+          {
+            "event": "input",
+            "description": "Emitted with the select value changes",
+            "args": [
+              {
+                "arg": "value",
+                "type": [
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "Current selected value(s) of the select"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select"
+          },
+          {
+            "name": "first",
+            "description": "Slot to place options or option groups above options provided via the 'options' prop"
           }
         ]
       },
@@ -84,6 +96,12 @@
             "prop": "value",
             "description": "The value of the option"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select option"
+          }
         ]
       },
       {
@@ -92,7 +110,17 @@
         "aliases": [
           "BSelectOptionGroup"
         ],
+        "props": [
+          {
+            "prop": "label",
+            "description": "The label for the option group"
+          }
+        ],
         "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form select option group"
+          },
           {
             "name": "first",
             "description": "Slot to place options above options provided via the 'options' prop"

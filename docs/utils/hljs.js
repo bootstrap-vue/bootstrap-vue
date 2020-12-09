@@ -1,25 +1,24 @@
-import hljs from 'highlight.js/lib/highlight.js'
-
-// import only the languages we need for hljs
-import hljsJS from 'highlight.js/lib/languages/javascript'
-import hljsTS from 'highlight.js/lib/languages/typescript'
-import hljsJSON from 'highlight.js/lib/languages/json'
-import hljsXML from 'highlight.js/lib/languages/xml'
-import hljsCSS from 'highlight.js/lib/languages/css'
-import hljsSCSS from 'highlight.js/lib/languages/scss'
-import hljsBash from 'highlight.js/lib/languages/bash'
-import hljsShell from 'highlight.js/lib/languages/shell'
-import hljsPlaintext from 'highlight.js/lib/languages/plaintext'
+import hljs from 'highlight.js/lib/core'
+// Import only the languages we need from "highlight.js"
+import bash from 'highlight.js/lib/languages/bash' // Includes sh
+import css from 'highlight.js/lib/languages/css'
+import javascript from 'highlight.js/lib/languages/javascript'
+import json from 'highlight.js/lib/languages/json'
+import plaintext from 'highlight.js/lib/languages/plaintext'
+import scss from 'highlight.js/lib/languages/scss'
+import shell from 'highlight.js/lib/languages/shell'
+import typescript from 'highlight.js/lib/languages/typescript'
+import xml from 'highlight.js/lib/languages/xml' // Includes HTML
 
 // Register languages
-hljs.registerLanguage('javascript', hljsJS)
-hljs.registerLanguage('typescript', hljsTS)
-hljs.registerLanguage('json', hljsJSON)
-hljs.registerLanguage('xml', hljsXML) // includes HTML
-hljs.registerLanguage('css', hljsCSS)
-hljs.registerLanguage('scss', hljsSCSS)
-hljs.registerLanguage('bash', hljsBash) // includes sh
-hljs.registerLanguage('shell', hljsShell)
-hljs.registerLanguage('plaintext', hljsPlaintext)
+hljs.registerLanguage('bash', bash)
+hljs.registerLanguage('css', css)
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('json', json)
+hljs.registerLanguage('plaintext', plaintext)
+hljs.registerLanguage('scss', scss)
+hljs.registerLanguage('shell', shell)
+hljs.registerLanguage('typescript', typescript)
+hljs.registerLanguage('xml', xml)
 
 export default hljs

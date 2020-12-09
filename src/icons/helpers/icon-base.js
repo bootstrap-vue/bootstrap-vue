@@ -1,53 +1,13 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_ICON_BASE } from '../../constants/components'
-import identity from '../../utils/identity'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { identity } from '../../utils/identity'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathMax } from '../../utils/math'
 import { toFloat } from '../../utils/number'
+import { makeProp } from '../../utils/props'
 
-// Common icon props (should be cloned/spread before using)
-export const commonIconProps = {
-  title: {
-    type: String
-    // default: null
-  },
-  variant: {
-    type: String,
-    default: null
-  },
-  fontScale: {
-    type: [Number, String],
-    default: 1
-  },
-  scale: {
-    type: [Number, String],
-    default: 1
-  },
-  rotate: {
-    type: [Number, String],
-    default: 0
-  },
-  flipH: {
-    type: Boolean,
-    default: false
-  },
-  flipV: {
-    type: Boolean,
-    default: false
-  },
-  shiftH: {
-    type: [Number, String],
-    default: 0
-  },
-  shiftV: {
-    type: [Number, String],
-    default: 0
-  },
-  animation: {
-    type: String,
-    default: null
-  }
-}
+// --- Constants ---
 
 // Base attributes needed on all icons
 const baseAttrs = {
@@ -68,30 +28,38 @@ const stackedAttrs = {
   'aria-label': null
 }
 
+// --- Props ---
+
+export const props = {
+  animation: makeProp(PROP_TYPE_STRING),
+  content: makeProp(PROP_TYPE_STRING),
+  flipH: makeProp(PROP_TYPE_BOOLEAN, false),
+  flipV: makeProp(PROP_TYPE_BOOLEAN, false),
+  fontScale: makeProp(PROP_TYPE_NUMBER_STRING, 1),
+  rotate: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+  scale: makeProp(PROP_TYPE_NUMBER_STRING, 1),
+  shiftH: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+  shiftV: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+  stacked: makeProp(PROP_TYPE_BOOLEAN, false),
+  title: makeProp(PROP_TYPE_STRING),
+  variant: makeProp(PROP_TYPE_STRING)
+}
+
+// --- Main component ---
+
 // Shared private base component to reduce bundle/runtime size
 // @vue/component
 export const BVIconBase = /*#__PURE__*/ Vue.extend({
   name: NAME_ICON_BASE,
   functional: true,
-  props: {
-    content: {
-      type: String
-    },
-    stacked: {
-      type: Boolean,
-      default: false
-    },
-    ...commonIconProps
-  },
+  props,
   render(h, { data, props, children }) {
+    const { animation, content, flipH, flipV, stacked, title, variant } = props
     const fontScale = mathMax(toFloat(props.fontScale, 1), 0) || 1
     const scale = mathMax(toFloat(props.scale, 1), 0) || 1
     const rotate = toFloat(props.rotate, 0)
     const shiftH = toFloat(props.shiftH, 0)
     const shiftV = toFloat(props.shiftV, 0)
-    const flipH = props.flipH
-    const flipV = props.flipV
-    const animation = props.animation
     // Compute the transforms
     // Note that order is important as SVG transforms are applied in order from
     // left to right and we want flipping/scale to occur before rotation
@@ -100,6 +68,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
     const hasScale = flipH || flipV || scale !== 1
     const hasTransforms = hasScale || rotate
     const hasShift = shiftH || shiftV
+    const hasContent = !isUndefinedOrNull(content)
     const transforms = [
       hasTransforms ? 'translate(8 8)' : null,
       hasScale ? `scale(${(flipH ? -1 : 1) * scale} ${(flipV ? -1 : 1) * scale})` : null,
@@ -107,16 +76,12 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       hasTransforms ? 'translate(-8 -8)' : null
     ].filter(identity)
 
-    // Handling stacked icons
-    const isStacked = props.stacked
-    const hasContent = !isUndefinedOrNull(props.content)
-
     // We wrap the content in a `<g>` for handling the transforms (except shift)
     let $inner = h(
       'g',
       {
         attrs: { transform: transforms.join(' ') || null },
-        domProps: hasContent ? { innerHTML: props.content || '' } : {}
+        domProps: hasContent ? { innerHTML: content || '' } : {}
       },
       children
     )
@@ -130,13 +95,13 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       )
     }
 
-    if (isStacked) {
+    if (stacked) {
       // Wrap in an additional `<g>` for proper
       // animation handling if stacked
       $inner = h('g', {}, [$inner])
     }
 
-    const $title = props.title ? h('title', props.title) : null
+    const $title = title ? h('title', title) : null
 
     return h(
       'svg',
@@ -144,20 +109,20 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
         {
           staticClass: 'b-icon bi',
           class: {
-            [`text-${props.variant}`]: !!props.variant,
-            [`b-icon-animation-${animation}`]: !!animation
+            [`text-${variant}`]: variant,
+            [`b-icon-animation-${animation}`]: animation
           },
           attrs: baseAttrs,
-          style: isStacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
+          style: stacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
         // Merge in user supplied data
         data,
         // If icon is stacked, null out some attrs
-        isStacked ? { attrs: stackedAttrs } : {},
+        stacked ? { attrs: stackedAttrs } : {},
         // These cannot be overridden by users
         {
           attrs: {
-            xmlns: isStacked ? null : 'http://www.w3.org/2000/svg',
+            xmlns: stacked ? null : 'http://www.w3.org/2000/svg',
             fill: 'currentColor'
           }
         }

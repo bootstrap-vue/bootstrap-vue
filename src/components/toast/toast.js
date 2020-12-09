@@ -1,28 +1,53 @@
 import { Portal, Wormhole } from 'portal-vue'
-import Vue from '../../vue'
-import { NAME_TOAST } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import BVTransition from '../../utils/bv-transition'
+import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { NAME_TOAST, NAME_TOASTER } from '../../constants/components'
+import {
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_DESTROYED,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_TOAST_TITLE } from '../../constants/slots'
 import { BvEvent } from '../../utils/bv-event.class'
-import { makePropsConfigurable } from '../../utils/config'
 import { requestAF } from '../../utils/dom'
-import { eventOnOff } from '../../utils/events'
+import { getRootActionEventName, getRootEventName, eventOnOff } from '../../utils/events'
 import { mathMax } from '../../utils/math'
+import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
-import { pick } from '../../utils/object'
-import { pluckProps } from '../../utils/props'
+import { pick, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
-import attrsMixin from '../../mixins/attrs'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
-import { BToaster } from './toaster'
+import { attrsMixin } from '../../mixins/attrs'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { scopedStyleMixin } from '../../mixins/scoped-style'
 import { BButtonClose } from '../button/button-close'
 import { BLink, props as BLinkProps } from '../link/link'
+import { BVTransition } from '../transition/bv-transition'
+import { BToaster } from './toaster'
 
 // --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('visible', {
+  type: PROP_TYPE_BOOLEAN,
+  defaultValue: false,
+  event: EVENT_NAME_CHANGE
+})
 
 const MIN_DURATION = 1000
 
@@ -31,93 +56,45 @@ const MIN_DURATION = 1000
 const linkProps = pick(BLinkProps, ['href', 'to'])
 
 export const props = makePropsConfigurable(
-  {
-    id: {
-      // Even though the ID prop is provided by idMixin, we
-      // add it here for $bvToast props filtering
-      type: String
-      // default: null
-    },
-    title: {
-      type: String
-      // default: null
-    },
-    toaster: {
-      type: String,
-      default: 'b-toaster-top-right'
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String
-      // default: null
-    },
-    isStatus: {
-      // Switches role to 'status' and aria-live to 'polite'
-      type: Boolean,
-      default: false
-    },
-    appendToast: {
-      type: Boolean,
-      default: false
-    },
-    noAutoHide: {
-      type: Boolean,
-      default: false
-    },
-    autoHideDelay: {
-      type: [Number, String],
-      default: 5000
-    },
-    noCloseButton: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    noHoverPause: {
-      type: Boolean,
-      default: false
-    },
-    solid: {
-      type: Boolean,
-      default: false
-    },
-    toastClass: {
-      type: [String, Object, Array]
-      // default: undefined
-    },
-    headerClass: {
-      type: [String, Object, Array]
-      // default: undefined
-    },
-    bodyClass: {
-      type: [String, Object, Array]
-      // default: undefined
-    },
-    static: {
-      // Render the toast in place, rather than in a portal-target
-      type: Boolean,
-      default: false
-    },
-    ...linkProps
-  },
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ...linkProps,
+    appendToast: makeProp(PROP_TYPE_BOOLEAN, false),
+    autoHideDelay: makeProp(PROP_TYPE_NUMBER_STRING, 5000),
+    bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    // Switches role to 'status' and aria-live to 'polite'
+    isStatus: makeProp(PROP_TYPE_BOOLEAN, false),
+    noAutoHide: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCloseButton: makeProp(PROP_TYPE_BOOLEAN, false),
+    noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+    noHoverPause: makeProp(PROP_TYPE_BOOLEAN, false),
+    solid: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Render the toast in place, rather than in a portal-target
+    static: makeProp(PROP_TYPE_BOOLEAN, false),
+    title: makeProp(PROP_TYPE_STRING),
+    toastClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    toaster: makeProp(PROP_TYPE_STRING, 'b-toaster-top-right'),
+    variant: makeProp(PROP_TYPE_STRING)
+  }),
   NAME_TOAST
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME_TOAST,
-  mixins: [attrsMixin, idMixin, listenOnRootMixin, normalizeSlotMixin, scopedStyleAttrsMixin],
+  mixins: [
+    attrsMixin,
+    idMixin,
+    modelMixin,
+    listenOnRootMixin,
+    normalizeSlotMixin,
+    scopedStyleMixin
+  ],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
   props,
   data() {
     return {
@@ -132,18 +109,19 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
-    bToastClasses() {
+    toastClasses() {
+      const { appendToast, variant } = this
+
       return {
         'b-toast-solid': this.solid,
-        'b-toast-append': this.appendToast,
-        'b-toast-prepend': !this.appendToast,
-        [`b-toast-${this.variant}`]: this.variant
+        'b-toast-append': appendToast,
+        'b-toast-prepend': !appendToast,
+        [`b-toast-${variant}`]: variant
       }
     },
     slotScope() {
-      return {
-        hide: this.hide
-      }
+      const { hide } = this
+      return { hide }
     },
     computedDuration() {
       // Minimum supported duration is 1 second
@@ -169,12 +147,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    visible(newVal) {
-      newVal ? this.show() : this.hide()
+    [MODEL_PROP_NAME](newValue) {
+      this[newValue ? 'show' : 'hide']()
     },
-    localShow(newVal) {
-      if (newVal !== this.visible) {
-        this.$emit('change', newVal)
+    localShow(newValue) {
+      if (newValue !== this[MODEL_PROP_NAME]) {
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
     },
     /* istanbul ignore next */
@@ -183,10 +161,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.$nextTick(this.ensureToaster)
     },
     /* istanbul ignore next */
-    static(newVal) {
+    static(newValue) {
       // If static changes to true, and the toast is showing,
       // ensure the toaster target exists
-      if (newVal && this.localShow) {
+      if (newValue && this.localShow) {
         this.ensureToaster()
       }
     }
@@ -198,30 +176,29 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.isMounted = true
     this.$nextTick(() => {
-      if (this.visible) {
+      if (this[MODEL_PROP_NAME]) {
         requestAF(() => {
           this.show()
         })
       }
     })
     // Listen for global $root show events
-    this.listenOnRoot('bv::show::toast', id => {
+    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_SHOW), id => {
       if (id === this.safeId()) {
         this.show()
       }
     })
     // Listen for global $root hide events
-    this.listenOnRoot('bv::hide::toast', id => {
+    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_HIDE), id => {
       if (!id || id === this.safeId()) {
         this.hide()
       }
     })
     // Make sure we hide when toaster is destroyed
     /* istanbul ignore next: difficult to test */
-    this.listenOnRoot('bv::toaster::destroyed', toaster => {
+    this.listenOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), toaster => {
       /* istanbul ignore next */
       if (toaster === this.computedToaster) {
-        /* istanbul ignore next */
         this.hide()
       }
     })
@@ -233,7 +210,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     show() {
       if (!this.localShow) {
         this.ensureToaster()
-        const showEvt = this.buildEvent('show')
+        const showEvt = this.buildEvent(EVENT_NAME_SHOW)
         this.emitEvent(showEvt)
         this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
@@ -250,7 +227,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     hide() {
       if (this.localShow) {
-        const hideEvt = this.buildEvent('hide')
+        const hideEvt = this.buildEvent(EVENT_NAME_HIDE)
         this.emitEvent(hideEvt)
         this.setHoverHandler(false)
         this.dismissStarted = this.resumeDismiss = 0
@@ -271,24 +248,26 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         componentId: this.safeId()
       })
     },
-    emitEvent(bvEvt) {
-      const type = bvEvt.type
-      this.emitOnRoot(`bv::toast:${type}`, bvEvt)
-      this.$emit(type, bvEvt)
+    emitEvent(bvEvent) {
+      const { type } = bvEvent
+      this.emitOnRoot(getRootEventName(NAME_TOAST, type), bvEvent)
+      this.$emit(type, bvEvent)
     },
     ensureToaster() {
       if (this.static) {
         return
       }
-      if (!Wormhole.hasTarget(this.computedToaster)) {
+
+      const { computedToaster } = this
+      if (!Wormhole.hasTarget(computedToaster)) {
         const div = document.createElement('div')
         document.body.appendChild(div)
+
         const toaster = new BToaster({
           parent: this.$root,
-          propsData: {
-            name: this.computedToaster
-          }
+          propsData: { name: computedToaster }
         })
+
         toaster.$mount(div)
       }
     },
@@ -342,7 +321,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     onAfterEnter() {
       this.isTransitioning = false
-      const hiddenEvt = this.buildEvent('shown')
+      const hiddenEvt = this.buildEvent(EVENT_NAME_SHOWN)
       this.emitEvent(hiddenEvt)
       this.startDismissTimer()
       this.setHoverHandler(true)
@@ -354,20 +333,23 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.isTransitioning = false
       this.order = 0
       this.resumeDismiss = this.dismissStarted = 0
-      const hiddenEvt = this.buildEvent('hidden')
+      const hiddenEvt = this.buildEvent(EVENT_NAME_HIDDEN)
       this.emitEvent(hiddenEvt)
       this.doRender = false
     },
+    // Render helper for generating the toast
     makeToast(h) {
-      // Render helper for generating the toast
-      // Assemble the header content
+      const { title, slotScope } = this
+      const link = isLink(this)
       const $headerContent = []
-      const $title = this.normalizeSlot('toast-title', this.slotScope)
+
+      const $title = this.normalizeSlot(SLOT_NAME_TOAST_TITLE, slotScope)
       if ($title) {
         $headerContent.push($title)
-      } else if (this.title) {
-        $headerContent.push(h('strong', { staticClass: 'mr-2' }, this.title))
+      } else if (title) {
+        $headerContent.push(h('strong', { staticClass: 'mr-2' }, title))
       }
+
       if (!this.noCloseButton) {
         $headerContent.push(
           h(BButtonClose, {
@@ -380,7 +362,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           })
         )
       }
-      // Assemble the header (if needed)
+
       let $header = h()
       if ($headerContent.length > 0) {
         $header = h(
@@ -389,8 +371,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           $headerContent
         )
       }
-      // Toast body
-      const link = isLink(this)
+
       const $body = h(
         link ? BLink : 'div',
         {
@@ -399,31 +380,58 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           props: link ? pluckProps(linkProps, this) : {},
           on: link ? { click: this.onLinkClick } : {}
         },
-        [this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope) || h()]
+        this.normalizeSlot(SLOT_NAME_DEFAULT, slotScope)
       )
-      // Build the toast
-      const $toast = h(
+
+      return h(
         'div',
         {
-          key: `toast-${this._uid}`,
-          ref: 'toast',
           staticClass: 'toast',
           class: this.toastClass,
-          attrs: this.computedAttrs
+          attrs: this.computedAttrs,
+          key: `toast-${this[COMPONENT_UID_KEY]}`,
+          ref: 'toast'
         },
         [$header, $body]
       )
-      return $toast
     }
   },
   render(h) {
     if (!this.doRender || !this.isMounted) {
       return h()
     }
-    const name = `b-toast-${this._uid}`
-    // If scoped styles are applied and the toast is not static,
-    // make sure the scoped style data attribute is applied
-    const scopedStyleAttrs = !this.static ? this.scopedStyleAttrs : {}
+
+    const { order, static: isStatic, isHiding, isStatus } = this
+    const name = `b-toast-${this[COMPONENT_UID_KEY]}`
+
+    const $toast = h(
+      'div',
+      {
+        staticClass: 'b-toast',
+        class: this.toastClasses,
+        attrs: {
+          // If scoped styles are applied and the toast is not static,
+          // make sure the scoped style data attribute is applied
+          ...(isStatic ? {} : this.scopedStyleAttrs),
+          id: this.safeId('_toast_outer'),
+          role: isHiding ? null : isStatus ? 'status' : 'alert',
+          'aria-live': isHiding ? null : isStatus ? 'polite' : 'assertive',
+          'aria-atomic': isHiding ? null : 'true'
+        },
+        key: name,
+        ref: 'b-toast'
+      },
+      [
+        h(
+          BVTransition,
+          {
+            props: { noFade: this.noFade },
+            on: this.transitionHandlers
+          },
+          [this.localShow ? this.makeToast(h) : h()]
+        )
+      ]
+    )
 
     return h(
       Portal,
@@ -431,34 +439,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         props: {
           name,
           to: this.computedToaster,
-          order: this.order,
+          order,
           slim: true,
-          disabled: this.static
+          disabled: isStatic
         }
       },
-      [
-        h(
-          'div',
-          {
-            key: name,
-            ref: 'b-toast',
-            staticClass: 'b-toast',
-            class: this.bToastClasses,
-            attrs: {
-              ...scopedStyleAttrs,
-              id: this.safeId('_toast_outer'),
-              role: this.isHiding ? null : this.isStatus ? 'status' : 'alert',
-              'aria-live': this.isHiding ? null : this.isStatus ? 'polite' : 'assertive',
-              'aria-atomic': this.isHiding ? null : 'true'
-            }
-          },
-          [
-            h(BVTransition, { props: { noFade: this.noFade }, on: this.transitionHandlers }, [
-              this.localShow ? this.makeToast(h) : h()
-            ])
-          ]
-        )
-      ]
+      [$toast]
     )
   }
 })

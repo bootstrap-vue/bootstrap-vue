@@ -1,13 +1,38 @@
-import Vue from '../../vue'
+import { COMPONENT_UID_KEY, Vue } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
+import { IS_BROWSER } from '../../constants/env'
+import {
+  EVENT_NAME_CANCEL,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_CLOSE,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_OK,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_NAME_TOGGLE,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
 import { CODE_ESC } from '../../constants/key-codes'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import BVTransition from '../../utils/bv-transition'
-import identity from '../../utils/identity'
-import observeDom from '../../utils/observe-dom'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { HTMLElement } from '../../constants/safe-types'
+import {
+  SLOT_NAME_DEFAULT,
+  SLOT_NAME_MODAL_BACKDROP,
+  SLOT_NAME_MODAL_CANCEL,
+  SLOT_NAME_MODAL_FOOTER,
+  SLOT_NAME_MODAL_HEADER,
+  SLOT_NAME_MODAL_HEADER_CLOSE,
+  SLOT_NAME_MODAL_OK,
+  SLOT_NAME_MODAL_TITLE
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import {
   attemptFocus,
   closest,
@@ -17,27 +42,54 @@ import {
   requestAF,
   select
 } from '../../utils/dom'
-import { isBrowser } from '../../utils/env'
-import { eventOn, eventOff } from '../../utils/events'
+import { getRootActionEventName, getRootEventName, eventOn, eventOff } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
+import { identity } from '../../utils/identity'
 import { isString, isUndefinedOrNull } from '../../utils/inspect'
-import { HTMLElement } from '../../utils/safe-types'
-import { BTransporterSingle } from '../../utils/transporter'
-import attrsMixin from '../../mixins/attrs'
-import idMixin from '../../mixins/id'
-import listenOnDocumentMixin from '../../mixins/listen-on-document'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import listenOnWindowMixin from '../../mixins/listen-on-window'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-import scopedStyleAttrsMixin from '../../mixins/scoped-style-attrs'
+import { makeModelMixin } from '../../utils/model'
+import { sortKeys } from '../../utils/object'
+import { observeDom } from '../../utils/observe-dom'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { attrsMixin } from '../../mixins/attrs'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { listenOnDocumentMixin } from '../../mixins/listen-on-document'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { listenOnWindowMixin } from '../../mixins/listen-on-window'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { scopedStyleMixin } from '../../mixins/scoped-style'
 import { BButton } from '../button/button'
 import { BButtonClose } from '../button/button-close'
-import { modalManager } from './helpers/modal-manager'
+import { BVTransition } from '../transition/bv-transition'
+import { BVTransporter } from '../transporter/transporter'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
+import { modalManager } from './helpers/modal-manager'
 
 // --- Constants ---
 
-// ObserveDom config to detect changes in modal content
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('visible', {
+  type: PROP_TYPE_BOOLEAN,
+  defaultValue: false,
+  event: EVENT_NAME_CHANGE
+})
+
+const TRIGGER_BACKDROP = 'backdrop'
+const TRIGGER_ESC = 'esc'
+const TRIGGER_FORCE = 'FORCE'
+const TRIGGER_TOGGLE = 'toggle'
+
+const BUTTON_CANCEL = 'cancel'
+// TODO: This should be renamed to 'close'
+const BUTTON_CLOSE = 'headerclose'
+const BUTTON_OK = 'ok'
+
+const BUTTONS = [BUTTON_CANCEL, BUTTON_CLOSE, BUTTON_OK]
+
+// `ObserveDom` config to detect changes in modal content
 // so that we can adjust the modal padding if needed
 const OBSERVER_CONFIG = {
   subtree: true,
@@ -48,225 +100,78 @@ const OBSERVER_CONFIG = {
 }
 
 // --- Props ---
+
 export const props = makePropsConfigurable(
-  {
-    size: {
-      type: String,
-      default: 'md'
-    },
-    centered: {
-      type: Boolean,
-      default: false
-    },
-    scrollable: {
-      type: Boolean,
-      default: false
-    },
-    buttonSize: {
-      type: String
-      // default: ''
-    },
-    noStacking: {
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    noCloseOnEsc: {
-      type: Boolean,
-      default: false
-    },
-    noEnforceFocus: {
-      type: Boolean,
-      default: false
-    },
-    ignoreEnforceFocusSelector: {
-      type: [Array, String],
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    titleHtml: {
-      type: String
-    },
-    titleTag: {
-      type: String,
-      default: 'h5'
-    },
-    titleClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    titleSrOnly: {
-      type: Boolean,
-      default: false
-    },
-    ariaLabel: {
-      type: String
-      // default: null
-    },
-    headerBgVariant: {
-      type: String
-      // default: undefined
-    },
-    headerBorderVariant: {
-      type: String
-      // default: undefined
-    },
-    headerTextVariant: {
-      type: String
-      // default: undefined
-    },
-    headerCloseVariant: {
-      type: String
-      // default: undefined
-    },
-    headerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    bodyBgVariant: {
-      type: String
-      // default: undefined
-    },
-    bodyTextVariant: {
-      type: String
-      // default: undefined
-    },
-    modalClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    dialogClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    contentClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    bodyClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    footerBgVariant: {
-      type: String
-      // default: undefined
-    },
-    footerBorderVariant: {
-      type: String
-      // default: undefined
-    },
-    footerTextVariant: {
-      type: String
-      // default: undefined
-    },
-    footerClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    // TODO: Rename to `noHeader` and deprecate `hideHeader`
-    hideHeader: {
-      type: Boolean,
-      default: false
-    },
-    // TODO: Rename to `noFooter` and deprecate `hideFooter`
-    hideFooter: {
-      type: Boolean,
-      default: false
-    },
-    // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
-    hideHeaderClose: {
-      type: Boolean,
-      default: false
-    },
-    // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
-    hideBackdrop: {
-      type: Boolean,
-      default: false
-    },
-    okOnly: {
-      type: Boolean,
-      default: false
-    },
-    okDisabled: {
-      type: Boolean,
-      default: false
-    },
-    cancelDisabled: {
-      type: Boolean,
-      default: false
-    },
-    visible: {
-      type: Boolean,
-      default: false
-    },
-    returnFocus: {
-      // HTML Element, CSS selector string or Vue component instance
-      type: [HTMLElement, String, Object],
-      default: null
-    },
-    headerCloseContent: {
-      type: String,
-      default: '&times;'
-    },
-    headerCloseLabel: {
-      type: String,
-      default: 'Close'
-    },
-    cancelTitle: {
-      type: String,
-      default: 'Cancel'
-    },
-    cancelTitleHtml: {
-      type: String
-    },
-    okTitle: {
-      type: String,
-      default: 'OK'
-    },
-    okTitleHtml: {
-      type: String
-    },
-    cancelVariant: {
-      type: String,
-      default: 'secondary'
-    },
-    okVariant: {
-      type: String,
-      default: 'primary'
-    },
-    lazy: {
-      type: Boolean,
-      default: false
-    },
-    busy: {
-      type: Boolean,
-      default: false
-    },
-    static: {
-      type: Boolean,
-      default: false
-    },
-    autoFocusButton: {
-      type: String,
-      default: null,
-      /* istanbul ignore next */
-      validator(value) {
-        return isUndefinedOrNull(value) || arrayIncludes(['ok', 'cancel', 'close'], value)
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ariaLabel: makeProp(PROP_TYPE_STRING),
+    autoFocusButton: makeProp(
+      PROP_TYPE_STRING,
+      null,
+      /* istanbul ignore next */ value => {
+        return isUndefinedOrNull(value) || arrayIncludes(BUTTONS, value)
       }
-    }
-  },
+    ),
+    bodyBgVariant: makeProp(PROP_TYPE_STRING),
+    bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    bodyTextVariant: makeProp(PROP_TYPE_STRING),
+    busy: makeProp(PROP_TYPE_BOOLEAN, false),
+    buttonSize: makeProp(PROP_TYPE_STRING),
+    cancelDisabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    cancelTitle: makeProp(PROP_TYPE_STRING, 'Cancel'),
+    cancelTitleHtml: makeProp(PROP_TYPE_STRING),
+    cancelVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
+    centered: makeProp(PROP_TYPE_BOOLEAN, false),
+    contentClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    dialogClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    footerBgVariant: makeProp(PROP_TYPE_STRING),
+    footerBorderVariant: makeProp(PROP_TYPE_STRING),
+    footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    footerTextVariant: makeProp(PROP_TYPE_STRING),
+    headerBgVariant: makeProp(PROP_TYPE_STRING),
+    headerBorderVariant: makeProp(PROP_TYPE_STRING),
+    headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerCloseContent: makeProp(PROP_TYPE_STRING, '&times;'),
+    headerCloseLabel: makeProp(PROP_TYPE_STRING, 'Close'),
+    headerCloseVariant: makeProp(PROP_TYPE_STRING),
+    headerTextVariant: makeProp(PROP_TYPE_STRING),
+    // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
+    hideBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    // TODO: Rename to `noFooter` and deprecate `hideFooter`
+    hideFooter: makeProp(PROP_TYPE_BOOLEAN, false),
+    // TODO: Rename to `noHeader` and deprecate `hideHeader`
+    hideHeader: makeProp(PROP_TYPE_BOOLEAN, false),
+    // TODO: Rename to `noHeaderClose` and deprecate `hideHeaderClose`
+    hideHeaderClose: makeProp(PROP_TYPE_BOOLEAN, false),
+    ignoreEnforceFocusSelector: makeProp(PROP_TYPE_ARRAY_STRING),
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    modalClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    noCloseOnBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCloseOnEsc: makeProp(PROP_TYPE_BOOLEAN, false),
+    noEnforceFocus: makeProp(PROP_TYPE_BOOLEAN, false),
+    noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+    noStacking: makeProp(PROP_TYPE_BOOLEAN, false),
+    okDisabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    okOnly: makeProp(PROP_TYPE_BOOLEAN, false),
+    okTitle: makeProp(PROP_TYPE_STRING, 'OK'),
+    okTitleHtml: makeProp(PROP_TYPE_STRING),
+    okVariant: makeProp(PROP_TYPE_STRING, 'primary'),
+    // HTML Element, CSS selector string or Vue component instance
+    returnFocus: makeProp([HTMLElement, PROP_TYPE_OBJECT, PROP_TYPE_STRING]),
+    scrollable: makeProp(PROP_TYPE_BOOLEAN, false),
+    size: makeProp(PROP_TYPE_STRING, 'md'),
+    static: makeProp(PROP_TYPE_BOOLEAN, false),
+    title: makeProp(PROP_TYPE_STRING),
+    titleClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    titleHtml: makeProp(PROP_TYPE_STRING),
+    titleSrOnly: makeProp(PROP_TYPE_BOOLEAN, false),
+    titleTag: makeProp(PROP_TYPE_STRING, 'h5')
+  }),
   NAME_MODAL
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
@@ -274,17 +179,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   mixins: [
     attrsMixin,
     idMixin,
+    modelMixin,
     listenOnDocumentMixin,
     listenOnRootMixin,
     listenOnWindowMixin,
     normalizeSlotMixin,
-    scopedStyleAttrsMixin
+    scopedStyleMixin
   ],
   inheritAttrs: false,
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
   props,
   data() {
     return {
@@ -297,7 +199,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       isClosing: false, // To signal that the modal is in the process of closing
       ignoreBackdropClick: false, // Used to signify if click out listener should ignore the click
       isModalOverflowing: false,
-      return_focus: this.returnFocus || null,
       // The following items are controlled by the modalManager instance
       scrollbarWidth: 0,
       zIndex: modalManager.getBaseZIndex(),
@@ -400,10 +301,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     },
     slotScope() {
       return {
-        ok: this.onOk,
         cancel: this.onCancel,
         close: this.onClose,
         hide: this.hide,
+        ok: this.onOk,
         visible: this.isVisible
       }
     },
@@ -438,7 +339,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
           this.hideHeader ||
           ariaLabel ||
           // TODO: Rename slot to `title` and deprecate `modal-title`
-          !(this.hasNormalizedSlot('modal-title') || this.titleHtml || this.title)
+          !(this.hasNormalizedSlot(SLOT_NAME_MODAL_TITLE) || this.titleHtml || this.title)
             ? null
             : this.modalTitleId,
         'aria-describedby': this.modalBodyId
@@ -446,29 +347,30 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    visible(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this[newVal ? 'show' : 'hide']()
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this[newValue ? 'show' : 'hide']()
       }
     }
   },
   created() {
     // Define non-reactive properties
     this.$_observer = null
+    this.$_returnFocus = this.returnFocus || null
   },
   mounted() {
     // Set initial z-index as queried from the DOM
     this.zIndex = modalManager.getBaseZIndex()
     // Listen for events from others to either open or close ourselves
     // and listen to all modals to enable/disable enforce focus
-    this.listenOnRoot('bv::show::modal', this.showHandler)
-    this.listenOnRoot('bv::hide::modal', this.hideHandler)
-    this.listenOnRoot('bv::toggle::modal', this.toggleHandler)
+    this.listenOnRoot(getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW), this.showHandler)
+    this.listenOnRoot(getRootActionEventName(NAME_MODAL, EVENT_NAME_HIDE), this.hideHandler)
+    this.listenOnRoot(getRootActionEventName(NAME_MODAL, EVENT_NAME_TOGGLE), this.toggleHandler)
     // Listen for `bv:modal::show events`, and close ourselves if the
     // opening modal not us
-    this.listenOnRoot('bv::modal::show', this.modalListener)
+    this.listenOnRoot(getRootEventName(NAME_MODAL, EVENT_NAME_SHOW), this.modalListener)
     // Initially show modal?
-    if (this.visible === true) {
+    if (this[MODEL_PROP_NAME] === true) {
       this.$nextTick(this.show)
     }
   },
@@ -494,9 +396,9 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
     },
     // Private method to update the v-model
-    updateModel(val) {
-      if (val !== this.visible) {
-        this.$emit('change', val)
+    updateModel(value) {
+      if (value !== this[MODEL_PROP_NAME]) {
+        this.$emit(MODEL_EVENT_NAME, value)
       }
     },
     // Private method to create a BvModalEvent object
@@ -525,14 +427,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       if (this.isClosing) {
         // If we are in the process of closing, wait until hidden before re-opening
         /* istanbul ignore next */
-        this.$once('hidden', this.show)
+        this.$once(EVENT_NAME_HIDDEN, this.show)
         /* istanbul ignore next */
         return
       }
       this.isOpening = true
       // Set the element to return focus to when closed
-      this.return_focus = this.return_focus || this.getActiveElement()
-      const showEvt = this.buildEvent('show', {
+      this.$_returnFocus = this.$_returnFocus || this.getActiveElement()
+      const showEvt = this.buildEvent(EVENT_NAME_SHOW, {
         cancelable: true
       })
       this.emitEvent(showEvt)
@@ -553,17 +455,17 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         return
       }
       this.isClosing = true
-      const hideEvt = this.buildEvent('hide', {
-        cancelable: trigger !== 'FORCE',
+      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, {
+        cancelable: trigger !== TRIGGER_FORCE,
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
-      if (trigger === 'ok') {
-        this.$emit('ok', hideEvt)
-      } else if (trigger === 'cancel') {
-        this.$emit('cancel', hideEvt)
-      } else if (trigger === 'headerclose') {
-        this.$emit('close', hideEvt)
+      if (trigger === BUTTON_OK) {
+        this.$emit(EVENT_NAME_OK, hideEvt)
+      } else if (trigger === BUTTON_CANCEL) {
+        this.$emit(EVENT_NAME_CANCEL, hideEvt)
+      } else if (trigger === BUTTON_CLOSE) {
+        this.$emit(EVENT_NAME_CLOSE, hideEvt)
       }
       this.emitEvent(hideEvt)
       // Hide if not canceled
@@ -583,10 +485,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Public method to toggle modal visibility
     toggle(triggerEl) {
       if (triggerEl) {
-        this.return_focus = triggerEl
+        this.$_returnFocus = triggerEl
       }
       if (this.isVisible) {
-        this.hide('toggle')
+        this.hide(TRIGGER_TOGGLE)
       } else {
         this.show()
       }
@@ -595,7 +497,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     getActiveElement() {
       // Returning focus to `document.body` may cause unwanted scrolls,
       // so we exclude setting focus on body
-      const activeElement = getActiveElement(isBrowser ? [document.body] : [])
+      const activeElement = getActiveElement(IS_BROWSER ? [document.body] : [])
       // Preset the fallback return focus value if it is not set
       // `document.activeElement` should be the trigger element that was clicked or
       // in the case of using the v-model, which ever element has current focus
@@ -610,7 +512,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore next: commenting out for now until we can test stacking */
       if (modalManager.modalsAreOpen && this.noStacking) {
         // If another modal(s) is already open, wait for it(them) to close
-        this.listenOnRootOnce('bv::modal::hidden', this.doShow)
+        this.listenOnRootOnce(getRootEventName(NAME_MODAL, EVENT_NAME_HIDDEN), this.doShow)
         return
       }
       modalManager.registerModal(this)
@@ -654,7 +556,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // This will allow users to not have to use `$nextTick()` or `requestAF()`
       // when trying to pre-focus an element
       requestAF(() => {
-        this.emitEvent(this.buildEvent('shown'))
+        this.emitEvent(this.buildEvent(EVENT_NAME_SHOWN))
         this.setEnforceFocus(true)
         this.$nextTick(() => {
           // Delayed in a `$nextTick()` to allow users time to pre-focus
@@ -683,7 +585,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.returnFocusTo()
         // TODO: Need to find a way to pass the `trigger` property
         //       to the `hidden` event, not just only the `hide` event
-        this.emitEvent(this.buildEvent('hidden'))
+        this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
       })
     },
     // Event emitter
@@ -691,7 +593,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       const type = bvModalEvt.type
       // We emit on root first incase a global listener wants to cancel
       // the event first before the instance emits its event
-      this.emitOnRoot(`bv::modal::${type}`, bvModalEvt, bvModalEvt.componentId)
+      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvModalEvt, bvModalEvt.componentId)
       this.$emit(type, bvModalEvt)
     },
     // UI event handlers
@@ -699,15 +601,15 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Watch to see if the matching mouseup event occurs outside the dialog
       // And if it does, cancel the clickOut handler
       const modal = this.$refs.modal
-      const onceModalMouseup = evt => {
+      const onceModalMouseup = event => {
         eventOff(modal, 'mouseup', onceModalMouseup, EVENT_OPTIONS_NO_CAPTURE)
-        if (evt.target === modal) {
+        if (event.target === modal) {
           this.ignoreBackdropClick = true
         }
       }
       eventOn(modal, 'mouseup', onceModalMouseup, EVENT_OPTIONS_NO_CAPTURE)
     },
-    onClickOut(evt) {
+    onClickOut(event) {
       if (this.ignoreBackdropClick) {
         // Click was initiated inside the modal content, but finished outside.
         // Set by the above onDialogMousedown handler
@@ -716,34 +618,34 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       }
       // Do nothing if not visible, backdrop click disabled, or element
       // that generated click event is no longer in document body
-      if (!this.isVisible || this.noCloseOnBackdrop || !contains(document.body, evt.target)) {
+      if (!this.isVisible || this.noCloseOnBackdrop || !contains(document.body, event.target)) {
         return
       }
       // If backdrop clicked, hide modal
-      if (!contains(this.$refs.content, evt.target)) {
-        this.hide('backdrop')
+      if (!contains(this.$refs.content, event.target)) {
+        this.hide(TRIGGER_BACKDROP)
       }
     },
     onOk() {
-      this.hide('ok')
+      this.hide(BUTTON_OK)
     },
     onCancel() {
-      this.hide('cancel')
+      this.hide(BUTTON_CANCEL)
     },
     onClose() {
-      this.hide('headerclose')
+      this.hide(BUTTON_CLOSE)
     },
-    onEsc(evt) {
+    onEsc(event) {
       // If ESC pressed, hide modal
-      if (evt.keyCode === CODE_ESC && this.isVisible && !this.noCloseOnEsc) {
-        this.hide('esc')
+      if (event.keyCode === CODE_ESC && this.isVisible && !this.noCloseOnEsc) {
+        this.hide(TRIGGER_ESC)
       }
     },
     // Document focusin listener
-    focusHandler(evt) {
+    focusHandler(event) {
       // If focus leaves modal content, bring it back
       const content = this.$refs.content
-      const { target } = evt
+      const { target } = event
       if (
         this.noEnforceFocus ||
         !this.isTop ||
@@ -757,7 +659,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         return
       }
       const tabables = getTabables(this.$refs.content)
-      const { bottomTrap, topTrap } = this.$refs
+      const bottomTrap = this.$refs['bottom-trap']
+      const topTrap = this.$refs['top-trap']
       if (bottomTrap && target === bottomTrap) {
         // If user pressed TAB out of modal into our bottom trab trap element
         // Find the first tabable element in the modal content and focus it
@@ -788,7 +691,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Root listener handlers
     showHandler(id, triggerEl) {
       if (id === this.modalId) {
-        this.return_focus = triggerEl || this.getActiveElement()
+        this.$_returnFocus = triggerEl || this.getActiveElement()
         this.show()
       }
     },
@@ -802,16 +705,16 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.toggle(triggerEl)
       }
     },
-    modalListener(bvEvt) {
+    modalListener(bvEvent) {
       // If another modal opens, close this one if stacking not permitted
-      if (this.noStacking && bvEvt.vueTarget !== this) {
+      if (this.noStacking && bvEvent.vueTarget !== this) {
         this.hide()
       }
     },
     // Focus control handlers
     focusFirst() {
       // Don't try and focus if we are SSR
-      if (isBrowser) {
+      if (IS_BROWSER) {
         requestAF(() => {
           const modal = this.$refs.modal
           const content = this.$refs.content
@@ -825,11 +728,11 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             const autoFocus = this.autoFocusButton
             /* istanbul ignore next */
             const el =
-              autoFocus === 'ok' && ok
+              autoFocus === BUTTON_OK && ok
                 ? ok.$el || ok
-                : autoFocus === 'cancel' && cancel
+                : autoFocus === BUTTON_CANCEL && cancel
                   ? cancel.$el || cancel
-                  : autoFocus === 'close' && close
+                  : autoFocus === BUTTON_CLOSE && close
                     ? close.$el || close
                     : content
             // Focus the element
@@ -847,8 +750,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     returnFocusTo() {
       // Prefer `returnFocus` prop over event specified
       // `return_focus` value
-      let el = this.returnFocus || this.return_focus || null
-      this.return_focus = null
+      let el = this.returnFocus || this.$_returnFocus || null
+      this.$_returnFocus = null
       this.$nextTick(() => {
         // Is el a string CSS selector?
         el = isString(el) ? select(el) : el
@@ -870,7 +773,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let $header = h()
       if (!this.hideHeader) {
         // TODO: Rename slot to `header` and deprecate `modal-header`
-        let $modalHeader = this.normalizeSlot('modal-header', this.slotScope)
+        let $modalHeader = this.normalizeSlot(SLOT_NAME_MODAL_HEADER, this.slotScope)
         if (!$modalHeader) {
           let $closeButton = h()
           if (!this.hideHeaderClose) {
@@ -887,7 +790,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 ref: 'close-button'
               },
               // TODO: Rename slot to `header-close` and deprecate `modal-header-close`
-              [this.normalizeSlot('modal-header-close')]
+              [this.normalizeSlot(SLOT_NAME_MODAL_HEADER_CLOSE)]
             )
           }
 
@@ -899,12 +802,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 class: this.titleClasses,
                 attrs: { id: this.modalTitleId },
                 // TODO: Rename slot to `title` and deprecate `modal-title`
-                domProps: this.hasNormalizedSlot('modal-title')
+                domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_TITLE)
                   ? {}
                   : htmlOrText(this.titleHtml, this.title)
               },
               // TODO: Rename slot to `title` and deprecate `modal-title`
-              this.normalizeSlot('modal-title', this.slotScope)
+              this.normalizeSlot(SLOT_NAME_MODAL_TITLE, this.slotScope)
             ),
             $closeButton
           ]
@@ -938,7 +841,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let $footer = h()
       if (!this.hideFooter) {
         // TODO: Rename slot to `footer` and deprecate `modal-footer`
-        let $modalFooter = this.normalizeSlot('modal-footer', this.slotScope)
+        let $modalFooter = this.normalizeSlot(SLOT_NAME_MODAL_FOOTER, this.slotScope)
         if (!$modalFooter) {
           let $cancelButton = h()
           if (!this.okOnly) {
@@ -951,14 +854,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                   disabled: this.cancelDisabled || this.busy || this.isTransitioning
                 },
                 // TODO: Rename slot to `cancel-button` and deprecate `modal-cancel`
-                domProps: this.hasNormalizedSlot('modal-cancel')
+                domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_CANCEL)
                   ? {}
                   : htmlOrText(this.cancelTitleHtml, this.cancelTitle),
                 on: { click: this.onCancel },
                 ref: 'cancel-button'
               },
               // TODO: Rename slot to `cancel-button` and deprecate `modal-cancel`
-              this.normalizeSlot('modal-cancel')
+              this.normalizeSlot(SLOT_NAME_MODAL_CANCEL)
             )
           }
 
@@ -971,14 +874,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
                 disabled: this.okDisabled || this.busy || this.isTransitioning
               },
               // TODO: Rename slot to `ok-button` and deprecate `modal-ok`
-              domProps: this.hasNormalizedSlot('modal-ok')
+              domProps: this.hasNormalizedSlot(SLOT_NAME_MODAL_OK)
                 ? {}
                 : htmlOrText(this.okTitleHtml, this.okTitle),
               on: { click: this.onOk },
               ref: 'ok-button'
             },
             // TODO: Rename slot to `ok-button` and deprecate `modal-ok`
-            this.normalizeSlot('modal-ok')
+            this.normalizeSlot(SLOT_NAME_MODAL_OK)
           )
 
           $modalFooter = [$cancelButton, $okButton]
@@ -1016,8 +919,14 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       let $tabTrapTop = h()
       let $tabTrapBottom = h()
       if (this.isVisible && !this.noEnforceFocus) {
-        $tabTrapTop = h('span', { ref: 'topTrap', attrs: { tabindex: '0' } })
-        $tabTrapBottom = h('span', { ref: 'bottomTrap', attrs: { tabindex: '0' } })
+        $tabTrapTop = h('span', {
+          attrs: { tabindex: '0' },
+          ref: 'top-trap'
+        })
+        $tabTrapBottom = h('span', {
+          attrs: { tabindex: '0' },
+          ref: 'bottom-trap'
+        })
       }
 
       // Modal dialog wrapper
@@ -1084,7 +993,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
             attrs: { id: this.modalBackdropId }
           },
           // TODO: Rename slot to `backdrop` and deprecate `modal-backdrop`
-          this.normalizeSlot('modal-backdrop')
+          this.normalizeSlot(SLOT_NAME_MODAL_BACKDROP)
         )
       }
       $backdrop = h(BVTransition, { props: { noFade: this.noFade } }, [$backdrop])
@@ -1095,7 +1004,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         {
           style: this.modalOuterStyle,
           attrs: this.computedAttrs,
-          key: `modal-outer-${this._uid}`
+          key: `modal-outer-${this[COMPONENT_UID_KEY]}`
         },
         [$modal, $backdrop]
       )
@@ -1105,7 +1014,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     if (this.static) {
       return this.lazy && this.isHidden ? h() : this.makeModal(h)
     } else {
-      return this.isHidden ? h() : h(BTransporterSingle, [this.makeModal(h)])
+      return this.isHidden ? h() : h(BVTransporter, [this.makeModal(h)])
     }
   }
 })

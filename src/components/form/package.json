@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form",
-    "description": "Form component and form helper components that optionally supports inline form styles and validation states",
+    "description": "Form component and form helper components that optionally supports inline form styles and validation states.",
     "slug": "form",
     "components": [
       {
@@ -30,9 +30,15 @@
               {
                 "arg": "event",
                 "type": "Event",
-                "description": "Native submit event."
+                "description": "Native submit event"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form"
           }
         ]
       },
@@ -40,12 +46,18 @@
         "component": "BFormText",
         "props": [
           {
-            "prop": "textVariant",
-            "description": "Applies one of the Bootstrap theme color variants to the text"
-          },
-          {
             "prop": "inline",
             "description": "When set, renders the help text as an inline element, rather than a block element"
+          },
+          {
+            "prop": "textVariant",
+            "description": "Applies one of the Bootstrap theme color variants to the text"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form text"
           }
         ]
       },
@@ -53,16 +65,22 @@
         "component": "BFormInvalidFeedback",
         "props": [
           {
-            "prop": "tooltip",
-            "description": "Renders the feedback text in a rudimentary tooltip style"
-          },
-          {
             "prop": "forceShow",
             "description": "Shows the feedback text, regardless of the value of the 'state' prop"
           },
           {
             "prop": "state",
             "description": "When explicitly 'false', forces the feedback to show"
+          },
+          {
+            "prop": "tooltip",
+            "description": "Renders the feedback text in a rudimentary tooltip style"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form invalid feedback"
           }
         ]
       },
@@ -70,16 +88,22 @@
         "component": "BFormValidFeedback",
         "props": [
           {
-            "prop": "tooltip",
-            "description": "Renders the feedback text in a rudimentary tooltip style"
-          },
-          {
             "prop": "forceShow",
             "description": "Shows the feedback text, regardless of the value of the 'state' prop"
           },
           {
             "prop": "state",
             "description": "When explicitly 'true', forces the feedback to show"
+          },
+          {
+            "prop": "tooltip",
+            "description": "Renders the feedback text in a rudimentary tooltip style"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the form valid feedback element"
           }
         ]
       },
@@ -88,7 +112,12 @@
         "aliases": [
           "BDatalist"
         ],
-        "props": []
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the from datalist"
+          }
+        ]
       }
     ]
   }

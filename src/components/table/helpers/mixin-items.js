@@ -1,48 +1,56 @@
-import { NAME_TABLE } from '../../../constants/components'
-import looseEqual from '../../../utils/loose-equal'
-import { makePropsConfigurable } from '../../../utils/config'
-import { isArray, isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
+import { Vue } from '../../../vue'
+import { EVENT_NAME_CONTEXT_CHANGED } from '../../../constants/events'
+import { PROP_TYPE_ARRAY, PROP_TYPE_STRING } from '../../../constants/props'
+import { isArray, isFunction, isString } from '../../../utils/inspect'
+import { looseEqual } from '../../../utils/loose-equal'
 import { mathMax } from '../../../utils/math'
+import { makeModelMixin } from '../../../utils/model'
 import { toInteger } from '../../../utils/number'
-import { clone } from '../../../utils/object'
-import normalizeFields from './normalize-fields'
+import { clone, sortKeys } from '../../../utils/object'
+import { makeProp } from '../../../utils/props'
+import { normalizeFields } from './normalize-fields'
 
-export default {
-  props: makePropsConfigurable(
-    {
-      items: {
-        // Provider mixin adds in `Function` type
-        type: Array,
-        /* istanbul ignore next */
-        default() {
-          return []
-        }
-      },
-      fields: {
-        type: Array,
-        default: null
-      },
-      primaryKey: {
-        // Primary key for record
-        // If provided the value in each row must be unique!
-        type: String
-        // default: null
-      },
-      value: {
-        // `v-model` for retrieving the current displayed rows
-        type: Array,
-        default() {
-          return []
-        }
-      }
-    },
-    NAME_TABLE
-  ),
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: PROP_TYPE_ARRAY,
+  defaultValue: []
+})
+
+export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
+
+// --- Props ---
+
+export const props = sortKeys({
+  ...modelProps,
+  fields: makeProp(PROP_TYPE_ARRAY, null),
+  // Provider mixin adds in `Function` type
+  items: makeProp(PROP_TYPE_ARRAY, []),
+  // Primary key for record
+  // If provided the value in each row must be unique!
+  primaryKey: makeProp(PROP_TYPE_STRING),
+  // `v-model` for retrieving the current displayed rows
+  [MODEL_PROP_NAME]: makeProp(PROP_TYPE_ARRAY, [])
+})
+
+// --- Mixin ---
+
+// @vue/component
+export const itemsMixin = Vue.extend({
+  mixins: [modelMixin],
+  props,
   data() {
+    const { items } = this
+
     return {
       // Our local copy of the items
       // Must be an array
-      localItems: isArray(this.items) ? this.items.slice() : []
+      localItems: isArray(items) ? items.slice() : []
     }
   },
   computed: {
@@ -56,15 +64,15 @@ export default {
       // Mainly for formatter lookup and use in `scopedSlots` for convenience
       // If the field has a formatter, it normalizes formatter to a
       // function ref or `undefined` if no formatter
-      const parent = this.$parent
+      const { $parent } = this
       return this.computedFields.reduce((obj, f) => {
         // We use object spread here so we don't mutate the original field object
         obj[f.key] = clone(f)
         if (f.formatter) {
           // Normalize formatter to a function ref or `undefined`
           let formatter = f.formatter
-          if (isString(formatter) && isFunction(parent[formatter])) {
-            formatter = parent[formatter]
+          if (isString(formatter) && isFunction($parent[formatter])) {
+            formatter = $parent[formatter]
           } else if (!isFunction(formatter)) {
             /* istanbul ignore next */
             formatter = undefined
@@ -99,33 +107,27 @@ export default {
     }
   },
   watch: {
-    items(newItems) {
-      /* istanbul ignore else */
-      if (isArray(newItems)) {
-        // Set `localItems`/`filteredItems` to a copy of the provided array
-        this.localItems = newItems.slice()
-      } else if (isUndefinedOrNull(newItems)) {
-        /* istanbul ignore next */
-        this.localItems = []
-      }
+    items(newValue) {
+      // Set `localItems`/`filteredItems` to a copy of the provided array
+      this.localItems = isArray(newValue) ? newValue.slice() : []
     },
     // Watch for changes on `computedItems` and update the `v-model`
-    computedItems(newVal, oldVal) {
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('input', newVal)
+    computedItems(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
     },
     // Watch for context changes
-    context(newVal, oldVal) {
+    context(newValue, oldValue) {
       // Emit context information for external paging/filtering/sorting handling
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context-changed', newVal)
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(EVENT_NAME_CONTEXT_CHANGED, newValue)
       }
     }
   },
   mounted() {
     // Initially update the `v-model` of displayed items
-    this.$emit('input', this.computedItems)
+    this.$emit(MODEL_EVENT_NAME, this.computedItems)
   },
   methods: {
     // Method to get the formatter method for a given field key
@@ -136,4 +138,4 @@ export default {
       return field ? field.formatter : undefined
     }
   }
-}
+})

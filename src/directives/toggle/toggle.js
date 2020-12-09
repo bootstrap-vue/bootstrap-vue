@@ -1,7 +1,8 @@
+import { NAME_COLLAPSE } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
 import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { RX_HASH, RX_HASH_ID, RX_SPACE_SPLIT } from '../../constants/regex'
-import looseEqual from '../../utils/loose-equal'
 import { arrayIncludes, concat } from '../../utils/array'
 import {
   addClass,
@@ -16,9 +17,9 @@ import {
   setAttr,
   setStyle
 } from '../../utils/dom'
-import { isBrowser } from '../../utils/env'
-import { eventOn, eventOff } from '../../utils/events'
+import { getRootActionEventName, getRootEventName, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
+import { looseEqual } from '../../utils/loose-equal'
 import { keys } from '../../utils/object'
 
 // --- Constants ---
@@ -52,17 +53,18 @@ const ATTR_TABINDEX = 'tabindex'
 const STYLE_OVERFLOW_ANCHOR = 'overflow-anchor'
 
 // Emitted control event for collapse (emitted to collapse)
-export const EVENT_TOGGLE = 'bv::toggle::collapse'
+const ROOT_ACTION_EVENT_NAME_TOGGLE = getRootActionEventName(NAME_COLLAPSE, 'toggle')
 
 // Listen to event for toggle state update (emitted by collapse)
-export const EVENT_STATE = 'bv::collapse::state'
+const ROOT_EVENT_NAME_STATE = getRootEventName(NAME_COLLAPSE, 'state')
 
 // Private event emitted on `$root` to ensure the toggle state is always synced
 // Gets emitted even if the state of b-collapse has not changed
 // This event is NOT to be documented as people should not be using it
-export const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
+const ROOT_EVENT_NAME_SYNC_STATE = getRootEventName(NAME_COLLAPSE, 'sync-state')
+
 // Private event we send to collapse to request state update sync event
-export const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = getRootActionEventName(NAME_COLLAPSE, 'request-state')
 
 const KEYDOWN_KEY_CODES = [CODE_ENTER, CODE_SPACE]
 
@@ -106,14 +108,14 @@ const removeClickListener = el => {
 const addClickListener = (el, vnode) => {
   removeClickListener(el)
   if (vnode.context) {
-    const handler = evt => {
+    const handler = event => {
       if (
-        !(evt.type === 'keydown' && !arrayIncludes(KEYDOWN_KEY_CODES, evt.keyCode)) &&
+        !(event.type === 'keydown' && !arrayIncludes(KEYDOWN_KEY_CODES, event.keyCode)) &&
         !isDisabled(el)
       ) {
         const targets = el[BV_TOGGLE_TARGETS] || []
         targets.forEach(target => {
-          vnode.context.$root.$emit(EVENT_TOGGLE, target)
+          vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, target)
         })
       }
     }
@@ -127,7 +129,10 @@ const addClickListener = (el, vnode) => {
 
 const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    vnode.context.$root.$off([EVENT_STATE, EVENT_STATE_SYNC], el[BV_TOGGLE_ROOT_HANDLER])
+    vnode.context.$root.$off(
+      [ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE],
+      el[BV_TOGGLE_ROOT_HANDLER]
+    )
   }
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
@@ -146,7 +151,7 @@ const addRootListeners = (el, vnode) => {
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
     // Listen for toggle state changes (public) and sync (private)
-    vnode.context.$root.$on([EVENT_STATE, EVENT_STATE_SYNC], handler)
+    vnode.context.$root.$on([ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE], handler)
   }
 }
 
@@ -172,7 +177,7 @@ const resetProp = (el, prop) => {
 // Handle directive updates
 const handleUpdate = (el, binding, vnode) => {
   /* istanbul ignore next: should never happen */
-  if (!isBrowser || !vnode.context) {
+  if (!IS_BROWSER || !vnode.context) {
     return
   }
 
@@ -223,7 +228,7 @@ const handleUpdate = (el, binding, vnode) => {
     // Request a state update from targets so that we can
     // ensure expanded state is correct (in most cases)
     targets.forEach(target => {
-      vnode.context.$root.$emit(EVENT_STATE_REQUEST, target)
+      vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, target)
     })
   }
 }

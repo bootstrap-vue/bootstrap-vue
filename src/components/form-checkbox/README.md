@@ -782,12 +782,12 @@ modifier.
       }
     },
     watch: {
-      selected(newVal, oldVal) {
+      selected(newValue, oldValue) {
         // Handle changes in individual flavour checkboxes
-        if (newVal.length === 0) {
+        if (newValue.length === 0) {
           this.indeterminate = false
           this.allSelected = false
-        } else if (newVal.length === this.flavours.length) {
+        } else if (newValue.length === this.flavours.length) {
           this.indeterminate = false
           this.allSelected = true
         } else {

@@ -1,9 +1,9 @@
-import ScrollSpy from './scrollspy.class'
-import { isBrowser } from '../../utils/env'
+import { IS_BROWSER } from '../../constants/env'
 import { isNumber, isObject, isString } from '../../utils/inspect'
 import { mathRound } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
+import { BVScrollSpy } from './helpers/bv-scrollspy.class'
 
 // Key we use to store our instance
 const BV_SCROLLSPY = '__BV_ScrollSpy__'
@@ -47,7 +47,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     // Value is config object
     // Filter the object based on our supported config options
     keys(bindings.value)
-      .filter(k => !!ScrollSpy.DefaultType[k])
+      .filter(k => !!BVScrollSpy.DefaultType[k])
       .forEach(k => {
         config[k] = bindings.value[k]
       })
@@ -58,7 +58,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
 
 // Add or update ScrollSpy on our element
 const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
-  if (!isBrowser) {
+  if (!IS_BROWSER) {
     /* istanbul ignore next */
     return
   }
@@ -66,7 +66,7 @@ const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not eas
   if (el[BV_SCROLLSPY]) {
     el[BV_SCROLLSPY].updateConfig(config, vnode.context.$root)
   } else {
-    el[BV_SCROLLSPY] = new ScrollSpy(el, config, vnode.context.$root)
+    el[BV_SCROLLSPY] = new BVScrollSpy(el, config, vnode.context.$root)
   }
 }
 

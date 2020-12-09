@@ -11,7 +11,7 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('href')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -30,7 +30,7 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
-    expect(wrapper.attributes('href')).not.toBeDefined()
+    expect(wrapper.attributes('href')).toBeUndefined()
 
     wrapper.destroy()
   })

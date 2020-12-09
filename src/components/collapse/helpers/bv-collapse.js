@@ -5,9 +5,11 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
-import Vue, { mergeData } from '../vue'
-import { NAME_COLLAPSE_HELPER } from '../constants/components'
-import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
+import { Vue, mergeData } from '../../../vue'
+import { NAME_COLLAPSE_HELPER } from '../../../constants/components'
+import { getBCR, reflow, removeStyle, requestAF, setStyle } from '../../../utils/dom'
+
+// --- Helper methods ---
 
 // Transition event handler helpers
 const onEnter = el => {
@@ -35,6 +37,8 @@ const onAfterLeave = el => {
   removeStyle(el, 'height')
 }
 
+// --- Constants ---
+
 // Default transition props
 // `appear` will use the enter classes
 const TRANSITION_PROPS = {
@@ -55,6 +59,8 @@ const TRANSITION_HANDLERS = {
   leave: onLeave,
   afterLeave: onAfterLeave
 }
+
+// --- Main component ---
 
 // @vue/component
 export const BVCollapse = /*#__PURE__*/ Vue.extend({

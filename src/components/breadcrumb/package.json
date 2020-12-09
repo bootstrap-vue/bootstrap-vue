@@ -12,22 +12,29 @@
             "prop": "items",
             "description": "Array of breadcrumb items to render"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (breadcrumb items) to place in the breadcrumb"
+          }
         ]
       },
       {
         "component": "BBreadcrumbItem",
         "props": [
           {
-            "prop": "text",
-            "description": "Text to render in the breadcrumb item"
+            "prop": "ariaCurrent",
+            "description": "Sets the value of the 'aria-current' attribute (when the item is the active item). Supported string values are 'location', 'page', or 'true'"
           },
           {
             "prop": "html",
-            "description": "HTML string to render in the breadcrumb item. Use with caution"
+            "description": "HTML string to render in the breadcrumb item",
+            "xss": true
           },
           {
-            "prop": "ariaCurrent",
-            "description": "Sets the value of the 'aria-current' attribute (when the item is the active item). Supported string values are 'location', 'page', or 'true'"
+            "prop": "text",
+            "description": "Text to render in the breadcrumb item"
           }
         ],
         "events": [
@@ -41,6 +48,12 @@
                 "description": "Native click event object"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the breadcrumb item"
           }
         ]
       }
