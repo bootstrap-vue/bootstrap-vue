@@ -25,10 +25,7 @@ const {
   props: modelProps,
   prop: MODEL_PROP_NAME,
   event: MODEL_EVENT_NAME
-} = makeModelMixin('value', {
-  type: PROP_TYPE_STRING,
-  defaultValue: ''
-})
+} = makeModelMixin('value', { type: PROP_TYPE_DATE_STRING })
 
 // --- Props ---
 
@@ -220,7 +217,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: this.todayButtonVariant },
+            props: {
+              disabled: disabled || readonly,
+              size: 'sm',
+              variant: this.todayButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onTodayButton }
           },
@@ -235,7 +236,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
+            props: {
+              disabled: disabled || readonly,
+              size: 'sm',
+              variant: this.resetButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
           },
@@ -250,7 +255,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled, variant: this.closeButtonVariant },
+            props: {
+              disabled,
+              size: 'sm',
+              variant: this.closeButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -281,8 +290,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-date-calendar w-100',
         props: {
           ...pluckProps(calendarProps, $props),
-          value: localYMD,
           hidden: !this.isVisible,
+          value: localYMD,
+          valueAsDate: false,
           width: this.calendarWidth
         },
         on: {
@@ -311,13 +321,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         staticClass: 'b-form-datepicker',
         props: {
           ...pluckProps(formBtnLabelControlProps, $props),
-          id: this.safeId(),
-          value: localYMD,
           formattedValue: localYMD ? this.formattedValue : '',
+          id: this.safeId(),
+          lang: this.computedLang,
+          menuClass: [{ 'bg-dark': dark, 'text-light': dark }, this.menuClass],
           placeholder,
           rtl: this.isRTL,
-          lang: this.computedLang,
-          menuClass: [{ 'bg-dark': dark, 'text-light': dark }, this.menuClass]
+          value: localYMD
         },
         on: {
           show: this.onShow,
