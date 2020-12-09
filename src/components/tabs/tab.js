@@ -54,11 +54,14 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   props,
   data() {
     return {
-      localActive: this[MODEL_PROP_NAME_ACTIVE] && !this.disabled,
-      show: false
+      localActive: this[MODEL_PROP_NAME_ACTIVE] && !this.disabled
     }
   },
   computed: {
+    // For parent sniffing of child
+    _isTab() {
+      return true
+    },
     tabClasses() {
       const { localActive: active, disabled } = this
 
@@ -80,17 +83,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     },
     computedLazy() {
       return this.bvTabs.lazy || this.lazy
-    },
-    // For parent sniffing of child
-    _isTab() {
-      return true
     }
   },
   watch: {
-    localActive(newValue) {
-      // Make `active` prop work with `.sync` modifier
-      this.$emit(MODEL_EVENT_NAME_ACTIVE, newValue)
-    },
     [MODEL_PROP_NAME_ACTIVE](newValue, oldValue) {
       if (newValue !== oldValue) {
         if (newValue) {
@@ -114,13 +109,15 @@ export const BTab = /*#__PURE__*/ Vue.extend({
           firstTab()
         }
       }
+    },
+    localActive(newValue) {
+      // Make `active` prop work with `.sync` modifier
+      this.$emit(MODEL_EVENT_NAME_ACTIVE, newValue)
     }
   },
   mounted() {
-    // Inform b-tabs of our presence
+    // Inform `<b-tabs>` of our presence
     this.registerTab()
-    // Initially show on mount if active and not disabled
-    this.show = this.localActive
   },
   updated() {
     // Force the tab button content to update (since slots are not reactive)
@@ -130,8 +127,8 @@ export const BTab = /*#__PURE__*/ Vue.extend({
       updateButton(this)
     }
   },
-  destroyed() {
-    // inform b-tabs of our departure
+  beforeDestroy() {
+    // Inform `<b-tabs>` of our departure
     this.unregisterTab()
   },
   methods: {

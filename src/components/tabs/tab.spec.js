@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BTab } from './tab'
 
 describe('tab', () => {
@@ -31,7 +31,6 @@ describe('tab', () => {
 
     expect(wrapper.vm._isTab).toBe(true)
     expect(wrapper.vm.localActive).toBe(false)
-    expect(wrapper.vm.show).toBe(false)
 
     wrapper.destroy()
   })
@@ -86,7 +85,6 @@ describe('tab', () => {
 
     await wrapper.setData({ localActive: true })
     await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -94,7 +92,6 @@ describe('tab', () => {
 
     await wrapper.setData({ localActive: false })
     await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')

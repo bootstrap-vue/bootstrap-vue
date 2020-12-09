@@ -1,3 +1,4 @@
+export const EVENT_NAME_ACTIVATE_TAB = 'activate-tab'
 export const EVENT_NAME_BLUR = 'blur'
 export const EVENT_NAME_CANCEL = 'cancel'
 export const EVENT_NAME_CHANGE = 'change'
