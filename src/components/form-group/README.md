@@ -72,13 +72,13 @@ of strings.
 By default, the label appears above the input element(s), but you may optionally render horizontal
 (label to the left of the input) at the various standard Bootstrap breakpoints.
 
-The props`label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
+The props `label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
 should occupy in the row. The input will fill the rest of the row width. The value must be a number
 greater than `0`. Or you can set the prop to `true` to make the label and input(s) each occupy half
 of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns),
 or set the value to `'auto'` so that the label occupies only the width that is needed.
 
-| prop            | description                       |
+| Prop            | Description                       |
 | --------------- | --------------------------------- |
 | `label-cols`    | Applies to breakpoint `xs` up     |
 | `label-cols-sm` | Applies to breakpoint `sm` and up |
@@ -290,17 +290,13 @@ the invalid feedback to show when using one of the above mentioned form controls
 
 ## Accessibility
 
-To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop to
-`<b-form-group>`. This will associate the help text and feedback text to the `<b-form-group>` and,
-indirectly to its input control(s).
-
 By default, when no `label-for` value is provided, `<b-form-group>` renders the input control(s)
 inside a an HTML `<fieldset>` element with the label content placed inside the fieldset's `<legend>`
 element. By nature of this markup, the legend content is automatically associated to the containing
 input control(s).
 
 It is **highly recommended** that you provide a unique `id` prop on your input element and set the
-`label-for` prop to this id, when you have only a single input in the `<b-form-group>`.
+`label-for` prop to this ID, when you have only a single input in the `<b-form-group>`.
 
 When multiple form controls are placed inside `<b-form-group>` (i.e. a series or radio or checkbox
 inputs, or a series of related inputs), **do not set** the `label-for` prop, as a label can only be

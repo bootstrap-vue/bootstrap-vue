@@ -6,6 +6,7 @@ import {
   PROP_TYPE_BOOLEAN_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import { RX_SPACE_SPLIT } from '../../constants/regex'
 import {
   SLOT_NAME_DESCRIPTION,
   SLOT_NAME_INVALID_FEEDBACK,
@@ -40,11 +41,13 @@ import { BFormValidFeedback } from '../form/form-valid-feedback'
 
 // --- Constants ---
 
+const INPUTS = ['input', 'select', 'textarea']
+
 // Selector for finding first input in the form-group
-const INPUT_SELECTOR = 'input:not([disabled]),textarea:not([disabled]),select:not([disabled])'
+const INPUT_SELECTOR = INPUTS.map(v => `${v}:not([disabled])`).join()
 
 // A list of interactive elements (tag names) inside `<b-form-group>`'s legend
-const LEGEND_INTERACTIVE_ELEMENTS = ['input', 'select', 'textarea', 'label', 'button', 'a']
+const LEGEND_INTERACTIVE_ELEMENTS = [...INPUTS, 'a', 'button', 'label']
 
 // --- Props ---
 
@@ -55,10 +58,12 @@ export const generateProps = () =>
       ...idProps,
       ...formStateProps,
       ...getBreakpointsUpCached().reduce((props, breakpoint) => {
+        // i.e. 'content-cols', 'content-cols-sm', 'content-cols-md', ...
+        props[suffixPropName(breakpoint, 'contentCols')] = makeProp(PROP_TYPE_BOOLEAN_NUMBER_STRING)
+        // i.e. 'label-align', 'label-align-sm', 'label-align-md', ...
+        props[suffixPropName(breakpoint, 'labelAlign')] = makeProp(PROP_TYPE_STRING)
         // i.e. 'label-cols', 'label-cols-sm', 'label-cols-md', ...
         props[suffixPropName(breakpoint, 'labelCols')] = makeProp(PROP_TYPE_BOOLEAN_NUMBER_STRING)
-        // 'label-align', 'label-align-sm', 'label-align-md', ...
-        props[suffixPropName(breakpoint, 'labelAlign')] = makeProp(PROP_TYPE_STRING)
         return props
       }, create(null)),
       description: makeProp(PROP_TYPE_STRING),
@@ -79,7 +84,7 @@ export const generateProps = () =>
 
 // --- Main component ---
 
-// We do not use Vue.extend here as that would evaluate the props
+// We do not use `Vue.extend()` here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
 export const BFormGroup = {
@@ -95,49 +100,23 @@ export const BFormGroup = {
   },
   data() {
     return {
-      describedByIds: ''
+      describedByIds: null
     }
   },
   computed: {
-    labelColProps() {
-      const props = {}
-      getBreakpointsUpCached().forEach(breakpoint => {
-        // Grab the value if the label column breakpoint prop
-        let propValue = this[suffixPropName(breakpoint, 'labelCols')]
-        // Handle case where the prop's value is an empty string,
-        // which represents `true`
-        propValue = propValue === '' ? true : propValue || false
-        if (!isBoolean(propValue) && propValue !== 'auto') {
-          // Convert to column size to number
-          propValue = toInteger(propValue, 0)
-          // Ensure column size is greater than `0`
-          propValue = propValue > 0 ? propValue : false
-        }
-        if (propValue) {
-          // Add the prop to the list of props to give to `<b-col>`
-          // If breakpoint is '' (`labelCols` is `true`), then we use the
-          // col prop to make equal width at 'xs'
-          props[breakpoint || (isBoolean(propValue) ? 'col' : 'cols')] = propValue
-        }
-      })
-      return props
+    contentColProps() {
+      return this.getColProps(this.$props, 'content')
     },
     labelAlignClasses() {
-      const classes = []
-      getBreakpointsUpCached().forEach(breakpoint => {
-        // Assemble the label column breakpoint align classes
-        const propValue = this[suffixPropName(breakpoint, 'labelAlign')] || null
-        if (propValue) {
-          const className = breakpoint ? `text-${breakpoint}-${propValue}` : `text-${propValue}`
-          classes.push(className)
-        }
-      })
-      return classes
+      return this.getAlignClasses(this.$props, 'label')
+    },
+    labelColProps() {
+      return this.getColProps(this.$props, 'label')
     },
     isHorizontal() {
-      // Determine if the resultant form-group will be rendered
-      // horizontal (meaning it has label-col breakpoints)
-      return keys(this.labelColProps).length > 0
+      // Determine if the form-group will be rendered horizontal
+      // based on the existence of 'content-col' or 'label-col' props
+      return keys(this.contentColProps).length > 0 || keys(this.labelColProps).length > 0
     }
   },
   watch: {
@@ -149,46 +128,63 @@ export const BFormGroup = {
   },
   mounted() {
     this.$nextTick(() => {
-      // Set the `aria-describedby` IDs on the input specified by `label-for`
+      // Set the `aria-describedby` IDs on the input specified by `labelFor`
       // We do this in a `$nextTick()` to ensure the children have finished rendering
       this.setInputDescribedBy(this.describedByIds)
     })
   },
   methods: {
-    legendClick(event) {
-      // Don't do anything if labelFor is set
-      /* istanbul ignore next: clicking a label will focus the input, so no need to test */
-      if (this.labelFor) {
-        return
-      }
-      const { target } = event
-      const tagName = target ? target.tagName : ''
-      // If clicked an interactive element inside legend,
-      // we just let the default happen
-      /* istanbul ignore next */
-      if (LEGEND_INTERACTIVE_ELEMENTS.indexOf(tagName) !== -1) {
-        return
-      }
-      const inputs = selectAll(INPUT_SELECTOR, this.$refs.content).filter(isVisible)
-      // If only a single input, focus it, emulating label behaviour
-      if (inputs && inputs.length === 1) {
-        attemptFocus(inputs[0])
-      }
+    getAlignClasses(props, prefix) {
+      return getBreakpointsUpCached().reduce((result, breakpoint) => {
+        const propValue = props[suffixPropName(breakpoint, `${prefix}Align`)] || null
+        if (propValue) {
+          result.push(['text', breakpoint, propValue].filter(identity).join('-'))
+        }
+
+        return result
+      }, [])
     },
-    // Sets the `aria-describedby` attribute on the input if label-for is set
+    getColProps(props, prefix) {
+      return getBreakpointsUpCached().reduce((result, breakpoint) => {
+        let propValue = props[suffixPropName(breakpoint, `${prefix}Cols`)]
+
+        // Handle case where the prop's value is an empty string,
+        // which represents `true`
+        propValue = propValue === '' ? true : propValue || false
+
+        if (!isBoolean(propValue) && propValue !== 'auto') {
+          // Convert to column size to number
+          propValue = toInteger(propValue, 0)
+          // Ensure column size is greater than `0`
+          propValue = propValue > 0 ? propValue : false
+        }
+
+        // Add the prop to the list of props to give to `<b-col>`
+        // If breakpoint is '' (`${prefix}Cols` is `true`), then we use
+        // the 'col' prop to make equal width at 'xs'
+        if (propValue) {
+          result[breakpoint || (isBoolean(propValue) ? 'col' : 'cols')] = propValue
+        }
+
+        return result
+      }, {})
+    },
+    // Sets the `aria-describedby` attribute on the input if `labelFor` is set
     // Optionally accepts a string of IDs to remove as the second parameter
     // Preserves any `aria-describedby` value(s) user may have on input
     setInputDescribedBy(add, remove) {
-      if (this.labelFor && IS_BROWSER) {
+      const { labelFor } = this
+      if (IS_BROWSER && labelFor) {
         // We need to escape `labelFor` since it can be user-provided
-        const input = select(`#${cssEscape(this.labelFor)}`, this.$refs.content)
-        if (input) {
+        const $input = select(`#${cssEscape(labelFor)}`, this.$refs.content)
+        if ($input) {
           const adb = 'aria-describedby'
-          let ids = (getAttr(input, adb) || '').split(/\s+/)
-          add = (add || '').split(/\s+/)
-          remove = (remove || '').split(/\s+/)
+          add = (add || '').split(RX_SPACE_SPLIT)
+          remove = (remove || '').split(RX_SPACE_SPLIT)
+
           // Update ID list, preserving any original IDs
           // and ensuring the ID's are unique
+          let ids = (getAttr($input, adb) || '').split(RX_SPACE_SPLIT)
           ids = ids
             .filter(id => !arrayIncludes(remove, id))
             .concat(add)
@@ -196,13 +192,37 @@ export const BFormGroup = {
           ids = keys(ids.reduce((memo, id) => ({ ...memo, [id]: true }), {}))
             .join(' ')
             .trim()
+
           if (ids) {
-            setAttr(input, adb, ids)
+            setAttr($input, adb, ids)
           } else {
             // No IDs, so remove the attribute
-            removeAttr(input, adb)
+            removeAttr($input, adb)
           }
         }
+      }
+    },
+    onLegendClick(event) {
+      // Don't do anything if `labelFor` is set
+      /* istanbul ignore next: clicking a label will focus the input, so no need to test */
+      if (this.labelFor) {
+        return
+      }
+
+      const { target } = event
+      const tagName = target ? target.tagName : ''
+
+      // If clicked an interactive element inside legend,
+      // we just let the default happen
+      /* istanbul ignore next */
+      if (LEGEND_INTERACTIVE_ELEMENTS.indexOf(tagName) !== -1) {
+        return
+      }
+
+      // If only a single input, focus it, emulating label behaviour
+      const inputs = selectAll(INPUT_SELECTOR, this.$refs.content).filter(isVisible)
+      if (inputs.length === 1) {
+        attemptFocus(inputs[0])
       }
     }
   },
@@ -222,8 +242,7 @@ export const BFormGroup = {
     const labelId = labelContent ? this.safeId('_BV_label_') : null
     if (labelContent || isHorizontal) {
       const { labelSize, labelColProps } = this
-      const isLegend = isFieldset
-      const labelTag = isLegend ? 'legend' : 'label'
+      const labelTag = isFieldset ? 'legend' : 'label'
       if (this.labelSrOnly) {
         if (labelContent) {
           $label = h(
@@ -242,28 +261,28 @@ export const BFormGroup = {
         $label = h(
           isHorizontal ? BCol : labelTag,
           {
-            on: isLegend ? { click: this.legendClick } : {},
-            props: isHorizontal ? { tag: labelTag, ...labelColProps } : {},
+            on: isFieldset ? { click: this.onLegendClick } : {},
+            props: isHorizontal ? { ...labelColProps, tag: labelTag } : {},
             attrs: {
               id: labelId,
               for: labelFor || null,
               // We add a `tabindex` to legend so that screen readers
               // will properly read the `aria-labelledby` in IE
-              tabindex: isLegend ? '-1' : null
+              tabindex: isFieldset ? '-1' : null
             },
             class: [
               // Hide the focus ring on the legend
-              isLegend ? 'bv-no-focus-ring' : '',
+              isFieldset ? 'bv-no-focus-ring' : '',
               // When horizontal or if a legend is rendered, add 'col-form-label' class
               // for correct sizing as Bootstrap has inconsistent font styling for
               // legend in non-horizontal form-groups
               // See: https://github.com/twbs/bootstrap/issues/27805
-              isHorizontal || isLegend ? 'col-form-label' : '',
+              isHorizontal || isFieldset ? 'col-form-label' : '',
               // Emulate label padding top of `0` on legend when not horizontal
-              !isHorizontal && isLegend ? 'pt-0' : '',
+              !isHorizontal && isFieldset ? 'pt-0' : '',
               // If not horizontal and not a legend, we add 'd-block' class to label
               // so that label-align works
-              !isHorizontal && !isLegend ? 'd-block' : '',
+              !isHorizontal && !isFieldset ? 'd-block' : '',
               labelSize ? `col-form-label-${labelSize}` : '',
               this.labelAlignClasses,
               this.labelClass
@@ -282,12 +301,12 @@ export const BFormGroup = {
         BFormInvalidFeedback,
         {
           props: {
+            ariaLive: feedbackAriaLive,
             id: invalidFeedbackId,
+            role: feedbackAriaLive ? 'alert' : null,
             // If state is explicitly `false`, always show the feedback
             state,
-            tooltip,
-            ariaLive: feedbackAriaLive,
-            role: feedbackAriaLive ? 'alert' : null
+            tooltip
           },
           attrs: { tabindex: invalidFeedbackContent ? '-1' : null }
         },
@@ -303,12 +322,12 @@ export const BFormGroup = {
         BFormValidFeedback,
         {
           props: {
+            ariaLive: feedbackAriaLive,
             id: validFeedbackId,
+            role: feedbackAriaLive ? 'alert' : null,
             // If state is explicitly `true`, always show the feedback
             state,
-            tooltip,
-            ariaLive: feedbackAriaLive,
-            role: feedbackAriaLive ? 'alert' : null
+            tooltip
           },
           attrs: { tabindex: validFeedbackContent ? '-1' : null }
         },
@@ -325,7 +344,7 @@ export const BFormGroup = {
         {
           attrs: {
             id: descriptionId,
-            tabindex: descriptionContent ? '-1' : null
+            tabindex: '-1'
           }
         },
         [descriptionContent]
@@ -335,13 +354,7 @@ export const BFormGroup = {
     const $content = h(
       isHorizontal ? BCol : 'div',
       {
-        // Hide focus ring
-        staticClass: 'bv-no-focus-ring',
-        attrs: {
-          tabindex: isFieldset ? '-1' : null,
-          role: isFieldset ? 'group' : null,
-          'aria-labelledby': isFieldset ? labelId : null
-        },
+        props: isHorizontal ? this.contentColProps : {},
         ref: 'content'
       },
       [normalizeSlot() || h(), $invalidFeedback, $validFeedback, $description]
@@ -351,13 +364,14 @@ export const BFormGroup = {
     // Screen readers will read out any content linked to by `aria-describedby`
     // even if the content is hidden with `display: none;`, hence we only include
     // feedback IDs if the form-group's state is explicitly valid or invalid
-    this.describedByIds = [
-      descriptionId,
-      state === false ? invalidFeedbackId : null,
-      state === true ? validFeedbackId : null
-    ]
-      .filter(identity)
-      .join(' ')
+    this.describedByIds =
+      [
+        descriptionId,
+        state === false ? invalidFeedbackId : null,
+        state === true ? validFeedbackId : null
+      ]
+        .filter(identity)
+        .join(' ') || null
 
     // Return it wrapped in a form-group
     // Note: Fieldsets do not support adding `row` or `form-row` directly
@@ -367,13 +381,13 @@ export const BFormGroup = {
       isFieldset ? 'fieldset' : isHorizontal ? BFormRow : 'div',
       {
         staticClass: 'form-group',
-        class: [this.validated ? 'was-validated' : null, this.stateClass],
+        class: [{ 'was-validated': this.validated }, this.stateClass],
         attrs: {
           id: this.safeId(),
           disabled: isFieldset ? this.disabled : null,
           role: isFieldset ? null : 'group',
           'aria-invalid': this.computedAriaInvalid,
-          // Only apply aria-labelledby if we are a horizontal fieldset
+          // Only apply `aria-labelledby` if we are a horizontal fieldset
           // as the legend is no longer a direct child of fieldset
           'aria-labelledby': isFieldset && isHorizontal ? labelId : null,
           // Only apply `aria-describedby` IDs if we are a fieldset
