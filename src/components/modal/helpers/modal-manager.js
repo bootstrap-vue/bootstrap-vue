@@ -29,11 +29,9 @@ import { toFloat, toInteger } from '../../../utils/number'
 const DEFAULT_ZINDEX = 1040
 
 // Selectors for padding/margin adjustments
-const Selector = {
-  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-  STICKY_CONTENT: '.sticky-top',
-  NAVBAR_TOGGLER: '.navbar-toggler'
-}
+const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top'
+const SELECTOR_STICKY_CONTENT = '.sticky-top'
+const SELECTOR_NAVBAR_TOGGLER = '.navbar-toggler'
 
 // --- Main component ---
 
@@ -161,7 +159,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         const scrollbarWidth = this.scrollbarWidth
         // Adjust fixed content padding
         /* istanbul ignore next: difficult to test in JSDOM */
-        selectAll(Selector.FIXED_CONTENT).forEach(el => {
+        selectAll(SELECTOR_FIXED_CONTENT).forEach(el => {
           const actualPadding = getStyle(el, 'paddingRight') || ''
           setAttr(el, 'data-padding-right', actualPadding)
           setStyle(el, 'paddingRight', `${toFloat(getCS(el).paddingRight, 0) + scrollbarWidth}px`)
@@ -169,7 +167,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         })
         // Adjust sticky content margin
         /* istanbul ignore next: difficult to test in JSDOM */
-        selectAll(Selector.STICKY_CONTENT).forEach(el => /* istanbul ignore next */ {
+        selectAll(SELECTOR_STICKY_CONTENT).forEach(el => /* istanbul ignore next */ {
           const actualMargin = getStyle(el, 'marginRight') || ''
           setAttr(el, 'data-margin-right', actualMargin)
           setStyle(el, 'marginRight', `${toFloat(getCS(el).marginRight, 0) - scrollbarWidth}px`)
@@ -177,7 +175,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         })
         // Adjust <b-navbar-toggler> margin
         /* istanbul ignore next: difficult to test in JSDOM */
-        selectAll(Selector.NAVBAR_TOGGLER).forEach(el => /* istanbul ignore next */ {
+        selectAll(SELECTOR_NAVBAR_TOGGLER).forEach(el => /* istanbul ignore next */ {
           const actualMargin = getStyle(el, 'marginRight') || ''
           setAttr(el, 'data-margin-right', actualMargin)
           setStyle(el, 'marginRight', `${toFloat(getCS(el).marginRight, 0) + scrollbarWidth}px`)
