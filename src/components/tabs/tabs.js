@@ -229,9 +229,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Array of direct child `<b-tab>` instances, in DOM order
       tabs: [],
       // Array of child instances registered (for triggering reactive updates)
-      registeredTabs: [],
-      // Flag to know if we are mounted or not
-      isMounted: false
+      registeredTabs: []
     }
   },
   computed: {
