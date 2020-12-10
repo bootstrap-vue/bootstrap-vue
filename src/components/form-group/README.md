@@ -220,7 +220,7 @@ of related form controls:
 <!-- b-form-group-nested.vue -->
 ```
 
-## Disabled form-group
+## Disabled form group
 
 Setting the `disabled` prop will disable the rendered `<fieldset>` and, on most browsers, will
 disable all the input elements contained within the fieldset.
