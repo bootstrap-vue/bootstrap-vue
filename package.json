@@ -95,7 +95,7 @@
     "@babel/core": "^7.12.9",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-env": "^7.12.10",
     "@babel/standalone": "^7.12.9",
     "@nuxt/content": "^1.11.1",
     "@nuxtjs/google-analytics": "^2.4.0",
