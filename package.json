@@ -91,7 +91,7 @@
     "vue-functional-data-merge": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.8",
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.9",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.10",
