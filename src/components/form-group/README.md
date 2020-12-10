@@ -105,7 +105,7 @@ or set the value to `'auto'` so that the label occupies only the width that is n
 <!-- b-form-group-horizontal.vue -->
 ```
 
-The ability to set the label cols to `'auto'` was added in BootstrapVue version <samp>2.1.0</samp>.
+The ability to set the label cols to `'auto'` was added in BootstrapVue version `v2.1.0`.
 
 ### Label size
 
