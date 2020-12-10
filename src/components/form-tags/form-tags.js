@@ -124,6 +124,7 @@ const props = makePropsConfigurable(
     noAddOnEnter: makeProp(PROP_TYPE_BOOLEAN, false),
     // Disable the focus ring on the root element
     noOuterFocus: makeProp(PROP_TYPE_BOOLEAN, false),
+    noTagRemove: makeProp(PROP_TYPE_BOOLEAN, false),
     placeholder: makeProp(PROP_TYPE_STRING, 'Add tag...'),
     // Enable deleting last tag in list when CODE_BACKSPACE is
     // pressed and input is empty
@@ -502,47 +503,50 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // Default User Interface render
     defaultRender({
-      tags,
-      inputAttrs,
-      inputType,
-      inputHandlers,
-      removeTag,
-      addTag,
-      isInvalid,
-      isDuplicate,
-      isLimitReached,
-      disableAddButton,
-      disabled,
-      placeholder,
-      inputClass,
-      tagRemoveLabel,
-      tagVariant,
-      tagPills,
-      tagClass,
       addButtonText,
       addButtonVariant,
-      invalidTagText,
+      addTag,
+      disableAddButton,
+      disabled,
       duplicateTagText,
-      limitTagsText
+      inputAttrs,
+      inputClass,
+      inputHandlers,
+      inputType,
+      invalidTagText,
+      isDuplicate,
+      isInvalid,
+      isLimitReached,
+      limitTagsText,
+      noTagRemove,
+      placeholder,
+      removeTag,
+      tagClass,
+      tagPills,
+      tagRemoveLabel,
+      tagVariant,
+      tags
     }) {
       const h = this.$createElement
 
       // Make the list of tags
       const $tags = tags.map(tag => {
         tag = toString(tag)
+
         return h(
           BFormTag,
           {
             class: tagClass,
+            // `BFormTag` will auto generate an ID
+            // so we do not need to set the ID prop
             props: {
-              // `BFormTag` will auto generate an ID
-              // so we do not need to set the ID prop
+              disabled,
+              noRemove: noTagRemove,
+              pill: tagPills,
+              removeLabel: tagRemoveLabel,
               tag: 'li',
               title: tag,
-              disabled,
-              variant: tagVariant,
-              pill: tagPills,
-              removeLabel: tagRemoveLabel
+              variant: tagVariant
             },
             on: { remove: () => removeTag(tag) },
             key: `tags_${tag}`
@@ -601,8 +605,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           },
           style: { fontSize: '90%' },
           props: {
-            variant: addButtonVariant,
-            disabled: disableAddButton || isLimitReached
+            disabled: disableAddButton || isLimitReached,
+            variant: addButtonVariant
           },
           on: { click: () => addTag() },
           ref: 'button'
@@ -664,7 +668,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $invalid = h(
             BFormInvalidFeedback,
             {
-              props: { id: invalidFeedbackId, forceShow: true },
+              props: {
+                id: invalidFeedbackId,
+                forceShow: true
+              },
               key: 'tags_invalid_feedback'
             },
             [this.invalidTagText, ': ', this.invalidTags.join(joiner)]
@@ -743,24 +750,25 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       disableAddButton: this.disableAddButton,
       // Pass-through props
       ...pick(this.$props, [
-        'disabled',
-        'required',
-        'form',
-        'state',
-        'size',
-        'limit',
-        'separator',
-        'placeholder',
-        'inputClass',
-        'tagRemoveLabel',
-        'tagVariant',
-        'tagPills',
-        'tagClass',
         'addButtonText',
         'addButtonVariant',
-        'invalidTagText',
+        'disabled',
         'duplicateTagText',
-        'limitTagsText'
+        'form',
+        'inputClass',
+        'invalidTagText',
+        'limit',
+        'limitTagsText',
+        'noTagRemove',
+        'placeholder',
+        'required',
+        'separator',
+        'size',
+        'state',
+        'tagClass',
+        'tagPills',
+        'tagRemoveLabel',
+        'tagVariant'
       ])
     }
 

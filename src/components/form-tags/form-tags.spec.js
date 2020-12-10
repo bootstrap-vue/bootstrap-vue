@@ -198,6 +198,28 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
+  it('has tags without remove button when `no-tag-remove` prop set', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        noTagRemove: true,
+        value: ['apple', 'orange']
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $tags = wrapper.findAll('.b-form-tag')
+    expect($tags.length).toBe(2)
+
+    const $tag0 = $tags.at(0)
+    expect($tag0.find('button').exists()).toBe(false)
+
+    const $tag1 = $tags.at(1)
+    expect($tag1.find('button').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('removes tags when user clicks remove on tag', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
