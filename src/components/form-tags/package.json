@@ -267,6 +267,12 @@
                 "description": "The value of the 'limit-tag-text' prop"
               },
               {
+                "prop": "noTagRemove",
+                "version": "2.21.0",
+                "type": "Boolean",
+                "description": "The value of the 'no-tag-remove' prop"
+              },
+              {
                 "prop": "placeholder",
                 "type": "String",
                 "description": "The value of the 'placeholder' prop"
