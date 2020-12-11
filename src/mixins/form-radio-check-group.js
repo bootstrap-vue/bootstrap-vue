@@ -4,7 +4,7 @@ import { SLOT_NAME_FIRST } from '../constants/slots'
 import { htmlOrText } from '../utils/html'
 import { looseEqual } from '../utils/loose-equal'
 import { makeModelMixin } from '../utils/model'
-import { sortKeys } from '../utils/object'
+import { omit, pick, sortKeys } from '../utils/object'
 import { makeProp, makePropsConfigurable } from '../utils/props'
 import { BFormCheckbox } from '../components/form-checkbox/form-checkbox'
 import { BFormRadio } from '../components/form-radio/form-radio'
@@ -17,6 +17,9 @@ import { idMixin, props as idProps } from './id'
 import { normalizeSlotMixin } from './normalize-slot'
 
 // --- Constants ---
+
+// Attributes to pass down to checks/radios instead of applying them to the group
+const PASS_DOWN_ATTRS = ['aria-describedby', 'aria-labelledby']
 
 const {
   mixin: modelMixin,
@@ -63,6 +66,7 @@ export const formRadioCheckGroupMixin = Vue.extend({
     formStateMixin,
     formCustomMixin
   ],
+  inheritAttrs: false,
   props,
   data() {
     return {
@@ -75,7 +79,7 @@ export const formRadioCheckGroupMixin = Vue.extend({
     },
     groupName() {
       // Checks/Radios tied to the same model must have the same name,
-      // especially for ARIA accessibility.
+      // especially for ARIA accessibility
       return this.name || this.safeId()
     },
     groupClasses() {
@@ -111,6 +115,7 @@ export const formRadioCheckGroupMixin = Vue.extend({
   },
   render(h) {
     const { isRadioGroup } = this
+    const attrs = pick(this.$attrs, PASS_DOWN_ATTRS)
     const optionComponent = isRadioGroup ? BFormRadio : BFormCheckbox
 
     const $inputs = this.formOptions.map((option, index) => {
@@ -120,15 +125,16 @@ export const formRadioCheckGroupMixin = Vue.extend({
         optionComponent,
         {
           props: {
-            id: this.safeId(key),
-            value: option.value,
             // Individual radios or checks can be disabled in a group
-            disabled: option.disabled || false
+            disabled: option.disabled || false,
+            id: this.safeId(key),
+            value: option.value
             // We don't need to include these, since the input's will know they are inside here
-            // name: this.groupName,
             // form: this.form || null,
+            // name: this.groupName,
             // required: Boolean(this.name && this.required)
           },
+          attrs,
           key
         },
         [h('span', { domProps: htmlOrText(option.html, option.text) })]
@@ -140,12 +146,13 @@ export const formRadioCheckGroupMixin = Vue.extend({
       {
         class: [this.groupClasses, 'bv-no-focus-ring'],
         attrs: {
+          ...omit(this.$attrs, PASS_DOWN_ATTRS),
+          'aria-invalid': this.computedAriaInvalid,
+          'aria-required': this.required ? 'true' : null,
           id: this.safeId(),
           role: isRadioGroup ? 'radiogroup' : 'group',
           // Add `tabindex="-1"` to allow group to be focused if needed by screen readers
-          tabindex: '-1',
-          'aria-required': this.required ? 'true' : null,
-          'aria-invalid': this.computedAriaInvalid
+          tabindex: '-1'
         }
       },
       [this.normalizeSlot(SLOT_NAME_FIRST), $inputs, this.normalizeSlot()]
