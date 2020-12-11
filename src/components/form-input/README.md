@@ -353,10 +353,10 @@ Formatting does not occur if a `formatter` is not provided.
 <template>
   <div>
     <b-form-group
-      class="mb-0"
       label="Text input with formatter (on input)"
       label-for="input-formatter"
       description="We will convert your name to lowercase instantly"
+      class="mb-0"
     >
       <b-form-input
         id="input-formatter"
@@ -368,10 +368,10 @@ Formatting does not occur if a `formatter` is not provided.
     <p><b>Value:</b> {{ text1 }}</p>
 
     <b-form-group
-      class="mb-0"
       label="Text input with lazy formatter (on blur)"
       label-for="input-lazy"
       description="This one is a little lazy!"
+      class="mb-0"
     >
       <b-form-input
         id="input-lazy"

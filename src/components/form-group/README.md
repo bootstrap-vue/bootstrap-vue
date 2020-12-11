@@ -183,49 +183,52 @@ of related form controls:
       class="mb-0"
     >
       <b-form-group
-        label-cols-sm="3"
         label="Street:"
-        label-align-sm="right"
         label-for="nested-street"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-street"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="City:"
-        label-align-sm="right"
         label-for="nested-city"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-city"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="State:"
-        label-align-sm="right"
         label-for="nested-state"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-state"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="Country:"
-        label-align-sm="right"
         label-for="nested-country"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-country"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="Ship via:"
-        label-align-sm="right" class="mb-0"
+        label-cols-sm="3"
+        label-align-sm="right"
+        class="mb-0"
+        v-slot="{ ariaDescribedby }"
       >
         <b-form-radio-group
           class="pt-2"
           :options="['Air', 'Courier', 'Mail']"
+          :aria-describedby="ariaDescribedby"
         ></b-form-radio-group>
       </b-form-group>
     </b-form-group>

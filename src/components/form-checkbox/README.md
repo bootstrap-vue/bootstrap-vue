@@ -41,17 +41,23 @@
 ```html
 <template>
   <div>
-    <b-form-group label="Using options array:">
+    <b-form-group label="Using options array:" v-slot="{ ariaDescribedby }">
       <b-form-checkbox-group
         id="checkbox-group-1"
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         name="flavour-1"
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Using sub-components:">
-      <b-form-checkbox-group id="checkbox-group-2" v-model="selected" name="flavour-2">
+    <b-form-group label="Using sub-components:" v-slot="{ ariaDescribedby }">
+      <b-form-checkbox-group
+        id="checkbox-group-2"
+        v-model="selected"
+        :aria-describedby="ariaDescribedby"
+        name="flavour-2"
+      >
         <b-form-checkbox value="orange">Orange</b-form-checkbox>
         <b-form-checkbox value="apple">Apple</b-form-checkbox>
         <b-form-checkbox value="pineapple">Pineapple</b-form-checkbox>
@@ -220,41 +226,57 @@ or if using individual checkboxes not inside a `<b-form-checkbox-group>`, set th
 ```html
 <template>
   <div>
-    <b-form-group label="Form-checkbox-group inline checkboxes (default)">
+    <b-form-group
+      label="Form-checkbox-group inline checkboxes (default)"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         name="flavour-1a"
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Form-checkbox-group stacked checkboxes">
+    <b-form-group
+      label="Form-checkbox-group stacked checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         name="flavour-2a"
         stacked
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Individual stacked checkboxes (default)">
+    <b-form-group
+      label="Individual stacked checkboxes (default)"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox
         v-for="option in options"
         v-model="selected"
         :key="option.value"
         :value="option.value"
+        :aria-describedby="ariaDescribedby"
         name="flavour-3a"
       >
         {{ option.text }}
       </b-form-checkbox>
     </b-form-group>
 
-    <b-form-group label="Individual inline checkboxes">
+    <b-form-group
+      label="Individual inline checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox
         v-for="option in options"
         v-model="selected"
         :key="option.value"
         :value="option.value"
+        :aria-describedby="ariaDescribedby"
         name="flavour-4a"
         inline
       >
@@ -395,19 +417,27 @@ variants). The default `button-variant` is `secondary`.
 ```html
 <template>
   <div>
-    <b-form-group label="Button-group style checkboxes">
+    <b-form-group
+      label="Button-group style checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         name="buttons-1"
         buttons
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Button-group style checkboxes with variant primary and large buttons">
+    <b-form-group
+      label="Button-group style checkboxes with variant primary and large buttons"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         buttons
         button-variant="primary"
         size="lg"
@@ -415,10 +445,14 @@ variants). The default `button-variant` is `secondary`.
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Stacked (vertical) button-group style checkboxes">
+    <b-form-group
+      label="Stacked (vertical) button-group style checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         stacked
         buttons
       ></b-form-checkbox-group>
@@ -486,18 +520,26 @@ Render groups of checkboxes with the look of a switches by setting the prop `swi
 ```html
 <template>
   <div>
-    <b-form-group label="Inline switch style checkboxes">
+    <b-form-group
+      label="Inline switch style checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         switches
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Stacked (vertical) switch style checkboxes">
+    <b-form-group
+      label="Stacked (vertical) switch style checkboxes"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         switches
         stacked
       ></b-form-checkbox-group>
@@ -553,18 +595,20 @@ by setting the `plain` prop.
 ```html
 <template>
   <div>
-    <b-form-group label="Plain inline checkboxes">
+    <b-form-group label="Plain inline checkboxes" v-slot="{ ariaDescribedby }">
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         plain
       ></b-form-checkbox-group>
     </b-form-group>
 
-    <b-form-group label="Plain stacked checkboxes">
+    <b-form-group label="Plain stacked checkboxes" v-slot="{ ariaDescribedby }">
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
+        :aria-describedby="ariaDescribedby"
         plain
         stacked
       ></b-form-checkbox-group>
@@ -747,22 +791,25 @@ modifier.
         </b-form-checkbox>
       </template>
 
-      <b-form-checkbox-group
-        id="flavors"
-        v-model="selected"
-        :options="flavours"
-        name="flavors"
-        class="ml-4"
-        aria-label="Individual flavours"
-        stacked
-      ></b-form-checkbox-group>
-    </b-form-group>
+      <template v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          id="flavors"
+          v-model="selected"
+          :options="flavours"
+          :aria-describedby="ariaDescribedby"
+          name="flavors"
+          class="ml-4"
+          aria-label="Individual flavours"
+          stacked
+        ></b-form-checkbox-group>
+      </b-form-group>
 
-    <div>
-      Selected: <strong>{{ selected }}</strong><br>
-      All Selected: <strong>{{ allSelected }}</strong><br>
-      Indeterminate: <strong>{{ indeterminate }}</strong>
-    </div>
+      <div>
+        Selected: <strong>{{ selected }}</strong><br>
+        All Selected: <strong>{{ allSelected }}</strong><br>
+        Indeterminate: <strong>{{ indeterminate }}</strong>
+      </div>
+    </template>
   </div>
 </template>
 
