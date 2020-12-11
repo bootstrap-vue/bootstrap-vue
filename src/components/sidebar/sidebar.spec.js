@@ -325,6 +325,34 @@ describe('sidebar', () => {
     wrapper.destroy()
   })
 
+  it('should have expected structure when `header` slot provided', async () => {
+    const wrapper = mount(BSidebar, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'sidebar-header-slot',
+        visible: true,
+        title: 'TITLE'
+      },
+      slots: {
+        header: 'Custom header'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $header = wrapper.find('.b-sidebar-header')
+    expect($header.exists()).toBe(true)
+    expect($header.find('strong').exists()).toBe(false)
+    expect($header.find('button').exists()).toBe(false)
+    expect($header.text()).toContain('Custom header')
+    expect($header.text()).not.toContain('TITLE')
+
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
   it('should have expected structure when `footer` slot provided', async () => {
     const wrapper = mount(BSidebar, {
       attachTo: createContainer(),

@@ -185,6 +185,8 @@ You can apply arbitrary classes to the body section via the `body-class` prop.
 By default, `<b-sidebar>` has a header with optional title and a close button. You can supply a
 title via the `title` prop, or via the optionally scoped slot `title`.
 
+If you want to provide a completely custom header, you can use the optionally scoped `header` slot.
+
 You can apply arbitrary classes to the header section via the `header-class` prop, to override the
 default padding, etc.
 
