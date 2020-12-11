@@ -137,7 +137,7 @@
     "lint-staged": "^10.5.3",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.20",
-    "marked": "^1.2.5",
+    "marked": "^1.2.6",
     "nuxt": "^2.14.11",
     "postcss": "^8.2.1",
     "postcss-cli": "^8.3.0",
