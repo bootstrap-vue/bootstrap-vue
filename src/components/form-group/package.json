@@ -132,7 +132,33 @@
         "slots": [
           {
             "name": "default",
-            "description": "Content to place in the form group"
+            "description": "Content to place in the form group",
+            "scope": [
+              {
+                "prop": "ariaDescribedby",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The value for the `aria-describedby` attribute for input elements in the form group. Will be auto-assigned when `label-for` prop is given"
+              },
+              {
+                "prop": "id",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the form group. Will equal `id` prop, when provided"
+              },
+              {
+                "prop": "descriptionId",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the description element. Will be `null` when no description content given"
+              },
+              {
+                "prop": "labelId",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the label element. Will be `null` when no description content given"
+              }
+            ]
           },
           {
             "name": "description",
