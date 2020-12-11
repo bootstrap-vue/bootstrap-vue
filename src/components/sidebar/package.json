@@ -176,6 +176,28 @@
             ]
           },
           {
+            "name": "header",
+            "version": "2.21.0",
+            "description": "Content to place in the header",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "When called, will close the sidebar"
+              },
+              {
+                "prop": "right",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is on the right"
+              },
+              {
+                "prop": "visible",
+                "type": "Boolean",
+                "description": "`true` if the sidebar is open"
+              }
+            ]
+          },
+          {
             "name": "header-close",
             "description": "Content of the header close button. Defaults to `<b-icon-x>`"
           },

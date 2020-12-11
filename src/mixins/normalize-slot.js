@@ -6,16 +6,24 @@ import { concat } from '../utils/array'
 // @vue/component
 export const normalizeSlotMixin = Vue.extend({
   methods: {
-    hasNormalizedSlot(name = SLOT_NAME_DEFAULT) {
-      // Returns true if the either a $scopedSlot or $slot exists with the specified name
-      // `name` can be a string name or an array of names
-      return hasNormalizedSlot(name, this.$scopedSlots, this.$slots)
+    // Returns `true` if the either a `$scopedSlot` or `$slot` exists with the specified name
+    // `name` can be a string name or an array of names
+    hasNormalizedSlot(
+      name = SLOT_NAME_DEFAULT,
+      scopedSlots = this.$scopedSlots,
+      slots = this.$slots
+    ) {
+      return hasNormalizedSlot(name, scopedSlots, slots)
     },
-    normalizeSlot(name = SLOT_NAME_DEFAULT, scope = {}) {
-      // Returns an array of rendered VNodes if slot found.
-      // Returns undefined if not found.
-      // `name` can be a string name or an array of names
-      const vNodes = normalizeSlot(name, scope, this.$scopedSlots, this.$slots)
+    // Returns an array of rendered VNodes if slot found, otherwise `undefined`
+    // `name` can be a string name or an array of names
+    normalizeSlot(
+      name = SLOT_NAME_DEFAULT,
+      scope = {},
+      scopedSlots = this.$scopedSlots,
+      slots = this.$slots
+    ) {
+      const vNodes = normalizeSlot(name, scope, scopedSlots, slots)
       return vNodes ? concat(vNodes) : vNodes
     }
   }

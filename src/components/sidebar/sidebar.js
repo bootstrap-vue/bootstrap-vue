@@ -13,6 +13,7 @@ import {
 import {
   SLOT_NAME_DEFAULT,
   SLOT_NAME_FOOTER,
+  SLOT_NAME_HEADER,
   SLOT_NAME_HEADER_CLOSE,
   SLOT_NAME_TITLE
 } from '../../constants/slots'
@@ -21,7 +22,6 @@ import { getRootActionEventName, getRootEventName } from '../../utils/events'
 import { makeModelMixin } from '../../utils/model'
 import { sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
-import { toString } from '../../utils/string'
 import { attrsMixin } from '../../mixins/attrs'
 import { idMixin, props as idProps } from '../../mixins/id'
 import { listenOnRootMixin } from '../../mixins/listen-on-root'
@@ -92,7 +92,7 @@ export const props = makePropsConfigurable(
 
 const renderHeaderTitle = (h, ctx) => {
   // Render a empty `<span>` when to title was provided
-  const title = ctx.computedTile
+  const title = ctx.normalizeSlot(SLOT_NAME_TITLE, ctx.slotScope) || ctx.title
   if (!title) {
     return h('span')
   }
@@ -123,8 +123,12 @@ const renderHeader = (h, ctx) => {
     return h()
   }
 
-  const $title = renderHeaderTitle(h, ctx)
-  const $close = renderHeaderClose(h, ctx)
+  let $content = ctx.normalizeSlot(SLOT_NAME_HEADER, ctx.slotScope)
+  if (!$content) {
+    const $title = renderHeaderTitle(h, ctx)
+    const $close = renderHeaderClose(h, ctx)
+    $content = ctx.right ? [$close, $title] : [$title, $close]
+  }
 
   return h(
     'header',
@@ -133,7 +137,7 @@ const renderHeader = (h, ctx) => {
       class: ctx.headerClass,
       key: 'header'
     },
-    ctx.right ? [$close, $title] : [$title, $close]
+    $content
   )
 }
 
@@ -227,11 +231,16 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       const { hide, right, localShow: visible } = this
       return { hide, right, visible }
     },
-    computedTile() {
-      return this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope) || toString(this.title) || null
+    hasTitle() {
+      const { $scopedSlots, $slots } = this
+      return (
+        !this.noHeader &&
+        !this.hasNormalizedSlot(SLOT_NAME_HEADER) &&
+        !!(this.normalizeSlot(SLOT_NAME_TITLE, this.slotScope, $scopedSlots, $slots) || this.title)
+      )
     },
     titleId() {
-      return this.computedTile ? this.safeId('__title__') : null
+      return this.hasTitle ? this.safeId('__title__') : null
     },
     computedAttrs() {
       return {
