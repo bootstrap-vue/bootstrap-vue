@@ -78,13 +78,26 @@ greater than `0`. Or you can set the prop to `true` to make the label and input(
 of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns),
 or set the value to `'auto'` so that the label occupies only the width that is needed.
 
-| Prop            | Description                       |
-| --------------- | --------------------------------- |
-| `label-cols`    | Applies to breakpoint `xs` up     |
-| `label-cols-sm` | Applies to breakpoint `sm` and up |
-| `label-cols-md` | Applies to breakpoint `md` and up |
-| `label-cols-lg` | Applies to breakpoint `lg` and up |
-| `label-cols-xl` | Applies to breakpoint `xl` and up |
+Since BootstrapVue `v2.21.0` it is also possible to specify how many columns the content should
+occupy in the row via the `content-cols` and `content-cols-{breakpoint}` props.
+
+When using both, the `label-cols` and `content-cols` props, make sure that the total amount of
+columns doesn't exceed `12`.
+
+See the [Layout and Grid System](/docs/components/layout#how-it-works) docs for further information.
+
+| Prop              | Description                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------- |
+| `label-cols`      | Applies to breakpoint `xs` up                                                         |
+| `label-cols-sm`   | Applies to breakpoint `sm` and up                                                     |
+| `label-cols-md`   | Applies to breakpoint `md` and up                                                     |
+| `label-cols-lg`   | Applies to breakpoint `lg` and up                                                     |
+| `label-cols-xl`   | Applies to breakpoint `xl` and up                                                     |
+| `content-cols`    | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `xs` up     |
+| `content-cols-sm` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `sm` and up |
+| `content-cols-md` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `md` and up |
+| `content-cols-lg` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `lg` and up |
+| `content-cols-xl` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `xl` and up |
 
 ```html
 <div>
@@ -93,6 +106,8 @@ or set the value to `'auto'` so that the label occupies only the width that is n
       id="fieldset-horizontal"
       label-cols-sm="4"
       label-cols-lg="3"
+      content-cols-sm
+      content-cols-lg="7"
       description="Let us know your name."
       label="Enter your name"
       label-for="input-horizontal"
@@ -136,7 +151,7 @@ for both horizontal and non-horizontal form groups.
 The label text may also optionally be aligned `left`, `center` or `right` by setting the respective
 value via the prop `label-text-align` and/or `label-align-{breakpoint}`.
 
-| prop             | description                       |
+| Prop             | Description                       |
 | ---------------- | --------------------------------- |
 | `label-align`    | Applies to breakpoint `xs` up     |
 | `label-align-sm` | Applies to breakpoint `sm` and up |
@@ -304,11 +319,16 @@ associated with a single input. It is best to use the default rendered markup th
 `<fieldset>` + `<legend>` which will describe the group of inputs.
 
 When placing multiple form controls inside a `<b-form-group>` (and you are not nesting
-`<b-form-group>`components), it is recommended to give each control its own associated `<label>`
+`<b-form-group>` components), it is recommended to give each control its own associated `<label>`
 (which may be visually hidden using the `.sr-only` class) and set the labels `for` attribute to the
 `id` of the associated input control. Alternatively, you can set the `aria-label` attribute on each
 input control instead of using a `<label>`. For `<b-form-radio>` and `<b-form-checkbox>` (or the
 group versions), you do not need to set individual labels, as the rendered markup for these types of
 inputs already includes a `<label>` element.
+
+When the `<b-form-group>` has a `label-for` prop set, the `aria-describedby` attribute will be
+auto-assigned to the input. When the form group has multiple form controls, make sure to set the
+attribute to each control yourself by using the `ariaDescribedby` prop value from the optionally
+scoped `default` slot.
 
 <!-- Component reference added automatically from component package.json -->
