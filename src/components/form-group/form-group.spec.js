@@ -57,6 +57,39 @@ describe('form-group', () => {
     wrapper.destroy()
   })
 
+  it('default slot is optionally scoped', async () => {
+    const label = 'my-label'
+    const description = 'my-description'
+    let slotScope
+
+    const wrapper = mount(BFormGroup, {
+      propsData: {
+        label,
+        description
+      },
+      scopedSlots: {
+        default(scope) {
+          slotScope = scope
+          return 'foobar'
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    expect(slotScope).toBeDefined()
+    expect(typeof slotScope.ariaDescribedby).toBe('string')
+    expect(typeof slotScope.descriptionId).toBe('string')
+    expect(typeof slotScope.id).toBe('string')
+    expect(typeof slotScope.labelId).toBe('string')
+
+    expect(wrapper.text()).toContain(label)
+    expect(wrapper.text()).toContain(description)
+
+    wrapper.destroy()
+  })
+
   it('has user supplied ID', async () => {
     const wrapper = mount(BFormGroup, {
       propsData: {
