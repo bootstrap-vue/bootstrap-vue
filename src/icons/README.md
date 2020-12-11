@@ -21,6 +21,8 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
   added in BootstrapVue `v2.17.0`.
 - [Bootstrap Icons `v1.1.0`](https://blog.getbootstrap.com/2020/10/28/bootstrap-icons-1-1-0/) were
   added in BootstrapVue `v2.19.0`.
+- [Bootstrap Icons `v1.2.0`](https://blog.getbootstrap.com/2020/12/11/bootstrap-icons-1-2-0/) were
+  added in BootstrapVue `v2.21.0`.
 
 ## Usage
 
