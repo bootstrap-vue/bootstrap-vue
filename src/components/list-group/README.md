@@ -35,7 +35,7 @@ Set the `active` prop on a `<b-list-group-item>` to indicate the current active 
 ## Disabled items
 
 Set the `disabled` prop on a `<b-list-group-item>` to make it appear disabled (also works with
-actionalable items. see below).
+actionable items. see below).
 
 ```html
 <b-list-group>
