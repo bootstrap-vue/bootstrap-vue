@@ -192,19 +192,20 @@ not validated.
 ```html
 <template>
   <div>
-    <b-form-group :state="state" label="Tags validation example" label-for="tags-validation">
+    <b-form-group label="Tags validation example" label-for="tags-validation" :state="state">
       <b-form-tags
         input-id="tags-validation"
-        :input-attrs="{ 'aria-describedby': 'tags-validation-help' }"
         v-model="tags"
-        :state="state"
+        :input-attrs="{ 'aria-describedby': 'tags-validation-help' }"
         :tag-validator="tagValidator"
+        :state="state"
         separator=" "
       ></b-form-tags>
-      <!-- The following slots are for b-form-group -->
+
       <template #invalid-feedback>
         You must provide at least 3 tags and no more than 8
       </template>
+
       <template #description>
         <div id="tags-validation-help">
          Tags must be 3 to 5 characters in length and all lower
@@ -554,9 +555,16 @@ of tags:
 ```html
 <template>
   <div>
-    <b-form-group label="Tagged input using select">
-      <!-- prop `add-on-change` is needed to enable adding tags vie the `change` event -->
-      <b-form-tags v-model="value" size="lg" add-on-change no-outer-focus class="mb-2">
+    <b-form-group label="Tagged input using select" label-for="tags-component-select">
+      <!-- Prop `add-on-change` is needed to enable adding tags vie the `change` event -->
+      <b-form-tags
+        id="tags-component-select"
+        v-model="value"
+        size="lg"
+        class="mb-2"
+        add-on-change
+        no-outer-focus
+      >
         <template v-slot="{ tags, inputAttrs, inputHandlers, disabled, removeTag }">
           <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
             <li v-for="tag in tags" :key="tag" class="list-inline-item">
@@ -720,8 +728,8 @@ pre-defined set of tags:
 ```html
 <template>
   <div>
-    <b-form-group label="Tagged input using dropdown">
-      <b-form-tags v-model="value" no-outer-focus class="mb-2">
+    <b-form-group label="Tagged input using dropdown" label-for="tags-with-dropdown">
+      <b-form-tags id="tags-with-dropdown" v-model="value" no-outer-focus class="mb-2">
         <template v-slot="{ tags, disabled, addTag, removeTag }">
           <ul v-if="tags.length > 0" class="list-inline d-inline-block mb-2">
             <li v-for="tag in tags" :key="tag" class="list-inline-item">
@@ -740,8 +748,8 @@ pre-defined set of tags:
             </template>
             <b-dropdown-form @submit.stop.prevent="() => {}">
               <b-form-group
-                label-for="tag-search-input"
                 label="Search tags"
+                label-for="tag-search-input"
                 label-cols-md="auto"
                 class="mb-0"
                 label-size="sm"

@@ -72,19 +72,32 @@ of strings.
 By default, the label appears above the input element(s), but you may optionally render horizontal
 (label to the left of the input) at the various standard Bootstrap breakpoints.
 
-The props`label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
+The props `label-cols` and `label-cols-{breakpoint}` allow you to specify how many columns the label
 should occupy in the row. The input will fill the rest of the row width. The value must be a number
 greater than `0`. Or you can set the prop to `true` to make the label and input(s) each occupy half
 of the width of the rendered row (handy if you have custom Bootstrap with an odd number of columns),
 or set the value to `'auto'` so that the label occupies only the width that is needed.
 
-| prop            | description                       |
-| --------------- | --------------------------------- |
-| `label-cols`    | Applies to breakpoint `xs` up     |
-| `label-cols-sm` | Applies to breakpoint `sm` and up |
-| `label-cols-md` | Applies to breakpoint `md` and up |
-| `label-cols-lg` | Applies to breakpoint `lg` and up |
-| `label-cols-xl` | Applies to breakpoint `xl` and up |
+Since BootstrapVue `v2.21.0` it is also possible to specify how many columns the content should
+occupy in the row via the `content-cols` and `content-cols-{breakpoint}` props.
+
+When using both, the `label-cols` and `content-cols` props, make sure that the total amount of
+columns doesn't exceed `12`.
+
+See the [Layout and Grid System](/docs/components/layout#how-it-works) docs for further information.
+
+| Prop              | Description                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------- |
+| `label-cols`      | Applies to breakpoint `xs` up                                                         |
+| `label-cols-sm`   | Applies to breakpoint `sm` and up                                                     |
+| `label-cols-md`   | Applies to breakpoint `md` and up                                                     |
+| `label-cols-lg`   | Applies to breakpoint `lg` and up                                                     |
+| `label-cols-xl`   | Applies to breakpoint `xl` and up                                                     |
+| `content-cols`    | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `xs` up     |
+| `content-cols-sm` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `sm` and up |
+| `content-cols-md` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `md` and up |
+| `content-cols-lg` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `lg` and up |
+| `content-cols-xl` | <span class="badge badge-secondary">v2.21.0+</span> Applies to breakpoint `xl` and up |
 
 ```html
 <div>
@@ -93,6 +106,8 @@ or set the value to `'auto'` so that the label occupies only the width that is n
       id="fieldset-horizontal"
       label-cols-sm="4"
       label-cols-lg="3"
+      content-cols-sm
+      content-cols-lg="7"
       description="Let us know your name."
       label="Enter your name"
       label-for="input-horizontal"
@@ -105,7 +120,7 @@ or set the value to `'auto'` so that the label occupies only the width that is n
 <!-- b-form-group-horizontal.vue -->
 ```
 
-The ability to set the label cols to `'auto'` was added in BootstrapVue version <samp>2.1.0</samp>.
+The ability to set the label cols to `'auto'` was added in BootstrapVue version `v2.1.0`.
 
 ### Label size
 
@@ -136,7 +151,7 @@ for both horizontal and non-horizontal form groups.
 The label text may also optionally be aligned `left`, `center` or `right` by setting the respective
 value via the prop `label-text-align` and/or `label-align-{breakpoint}`.
 
-| prop             | description                       |
+| Prop             | Description                       |
 | ---------------- | --------------------------------- |
 | `label-align`    | Applies to breakpoint `xs` up     |
 | `label-align-sm` | Applies to breakpoint `sm` and up |
@@ -168,49 +183,52 @@ of related form controls:
       class="mb-0"
     >
       <b-form-group
-        label-cols-sm="3"
         label="Street:"
-        label-align-sm="right"
         label-for="nested-street"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-street"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="City:"
-        label-align-sm="right"
         label-for="nested-city"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-city"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="State:"
-        label-align-sm="right"
         label-for="nested-state"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-state"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="Country:"
-        label-align-sm="right"
         label-for="nested-country"
+        label-cols-sm="3"
+        label-align-sm="right"
       >
         <b-form-input id="nested-country"></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label-cols-sm="3"
         label="Ship via:"
-        label-align-sm="right" class="mb-0"
+        label-cols-sm="3"
+        label-align-sm="right"
+        class="mb-0"
+        v-slot="{ ariaDescribedby }"
       >
         <b-form-radio-group
           class="pt-2"
           :options="['Air', 'Courier', 'Mail']"
+          :aria-describedby="ariaDescribedby"
         ></b-form-radio-group>
       </b-form-group>
     </b-form-group>
@@ -220,7 +238,7 @@ of related form controls:
 <!-- b-form-group-nested.vue -->
 ```
 
-## Disabled form-group
+## Disabled form group
 
 Setting the `disabled` prop will disable the rendered `<fieldset>` and, on most browsers, will
 disable all the input elements contained within the fieldset.
@@ -290,17 +308,13 @@ the invalid feedback to show when using one of the above mentioned form controls
 
 ## Accessibility
 
-To enable auto-generation of `aria-*` attributes, you should supply a unique `id` prop to
-`<b-form-group>`. This will associate the help text and feedback text to the `<b-form-group>` and,
-indirectly to its input control(s).
-
 By default, when no `label-for` value is provided, `<b-form-group>` renders the input control(s)
 inside a an HTML `<fieldset>` element with the label content placed inside the fieldset's `<legend>`
 element. By nature of this markup, the legend content is automatically associated to the containing
 input control(s).
 
 It is **highly recommended** that you provide a unique `id` prop on your input element and set the
-`label-for` prop to this id, when you have only a single input in the `<b-form-group>`.
+`label-for` prop to this ID, when you have only a single input in the `<b-form-group>`.
 
 When multiple form controls are placed inside `<b-form-group>` (i.e. a series or radio or checkbox
 inputs, or a series of related inputs), **do not set** the `label-for` prop, as a label can only be
@@ -308,11 +322,16 @@ associated with a single input. It is best to use the default rendered markup th
 `<fieldset>` + `<legend>` which will describe the group of inputs.
 
 When placing multiple form controls inside a `<b-form-group>` (and you are not nesting
-`<b-form-group>`components), it is recommended to give each control its own associated `<label>`
+`<b-form-group>` components), it is recommended to give each control its own associated `<label>`
 (which may be visually hidden using the `.sr-only` class) and set the labels `for` attribute to the
 `id` of the associated input control. Alternatively, you can set the `aria-label` attribute on each
 input control instead of using a `<label>`. For `<b-form-radio>` and `<b-form-checkbox>` (or the
 group versions), you do not need to set individual labels, as the rendered markup for these types of
 inputs already includes a `<label>` element.
+
+When the `<b-form-group>` has a `label-for` prop set, the `aria-describedby` attribute will be
+auto-assigned to the input. When the form group has multiple form controls, make sure to set the
+attribute to each control yourself by using the `ariaDescribedby` prop value from the optionally
+scoped `default` slot.
 
 <!-- Component reference added automatically from component package.json -->
