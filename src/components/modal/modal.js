@@ -588,13 +588,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
       })
     },
-    // Event emitter
-    emitEvent(bvModalEvt) {
-      const type = bvModalEvt.type
-      // We emit on root first incase a global listener wants to cancel
+    emitEvent(bvEvent) {
+      const { type } = bvEvent
+      // We emit on `$root` first in case a global listener wants to cancel
       // the event first before the instance emits its event
-      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvModalEvt, bvModalEvt.componentId)
-      this.$emit(type, bvModalEvt)
+      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvEvent, bvEvent.componentId)
+      this.$emit(type, bvEvent)
     },
     // UI event handlers
     onDialogMousedown() {
