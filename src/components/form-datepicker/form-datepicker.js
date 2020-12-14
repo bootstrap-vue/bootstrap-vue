@@ -53,9 +53,6 @@ export const props = makePropsConfigurable(
     ...modelProps,
     ...calendarProps,
     ...formBtnLabelControlProps,
-    buttonOnly: makeProp(PROP_TYPE_BOOLEAN, false),
-    // Applicable in button only mode
-    buttonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
     // Width of the calendar dropdown
     calendarWidth: makeProp(PROP_TYPE_STRING, '270px'),
     closeButton: makeProp(PROP_TYPE_BOOLEAN, false),

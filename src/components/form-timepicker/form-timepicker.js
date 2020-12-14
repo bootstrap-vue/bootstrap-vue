@@ -47,9 +47,6 @@ export const props = makePropsConfigurable(
     ...modelProps,
     ...timeProps,
     ...formBtnLabelControlProps,
-    buttonOnly: makeProp(PROP_TYPE_BOOLEAN, false),
-    // Applicable in button only mode
-    buttonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
     closeButtonVariant: makeProp(PROP_TYPE_STRING, 'outline-secondary'),
     labelCloseButton: makeProp(PROP_TYPE_STRING, 'Close'),
     labelNowButton: makeProp(PROP_TYPE_STRING, 'Select now'),
