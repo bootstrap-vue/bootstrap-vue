@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.21.0"></a>
+
+## [v2.21.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.20.1...v2.21.0)
+
+Released: 2020-12-14
+
+### Features v2.21.0
+
+- **b-form-group:** add `content-cols` props and scoped `default` slot (closes
+  [#6095](https://github.com/bootstrap-vue/bootstrap-vue/issues/6095),
+  [#6118](https://github.com/bootstrap-vue/bootstrap-vue/issues/6118))
+  ([#6178](https://github.com/bootstrap-vue/bootstrap-vue/issues/6178))
+  ([fab6dc5](https://github.com/bootstrap-vue/bootstrap-vue/commit/fab6dc57e974f14b7fb50f6f413f3fa9a4504290))
+- **b-form-tags:** add `no-tags-remove` prop (closes
+  [#6162](https://github.com/bootstrap-vue/bootstrap-vue/issues/6162))
+  ([#6163](https://github.com/bootstrap-vue/bootstrap-vue/issues/6163))
+  ([92de1f9](https://github.com/bootstrap-vue/bootstrap-vue/commit/92de1f9f7772c595afcd16d25d8f71b54a2e077b))
+- **b-sidebar:** add `header` slot
+  ([#6179](https://github.com/bootstrap-vue/bootstrap-vue/issues/6179))
+  ([341b7f0](https://github.com/bootstrap-vue/bootstrap-vue/commit/341b7f07943d6079d2bf5d6ab88bbcc50f91d0c5))
+- **refactor:** code enhancements for easier Vue 3 migration (closes
+  [#6124](https://github.com/bootstrap-vue/bootstrap-vue/issues/6124),
+  [#6139](https://github.com/bootstrap-vue/bootstrap-vue/issues/6139))
+  ([#6141](https://github.com/bootstrap-vue/bootstrap-vue/issues/6141))
+  ([5bf6733](https://github.com/bootstrap-vue/bootstrap-vue/commit/5bf6733595091cc204d3acc0641f8f0301bcbe9c))
+- **icons:** update Bootstrap Icons to v1.2.1
+  ([#6194](https://github.com/bootstrap-vue/bootstrap-vue/issues/6194))
+  ([799e272](https://github.com/bootstrap-vue/bootstrap-vue/commit/799e272d5ae5c19425c4c912a72becfaafaac447))
+- **icons:** update Bootstrap Icons to v1.2.0
+  ([#6180](https://github.com/bootstrap-vue/bootstrap-vue/issues/6180))
+  ([00682e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/00682e549e1a104156e3f701e2e6e6cffd13cb70))
+
+### Bug Fixes v2.21.0
+
+- **b-form-datepicker:** `valueAsDate` prop handling
+  ([#6159](https://github.com/bootstrap-vue/bootstrap-vue/issues/6159))
+  ([5cb8e0c](https://github.com/bootstrap-vue/bootstrap-vue/commit/5cb8e0c474ab750868379b4293d0eb5d52f5dd85))
+- **b-form-datepicker/b-form-timepicker:** label styles when in `button-only` mode (closes
+  [#6172](https://github.com/bootstrap-vue/bootstrap-vue/issues/6172))
+  ([#6186](https://github.com/bootstrap-vue/bootstrap-vue/issues/6186))
+  ([e8842ba](https://github.com/bootstrap-vue/bootstrap-vue/commit/e8842bae98e83d16f3429b37f219ae61890a5c38))
+- **b-tabs:** cleanup rendering logic
+  ([#6154](https://github.com/bootstrap-vue/bootstrap-vue/issues/6154))
+  ([8aeb9e9](https://github.com/bootstrap-vue/bootstrap-vue/commit/8aeb9e941e84ec45a3415ab7238729458f56e427))
+- **table:** default sort compare logic for date strings
+  ([#6153](https://github.com/bootstrap-vue/bootstrap-vue/issues/6153))
+  ([3696a1f](https://github.com/bootstrap-vue/bootstrap-vue/commit/3696a1f888f2462a428431a593e235fd89bf54d4))
+- **table:** use original value for fallback when number parsing fails in `defaultSortCompare()`
+  ([c375ce9](https://github.com/bootstrap-vue/bootstrap-vue/commit/c375ce9093ed91060b4ab199ad771dd667a68589))
+
 <a name="2.20.1"></a>
 
 ## [v2.20.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.20.0...v2.20.1)
