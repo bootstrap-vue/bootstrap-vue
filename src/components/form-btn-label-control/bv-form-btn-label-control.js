@@ -209,7 +209,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
       'label',
       {
         class: buttonOnly
-          ? 'sr-only'
+          ? 'sr-only' // Hidden in button only mode
           : [
               'form-control',
               'text-break',
