@@ -29,6 +29,12 @@ Released: 2020-12-14
   [#6139](https://github.com/bootstrap-vue/bootstrap-vue/issues/6139))
   ([#6141](https://github.com/bootstrap-vue/bootstrap-vue/issues/6141))
   ([5bf6733](https://github.com/bootstrap-vue/bootstrap-vue/commit/5bf6733595091cc204d3acc0641f8f0301bcbe9c))
+- **icons:** update Bootstrap Icons to v1.2.1
+  ([#6194](https://github.com/bootstrap-vue/bootstrap-vue/issues/6194))
+  ([799e272](https://github.com/bootstrap-vue/bootstrap-vue/commit/799e272d5ae5c19425c4c912a72becfaafaac447))
+- **icons:** update Bootstrap Icons to v1.2.0
+  ([#6180](https://github.com/bootstrap-vue/bootstrap-vue/issues/6180))
+  ([00682e5](https://github.com/bootstrap-vue/bootstrap-vue/commit/00682e549e1a104156e3f701e2e6e6cffd13cb70))
 
 ### Bug Fixes v2.21.0
 
