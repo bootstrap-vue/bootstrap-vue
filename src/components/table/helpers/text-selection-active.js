@@ -5,11 +5,9 @@ import { getSel, isElement } from '../../../utils/dom'
 //
 // Accepts an element as only argument to test to see if selection overlaps or is
 // contained within the element
-const textSelectionActive = (el = document) => {
+export const textSelectionActive = (el = document) => {
   const sel = getSel()
   return sel && sel.toString().trim() !== '' && sel.containsNode && isElement(el)
     ? /* istanbul ignore next */ sel.containsNode(el, true)
     : false
 }
-
-export default textSelectionActive

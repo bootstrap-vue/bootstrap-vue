@@ -22,8 +22,8 @@ describe('v-b-modal directive', () => {
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('BUTTON')
-    expect(wrapper.find('button').attributes('tabindex')).not.toBeDefined()
-    expect(wrapper.find('button').attributes('role')).not.toBeDefined()
+    expect(wrapper.find('button').attributes('tabindex')).toBeUndefined()
+    expect(wrapper.find('button').attributes('role')).toBeUndefined()
     expect(spy).not.toHaveBeenCalled()
 
     const $button = wrapper.find('button')
@@ -59,7 +59,7 @@ describe('v-b-modal directive', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(spy).not.toHaveBeenCalled()
     expect(wrapper.find('a').attributes('role')).toBe('button')
-    expect(wrapper.find('a').attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.find('a').attributes('tabindex')).toBeUndefined()
     expect(wrapper.find('a').text()).toBe('link')
 
     const $link = wrapper.find('a')
@@ -67,7 +67,7 @@ describe('v-b-modal directive', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toBeCalledWith('test', $link.element)
     expect(wrapper.find('a').attributes('role')).toBe('button')
-    expect(wrapper.find('a').attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.find('a').attributes('tabindex')).toBeUndefined()
 
     wrapper.destroy()
   })

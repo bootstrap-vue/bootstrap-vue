@@ -1,16 +1,18 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_CARD_TEXT } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    textTag: {
-      type: String,
-      default: 'p'
-    }
+    textTag: makeProp(PROP_TYPE_STRING, 'p')
   },
   NAME_CARD_TEXT
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BCardText = /*#__PURE__*/ Vue.extend({

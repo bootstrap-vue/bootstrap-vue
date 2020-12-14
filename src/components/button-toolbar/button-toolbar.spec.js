@@ -31,7 +31,7 @@ describe('button-toolbar', () => {
 
   it('toolbar should not have tabindex by default', async () => {
     const wrapper = mount(BButtonToolbar)
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
     wrapper.destroy()
   })
 

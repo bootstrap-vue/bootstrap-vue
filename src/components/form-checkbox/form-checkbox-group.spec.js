@@ -52,7 +52,7 @@ describe('form-checkbox-group', () => {
   it('default does not have aria-required set', async () => {
     const wrapper = mount(BFormCheckboxGroup)
 
-    expect(wrapper.attributes('aria-required')).not.toBeDefined()
+    expect(wrapper.attributes('aria-required')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -60,7 +60,7 @@ describe('form-checkbox-group', () => {
   it('default does not have aria-invalid set', async () => {
     const wrapper = mount(BFormCheckboxGroup)
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -124,7 +124,7 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -137,7 +137,7 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -336,8 +336,8 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).attributes('disabled')).not.toBeDefined()
-    expect($inputs.at(1).attributes('disabled')).not.toBeDefined()
+    expect($inputs.at(0).attributes('disabled')).toBeUndefined()
+    expect($inputs.at(1).attributes('disabled')).toBeUndefined()
     expect($inputs.at(2).attributes('disabled')).toBeDefined()
 
     wrapper.destroy()
@@ -411,7 +411,7 @@ describe('form-checkbox-group', () => {
     expect($inputs.at(1).element.checked).toBe(true)
     expect($inputs.at(2).element.checked).toBe(true)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Set internal value to new array reference
     wrapper.vm.localChecked = value.slice()
@@ -423,7 +423,7 @@ describe('form-checkbox-group', () => {
     expect($inputs.at(1).element.checked).toBe(true)
     expect($inputs.at(2).element.checked).toBe(true)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Set internal value to new array (reversed order)
     wrapper.vm.localChecked = value.slice().reverse()

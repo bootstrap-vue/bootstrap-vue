@@ -55,7 +55,7 @@ export interface BvMsgBoxOptions {
 }
 
 export interface BvModalMsgBoxResolver {
-  (evt: BvModalEvent): any
+  (event: BvModalEvent): any
 }
 
 export interface BvModalMsgBoxShortcutMethod {

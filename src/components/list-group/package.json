@@ -16,22 +16,34 @@
             "prop": "horizontal",
             "description": "When set, renders the list-group horizontally rather than the default of vertical"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (items) to place in the list group"
+          }
         ]
       },
       {
         "component": "BListGroupItem",
         "props": [
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
+            "prop": "action",
+            "description": "When set, give the item the appearance of having an action. Not needed when props 'to', 'href' or 'button' are used"
           },
           {
             "prop": "button",
             "description": "When true renders the list-group-item as a button element"
           },
           {
-            "prop": "action",
-            "description": "When set, give the item the appearance of having an action. Not needed when props 'to', 'href' or 'button' are used"
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the list group item"
           }
         ]
       }

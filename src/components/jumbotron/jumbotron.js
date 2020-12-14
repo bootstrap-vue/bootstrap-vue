@@ -1,72 +1,40 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_JUMBOTRON } from '../../constants/components'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER, SLOT_NAME_LEAD } from '../../constants/slots'
 import { htmlOrText } from '../../utils/html'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { BContainer } from '../layout/container'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    fluid: {
-      type: Boolean,
-      default: false
-    },
-    containerFluid: {
-      type: [Boolean, String],
-      default: false
-    },
-    header: {
-      type: String
-      // default: null
-    },
-    headerHtml: {
-      type: String
-      // default: null
-    },
-    headerTag: {
-      type: String,
-      default: 'h1'
-    },
-    headerLevel: {
-      type: [Number, String],
-      default: '3'
-    },
-    lead: {
-      type: String
-      // default: null
-    },
-    leadHtml: {
-      type: String
-      // default: null
-    },
-    leadTag: {
-      type: String,
-      default: 'p'
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    bgVariant: {
-      type: String
-      // default: undefined
-    },
-    borderVariant: {
-      type: String
-      // default: undefined
-    },
-    textVariant: {
-      type: String
-      // default: undefined
-    }
+    bgVariant: makeProp(PROP_TYPE_STRING),
+    borderVariant: makeProp(PROP_TYPE_STRING),
+    containerFluid: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    fluid: makeProp(PROP_TYPE_BOOLEAN, false),
+    header: makeProp(PROP_TYPE_STRING),
+    headerHtml: makeProp(PROP_TYPE_STRING),
+    headerLevel: makeProp(PROP_TYPE_NUMBER_STRING, 3),
+    headerTag: makeProp(PROP_TYPE_STRING, 'h1'),
+    lead: makeProp(PROP_TYPE_STRING),
+    leadHtml: makeProp(PROP_TYPE_STRING),
+    leadTag: makeProp(PROP_TYPE_STRING, 'p'),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    textVariant: makeProp(PROP_TYPE_STRING)
   },
   NAME_JUMBOTRON
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BJumbotron = /*#__PURE__*/ Vue.extend({
   name: NAME_JUMBOTRON,

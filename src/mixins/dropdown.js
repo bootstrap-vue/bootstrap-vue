@@ -1,5 +1,14 @@
 import Popper from 'popper.js'
+import { Vue } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
+import {
+  EVENT_NAME_CLICK,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_NAME_TOGGLE
+} from '../constants/events'
 import { CODE_DOWN, CODE_ENTER, CODE_ESC, CODE_SPACE, CODE_UP } from '../constants/key-codes'
 import {
   PLACEMENT_TOP_START,
@@ -9,24 +18,29 @@ import {
   PLACEMENT_RIGHT_START,
   PLACEMENT_LEFT_START
 } from '../constants/popper'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../constants/props'
+import { HTMLElement } from '../constants/safe-types'
 import { BvEvent } from '../utils/bv-event.class'
-import { makePropsConfigurable } from '../utils/config'
 import { attemptFocus, closest, contains, isVisible, requestAF, selectAll } from '../utils/dom'
-import { stopEvent } from '../utils/events'
+import { getRootEventName, stopEvent } from '../utils/events'
 import { isNull } from '../utils/inspect'
-import { mergeDeep } from '../utils/object'
-import { HTMLElement } from '../utils/safe-types'
+import { mergeDeep, sortKeys } from '../utils/object'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 import { warn } from '../utils/warn'
-import clickOutMixin from './click-out'
-import focusInMixin from './focus-in'
-import idMixin from './id'
+import { clickOutMixin } from './click-out'
+import { focusInMixin } from './focus-in'
+import { idMixin, props as idProps } from './id'
+import { listenOnRootMixin } from './listen-on-root'
 
 // --- Constants ---
 
-// Root dropdown event names
-const ROOT_EVENT_PREFIX = 'bv::dropdown::'
-const ROOT_EVENT_SHOWN = `${ROOT_EVENT_PREFIX}shown`
-const ROOT_EVENT_HIDDEN = `${ROOT_EVENT_PREFIX}hidden`
+const ROOT_EVENT_NAME_SHOWN = getRootEventName(NAME_DROPDOWN, EVENT_NAME_SHOWN)
+const ROOT_EVENT_NAME_HIDDEN = getRootEventName(NAME_DROPDOWN, EVENT_NAME_HIDDEN)
 
 // CSS selectors
 const SELECTOR_FORM_CHILD = '.dropdown form'
@@ -34,76 +48,43 @@ const SELECTOR_ITEM = ['.dropdown-item', '.b-dropdown-form']
   .map(selector => `${selector}:not(.disabled):not([disabled])`)
   .join(', ')
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 // Return an array of visible items
 const filterVisibles = els => (els || []).filter(isVisible)
 
 // --- Props ---
 
-export const commonProps = makePropsConfigurable(
-  {
-    dropup: {
-      // place on top if possible
-      type: Boolean,
-      default: false
-    },
-    dropright: {
-      // place right if possible
-      type: Boolean,
-      default: false
-    },
-    dropleft: {
-      // place left if possible
-      type: Boolean,
-      default: false
-    },
-    right: {
-      // Right align menu (default is left align)
-      type: Boolean,
-      default: false
-    },
-    offset: {
-      // Number of pixels to offset menu, or a CSS unit value (i.e. `1px`, `1rem`, etc.)
-      type: [Number, String],
-      default: 0
-    },
-    noFlip: {
-      // Disable auto-flipping of menu from bottom <=> top
-      type: Boolean,
-      default: false
-    },
-    popperOpts: {
-      type: Object,
-      default: () => {}
-    },
-    boundary: {
-      // String: `scrollParent`, `window` or `viewport`
-      // HTMLElement: HTML Element reference
-      type: [String, HTMLElement],
-      default: 'scrollParent'
-    }
-  },
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    // String: `scrollParent`, `window` or `viewport`
+    // HTMLElement: HTML Element reference
+    boundary: makeProp([HTMLElement, PROP_TYPE_STRING], 'scrollParent'),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Place left if possible
+    dropleft: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Place right if possible
+    dropright: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Place on top if possible
+    dropup: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Disable auto-flipping of menu from bottom <=> top
+    noFlip: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Number of pixels or a CSS unit value to offset menu
+    // (i.e. `1px`, `1rem`, etc.)
+    offset: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    popperOpts: makeProp(PROP_TYPE_OBJECT, {}),
+    // Right align menu (default is left align)
+    right: makeProp(PROP_TYPE_BOOLEAN, false)
+  }),
   NAME_DROPDOWN
 )
 
-export const props = {
-  ...commonProps,
-  ...makePropsConfigurable(
-    {
-      disabled: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_DROPDOWN
-  )
-}
-
 // --- Mixin ---
+
 // @vue/component
-export default {
-  mixins: [idMixin, clickOutMixin, focusInMixin],
+export const dropdownMixin = Vue.extend({
+  mixins: [idMixin, listenOnRootMixin, clickOutMixin, focusInMixin],
   provide() {
     return { bvDropdown: this }
   },
@@ -122,7 +103,7 @@ export default {
       return !isNull(this.bvNavbar)
     },
     toggler() {
-      const toggle = this.$refs.toggle
+      const { toggle } = this.$refs
       return toggle ? toggle.$el || toggle : null
     },
     directionClass() {
@@ -150,24 +131,24 @@ export default {
       }
 
       if (newValue !== oldValue) {
-        const evtName = newValue ? 'show' : 'hide'
-        const bvEvt = new BvEvent(evtName, {
+        const eventName = newValue ? EVENT_NAME_SHOW : EVENT_NAME_HIDE
+        const bvEvent = new BvEvent(eventName, {
           cancelable: true,
           vueTarget: this,
           target: this.$refs.menu,
           relatedTarget: null,
           componentId: this.safeId ? this.safeId() : this.id || null
         })
-        this.emitEvent(bvEvt)
-        if (bvEvt.defaultPrevented) {
+        this.emitEvent(bvEvent)
+        if (bvEvent.defaultPrevented) {
           // Reset value and exit if canceled
           this.visibleChangePrevented = true
           this.visible = oldValue
           // Just in case a child element triggered `this.hide(true)`
-          this.$off('hidden', this.focusToggler)
+          this.$off(EVENT_NAME_HIDDEN, this.focusToggler)
           return
         }
-        if (evtName === 'show') {
+        if (newValue) {
           this.showMenu()
         } else {
           this.hideMenu()
@@ -201,10 +182,10 @@ export default {
   },
   methods: {
     // Event emitter
-    emitEvent(bvEvt) {
-      const { type } = bvEvt
-      this.$emit(type, bvEvt)
-      this.$root.$emit(`${ROOT_EVENT_PREFIX}${type}`, bvEvt)
+    emitEvent(bvEvent) {
+      const { type } = bvEvent
+      this.$emit(type, bvEvent)
+      this.emitOnRoot(getRootEventName(NAME_DROPDOWN, type))
     },
     showMenu() {
       if (this.disabled) {
@@ -228,7 +209,7 @@ export default {
       }
 
       // Ensure other menus are closed
-      this.$root.$emit(ROOT_EVENT_SHOWN, this)
+      this.emitOnRoot(ROOT_EVENT_NAME_SHOWN, this)
 
       // Enable listeners
       this.whileOpenListen(true)
@@ -238,13 +219,13 @@ export default {
         // Focus on the menu container on show
         this.focusMenu()
         // Emit the shown event
-        this.$emit('shown')
+        this.$emit(EVENT_NAME_SHOWN)
       })
     },
     hideMenu() {
       this.whileOpenListen(false)
-      this.$root.$emit(ROOT_EVENT_HIDDEN, this)
-      this.$emit('hidden')
+      this.emitOnRoot(ROOT_EVENT_NAME_HIDDEN, this)
+      this.$emit(EVENT_NAME_HIDDEN)
       this.destroyPopper()
     },
     createPopper(element) {
@@ -299,7 +280,7 @@ export default {
       this.listenForFocusIn = isOpen
       // Hide the dropdown when another dropdown is opened
       const method = isOpen ? '$on' : '$off'
-      this.$root[method](ROOT_EVENT_SHOWN, this.rootCloseListener)
+      this.$root[method](ROOT_EVENT_NAME_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {
@@ -326,14 +307,14 @@ export default {
       this.visible = false
       if (refocus) {
         // Child element is closing the dropdown on click
-        this.$once('hidden', this.focusToggler)
+        this.$once(EVENT_NAME_HIDDEN, this.focusToggler)
       }
     },
     // Called only by a button that toggles the menu
-    toggle(evt) {
-      evt = evt || {}
+    toggle(event) {
+      event = event || {}
       // Early exit when not a click event or ENTER, SPACE or DOWN were pressed
-      const { type, keyCode } = evt
+      const { type, keyCode } = event
       if (
         type !== 'click' &&
         !(type === 'keydown' && [CODE_ENTER, CODE_SPACE, CODE_DOWN].indexOf(keyCode) !== -1)
@@ -346,8 +327,8 @@ export default {
         this.visible = false
         return
       }
-      this.$emit('toggle', evt)
-      stopEvent(evt)
+      this.$emit(EVENT_NAME_TOGGLE, event)
+      stopEvent(event)
       // Toggle visibility
       if (this.visible) {
         this.hide(true)
@@ -357,7 +338,7 @@ export default {
     },
     // Mousedown handler for the toggle
     /* istanbul ignore next */
-    onMousedown(evt) {
+    onMousedown(event) {
       // We prevent the 'mousedown' event for the toggle to stop the
       // 'focusin' event from being fired
       // The event would otherwise be picked up by the global 'focusin'
@@ -366,65 +347,65 @@ export default {
       // The 'click' event will still be fired and we handle closing
       // other dropdowns there too
       // See https://github.com/bootstrap-vue/bootstrap-vue/issues/4328
-      stopEvent(evt, { propagation: false })
+      stopEvent(event, { propagation: false })
     },
     // Called from dropdown menu context
-    onKeydown(evt) {
-      const { keyCode } = evt
+    onKeydown(event) {
+      const { keyCode } = event
       if (keyCode === CODE_ESC) {
         // Close on ESC
-        this.onEsc(evt)
+        this.onEsc(event)
       } else if (keyCode === CODE_DOWN) {
         // Down Arrow
-        this.focusNext(evt, false)
+        this.focusNext(event, false)
       } else if (keyCode === CODE_UP) {
         // Up Arrow
-        this.focusNext(evt, true)
+        this.focusNext(event, true)
       }
     },
     // If user presses ESC, close the menu
-    onEsc(evt) {
+    onEsc(event) {
       if (this.visible) {
         this.visible = false
-        stopEvent(evt)
+        stopEvent(event)
         // Return focus to original trigger button
-        this.$once('hidden', this.focusToggler)
+        this.$once(EVENT_NAME_HIDDEN, this.focusToggler)
       }
     },
     // Called only in split button mode, for the split button
-    onSplitClick(evt) {
+    onSplitClick(event) {
       /* istanbul ignore next */
       if (this.disabled) {
         this.visible = false
         return
       }
-      this.$emit('click', evt)
+      this.$emit(EVENT_NAME_CLICK, event)
     },
     // Shared hide handler between click-out and focus-in events
-    hideHandler(evt) {
-      const { target } = evt
+    hideHandler(event) {
+      const { target } = event
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         this.clearHideTimeout()
         this.$_hideTimeout = setTimeout(() => this.hide(), this.inNavbar ? 300 : 0)
       }
     },
     // Document click-out listener
-    clickOutHandler(evt) {
-      this.hideHandler(evt)
+    clickOutHandler(event) {
+      this.hideHandler(event)
     },
     // Document focus-in listener
-    focusInHandler(evt) {
-      this.hideHandler(evt)
+    focusInHandler(event) {
+      this.hideHandler(event)
     },
     // Keyboard nav
-    focusNext(evt, up) {
+    focusNext(event, up) {
       // Ignore key up/down on form elements
-      const { target } = evt
-      if (!this.visible || (evt && closest(SELECTOR_FORM_CHILD, target))) {
+      const { target } = event
+      if (!this.visible || (event && closest(SELECTOR_FORM_CHILD, target))) {
         /* istanbul ignore next: should never happen */
         return
       }
-      stopEvent(evt)
+      stopEvent(event)
       this.$nextTick(() => {
         const items = this.getItems()
         if (items.length < 1) {
@@ -461,4 +442,4 @@ export default {
       })
     }
   }
-}
+})

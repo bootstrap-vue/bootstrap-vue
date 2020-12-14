@@ -1,7 +1,9 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_EMBED } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
+import { omit } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 
 // --- Constants ---
 
@@ -11,42 +13,39 @@ const TYPES = ['iframe', 'embed', 'video', 'object', 'img', 'b-img', 'b-img-lazy
 
 export const props = makePropsConfigurable(
   {
-    type: {
-      type: String,
-      default: 'iframe',
-      validator(value) {
-        return arrayIncludes(TYPES, value)
-      }
-    },
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    aspect: {
-      type: String,
-      default: '16by9'
-    }
+    aspect: makeProp(PROP_TYPE_STRING, '16by9'),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
+    type: makeProp(PROP_TYPE_STRING, 'iframe', value => {
+      return arrayIncludes(TYPES, value)
+    })
   },
   NAME_EMBED
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BEmbed = /*#__PURE__*/ Vue.extend({
   name: NAME_EMBED,
   functional: true,
   props,
   render(h, { props, data, children }) {
+    const { aspect } = props
+
     return h(
       props.tag,
       {
-        ref: data.ref,
         staticClass: 'embed-responsive',
-        class: {
-          [`embed-responsive-${props.aspect}`]: props.aspect
-        }
+        class: { [`embed-responsive-${aspect}`]: aspect },
+        ref: data.ref
       },
-      [h(props.type, mergeData(data, { ref: '', staticClass: 'embed-responsive-item' }), children)]
+      [
+        h(
+          props.type,
+          mergeData(omit(data, ['ref']), { staticClass: 'embed-responsive-item' }),
+          children
+        )
+      ]
     )
   }
 })

@@ -120,7 +120,7 @@ describe('form-radio', () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.attributes('disabled')).not.toBeDefined()
+    expect(input.attributes('disabled')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -153,7 +153,7 @@ describe('form-radio', () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.attributes('required')).not.toBeDefined()
+    expect(input.attributes('required')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -170,7 +170,7 @@ describe('form-radio', () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.attributes('required')).not.toBeDefined()
+    expect(input.attributes('required')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -204,7 +204,7 @@ describe('form-radio', () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.attributes('name')).not.toBeDefined()
+    expect(input.attributes('name')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -238,7 +238,7 @@ describe('form-radio', () => {
       }
     })
     const input = wrapper.find('input')
-    expect(input.attributes('form')).not.toBeDefined()
+    expect(input.attributes('form')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -803,7 +803,7 @@ describe('form-radio', () => {
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe('')
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     const input = wrapper.find('input')
     expect(input).toBeDefined()

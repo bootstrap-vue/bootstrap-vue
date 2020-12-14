@@ -1,102 +1,56 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_OBJECT_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import { htmlOrText } from '../../utils/html'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import dropdownMixin, { props as dropdownProps } from '../../mixins/dropdown'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { dropdownMixin, props as dropdownProps } from '../../mixins/dropdown'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
+import { sortKeys } from '../../utils/object'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
     ...dropdownProps,
-    text: {
-      type: String
-      // default: null
-    },
-    html: {
-      type: String
-      // default: null
-    },
-    variant: {
-      type: String,
-      default: 'secondary'
-    },
-    size: {
-      type: String
-      // default: null
-    },
-    block: {
-      type: Boolean,
-      default: false
-    },
-    menuClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    toggleTag: {
-      type: String,
-      default: 'button'
-    },
-    toggleText: {
-      // TODO: This really should be `toggleLabel`
-      type: String,
-      default: 'Toggle dropdown'
-    },
-    toggleClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    noCaret: {
-      type: Boolean,
-      default: false
-    },
-    split: {
-      type: Boolean,
-      default: false
-    },
-    splitHref: {
-      type: String
-      // default: undefined
-    },
-    splitTo: {
-      type: [String, Object]
-      // default: undefined
-    },
-    splitVariant: {
-      type: String
-      // default: undefined
-    },
-    splitClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    splitButtonType: {
-      type: String,
-      default: 'button',
-      validator(value) {
-        return arrayIncludes(['button', 'submit', 'reset'], value)
-      }
-    },
-    lazy: {
-      // If true, only render menu contents when open
-      type: Boolean,
-      default: false
-    },
-    role: {
-      type: String,
-      default: 'menu'
-    }
-  },
+    block: makeProp(PROP_TYPE_BOOLEAN, false),
+    html: makeProp(PROP_TYPE_STRING),
+    // If `true`, only render menu contents when open
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    menuClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    noCaret: makeProp(PROP_TYPE_BOOLEAN, false),
+    role: makeProp(PROP_TYPE_STRING, 'menu'),
+    size: makeProp(PROP_TYPE_STRING),
+    split: makeProp(PROP_TYPE_BOOLEAN, false),
+    splitButtonType: makeProp(PROP_TYPE_STRING, 'button', value => {
+      return arrayIncludes(['button', 'submit', 'reset'], value)
+    }),
+    splitClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    splitHref: makeProp(PROP_TYPE_STRING),
+    splitTo: makeProp(PROP_TYPE_OBJECT_STRING),
+    splitVariant: makeProp(PROP_TYPE_STRING),
+    text: makeProp(PROP_TYPE_STRING),
+    toggleClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    toggleTag: makeProp(PROP_TYPE_STRING, 'button'),
+    // TODO: This really should be `toggleLabel`
+    toggleText: makeProp(PROP_TYPE_STRING, 'Toggle dropdown'),
+    variant: makeProp(PROP_TYPE_STRING, 'secondary')
+  }),
   NAME_DROPDOWN
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BDropdown = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN,
@@ -144,9 +98,8 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
     const { visible, variant, size, block, disabled, split, role, hide, toggle } = this
     const commonProps = { variant, size, block, disabled }
 
-    const buttonContentSlotName = 'button-content'
-    let $buttonChildren = this.normalizeSlot(buttonContentSlotName)
-    let buttonContentDomProps = this.hasNormalizedSlot(buttonContentSlotName)
+    let $buttonChildren = this.normalizeSlot(SLOT_NAME_BUTTON_CONTENT)
+    let buttonContentDomProps = this.hasNormalizedSlot(SLOT_NAME_BUTTON_CONTENT)
       ? {}
       : htmlOrText(this.html, this.text)
 

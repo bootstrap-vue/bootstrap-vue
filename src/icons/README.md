@@ -21,6 +21,8 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
   added in BootstrapVue `v2.17.0`.
 - [Bootstrap Icons `v1.1.0`](https://blog.getbootstrap.com/2020/10/28/bootstrap-icons-1-1-0/) were
   added in BootstrapVue `v2.19.0`.
+- [Bootstrap Icons `v1.2.0`](https://blog.getbootstrap.com/2020/12/11/bootstrap-icons-1-2-0/) were
+  added in BootstrapVue `v2.21.0`.
 
 ## Usage
 
@@ -40,7 +42,7 @@ i.e icon `'alert-circle-fill'` is exported as `BIconAlertCircleFill`, icon `'x'`
 **Importing all icons:**
 
 ```js
-import Vue from 'vue'
+import { Vue } from 'vue'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
@@ -50,7 +52,7 @@ Vue.use(BootstrapVueIcons)
 Or
 
 ```js
-import Vue from 'vue'
+import { Vue } from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
@@ -62,7 +64,7 @@ Vue.use(IconsPlugin)
 Making them globally available:
 
 ```js
-import Vue from 'vue'
+import { Vue } from 'vue'
 import { BootstrapVue, BIcon, BIconArrowUp, BIconArrowDown } from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
@@ -790,7 +792,7 @@ font scaled by 125%).
       Morbi leo risus
     </b-list-group-item>
     <b-list-group-item class="d-flex justify-content-between align-items-center">
-      <b-icon icon="check-box" scale="2" variant="success"></b-icon>
+      <b-icon icon="check-square" scale="2" variant="success"></b-icon>
       Incididunt veniam velit
     </b-list-group-item>
   </b-list-group>

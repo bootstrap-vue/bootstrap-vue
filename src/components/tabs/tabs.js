@@ -1,5 +1,15 @@
-import Vue from '../../vue'
+import { COMPONENT_UID_KEY, Vue } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
+import {
+  EVENT_NAME_ACTIVATE_TAB,
+  EVENT_NAME_CHANGED,
+  EVENT_NAME_CLICK,
+  EVENT_NAME_FIRST,
+  EVENT_NAME_LAST,
+  EVENT_NAME_NEXT,
+  EVENT_NAME_PREV
+} from '../../constants/events'
 import {
   CODE_DOWN,
   CODE_END,
@@ -9,28 +19,45 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../constants/key-codes'
-import { SLOT_NAME_TITLE } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
-import identity from '../../utils/identity'
-import looseEqual from '../../utils/loose-equal'
-import observeDom from '../../utils/observe-dom'
-import stableSort from '../../utils/stable-sort'
-import { arrayIncludes, concat } from '../../utils/array'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_NUMBER,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import {
+  SLOT_NAME_EMPTY,
+  SLOT_NAME_TABS_END,
+  SLOT_NAME_TABS_START,
+  SLOT_NAME_TITLE
+} from '../../constants/slots'
+import { arrayIncludes } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
-import { attemptFocus, requestAF, selectAll } from '../../utils/dom'
+import { attemptFocus, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isEvent } from '../../utils/inspect'
+import { looseEqual } from '../../utils/loose-equal'
 import { mathMax } from '../../utils/math'
+import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
-import { omit } from '../../utils/object'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { omit, sortKeys } from '../../utils/object'
+import { observeDom } from '../../utils/observe-dom'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { stableSort } from '../../utils/stable-sort'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BLink } from '../link/link'
 import { BNav, props as BNavProps } from '../nav/nav'
 
 // --- Constants ---
 
-const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', { type: PROP_TYPE_NUMBER })
 
 // --- Helper methods ---
 
@@ -44,66 +71,53 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
     bvTabs: {
-      /* istanbul ignore next */
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
-  props: makePropsConfigurable(
-    {
-      // Reference to the child <b-tab> instance
-      tab: { default: null },
-      tabs: {
-        type: Array,
-        /* istanbul ignore next */
-        default() {
-          return []
-        }
-      },
-      id: { type: String, default: null },
-      controls: { type: String, default: null },
-      tabIndex: { type: Number, default: null },
-      posInSet: { type: Number, default: null },
-      setSize: { type: Number, default: null },
-      noKeyNav: { type: Boolean, default: false }
-    },
-    NAME_TABS
-  ),
+  props: {
+    controls: makeProp(PROP_TYPE_STRING),
+    id: makeProp(PROP_TYPE_STRING),
+    noKeyNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    posInSet: makeProp(PROP_TYPE_NUMBER),
+    setSize: makeProp(PROP_TYPE_NUMBER),
+    // Reference to the child <b-tab> instance
+    tab: makeProp(),
+    tabIndex: makeProp(PROP_TYPE_NUMBER)
+  },
   methods: {
     focus() {
       attemptFocus(this.$refs.link)
     },
-    handleEvt(evt) {
+    handleEvt(event) {
+      /* istanbul ignore next */
       if (this.tab.disabled) {
-        /* istanbul ignore next */
         return
       }
-      const { type, keyCode, shiftKey } = evt
+      const { type, keyCode, shiftKey } = event
       if (type === 'click') {
-        stopEvent(evt)
-        this.$emit('click', evt)
+        stopEvent(event)
+        this.$emit(EVENT_NAME_CLICK, event)
       } else if (type === 'keydown' && keyCode === CODE_SPACE) {
         // For ARIA tabs the SPACE key will also trigger a click/select
         // Even with keyboard navigation disabled, SPACE should "click" the button
         // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/4323
-        stopEvent(evt)
-        this.$emit('click', evt)
+        stopEvent(event)
+        this.$emit(EVENT_NAME_CLICK, event)
       } else if (type === 'keydown' && !this.noKeyNav) {
         // For keyboard navigation
         if ([CODE_UP, CODE_LEFT, CODE_HOME].indexOf(keyCode) !== -1) {
-          stopEvent(evt)
+          stopEvent(event)
           if (shiftKey || keyCode === CODE_HOME) {
-            this.$emit('first', evt)
+            this.$emit(EVENT_NAME_FIRST, event)
           } else {
-            this.$emit('prev', evt)
+            this.$emit(EVENT_NAME_PREV, event)
           }
         } else if ([CODE_DOWN, CODE_RIGHT, CODE_END].indexOf(keyCode) !== -1) {
-          stopEvent(evt)
+          stopEvent(event)
           if (shiftKey || keyCode === CODE_END) {
-            this.$emit('last', evt)
+            this.$emit(EVENT_NAME_LAST, event)
           } else {
-            this.$emit('next', evt)
+            this.$emit(EVENT_NAME_NEXT, event)
           }
         }
       }
@@ -123,7 +137,6 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     const $link = h(
       BLink,
       {
-        ref: 'link',
         staticClass: 'nav-link',
         class: [
           {
@@ -137,8 +150,8 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
         props: { disabled },
         attrs: {
           ...titleLinkAttributes,
-          role: 'tab',
           id,
+          role: 'tab',
           // Roving tab index when keynav enabled
           tabindex: tabIndex,
           'aria-selected': localActive && !disabled ? 'true' : 'false',
@@ -149,7 +162,8 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
         on: {
           click: handleEvt,
           keydown: handleEvt
-        }
+        },
+        ref: 'link'
       },
       [this.tab.normalizeSlot(SLOT_NAME_TITLE) || title]
     )
@@ -166,90 +180,56 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
   }
 })
 
+// --- Props ---
+
+const navProps = omit(BNavProps, ['tabs', 'isNavBar', 'cardHeader'])
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ...navProps,
+    // Only applied to the currently active `<b-nav-item>`
+    activeNavItemClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    // Only applied to the currently active `<b-tab>`
+    // This prop is sniffed by the `<b-tab>` child
+    activeTabClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    card: makeProp(PROP_TYPE_BOOLEAN, false),
+    contentClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    // Synonym for 'bottom'
+    end: makeProp(PROP_TYPE_BOOLEAN, false),
+    // This prop is sniffed by the `<b-tab>` child
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    navClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    navWrapperClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+    noKeyNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    noNavStyle: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div')
+  }),
+  NAME_TABS
+)
+
+// --- Main component ---
+
 // @vue/component
 export const BTabs = /*#__PURE__*/ Vue.extend({
   name: NAME_TABS,
-  mixins: [idMixin, normalizeSlotMixin],
+  mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
     return {
       bvTabs: this
     }
   },
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-  props: {
-    ...navProps,
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    card: {
-      type: Boolean,
-      default: false
-    },
-    end: {
-      // Synonym for 'bottom'
-      type: Boolean,
-      default: false
-    },
-    noFade: {
-      type: Boolean,
-      default: false
-    },
-    noNavStyle: {
-      type: Boolean,
-      default: false
-    },
-    noKeyNav: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // This prop is sniffed by the <b-tab> child
-      type: Boolean,
-      default: false
-    },
-    contentClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    navClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    navWrapperClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    activeNavItemClass: {
-      // Only applied to the currently active <b-nav-item>
-      type: [String, Array, Object]
-      // default: null
-    },
-    activeTabClass: {
-      // Only applied to the currently active <b-tab>
-      // This prop is sniffed by the <b-tab> child
-      type: [String, Array, Object]
-      // default: null
-    },
-    value: {
-      // v-model
-      type: Number,
-      default: null
-    }
-  },
+  props,
   data() {
     return {
       // Index of current tab
-      currentTab: toInteger(this.value, -1),
-      // Array of direct child <b-tab> instances, in DOM order
+      currentTab: toInteger(this[MODEL_PROP_NAME], -1),
+      // Array of direct child `<b-tab>` instances, in DOM order
       tabs: [],
       // Array of child instances registered (for triggering reactive updates)
-      registeredTabs: [],
-      // Flag to know if we are mounted or not
-      isMounted: false
+      registeredTabs: []
     }
   },
   computed: {
@@ -266,30 +246,17 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    currentTab(newVal) {
-      let index = -1
-      // Ensure only one tab is active at most
-      this.tabs.forEach((tab, idx) => {
-        if (newVal === idx && !tab.disabled) {
-          tab.localActive = true
-          index = idx
-        } else {
-          tab.localActive = false
-        }
-      })
-      // Update the v-model
-      this.$emit('input', index)
-    },
-    value(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        newVal = toInteger(newVal, -1)
-        oldVal = toInteger(oldVal, 0)
-        const tabs = this.tabs
-        if (tabs[newVal] && !tabs[newVal].disabled) {
-          this.activateTab(tabs[newVal])
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        newValue = toInteger(newValue, -1)
+        oldValue = toInteger(oldValue, 0)
+
+        const $tab = this.tabs[newValue]
+        if ($tab && !$tab.disabled) {
+          this.activateTab($tab)
         } else {
           // Try next or prev tabs
-          if (newVal < oldVal) {
+          if (newValue < oldValue) {
             this.previousTab()
           } else {
             this.nextTab()
@@ -297,110 +264,80 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    registeredTabs() {
-      // Each b-tab will register/unregister itself.
-      // We use this to detect when tabs are added/removed
-      // to trigger the update of the tabs.
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.updateTabs()
-        })
+    currentTab(newValue) {
+      let index = -1
+
+      // Ensure only one tab is active at most
+      this.tabs.forEach(($tab, i) => {
+        if (i === newValue && !$tab.disabled) {
+          $tab.localActive = true
+          index = i
+        } else {
+          $tab.localActive = false
+        }
       })
+
+      // Update the v-model
+      this.$emit(MODEL_EVENT_NAME, index)
     },
-    tabs(newVal, oldVal) {
-      // If tabs added, removed, or re-ordered, we emit a `changed` event.
+    tabs(newValue, oldValue) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
-      // in a nextTick if no explicit ID is provided, causing duplicate emits.
-      if (!looseEqual(newVal.map(t => t._uid), oldVal.map(t => t._uid))) {
-        // In a nextTick to ensure currentTab has been set first.
+      // in a `$nextTick()` if no explicit ID is provided, causing duplicate emits
+      if (
+        !looseEqual(
+          newValue.map(t => t[COMPONENT_UID_KEY]),
+          oldValue.map(t => t[COMPONENT_UID_KEY])
+        )
+      ) {
+        // In a `$nextTick()` to ensure `currentTab` has been set first
         this.$nextTick(() => {
-          // We emit shallow copies of the new and old arrays of tabs, to
-          // prevent users from potentially mutating the internal arrays.
-          this.$emit('changed', newVal.slice(), oldVal.slice())
+          // We emit shallow copies of the new and old arrays of tabs,
+          // to prevent users from potentially mutating the internal arrays
+          this.$emit(EVENT_NAME_CHANGED, newValue.slice(), oldValue.slice())
         })
       }
     },
-    isMounted(newVal) {
-      // Trigger an update after mounted.  Needed for tabs inside lazy modals.
-      if (newVal) {
-        requestAF(() => {
-          this.updateTabs()
-        })
-      }
-      // Enable or disable the observer
-      this.setObserver(newVal)
+    registeredTabs() {
+      this.updateTabs()
     }
   },
   created() {
     // Create private non-reactive props
     this.$_observer = null
-    this.currentTab = toInteger(this.value, -1)
-    // For SSR and to make sure only a single tab is shown on mount
-    // We wrap this in a `$nextTick()` to ensure the child tabs have been created
-    this.$nextTick(() => {
-      this.updateTabs()
-    })
   },
   mounted() {
-    // Call `updateTabs()` just in case...
-    this.updateTabs()
-    this.$nextTick(() => {
-      // Flag we are now mounted and to switch to DOM for tab probing.
-      // As this.$slots.default appears to lie about component instances
-      // after b-tabs is destroyed and re-instantiated.
-      // And this.$children does not respect DOM order.
-      this.isMounted = true
-    })
-  },
-  /* istanbul ignore next */
-  deactivated() {
-    this.isMounted = false
-  },
-  /* istanbul ignore next */
-  activated() {
-    this.currentTab = toInteger(this.value, -1)
-    this.$nextTick(() => {
-      this.updateTabs()
-      this.isMounted = true
-    })
+    this.setObserver(true)
   },
   beforeDestroy() {
-    this.isMounted = false
-  },
-  destroyed() {
+    this.setObserver(false)
     // Ensure no references to child instances exist
     this.tabs = []
   },
   methods: {
-    registerTab(tab) {
-      if (!arrayIncludes(this.registeredTabs, tab)) {
-        this.registeredTabs.push(tab)
-        tab.$once('hook:destroyed', () => {
-          this.unregisterTab(tab)
-        })
+    registerTab($tab) {
+      if (!arrayIncludes(this.registeredTabs, $tab)) {
+        this.registeredTabs.push($tab)
       }
     },
-    unregisterTab(tab) {
-      this.registeredTabs = this.registeredTabs.slice().filter(t => t !== tab)
+    unregisterTab($tab) {
+      this.registeredTabs = this.registeredTabs.slice().filter($t => $t !== $tab)
     },
     // DOM observer is needed to detect changes in order of tabs
-    setObserver(on) {
+    setObserver(on = true) {
       this.$_observer && this.$_observer.disconnect()
       this.$_observer = null
+
       if (on) {
-        const self = this
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */
         const handler = () => {
-          // We delay the update to ensure that `tab.safeId()` has
-          // updated with the final ID value.
-          self.$nextTick(() => {
-            requestAF(() => {
-              self.updateTabs()
-            })
+          this.$nextTick(() => {
+            this.updateTabs()
           })
         }
-        // Watch for changes to <b-tab> sub components
-        this.$_observer = observeDom(this.$refs.tabsContainer, handler, {
+
+        // Watch for changes to `<b-tab>` sub components
+        this.$_observer = observeDom(this.$refs.content, handler, {
           childList: true,
           subtree: false,
           attributes: true,
@@ -409,294 +346,301 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      // We use `registeredTabs` as the source of truth for child tab components
-      // We also filter out any `<b-tab>` components that are extended
-      // `<b-tab>` with a root child `<b-tab>`
-      // See: https://github.com/bootstrap-vue/bootstrap-vue/issues/3260
-      const tabs = this.registeredTabs.filter(
-        tab => tab.$children.filter(t => t._isTab).length === 0
+      const $tabs = this.registeredTabs.filter(
+        $tab => $tab.$children.filter($t => $t._isTab).length === 0
       )
+
       // DOM Order of Tabs
       let order = []
-      if (this.isMounted && tabs.length > 0) {
+      if (IS_BROWSER && $tabs.length > 0) {
         // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
         // order specified in the selector
-        const selector = tabs.map(tab => `#${tab.safeId()}`).join(', ')
+        const selector = $tabs.map($tab => `#${$tab.safeId()}`).join(', ')
         order = selectAll(selector, this.$el)
-          .map(el => el.id)
+          .map($el => $el.id)
           .filter(identity)
       }
+
       // Stable sort keeps the original order if not found in the `order` array,
       // which will be an empty array before mount
-      return stableSort(tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
+      return stableSort($tabs, (a, b) => order.indexOf(a.safeId()) - order.indexOf(b.safeId()))
     },
-    // Update list of `<b-tab>` children
     updateTabs() {
-      // Probe tabs
-      const tabs = this.getTabs()
+      const $tabs = this.getTabs()
 
-      // Find *last* active non-disabled tab in current tabs
-      // We trust tab state over `currentTab`, in case tabs were added/removed/re-ordered
-      let tabIndex = tabs.indexOf(
-        tabs
-          .slice()
-          .reverse()
-          .find(tab => tab.localActive && !tab.disabled)
-      )
+      // Normalize `currentTab`
+      let { currentTab } = this
+      const $tab = $tabs[currentTab]
+      if (!$tab || $tab.disabled) {
+        currentTab = $tabs.indexOf(
+          $tabs
+            .slice()
+            .reverse()
+            .find($tab => $tab.localActive && !$tab.disabled)
+        )
 
-      // Else try setting to `currentTab`
-      if (tabIndex < 0) {
-        const currentTab = this.currentTab
-        if (currentTab >= tabs.length) {
-          // Handle last tab being removed, so find the last non-disabled tab
-          tabIndex = tabs.indexOf(
-            tabs
-              .slice()
-              .reverse()
-              .find(notDisabled)
-          )
-        } else if (tabs[currentTab] && !tabs[currentTab].disabled) {
-          // Current tab is not disabled
-          tabIndex = currentTab
+        if (currentTab === -1) {
+          currentTab = $tabs.indexOf($tabs.find(notDisabled))
         }
       }
 
-      // Else find *first* non-disabled tab in current tabs
-      if (tabIndex < 0) {
-        tabIndex = tabs.indexOf(tabs.find(notDisabled))
-      }
-
-      // Set the current tab state to active
-      tabs.forEach(tab => {
-        // tab.localActive = idx === tabIndex && !tab.disabled
-        tab.localActive = false
+      // Ensure only one tab is active at a time
+      $tabs.forEach(($tab, index) => {
+        $tab.localActive = index === currentTab
       })
-      if (tabs[tabIndex]) {
-        tabs[tabIndex].localActive = true
-      }
 
-      // Update the array of tab children
-      this.tabs = tabs
-      // Set the currentTab index (can be -1 if no non-disabled tabs)
-      this.currentTab = tabIndex
+      this.tabs = $tabs
+      this.currentTab = currentTab
     },
     // Find a button that controls a tab, given the tab reference
     // Returns the button vm instance
-    getButtonForTab(tab) {
-      return (this.$refs.buttons || []).find(btn => btn.tab === tab)
+    getButtonForTab($tab) {
+      return (this.$refs.buttons || []).find($btn => $btn.tab === $tab)
     },
-    // Force a button to re-render its content, given a <b-tab> instance
-    // Called by <b-tab> on `update()`
-    updateButton(tab) {
-      const button = this.getButtonForTab(tab)
-      if (button && button.$forceUpdate) {
-        button.$forceUpdate()
+    // Force a button to re-render its content, given a `<b-tab>` instance
+    // Called by `<b-tab>` on `update()`
+    updateButton($tab) {
+      const $button = this.getButtonForTab($tab)
+      if ($button && $button.$forceUpdate) {
+        $button.$forceUpdate()
       }
     },
     // Activate a tab given a `<b-tab>` instance
     // Also accessed by `<b-tab>`
-    activateTab(tab) {
+    activateTab($tab) {
+      const { currentTab, tabs: $tabs } = this
       let result = false
-      if (tab) {
-        const index = this.tabs.indexOf(tab)
-        if (!tab.disabled && index > -1 && index !== this.currentTab) {
-          const tabEvt = new BvEvent('activate-tab', {
+
+      if ($tab) {
+        const index = $tabs.indexOf($tab)
+        if (index !== currentTab && index > -1 && !$tab.disabled) {
+          const tabEvent = new BvEvent(EVENT_NAME_ACTIVATE_TAB, {
             cancelable: true,
             vueTarget: this,
             componentId: this.safeId()
           })
-          this.$emit(tabEvt.type, index, this.currentTab, tabEvt)
-          if (!tabEvt.defaultPrevented) {
-            result = true
+
+          this.$emit(tabEvent.type, index, currentTab, tabEvent)
+
+          if (!tabEvent.defaultPrevented) {
             this.currentTab = index
+            result = true
           }
         }
       }
-      // Couldn't set tab, so ensure v-model is set to `this.currentTab`
+
+      // Couldn't set tab, so ensure v-model is up to date
       /* istanbul ignore next: should rarely happen */
-      if (!result && this.currentTab !== this.value) {
-        this.$emit('input', this.currentTab)
+      if (!result && this[MODEL_PROP_NAME] !== currentTab) {
+        this.$emit(MODEL_EVENT_NAME, currentTab)
       }
+
       return result
     },
-    // Deactivate a tab given a <b-tab> instance
-    // Accessed by <b-tab>
-    deactivateTab(tab) {
-      if (tab) {
+    // Deactivate a tab given a `<b-tab>` instance
+    // Accessed by `<b-tab>`
+    deactivateTab($tab) {
+      if ($tab) {
         // Find first non-disabled tab that isn't the one being deactivated
         // If no tabs are available, then don't deactivate current tab
-        return this.activateTab(this.tabs.filter(t => t !== tab).find(notDisabled))
+        return this.activateTab(this.tabs.filter($t => $t !== $tab).find(notDisabled))
       }
       /* istanbul ignore next: should never/rarely happen */
       return false
     },
-    // Focus a tab button given its <b-tab> instance
-    focusButton(tab) {
-      // Wrap in `$nextTick()` to ensure DOM has completed rendering/updating before focusing
+    // Focus a tab button given its `<b-tab>` instance
+    focusButton($tab) {
+      // Wrap in `$nextTick()` to ensure DOM has completed rendering
       this.$nextTick(() => {
-        attemptFocus(this.getButtonForTab(tab))
+        attemptFocus(this.getButtonForTab($tab))
       })
     },
-    // Emit a click event on a specified <b-tab> component instance
-    emitTabClick(tab, evt) {
-      if (isEvent(evt) && tab && tab.$emit && !tab.disabled) {
-        tab.$emit('click', evt)
+    // Emit a click event on a specified `<b-tab>` component instance
+    emitTabClick(tab, event) {
+      if (isEvent(event) && tab && tab.$emit && !tab.disabled) {
+        tab.$emit(EVENT_NAME_CLICK, event)
       }
     },
     // Click handler
-    clickTab(tab, evt) {
-      this.activateTab(tab)
-      this.emitTabClick(tab, evt)
+    clickTab($tab, event) {
+      this.activateTab($tab)
+      this.emitTabClick($tab, event)
     },
     // Move to first non-disabled tab
     firstTab(focus) {
-      const tab = this.tabs.find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      const $tab = this.tabs.find(notDisabled)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to previous non-disabled tab
     previousTab(focus) {
       const currentIndex = mathMax(this.currentTab, 0)
-      const tab = this.tabs
+      const $tab = this.tabs
         .slice(0, currentIndex)
         .reverse()
         .find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to next non-disabled tab
     nextTab(focus) {
       const currentIndex = mathMax(this.currentTab, -1)
-      const tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      const $tab = this.tabs.slice(currentIndex + 1).find(notDisabled)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     },
     // Move to last non-disabled tab
     lastTab(focus) {
-      const tab = this.tabs
+      const $tab = this.tabs
         .slice()
         .reverse()
         .find(notDisabled)
-      if (this.activateTab(tab) && focus) {
-        this.focusButton(tab)
-        this.emitTabClick(tab, focus)
+      if (this.activateTab($tab) && focus) {
+        this.focusButton($tab)
+        this.emitTabClick($tab, focus)
       }
     }
   },
   render(h) {
-    const { tabs, noKeyNav, firstTab, previousTab, nextTab, lastTab } = this
+    const {
+      align,
+      card,
+      end,
+      fill,
+      firstTab,
+      justified,
+      lastTab,
+      nextTab,
+      noKeyNav,
+      noNavStyle,
+      pills,
+      previousTab,
+      small,
+      tabs: $tabs,
+      vertical
+    } = this
 
     // Currently active tab
-    const activeTab = tabs.find(tab => tab.localActive && !tab.disabled)
+    const $activeTab = $tabs.find($tab => $tab.localActive && !$tab.disabled)
 
     // Tab button to allow focusing when no active tab found (keynav only)
-    const fallbackTab = tabs.find(tab => !tab.disabled)
+    const $fallbackTab = $tabs.find($tab => !$tab.disabled)
 
     // For each `<b-tab>` found create the tab buttons
-    const buttons = tabs.map((tab, index) => {
-      let tabIndex = null
+    const $buttons = $tabs.map(($tab, index) => {
+      const { safeId } = $tab
+
       // Ensure at least one tab button is focusable when keynav enabled (if possible)
+      let tabIndex = null
       if (!noKeyNav) {
         // Buttons are not in tab index unless active, or a fallback tab
         tabIndex = -1
-        if (activeTab === tab || (!activeTab && fallbackTab === tab)) {
+        if ($tab === $activeTab || (!$activeTab && $tab === $fallbackTab)) {
           // Place tab button in tab sequence
           tabIndex = null
         }
       }
+
       return h(BVTabButton, {
-        key: tab._uid || index,
-        ref: 'buttons',
-        // Needed to make `this.$refs.buttons` an array
-        refInFor: true,
         props: {
-          tab,
-          tabs,
-          id: tab.controlledBy || (tab.safeId ? tab.safeId(`_BV_tab_button_`) : null),
-          controls: tab.safeId ? tab.safeId() : null,
-          tabIndex,
-          setSize: tabs.length,
+          controls: safeId ? safeId() : null,
+          id: $tab.controlledBy || (safeId ? safeId(`_BV_tab_button_`) : null),
+          noKeyNav,
           posInSet: index + 1,
-          noKeyNav
+          setSize: $tabs.length,
+          tab: $tab,
+          tabIndex
         },
         on: {
-          click: evt => {
-            this.clickTab(tab, evt)
+          [EVENT_NAME_CLICK]: event => {
+            this.clickTab($tab, event)
           },
-          first: firstTab,
-          prev: previousTab,
-          next: nextTab,
-          last: lastTab
-        }
+          [EVENT_NAME_FIRST]: firstTab,
+          [EVENT_NAME_PREV]: previousTab,
+          [EVENT_NAME_NEXT]: nextTab,
+          [EVENT_NAME_LAST]: lastTab
+        },
+        key: $tab[COMPONENT_UID_KEY] || index,
+        ref: 'buttons',
+        // Needed to make `this.$refs.buttons` an array
+        refInFor: true
       })
     })
 
-    // Nav
-    let nav = h(
+    let $nav = h(
       BNav,
       {
-        ref: 'nav',
         class: this.localNavClass,
         attrs: {
           role: 'tablist',
           id: this.safeId('_BV_tab_controls_')
         },
         props: {
-          fill: this.fill,
-          justified: this.justified,
-          align: this.align,
-          tabs: !this.noNavStyle && !this.pills,
-          pills: !this.noNavStyle && this.pills,
-          vertical: this.vertical,
-          small: this.small,
-          cardHeader: this.card && !this.vertical
-        }
+          fill,
+          justified,
+          align,
+          tabs: !noNavStyle && !pills,
+          pills: !noNavStyle && pills,
+          vertical,
+          small,
+          cardHeader: card && !vertical
+        },
+        ref: 'nav'
       },
-      [this.normalizeSlot('tabs-start') || h(), buttons, this.normalizeSlot('tabs-end') || h()]
-    )
-    nav = h(
-      'div',
-      {
-        key: 'bv-tabs-nav',
-        class: [
-          {
-            'card-header': this.card && !this.vertical && !this.end,
-            'card-footer': this.card && !this.vertical && this.end,
-            'col-auto': this.vertical
-          },
-          this.navWrapperClass
-        ]
-      },
-      [nav]
+      [
+        this.normalizeSlot(SLOT_NAME_TABS_START) || h(),
+        $buttons,
+        this.normalizeSlot(SLOT_NAME_TABS_END) || h()
+      ]
     )
 
-    let empty = h()
-    if (!tabs || tabs.length === 0) {
-      empty = h(
+    $nav = h(
+      'div',
+      {
+        class: [
+          {
+            'card-header': card && !vertical && !end,
+            'card-footer': card && !vertical && end,
+            'col-auto': vertical
+          },
+          this.navWrapperClass
+        ],
+        key: 'bv-tabs-nav'
+      },
+      [$nav]
+    )
+
+    const $children = this.normalizeSlot() || []
+
+    let $empty = h()
+    if ($children.length === 0) {
+      $empty = h(
         'div',
-        { key: 'bv-empty-tab', class: ['tab-pane', 'active', { 'card-body': this.card }] },
-        this.normalizeSlot('empty')
+        {
+          class: ['tab-pane', 'active', { 'card-body': card }],
+          key: 'bv-empty-tab'
+        },
+        this.normalizeSlot(SLOT_NAME_EMPTY)
       )
     }
 
-    // Main content section
-    const content = h(
+    const $content = h(
       'div',
       {
-        ref: 'tabsContainer',
-        key: 'bv-tabs-container',
         staticClass: 'tab-content',
-        class: [{ col: this.vertical }, this.contentClass],
-        attrs: { id: this.safeId('_BV_tab_container_') }
+        class: [{ col: vertical }, this.contentClass],
+        attrs: { id: this.safeId('_BV_tab_container_') },
+        key: 'bv-content',
+        ref: 'content'
       },
-      concat(this.normalizeSlot(), empty)
+      [$children, $empty]
     )
 
     // Render final output
@@ -705,12 +649,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'tabs',
         class: {
-          row: this.vertical,
-          'no-gutters': this.vertical && this.card
+          row: vertical,
+          'no-gutters': vertical && card
         },
         attrs: { id: this.safeId() }
       },
-      [this.end ? content : h(), [nav], this.end ? h() : content]
+      [end ? $content : h(), $nav, end ? h() : $content]
     )
   }
 })

@@ -1,3 +1,10 @@
+import { Vue } from '../../../vue'
+import {
+  EVENT_NAME_ROW_CLICKED,
+  EVENT_NAME_ROW_CONTEXTMENU,
+  EVENT_NAME_ROW_DBLCLICKED,
+  EVENT_NAME_ROW_MIDDLE_CLICKED
+} from '../../../constants/events'
 import {
   CODE_DOWN,
   CODE_END,
@@ -6,45 +13,54 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../../constants/key-codes'
+import { PROP_TYPE_ARRAY_OBJECT_STRING } from '../../../constants/props'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
 import { stopEvent } from '../../../utils/events'
-import { props as tbodyProps, BTbody } from '../tbody'
-import filterEvent from './filter-event'
-import textSelectionActive from './text-selection-active'
-import tbodyRowMixin from './mixin-tbody-row'
+import { sortKeys } from '../../../utils/object'
+import { makeProp, pluckProps } from '../../../utils/props'
+import { BTbody, props as BTbodyProps } from '../tbody'
+import { filterEvent } from './filter-event'
+import { textSelectionActive } from './text-selection-active'
+import { tbodyRowMixin, props as tbodyRowProps } from './mixin-tbody-row'
 
-const props = {
-  ...tbodyProps,
-  tbodyClass: {
-    type: [String, Array, Object]
-    // default: undefined
-  }
-}
+// --- Helper methods ---
 
-export default {
+const getCellSlotName = value => `cell(${value || ''})`
+
+// --- Props ---
+
+export const props = sortKeys({
+  ...BTbodyProps,
+  ...tbodyRowProps,
+  tbodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING)
+})
+
+// --- Mixin ---
+
+// @vue/component
+export const tbodyMixin = Vue.extend({
   mixins: [tbodyRowMixin],
   props,
   beforeDestroy() {
     this.$_bodyFieldSlotNameCache = null
   },
   methods: {
-    // Helper methods
+    // Returns all the item TR elements (excludes detail and spacer rows)
+    // `this.$refs['item-rows']` is an array of item TR components/elements
+    // Rows should all be `<b-tr>` components, but we map to TR elements
+    // Also note that `this.$refs['item-rows']` may not always be in document order
     getTbodyTrs() {
-      // Returns all the item TR elements (excludes detail and spacer rows)
-      // `this.$refs.itemRows` is an array of item TR components/elements
-      // Rows should all be B-TR components, but we map to TR elements
-      // Also note that `this.$refs.itemRows` may not always be in document order
-      const refs = this.$refs || {}
-      const tbody = refs.tbody ? refs.tbody.$el || refs.tbody : null
-      const trs = (refs.itemRows || []).map(tr => tr.$el || tr)
+      const { $refs } = this
+      const tbody = $refs.tbody ? $refs.tbody.$el || $refs.tbody : null
+      const trs = ($refs['item-rows'] || []).map(tr => tr.$el || tr)
       return tbody && tbody.children && tbody.children.length > 0 && trs && trs.length > 0
         ? arrayFrom(tbody.children).filter(tr => arrayIncludes(trs, tr))
         : /* istanbul ignore next */ []
     },
+    // Returns index of a particular TBODY item TR
+    // We set `true` on closest to include self in result
     getTbodyTrIndex(el) {
-      // Returns index of a particular TBODY item TR
-      // We set `true` on closest to include self in result
       /* istanbul ignore next: should not normally happen */
       if (!isElement(el)) {
         return -1
@@ -52,26 +68,26 @@ export default {
       const tr = el.tagName === 'TR' ? el : closest('tr', el, true)
       return tr ? this.getTbodyTrs().indexOf(tr) : -1
     },
-    emitTbodyRowEvent(type, evt) {
-      // Emits a row event, with the item object, row index and original event
-      if (type && this.hasListener(type) && evt && evt.target) {
-        const rowIndex = this.getTbodyTrIndex(evt.target)
+    // Emits a row event, with the item object, row index and original event
+    emitTbodyRowEvent(type, event) {
+      if (type && this.hasListener(type) && event && event.target) {
+        const rowIndex = this.getTbodyTrIndex(event.target)
         if (rowIndex > -1) {
           // The array of TRs correlate to the `computedItems` array
           const item = this.computedItems[rowIndex]
-          this.$emit(type, item, rowIndex, evt)
+          this.$emit(type, item, rowIndex, event)
         }
       }
     },
-    tbodyRowEvtStopped(evt) {
-      return this.stopIfBusy && this.stopIfBusy(evt)
+    tbodyRowEvtStopped(event) {
+      return this.stopIfBusy && this.stopIfBusy(event)
     },
     // Delegated row event handlers
-    onTbodyRowKeydown(evt) {
+    onTbodyRowKeydown(event) {
       // Keyboard navigation and row click emulation
-      const target = evt.target
+      const { target, keyCode } = event
       if (
-        this.tbodyRowEvtStopped(evt) ||
+        this.tbodyRowEvtStopped(event) ||
         target.tagName !== 'TR' ||
         !isActiveElement(target) ||
         target.tabIndex !== 0
@@ -79,18 +95,18 @@ export default {
         // Early exit if not an item row TR
         return
       }
-      const keyCode = evt.keyCode
+
       if (arrayIncludes([CODE_ENTER, CODE_SPACE], keyCode)) {
         // Emulated click for keyboard users, transfer to click handler
-        stopEvent(evt)
-        this.onTBodyRowClicked(evt)
+        stopEvent(event)
+        this.onTBodyRowClicked(event)
       } else if (arrayIncludes([CODE_UP, CODE_DOWN, CODE_HOME, CODE_END], keyCode)) {
         // Keyboard navigation
         const rowIndex = this.getTbodyTrIndex(target)
         if (rowIndex > -1) {
-          stopEvent(evt)
+          stopEvent(event)
           const trs = this.getTbodyTrs()
-          const shift = evt.shiftKey
+          const shift = event.shiftKey
           if (keyCode === CODE_HOME || (shift && keyCode === CODE_UP)) {
             // Focus first row
             attemptFocus(trs[0])
@@ -107,48 +123,44 @@ export default {
         }
       }
     },
-    onTBodyRowClicked(evt) {
-      if (this.tbodyRowEvtStopped(evt)) {
-        // If table is busy, then don't propagate
-        return
-      } else if (filterEvent(evt) || textSelectionActive(this.$el)) {
-        // Clicked on a non-disabled control so ignore
-        // Or user is selecting text, so ignore
+    onTBodyRowClicked(event) {
+      // Don't emit event when the table is busy, the user clicked
+      // on a non-disabled control or is selecting text
+      if (this.tbodyRowEvtStopped(event) || filterEvent(event) || textSelectionActive(this.$el)) {
         return
       }
-      this.emitTbodyRowEvent('row-clicked', evt)
+      this.emitTbodyRowEvent(EVENT_NAME_ROW_CLICKED, event)
     },
-    onTbodyRowMiddleMouseRowClicked(evt) {
-      if (!this.tbodyRowEvtStopped(evt) && evt.which === 2) {
-        this.emitTbodyRowEvent('row-middle-clicked', evt)
+    onTbodyRowMiddleMouseRowClicked(event) {
+      if (!this.tbodyRowEvtStopped(event) && event.which === 2) {
+        this.emitTbodyRowEvent(EVENT_NAME_ROW_MIDDLE_CLICKED, event)
       }
     },
-    onTbodyRowContextmenu(evt) {
-      if (!this.tbodyRowEvtStopped(evt)) {
-        this.emitTbodyRowEvent('row-contextmenu', evt)
+    onTbodyRowContextmenu(event) {
+      if (!this.tbodyRowEvtStopped(event)) {
+        this.emitTbodyRowEvent(EVENT_NAME_ROW_CONTEXTMENU, event)
       }
     },
-    onTbodyRowDblClicked(evt) {
-      if (!this.tbodyRowEvtStopped(evt) && !filterEvent(evt)) {
-        this.emitTbodyRowEvent('row-dblclicked', evt)
+    onTbodyRowDblClicked(event) {
+      if (!this.tbodyRowEvtStopped(event) && !filterEvent(event)) {
+        this.emitTbodyRowEvent(EVENT_NAME_ROW_DBLCLICKED, event)
       }
     },
-    // Note: Row hover handlers are handled by the tbody-row mixin
-    // As mouseenter/mouseleave events do not bubble
-    //
-    // Render Helper
+    // Render the tbody element and children
+    // Note:
+    //   Row hover handlers are handled by the tbody-row mixin
+    //   As mouseenter/mouseleave events do not bubble
     renderTbody() {
-      // Render the tbody element and children
-      const items = this.computedItems
-      // Shortcut to `createElement` (could use `this._c()` instead)
+      const { computedItems: items, renderBusy, renderTopRow, renderEmpty, renderBottomRow } = this
       const h = this.$createElement
-      const hasRowClickHandler = this.hasListener('row-clicked') || this.hasSelectableRowClick
+      const hasRowClickHandler =
+        this.hasListener(EVENT_NAME_ROW_CLICKED) || this.hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []
 
       // Add the item data rows or the busy slot
-      const $busy = this.renderBusy ? this.renderBusy() : null
+      const $busy = renderBusy ? renderBusy() : null
       if ($busy) {
         // If table is busy and a busy slot, then return only the busy "row" indicator
         $rows.push($busy)
@@ -160,15 +172,16 @@ export default {
         // Slots could be dynamic (i.e. `v-if`), so we must compute on each render
         // Used by tbody-row mixin render helper
         const cache = {}
-        const defaultSlotName = this.hasNormalizedSlot('cell()') ? 'cell()' : null
+        let defaultSlotName = getCellSlotName()
+        defaultSlotName = this.hasNormalizedSlot(defaultSlotName) ? defaultSlotName : null
         this.computedFields.forEach(field => {
-          const key = field.key
-          const fullName = `cell(${key})`
-          const lowerName = `cell(${key.toLowerCase()})`
-          cache[key] = this.hasNormalizedSlot(fullName)
-            ? fullName
-            : this.hasNormalizedSlot(lowerName)
-              ? /* istanbul ignore next */ lowerName
+          const { key } = field
+          const slotName = getCellSlotName(key)
+          const lowercaseSlotName = getCellSlotName(key.toLowerCase())
+          cache[key] = this.hasNormalizedSlot(slotName)
+            ? slotName
+            : this.hasNormalizedSlot(lowercaseSlotName)
+              ? /* istanbul ignore next */ lowercaseSlotName
               : defaultSlotName
         })
         // Created as a non-reactive property so to not trigger component updates
@@ -177,7 +190,7 @@ export default {
 
         // Add static top row slot (hidden in visibly stacked mode
         // as we can't control `data-label` attr)
-        $rows.push(this.renderTopRow ? this.renderTopRow() : h())
+        $rows.push(renderTopRow ? renderTopRow() : h())
 
         // Render the rows
         items.forEach((item, rowIndex) => {
@@ -186,11 +199,11 @@ export default {
         })
 
         // Empty items / empty filtered row slot (only shows if `items.length < 1`)
-        $rows.push(this.renderEmpty ? this.renderEmpty() : h())
+        $rows.push(renderEmpty ? renderEmpty() : h())
 
         // Static bottom row slot (hidden in visibly stacked mode
         // as we can't control `data-label` attr)
-        $rows.push(this.renderBottomRow ? this.renderBottomRow() : h())
+        $rows.push(renderBottomRow ? renderBottomRow() : h())
       }
 
       // Note: these events will only emit if a listener is registered
@@ -215,15 +228,12 @@ export default {
       const $tbody = h(
         BTbody,
         {
-          ref: 'tbody',
           class: this.tbodyClass || null,
-          props: {
-            tbodyTransitionProps: this.tbodyTransitionProps,
-            tbodyTransitionHandlers: this.tbodyTransitionHandlers
-          },
+          props: pluckProps(BTbodyProps, this.$props),
           // BTbody transfers all native event listeners to the root element
           // TODO: Only set the handlers if the table is not busy
-          on: handlers
+          on: handlers,
+          ref: 'tbody'
         },
         $rows
       )
@@ -232,4 +242,4 @@ export default {
       return $tbody
     }
   }
-}
+})

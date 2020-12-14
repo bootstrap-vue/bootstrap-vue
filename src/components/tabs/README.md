@@ -461,8 +461,8 @@ tab from activating. The `activate-tab` event is emitted with three arguments:
 
 - `newTabIndex`: The index of the tab that is going to be activated
 - `prevTabIndex`: The index of the currently active tab
-- `bvEvent`: The `BvEvent` object. Call `bvEvt.preventDefault()` to prevent `newTabIndex` from being
-  activated
+- `bvEvent`: The `BvEvent` object. Call `bvEvent.preventDefault()` to prevent `newTabIndex` from
+  being activated
 
 For accessibility reasons, when using the `activate-tab` event to prevent a tab from activating, you
 should provide some means of notification to the user as to why the tab is not able to be activated.

@@ -45,14 +45,14 @@ describe('form-radio-group', () => {
 
   it('default does not have aria-required set', async () => {
     const wrapper = mount(BFormRadioGroup)
-    expect(wrapper.attributes('aria-required')).not.toBeDefined()
+    expect(wrapper.attributes('aria-required')).toBeUndefined()
 
     wrapper.destroy()
   })
 
   it('default does not have aria-invalid set', async () => {
     const wrapper = mount(BFormRadioGroup)
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -111,7 +111,7 @@ describe('form-radio-group', () => {
         state: true
       }
     })
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -123,7 +123,7 @@ describe('form-radio-group', () => {
         state: null
       }
     })
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -312,8 +312,8 @@ describe('form-radio-group', () => {
     expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('')
     expect(radios.wrappers.every(c => c.find('input[type=radio]').exists())).toBe(true)
-    expect(radios.at(0).attributes('disabled')).not.toBeDefined()
-    expect(radios.at(1).attributes('disabled')).not.toBeDefined()
+    expect(radios.at(0).attributes('disabled')).toBeUndefined()
+    expect(radios.at(1).attributes('disabled')).toBeUndefined()
     expect(radios.at(2).attributes('disabled')).toBeDefined()
 
     wrapper.destroy()

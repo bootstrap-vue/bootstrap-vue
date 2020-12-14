@@ -70,7 +70,8 @@
       },
       {
         "name": "html",
-        "description": "Enables basic HTML in the title/content (use with caution)"
+        "description": "Enables basic HTML in the title/content",
+        "xss": true
       },
       {
         "name": "viewport",
@@ -78,7 +79,7 @@
       },
       {
         "name": "window",
-        "description": "sets the boundary constrain to the window"
+        "description": "Sets the boundary constrain to the window"
       },
       {
         "name": "v-{variant}",

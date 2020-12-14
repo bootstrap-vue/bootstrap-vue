@@ -9,30 +9,6 @@
         "component": "BImg",
         "props": [
           {
-            "prop": "width",
-            "description": "The value to set on the image's 'width' attribute"
-          },
-          {
-            "prop": "height",
-            "description": "The value to set on the image's 'height' attribute"
-          },
-          {
-            "prop": "fluid",
-            "description": "Makes the image responsive. The image will shrink as needed or grow up the the image's native width"
-          },
-          {
-            "prop": "fluidGrow",
-            "description": "Similar to the 'fluid' prop, but allows the image to scale up past its native width"
-          },
-          {
-            "prop": "thumbnail",
-            "description": "Adds a thumbnail border around the image"
-          },
-          {
-            "prop": "rounded",
-            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make the image a circle/oval. See docs for details"
-          },
-          {
             "prop": "blank",
             "description": "Creates a blank/transparent image via an SVG data URI"
           },
@@ -45,43 +21,8 @@
             "description": "Forces the image to display as a block element rather than the browser default of inline-block element"
           },
           {
-            "prop": "left",
-            "description": "Floats the image to the left when set"
-          },
-          {
             "prop": "center",
             "description": "Centers the image horizontally"
-          },
-          {
-            "prop": "right",
-            "description": "Floats the image to the right when set"
-          },
-          {
-            "prop": "srcset",
-            "version": "2.1.0",
-            "description": "One or more strings separated by commas (or an array of strings), indicating possible image sources for the user agent to use"
-          },
-          {
-            "prop": "sizes",
-            "version": "2.1.0",
-            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
-          }
-        ]
-      },
-      {
-        "component": "BImgLazy",
-        "props": [
-          {
-            "prop": "show",
-            "description": "If set to true, will force show the image specified via the 'src' prop"
-          },
-          {
-            "prop": "width",
-            "description": "The value to set on the image's 'width' attribute"
-          },
-          {
-            "prop": "height",
-            "description": "The value to set on the image's 'height' attribute"
           },
           {
             "prop": "fluid",
@@ -92,16 +33,51 @@
             "description": "Similar to the 'fluid' prop, but allows the image to scale up past its native width"
           },
           {
-            "prop": "thumbnail",
-            "description": "Adds a thumbnail border around the image"
+            "prop": "height",
+            "description": "The value to set on the image's 'height' attribute"
+          },
+          {
+            "prop": "left",
+            "description": "Floats the image to the left when set"
+          },
+          {
+            "prop": "right",
+            "description": "Floats the image to the right when set"
           },
           {
             "prop": "rounded",
             "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make the image a circle/oval. See docs for details"
           },
           {
+            "prop": "sizes",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
+          },
+          {
+            "prop": "srcset",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating possible image sources for the user agent to use"
+          },
+          {
+            "prop": "thumbnail",
+            "description": "Adds a thumbnail border around the image"
+          },
+          {
+            "prop": "width",
+            "description": "The value to set on the image's 'width' attribute"
+          }
+        ]
+      },
+      {
+        "component": "BImgLazy",
+        "props": [
+          {
             "prop": "blankColor",
             "description": "Sets the color of the blank placeholder image to the CSS color value specified"
+          },
+          {
+            "prop": "blankHeight",
+            "description": "The value to set on the placeholder image's 'height' attribute. Defaults to value of the 'height' prop"
           },
           {
             "prop": "blankSrc",
@@ -112,28 +88,49 @@
             "description": "The value to set on the placeholder image's 'width' attribute. Defaults to value of the 'width' prop"
           },
           {
-            "prop": "blankHeight",
-            "description": "The value to set on the placeholder image's 'height' attribute. Defaults to value of the 'height' prop"
-          },
-          {
-            "prop": "offset",
-            "description": "Number of pixels away from the viewport edge before the lazy image is loaded"
-          },
-          {
             "prop": "block",
             "description": "Forces the image to display as a block element rather than the browser default of inline-block element"
-          },
-          {
-            "prop": "left",
-            "description": "Floats the image to the left when set"
           },
           {
             "prop": "center",
             "description": "Centers the image horizontally"
           },
           {
+            "prop": "fluid",
+            "description": "Makes the image responsive. The image will shrink as needed or grow up the the image's native width"
+          },
+          {
+            "prop": "fluidGrow",
+            "description": "Similar to the 'fluid' prop, but allows the image to scale up past its native width"
+          },
+          {
+            "prop": "height",
+            "description": "The value to set on the image's 'height' attribute"
+          },
+          {
+            "prop": "left",
+            "description": "Floats the image to the left when set"
+          },
+          {
+            "prop": "offset",
+            "description": "Number of pixels away from the viewport edge before the lazy image is loaded"
+          },
+          {
             "prop": "right",
             "description": "Floats the image to the right when set"
+          },
+          {
+            "prop": "rounded",
+            "description": "When set to 'true', makes the image corners slightly rounded. Can also be used to disable rounded corners or make the image a circle/oval. See docs for details"
+          },
+          {
+            "prop": "show",
+            "description": "If set to true, will force show the image specified via the 'src' prop"
+          },
+          {
+            "prop": "sizes",
+            "version": "2.1.0",
+            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
           },
           {
             "prop": "srcset",
@@ -141,9 +138,12 @@
             "description": "One or more strings separated by commas (or an array of strings), indicating possible image sources for the user agent to use"
           },
           {
-            "prop": "sizes",
-            "version": "2.1.0",
-            "description": "One or more strings separated by commas (or an array of strings), indicating a set of source sizes. Optionally used in combination with the srcset prop"
+            "prop": "thumbnail",
+            "description": "Adds a thumbnail border around the image"
+          },
+          {
+            "prop": "width",
+            "description": "The value to set on the image's 'width' attribute"
           }
         ]
       }

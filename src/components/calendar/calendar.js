@@ -1,4 +1,4 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
   CALENDAR_GREGORY,
@@ -8,6 +8,7 @@ import {
   DATE_FORMAT_2_DIGIT,
   DATE_FORMAT_NUMERIC
 } from '../../constants/date'
+import { EVENT_NAME_CONTEXT, EVENT_NAME_SELECTED } from '../../constants/events'
 import {
   CODE_DOWN,
   CODE_END,
@@ -20,10 +21,25 @@ import {
   CODE_SPACE,
   CODE_UP
 } from '../../constants/key-codes'
-import identity from '../../utils/identity'
-import looseEqual from '../../utils/loose-equal'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_DATE_STRING,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import {
+  SLOT_NAME_NAV_NEXT_DECADE,
+  SLOT_NAME_NAV_NEXT_MONTH,
+  SLOT_NAME_NAV_NEXT_YEAR,
+  SLOT_NAME_NAV_PEV_DECADE,
+  SLOT_NAME_NAV_PEV_MONTH,
+  SLOT_NAME_NAV_PEV_YEAR,
+  SLOT_NAME_NAV_THIS_MONTH
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import {
   createDate,
   createDateFormatter,
@@ -43,14 +59,19 @@ import {
 } from '../../utils/date'
 import { attemptBlur, attemptFocus, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isArray, isPlainObject, isString } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
+import { looseEqual } from '../../utils/loose-equal'
 import { mathMax } from '../../utils/math'
+import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
+import { sortKeys } from '../../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import attrsMixin from '../../mixins/attrs'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { attrsMixin } from '../../mixins/attrs'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import {
   BIconChevronLeft,
   BIconChevronDoubleLeft,
@@ -58,229 +79,113 @@ import {
   BIconCircleFill
 } from '../../icons/icons'
 
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', { type: PROP_TYPE_DATE_STRING })
+
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
-    value: {
-      type: [String, Date]
-      // default: null
-    },
-    valueAsDate: {
-      // Always return the `v-model` value as a date object
-      type: Boolean,
-      default: false
-    },
-    initialDate: {
-      // This specifies the calendar year/month/day that will be shown when
-      // first opening the datepicker if no v-model value is provided
-      // Default is the current date (or `min`/`max`)
-      type: [String, Date]
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    min: {
-      type: [String, Date]
-      // default: null
-    },
-    max: {
-      type: [String, Date]
-      // default: null
-    },
-    dateDisabledFn: {
-      type: Function
-      // default: null
-    },
-    startWeekday: {
-      // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
-      // Day of week to start calendar on
-      type: [Number, String],
-      default: 0
-    },
-    locale: {
-      // Locale(s) to use
-      // Default is to use page/browser default setting
-      type: [String, Array]
-      // default: null
-    },
-    direction: {
-      // 'ltr', 'rtl', or `null` (for auto detect)
-      type: String
-      // default: null
-    },
-    selectedVariant: {
-      // Variant color to use for the selected date
-      type: String,
-      default: 'primary'
-    },
-    todayVariant: {
-      // Variant color to use for today's date (defaults to `selectedVariant`)
-      type: String
-      // default: null
-    },
-    navButtonVariant: {
-      // Variant color to use for the navigation buttons
-      type: String,
-      default: 'secondary'
-    },
-    noHighlightToday: {
-      // Disable highlighting today's date
-      type: Boolean,
-      default: false
-    },
-    dateInfoFn: {
-      // Function to set a class of (classes) on the date cell
-      // if passed a string or an array
-      // TODO:
-      //   If the function returns an object, look for class prop for classes,
-      //   and other props for handling events/details/descriptions
-      type: Function
-      // default: null
-    },
-    width: {
-      // Has no effect if prop `block` is set
-      type: String,
-      default: '270px'
-    },
-    block: {
-      // Makes calendar the full width of its parent container
-      type: Boolean,
-      default: false
-    },
-    hideHeader: {
-      // When true makes the selected date header `sr-only`
-      type: Boolean,
-      default: false
-    },
-    showDecadeNav: {
-      // When `true` enables the decade navigation buttons
-      type: Boolean,
-      default: false
-    },
-    hidden: {
-      // When `true`, renders a comment node, but keeps the component instance active
-      // Mainly for <b-form-date>, so that we can get the component's value and locale
-      // But we might just use separate date formatters, using the resolved locale
-      // (adjusted for the gregorian calendar)
-      type: Boolean,
-      default: false
-    },
-    ariaControls: {
-      type: String
-      // default: null
-    },
-    noKeyNav: {
-      type: Boolean,
-      default: false
-    },
-    roleDescription: {
-      type: String
-      // default: null
-    },
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ariaControls: makeProp(PROP_TYPE_STRING),
+    // Makes calendar the full width of its parent container
+    block: makeProp(PROP_TYPE_BOOLEAN, false),
+    dateDisabledFn: makeProp(PROP_TYPE_FUNCTION),
+    // `Intl.DateTimeFormat` object
+    dateFormatOptions: makeProp(PROP_TYPE_OBJECT, {
+      year: DATE_FORMAT_NUMERIC,
+      month: CALENDAR_LONG,
+      day: DATE_FORMAT_NUMERIC,
+      weekday: CALENDAR_LONG
+    }),
+    // Function to set a class of (classes) on the date cell
+    // if passed a string or an array
+    // TODO:
+    //   If the function returns an object, look for class prop for classes,
+    //   and other props for handling events/details/descriptions
+    dateInfoFn: makeProp(PROP_TYPE_FUNCTION),
+    // 'ltr', 'rtl', or `null` (for auto detect)
+    direction: makeProp(PROP_TYPE_STRING),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    // When `true`, renders a comment node, but keeps the component instance active
+    // Mainly for <b-form-date>, so that we can get the component's value and locale
+    // But we might just use separate date formatters, using the resolved locale
+    // (adjusted for the gregorian calendar)
+    hidden: makeProp(PROP_TYPE_BOOLEAN, false),
+    // When `true` makes the selected date header `sr-only`
+    hideHeader: makeProp(PROP_TYPE_BOOLEAN, false),
+    // This specifies the calendar year/month/day that will be shown when
+    // first opening the datepicker if no v-model value is provided
+    // Default is the current date (or `min`/`max`)
+    initialDate: makeProp(PROP_TYPE_DATE_STRING),
     // Labels for buttons and keyboard shortcuts
-    labelPrevDecade: {
-      type: String,
-      default: 'Previous decade'
-    },
-    labelPrevYear: {
-      type: String,
-      default: 'Previous year'
-    },
-    labelPrevMonth: {
-      type: String,
-      default: 'Previous month'
-    },
-    labelCurrentMonth: {
-      type: String,
-      default: 'Current month'
-    },
-    labelNextMonth: {
-      type: String,
-      default: 'Next month'
-    },
-    labelNextYear: {
-      type: String,
-      default: 'Next year'
-    },
-    labelNextDecade: {
-      type: String,
-      default: 'Next decade'
-    },
-    labelToday: {
-      type: String,
-      default: 'Today'
-    },
-    labelSelected: {
-      type: String,
-      default: 'Selected date'
-    },
-    labelNoDateSelected: {
-      type: String,
-      default: 'No date selected'
-    },
-    labelCalendar: {
-      type: String,
-      default: 'Calendar'
-    },
-    labelNav: {
-      type: String,
-      default: 'Calendar navigation'
-    },
-    labelHelp: {
-      type: String,
-      default: 'Use cursor keys to navigate calendar dates'
-    },
-    dateFormatOptions: {
-      // `Intl.DateTimeFormat` object
-      // Note: This value is *not* to be placed in the global config
-      type: Object,
-      default: () => ({
-        year: DATE_FORMAT_NUMERIC,
-        month: CALENDAR_LONG,
-        day: DATE_FORMAT_NUMERIC,
-        weekday: CALENDAR_LONG
-      })
-    },
-    weekdayHeaderFormat: {
-      // Format of the weekday names at the top of the calendar
-      // Note: This value is *not* to be placed in the global config
-      type: String,
-      // `short` is typically a 3 letter abbreviation,
-      // `narrow` is typically a single letter
-      // `long` is the full week day name
-      // Although some locales may override this (i.e `ar`, etc.)
-      default: CALENDAR_SHORT,
-      validator(value) {
-        return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
-      }
-    }
-  },
+    labelCalendar: makeProp(PROP_TYPE_STRING, 'Calendar'),
+    labelCurrentMonth: makeProp(PROP_TYPE_STRING, 'Current month'),
+    labelHelp: makeProp(PROP_TYPE_STRING, 'Use cursor keys to navigate calendar dates'),
+    labelNav: makeProp(PROP_TYPE_STRING, 'Calendar navigation'),
+    labelNextDecade: makeProp(PROP_TYPE_STRING, 'Next decade'),
+    labelNextMonth: makeProp(PROP_TYPE_STRING, 'Next month'),
+    labelNextYear: makeProp(PROP_TYPE_STRING, 'Next year'),
+    labelNoDateSelected: makeProp(PROP_TYPE_STRING, 'No date selected'),
+    labelPrevDecade: makeProp(PROP_TYPE_STRING, 'Previous decade'),
+    labelPrevMonth: makeProp(PROP_TYPE_STRING, 'Previous month'),
+    labelPrevYear: makeProp(PROP_TYPE_STRING, 'Previous year'),
+    labelSelected: makeProp(PROP_TYPE_STRING, 'Selected date'),
+    labelToday: makeProp(PROP_TYPE_STRING, 'Today'),
+    // Locale(s) to use
+    // Default is to use page/browser default setting
+    locale: makeProp(PROP_TYPE_ARRAY_STRING),
+    max: makeProp(PROP_TYPE_DATE_STRING),
+    min: makeProp(PROP_TYPE_DATE_STRING),
+    // Variant color to use for the navigation buttons
+    navButtonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
+    // Disable highlighting today's date
+    noHighlightToday: makeProp(PROP_TYPE_BOOLEAN, false),
+    noKeyNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+    roleDescription: makeProp(PROP_TYPE_STRING),
+    // Variant color to use for the selected date
+    selectedVariant: makeProp(PROP_TYPE_STRING, 'primary'),
+    // When `true` enables the decade navigation buttons
+    showDecadeNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Day of week to start calendar on
+    // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
+    startWeekday: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    // Variant color to use for today's date (defaults to `selectedVariant`)
+    todayVariant: makeProp(PROP_TYPE_STRING),
+    // Always return the `v-model` value as a date object
+    valueAsDate: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Format of the weekday names at the top of the calendar
+    // `short` is typically a 3 letter abbreviation,
+    // `narrow` is typically a single letter
+    // `long` is the full week day name
+    // Although some locales may override this (i.e `ar`, etc.)
+    weekdayHeaderFormat: makeProp(PROP_TYPE_STRING, CALENDAR_SHORT, value => {
+      return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
+    }),
+    // Has no effect if prop `block` is set
+    width: makeProp(PROP_TYPE_STRING, '270px')
+  }),
   NAME_CALENDAR
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME_CALENDAR,
   // Mixin order is important!
-  mixins: [attrsMixin, idMixin, normalizeSlotMixin],
-  model: {
-    // Even though this is the default that Vue assumes, we need
-    // to add it for the docs to reflect that this is the model
-    // And also for some validation libraries to work
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
   props,
   data() {
-    const selected = formatYMD(this.value) || ''
+    const selected = formatYMD(this[MODEL_PROP_NAME]) || ''
     return {
       // Selected date
       selectedYMD: selected,
@@ -342,14 +247,12 @@ export const BCalendar = Vue.extend({
     },
     computedDateDisabledFn() {
       const { dateDisabledFn } = this
-      return dateDisabledFn.name !== props.dateDisabledFn.default.name
-        ? dateDisabledFn
-        : () => false
+      return hasPropFunction(dateDisabledFn) ? dateDisabledFn : () => false
     },
     // TODO: Change `dateInfoFn` to handle events and notes as well as classes
     computedDateInfoFn() {
       const { dateInfoFn } = this
-      return dateInfoFn.name !== props.dateInfoFn.default.name ? dateInfoFn : () => ({})
+      return hasPropFunction(dateInfoFn) ? dateInfoFn : () => ({})
     },
     calendarLocale() {
       // This locale enforces the gregorian calendar (for use in formatter functions)
@@ -600,9 +503,9 @@ export const BCalendar = Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      const selected = formatYMD(newVal) || ''
-      const old = formatYMD(oldVal) || ''
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      const selected = formatYMD(newValue) || ''
+      const old = formatYMD(oldValue) || ''
       if (!datesEqual(selected, old)) {
         this.activeYMD = selected || this.activeYMD
         this.selectedYMD = selected
@@ -613,26 +516,26 @@ export const BCalendar = Vue.extend({
       //   Should we compare to `formatYMD(this.value)` and emit
       //   only if they are different?
       if (newYMD !== oldYMD) {
-        this.$emit('input', this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
+        this.$emit(MODEL_EVENT_NAME, this.valueAsDate ? parseYMD(newYMD) || null : newYMD || '')
       }
     },
-    context(newVal, oldVal) {
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('context', newVal)
+    context(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(EVENT_NAME_CONTEXT, newValue)
       }
     },
-    hidden(newVal) {
+    hidden(newValue) {
       // Reset the active focused day when hidden
       this.activeYMD =
         this.selectedYMD ||
-        formatYMD(this.value || this.constrainDate(this.initialDate || this.getToday()))
+        formatYMD(this[MODEL_PROP_NAME] || this.constrainDate(this.initialDate || this.getToday()))
       // Enable/disable the live regions
-      this.setLive(!newVal)
+      this.setLive(!newValue)
     }
   },
   created() {
     this.$nextTick(() => {
-      this.$emit('context', this.context)
+      this.$emit(EVENT_NAME_CONTEXT, this.context)
     })
   },
   mounted() {
@@ -685,15 +588,15 @@ export const BCalendar = Vue.extend({
       // Performed in a `$nextTick()` to (probably) ensure
       // the input event has emitted first
       this.$nextTick(() => {
-        this.$emit('selected', formatYMD(date) || '', parseYMD(date) || null)
+        this.$emit(EVENT_NAME_SELECTED, formatYMD(date) || '', parseYMD(date) || null)
       })
     },
     // Event handlers
-    setGridFocusFlag(evt) {
+    setGridFocusFlag(event) {
       // Sets the gridHasFocus flag to make date "button" look focused
-      this.gridHasFocus = !this.disabled && evt.type === 'focus'
+      this.gridHasFocus = !this.disabled && event.type === 'focus'
     },
-    onKeydownWrapper(evt) {
+    onKeydownWrapper(event) {
       // Calendar keyboard navigation
       // Handles PAGEUP/PAGEDOWN/END/HOME/LEFT/UP/RIGHT/DOWN
       // Focuses grid after updating
@@ -701,7 +604,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return
       }
-      const { altKey, ctrlKey, keyCode } = evt
+      const { altKey, ctrlKey, keyCode } = event
       if (
         !arrayIncludes(
           [
@@ -720,7 +623,7 @@ export const BCalendar = Vue.extend({
         /* istanbul ignore next */
         return
       }
-      stopEvent(evt)
+      stopEvent(event)
       let activeDate = createDate(this.activeDate)
       let checkDate = createDate(this.activeDate)
       const day = activeDate.getDate()
@@ -778,12 +681,12 @@ export const BCalendar = Vue.extend({
       // Ensure grid is focused
       this.focus()
     },
-    onKeydownGrid(evt) {
+    onKeydownGrid(event) {
       // Pressing enter/space on grid to select active date
-      const keyCode = evt.keyCode
+      const keyCode = event.keyCode
       const activeDate = this.activeDate
       if (keyCode === CODE_ENTER || keyCode === CODE_SPACE) {
-        stopEvent(evt)
+        stopEvent(event)
         if (!this.disabled && !this.readonly && !this.dateDisabled(activeDate)) {
           this.selectedYMD = formatYMD(activeDate)
           this.emitSelected(activeDate)
@@ -918,22 +821,25 @@ export const BCalendar = Vue.extend({
     const navPrevProps = { ...navProps, flipH: isRTL }
     const navNextProps = { ...navProps, flipH: !isRTL }
     const $prevDecadeIcon =
-      this.normalizeSlot('nav-prev-decade', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_DECADE, navScope) ||
       h(BIconChevronBarLeft, { props: navPrevProps })
     const $prevYearIcon =
-      this.normalizeSlot('nav-prev-year', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_YEAR, navScope) ||
       h(BIconChevronDoubleLeft, { props: navPrevProps })
     const $prevMonthIcon =
-      this.normalizeSlot('nav-prev-month', navScope) || h(BIconChevronLeft, { props: navPrevProps })
+      this.normalizeSlot(SLOT_NAME_NAV_PEV_MONTH, navScope) ||
+      h(BIconChevronLeft, { props: navPrevProps })
     const $thisMonthIcon =
-      this.normalizeSlot('nav-this-month', navScope) || h(BIconCircleFill, { props: navProps })
+      this.normalizeSlot(SLOT_NAME_NAV_THIS_MONTH, navScope) ||
+      h(BIconCircleFill, { props: navProps })
     const $nextMonthIcon =
-      this.normalizeSlot('nav-next-month', navScope) || h(BIconChevronLeft, { props: navNextProps })
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_MONTH, navScope) ||
+      h(BIconChevronLeft, { props: navNextProps })
     const $nextYearIcon =
-      this.normalizeSlot('nav-next-year', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_YEAR, navScope) ||
       h(BIconChevronDoubleLeft, { props: navNextProps })
     const $nextDecadeIcon =
-      this.normalizeSlot('nav-next-decade', navScope) ||
+      this.normalizeSlot(SLOT_NAME_NAV_NEXT_DECADE, navScope) ||
       h(BIconChevronBarLeft, { props: navNextProps })
 
     // Utility to create the date navigation buttons
@@ -1032,14 +938,14 @@ export const BCalendar = Vue.extend({
     const $gridCaption = h(
       'header',
       {
-        key: 'grid-caption',
         staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': disabled },
         attrs: {
           id: gridCaptionId,
           'aria-live': isLive ? 'polite' : null,
           'aria-atomic': isLive ? 'true' : null
-        }
+        },
+        key: 'grid-caption'
       },
       this.formatYearMonth(this.calendarFirstDay)
     )
@@ -1055,13 +961,13 @@ export const BCalendar = Vue.extend({
         return h(
           'small',
           {
-            key: idx,
             staticClass: 'col text-truncate',
             class: { 'text-muted': disabled },
             attrs: {
               title: d.label === d.text ? null : d.label,
               'aria-label': d.label
-            }
+            },
+            key: idx
           },
           d.text
         )
@@ -1108,7 +1014,6 @@ export const BCalendar = Vue.extend({
         return h(
           'div', // Cell with button
           {
-            key: dIndex,
             staticClass: 'col p-0',
             class: day.isDisabled ? 'bg-light' : day.info.class || '',
             attrs: {
@@ -1130,7 +1035,8 @@ export const BCalendar = Vue.extend({
               // so we set both attributes for robustness
               'aria-selected': isSelected ? 'true' : null,
               'aria-current': isSelected ? 'date' : null
-            }
+            },
+            key: dIndex
           },
           [$btn]
         )
@@ -1138,15 +1044,22 @@ export const BCalendar = Vue.extend({
       // Return the week "row"
       // We use the first day of the weeks YMD value as a
       // key for efficient DOM patching / element re-use
-      return h('div', { key: week[0].ymd, staticClass: 'row no-gutters' }, $cells)
+      return h(
+        'div',
+        {
+          staticClass: 'row no-gutters',
+          key: week[0].ymd
+        },
+        $cells
+      )
     })
     $gridBody = h(
       'div',
       {
         // A key is only required on the body if we add in transition support
-        // key: this.activeYMD.slice(0, -3),
         staticClass: 'b-calendar-grid-body',
         style: disabled ? { pointerEvents: 'none' } : {}
+        // key: this.activeYMD.slice(0, -3)
       },
       $gridBody
     )
@@ -1165,7 +1078,6 @@ export const BCalendar = Vue.extend({
     const $grid = h(
       'div',
       {
-        ref: 'grid',
         staticClass: 'b-calendar-grid form-control h-auto text-center',
         attrs: {
           id: gridId,
@@ -1185,7 +1097,8 @@ export const BCalendar = Vue.extend({
           keydown: this.onKeydownGrid,
           focus: this.setGridFocusFlag,
           blur: this.setGridFocusFlag
-        }
+        },
+        ref: 'grid'
       },
       [$gridCaption, $gridWeekDays, $gridBody, $gridHelp]
     )

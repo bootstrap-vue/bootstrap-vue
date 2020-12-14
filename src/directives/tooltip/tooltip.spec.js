@@ -108,7 +108,7 @@ describe('v-b-tooltip directive', () => {
     expect($button.element[BV_TOOLTIP]).toBeDefined()
     expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Trigger click
     await $button.trigger('click')
@@ -160,7 +160,7 @@ describe('v-b-tooltip directive', () => {
     expect($button.element[BV_TOOLTIP]).toBeDefined()
     expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     // Trigger click
     await $button.trigger('click')
@@ -170,7 +170,7 @@ describe('v-b-tooltip directive', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($button.attributes('aria-describedby')).not.toBeDefined()
+    expect($button.attributes('aria-describedby')).toBeUndefined()
 
     wrapper.destroy()
   })

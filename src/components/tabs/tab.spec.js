@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BTab } from './tab'
 
 describe('tab', () => {
@@ -19,8 +19,8 @@ describe('tab', () => {
     expect(wrapper.classes()).not.toContain('card-body')
     expect(wrapper.attributes('role')).toBe('tabpanel')
     expect(wrapper.attributes('aria-hidden')).toBe('true')
-    expect(wrapper.attributes('labelledby')).not.toBeDefined()
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('labelledby')).toBeUndefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
     expect(wrapper.attributes('id')).toBeDefined()
 
     wrapper.destroy()
@@ -31,7 +31,6 @@ describe('tab', () => {
 
     expect(wrapper.vm._isTab).toBe(true)
     expect(wrapper.vm.localActive).toBe(false)
-    expect(wrapper.vm.show).toBe(false)
 
     wrapper.destroy()
   })
@@ -86,7 +85,6 @@ describe('tab', () => {
 
     await wrapper.setData({ localActive: true })
     await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.classes()).toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -94,7 +92,6 @@ describe('tab', () => {
 
     await wrapper.setData({ localActive: false })
     await waitNT(wrapper.vm)
-    await waitRAF()
 
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
@@ -108,9 +105,9 @@ describe('tab', () => {
 
     let called = false
     let value = null
-    wrapper.vm.$on('update:active', val => {
+    wrapper.vm.$on('update:active', v => {
       called = true
-      value = val
+      value = v
     })
 
     expect(called).toBe(false)

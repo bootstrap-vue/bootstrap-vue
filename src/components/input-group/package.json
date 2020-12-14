@@ -9,16 +9,13 @@
         "component": "BInputGroup",
         "props": [
           {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-          },
-          {
             "prop": "append",
             "description": "Text to append to the input group"
           },
           {
             "prop": "appendHtml",
-            "description": "HTML string to append to the input group. Has precedence over 'append' prop. Use with caution"
+            "description": "HTML string to append to the input group. Has precedence over 'append' prop",
+            "xss": true
           },
           {
             "prop": "prepend",
@@ -26,17 +23,26 @@
           },
           {
             "prop": "prependHtml",
-            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop. Use with caution"
+            "description": "HTML string to prepend to the input group. Has precedence over 'prepend' prop",
+            "xss": true
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           }
         ],
         "slots": [
           {
-            "name": "prepend",
-            "description": "Prepend attachment"
-          },
-          {
             "name": "append",
             "description": "Append attachment"
+          },
+          {
+            "name": "default",
+            "description": "Content to place in the input group"
+          },
+          {
+            "name": "prepend",
+            "description": "Prepend attachment"
           }
         ]
       },
@@ -47,6 +53,12 @@
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group prepend"
+          }
         ]
       },
       {
@@ -56,11 +68,22 @@
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group append"
+          }
         ]
       },
       {
         "component": "BInputGroupText",
-        "props": []
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group text"
+          }
+        ]
       },
       {
         "component": "BInputGroupAddon",
@@ -72,6 +95,12 @@
           {
             "prop": "isText",
             "description": "When 'true', wraps the content in a b-input-group-text component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the input group addon"
           }
         ]
       }

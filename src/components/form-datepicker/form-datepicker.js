@@ -1,104 +1,88 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_DATEPICKER } from '../../constants/components'
-import {
-  BVFormBtnLabelControl,
-  props as BVFormBtnLabelControlProps
-} from '../../utils/bv-form-btn-label-control'
-import { makePropsConfigurable } from '../../utils/config'
+import { EVENT_NAME_CONTEXT, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_DATE_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_BUTTON_CONTENT } from '../../constants/slots'
 import { createDate, constrainDate, formatYMD, parseYMD } from '../../utils/date'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
-import { pick, omit } from '../../utils/object'
-import { pluckProps } from '../../utils/props'
-import idMixin from '../../mixins/id'
+import { makeModelMixin } from '../../utils/model'
+import { omit, pick, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
 import { BButton } from '../button/button'
 import { BCalendar, props as BCalendarProps } from '../calendar/calendar'
-import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
+import {
+  BVFormBtnLabelControl,
+  props as BVFormBtnLabelControlProps
+} from '../form-btn-label-control/bv-form-btn-label-control'
+
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', { type: PROP_TYPE_DATE_STRING })
+
+// --- Props ---
+
+const calendarProps = omit(BCalendarProps, [
+  'block',
+  'hidden',
+  'id',
+  'noKeyNav',
+  'roleDescription',
+  'value',
+  'width'
+])
+
+const formBtnLabelControlProps = omit(BVFormBtnLabelControlProps, [
+  'formattedValue',
+  'id',
+  'lang',
+  'rtl',
+  'value'
+])
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ...calendarProps,
+    ...formBtnLabelControlProps,
+    // Width of the calendar dropdown
+    calendarWidth: makeProp(PROP_TYPE_STRING, '270px'),
+    closeButton: makeProp(PROP_TYPE_BOOLEAN, false),
+    closeButtonVariant: makeProp(PROP_TYPE_STRING, 'outline-secondary'),
+    // Dark mode
+    dark: makeProp(PROP_TYPE_BOOLEAN, false),
+    labelCloseButton: makeProp(PROP_TYPE_STRING, 'Close'),
+    labelResetButton: makeProp(PROP_TYPE_STRING, 'Reset'),
+    labelTodayButton: makeProp(PROP_TYPE_STRING, 'Select today'),
+    noCloseOnSelect: makeProp(PROP_TYPE_BOOLEAN, false),
+    resetButton: makeProp(PROP_TYPE_BOOLEAN, false),
+    resetButtonVariant: makeProp(PROP_TYPE_STRING, 'outline-danger'),
+    resetValue: makeProp(PROP_TYPE_DATE_STRING),
+    todayButton: makeProp(PROP_TYPE_BOOLEAN, false),
+    todayButtonVariant: makeProp(PROP_TYPE_STRING, 'outline-primary')
+  }),
+  NAME_FORM_DATEPICKER
+)
 
 // --- Main component ---
+
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_DATEPICKER,
-  // The mixins order determines the order of appearance in the props reference section
-  mixins: [idMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-  props: makePropsConfigurable(
-    {
-      ...BCalendarProps,
-      ...omit(BVFormBtnLabelControlProps, ['id', 'value', 'formattedValue', 'rtl', 'lang']),
-      resetValue: {
-        type: [String, Date]
-        // default: null
-      },
-      noCloseOnSelect: {
-        type: Boolean,
-        default: false
-      },
-      buttonOnly: {
-        type: Boolean,
-        default: false
-      },
-      buttonVariant: {
-        // Applicable in button only mode
-        type: String,
-        default: 'secondary'
-      },
-      calendarWidth: {
-        // Width of the calendar dropdown
-        type: String,
-        default: '270px'
-      },
-      todayButton: {
-        type: Boolean,
-        default: false
-      },
-      labelTodayButton: {
-        type: String,
-        default: 'Select today'
-      },
-      todayButtonVariant: {
-        type: String,
-        default: 'outline-primary'
-      },
-      resetButton: {
-        type: Boolean,
-        default: false
-      },
-      labelResetButton: {
-        type: String,
-        default: 'Reset'
-      },
-      resetButtonVariant: {
-        type: String,
-        default: 'outline-danger'
-      },
-      closeButton: {
-        type: Boolean,
-        default: false
-      },
-      labelCloseButton: {
-        type: String,
-        default: 'Close'
-      },
-      closeButtonVariant: {
-        type: String,
-        default: 'outline-secondary'
-      },
-      // Dark mode
-      dark: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_FORM_DATEPICKER
-  ),
+  mixins: [idMixin, modelMixin],
+  props,
   data() {
     return {
       // We always use `YYYY-MM-DD` value internally
-      localYMD: formatYMD(this.value) || '',
+      localYMD: formatYMD(this[MODEL_PROP_NAME]) || '',
       // If the popup is open
       isVisible: false,
       // Context data from BCalendar
@@ -122,20 +106,20 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal) {
-      this.localYMD = formatYMD(newVal) || ''
+    [MODEL_PROP_NAME](newValue) {
+      this.localYMD = formatYMD(newValue) || ''
     },
-    localYMD(newVal) {
+    localYMD(newValue) {
       // We only update the v-model when the datepicker is open
       if (this.isVisible) {
-        this.$emit('input', this.valueAsDate ? parseYMD(newVal) || null : newVal || '')
+        this.$emit(MODEL_EVENT_NAME, this.valueAsDate ? parseYMD(newValue) || null : newValue || '')
       }
     },
-    calendarYM(newVal, oldVal) {
+    calendarYM(newValue, oldValue) {
       // Displayed calendar month has changed
       // So possibly the calendar height has changed...
       // We need to update popper computed position
-      if (newVal !== oldVal && oldVal) {
+      if (newValue !== oldValue && oldValue) {
         try {
           this.$refs.control.updatePopper()
         } catch {}
@@ -182,7 +166,7 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
       this.localYMD = selectedYMD
       this.activeYMD = activeYMD
       // Re-emit the context event
-      this.$emit('context', ctx)
+      this.$emit(EVENT_NAME_CONTEXT, ctx)
     },
     onTodayButton() {
       // Set to today (or min/max if today is out of range)
@@ -201,12 +185,12 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     onShown() {
       this.$nextTick(() => {
         attemptFocus(this.$refs.calendar)
-        this.$emit('shown')
+        this.$emit(EVENT_NAME_SHOWN)
       })
     },
     onHidden() {
       this.isVisible = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {
@@ -230,7 +214,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: this.todayButtonVariant },
+            props: {
+              disabled: disabled || readonly,
+              size: 'sm',
+              variant: this.todayButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onTodayButton }
           },
@@ -245,7 +233,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled: disabled || readonly, variant: this.resetButtonVariant },
+            props: {
+              disabled: disabled || readonly,
+              size: 'sm',
+              variant: this.resetButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onResetButton }
           },
@@ -260,7 +252,11 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
         h(
           BButton,
           {
-            props: { size: 'sm', disabled, variant: this.closeButtonVariant },
+            props: {
+              disabled,
+              size: 'sm',
+              variant: this.closeButtonVariant
+            },
             attrs: { 'aria-label': label || null },
             on: { click: this.onCloseButton }
           },
@@ -288,13 +284,13 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     const $calendar = h(
       BCalendar,
       {
-        key: 'calendar',
-        ref: 'calendar',
         staticClass: 'b-form-date-calendar w-100',
         props: {
-          ...pluckProps(BCalendarProps, $props),
+          ...pluckProps(calendarProps, $props),
+          hidden: !this.isVisible,
           value: localYMD,
-          hidden: !this.isVisible
+          valueAsDate: false,
+          width: this.calendarWidth
         },
         on: {
           selected: this.onSelected,
@@ -309,7 +305,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           'nav-next-month',
           'nav-next-year',
           'nav-next-decade'
-        ])
+        ]),
+        key: 'calendar',
+        ref: 'calendar'
       },
       $footer
     )
@@ -317,17 +315,16 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
     return h(
       BVFormBtnLabelControl,
       {
-        ref: 'control',
         staticClass: 'b-form-datepicker',
         props: {
-          ...pluckProps(BVFormBtnLabelControlProps, $props),
-          id: this.safeId(),
-          value: localYMD,
+          ...pluckProps(formBtnLabelControlProps, $props),
           formattedValue: localYMD ? this.formattedValue : '',
+          id: this.safeId(),
+          lang: this.computedLang,
+          menuClass: [{ 'bg-dark': dark, 'text-light': dark }, this.menuClass],
           placeholder,
           rtl: this.isRTL,
-          lang: this.computedLang,
-          menuClass: [{ 'bg-dark': !!dark, 'text-light': !!dark }, this.menuClass]
+          value: localYMD
         },
         on: {
           show: this.onShow,
@@ -335,8 +332,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
           hidden: this.onHidden
         },
         scopedSlots: {
-          'button-content': $scopedSlots['button-content'] || this.defaultButtonFn
-        }
+          [SLOT_NAME_BUTTON_CONTENT]: $scopedSlots[SLOT_NAME_BUTTON_CONTENT] || this.defaultButtonFn
+        },
+        ref: 'control'
       },
       [$calendar]
     )

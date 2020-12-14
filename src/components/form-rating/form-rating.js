@@ -1,77 +1,81 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_SELECTED } from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_NUMBER,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
 import { CODE_LEFT, CODE_RIGHT, CODE_UP, CODE_DOWN } from '../../constants/key-codes'
-import identity from '../../utils/identity'
+import {
+  SLOT_NAME_ICON_CLEAR,
+  SLOT_NAME_ICON_EMPTY,
+  SLOT_NAME_ICON_FULL,
+  SLOT_NAME_ICON_HALF
+} from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
 import { attemptBlur, attemptFocus } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isNull } from '../../utils/inspect'
 import { isLocaleRTL } from '../../utils/locale'
 import { mathMax, mathMin } from '../../utils/math'
+import { makeModelMixin } from '../../utils/model'
 import { toInteger, toFloat } from '../../utils/number'
-import { omit } from '../../utils/object'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { props as formControlProps } from '../../mixins/form-control'
 import { BIcon } from '../../icons/icon'
 import { BIconStar, BIconStarHalf, BIconStarFill, BIconX } from '../../icons/icons'
 
 // --- Constants ---
 
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: PROP_TYPE_NUMBER_STRING,
+  event: EVENT_NAME_CHANGE
+})
+
 const MIN_STARS = 3
 const DEFAULT_STARS = 5
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 const computeStars = stars => mathMax(MIN_STARS, toInteger(stars, DEFAULT_STARS))
 
 const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 
-// --- Private helper components ---
+// --- Helper components ---
 
 // @vue/component
 const BVFormRatingStar = Vue.extend({
   name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
   props: {
-    rating: {
-      type: Number,
-      default: 0
-    },
-    star: {
-      type: Number,
-      default: 0
-    },
-    focused: {
-      // If parent is focused
-      type: Boolean,
-      default: false
-    },
-    variant: {
-      type: String
-      // default: null
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    hasClear: {
-      type: Boolean,
-      default: false
-    }
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    // If parent is focused
+    focused: makeProp(PROP_TYPE_BOOLEAN, false),
+    hasClear: makeProp(PROP_TYPE_BOOLEAN, false),
+    rating: makeProp(PROP_TYPE_NUMBER, 0),
+    readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+    star: makeProp(PROP_TYPE_NUMBER, 0),
+    variant: makeProp(PROP_TYPE_STRING)
   },
   methods: {
-    onClick(evt) {
+    onClick(event) {
       if (!this.disabled && !this.readonly) {
-        stopEvent(evt, { propagation: false })
-        this.$emit('selected', this.star)
+        stopEvent(event, { propagation: false })
+        this.$emit(EVENT_NAME_SELECTED, this.star)
       }
     }
   },
@@ -101,95 +105,48 @@ const BVFormRatingStar = Vue.extend({
   }
 })
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    ...omit(formControlProps, ['required', 'autofocus']),
+    ...formSizeProps,
+    // CSS color string (overrides variant)
+    color: makeProp(PROP_TYPE_STRING),
+    iconClear: makeProp(PROP_TYPE_STRING, 'x'),
+    iconEmpty: makeProp(PROP_TYPE_STRING, 'star'),
+    iconFull: makeProp(PROP_TYPE_STRING, 'star-fill'),
+    iconHalf: makeProp(PROP_TYPE_STRING, 'star-half'),
+    inline: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Locale for the formatted value (if shown)
+    // Defaults to the browser locale. Falls back to `en`
+    locale: makeProp(PROP_TYPE_ARRAY_STRING),
+    noBorder: makeProp(PROP_TYPE_BOOLEAN, false),
+    precision: makeProp(PROP_TYPE_NUMBER_STRING),
+    readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+    showClear: makeProp(PROP_TYPE_BOOLEAN, false),
+    showValue: makeProp(PROP_TYPE_BOOLEAN, false),
+    showValueMax: makeProp(PROP_TYPE_BOOLEAN, false),
+    stars: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_STARS, value => {
+      return toInteger(value) >= MIN_STARS
+    }),
+    variant: makeProp(PROP_TYPE_STRING)
+  }),
+  NAME_FORM_RATING
+)
+
 // --- Main component ---
+
 // @vue/component
 export const BFormRating = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_RATING,
   components: { BIconStar, BIconStarHalf, BIconStarFill, BIconX },
-  mixins: [idMixin, formSizeMixin],
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
-  props: makePropsConfigurable(
-    {
-      ...omit(formControlProps, ['required', 'autofocus']),
-      ...formSizeProps,
-      value: {
-        type: [Number, String],
-        default: null
-      },
-      stars: {
-        type: [Number, String],
-        default: DEFAULT_STARS,
-        validator(value) {
-          return toInteger(value) >= MIN_STARS
-        }
-      },
-      variant: {
-        type: String
-        // default: undefined
-      },
-      color: {
-        // CSS color string (overrides variant)
-        type: String
-        // default: undefined
-      },
-      showValue: {
-        type: Boolean,
-        default: false
-      },
-      showValueMax: {
-        type: Boolean,
-        default: false
-      },
-      readonly: {
-        type: Boolean,
-        default: false
-      },
-      noBorder: {
-        type: Boolean,
-        default: false
-      },
-      inline: {
-        type: Boolean,
-        default: false
-      },
-      precision: {
-        type: [Number, String],
-        default: null
-      },
-      iconEmpty: {
-        type: String,
-        default: 'star'
-      },
-      iconHalf: {
-        type: String,
-        default: 'star-half'
-      },
-      iconFull: {
-        type: String,
-        default: 'star-fill'
-      },
-      iconClear: {
-        type: String,
-        default: 'x'
-      },
-      locale: {
-        // Locale for the formatted value (if shown)
-        // Defaults to the browser locale. Falls back to `en`
-        type: [String, Array]
-        // default: undefined
-      },
-      showClear: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_FORM_RATING
-  ),
+  mixins: [idMixin, modelMixin, formSizeMixin],
+  props,
   data() {
-    const value = toFloat(this.value, null)
+    const value = toFloat(this[MODEL_PROP_NAME], null)
     const stars = computeStars(this.stars)
     return {
       localValue: isNull(value) ? null : clampValue(value, 0, stars),
@@ -237,19 +194,19 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        const value = toFloat(newVal, null)
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        const value = toFloat(newValue, null)
         this.localValue = isNull(value) ? null : clampValue(value, 0, this.computedStars)
       }
     },
-    localValue(newVal, oldVal) {
-      if (newVal !== oldVal && newVal !== (this.value || 0)) {
-        this.$emit('change', newVal || null)
+    localValue(newValue, oldValue) {
+      if (newValue !== oldValue && newValue !== (this.value || 0)) {
+        this.$emit(MODEL_EVENT_NAME, newValue || null)
       }
     },
-    disabled(newVal) {
-      if (newVal) {
+    disabled(newValue) {
+      if (newValue) {
         this.hasFocus = false
         this.blur()
       }
@@ -268,13 +225,13 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
       }
     },
     // --- Private methods ---
-    onKeydown(evt) {
-      const { keyCode } = evt
+    onKeydown(event) {
+      const { keyCode } = event
       if (
         this.isInteractive &&
         arrayIncludes([CODE_LEFT, CODE_DOWN, CODE_RIGHT, CODE_UP], keyCode)
       ) {
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         const value = toInteger(this.localValue, 0)
         const min = this.showClear ? 0 : 1
         const stars = this.computedStars
@@ -296,8 +253,8 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
         this.localValue = value
       }
     },
-    onFocus(evt) {
-      this.hasFocus = !this.isInteractive ? false : evt.type === 'focus'
+    onFocus(event) {
+      this.hasFocus = !this.isInteractive ? false : event.type === 'focus'
     },
     // --- Render methods ---
     renderIcon(icon) {
@@ -344,7 +301,7 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
 
     if (showClear && !disabled && !readonly) {
       const $icon = h('span', { staticClass: 'b-rating-icon' }, [
-        ($scopedSlots['icon-clear'] || this.iconClearFn)()
+        ($scopedSlots[SLOT_NAME_ICON_CLEAR] || this.iconClearFn)()
       ])
       $content.push(
         h(
@@ -378,9 +335,9 @@ export const BFormRating = /*#__PURE__*/ Vue.extend({
           },
           on: { selected: this.onSelected },
           scopedSlots: {
-            empty: $scopedSlots['icon-empty'] || this.iconEmptyFn,
-            half: $scopedSlots['icon-half'] || this.iconHalfFn,
-            full: $scopedSlots['icon-full'] || this.iconFullFn
+            empty: $scopedSlots[SLOT_NAME_ICON_EMPTY] || this.iconEmptyFn,
+            half: $scopedSlots[SLOT_NAME_ICON_HALF] || this.iconHalfFn,
+            full: $scopedSlots[SLOT_NAME_ICON_FULL] || this.iconFullFn
           },
           key: index
         })

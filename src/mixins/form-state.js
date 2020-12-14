@@ -6,25 +6,25 @@
  *  - false for is-invalid
  *  - null for no contextual state
  */
+import { Vue } from '../vue'
+import { PROP_TYPE_BOOLEAN } from '../constants/props'
 import { isBoolean } from '../utils/inspect'
-import { makePropsConfigurable } from '../utils/config'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    state: {
-      // Tri-state prop: true, false, null (or undefined)
-      type: Boolean,
-      default: null
-    }
+    // Tri-state prop: true, false, null (or undefined)
+    state: makeProp(PROP_TYPE_BOOLEAN, null)
   },
   'formState'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const formStateMixin = Vue.extend({
   props,
   computed: {
     computedState() {
@@ -43,4 +43,4 @@ export default {
       return this.computedState === false ? 'true' : ariaInvalid
     }
   }
-}
+})

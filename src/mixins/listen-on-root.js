@@ -1,5 +1,8 @@
+import { Vue } from '../vue'
+import { HOOK_EVENT_NAME_BEFORE_DESTROY } from '../constants/events'
+
 // @vue/component
-export default {
+export const listenOnRootMixin = Vue.extend({
   methods: {
     /**
      * Safely register event listeners on the root Vue node
@@ -17,7 +20,7 @@ export default {
      */
     listenOnRoot(event, callback) {
       this.$root.$on(event, callback)
-      this.$on('hook:beforeDestroy', () => {
+      this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         this.$root.$off(event, callback)
       })
     },
@@ -38,7 +41,7 @@ export default {
      */
     listenOnRootOnce(event, callback) {
       this.$root.$once(event, callback)
-      this.$on('hook:beforeDestroy', () => {
+      this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         this.$root.$off(event, callback)
       })
     },
@@ -53,4 +56,4 @@ export default {
       this.$root.$emit(event, ...args)
     }
   }
-}
+})

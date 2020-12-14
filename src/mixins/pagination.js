@@ -1,7 +1,23 @@
+import { Vue } from '../vue'
 import { NAME_PAGINATION } from '../constants/components'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_SPACE, CODE_UP } from '../constants/key-codes'
-import range from '../utils/range'
-import { makePropsConfigurable } from '../utils/config'
+import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_NUMBER_STRING,
+  PROP_TYPE_FUNCTION_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../constants/props'
+import {
+  SLOT_NAME_ELLIPSIS_TEXT,
+  SLOT_NAME_FIRST_TEXT,
+  SLOT_NAME_LAST_TEXT,
+  SLOT_NAME_NEXT_TEXT,
+  SLOT_NAME_PAGE,
+  SLOT_NAME_PREV_TEXT
+} from '../constants/slots'
+import { createArray } from '../utils/array'
 import {
   attemptFocus,
   getActiveElement,
@@ -11,18 +27,41 @@ import {
   selectAll
 } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isFunction, isNull, isUndefined } from '../utils/inspect'
+import { isFunction, isNull } from '../utils/inspect'
 import { mathFloor, mathMax, mathMin } from '../utils/math'
+import { makeModelMixin } from '../utils/model'
 import { toInteger } from '../utils/number'
+import { sortKeys } from '../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../utils/props'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
-import normalizeSlotMixin from '../mixins/normalize-slot'
+import { normalizeSlotMixin } from '../mixins/normalize-slot'
 import { BLink } from '../components/link/link'
 
 // Common props, computed, data, render function, and methods
 // for `<b-pagination>` and `<b-pagination-nav>`
 
 // --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: PROP_TYPE_BOOLEAN_NUMBER_STRING,
+  defaultValue: null,
+  /* istanbul ignore next */
+  validator(value) {
+    if (!isNull(value) && toInteger(value, 0) < 1) {
+      warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
+      return false
+    }
+    return true
+  }
+})
+
+export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
 
 // Threshold of limit size when we start/stop showing ellipsis
 const ELLIPSIS_THRESHOLD = 3
@@ -34,11 +73,11 @@ const DEFAULT_LIMIT = 5
 
 // Make an array of N to N+X
 const makePageArray = (startNumber, numberOfPages) =>
-  range(numberOfPages).map((val, i) => ({ number: startNumber + i, classes: null }))
+  createArray(numberOfPages, (_, i) => ({ number: startNumber + i, classes: null }))
 
 // Sanitize the provided limit value (converting to a number)
-const sanitizeLimit = val => {
-  const limit = toInteger(val) || 1
+const sanitizeLimit = value => {
+  const limit = toInteger(value) || 1
   return limit < 1 ? DEFAULT_LIMIT : limit
 }
 
@@ -50,12 +89,12 @@ const sanitizeCurrentPage = (val, numberOfPages) => {
 
 // Links don't normally respond to SPACE, so we add that
 // functionality via this handler
-const onSpaceKey = evt => {
-  if (evt.keyCode === CODE_SPACE) {
+const onSpaceKey = event => {
+  if (event.keyCode === CODE_SPACE) {
     // Stop page from scrolling
-    stopEvent(evt, { immediatePropagation: true })
+    stopEvent(event, { immediatePropagation: true })
     // Trigger the click event on the link
-    evt.currentTarget.click()
+    event.currentTarget.click()
     return false
   }
 }
@@ -63,144 +102,59 @@ const onSpaceKey = evt => {
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    value: {
-      type: [Number, String],
-      default: null,
-      /* istanbul ignore next */
-      validator(value) {
-        if (!isNull(value) && toInteger(value, 0) < 1) {
-          warn('"v-model" value must be a number greater than "0"', NAME_PAGINATION)
-          return false
-        }
-        return true
-      }
-    },
-    limit: {
-      type: [Number, String],
-      default: DEFAULT_LIMIT,
-      /* istanbul ignore next */
-      validator(value) {
+  sortKeys({
+    ...modelProps,
+    align: makeProp(PROP_TYPE_STRING, 'left'),
+    ariaLabel: makeProp(PROP_TYPE_STRING, 'Pagination'),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    ellipsisClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    ellipsisText: makeProp(PROP_TYPE_STRING, '\u2026'), // '…'
+    firstClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    firstNumber: makeProp(PROP_TYPE_BOOLEAN, false),
+    firstText: makeProp(PROP_TYPE_STRING, '\u00AB'), // '«'
+    hideEllipsis: makeProp(PROP_TYPE_BOOLEAN, false),
+    hideGotoEndButtons: makeProp(PROP_TYPE_BOOLEAN, false),
+    labelFirstPage: makeProp(PROP_TYPE_STRING, 'Go to first page'),
+    labelLastPage: makeProp(PROP_TYPE_STRING, 'Go to last page'),
+    labelNextPage: makeProp(PROP_TYPE_STRING, 'Go to next page'),
+    labelPage: makeProp(PROP_TYPE_FUNCTION_STRING, 'Go to page'),
+    labelPrevPage: makeProp(PROP_TYPE_STRING, 'Go to previous page'),
+    lastClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    lastNumber: makeProp(PROP_TYPE_BOOLEAN, false),
+    lastText: makeProp(PROP_TYPE_STRING, '\u00BB'), // '»'
+    limit: makeProp(
+      PROP_TYPE_NUMBER_STRING,
+      DEFAULT_LIMIT,
+      /* istanbul ignore next */ value => {
         if (toInteger(value, 0) < 1) {
           warn('Prop "limit" must be a number greater than "0"', NAME_PAGINATION)
           return false
         }
         return true
       }
-    },
-    align: {
-      type: String,
-      default: 'left'
-    },
-    pills: {
-      type: Boolean,
-      default: false
-    },
-    hideGotoEndButtons: {
-      type: Boolean,
-      default: false
-    },
-    ariaLabel: {
-      type: String,
-      default: 'Pagination'
-    },
-    labelFirstPage: {
-      type: String,
-      default: 'Go to first page'
-    },
-    firstText: {
-      type: String,
-      default: '\u00AB' // '«'
-    },
-    firstNumber: {
-      type: Boolean,
-      default: false
-    },
-    firstClass: {
-      type: [String, Array, Object],
-      default: null
-    },
-    labelPrevPage: {
-      type: String,
-      default: 'Go to previous page'
-    },
-    prevText: {
-      type: String,
-      default: '\u2039' // '‹'
-    },
-    prevClass: {
-      type: [String, Array, Object],
-      default: null
-    },
-    labelNextPage: {
-      type: String,
-      default: 'Go to next page'
-    },
-    nextText: {
-      type: String,
-      default: '\u203A' // '›'
-    },
-    nextClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    labelLastPage: {
-      type: String,
-      default: 'Go to last page'
-    },
-    lastText: {
-      type: String,
-      default: '\u00BB' // '»'
-    },
-    lastNumber: {
-      type: Boolean,
-      default: false
-    },
-    lastClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    labelPage: {
-      type: [String, Function],
-      default: 'Go to page'
-    },
-    pageClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    hideEllipsis: {
-      type: Boolean,
-      default: false
-    },
-    ellipsisText: {
-      type: String,
-      default: '\u2026' // '…'
-    },
-    ellipsisClass: {
-      type: [String, Array, Object]
-      // default: null
-    }
-  },
-  NAME_PAGINATION
+    ),
+    nextClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    nextText: makeProp(PROP_TYPE_STRING, '\u203A'), // '›'
+    pageClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    pills: makeProp(PROP_TYPE_BOOLEAN, false),
+    prevClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    prevText: makeProp(PROP_TYPE_STRING, '\u2039'), // '‹'
+    size: makeProp(PROP_TYPE_STRING)
+  }),
+  'pagination'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
-  mixins: [normalizeSlotMixin],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
+export const paginationMixin = Vue.extend({
+  mixins: [modelMixin, normalizeSlotMixin],
   props,
   data() {
     // `-1` signifies no page initially selected
-    let currentPage = toInteger(this.value, 0)
+    let currentPage = toInteger(this[MODEL_PROP_NAME], 0)
     currentPage = currentPage > 0 ? currentPage : -1
+
     return {
       currentPage,
       localNumberOfPages: 1,
@@ -209,10 +163,11 @@ export default {
   },
   computed: {
     btnSize() {
-      return this.size ? `pagination-${this.size}` : ''
+      const { size } = this
+      return size ? `pagination-${size}` : ''
     },
     alignment() {
-      const align = this.align
+      const { align } = this
       if (align === 'center') {
         return 'justify-content-center'
       } else if (align === 'end' || align === 'right') {
@@ -340,7 +295,7 @@ export default {
     }
   },
   watch: {
-    value(newValue, oldValue) {
+    [MODEL_PROP_NAME](newValue, oldValue) {
       if (newValue !== oldValue) {
         this.currentPage = sanitizeCurrentPage(newValue, this.localNumberOfPages)
       }
@@ -348,7 +303,7 @@ export default {
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
         // Emit `null` if no page selected
-        this.$emit('input', newValue > 0 ? newValue : null)
+        this.$emit(MODEL_EVENT_NAME, newValue > 0 ? newValue : null)
       }
     },
     limit(newValue, oldValue) {
@@ -367,18 +322,18 @@ export default {
     })
   },
   methods: {
-    handleKeyNav(evt) {
-      const { keyCode, shiftKey } = evt
+    handleKeyNav(event) {
+      const { keyCode, shiftKey } = event
       /* istanbul ignore if */
       if (this.isNav) {
         // We disable left/right keyboard navigation in `<b-pagination-nav>`
         return
       }
       if (keyCode === CODE_LEFT || keyCode === CODE_UP) {
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         shiftKey ? this.focusFirst() : this.focusPrev()
       } else if (keyCode === CODE_RIGHT || keyCode === CODE_DOWN) {
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         shiftKey ? this.focusLast() : this.focusNext()
       }
     },
@@ -436,15 +391,18 @@ export default {
     }
   },
   render(h) {
-    const buttons = []
-    const numberOfPages = this.localNumberOfPages
+    const {
+      disabled,
+      labelPage,
+      ariaLabel,
+      isNav,
+      localNumberOfPages: numberOfPages,
+      computedCurrentPage: currentPage
+    } = this
     const pageNumbers = this.pageList.map(p => p.number)
-    const disabled = this.disabled
     const { showFirstDots, showLastDots } = this.paginationParams
-    const currentPage = this.computedCurrentPage
     const fill = this.align === 'fill'
-    // Used to control what type of aria attributes are rendered and wrapper
-    const isNav = this.isNav
+    const $buttons = []
 
     // Helper function and flag
     const isActivePage = pageNumber => pageNumber === currentPage
@@ -474,8 +432,8 @@ export default {
           on: isDisabled
             ? {}
             : {
-                '!click': evt => {
-                  this.onClick(evt, linkTo)
+                '!click': event => {
+                  this.onClick(event, linkTo)
                 },
                 keydown: onSpaceKey
               }
@@ -509,14 +467,14 @@ export default {
       return h(
         'li',
         {
-          key: `ellipsis-${isLast ? 'last' : 'first'}`,
           staticClass: 'page-item',
           class: ['disabled', 'bv-d-xs-down-none', fill ? 'flex-fill' : '', this.ellipsisClass],
-          attrs: { role: 'separator' }
+          attrs: { role: 'separator' },
+          key: `ellipsis-${isLast ? 'last' : 'first'}`
         },
         [
           h('span', { staticClass: 'page-link' }, [
-            this.normalizeSlot('ellipsis-text') || toString(this.ellipsisText) || h()
+            this.normalizeSlot(SLOT_NAME_ELLIPSIS_TEXT) || toString(this.ellipsisText) || h()
           ])
         ]
       )
@@ -524,7 +482,8 @@ export default {
 
     // Page button factory
     const makePageButton = (page, idx) => {
-      const active = isActivePage(page.number) && !noCurrentPage
+      const { number: pageNumber } = page
+      const active = isActivePage(pageNumber) && !noCurrentPage
       // Active page will have tabindex of 0, or if no current page and first page button
       const tabIndex = disabled ? null : active || (noCurrentPage && idx === 0) ? '0' : '-1'
 
@@ -533,47 +492,47 @@ export default {
         type: isNav || disabled ? null : 'button',
         'aria-disabled': disabled ? 'true' : null,
         'aria-controls': this.ariaControls || null,
-        'aria-label':
-          isFunction(this.labelPage) && !isUndefined(this.labelPage(page.number))
-            ? /* istanbul ignore next */ this.labelPage(page.number)
-            : `${this.labelPage} ${page.number}`,
+        'aria-label': hasPropFunction(labelPage)
+          ? /* istanbul ignore next */ labelPage(pageNumber)
+          : `${isFunction(labelPage) ? labelPage() : labelPage} ${pageNumber}`,
         'aria-checked': isNav ? null : active ? 'true' : 'false',
         'aria-current': isNav && active ? 'page' : null,
-        'aria-posinset': isNav ? null : page.number,
+        'aria-posinset': isNav ? null : pageNumber,
         'aria-setsize': isNav ? null : numberOfPages,
         // ARIA "roving tabindex" method (except in `isNav` mode)
         tabindex: isNav ? null : tabIndex
       }
-      const btnContent = toString(this.makePage(page.number))
+      const btnContent = toString(this.makePage(pageNumber))
       const scope = {
-        page: page.number,
-        index: page.number - 1,
+        page: pageNumber,
+        index: pageNumber - 1,
         content: btnContent,
         active,
         disabled
       }
+
       const $inner = h(
         disabled ? 'span' : isNav ? BLink : 'button',
         {
-          props: disabled || !isNav ? {} : this.linkProps(page.number),
+          props: disabled || !isNav ? {} : this.linkProps(pageNumber),
           staticClass: 'page-link',
           class: { 'flex-grow-1': !isNav && !disabled && fill },
           attrs,
           on: disabled
             ? {}
             : {
-                '!click': evt => {
-                  this.onClick(evt, page.number)
+                '!click': event => {
+                  this.onClick(event, pageNumber)
                 },
                 keydown: onSpaceKey
               }
         },
-        [this.normalizeSlot('page', scope) || btnContent]
+        [this.normalizeSlot(SLOT_NAME_PAGE, scope) || btnContent]
       )
+
       return h(
         'li',
         {
-          key: `page-${page.number}`,
           staticClass: 'page-item',
           class: [
             {
@@ -585,7 +544,8 @@ export default {
             page.classes,
             this.pageClass
           ],
-          attrs: { role: isNav ? null : 'presentation' }
+          attrs: { role: isNav ? null : 'presentation' },
+          key: `page-${pageNumber}`
         },
         [$inner]
       )
@@ -598,21 +558,21 @@ export default {
       $firstPageBtn = makeEndBtn(
         1,
         this.labelFirstPage,
-        'first-text',
+        SLOT_NAME_FIRST_TEXT,
         this.firstText,
         this.firstClass,
         1,
         'pagination-goto-first'
       )
     }
-    buttons.push($firstPageBtn)
+    $buttons.push($firstPageBtn)
 
     // Goto previous page button
-    buttons.push(
+    $buttons.push(
       makeEndBtn(
         currentPage - 1,
         this.labelPrevPage,
-        'prev-text',
+        SLOT_NAME_PREV_TEXT,
         this.prevText,
         this.prevClass,
         1,
@@ -621,33 +581,33 @@ export default {
     )
 
     // Show first (1) button?
-    buttons.push(this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1 }, 0) : h())
+    $buttons.push(this.firstNumber && pageNumbers[0] !== 1 ? makePageButton({ number: 1 }, 0) : h())
 
     // First ellipsis
-    buttons.push(showFirstDots ? makeEllipsis(false) : h())
+    $buttons.push(showFirstDots ? makeEllipsis(false) : h())
 
     // Individual page links
     this.pageList.forEach((page, idx) => {
       const offset = showFirstDots && this.firstNumber && pageNumbers[0] !== 1 ? 1 : 0
-      buttons.push(makePageButton(page, idx + offset))
+      $buttons.push(makePageButton(page, idx + offset))
     })
 
     // Last ellipsis
-    buttons.push(showLastDots ? makeEllipsis(true) : h())
+    $buttons.push(showLastDots ? makeEllipsis(true) : h())
 
     // Show last page button?
-    buttons.push(
+    $buttons.push(
       this.lastNumber && pageNumbers[pageNumbers.length - 1] !== numberOfPages
         ? makePageButton({ number: numberOfPages }, -1)
         : h()
     )
 
     // Goto next page button
-    buttons.push(
+    $buttons.push(
       makeEndBtn(
         currentPage + 1,
         this.labelNextPage,
-        'next-text',
+        SLOT_NAME_NEXT_TEXT,
         this.nextText,
         this.nextClass,
         numberOfPages,
@@ -662,31 +622,31 @@ export default {
       $lastPageBtn = makeEndBtn(
         numberOfPages,
         this.labelLastPage,
-        'last-text',
+        SLOT_NAME_LAST_TEXT,
         this.lastText,
         this.lastClass,
         numberOfPages,
         'pagination-goto-last'
       )
     }
-    buttons.push($lastPageBtn)
+    $buttons.push($lastPageBtn)
 
     // Assemble the pagination buttons
     const $pagination = h(
       'ul',
       {
-        ref: 'ul',
         staticClass: 'pagination',
         class: ['b-pagination', this.btnSize, this.alignment, this.styleClass],
         attrs: {
           role: isNav ? null : 'menubar',
           'aria-disabled': disabled ? 'true' : 'false',
-          'aria-label': isNav ? null : this.ariaLabel || null
+          'aria-label': isNav ? null : ariaLabel || null
         },
         // We disable keyboard left/right nav when `<b-pagination-nav>`
-        on: isNav ? {} : { keydown: this.handleKeyNav }
+        on: isNav ? {} : { keydown: this.handleKeyNav },
+        ref: 'ul'
       },
-      buttons
+      $buttons
     )
 
     // If we are `<b-pagination-nav>`, wrap in `<nav>` wrapper
@@ -697,7 +657,7 @@ export default {
           attrs: {
             'aria-disabled': disabled ? 'true' : null,
             'aria-hidden': disabled ? 'true' : 'false',
-            'aria-label': isNav ? this.ariaLabel || null : null
+            'aria-label': isNav ? ariaLabel || null : null
           }
         },
         [$pagination]
@@ -706,4 +666,4 @@ export default {
 
     return $pagination
   }
-}
+})

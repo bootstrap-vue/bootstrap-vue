@@ -15,7 +15,7 @@ describe('table > row select', () => {
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -29,7 +29,7 @@ describe('table > row select', () => {
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
+    expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
@@ -58,7 +58,7 @@ describe('table > row select', () => {
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.attributes('aria-multiselectable')).not.toBeDefined()
+    expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
@@ -95,7 +95,7 @@ describe('table > row select', () => {
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
     expect(wrapper.classes()).not.toContain('b-table-select-range')
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -120,7 +120,7 @@ describe('table > row select', () => {
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
     expect(wrapper.classes()).not.toContain('b-table-select-range')
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(4)
     expect($rows.wrappers.every(r => r.find('[aria-selected="false"]').exists())).toBe(true)
@@ -206,7 +206,7 @@ describe('table > row select', () => {
     expect(wrapper.classes()).not.toContain('b-table-select-single')
     expect(wrapper.classes()).not.toContain('b-table-select-range')
     expect(wrapper.classes()).not.toContain('b-table-selecting')
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Click first row
     await wrapper
@@ -306,7 +306,7 @@ describe('table > row select', () => {
     expect(wrapper.classes()).not.toContain('b-table-selecting')
     expect(wrapper.classes()).not.toContain('b-table-select-single')
     expect(wrapper.classes()).not.toContain('b-table-select-multi')
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.wrappers.every(r => r.find('[tabindex="0"]').exists())).toBe(true)
     expect($rows.wrappers.every(r => r.find('[aria-selected="false"]').exists())).toBe(true)
@@ -483,7 +483,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Click first row
     await wrapper
@@ -528,7 +528,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.wrappers.every(w => w.element.matches('[tabindex="0"]'))).toBe(true)
     expect($rows.wrappers.every(w => w.element.matches('[aria-selected="false"]'))).toBe(true)
@@ -574,7 +574,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr')
     expect($rows.length).toBe(3)
     expect($rows.wrappers.every(w => w.attributes('tabindex') === '0')).toBe(true)
@@ -620,7 +620,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Click first row
     await wrapper
@@ -661,7 +661,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Click first row
     await wrapper
@@ -706,7 +706,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
@@ -738,7 +738,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
@@ -770,7 +770,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectAllRows() method
     wrapper.vm.selectAllRows()
@@ -803,7 +803,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectRow() method (second row)
     wrapper.vm.selectRow(1)
@@ -881,7 +881,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectRow() method (second row)
     wrapper.vm.selectRow(1)
@@ -959,7 +959,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('row-selected')).not.toBeDefined()
+    expect(wrapper.emitted('row-selected')).toBeUndefined()
 
     // Execute selectRow() method (second row)
     wrapper.vm.selectRow(1)

@@ -8,7 +8,7 @@ import { warnNoMutationObserverSupport } from './warn'
  * @param {object} [options={childList: true, subtree: true}] observe options
  * @see https://stackoverflow.com/questions/3219758
  */
-const observeDom = (
+export const observeDom = (
   el,
   callback,
   options
@@ -75,5 +75,3 @@ const observeDom = (
   // To reduce overhead when the root element is hidden
   return obs
 }
-
-export default observeDom

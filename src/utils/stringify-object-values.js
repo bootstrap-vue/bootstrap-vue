@@ -14,7 +14,7 @@ import { toString } from './string'
 // Numbers get converted to string
 // `null` and `undefined` values are filtered out
 // Dates are converted to their native string format
-const stringifyObjectValues = value => {
+export const stringifyObjectValues = value => {
   if (isUndefinedOrNull(value)) {
     return ''
   }
@@ -29,5 +29,3 @@ const stringifyObjectValues = value => {
   }
   return toString(value)
 }
-
-export default stringifyObjectValues

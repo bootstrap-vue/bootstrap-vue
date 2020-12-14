@@ -13,36 +13,28 @@
         "component": "BToast",
         "props": [
           {
-            "prop": "title",
-            "description": "The toast's title text"
+            "prop": "appendToast",
+            "description": "When true, the toast will be appended to the bottom on the visible toasts, otherwise it will be prepended"
           },
           {
-            "prop": "toaster",
-            "description": "The name of the toaster target to render the toast in"
+            "prop": "autoHideDelay",
+            "description": "The number of milliseconds before the toast auto dismisses itself"
           },
           {
-            "prop": "visible",
-            "description": "When true, shows the toast"
+            "prop": "bodyClass",
+            "description": "CSS class (or classes) to add to the toast body element"
           },
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
+            "prop": "headerClass",
+            "description": "CSS class (or classes) to add to the toast header element"
           },
           {
             "prop": "isStatus",
             "description": "When set to 'true', makes the toast have attributes aria-live=polite and role=status. When 'false' aria-live will be 'assertive' and role will be 'alert'"
           },
           {
-            "prop": "appendToast",
-            "description": "When true, the toast will be appended to the bottom on the visible toasts, otherwise it will be prepended"
-          },
-          {
             "prop": "noAutoHide",
             "description": "When set, disabled the toast from automatically dismissing itself"
-          },
-          {
-            "prop": "autoHideDelay",
-            "description": "The number of milliseconds before the toast auto dismisses itself"
           },
           {
             "prop": "noCloseButton",
@@ -57,95 +49,103 @@
             "description": "When set, renderes the toast with a solid background rather than translucent"
           },
           {
+            "prop": "title",
+            "description": "The toast's title text"
+          },
+          {
             "prop": "toastClass",
             "description": "CSS class (or classes) to add to the toast wrapper element"
           },
           {
-            "prop": "headerClass",
-            "description": "CSS class (or classes) to add to the toast header element"
+            "prop": "toaster",
+            "description": "The name of the toaster target to render the toast in"
           },
           {
-            "prop": "bodyClass",
-            "description": "CSS class (or classes) to add to the toast body element"
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          },
+          {
+            "prop": "visible",
+            "description": "When true, shows the toast"
           }
         ],
         "events": [
           {
             "event": "change",
-            "description": "Toast visibility state. Used to update the v-model.",
+            "description": "Toast visibility state. Used to update the v-model",
             "args": [
               {
                 "arg": "visible",
                 "type": "Boolean",
-                "description": "true if toast is visible, false otherwise."
-              }
-            ]
-          },
-          {
-            "event": "show",
-            "description": "always emits just before toast is shown.",
-            "args": [
-              {
-                "arg": "bvEvt",
-                "type": "BvEvent",
-                "description": "BvEvent object."
-              }
-            ]
-          },
-          {
-            "event": "shown",
-            "description": "always emits when toast is shown.",
-            "args": [
-              {
-                "arg": "bvEvt",
-                "type": "BvEvent",
-                "description": "BvEvent object."
-              }
-            ]
-          },
-          {
-            "event": "hide",
-            "description": "always emits just before toast has hidden.",
-            "args": [
-              {
-                "arg": "bvEvt",
-                "type": "BvEvent",
-                "description": "BvEvent object."
+                "description": "`true` if toast is visible, `false` otherwise"
               }
             ]
           },
           {
             "event": "hidden",
-            "description": "always emits after toast is hidden",
+            "description": "Always emits after toast is hidden",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object."
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "hide",
+            "description": "Always emits just before toast has hidden",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "Always emits just before toast is shown",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
+              }
+            ]
+          },
+          {
+            "event": "shown",
+            "description": "Always emits when toast is shown",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object"
               }
             ]
           }
         ],
         "slots": [
           {
-            "name": "toast-title",
-            "description": "Toast title. Optionally scoped.",
+            "name": "default",
+            "description": "Toast body content. Optionally scoped",
             "scope": [
               {
                 "prop": "hide",
                 "type": "Function",
-                "description": "Hides the toast when called. Useful if you are providing your own close button."
+                "description": "Hides the toast when called. Useful if you are providing your own close button"
               }
             ]
           },
           {
-            "name": "default",
-            "description": "Toast body content. Optionally scoped.",
+            "name": "toast-title",
+            "description": "Toast title. Optionally scoped",
             "scope": [
               {
                 "prop": "hide",
                 "type": "Function",
-                "description": "Hides the toast when called. Useful if you are providing your own close button."
+                "description": "Hides the toast when called. Useful if you are providing your own close button"
               }
             ]
           }
@@ -155,20 +155,26 @@
         "component": "BToaster",
         "props": [
           {
-            "prop": "name",
-            "description": "The toaster's target name"
+            "prop": "ariaAtomic",
+            "description": "When screen reader's should read out the entire contents (set to string 'true') or just the changes (set to string 'false'). Leave blank for most cases"
           },
           {
             "prop": "ariaLive",
             "description": "When the rendered element is an aria-live region (for screen reader users), set to either 'polite' or 'assertive'"
           },
           {
-            "prop": "ariaAtomic",
-            "description": "When screen reader's should read out the entire contents (set to string 'true') or just the changes (set to string 'false'). Leave blank for most cases"
+            "prop": "name",
+            "description": "The toaster's target name"
           },
           {
             "prop": "role",
             "description": "Sets the ARIA attribute 'role' to a specific value"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (toasts) to place in the toaster element"
           }
         ]
       }

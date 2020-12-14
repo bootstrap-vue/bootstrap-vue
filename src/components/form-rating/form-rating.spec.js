@@ -120,7 +120,7 @@ describe('form-rating', () => {
 
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(1)
     const $stars = wrapper.findAll('.b-rating-star')
@@ -160,7 +160,7 @@ describe('form-rating', () => {
       value: 3.5
     })
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(3.5)
     expect(
@@ -198,7 +198,7 @@ describe('form-rating', () => {
       value: 1
     })
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     expect(wrapper.vm.localValue).toBe(1)
     expect(
@@ -337,7 +337,7 @@ describe('form-rating', () => {
 
     const $clear = wrapper.find('.b-rating-star-clear')
     expect($clear.exists()).toBe(true)
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     await $clear.trigger('click')
     expect(wrapper.emitted('change')).toBeDefined()

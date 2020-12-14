@@ -9,30 +9,26 @@
         "component": "BAlert",
         "props": [
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
+            "prop": "dismissLabel",
+            "description": "Value for the 'aria-label' attribute on the dismiss button"
           },
           {
             "prop": "dismissible",
             "description": "When set, enables the dismiss close button"
           },
           {
-            "prop": "dismissLabel",
-            "description": "Value for the 'aria-label' attribute on the dismiss button"
-          },
-          {
             "prop": "show",
             "description": "When set, shows the alert. Set to a number (seconds) to show and automatically dismiss the alert after the number of seconds has elapsed"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
           }
         ],
         "events": [
           {
-            "event": "dismissed",
-            "description": "Alert dismissed either via the dismiss close button or when the dismiss countdown has expired"
-          },
-          {
             "event": "dismiss-count-down",
-            "description": "When prop show is a number, this event emits every second on countdown.",
+            "description": "When prop show is a number, this event emits every second on countdown",
             "args": [
               {
                 "arg": "dismissCountDown",
@@ -40,6 +36,10 @@
                 "description": "Time remaining to dismissed"
               }
             ]
+          },
+          {
+            "event": "dismissed",
+            "description": "Alert dismissed either via the dismiss close button or when the dismiss countdown has expired"
           },
           {
             "event": "input",
@@ -59,7 +59,11 @@
         "slots": [
           {
             "name": "dismiss",
-            "description": "Content for the dismiss button."
+            "description": "Content for the dismiss button"
+          },
+          {
+            "name": "default",
+            "description": "Content to place in the alert"
           }
         ]
       }

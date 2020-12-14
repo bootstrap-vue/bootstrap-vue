@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "meta": {
     "title": "Form File",
-    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload",
+    "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.",
     "components": [
       {
         "component": "BFormFile",
@@ -12,59 +12,55 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "The current value of the file input. Will be a single `File` object or an array of `File` objects (if `multiple` or `directory` is set). Can be set to `null`, or an empty array to reset the file input"
-          },
-          {
-            "prop": "placeholder",
-            "description": "Sets the `placeholder` attribute value on the form control"
-          },
-          {
             "prop": "accept",
             "description": "Value to set on the file input's `accept` attribute"
-          },
-          {
-            "prop": "capture",
-            "description": "When set, will instruction the browser to use the devices camera (if supported)"
           },
           {
             "prop": "browseText",
             "description": "Text content for the file browse button"
           },
           {
-            "prop": "dropPlaceholder",
-            "description": "Text to display as the placeholder when files are being dragged and it's allowed to drop them"
-          },
-          {
-            "prop": "noDropPlaceholder",
-            "description": "Text to display as the placeholder when files are being dragged and it isn't allowed to drop them"
-          },
-          {
-            "prop": "multiple",
-            "description": "When set, will allow multiple files to be selected. `v-model` will be an array"
+            "prop": "capture",
+            "description": "When set, will instruction the browser to use the devices camera (if supported)"
           },
           {
             "prop": "directory",
             "description": "Enable `directory` mode (on browsers that support it)"
           },
           {
-            "prop": "noTraverse",
-            "description": "Wether to returns files as a flat array when in `directory` mode"
+            "prop": "dropPlaceholder",
+            "description": "Text to display as the placeholder when files are being dragged and it's allowed to drop them"
+          },
+          {
+            "prop": "fileNameFormatter",
+            "description": "Method to format the file names for display. Refer to the docs for details"
+          },
+          {
+            "prop": "multiple",
+            "description": "When set, will allow multiple files to be selected. `v-model` will be an array"
           },
           {
             "prop": "noDrop",
             "description": "Disable drag and drop mode"
           },
           {
-            "prop": "fileNameFormatter",
-            "description": "Method to format the file names for display. Refer to the docs for details"
+            "prop": "noDropPlaceholder",
+            "description": "Text to display as the placeholder when files are being dragged and it isn't allowed to drop them"
+          },
+          {
+            "prop": "noTraverse",
+            "description": "Wether to returns files as a flat array when in `directory` mode"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Sets the `placeholder` attribute value on the form control"
+          },
+          {
+            "prop": "value",
+            "description": "The current value of the file input. Will be a single `File` object or an array of `File` objects (if `multiple` or `directory` is set). Can be set to `null`, or an empty array to reset the file input"
           }
         ],
         "slots": [
-          {
-            "name": "placeholder",
-            "description": "Placeholder content, when no files selected. Defaults to `placeholder` prop value"
-          },
           {
             "name": "drop-placeholder",
             "description": "Placeholder content when files are about to be dropped. Defaults to value of `drop-placeholder` prop",
@@ -96,6 +92,10 @@
                 "description": "Flat array of file names (strings)"
               }
             ]
+          },
+          {
+            "name": "placeholder",
+            "description": "Placeholder content, when no files selected. Defaults to `placeholder` prop value"
           }
         ],
         "events": [
@@ -104,7 +104,7 @@
             "description": "Original change event of the input",
             "args": [
               {
-                "arg": "evt",
+                "arg": "event",
                 "type": "Event",
                 "description": "Native change event object"
               }

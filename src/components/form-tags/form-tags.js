@@ -1,16 +1,27 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
+import {
+  EVENT_NAME_TAG_STATE,
+  EVENT_OPTIONS_PASSIVE,
+  HOOK_EVENT_NAME_BEFORE_DESTROY
+} from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
-import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
+import {
+  PROP_TYPE_ARRAY,
+  PROP_TYPE_ARRAY_OBJECT_STRING,
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_NUMBER,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../constants/props'
 import { RX_SPACES } from '../../constants/regex'
-import cssEscape from '../../utils/css-escape'
-import identity from '../../utils/identity'
-import looseEqual from '../../utils/loose-equal'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_ADD_BUTTON_TEXT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
+import { cssEscape } from '../../utils/css-escape'
 import {
   attemptBlur,
   attemptFocus,
@@ -21,14 +32,18 @@ import {
   select
 } from '../../utils/dom'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
-import { pick } from '../../utils/object'
+import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
+import { looseEqual } from '../../utils/loose-equal'
+import { makeModelMixin } from '../../utils/model'
+import { pick, sortKeys } from '../../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
-import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
+import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
 import { BFormText } from '../form/form-text'
@@ -36,10 +51,23 @@ import { BFormTag } from './form-tag'
 
 // --- Constants ---
 
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: PROP_TYPE_ARRAY,
+  defaultValue: []
+})
+
 // Supported input types (for built in input)
 const TYPES = ['text', 'email', 'tel', 'url', 'number']
 
-// --- Utility methods ---
+// Default ignore input focus selector
+const DEFAULT_INPUT_FOCUS_SELECTOR = ['.b-form-tag', 'button', 'input', 'select'].join(' ')
+
+// --- Helper methods ---
 
 // Escape special chars in string and replace
 // contiguous spaces with a whitespace match
@@ -53,7 +81,8 @@ const cleanTags = tags => {
 }
 
 // Processes an input/change event, normalizing string or event argument
-const processEventValue = evt => (isString(evt) ? evt : isEvent(evt) ? evt.target.value || '' : '')
+const processEventValue = event =>
+  isString(event) ? event : isEvent(event) ? event.target.value || '' : ''
 
 // Returns a fresh empty `tagsState` object
 const cleanTagsState = () => ({
@@ -66,135 +95,65 @@ const cleanTagsState = () => ({
 // --- Props ---
 
 const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
+    ...modelProps,
     ...formControlProps,
     ...formSizeProps,
     ...formStateProps,
-    value: {
-      // The v-model prop
-      type: Array,
-      default: () => []
-    },
-    placeholder: {
-      type: String,
-      default: 'Add tag...'
-    },
-    inputId: {
-      type: String
-      // default: null
-    },
-    inputType: {
-      type: String,
-      default: 'text',
-      validator(value) {
-        return arrayIncludes(TYPES, value)
-      }
-    },
-    inputClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    inputAttrs: {
-      // Additional attributes to add to the input element
-      type: Object,
-      default: () => ({})
-    },
-    addButtonText: {
-      type: String,
-      default: 'Add'
-    },
-    addButtonVariant: {
-      type: String,
-      default: 'outline-secondary'
-    },
-    tagVariant: {
-      type: String,
-      default: 'secondary'
-    },
-    tagClass: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    tagPills: {
-      type: Boolean,
-      default: false
-    },
-    tagRemoveLabel: {
-      type: String,
-      default: 'Remove tag'
-    },
-    tagRemovedLabel: {
-      type: String,
-      default: 'Tag removed'
-    },
-    tagValidator: {
-      type: Function
-      // default: null
-    },
-    duplicateTagText: {
-      type: String,
-      default: 'Duplicate tag(s)'
-    },
-    invalidTagText: {
-      type: String,
-      default: 'Invalid tag(s)'
-    },
-    limitTagsText: {
-      type: String,
-      default: 'Tag limit reached'
-    },
-    limit: {
-      type: Number
-      // default: null
-    },
-    separator: {
-      // Character (or characters) that trigger adding tags
-      type: [String, Array]
-      // default: null
-    },
-    removeOnDelete: {
-      // Enable deleting last tag in list when CODE_BACKSPACE is
-      // pressed and input is empty
-      type: Boolean,
-      default: false
-    },
-    addOnChange: {
-      // Enable change event triggering tag addition
-      // Handy if using <select> as the input
-      type: Boolean,
-      default: false
-    },
-    noAddOnEnter: {
-      // Disable ENTER key from triggering tag addition
-      type: Boolean,
-      default: false
-    },
-    noOuterFocus: {
-      // Disable the focus ring on the root element
-      type: Boolean,
-      default: false
-    },
-    ignoreInputFocusSelector: {
-      // Disable the input focus behavior when clicking
-      // on element matching the selector (or selectors)
-      type: [Array, String],
-      default: () => ['.b-form-tag', 'button', 'input', 'select']
-    }
-  },
+    addButtonText: makeProp(PROP_TYPE_STRING, 'Add'),
+    addButtonVariant: makeProp(PROP_TYPE_STRING, 'outline-secondary'),
+    // Enable change event triggering tag addition
+    // Handy if using <select> as the input
+    addOnChange: makeProp(PROP_TYPE_BOOLEAN, false),
+    duplicateTagText: makeProp(PROP_TYPE_STRING, 'Duplicate tag(s)'),
+    // Disable the input focus behavior when clicking
+    // on element matching the selector (or selectors)
+    ignoreInputFocusSelector: makeProp(PROP_TYPE_ARRAY_STRING, DEFAULT_INPUT_FOCUS_SELECTOR),
+    // Additional attributes to add to the input element
+    inputAttrs: makeProp(PROP_TYPE_OBJECT, {}),
+    inputClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    inputId: makeProp(PROP_TYPE_STRING),
+    inputType: makeProp(PROP_TYPE_STRING, 'text', value => {
+      return arrayIncludes(TYPES, value)
+    }),
+    invalidTagText: makeProp(PROP_TYPE_STRING, 'Invalid tag(s)'),
+    limit: makeProp(PROP_TYPE_NUMBER),
+    limitTagsText: makeProp(PROP_TYPE_STRING, 'Tag limit reached'),
+    // Disable ENTER key from triggering tag addition
+    noAddOnEnter: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Disable the focus ring on the root element
+    noOuterFocus: makeProp(PROP_TYPE_BOOLEAN, false),
+    noTagRemove: makeProp(PROP_TYPE_BOOLEAN, false),
+    placeholder: makeProp(PROP_TYPE_STRING, 'Add tag...'),
+    // Enable deleting last tag in list when CODE_BACKSPACE is
+    // pressed and input is empty
+    removeOnDelete: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Character (or characters) that trigger adding tags
+    separator: makeProp(PROP_TYPE_ARRAY_STRING),
+    tagClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    tagPills: makeProp(PROP_TYPE_BOOLEAN, false),
+    tagRemoveLabel: makeProp(PROP_TYPE_STRING, 'Remove tag'),
+    tagRemovedLabel: makeProp(PROP_TYPE_STRING, 'Tag removed'),
+    tagValidator: makeProp(PROP_TYPE_FUNCTION),
+    tagVariant: makeProp(PROP_TYPE_STRING, 'secondary')
+  }),
   NAME_FORM_TAGS
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TAGS,
-  mixins: [idMixin, formControlMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],
-  model: {
-    // Even though this is the default that Vue assumes, we need
-    // to add it for the docs to reflect that this is the model
-    prop: 'value',
-    event: 'input'
-  },
+  mixins: [
+    idMixin,
+    modelMixin,
+    formControlMixin,
+    formSizeMixin,
+    formStateMixin,
+    normalizeSlotMixin
+  ],
   props,
   data() {
     return {
@@ -295,38 +254,38 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newVal) {
-      this.tags = cleanTags(newVal)
+    [MODEL_PROP_NAME](newValue) {
+      this.tags = cleanTags(newValue)
     },
-    tags(newVal, oldVal) {
+    tags(newValue, oldValue) {
       // Update the `v-model` (if it differs from the value prop)
-      if (!looseEqual(newVal, this.value)) {
-        this.$emit('input', newVal)
+      if (!looseEqual(newValue, this[MODEL_PROP_NAME])) {
+        this.$emit(MODEL_EVENT_NAME, newValue)
       }
-      if (!looseEqual(newVal, oldVal)) {
-        newVal = concat(newVal).filter(identity)
-        oldVal = concat(oldVal).filter(identity)
-        this.removedTags = oldVal.filter(old => !arrayIncludes(newVal, old))
+      if (!looseEqual(newValue, oldValue)) {
+        newValue = concat(newValue).filter(identity)
+        oldValue = concat(oldValue).filter(identity)
+        this.removedTags = oldValue.filter(old => !arrayIncludes(newValue, old))
       }
     },
-    tagsState(newVal, oldVal) {
+    tagsState(newValue, oldValue) {
       // Emit a tag-state event when the `tagsState` object changes
-      if (!looseEqual(newVal, oldVal)) {
-        this.$emit('tag-state', newVal.valid, newVal.invalid, newVal.duplicate)
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(EVENT_NAME_TAG_STATE, newValue.valid, newValue.invalid, newValue.duplicate)
       }
     }
   },
   created() {
     // We do this in created to make sure an input event emits
     // if the cleaned tags are not equal to the value prop
-    this.tags = cleanTags(this.value)
+    this.tags = cleanTags(this[MODEL_PROP_NAME])
   },
   mounted() {
     // Listen for form reset events, to reset the tags input
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on('hook:beforeDestroy', () => {
+      this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
       })
     }
@@ -394,14 +353,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       })
     },
     // --- Input element event handlers ---
-    onInputInput(evt) {
+    onInputInput(event) {
       /* istanbul ignore next: hard to test composition events */
-      if (this.disabled || (isEvent(evt) && evt.target.composing)) {
-        // `evt.target.composing` is set by Vue (`v-model` directive)
+      if (this.disabled || (isEvent(event) && event.target.composing)) {
+        // `event.target.composing` is set by Vue (`v-model` directive)
         // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
         return
       }
-      let newTag = processEventValue(evt)
+      let newTag = processEventValue(event)
       const separatorRe = this.computedSeparatorRegExp
       if (this.newTag !== newTag) {
         this.newTag = newTag
@@ -417,11 +376,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.tagsState = newTag === '' ? cleanTagsState() : this.parseTags(newTag)
       }
     },
-    onInputChange(evt) {
+    onInputChange(event) {
       // Change is triggered on `<input>` blur, or `<select>` selected
       // This event is opt-in
       if (!this.disabled && this.addOnChange) {
-        const newTag = processEventValue(evt)
+        const newTag = processEventValue(event)
         /* istanbul ignore next */
         if (this.newTag !== newTag) {
           this.newTag = newTag
@@ -429,18 +388,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         this.addTag()
       }
     },
-    onInputKeydown(evt) {
+    onInputKeydown(event) {
       // Early exit
       /* istanbul ignore next */
-      if (this.disabled || !isEvent(evt)) {
+      if (this.disabled || !isEvent(event)) {
         return
       }
-      const keyCode = evt.keyCode
-      const value = evt.target.value || ''
+      const { keyCode } = event
+      const value = event.target.value || ''
       /* istanbul ignore else: testing to be added later */
       if (!this.noAddOnEnter && keyCode === CODE_ENTER) {
         // Attempt to add the tag when user presses enter
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         this.addTag()
       } else if (
         this.removeOnDelete &&
@@ -448,14 +407,14 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         value === ''
       ) {
         // Remove the last tag if the user pressed backspace/delete and the input is empty
-        stopEvent(evt, { propagation: false })
+        stopEvent(event, { propagation: false })
         this.tags = this.tags.slice(0, -1)
       }
     },
     // --- Wrapper event handlers ---
-    onClick(evt) {
+    onClick(event) {
       const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
-      const { target } = evt
+      const { target } = event
       if (
         !this.disabled &&
         !isActiveElement(target) &&
@@ -535,7 +494,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     validateTag(tag) {
       const { tagValidator } = this
-      return tagValidator.name !== props.tagValidator.default.name ? tagValidator(tag) : true
+      return hasPropFunction(tagValidator) ? tagValidator(tag) : true
     },
     getInput() {
       // Returns the input element reference (or null if not found)
@@ -544,47 +503,50 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // Default User Interface render
     defaultRender({
-      tags,
-      inputAttrs,
-      inputType,
-      inputHandlers,
-      removeTag,
-      addTag,
-      isInvalid,
-      isDuplicate,
-      isLimitReached,
-      disableAddButton,
-      disabled,
-      placeholder,
-      inputClass,
-      tagRemoveLabel,
-      tagVariant,
-      tagPills,
-      tagClass,
       addButtonText,
       addButtonVariant,
-      invalidTagText,
+      addTag,
+      disableAddButton,
+      disabled,
       duplicateTagText,
-      limitTagsText
+      inputAttrs,
+      inputClass,
+      inputHandlers,
+      inputType,
+      invalidTagText,
+      isDuplicate,
+      isInvalid,
+      isLimitReached,
+      limitTagsText,
+      noTagRemove,
+      placeholder,
+      removeTag,
+      tagClass,
+      tagPills,
+      tagRemoveLabel,
+      tagVariant,
+      tags
     }) {
       const h = this.$createElement
 
       // Make the list of tags
       const $tags = tags.map(tag => {
         tag = toString(tag)
+
         return h(
           BFormTag,
           {
             class: tagClass,
+            // `BFormTag` will auto generate an ID
+            // so we do not need to set the ID prop
             props: {
-              // `BFormTag` will auto generate an ID
-              // so we do not need to set the ID prop
+              disabled,
+              noRemove: noTagRemove,
+              pill: tagPills,
+              removeLabel: tagRemoveLabel,
               tag: 'li',
               title: tag,
-              disabled,
-              variant: tagVariant,
-              pill: tagPills,
-              removeLabel: tagRemoveLabel
+              variant: tagVariant
             },
             on: { remove: () => removeTag(tag) },
             key: `tags_${tag}`
@@ -613,9 +575,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
 
       // Input
       const $input = h('input', {
-        ref: 'input',
-        // Directive needed to get `evt.target.composing` set (if needed)
-        directives: [{ name: 'model', value: inputAttrs.value }],
         staticClass: 'b-form-tags-input w-100 flex-grow-1 p-0 m-0 bg-transparent border-0',
         class: inputClass,
         style: { outline: 0, minWidth: '5rem' },
@@ -626,14 +585,16 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           placeholder: placeholder || null
         },
         domProps: { value: inputAttrs.value },
-        on: inputHandlers
+        on: inputHandlers,
+        // Directive needed to get `event.target.composing` set (if needed)
+        directives: [{ name: 'model', value: inputAttrs.value }],
+        ref: 'input'
       })
 
       // Add button
       const $button = h(
         BButton,
         {
-          ref: 'button',
           staticClass: 'b-form-tags-button py-0',
           class: {
             // Only show the button if the tag can be added
@@ -644,12 +605,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           },
           style: { fontSize: '90%' },
           props: {
-            variant: addButtonVariant,
-            disabled: disableAddButton || isLimitReached
+            disabled: disableAddButton || isLimitReached,
+            variant: addButtonVariant
           },
-          on: { click: () => addTag() }
+          on: { click: () => addTag() },
+          ref: 'button'
         },
-        [this.normalizeSlot('add-button-text') || addButtonText]
+        [this.normalizeSlot(SLOT_NAME_ADD_BUTTON_TEXT) || addButtonText]
       )
 
       // ID of the tags + input `<ul>` list
@@ -706,7 +668,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $invalid = h(
             BFormInvalidFeedback,
             {
-              props: { id: invalidFeedbackId, forceShow: true },
+              props: {
+                id: invalidFeedbackId,
+                forceShow: true
+              },
               key: 'tags_invalid_feedback'
             },
             [this.invalidTagText, ': ', this.invalidTags.join(joiner)]
@@ -751,6 +716,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           [$invalid, $duplicate, $limit]
         )
       }
+
       // Return the content
       return [$ul, $feedback]
     }
@@ -784,24 +750,25 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       disableAddButton: this.disableAddButton,
       // Pass-through props
       ...pick(this.$props, [
-        'disabled',
-        'required',
-        'form',
-        'state',
-        'size',
-        'limit',
-        'separator',
-        'placeholder',
-        'inputClass',
-        'tagRemoveLabel',
-        'tagVariant',
-        'tagPills',
-        'tagClass',
         'addButtonText',
         'addButtonVariant',
-        'invalidTagText',
+        'disabled',
         'duplicateTagText',
-        'limitTagsText'
+        'form',
+        'inputClass',
+        'invalidTagText',
+        'limit',
+        'limitTagsText',
+        'noTagRemove',
+        'placeholder',
+        'required',
+        'separator',
+        'size',
+        'state',
+        'tagClass',
+        'tagPills',
+        'tagRemoveLabel',
+        'tagVariant'
       ])
     }
 

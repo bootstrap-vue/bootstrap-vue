@@ -1,14 +1,19 @@
+import { Vue } from '../vue'
+import { IS_BROWSER } from '../constants/env'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { arrayIncludes } from '../utils/array'
-import { isBrowser } from '../utils/env'
 import { eventOn, eventOff } from '../utils/events'
 import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
+// --- Constants ---
+
 const PROP = '$_bv_windowHandlers_'
 
+// --- Mixin ---
+
 // @vue/component
-export default {
+export const listenOnWindowMixin = Vue.extend({
   beforeCreate() {
     // Declare non-reactive property
     // Object of arrays, keyed by event name,
@@ -16,37 +21,37 @@ export default {
     this[PROP] = {}
   },
   beforeDestroy() {
-    if (isBrowser) {
+    if (IS_BROWSER) {
       const items = this[PROP]
       // Immediately delete this[PROP] to prevent the
       // listenOn/Off methods from running (which may occur
       // due to requestAnimationFrame delays)
       delete this[PROP]
       // Remove all registered event handlers
-      keys(items).forEach(evtName => {
-        const handlers = items[evtName] || []
-        handlers.forEach(handler => eventOff(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE))
+      keys(items).forEach(eventName => {
+        const handlers = items[eventName] || []
+        handlers.forEach(handler => eventOff(window, eventName, handler, EVENT_OPTIONS_NO_CAPTURE))
       })
     }
   },
   methods: {
-    listenWindow(on, evtName, handler) {
-      on ? this.listenOnWindow(evtName, handler) : this.listenOffWindow(evtName, handler)
+    listenWindow(on, eventName, handler) {
+      on ? this.listenOnWindow(eventName, handler) : this.listenOffWindow(eventName, handler)
     },
-    listenOnWindow(evtName, handler) {
-      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
-        this[PROP][evtName] = this[PROP][evtName] || []
-        if (!arrayIncludes(this[PROP][evtName], handler)) {
-          this[PROP][evtName].push(handler)
-          eventOn(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
+    listenOnWindow(eventName, handler) {
+      if (IS_BROWSER && this[PROP] && isString(eventName) && isFunction(handler)) {
+        this[PROP][eventName] = this[PROP][eventName] || []
+        if (!arrayIncludes(this[PROP][eventName], handler)) {
+          this[PROP][eventName].push(handler)
+          eventOn(window, eventName, handler, EVENT_OPTIONS_NO_CAPTURE)
         }
       }
     },
-    listenOffWindow(evtName, handler) {
-      if (isBrowser && this[PROP] && isString(evtName) && isFunction(handler)) {
-        eventOff(window, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
-        this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
+    listenOffWindow(eventName, handler) {
+      if (IS_BROWSER && this[PROP] && isString(eventName) && isFunction(handler)) {
+        eventOff(window, eventName, handler, EVENT_OPTIONS_NO_CAPTURE)
+        this[PROP][eventName] = (this[PROP][eventName] || []).filter(h => h !== handler)
       }
     }
   }
-}
+})

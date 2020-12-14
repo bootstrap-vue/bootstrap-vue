@@ -13,6 +13,22 @@
         ],
         "props": [
           {
+            "prop": "ariaInvalid",
+            "description": "Sets the 'aria-invalid' attribute value on the wrapper element. When not provided, the 'state' prop will control the attribute"
+          },
+          {
+            "prop": "buttonVariant",
+            "description": "Specifies the Bootstrap contextual color theme variant the apply to the button style checkboxes"
+          },
+          {
+            "prop": "buttons",
+            "description": "When set, renderes the checkboxes in this group with button styling"
+          },
+          {
+            "prop": "checked",
+            "description": "The current value of the checked checkboxes in the group. Must be an array when there are multiple checkboxes"
+          },
+          {
             "prop": "size",
             "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
           },
@@ -25,44 +41,11 @@
             "description": "When set, renders the checkboxes in the group with switch styling"
           },
           {
-            "prop": "buttons",
-            "description": "When set, renderes the checkboxes in this group with button styling"
-          },
-          {
-            "prop": "buttonVariant",
-            "description": "Specifies the Bootstrap contextual color theme variant the apply to the button style checkboxes"
-          },
-          {
-            "prop": "checked",
-            "description": "The current value of the checked checkboxes in the group. Must be an array when there are multiple checkboxes"
-          },
-          {
             "prop": "validated",
             "description": "When set, adds the Bootstrap class 'was-validated' to the group wrapper"
-          },
-          {
-            "prop": "ariaInvalid",
-            "description": "Sets the 'aria-invalid' attribute value on the wrapper element. When not provided, the 'state' prop will control the attribute"
-          }
-        ],
-        "slots": [
-          {
-            "name": "first",
-            "description": "Slot to place b-form-checks so that they appear before checks generated from options prop"
           }
         ],
         "events": [
-          {
-            "event": "input",
-            "description": "Emitted when the checked value is changed",
-            "args": [
-              {
-                "arg": "checked",
-                "type": "Array",
-                "description": "Value of checkboxes. Value will be an array."
-              }
-            ]
-          },
           {
             "event": "change",
             "description": "Emitted when selected value(s) is changed due to user interaction",
@@ -70,9 +53,30 @@
               {
                 "arg": "checked",
                 "type": "Array",
-                "description": "Value of checkboxes. Value will be an array."
+                "description": "Value of checkboxes. Value will be an array"
               }
             ]
+          },
+          {
+            "event": "input",
+            "description": "Emitted when the checked value is changed",
+            "args": [
+              {
+                "arg": "checked",
+                "type": "Array",
+                "description": "Value of checkboxes. Value will be an array"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (form checkboxes) to place in the form checkbox group"
+          },
+          {
+            "name": "first",
+            "description": "Slot to place b-form-checks so that they appear before checks generated from options prop"
           }
         ]
       },
@@ -84,30 +88,6 @@
         ],
         "props": [
           {
-            "prop": "checked",
-            "description": "The current value of the checkbox(es). Must be an array when there are multiple checkboxes bound to the same v-model"
-          },
-          {
-            "prop": "value",
-            "description": "Value returned when this checkbox is checked"
-          },
-          {
-            "prop": "uncheckedValue",
-            "description": "Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array"
-          },
-          {
-            "prop": "size",
-            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-          },
-          {
-            "prop": "inline",
-            "description": "When set, renders the checkbox as an inline element rather than as a 100% width block"
-          },
-          {
-            "prop": "switch",
-            "description": "When set, renders the checkbox with the appearance of a switch"
-          },
-          {
             "prop": "button",
             "description": "When set, renders the checkbox with the appearance of a button"
           },
@@ -116,11 +96,52 @@
             "description": "Applies on of Bootstrap's theme colors when in 'button' mode"
           },
           {
+            "prop": "checked",
+            "description": "The current value of the checkbox(es). Must be an array when there are multiple checkboxes bound to the same v-model"
+          },
+          {
             "prop": "indeterminate",
             "description": "Renders the checkbox in an indeterminate state. Syncable via the .sync modifier"
+          },
+          {
+            "prop": "inline",
+            "description": "When set, renders the checkbox as an inline element rather than as a 100% width block"
+          },
+          {
+            "prop": "size",
+            "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+          },
+          {
+            "prop": "switch",
+            "description": "When set, renders the checkbox with the appearance of a switch"
+          },
+          {
+            "prop": "uncheckedValue",
+            "description": "Value returned when this checkbox is unchecked. Note not applicable when multiple checkboxes bound to the same v-model array"
+          },
+          {
+            "prop": "value",
+            "description": "Value returned when this checkbox is checked"
           }
         ],
         "events": [
+          {
+            "event": "change",
+            "description": "Emitted when selected value(s) is changed due to user interaction",
+            "args": [
+              {
+                "arg": "checked",
+                "type": [
+                  "Boolean",
+                  "String",
+                  "Number",
+                  "Object",
+                  "Array"
+                ],
+                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array"
+              }
+            ]
+          },
           {
             "event": "input",
             "description": "Emitted when the selected value(s) is changed",
@@ -134,26 +155,15 @@
                   "Object",
                   "Array"
                 ],
-                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
+                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array"
               }
             ]
-          },
+          }
+        ],
+        "slots": [
           {
-            "event": "change",
-            "description": "Emitted when selected value(s) is changed due to user interaction",
-            "args": [
-              {
-                "arg": "checked",
-                "type": [
-                  "Boolean",
-                  "String",
-                  "Number",
-                  "Object",
-                  "Array"
-                ],
-                "description": "Value of checkbox(es). When bound to multiple checkboxes, value will be an array."
-              }
-            ]
+            "name": "default",
+            "description": "Content to place in the form checkbox"
           }
         ]
       }

@@ -1,6 +1,6 @@
 import { create } from './object'
 
-const memoize = fn => {
+export const memoize = fn => {
   const cache = create(null)
 
   return (...args) => {
@@ -8,5 +8,3 @@ const memoize = fn => {
     return (cache[argsKey] = cache[argsKey] || fn.apply(null, args))
   }
 }
-
-export default memoize

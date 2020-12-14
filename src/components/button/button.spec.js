@@ -11,13 +11,13 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('href')).not.toBeDefined()
-    expect(wrapper.attributes('role')).not.toBeDefined()
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
-    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('href')).toBeUndefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-pressed')).toBeUndefined()
+    expect(wrapper.attributes('autocomplete')).toBeUndefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -32,16 +32,16 @@ describe('button', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBeDefined()
     expect(wrapper.attributes('href')).toBe('/foo/bar')
-    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.attributes('type')).toBeUndefined()
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('role')).not.toBeDefined()
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
-    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
-    expect(wrapper.attributes('tabindex')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-pressed')).toBeUndefined()
+    expect(wrapper.attributes('autocomplete')).toBeUndefined()
+    expect(wrapper.attributes('tabindex')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -144,19 +144,16 @@ describe('button', () => {
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
-    expect(wrapper.attributes('type')).not.toBeDefined()
+    expect(wrapper.attributes('type')).toBeUndefined()
     expect(wrapper.classes()).toContain('btn')
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes().length).toBe(2)
-    expect(wrapper.attributes('role')).toBeDefined()
     expect(wrapper.attributes('role')).toBe('button')
-    expect(wrapper.attributes('aria-disabled')).toBeDefined()
     expect(wrapper.attributes('aria-disabled')).toBe('false')
-    expect(wrapper.attributes('tabindex')).toBeDefined()
     expect(wrapper.attributes('tabindex')).toBe('0')
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
-    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
-    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-pressed')).toBeUndefined()
+    expect(wrapper.attributes('autocomplete')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -174,7 +171,7 @@ describe('button', () => {
     expect(wrapper.classes()).toContain('btn-secondary')
     expect(wrapper.classes()).toContain('disabled')
     expect(wrapper.classes().length).toBe(3)
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -221,11 +218,11 @@ describe('button', () => {
 
   it('should emit click event when clicked', async () => {
     let called = 0
-    let evt = null
+    let event = null
     const wrapper = mount(BButton, {
       listeners: {
         click: e => {
-          evt = e
+          event = e
           called++
         }
       }
@@ -233,24 +230,24 @@ describe('button', () => {
 
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(called).toBe(0)
-    expect(evt).toEqual(null)
+    expect(event).toEqual(null)
     await wrapper.find('button').trigger('click')
     expect(called).toBe(1)
-    expect(evt).toBeInstanceOf(MouseEvent)
+    expect(event).toBeInstanceOf(MouseEvent)
 
     wrapper.destroy()
   })
 
   it('link with href="#" should treat keydown.space as click', async () => {
     let called = 0
-    let evt = null
+    let event = null
     const wrapper = mount(BButton, {
       propsData: {
         href: '#'
       },
       listeners: {
         click: e => {
-          evt = e
+          event = e
           called++
         }
       }
@@ -263,12 +260,12 @@ describe('button', () => {
     expect(wrapper.attributes('role')).toEqual('button')
 
     expect(called).toBe(0)
-    expect(evt).toEqual(null)
+    expect(event).toEqual(null)
 
     // We add keydown.space to make links act like buttons
     await wrapper.find('.btn').trigger('keydown.space')
     expect(called).toBe(1)
-    expect(evt).toBeInstanceOf(Event)
+    expect(event).toBeInstanceOf(Event)
 
     // Links treat keydown.enter natively as a click
 
@@ -304,11 +301,11 @@ describe('button', () => {
     })
 
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBeUndefined()
     await wrapper.find('button').trigger('click')
     expect(wrapper.classes()).not.toContain('active')
-    expect(wrapper.attributes('aria-pressed')).not.toBeDefined()
-    expect(wrapper.attributes('autocomplete')).not.toBeDefined()
+    expect(wrapper.attributes('aria-pressed')).toBeUndefined()
+    expect(wrapper.attributes('autocomplete')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -369,8 +366,8 @@ describe('button', () => {
         pressed: false
       },
       listeners: {
-        'update:pressed': val => {
-          values.push(val)
+        'update:pressed': value => {
+          values.push(value)
           called++
         }
       }

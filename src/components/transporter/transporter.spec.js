@@ -1,12 +1,12 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../tests/utils'
-import { BTransporterSingle } from './transporter'
+import { createContainer, waitNT } from '../../../tests/utils'
+import { BVTransporter } from './transporter'
 
 describe('utils/transporter component', () => {
   it('renders in-pace when disabled=true', async () => {
     const App = {
       render(h) {
-        return h(BTransporterSingle, { props: { disabled: true } }, [h('div', 'content')])
+        return h(BVTransporter, { props: { disabled: true } }, [h('div', 'content')])
       }
     }
 
@@ -24,7 +24,7 @@ describe('utils/transporter component', () => {
   it('does not render in-pace when disabled=false', async () => {
     const App = {
       render(h) {
-        return h(BTransporterSingle, { props: { disabled: false } }, [
+        return h(BVTransporter, { props: { disabled: false } }, [
           h('div', { attrs: { id: 'foobar' } }, 'content')
         ])
       }
@@ -44,7 +44,7 @@ describe('utils/transporter component', () => {
     expect(target).toBeDefined()
     expect(target).not.toBe(null)
     expect(target.__vue__).toBeDefined() // Target
-    expect(target.__vue__.$options.name).toBe('BTransporterTargetSingle')
+    expect(target.__vue__.$options.name).toBe('BVTransporterTarget')
     expect(target.tagName).toEqual('DIV')
     expect(target.parentElement).toBeDefined()
     expect(target.parentElement).toBe(document.body)

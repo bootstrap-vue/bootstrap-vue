@@ -1,15 +1,16 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TABLE_CELL } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { isTag } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { toInteger } from '../../utils/number'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { toString } from '../../utils/string'
-import attrsMixin from '../../mixins/attrs'
-import listenersMixin from '../../mixins/listeners'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { attrsMixin } from '../../mixins/attrs'
+import { listenersMixin } from '../../mixins/listeners'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 // Parse a rowspan or colspan into a digit (or `null` if < `1` )
 const parseSpan = value => {
@@ -18,39 +19,23 @@ const parseSpan = value => {
 }
 
 /* istanbul ignore next */
-const spanValidator = val => isUndefinedOrNull(val) || parseSpan(val) > 0
+const spanValidator = value => isUndefinedOrNull(value) || parseSpan(value) > 0
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    variant: {
-      type: String,
-      default: null
-    },
-    colspan: {
-      type: [Number, String],
-      default: null,
-      validator: spanValidator
-    },
-    rowspan: {
-      type: [Number, String],
-      default: null,
-      validator: spanValidator
-    },
-    stackedHeading: {
-      type: String,
-      default: null
-    },
-    stickyColumn: {
-      type: Boolean,
-      default: false
-    }
+    colspan: makeProp(PROP_TYPE_NUMBER_STRING, null, spanValidator),
+    rowspan: makeProp(PROP_TYPE_NUMBER_STRING, null, spanValidator),
+    stackedHeading: makeProp(PROP_TYPE_STRING),
+    stickyColumn: makeProp(PROP_TYPE_BOOLEAN, false),
+    variant: makeProp(PROP_TYPE_STRING)
   },
   NAME_TABLE_CELL
 )
 
 // --- Main component ---
+
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
@@ -61,17 +46,14 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inject: {
     bvTableTr: {
-      /* istanbul ignore next */
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    // Overridden by `<b-th>`
     tag() {
-      // Overridden by <b-th>
       return 'td'
     },
     inTbody() {
@@ -89,30 +71,30 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     isStacked() {
       return this.bvTableTr.isStacked
     },
+    // We only support stacked-heading in tbody in stacked mode
     isStackedCell() {
-      // We only support stacked-heading in tbody in stacked mode
       return this.inTbody && this.isStacked
     },
     isResponsive() {
       return this.bvTableTr.isResponsive
     },
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
+    // Sticky headers only apply to cells in table `thead`
     isStickyHeader() {
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
-      // Sticky headers only apply to cells in table `thead`
       return this.bvTableTr.isStickyHeader
     },
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
     hasStickyHeader() {
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
       return this.bvTableTr.hasStickyHeader
     },
+    // Needed to handle background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
+    // Sticky column cells are only available in responsive
+    // mode (horizontal scrolling) or when sticky header mode
+    // Applies to cells in `thead`, `tbody` and `tfoot`
     isStickyColumn() {
-      // Needed to handle background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
-      // Sticky column cells are only available in responsive
-      // mode (horizontal scrolling) or when sticky header mode
-      // Applies to cells in `thead`, `tbody` and `tfoot`
       return !this.isStacked && (this.isResponsive || this.hasStickyHeader) && this.stickyColumn
     },
     rowVariant() {
@@ -133,26 +115,28 @@ export const BTd = /*#__PURE__*/ Vue.extend({
     computedRowspan() {
       return parseSpan(this.rowspan)
     },
+    // We use computed props here for improved performance by caching
+    // the results of the string interpolation
     cellClasses() {
-      // We use computed props here for improved performance by caching
-      // the results of the string interpolation
-      let variant = this.variant
+      let { variant, headVariant, isStickyColumn } = this
       if (
-        (!variant && this.isStickyHeader && !this.headVariant) ||
-        (!variant && this.isStickyColumn && this.inTfoot && !this.footVariant) ||
-        (!variant && this.isStickyColumn && this.inThead && !this.headVariant) ||
-        (!variant && this.isStickyColumn && this.inTbody)
+        (!variant && this.isStickyHeader && !headVariant) ||
+        (!variant && isStickyColumn && this.inTfoot && !this.footVariant) ||
+        (!variant && isStickyColumn && this.inThead && !headVariant) ||
+        (!variant && isStickyColumn && this.inTbody)
       ) {
         // Needed for sticky-header mode as Bootstrap v4 table cells do
-        // not inherit parent's background-color. Boo!
+        // not inherit parent's `background-color`
         variant = this.rowVariant || this.tableVariant || 'b-table-default'
       }
       return [
         variant ? `${this.isDark ? 'bg' : 'table'}-${variant}` : null,
-        this.isStickyColumn ? 'b-table-sticky-column' : null
+        isStickyColumn ? 'b-table-sticky-column' : null
       ]
     },
     cellAttrs() {
+      const { stackedHeading } = this
+
       // We use computed props here for improved performance by caching
       // the results of the object spread (Object.assign)
       const headOrFoot = this.inThead || this.inTfoot
@@ -185,14 +169,15 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Add in the stacked cell label data-attribute if in
         // stacked mode (if a stacked heading label is provided)
         'data-label':
-          this.isStackedCell && !isUndefinedOrNull(this.stackedHeading)
-            ? /* istanbul ignore next */ toString(this.stackedHeading)
+          this.isStackedCell && !isUndefinedOrNull(stackedHeading)
+            ? /* istanbul ignore next */ toString(stackedHeading)
             : null
       }
     }
   },
   render(h) {
-    const content = [this.normalizeSlot()]
+    const $content = [this.normalizeSlot()]
+
     return h(
       this.tag,
       {
@@ -201,7 +186,7 @@ export const BTd = /*#__PURE__*/ Vue.extend({
         // Transfer any native listeners
         on: this.bvListeners
       },
-      [this.isStackedCell ? h('div', [content]) : content]
+      [this.isStackedCell ? h('div', [$content]) : $content]
     )
   }
 })

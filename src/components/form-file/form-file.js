@@ -1,28 +1,59 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_FILE } from '../../constants/components'
-import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import { HAS_PROMISE_SUPPORT } from '../../constants/env'
+import { EVENT_NAME_CHANGE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import {
+  SLOT_NAME_DROP_PLACEHOLDER,
+  SLOT_NAME_FILE_NAME,
+  SLOT_NAME_PLACEHOLDER
+} from '../../constants/slots'
 import { RX_EXTENSION, RX_STAR } from '../../constants/regex'
-import cloneDeep from '../../utils/clone-deep'
-import identity from '../../utils/identity'
-import looseEqual from '../../utils/loose-equal'
+import { File } from '../../constants/safe-types'
 import { from as arrayFrom, flatten, flattenDeep } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
+import { cloneDeep } from '../../utils/clone-deep'
 import { closest } from '../../utils/dom'
-import { hasPromiseSupport } from '../../utils/env'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
+import { identity } from '../../utils/identity'
 import { isArray, isFile, isFunction, isNull, isUndefinedOrNull } from '../../utils/inspect'
-import { File } from '../../utils/safe-types'
+import { looseEqual } from '../../utils/loose-equal'
+import { makeModelMixin } from '../../utils/model'
+import { sortKeys } from '../../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { escapeRegExp } from '../../utils/string'
 import { warn } from '../../utils/warn'
-import attrsMixin from '../../mixins/attrs'
-import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
-import formCustomMixin, { props as formCustomProps } from '../../mixins/form-custom'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { attrsMixin } from '../../mixins/attrs'
+import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
+import { formCustomMixin, props as formCustomProps } from '../../mixins/form-custom'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { props as formSizeProps } from '../../mixins/form-size'
 
 // --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: [PROP_TYPE_ARRAY, File],
+  defaultValue: null,
+  validator: value => {
+    /* istanbul ignore next */
+    if (value === '') {
+      warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
+      return true
+    }
+    return isUndefinedOrNull(value) || isValidValue(value)
+  }
+})
 
 const VALUE_EMPTY_DEPRECATED_MSG =
   'Setting "value"/"v-model" to an empty string for reset is deprecated. Set to "null" instead.'
@@ -111,56 +142,23 @@ const getAllFileEntriesInDirectory = (directoryReader, path = '') =>
 // --- Props ---
 
 const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
+    ...modelProps,
     ...formControlProps,
     ...formCustomProps,
     ...formStateProps,
     ...formSizeProps,
-    value: {
-      type: [File, Array],
-      default: null,
-      validator(value) {
-        /* istanbul ignore next */
-        if (value === '') {
-          warn(VALUE_EMPTY_DEPRECATED_MSG, NAME_FORM_FILE)
-          return true
-        }
-        return isUndefinedOrNull(value) || isValidValue(value)
-      }
-    },
-    accept: {
-      type: String,
-      default: ''
-    },
+    accept: makeProp(PROP_TYPE_STRING, ''),
+    browseText: makeProp(PROP_TYPE_STRING, 'Browse'),
     // Instruct input to capture from camera
-    capture: {
-      type: Boolean,
-      default: false
-    },
-    placeholder: {
-      type: String,
-      default: 'No file chosen'
-    },
-    browseText: {
-      type: String,
-      default: 'Browse'
-    },
-    dropPlaceholder: {
-      type: String,
-      default: 'Drop files here'
-    },
-    noDropPlaceholder: {
-      type: String,
-      default: 'Not allowed'
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    directory: {
-      type: Boolean,
-      default: false
-    },
+    capture: makeProp(PROP_TYPE_BOOLEAN, false),
+    directory: makeProp(PROP_TYPE_BOOLEAN, false),
+    dropPlaceholder: makeProp(PROP_TYPE_STRING, 'Drop files here'),
+    fileNameFormatter: makeProp(PROP_TYPE_FUNCTION),
+    multiple: makeProp(PROP_TYPE_BOOLEAN, false),
+    noDrop: makeProp(PROP_TYPE_BOOLEAN, false),
+    noDropPlaceholder: makeProp(PROP_TYPE_STRING, 'Not allowed'),
     // TODO:
     //   Should we deprecate this and only support flat file structures?
     //   Nested file structures are only supported when files are dropped
@@ -169,21 +167,13 @@ const props = makePropsConfigurable(
     //   Mozilla implemented the behavior the same way as Chromium
     //   See: https://bugs.chromium.org/p/chromium/issues/detail?id=138987
     //   See: https://bugzilla.mozilla.org/show_bug.cgi?id=1326031
-    noTraverse: {
-      type: Boolean,
-      default: false
-    },
-    noDrop: {
-      type: Boolean,
-      default: false
-    },
-    fileNameFormatter: {
-      type: Function
-      // default: null
-    }
-  },
+    noTraverse: makeProp(PROP_TYPE_BOOLEAN, false),
+    placeholder: makeProp(PROP_TYPE_STRING, 'No file chosen')
+  }),
   NAME_FORM_FILE
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
@@ -191,22 +181,20 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
   mixins: [
     attrsMixin,
     idMixin,
+    modelMixin,
+    normalizeSlotMixin,
     formControlMixin,
     formStateMixin,
     formCustomMixin,
     normalizeSlotMixin
   ],
   inheritAttrs: false,
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props,
   data() {
     return {
       files: [],
       dragging: false,
-      // IE 11 doesn't respect setting `evt.dataTransfer.dropEffect`,
+      // IE 11 doesn't respect setting `event.dataTransfer.dropEffect`,
       // so we handle it ourselves as well
       // https://stackoverflow.com/a/46915971/2744776
       dropAllowed: !this.noDrop,
@@ -220,7 +208,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       accept = (accept || '')
         .trim()
         .split(/[,\s]+/)
-        .filter(Boolean)
+        .filter(identity)
 
       // Allow any file type/extension
       if (accept.length === 0) {
@@ -273,9 +261,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     computedFileNameFormatter() {
       const { fileNameFormatter } = this
-      return fileNameFormatter.name !== props.fileNameFormatter.default.name
-        ? fileNameFormatter
-        : this.defaultFileNameFormatter
+      return hasPropFunction(fileNameFormatter) ? fileNameFormatter : this.defaultFileNameFormatter
     },
     clonedFiles() {
       return cloneDeep(this.files)
@@ -287,30 +273,28 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       return this.flattenedFiles.map(file => file.name)
     },
     labelContent() {
-      const h = this.$createElement
-
       // Draging active
       /* istanbul ignore next: used by drag/drop which can't be tested easily */
       if (this.dragging && !this.noDrop) {
         return (
           // TODO: Add additional scope with file count, and other not-allowed reasons
-          this.normalizeSlot('drop-placeholder', { allowed: this.dropAllowed }) ||
+          this.normalizeSlot(SLOT_NAME_DROP_PLACEHOLDER, { allowed: this.dropAllowed }) ||
           (this.dropAllowed
             ? this.dropPlaceholder
-            : h('span', { staticClass: 'text-danger' }, this.noDropPlaceholder))
+            : this.$createElement('span', { staticClass: 'text-danger' }, this.noDropPlaceholder))
         )
       }
 
       // No file chosen
       if (this.files.length === 0) {
-        return this.normalizeSlot('placeholder') || this.placeholder
+        return this.normalizeSlot(SLOT_NAME_PLACEHOLDER) || this.placeholder
       }
 
       const { flattenedFiles, clonedFiles, fileNames, computedFileNameFormatter } = this
 
       // There is a slot for formatting the files/names
-      if (this.hasNormalizedSlot('file-name')) {
-        return this.normalizeSlot('file-name', {
+      if (this.hasNormalizedSlot(SLOT_NAME_FILE_NAME)) {
+        return this.normalizeSlot(SLOT_NAME_FILE_NAME, {
           files: flattenedFiles,
           filesTraversed: clonedFiles,
           names: fileNames
@@ -321,7 +305,7 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    value(newValue) {
+    [MODEL_PROP_NAME](newValue) {
       if (!newValue || (isArray(newValue) && newValue.length === 0)) {
         this.reset()
       }
@@ -330,18 +314,26 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       if (!looseEqual(newValue, oldValue)) {
         const { multiple, noTraverse } = this
         const files = !multiple || noTraverse ? flattenDeep(newValue) : newValue
-        this.$emit('input', multiple ? files : files[0] || null)
+        this.$emit(MODEL_EVENT_NAME, multiple ? files : files[0] || null)
       }
     }
+  },
+  created() {
+    // Create private non-reactive props
+    this.$_form = null
   },
   mounted() {
     // Listen for form reset events, to reset the file input
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on('hook:beforeDestroy', () => {
-        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      })
+      this.$_form = $form
+    }
+  },
+  beforeDestroy() {
+    const $form = this.$_form
+    if ($form) {
+      eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
     }
   },
   methods: {
@@ -415,26 +407,26 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.setFiles(files)
       }
     },
-    focusHandler(evt) {
+    focusHandler(event) {
       // Bootstrap v4 doesn't have focus styling for custom file input
       // Firefox has a `[type=file]:focus ~ sibling` selector issue,
       // so we add a `focus` class to get around these bugs
-      if (this.plain || evt.type === 'focusout') {
+      if (this.plain || event.type === 'focusout') {
         this.hasFocus = false
       } else {
         // Add focus styling for custom file input
         this.hasFocus = true
       }
     },
-    onChange(evt) {
-      const { type, target, dataTransfer = {} } = evt
+    onChange(event) {
+      const { type, target, dataTransfer = {} } = event
       const isDrop = type === 'drop'
 
       // Always emit original event
-      this.$emit('change', evt)
+      this.$emit(EVENT_NAME_CHANGE, event)
 
       const items = arrayFrom(dataTransfer.items || [])
-      if (hasPromiseSupport && items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
+      if (HAS_PROMISE_SUPPORT && items.length > 0 && !isNull(getDataTransferItemEntry(items[0]))) {
         // Drop handling for modern browsers
         // Supports nested directory structures in `directory` mode
         /* istanbul ignore next: not supported in JSDOM */
@@ -450,10 +442,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         this.handleFiles(files, isDrop)
       }
     },
-    onDragenter(evt) {
-      stopEvent(evt)
+    onDragenter(event) {
+      stopEvent(event)
       this.dragging = true
-      const { dataTransfer = {} } = evt
+      const { dataTransfer = {} } = event
       // Early exit when the input or dropping is disabled
       if (this.noDrop || this.disabled || !this.dropAllowed) {
         // Show deny feedback
@@ -467,10 +459,10 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     },
     // Note this event fires repeatedly while the mouse is over the dropzone at
     // intervals in the milliseconds, so avoid doing much processing in here
-    onDragover(evt) {
-      stopEvent(evt)
+    onDragover(event) {
+      stopEvent(event)
       this.dragging = true
-      const { dataTransfer = {} } = evt
+      const { dataTransfer = {} } = event
       // Early exit when the input or dropping is disabled
       if (this.noDrop || this.disabled || !this.dropAllowed) {
         // Show deny feedback
@@ -482,8 +474,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       /* istanbul ignore next: not supported in JSDOM */
       dataTransfer.dropEffect = 'copy'
     },
-    onDragleave(evt) {
-      stopEvent(evt)
+    onDragleave(event) {
+      stopEvent(event)
       this.$nextTick(() => {
         this.dragging = false
         // Reset `dropAllowed` to default
@@ -491,8 +483,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       })
     },
     // Triggered by a file drop onto drop target
-    onDrop(evt) {
-      stopEvent(evt)
+    onDrop(event) {
+      stopEvent(event)
       this.dragging = false
       // Early exit when the input or dropping is disabled
       if (this.noDrop || this.disabled || !this.dropAllowed) {
@@ -502,15 +494,14 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         })
         return
       }
-      this.onChange(evt)
+      this.onChange(event)
     }
   },
   render(h) {
-    const { custom, plain, size, dragging, stateClass } = this
+    const { custom, plain, size, dragging, stateClass, bvAttrs } = this
 
     // Form Input
     const $input = h('input', {
-      ref: 'input',
       class: [
         {
           'form-control-file': plain,
@@ -529,7 +520,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
         focusin: this.focusHandler,
         focusout: this.focusHandler,
         reset: this.reset
-      }
+      },
+      ref: 'input'
     })
 
     if (plain) {
@@ -567,7 +559,8 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
       'div',
       {
         staticClass: 'custom-file b-form-file',
-        class: [{ [`b-custom-control-${size}`]: size }, stateClass],
+        class: [{ [`b-custom-control-${size}`]: size }, stateClass, bvAttrs.class],
+        style: bvAttrs.style,
         attrs: { id: this.safeId('_BV_file_outer_') },
         on: {
           dragenter: this.onDragenter,

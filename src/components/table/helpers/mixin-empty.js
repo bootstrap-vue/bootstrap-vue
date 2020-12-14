@@ -1,64 +1,61 @@
-import { NAME_TABLE } from '../../../constants/components'
-import { makePropsConfigurable } from '../../../utils/config'
+import { Vue } from '../../../vue'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
+import {
+  SLOT_NAME_EMPTY,
+  SLOT_NAME_EMPTYFILTERED,
+  SLOT_NAME_TABLE_BUSY
+} from '../../../constants/slots'
 import { htmlOrText } from '../../../utils/html'
 import { isFunction } from '../../../utils/inspect'
+import { makeProp } from '../../../utils/props'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 
-export default {
-  props: makePropsConfigurable(
-    {
-      showEmpty: {
-        type: Boolean,
-        default: false
-      },
-      emptyText: {
-        type: String,
-        default: 'There are no records to show'
-      },
-      emptyHtml: {
-        type: String
-      },
-      emptyFilteredText: {
-        type: String,
-        default: 'There are no records matching your request'
-      },
-      emptyFilteredHtml: {
-        type: String
-      }
-    },
-    NAME_TABLE
-  ),
+// --- Props ---
+
+export const props = {
+  emptyFilteredHtml: makeProp(PROP_TYPE_STRING),
+  emptyFilteredText: makeProp(PROP_TYPE_STRING, 'There are no records matching your request'),
+  emptyHtml: makeProp(PROP_TYPE_STRING),
+  emptyText: makeProp(PROP_TYPE_STRING, 'There are no records to show'),
+  showEmpty: makeProp(PROP_TYPE_BOOLEAN, false)
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const emptyMixin = Vue.extend({
+  props,
   methods: {
     renderEmpty() {
+      const { computedItems: items } = this
       const h = this.$createElement
-      const items = this.computedItems
 
       let $empty = h()
       if (
         this.showEmpty &&
         (!items || items.length === 0) &&
-        !(this.computedBusy && this.hasNormalizedSlot('table-busy'))
+        !(this.computedBusy && this.hasNormalizedSlot(SLOT_NAME_TABLE_BUSY))
       ) {
         const {
+          computedFields: fields,
           isFiltered,
           emptyText,
           emptyHtml,
           emptyFilteredText,
           emptyFilteredHtml,
-          computedFields,
           tbodyTrClass,
           tbodyTrAttr
         } = this
 
-        $empty = this.normalizeSlot(this.isFiltered ? 'emptyfiltered' : 'empty', {
+        $empty = this.normalizeSlot(isFiltered ? SLOT_NAME_EMPTYFILTERED : SLOT_NAME_EMPTY, {
           emptyFilteredHtml,
           emptyFilteredText,
           emptyHtml,
           emptyText,
-          fields: computedFields,
+          fields,
           // Not sure why this is included, as it will always be an empty array
-          items: this.computedItems
+          items
         })
 
         if (!$empty) {
@@ -70,8 +67,17 @@ export default {
           })
         }
 
-        $empty = h(BTd, { props: { colspan: computedFields.length || null } }, [
-          h('div', { attrs: { role: 'alert', 'aria-live': 'polite' } }, [$empty])
+        $empty = h(BTd, { props: { colspan: fields.length || null } }, [
+          h(
+            'div',
+            {
+              attrs: {
+                role: 'alert',
+                'aria-live': 'polite'
+              }
+            },
+            [$empty]
+          )
         ])
 
         $empty = h(
@@ -80,11 +86,11 @@ export default {
             staticClass: 'b-table-empty-row',
             class: [
               isFunction(tbodyTrClass)
-                ? /* istanbul ignore next */ this.tbodyTrClass(null, 'row-empty')
+                ? /* istanbul ignore next */ tbodyTrClass(null, 'row-empty')
                 : tbodyTrClass
             ],
             attrs: isFunction(tbodyTrAttr)
-              ? /* istanbul ignore next */ this.tbodyTrAttr(null, 'row-empty')
+              ? /* istanbul ignore next */ tbodyTrAttr(null, 'row-empty')
               : tbodyTrAttr,
             key: isFiltered ? 'b-empty-filtered-row' : 'b-empty-row'
           },
@@ -95,4 +101,4 @@ export default {
       return $empty
     }
   }
-}
+})

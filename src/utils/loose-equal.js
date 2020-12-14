@@ -19,7 +19,7 @@ const compareArrays = (a, b) => {
  * if they are plain objects, do they have the same shape?
  * Returns boolean true or false
  */
-const looseEqual = (a, b) => {
+export const looseEqual = (a, b) => {
   if (a === b) {
     return true
   }
@@ -55,5 +55,3 @@ const looseEqual = (a, b) => {
   }
   return String(a) === String(b)
 }
-
-export default looseEqual

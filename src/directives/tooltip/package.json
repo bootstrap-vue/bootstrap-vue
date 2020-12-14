@@ -70,7 +70,8 @@
       },
       {
         "name": "html",
-        "description": "Enables basic HTML in the title (use with caution)"
+        "description": "Enables basic HTML in the title",
+        "xss": true
       },
       {
         "name": "interactive",
@@ -82,7 +83,7 @@
       },
       {
         "name": "window",
-        "description": "sets the boundary constrain to the window"
+        "description": "Sets the boundary constrain to the window"
       },
       {
         "name": "v-{variant}",

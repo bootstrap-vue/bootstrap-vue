@@ -1,12 +1,15 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_PAGINATION } from '../../constants/components'
+import { EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK } from '../../constants/events'
+import { PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { BvEvent } from '../../utils/bv-event.class'
-import { makePropsConfigurable } from '../../utils/config'
 import { attemptFocus, isVisible } from '../../utils/dom'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { mathCeil, mathMax } from '../../utils/math'
 import { toInteger } from '../../utils/number'
-import paginationMixin from '../../mixins/pagination'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { MODEL_PROP_NAME, paginationMixin, props as paginationProps } from '../../mixins/pagination'
 
 // --- Constants ---
 
@@ -16,38 +19,31 @@ const DEFAULT_TOTAL_ROWS = 0
 // --- Helper methods ---
 
 // Sanitize the provided per page number (converting to a number)
-const sanitizePerPage = val => mathMax(toInteger(val) || DEFAULT_PER_PAGE, 1)
+const sanitizePerPage = value => mathMax(toInteger(value) || DEFAULT_PER_PAGE, 1)
 
 // Sanitize the provided total rows number (converting to a number)
-const sanitizeTotalRows = val => mathMax(toInteger(val) || DEFAULT_TOTAL_ROWS, 0)
+const sanitizeTotalRows = value => mathMax(toInteger(value) || DEFAULT_TOTAL_ROWS, 0)
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...paginationProps,
+    ariaControls: makeProp(PROP_TYPE_STRING),
+    perPage: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_PER_PAGE),
+    totalRows: makeProp(PROP_TYPE_NUMBER_STRING, DEFAULT_TOTAL_ROWS)
+  }),
+  NAME_PAGINATION
+)
 
 // --- Main component ---
-// The render function is brought in via the `paginationMixin`
+
 // @vue/component
 export const BPagination = /*#__PURE__*/ Vue.extend({
   name: NAME_PAGINATION,
+  // The render function is brought in via the `paginationMixin`
   mixins: [paginationMixin],
-  props: makePropsConfigurable(
-    {
-      size: {
-        type: String
-        // default: null
-      },
-      perPage: {
-        type: [Number, String],
-        default: DEFAULT_PER_PAGE
-      },
-      totalRows: {
-        type: [Number, String],
-        default: DEFAULT_TOTAL_ROWS
-      },
-      ariaControls: {
-        type: String
-        // default: null
-      }
-    },
-    NAME_PAGINATION
-  ),
+  props,
   computed: {
     numberOfPages() {
       const result = mathCeil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
@@ -63,28 +59,28 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    pageSizeNumberOfPages(newVal, oldVal) {
-      if (!isUndefinedOrNull(oldVal)) {
-        if (newVal.perPage !== oldVal.perPage && newVal.totalRows === oldVal.totalRows) {
+    pageSizeNumberOfPages(newValue, oldValue) {
+      if (!isUndefinedOrNull(oldValue)) {
+        if (newValue.perPage !== oldValue.perPage && newValue.totalRows === oldValue.totalRows) {
           // If the page size changes, reset to page 1
           this.currentPage = 1
         } else if (
-          newVal.numberOfPages !== oldVal.numberOfPages &&
-          this.currentPage > newVal.numberOfPages
+          newValue.numberOfPages !== oldValue.numberOfPages &&
+          this.currentPage > newValue.numberOfPages
         ) {
           // If `numberOfPages` changes and is less than
           // the `currentPage` number, reset to page 1
           this.currentPage = 1
         }
       }
-      this.localNumberOfPages = newVal.numberOfPages
+      this.localNumberOfPages = newValue.numberOfPages
     }
   },
   created() {
     // Set the initial page count
     this.localNumberOfPages = this.numberOfPages
     // Set the initial page value
-    const currentPage = toInteger(this.value, 0)
+    const currentPage = toInteger(this[MODEL_PROP_NAME], 0)
     if (currentPage > 0) {
       this.currentPage = currentPage
     } else {
@@ -101,16 +97,16 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // These methods are used by the render function
-    onClick(evt, pageNumber) {
+    onClick(event, pageNumber) {
       // Dont do anything if clicking the current active page
       if (pageNumber === this.currentPage) {
         return
       }
 
-      const { target } = evt
+      const { target } = event
 
       // Emit a user-cancelable `page-click` event
-      const clickEvt = new BvEvent('page-click', {
+      const clickEvt = new BvEvent(EVENT_NAME_PAGE_CLICK, {
         cancelable: true,
         vueTarget: this,
         target
@@ -123,7 +119,7 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       // Update the `v-model`
       this.currentPage = pageNumber
       // Emit event triggered by user interaction
-      this.$emit('change', this.currentPage)
+      this.$emit(EVENT_NAME_CHANGE, this.currentPage)
 
       // Keep the current button focused if possible
       this.$nextTick(() => {
@@ -140,7 +136,6 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
     /* istanbul ignore next */
     linkProps() {
       // No props, since we render a plain button
-      /* istanbul ignore next */
       return {}
     }
   }

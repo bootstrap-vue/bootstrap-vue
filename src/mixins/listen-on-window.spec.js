@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
-import listenOnWindowMixin from './listen-on-window'
+import { listenOnWindowMixin } from './listen-on-window'
 
 describe('mixins/listen-on-window', () => {
   it('works', async () => {
@@ -22,8 +22,8 @@ describe('mixins/listen-on-window', () => {
         this.listenOnWindow('resize', spyResize2)
       },
       watch: {
-        offResizeOne(newVal) {
-          if (newVal) {
+        offResizeOne(newValue) {
+          if (newValue) {
             this.listenOffWindow('resize', spyResize1)
           }
         }

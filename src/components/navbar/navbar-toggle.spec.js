@@ -2,6 +2,11 @@ import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { BNavbarToggle } from './navbar-toggle'
 
+const ROOT_ACTION_EVENT_NAME_TOGGLE = 'bv::toggle::collapse'
+
+const ROOT_EVENT_NAME_STATE = 'bv::collapse::state'
+const ROOT_EVENT_NAME_SYNC_STATE = 'bv::collapse::sync-state'
+
 describe('navbar-toggle', () => {
   it('default has tag "button"', async () => {
     const wrapper = mount(BNavbarToggle, {
@@ -87,12 +92,12 @@ describe('navbar-toggle', () => {
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(false)
 
-    wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', true)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_STATE, 'target-6', true)
     await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(true)
 
-    wrapper.vm.$root.$emit('bv::collapse::state', 'target-6', false)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_STATE, 'target-6', false)
     await waitNT(wrapper.vm)
     expect(scope).not.toBe(null)
     expect(scope.expanded).toBe(false)
@@ -114,16 +119,16 @@ describe('navbar-toggle', () => {
     const onRootClick = () => {
       rootClicked = true
     }
-    wrapper.vm.$root.$on('bv::toggle::collapse', onRootClick)
+    wrapper.vm.$root.$on(ROOT_ACTION_EVENT_NAME_TOGGLE, onRootClick)
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
     expect(rootClicked).toBe(false)
 
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeDefined()
     expect(rootClicked).toBe(true)
 
-    wrapper.vm.$root.$off('bv::toggle::collapse', onRootClick)
+    wrapper.vm.$root.$off(ROOT_ACTION_EVENT_NAME_TOGGLE, onRootClick)
 
     wrapper.destroy()
   })
@@ -136,28 +141,28 @@ describe('navbar-toggle', () => {
     })
 
     // Private state event
-    wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', true)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_STATE, 'target-8', true)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
 
-    wrapper.vm.$root.$emit('bv::collapse::state', 'target-8', false)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_STATE, 'target-8', false)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
-    wrapper.vm.$root.$emit('bv::collapse::state', 'foo', true)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_STATE, 'foo', true)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
     // Private sync event
-    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', true)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_SYNC_STATE, 'target-8', true)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('true')
 
-    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'target-8', false)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_SYNC_STATE, 'target-8', false)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
-    wrapper.vm.$root.$emit('bv::collapse::sync::state', 'foo', true)
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_SYNC_STATE, 'foo', true)
     await waitNT(wrapper.vm)
     expect(wrapper.attributes('aria-expanded')).toBe('false')
 
@@ -172,12 +177,12 @@ describe('navbar-toggle', () => {
       }
     })
 
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
     expect(wrapper.element.hasAttribute('disabled')).toBe(true)
     expect(wrapper.classes()).toContain('disabled')
 
     await wrapper.trigger('click')
-    expect(wrapper.emitted('click')).not.toBeDefined()
+    expect(wrapper.emitted('click')).toBeUndefined()
 
     wrapper.destroy()
   })

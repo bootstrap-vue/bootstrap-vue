@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import attrsMixin from './attrs'
+import { attrsMixin } from './attrs'
 
 // Note: The following tests indirectly test `utils/cache`
 
@@ -47,8 +47,8 @@ describe('mixins > attrs', () => {
     expect($article.attributes()).toEqual({})
 
     expect($test.vm.bvAttrs).toBeDefined()
-    expect($test.vm.bvAttrs.foo).not.toBeDefined()
-    expect($test.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs.foo).toBeUndefined()
+    expect($test.vm.bvAttrs.baz).toBeUndefined()
 
     // Correctly adds new attrs data
     await wrapper.setProps({
@@ -58,7 +58,7 @@ describe('mixins > attrs', () => {
     expect($section.attributes()).toEqual({})
     expect($article.attributes()).toEqual({ foo: 'bar' })
     expect($test.vm.bvAttrs.foo).toEqual('bar')
-    expect($test.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs.baz).toBeUndefined()
 
     // Correctly updates attrs data
     await wrapper.setProps({
@@ -78,15 +78,15 @@ describe('mixins > attrs', () => {
     expect($section.attributes()).toEqual({})
     expect($article.attributes()).toEqual({ foo: 'bar' })
     expect($test.vm.bvAttrs.foo).toEqual('bar')
-    expect($test.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs.baz).toBeUndefined()
 
     // Correctly removes all attrs data
     await wrapper.setProps({ attrs: {} })
 
     expect($section.attributes()).toEqual({})
     expect($article.attributes()).toEqual({})
-    expect($test.vm.bvAttrs.foo).not.toBeDefined()
-    expect($test.vm.bvAttrs.baz).not.toBeDefined()
+    expect($test.vm.bvAttrs.foo).toBeUndefined()
+    expect($test.vm.bvAttrs.baz).toBeUndefined()
 
     wrapper.destroy()
   })

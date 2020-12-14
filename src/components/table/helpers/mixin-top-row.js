@@ -1,33 +1,37 @@
+import { Vue } from '../../../vue'
+import { SLOT_NAME_TOP_ROW } from '../../../constants/slots'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
 
-const slotName = 'top-row'
+// --- Props ---
 
-export default {
+export const props = {}
+
+// --- Mixin ---
+
+// @vue/component
+export const topRowMixin = Vue.extend({
   methods: {
     renderTopRow() {
+      const { computedFields: fields, stacked, tbodyTrClass, tbodyTrAttr } = this
       const h = this.$createElement
 
       // Add static Top Row slot (hidden in visibly stacked mode as we can't control the data-label)
       // If in *always* stacked mode, we don't bother rendering the row
-      if (!this.hasNormalizedSlot(slotName) || this.stacked === true || this.stacked === '') {
+      if (!this.hasNormalizedSlot(SLOT_NAME_TOP_ROW) || stacked === true || stacked === '') {
         return h()
       }
-
-      const fields = this.computedFields
 
       return h(
         BTr,
         {
-          key: 'b-top-row',
           staticClass: 'b-table-top-row',
-          class: [
-            isFunction(this.tbodyTrClass) ? this.tbodyTrClass(null, 'row-top') : this.tbodyTrClass
-          ],
-          attrs: isFunction(this.tbodyTrAttr) ? this.tbodyTrAttr(null, 'row-top') : this.tbodyTrAttr
+          class: [isFunction(tbodyTrClass) ? tbodyTrClass(null, 'row-top') : tbodyTrClass],
+          attrs: isFunction(tbodyTrAttr) ? tbodyTrAttr(null, 'row-top') : tbodyTrAttr,
+          key: 'b-top-row'
         },
-        [this.normalizeSlot(slotName, { columns: fields.length, fields })]
+        [this.normalizeSlot(SLOT_NAME_TOP_ROW, { columns: fields.length, fields })]
       )
     }
   }
-}
+})

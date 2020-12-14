@@ -1,10 +1,11 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
+import { PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
-import { makePropsConfigurable } from '../../utils/config'
 import { attemptFocus, contains, isVisible, selectAll } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
 // --- Constants ---
 
@@ -16,25 +17,23 @@ const ITEM_SELECTOR = [
   'input[type="radio"]:not(.disabled)'
 ].join(',')
 
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    justify: makeProp(PROP_TYPE_BOOLEAN, false),
+    keyNav: makeProp(PROP_TYPE_BOOLEAN, false)
+  },
+  NAME_BUTTON_TOOLBAR
+)
+
 // --- Main component ---
 
 // @vue/component
 export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
   name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
-  props: makePropsConfigurable(
-    {
-      justify: {
-        type: Boolean,
-        default: false
-      },
-      keyNav: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_BUTTON_TOOLBAR
-  ),
+  props,
   mounted() {
     // Pre-set the tabindexes if the markup does not include
     // `tabindex="-1"` on the toolbar items
@@ -55,17 +54,17 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       const items = this.getItems()
       attemptFocus(items[0])
     },
-    focusPrev(evt) {
+    focusPrev(event) {
       let items = this.getItems()
-      const index = items.indexOf(evt.target)
+      const index = items.indexOf(event.target)
       if (index > -1) {
         items = items.slice(0, index).reverse()
         attemptFocus(items[0])
       }
     },
-    focusNext(evt) {
+    focusNext(event) {
       let items = this.getItems()
-      const index = items.indexOf(evt.target)
+      const index = items.indexOf(event.target)
       if (index > -1) {
         items = items.slice(index + 1)
         attemptFocus(items[0])
@@ -75,25 +74,27 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
       const items = this.getItems().reverse()
       attemptFocus(items[0])
     },
-    onFocusin(evt) {
+    onFocusin(event) {
       const { $el } = this
-      if (evt.target === $el && !contains($el, evt.relatedTarget)) {
-        stopEvent(evt)
-        this.focusFirst(evt)
+      if (event.target === $el && !contains($el, event.relatedTarget)) {
+        stopEvent(event)
+        this.focusFirst(event)
       }
     },
-    onKeydown(evt) {
-      const { keyCode, shiftKey } = evt
+    onKeydown(event) {
+      const { keyCode, shiftKey } = event
       if (keyCode === CODE_UP || keyCode === CODE_LEFT) {
-        stopEvent(evt)
-        shiftKey ? this.focusFirst(evt) : this.focusPrev(evt)
+        stopEvent(event)
+        shiftKey ? this.focusFirst(event) : this.focusPrev(event)
       } else if (keyCode === CODE_DOWN || keyCode === CODE_RIGHT) {
-        stopEvent(evt)
-        shiftKey ? this.focusLast(evt) : this.focusNext(evt)
+        stopEvent(event)
+        shiftKey ? this.focusLast(event) : this.focusNext(event)
       }
     }
   },
   render(h) {
+    const { keyNav } = this
+
     return h(
       'div',
       {
@@ -101,9 +102,9 @@ export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
         class: { 'justify-content-between': this.justify },
         attrs: {
           role: 'toolbar',
-          tabindex: this.keyNav ? '0' : null
+          tabindex: keyNav ? '0' : null
         },
-        on: this.keyNav
+        on: keyNav
           ? {
               focusin: this.onFocusin,
               keydown: this.onKeydown
