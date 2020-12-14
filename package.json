@@ -109,7 +109,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-plugin-istanbul": "^6.0.0",
-    "bootstrap-icons": "^1.2.0",
+    "bootstrap-icons": "^1.2.1",
     "bundlewatch": "^0.3.1",
     "clean-css-cli": "^4.3.0",
     "codemirror": "^5.58.3",
