@@ -215,6 +215,7 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
               'text-break',
               'text-wrap',
               'bg-transparent',
+              // Mute the text if showing the placeholder
               { 'text-muted': !value },
               this.stateClass,
               this.sizeFormClass
