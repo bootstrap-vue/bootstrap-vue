@@ -33,7 +33,7 @@ import {
 } from '../../constants/slots'
 import { arrayIncludes } from '../../utils/array'
 import { BvEvent } from '../../utils/bv-event.class'
-import { attemptFocus, selectAll } from '../../utils/dom'
+import { attemptFocus, selectAll, requestAF } from '../../utils/dom'
 import { stopEvent } from '../../utils/events'
 import { identity } from '../../utils/identity'
 import { isEvent } from '../../utils/inspect'
@@ -280,8 +280,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.$emit(MODEL_EVENT_NAME, index)
     },
+    // If tabs added, removed, or re-ordered, we emit a `changed` event
     tabs(newValue, oldValue) {
-      // If tabs added, removed, or re-ordered, we emit a `changed` event
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
       // in a `$nextTick()` if no explicit ID is provided, causing duplicate emits
       if (
@@ -298,6 +298,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         })
       }
     },
+    // Each `<b-tab>` will register/unregister itself
+    // We use this to detect when tabs are added/removed
+    // to trigger the update of the tabs
     registeredTabs() {
       this.updateTabs()
     }
@@ -332,7 +335,9 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         /* istanbul ignore next: difficult to test mutation observer in JSDOM */
         const handler = () => {
           this.$nextTick(() => {
-            this.updateTabs()
+            requestAF(() => {
+              this.updateTabs()
+            })
           })
         }
 
@@ -369,29 +374,44 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     updateTabs() {
       const $tabs = this.getTabs()
 
-      // Normalize `currentTab`
-      let { currentTab } = this
-      const $tab = $tabs[currentTab]
-      if (!$tab || $tab.disabled) {
-        currentTab = $tabs.indexOf(
-          $tabs
-            .slice()
-            .reverse()
-            .find($tab => $tab.localActive && !$tab.disabled)
-        )
+      // Find last active non-disabled tab in current tabs
+      // We trust tab state over `currentTab`, in case tabs were added/removed/re-ordered
+      let tabIndex = $tabs.indexOf(
+        $tabs
+          .slice()
+          .reverse()
+          .find($tab => $tab.localActive && !$tab.disabled)
+      )
 
-        if (currentTab === -1) {
-          currentTab = $tabs.indexOf($tabs.find(notDisabled))
+      // Else try setting to `currentTab`
+      if (tabIndex < 0) {
+        const { currentTab } = this
+        if (currentTab >= $tabs.length) {
+          // Handle last tab being removed, so find the last non-disabled tab
+          tabIndex = $tabs.indexOf(
+            $tabs
+              .slice()
+              .reverse()
+              .find(notDisabled)
+          )
+        } else if ($tabs[currentTab] && !$tabs[currentTab].disabled) {
+          // Current tab is not disabled
+          tabIndex = currentTab
         }
+      }
+
+      // Else find first non-disabled tab in current tabs
+      if (tabIndex < 0) {
+        tabIndex = $tabs.indexOf($tabs.find(notDisabled))
       }
 
       // Ensure only one tab is active at a time
       $tabs.forEach(($tab, index) => {
-        $tab.localActive = index === currentTab
+        $tab.localActive = index === tabIndex
       })
 
       this.tabs = $tabs
-      this.currentTab = currentTab
+      this.currentTab = tabIndex
     },
     // Find a button that controls a tab, given the tab reference
     // Returns the button vm instance
