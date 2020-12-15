@@ -280,8 +280,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.$emit(MODEL_EVENT_NAME, index)
     },
+    // If tabs added, removed, or re-ordered, we emit a `changed` event
     tabs(newValue, oldValue) {
-      // If tabs added, removed, or re-ordered, we emit a `changed` event
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
       // in a `$nextTick()` if no explicit ID is provided, causing duplicate emits
       if (
