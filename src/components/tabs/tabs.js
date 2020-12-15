@@ -280,8 +280,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.$emit(MODEL_EVENT_NAME, index)
     },
-    // If tabs added, removed, or re-ordered, we emit a `changed` event
     tabs(newValue, oldValue) {
+      // If tabs added, removed, or re-ordered, we emit a `changed` event
       // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
       // in a `$nextTick()` if no explicit ID is provided, causing duplicate emits
       if (
@@ -358,7 +358,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       // DOM Order of Tabs
       let order = []
       if (IS_BROWSER && $tabs.length > 0) {
-        // We rely on the DOM when mounted to get the 'true' order of the `<b-tab>` children
+        // We rely on the DOM when mounted to get the "true" order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
         // order specified in the selector
         const selector = $tabs.map($tab => `#${$tab.safeId()}`).join(', ')
