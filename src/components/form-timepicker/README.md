@@ -251,7 +251,7 @@ In the following simple example, we are placing the timepicker (button only mode
           locale="en"
           aria-controls="example-input"
         ></b-form-timepicker>
-      </b-input-group-append">
+      </b-input-group-append>
     </b-input-group>
     <p>Value: '{{ value }}'</p>
   </div>
