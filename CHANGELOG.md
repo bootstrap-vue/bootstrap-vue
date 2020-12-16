@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+<a name="2.21.1"></a>
+
+## [v2.21.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.21.0...v2.21.1)
+
+Released: 2020-12-16
+
+### Bug Fixes v2.21.1
+
+- **b-badge:** attribute inheritance
+  ([#6217](https://github.com/bootstrap-vue/bootstrap-vue/issues/6217))
+  ([2d31f31](https://github.com/bootstrap-vue/bootstrap-vue/commit/2d31f31909c002faa2a9d8bd8620115ddf8ce603))
+- **b-dropdown:** root events ([#6198](https://github.com/bootstrap-vue/bootstrap-vue/issues/6198))
+  ([6dcd233](https://github.com/bootstrap-vue/bootstrap-vue/commit/6dcd23334f2870220ed5c4d8b30bd556e57c03d5))
+- **b-pagination:** don't set initial page count twice
+  ([#6200](https://github.com/bootstrap-vue/bootstrap-vue/issues/6200))
+  ([d7394e3](https://github.com/bootstrap-vue/bootstrap-vue/commit/d7394e3426e5b06797caef070137ec47b25ef62a))
+- **b-tabs:** restore correct active tab detection logic (closes
+  [#6205](https://github.com/bootstrap-vue/bootstrap-vue/issues/6205))
+  ([#6208](https://github.com/bootstrap-vue/bootstrap-vue/issues/6208))
+  ([6d92a43](https://github.com/bootstrap-vue/bootstrap-vue/commit/6d92a4376c227a02a7c24e19c04e437bb8909c1c))
+
 <a name="2.21.0"></a>
 
 ## [v2.21.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.20.1...v2.21.0)

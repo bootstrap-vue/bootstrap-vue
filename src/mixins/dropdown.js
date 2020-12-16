@@ -184,8 +184,8 @@ export const dropdownMixin = Vue.extend({
     // Event emitter
     emitEvent(bvEvent) {
       const { type } = bvEvent
+      this.emitOnRoot(getRootEventName(NAME_DROPDOWN, type), bvEvent)
       this.$emit(type, bvEvent)
-      this.emitOnRoot(getRootEventName(NAME_DROPDOWN, type))
     },
     showMenu() {
       if (this.disabled) {
