@@ -357,6 +357,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
 
       // DOM Order of Tabs
       let order = []
+      /* istanbul ignore next: too difficult to test */
       if (IS_BROWSER && $tabs.length > 0) {
         // We rely on the DOM when mounted to get the "true" order of the `<b-tab>` children
         // `querySelectorAll()` always returns elements in document order, regardless of
