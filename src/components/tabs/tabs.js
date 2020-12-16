@@ -282,12 +282,12 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     // If tabs added, removed, or re-ordered, we emit a `changed` event
     tabs(newValue, oldValue) {
-      // We use `tab._uid` instead of `tab.safeId()`, as the later is changed
-      // in a `$nextTick()` if no explicit ID is provided, causing duplicate emits
+      // We use `_uid` instead of `safeId()`, as the later is changed in a `$nextTick()`
+      // if no explicit ID is provided, causing duplicate emits
       if (
         !looseEqual(
-          newValue.map(t => t[COMPONENT_UID_KEY]),
-          oldValue.map(t => t[COMPONENT_UID_KEY])
+          newValue.map($tab => $tab[COMPONENT_UID_KEY]),
+          oldValue.map($tab => $tab[COMPONENT_UID_KEY])
         )
       ) {
         // In a `$nextTick()` to ensure `currentTab` has been set first
