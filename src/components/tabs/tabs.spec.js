@@ -111,18 +111,18 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
 
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.vm.tabs[1].localActive).toBe(true)
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.tabs[1].localActive).toBe(true)
 
-    expect(tabs.emitted('input')).toBeDefined()
-    expect(tabs.emitted('input').length).toBe(1)
+    expect($tabs.emitted('input')).toBeDefined()
+    expect($tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
-    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect($tabs.emitted('input')[0][0]).toBe(1)
 
     wrapper.destroy()
   })
@@ -142,18 +142,18 @@ describe('tabs', () => {
 
     await waitNT(wrapper.vm)
 
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.vm.tabs[1].localActive).toBe(true)
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.tabs[1].localActive).toBe(true)
 
-    expect(tabs.emitted('input')).toBeDefined()
-    expect(tabs.emitted('input').length).toBe(1)
+    expect($tabs.emitted('input')).toBeDefined()
+    expect($tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
-    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect($tabs.emitted('input')[0][0]).toBe(1)
 
     wrapper.destroy()
   })
@@ -172,34 +172,34 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 2nd tab (index 1) to be active
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
-    expect(tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(true)
-    expect(tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(false)
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
+    expect($tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(true)
+    expect($tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(false)
 
-    expect(tabs.emitted('input')).toBeDefined()
-    expect(tabs.emitted('input').length).toBe(1)
+    expect($tabs.emitted('input')).toBeDefined()
+    expect($tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
-    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect($tabs.emitted('input')[0][0]).toBe(1)
 
     // Deactivate current tab (BTab 2, index 1)
-    await tabs
+    await $tabs
       .findAllComponents(BTab)
       .at(1)
       .setProps({ active: false })
 
     // Expect last tab (index 2) to be active
-    expect(tabs.vm.currentTab).toBe(2)
-    expect(tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
-    expect(tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(false)
-    expect(tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(true)
-    expect(tabs.emitted('input').length).toBe(2)
-    expect(tabs.emitted('input')[1][0]).toBe(2)
+    expect($tabs.vm.currentTab).toBe(2)
+    expect($tabs.findAllComponents(BTab).at(0).vm.localActive).toBe(false)
+    expect($tabs.findAllComponents(BTab).at(1).vm.localActive).toBe(false)
+    expect($tabs.findAllComponents(BTab).at(2).vm.localActive).toBe(true)
+    expect($tabs.emitted('input').length).toBe(2)
+    expect($tabs.emitted('input')[1][0]).toBe(2)
 
     wrapper.destroy()
   })
@@ -218,29 +218,29 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.tabs[0].localActive).toBe(true)
     // It should not emit an input event as the value is the same
-    expect(tabs.emitted('input')).toBeUndefined()
+    expect($tabs.emitted('input')).toBeUndefined()
 
     // Set 2nd BTab to be active
-    await tabs.setProps({ value: 1 })
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.emitted('input').length).toBe(1)
+    await $tabs.setProps({ value: 1 })
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.emitted('input').length).toBe(1)
     // Should emit index of 1 (2nd tab)
-    expect(tabs.emitted('input')[0][0]).toBe(1)
+    expect($tabs.emitted('input')[0][0]).toBe(1)
 
     // Set 3rd BTab to be active
-    await tabs.setProps({ value: 2 })
-    expect(tabs.vm.currentTab).toBe(2)
-    expect(tabs.emitted('input').length).toBe(2)
+    await $tabs.setProps({ value: 2 })
+    expect($tabs.vm.currentTab).toBe(2)
+    expect($tabs.emitted('input').length).toBe(2)
     // Should emit index of 2 (3rd tab)
-    expect(tabs.emitted('input')[1][0]).toBe(2)
+    expect($tabs.emitted('input')[1][0]).toBe(2)
 
     wrapper.destroy()
   })
@@ -259,32 +259,32 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
-    expect(tabs.emitted('input')).toBeUndefined()
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.tabs[0].localActive).toBe(true)
+    expect($tabs.emitted('input')).toBeUndefined()
 
     // Try to set 2nd (disabled) BTab to be active
-    await tabs.setProps({ value: 1 })
+    await $tabs.setProps({ value: 1 })
     // Will try activate next non-disabled tab instead (3rd tab, index 2)
-    expect(tabs.vm.currentTab).toBe(2)
-    expect(tabs.emitted('input').length).toBe(1)
+    expect($tabs.vm.currentTab).toBe(2)
+    expect($tabs.emitted('input').length).toBe(1)
     // Should emit index of 2 (3rd tab)
-    expect(tabs.emitted('input')[0][0]).toBe(2)
+    expect($tabs.emitted('input')[0][0]).toBe(2)
 
     // Needed for test since value not bound to actual v-model on App
-    await tabs.setProps({ value: 2 })
+    await $tabs.setProps({ value: 2 })
     // Try and set 2nd BTab to be active
-    await tabs.setProps({ value: 1 })
+    await $tabs.setProps({ value: 1 })
     // Will find the previous non-disabled tab (1st tab, index 0)
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.emitted('input').length).toBe(2)
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.emitted('input').length).toBe(2)
     // Should emit index of 0 (1st tab)
-    expect(tabs.emitted('input')[1][0]).toBe(0)
+    expect($tabs.emitted('input')[1][0]).toBe(0)
 
     wrapper.destroy()
   })
@@ -311,41 +311,41 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
-    expect(tabs.emitted('input')).toBeUndefined()
-    expect(tabs.emitted('activate-tab')).toBeUndefined()
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.tabs[0].localActive).toBe(true)
+    expect($tabs.emitted('input')).toBeUndefined()
+    expect($tabs.emitted('activate-tab')).toBeUndefined()
 
     // Set 2nd BTab to be active
-    await tabs.setProps({ value: 1 })
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.emitted('input')).toBeDefined()
-    expect(tabs.emitted('input').length).toBe(1)
-    expect(tabs.emitted('input')[0][0]).toBe(1)
-    expect(tabs.emitted('activate-tab')).toBeDefined()
-    expect(tabs.emitted('activate-tab').length).toBe(1)
-    expect(tabs.emitted('activate-tab')[0][0]).toBe(1)
-    expect(tabs.emitted('activate-tab')[0][1]).toBe(0)
-    expect(tabs.emitted('activate-tab')[0][2]).toBeDefined()
-    expect(tabs.emitted('activate-tab')[0][2].vueTarget).toBe(tabs.vm)
+    await $tabs.setProps({ value: 1 })
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.emitted('input')).toBeDefined()
+    expect($tabs.emitted('input').length).toBe(1)
+    expect($tabs.emitted('input')[0][0]).toBe(1)
+    expect($tabs.emitted('activate-tab')).toBeDefined()
+    expect($tabs.emitted('activate-tab').length).toBe(1)
+    expect($tabs.emitted('activate-tab')[0][0]).toBe(1)
+    expect($tabs.emitted('activate-tab')[0][1]).toBe(0)
+    expect($tabs.emitted('activate-tab')[0][2]).toBeDefined()
+    expect($tabs.emitted('activate-tab')[0][2].vueTarget).toBe($tabs.vm)
 
     // Attempt to set 3rd BTab to be active
-    await tabs.setProps({ value: 2 })
-    expect(tabs.vm.currentTab).toBe(1)
-    expect(tabs.emitted('input')).toBeDefined()
-    expect(tabs.emitted('input').length).toBe(2)
-    expect(tabs.emitted('input')[1][0]).toBe(1)
-    expect(tabs.emitted('activate-tab').length).toBe(2)
-    expect(tabs.emitted('activate-tab')[1][0]).toBe(2)
-    expect(tabs.emitted('activate-tab')[1][1]).toBe(1)
-    expect(tabs.emitted('activate-tab')[1][2]).toBeDefined()
-    expect(tabs.emitted('activate-tab')[1][2].vueTarget).toBe(tabs.vm)
-    expect(tabs.emitted('activate-tab')[1][2].defaultPrevented).toBe(true)
+    await $tabs.setProps({ value: 2 })
+    expect($tabs.vm.currentTab).toBe(1)
+    expect($tabs.emitted('input')).toBeDefined()
+    expect($tabs.emitted('input').length).toBe(2)
+    expect($tabs.emitted('input')[1][0]).toBe(1)
+    expect($tabs.emitted('activate-tab').length).toBe(2)
+    expect($tabs.emitted('activate-tab')[1][0]).toBe(2)
+    expect($tabs.emitted('activate-tab')[1][1]).toBe(1)
+    expect($tabs.emitted('activate-tab')[1][2]).toBeDefined()
+    expect($tabs.emitted('activate-tab')[1][2].vueTarget).toBe($tabs.vm)
+    expect($tabs.emitted('activate-tab')[1][2].defaultPrevented).toBe(true)
 
     wrapper.destroy()
   })
@@ -364,19 +364,19 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAllComponents(BTab).at(0)
-    const tab2 = tabs.findAllComponents(BTab).at(1)
-    const tab3 = tabs.findAllComponents(BTab).at(2)
+    const tab1 = $tabs.findAllComponents(BTab).at(0)
+    const tab2 = $tabs.findAllComponents(BTab).at(1)
+    const tab3 = $tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -387,7 +387,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(1)
       .trigger('click')
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
@@ -399,7 +399,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(2)
       .trigger('click')
-    expect(tabs.vm.currentTab).toBe(2)
+    expect($tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(true)
@@ -411,7 +411,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(0)
       .trigger('keydown.space')
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -434,19 +434,19 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAllComponents(BTab).at(0)
-    const tab2 = tabs.findAllComponents(BTab).at(1)
-    const tab3 = tabs.findAllComponents(BTab).at(2)
+    const tab1 = $tabs.findAllComponents(BTab).at(0)
+    const tab2 = $tabs.findAllComponents(BTab).at(1)
+    const tab3 = $tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -457,7 +457,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(1)
       .trigger('keydown.space')
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
@@ -469,7 +469,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(2)
       .trigger('keydown.space')
-    expect(tabs.vm.currentTab).toBe(2)
+    expect($tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(true)
@@ -481,7 +481,7 @@ describe('tabs', () => {
       .findAll('.nav-link')
       .at(0)
       .trigger('keydown.space')
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -504,19 +504,19 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAllComponents(BTab).at(0)
-    const tab2 = tabs.findAllComponents(BTab).at(1)
-    const tab3 = tabs.findAllComponents(BTab).at(2)
+    const tab1 = $tabs.findAllComponents(BTab).at(0)
+    const tab2 = $tabs.findAllComponents(BTab).at(1)
+    const tab3 = $tabs.findAllComponents(BTab).at(2)
 
     expect(wrapper.findAll('.nav-link')).toBeDefined()
     expect(wrapper.findAll('.nav-link').length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -526,7 +526,7 @@ describe('tabs', () => {
       .findAllComponents(BLink)
       .at(0)
       .trigger('keydown.right')
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
@@ -536,7 +536,7 @@ describe('tabs', () => {
       .findAllComponents(BLink)
       .at(1)
       .trigger('keydown.end')
-    expect(tabs.vm.currentTab).toBe(2)
+    expect($tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(true)
@@ -546,7 +546,7 @@ describe('tabs', () => {
       .findAllComponents(BLink)
       .at(2)
       .trigger('keydown.left')
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
@@ -556,7 +556,7 @@ describe('tabs', () => {
       .findAllComponents(BLink)
       .at(1)
       .trigger('keydown.home')
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -578,16 +578,16 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
-    const tab1 = tabs.findAllComponents(BTab).at(0)
-    const tab2 = tabs.findAllComponents(BTab).at(1)
-    const tab3 = tabs.findAllComponents(BTab).at(2)
+    const tab1 = $tabs.findAllComponents(BTab).at(0)
+    const tab2 = $tabs.findAllComponents(BTab).at(1)
+    const tab3 = $tabs.findAllComponents(BTab).at(2)
 
     // Expect 3rd tab (index 2) to be active
-    expect(tabs.vm.currentTab).toBe(2)
+    expect($tabs.vm.currentTab).toBe(2)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(true)
@@ -596,7 +596,7 @@ describe('tabs', () => {
     await tab3.setProps({ disabled: true })
 
     // Expect 1st tab to be active
-    expect(tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.currentTab).toBe(0)
     expect(tab1.vm.localActive).toBe(true)
     expect(tab2.vm.localActive).toBe(false)
     expect(tab3.vm.localActive).toBe(false)
@@ -606,7 +606,7 @@ describe('tabs', () => {
     await tab1.setProps({ disabled: true })
 
     // Expect 2nd tab to be active
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     expect(tab1.vm.localActive).toBe(false)
     expect(tab2.vm.localActive).toBe(true)
     expect(tab3.vm.localActive).toBe(false)
@@ -626,9 +626,9 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(1)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(1)
 
     // Expect tab button content to be `original`
     expect(wrapper.find('.nav-link').text()).toBe('original')
@@ -663,26 +663,26 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     const getNavItemByTab = tab => wrapper.find(`#${tab.$el.id}___BV_tab_button__`)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.tabs[0].localActive).toBe(true)
     // Expect 1st tabs nav item to have "active-nav-item-class" applied
-    expect(getNavItemByTab(tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(true)
+    expect(getNavItemByTab($tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(true)
 
     // Set 2nd tab to be active
-    tabs.setProps({ value: 1 })
+    $tabs.setProps({ value: 1 })
     await waitNT(wrapper.vm)
-    expect(tabs.vm.currentTab).toBe(1)
+    expect($tabs.vm.currentTab).toBe(1)
     // Expect 2nd tabs nav item to have "active-nav-item-class" applied
-    expect(getNavItemByTab(tabs.vm.tabs[1]).classes(activeNavItemClass)).toBe(true)
+    expect(getNavItemByTab($tabs.vm.tabs[1]).classes(activeNavItemClass)).toBe(true)
     // Expect 1st tabs nav item to don't have "active-nav-item-class" applied anymore
-    expect(getNavItemByTab(tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(false)
+    expect(getNavItemByTab($tabs.vm.tabs[0]).classes(activeNavItemClass)).toBe(false)
 
     wrapper.destroy()
   })
@@ -702,23 +702,69 @@ describe('tabs', () => {
     expect(wrapper).toBeDefined()
 
     await waitNT(wrapper.vm)
-    const tabs = wrapper.findComponent(BTabs)
-    expect(tabs).toBeDefined()
-    expect(tabs.findAllComponents(BTab).length).toBe(3)
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
 
     // Expect 1st tab (index 0) to be active
-    expect(tabs.vm.currentTab).toBe(0)
-    expect(tabs.vm.tabs[0].localActive).toBe(true)
+    expect($tabs.vm.currentTab).toBe(0)
+    expect($tabs.vm.tabs[0].localActive).toBe(true)
     // Expect 1st tab to have "active-tab-class" applied
-    expect(tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(true)
+    expect($tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(true)
 
     // Set 2nd tab to be active
-    await tabs.setProps({ value: 1 })
-    expect(tabs.vm.currentTab).toBe(1)
+    await $tabs.setProps({ value: 1 })
+    expect($tabs.vm.currentTab).toBe(1)
     // Expect 2nd tab to have "active-tab-class" applied
-    expect(tabs.vm.tabs[1].$el.classList.contains(activeTabClass)).toBe(true)
+    expect($tabs.vm.tabs[1].$el.classList.contains(activeTabClass)).toBe(true)
     // Expect 1st tab to don't have "active-tab-class" applied anymore
-    expect(tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(false)
+    expect($tabs.vm.tabs[0].$el.classList.contains(activeTabClass)).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('emits "changed" event when tabs change', async () => {
+    const App = {
+      props: {
+        tabs: {
+          type: Array,
+          default: () => ['Tab 1', 'Tab 2', 'Tab 3']
+        }
+      },
+      render(h) {
+        return h(BTabs, this.tabs.map(tab => h(BTab, tab)))
+      }
+    }
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+
+    const $tabs = wrapper.findComponent(BTabs)
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
+    expect($tabs.emitted('changed')).toBeDefined()
+    expect($tabs.emitted('changed').length).toBe(1)
+    expect($tabs.emitted('changed')[0][0].length).toBe(3)
+    expect($tabs.emitted('changed')[0][1].length).toBe(0)
+
+    // Add a tab
+    await wrapper.setProps({ tabs: ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4'] })
+    await waitNT(wrapper.vm)
+    expect($tabs.findAllComponents(BTab).length).toBe(4)
+    expect($tabs.emitted('changed')).toBeDefined()
+    expect($tabs.emitted('changed').length).toBe(2)
+    expect($tabs.emitted('changed')[1][0].length).toBe(4)
+    expect($tabs.emitted('changed')[1][1].length).toBe(3)
+
+    // Remove a tabs
+    await wrapper.setProps({ tabs: ['Tab 1', 'Tab 2'] })
+    await waitNT(wrapper.vm)
+    expect($tabs.findAllComponents(BTab).length).toBe(2)
+    expect($tabs.emitted('changed')).toBeDefined()
+    expect($tabs.emitted('changed').length).toBe(3)
+    expect($tabs.emitted('changed')[2][0].length).toBe(2)
+    expect($tabs.emitted('changed')[2][1].length).toBe(4)
 
     wrapper.destroy()
   })
