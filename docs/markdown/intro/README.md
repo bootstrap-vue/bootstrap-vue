@@ -20,7 +20,7 @@ If you are migrating from a previous `v2.0.0-rc.##` release, please see the
 
 ## Documentation sections
 
-The online documentation is comprised of the following sections:
+The online documentation comprises:
 
 - [Components](/docs/components) - Components and component plugin documentation
 - [Directives](/docs/directives) - Directives and directive plugin documentation
@@ -31,9 +31,8 @@ The online documentation is comprised of the following sections:
 
 ## Prerequisites
 
-Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap,
-some good starting points would be:
+This BootstrapVue documentation assumes you are familiar with Vue and  
+and Bootstrap v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -64,8 +63,8 @@ the normalization of cross browser styles. Refer to the following sub-sections f
 
 ### HTML5 doctype
 
-Bootstrap requires the use of the `HTML5` doctype. Without it, you _may_ see some funky incomplete
-styling, but including it shouldn't cause any considerable hiccups.
+Bootstrap requires the use of the `HTML5` doctype. Without it, you may see some strange incomplete
+styling.
 
 ```html
 <!doctype html>
@@ -76,8 +75,7 @@ styling, but including it shouldn't cause any considerable hiccups.
 
 ### Responsive meta tag
 
-Bootstrap is developed for mobile first, a strategy in which code is optimized for mobile devices
-first and then scales up components as necessary using CSS media queries. To ensure proper rendering
+Bootstrap is optimized for mobile devices first and then scales up components as necessary using CSS media queries. To ensure proper rendering
 and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
 
 ```html
@@ -113,9 +111,9 @@ browsers and devices while providing slightly more opinionated resets to common
 
 ## Using module bundlers
 
-If you are using module bundlers like [Webpack](https://webpack.js.org/),
-[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), you may prefer to directly
-include the package into your project. To get started, use `yarn` or `npm` to get the latest version
+Most likely you are using module bundlers like [Webpack](https://webpack.js.org/),
+[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), which makes it easy to directly
+include the package into your project. To do this, use `yarn` or `npm` to get the latest version
 of Vue.js, BootstrapVue and Bootstrap v4:
 
 ```bash
@@ -126,45 +124,50 @@ npm install vue bootstrap-vue bootstrap
 yarn add vue bootstrap-vue bootstrap
 ```
 
-Then, register BootstrapVue in your app entry point:
+Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
 
 ```js
 // app.js
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// Install BootstrapVue
+// Tell Vue to make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 ```
 
-And import Bootstrap and BootstrapVue `css` files:
+You must also import the `css` files. This consists of 2 or 3 files in this specific order: your own custom `scss` file (for example if you are globally redefining the 'primary' color) and the Bootstrap and BootstrapVue `css` files. There are two ways of doing this.
+
+The first way is to import them directly in your app entry point `js` file:
 
 ```js
 // app.js
+import './custom.scss'     // Optional
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-**Alternatively** you can import Bootstrap and BootstrapVue `scss` files in a custom SCSS file:
-
-```scss
-// custom.scss
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
-@import 'node_modules/bootstrap-vue/src/index.scss';
-```
-
-Make sure to import the `custom.scss` file in your app entry point:
+The second way is to import only the `custom.scss` file, but within that file have @import statements which import the Bootstrap and BootstrapVue `scss` files:
 
 ```js
 // app.js
 import './custom.scss'
 ```
 
-Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
-(`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
-variables are set up correctly.
+```scss
+// custom.scss
+
+//
+// ... your custom SCSS definitions ...
+//
+// and then:
+
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+```
+
+Make sure the sequence is correct for the variables to be set up correctly: your custom `scss` file (if any), then `bootstrap.scss`, then `bootstrap-vue.scss`).
 
 Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
 project. Importing individual SCSS files into your project will **not** share variable values and
