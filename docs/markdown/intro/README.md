@@ -132,51 +132,50 @@ Then, register BootstrapVue in your app entry point (typically `app.js` or `main
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// Tell Vue to make BootstrapVue available throughout your project
+// Import Bootstrap an BootstrapVue CSS files (order im important!)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 ```
 
-You must also import the `css` files. This consists of 2 or 3 files in this specific order: your own
-custom `scss` file (for example if you are globally redefining the 'primary' color) and the
-Bootstrap and BootstrapVue `css` files. There are two ways of doing this.
+If you want to change Bootstrap's default styles (e.g. the "primary" color), you have to use
+Bootstrap and BootstrapVue's `scss` files.
 
-The first way is to import them directly in your app entry point `js` file:
-
-```js
-// app.js
-import './custom.scss' // Optional
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-```
-
-The second way is to import only the `custom.scss` file, but within that file have @import
-statements which import the Bootstrap and BootstrapVue `scss` files:
-
-```js
-// app.js
-import './custom.scss'
-```
+Place all of the SCSS `@import`s into a **single SCSS file**:
 
 ```scss
-// custom.scss
+// app.scss
 
-//
-// ... your custom SCSS definitions ...
-//
-// and then:
+// Define variable defaults
+$body-bg: #000;
+$body-color: #111;
 
+// Then import Bootstrap an BootstrapVue SCSS files (order im important!)
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
-Make sure the sequence is correct for the variables to be set up correctly: your custom `scss` file
-(if any), then `bootstrap.scss`, then `bootstrap-vue.scss`).
+Then import that single file into your project:
 
-Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
-project. Importing individual SCSS files into your project will **not** share variable values and
-functions between files by default.
+```js
+// app.js
+import Vue from 'vue'
+import { BootstrapVue } from 'bootstrap-vue'
+
+import './app.scss'
+
+Vue.use(BootstrapVue)
+```
+
+Importing individual SCSS files into your project will **not** share variable values and functions
+between files by default.
+
+For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
+section.
 
 Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
 a `scss` file:
@@ -203,9 +202,6 @@ module bundlers documentation.
 - Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
 - Parcel CSS ([official guide](https://parceljs.org/css.html))
 - Parcel SCSS ([official guide](https://parceljs.org/scss.html))
-
-For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
-section.
 
 ### Aliasing Vue import
 
