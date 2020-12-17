@@ -125,14 +125,14 @@ npm install vue bootstrap-vue bootstrap
 yarn add vue bootstrap-vue bootstrap
 ```
 
-Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
+Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`). If you are happy to use the standard Bootstrap styling, you can use the precompiled `css` files. 
 
 ```js
 // app.js
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// Import Bootstrap an BootstrapVue CSS files (order im important!)
+// Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -141,11 +141,11 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 ```
+### Theming Bootstrap
 
-If you want to change Bootstrap's default styles (e.g. the "primary" color), you have to use
-Bootstrap and BootstrapVue's `scss` files.
-
-Place all of the SCSS `@import`s into a **single SCSS file**:
+If you want to change Bootstrap's default styles (e.g. the `$body-color`), you have to use
+Bootstrap and BootstrapVue's `scss` files, not their `css` files. Create your own `scss` file, 
+e.g. `app.scss`, containing **both** your custom definitions **and** the 2 `@import`s at the end:
 
 ```scss
 // app.scss
@@ -154,12 +154,12 @@ Place all of the SCSS `@import`s into a **single SCSS file**:
 $body-bg: #000;
 $body-color: #111;
 
-// Then import Bootstrap an BootstrapVue SCSS files (order im important!)
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
-Then import that single file into your project:
+Then import that single `scss` file into your project:
 
 ```js
 // app.js
@@ -171,8 +171,8 @@ import './app.scss'
 Vue.use(BootstrapVue)
 ```
 
-Importing individual SCSS files into your project will **not** share variable values and functions
-between files by default.
+Do not import the individual SCSS files separately into your project, 
+because variables and functions will fail to be shared between files.
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
