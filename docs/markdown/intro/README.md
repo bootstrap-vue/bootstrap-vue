@@ -31,8 +31,8 @@ The online documentation comprises:
 
 ## Prerequisites
 
-This BootstrapVue documentation assumes you are familiar with Vue and  
-and Bootstrap v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
+This BootstrapVue documentation assumes you are familiar with Vue and and Bootstrap
+v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -75,8 +75,9 @@ styling.
 
 ### Responsive meta tag
 
-Bootstrap is optimized for mobile devices first and then scales up components as necessary using CSS media queries. To ensure proper rendering
-and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
+Bootstrap is optimized for mobile devices first and then scales up components as necessary using CSS
+media queries. To ensure proper rendering and touch zooming for all devices, **add the responsive
+viewport meta** tag to your `<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -112,9 +113,9 @@ browsers and devices while providing slightly more opinionated resets to common
 ## Using module bundlers
 
 Most likely you are using module bundlers like [Webpack](https://webpack.js.org/),
-[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), which makes it easy to directly
-include the package into your project. To do this, use `yarn` or `npm` to get the latest version
-of Vue.js, BootstrapVue and Bootstrap v4:
+[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), which makes it easy to
+directly include the package into your project. To do this, use `yarn` or `npm` to get the latest
+version of Vue.js, BootstrapVue and Bootstrap v4:
 
 ```bash
 # With npm
@@ -137,18 +138,21 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 ```
 
-You must also import the `css` files. This consists of 2 or 3 files in this specific order: your own custom `scss` file (for example if you are globally redefining the 'primary' color) and the Bootstrap and BootstrapVue `css` files. There are two ways of doing this.
+You must also import the `css` files. This consists of 2 or 3 files in this specific order: your own
+custom `scss` file (for example if you are globally redefining the 'primary' color) and the
+Bootstrap and BootstrapVue `css` files. There are two ways of doing this.
 
 The first way is to import them directly in your app entry point `js` file:
 
 ```js
 // app.js
-import './custom.scss'     // Optional
+import './custom.scss' // Optional
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 ```
 
-The second way is to import only the `custom.scss` file, but within that file have @import statements which import the Bootstrap and BootstrapVue `scss` files:
+The second way is to import only the `custom.scss` file, but within that file have @import
+statements which import the Bootstrap and BootstrapVue `scss` files:
 
 ```js
 // app.js
@@ -167,7 +171,8 @@ import './custom.scss'
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
-Make sure the sequence is correct for the variables to be set up correctly: your custom `scss` file (if any), then `bootstrap.scss`, then `bootstrap-vue.scss`).
+Make sure the sequence is correct for the variables to be set up correctly: your custom `scss` file
+(if any), then `bootstrap.scss`, then `bootstrap-vue.scss`).
 
 Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
 project. Importing individual SCSS files into your project will **not** share variable values and
