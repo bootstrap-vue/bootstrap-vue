@@ -180,6 +180,8 @@ functions will fail to be shared between files.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
+### Advanced usage
+
 Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
 a `scss` file:
 
