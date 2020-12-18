@@ -13,7 +13,7 @@ export const IS_BROWSER = HAS_WINDOW_SUPPORT && HAS_DOCUMENT_SUPPORT && HAS_NAVI
 export const WINDOW = HAS_WINDOW_SUPPORT ? window : {}
 export const DOCUMENT = HAS_DOCUMENT_SUPPORT ? document : {}
 export const NAVIGATOR = HAS_NAVIGATOR_SUPPORT ? navigator : {}
-export const USER_AGENT = (NAVIGATOR.USER_AGENT || '').toLowerCase()
+export const USER_AGENT = (NAVIGATOR.userAgent || '').toLowerCase()
 
 export const IS_JSDOM = USER_AGENT.indexOf('jsdom') > 0
 export const IS_IE = /msie|trident/.test(USER_AGENT)
