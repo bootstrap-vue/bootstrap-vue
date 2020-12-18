@@ -114,18 +114,18 @@ browsers and devices while providing slightly more opinionated resets to common
 
 Most likely you are using module bundlers like [Webpack](https://webpack.js.org/),
 [Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), which makes it easy to
-directly include the package into your project. To do this, use `yarn` or `npm` to get the latest
-version of Vue.js, BootstrapVue and Bootstrap v4:
+directly include the package into your project. To do this, use `npm` or `yarn` to get the latest
+version of Vue.js, Bootstrap v4 and BootstrapVue:
 
 ```bash
 # With npm
-npm install vue bootstrap-vue bootstrap
+npm install vue bootstrap bootstrap-vue
 
 # With yarn
-yarn add vue bootstrap-vue bootstrap
+yarn add vue bootstrap bootstrap-vue
 ```
 
-Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`). If you are happy to use the standard Bootstrap styling, you can use the precompiled `css` files. 
+Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
 
 ```js
 // app.js
@@ -141,11 +141,14 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 ```
+
 ### Theming Bootstrap
 
 If you want to change Bootstrap's default styles (e.g. the `$body-color`), you have to use
-Bootstrap and BootstrapVue's `scss` files, not their `css` files. Create your own `scss` file, 
-e.g. `app.scss`, containing **both** your custom definitions **and** the 2 `@import`s at the end:
+Bootstrap's and BootstrapVue's `scss` files.
+
+Create your own `scss` file (e.g. `app.scss`) containing **both** your custom definitions **and**
+the 2 `@import`'s at the end:
 
 ```scss
 // app.scss
@@ -171,8 +174,8 @@ import './app.scss'
 Vue.use(BootstrapVue)
 ```
 
-Do not import the individual SCSS files separately into your project, 
-because variables and functions will fail to be shared between files.
+Do not import the individual SCSS files separately into your project, because variables and
+functions will fail to be shared between files.
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
