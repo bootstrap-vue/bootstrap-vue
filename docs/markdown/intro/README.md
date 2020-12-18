@@ -180,34 +180,6 @@ functions will fail to be shared between files.
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
 
-### Advanced usage
-
-Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
-a `scss` file:
-
-```scss
-// Webpack example
-@import '~bootstrap';
-@import '~bootstrap-vue';
-```
-
-```scss
-// Parcel example
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
-```
-
-For more details how to configure asset loading and how modules are resolved, please consult the
-module bundlers documentation.
-
-**Notes**:
-
-- Webpack configuration to load CSS files
-  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
-- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
-- Parcel CSS ([official guide](https://parceljs.org/css.html))
-- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
-
 ### Aliasing Vue import
 
 BootstrapVue and PortalVue require access to the global `Vue` reference (via
@@ -264,6 +236,34 @@ module.exports = {
 See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org/), etc.
+
+### Advanced module bundle usage
+
+Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
+a `scss` file:
+
+```scss
+// Webpack example
+@import '~bootstrap';
+@import '~bootstrap-vue';
+```
+
+```scss
+// Parcel example
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+```
+
+For more details how to configure asset loading and how modules are resolved, please consult the
+module bundlers documentation.
+
+**Notes**:
+
+- Webpack configuration to load CSS files
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
+- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
+- Parcel CSS ([official guide](https://parceljs.org/css.html))
+- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
 
 ## Tree shaking with module bundlers
 
