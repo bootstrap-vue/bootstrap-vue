@@ -237,7 +237,7 @@ See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-v
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org/), etc.
 
-### Advanced module bundle usage
+### Advanced module bundler usage
 
 Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
 a `scss` file:
