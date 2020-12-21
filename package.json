@@ -112,7 +112,7 @@
     "bootstrap-icons": "^1.2.1",
     "bundlewatch": "^0.3.1",
     "clean-css-cli": "^4.3.0",
-    "codemirror": "^5.58.3",
+    "codemirror": "^5.59.0",
     "codesandbox": "^2.2.1",
     "core-js": "^3.8.1",
     "cross-env": "^7.0.3",
