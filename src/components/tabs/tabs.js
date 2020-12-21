@@ -199,6 +199,8 @@ export const props = makePropsConfigurable(
     // Synonym for 'bottom'
     end: makeProp(PROP_TYPE_BOOLEAN, false),
     // This prop is sniffed by the `<b-tab>` child
+    hidePosinset: makeProp(PROP_TYPE_BOOLEAN, false),
+    hideSetsize: makeProp(PROP_TYPE_BOOLEAN, false),
     lazy: makeProp(PROP_TYPE_BOOLEAN, false),
     navClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     navWrapperClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
@@ -536,6 +538,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       end,
       fill,
       firstTab,
+      hidePosinset,
+      hideSetsize,
       justified,
       lastTab,
       nextTab,
@@ -574,8 +578,8 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
           controls: safeId ? safeId() : null,
           id: $tab.controlledBy || (safeId ? safeId(`_BV_tab_button_`) : null),
           noKeyNav,
-          posInSet: index + 1,
-          setSize: $tabs.length,
+          posInSet: hidePosinset ? null : index + 1,
+          setSize: hideSetsize ? null : $tabs.length,
           tab: $tab,
           tabIndex
         },
