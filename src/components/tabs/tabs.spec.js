@@ -723,6 +723,43 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('does not render aria-posinset and aria-setsize if props to hide  are set to true', async () => {
+    const App = {
+      render(h) {
+        return h(BTabs, { props: { value: 0 } }, [
+          h(BTab, { props: {} }, 'tab 0'),
+          h(BTab, { props: {} }, 'tab 1'),
+          h(BTab, { props: {} }, 'tab 2')
+        ])
+      }
+    }
+    const wrapper = mount(App)
+    expect(wrapper).toBeDefined()
+
+    await waitNT(wrapper.vm)
+    const $tabs = wrapper.findComponent(BTabs)
+    const $links = $tabs.findAll('a')
+    expect($tabs).toBeDefined()
+    expect($tabs.findAllComponents(BTab).length).toBe(3)
+
+    expect($links.at(0).attributes('aria-posinset')).toBe('1')
+    expect($links.at(1).attributes('aria-posinset')).toBe('2')
+    expect($links.at(2).attributes('aria-posinset')).toBe('3')
+    expect($links.at(0).attributes('aria-setsize')).toBe('3')
+    expect($links.at(1).attributes('aria-setsize')).toBe('3')
+    expect($links.at(2).attributes('aria-setsize')).toBe('3')
+    await $tabs.setProps({ hidePosinset: true })
+    await $tabs.setProps({ hideSetsize: true })
+    expect($links.at(0).attributes('aria-posinset')).toBeUndefined()
+    expect($links.at(1).attributes('aria-posinset')).toBeUndefined()
+    expect($links.at(2).attributes('aria-posinset')).toBeUndefined()
+    expect($links.at(0).attributes('aria-setsize')).toBeUndefined()
+    expect($links.at(1).attributes('aria-setsize')).toBeUndefined()
+    expect($links.at(2).attributes('aria-setsize')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
   it('emits "changed" event when tabs change', async () => {
     const App = {
       props: {
