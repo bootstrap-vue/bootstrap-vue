@@ -117,7 +117,7 @@
     "core-js": "^3.8.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-import": "^2.22.1",
