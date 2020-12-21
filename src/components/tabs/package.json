@@ -37,6 +37,14 @@
             "description": "Proportionately fills all horizontal space with nav items. All horizontal space is occupied, but not every nav item has the same width"
           },
           {
+            "prop": "hidePosinset",
+            "description": "Prevents attribute aria-posinset to be rendered in link in tab navigation"
+          },
+          {
+            "prop": "hideSetsize",
+            "description": "Prevents attribute aria-setsize to be rendered in link in tab navigation"
+          },
+          {
             "prop": "justified",
             "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
           },
