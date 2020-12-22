@@ -43,7 +43,7 @@
         "events": [
           {
             "event": "change",
-            "description": "Emitted with the select value changes via user interaction",
+            "description": "Emitted when the select value changes via user interaction",
             "args": [
               {
                 "arg": "value",
@@ -59,7 +59,7 @@
           },
           {
             "event": "input",
-            "description": "Emitted with the select value changes",
+            "description": "Emitted when the select value changes",
             "args": [
               {
                 "arg": "value",
