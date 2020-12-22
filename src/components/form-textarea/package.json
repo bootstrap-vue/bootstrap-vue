@@ -111,7 +111,7 @@
               {
                 "arg": "value",
                 "type": "String",
-                "description": "Value of textarea, after any formatting. Not emitted if the value does nto change"
+                "description": "Value of textarea, after any formatting. Not emitted if the value does not change"
               }
             ]
           }
