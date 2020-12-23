@@ -113,17 +113,14 @@ export const tableRendererMixin = Vue.extend({
         selectableTableAttrs
       } = this
 
-      // Preserve user supplied aria-describedby, if provided in `$attrs`
-      const adb =
-        [(this.bvAttrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') ||
-        null
-
       const ariaAttrs = this.isTableSimple
         ? {}
         : {
             'aria-busy': this.computedBusy ? 'true' : 'false',
             'aria-colcount': toString(fields.length),
-            'aria-describedby': adb
+            // Preserve user supplied `aria-describedby`, if provided
+            'aria-describedby':
+              this.bvAttrs['aria-describedby'] || this.$refs.caption ? this.captionId : null
           }
 
       const rowCount =
