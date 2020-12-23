@@ -8,13 +8,16 @@ $bv-form-btn-label-control-defined: false !default;
   // Currently used by BFormTimepicker and BFormDatepicker
   // Does not apply to button-only styling
   .b-form-btn-label-control.form-control {
+    display: flex;
+    align-items: stretch;
+    height: auto;
+    padding: 0;
     // Remove background validation images and padding from
     // main wrapper as they will be present in the inner label element
     background-image: none;
-    padding: 0;
 
     @at-root {
-      // Handle input-group padding overrides
+      // Handle `.input-group` padding overrides
       .input-group & {
         padding: 0;
       }
@@ -55,19 +58,23 @@ $bv-form-btn-label-control-defined: false !default;
       padding: 0.5rem;
     }
 
-    > label {
-      outline: 0;
+    > .form-control {
+      height: auto;
+      // Set a minimum height, as we have height set to `auto`
+      // (to allow the content to wrap, if needed)
+      // We subtract off the border, as we have border set to `0`
+      min-height: calc(#{$input-height} - #{$input-height-border});
       padding-left: 0.25rem;
       margin: 0;
       border: 0;
+      outline: 0;
+      background: transparent;
+      word-break: break-word;
       font-size: inherit;
+      white-space: normal;
       @if $enable-pointer-cursor-for-buttons {
         cursor: pointer;
       }
-      // Set a minimum height, as we have height set to auto
-      // (to allow the content to wrap if needed)
-      // We subtract off the border, as we have border set to 0
-      min-height: calc(#{$input-height} - #{$input-height-border});
 
       &.form-control-sm {
         min-height: calc(#{$input-height-sm} - #{$input-height-border});
