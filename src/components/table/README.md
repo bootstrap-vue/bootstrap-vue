@@ -349,8 +349,8 @@ details.
 | `no-footer-sorting`  | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
 | `no-border-collapse` | Boolean           | Disables the default of collapsing of the table borders. Mainly for use with [sticky headers](#sticky-headers) and/or [sticky columns](#sticky-columns). Will cause the appearance of double borders in some situations.                                                                                                                       |
 
-**Note:** table style options `fixed`, `stacked`, `caption-top`, `no-border-collapse`, sticky
-headers, sticky columns, and the table sorting feature, all require BootstrapVue's custom CSS.
+**Note:** The table style options `fixed`, `stacked`, `caption-top`, `no-border-collapse`, sticky
+headers, sticky columns and the table sorting feature, all require BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
@@ -609,8 +609,8 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` prop, [`sticky-header`](#sticky-headers)
-props, and the [`stickyColumn`](#sticky-columns) field definition property.
+The `stacked` prop takes precedence over the [`sticky-header`](#sticky-headers) prop and the
+[`stickyColumn`](#sticky-columns) field definition property.
 
 **Example: Always stacked table**
 
@@ -1402,8 +1402,8 @@ set.
   wrapped inside a horizontally scrollable `<div>`.
 - When you have multiple columns that are set as `stickyColumn`, the columns will stack over each
   other visually, and the left-most sticky columns may "peek" out from under the next sticky column.
-  To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
-  previous sticky columns.
+  To get around this behaviour, make sure your latter sticky columns are the same width or wider
+  than previous sticky columns.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
   when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
