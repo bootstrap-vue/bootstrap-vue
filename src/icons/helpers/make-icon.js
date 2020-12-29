@@ -1,7 +1,5 @@
 import { Vue, mergeData } from '../../vue'
-import { PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { omit } from '../../utils/object'
-import { makeProp } from '../../utils/props'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { BVIconBase, props as BVIconBaseProps } from './icon-base'
 
@@ -24,10 +22,7 @@ export const makeIcon = (name, content) => {
   return /*#__PURE__*/ Vue.extend({
     name: iconName,
     functional: true,
-    props: {
-      ...omit(BVIconBaseProps, ['content', 'stacked']),
-      stacked: makeProp(PROP_TYPE_BOOLEAN, false)
-    },
+    props: omit(BVIconBaseProps, ['content']),
     render(h, { data, props }) {
       return h(
         BVIconBase,
