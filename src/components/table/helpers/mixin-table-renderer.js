@@ -51,9 +51,8 @@ export const tableRendererMixin = Vue.extend({
   computed: {
     // Layout related computed props
     isResponsive() {
-      let { responsive } = this
-      responsive = responsive === '' ? true : responsive
-      return this.isStacked ? false : responsive
+      const { responsive } = this
+      return responsive === '' ? true : responsive
     },
     isStickyHeader() {
       let { stickyHeader } = this
