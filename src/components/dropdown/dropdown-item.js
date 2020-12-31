@@ -4,16 +4,18 @@ import { EVENT_NAME_CLICK } from '../../constants/events'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { requestAF } from '../../utils/dom'
 import { omit, sortKeys } from '../../utils/object'
-import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { attrsMixin } from '../../mixins/attrs'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
+
 export const props = makePropsConfigurable(
   sortKeys({
-    ...omit(BLinkProps, ['event', 'routerTag']),
+    ...linkProps,
     linkClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     variant: makeProp(PROP_TYPE_STRING)
   }),
@@ -69,7 +71,7 @@ export const BDropdownItem = /*#__PURE__*/ Vue.extend({
           {
             staticClass: 'dropdown-item',
             class: [linkClass, { [`text-${variant}`]: variant && !(active || disabled) }],
-            props: this.$props,
+            props: pluckProps(linkProps, this.$props),
             attrs: this.computedAttrs,
             on: { click: onClick },
             ref: 'item'

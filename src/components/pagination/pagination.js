@@ -49,8 +49,8 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       const result = mathCeil(sanitizeTotalRows(this.totalRows) / sanitizePerPage(this.perPage))
       return result < 1 ? 1 : result
     },
+    // Used for watching changes to `perPage` and `numberOfPages`
     pageSizeNumberOfPages() {
-      // Used for watching changes to `perPage` and `numberOfPages`
       return {
         perPage: sanitizePerPage(this.perPage),
         totalRows: sanitizeTotalRows(this.totalRows),
@@ -90,10 +90,6 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
         this.currentPage = 0
       })
     }
-  },
-  mounted() {
-    // Set the initial page count
-    this.localNumberOfPages = this.numberOfPages
   },
   methods: {
     // These methods are used by the render function

@@ -36,10 +36,10 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-form-timepicker')
     expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).toContain('form-control')
@@ -48,22 +48,24 @@ describe('form-timepicker', () => {
     expect(wrapper.classes()).not.toContain('btn-group')
     expect(wrapper.attributes('role')).toEqual('group')
 
-    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
-    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
-    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
-    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
+    expect($dropdownMenu.attributes('role')).toEqual('dialog')
+    expect($dropdownMenu.attributes('aria-modal')).toEqual('false')
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-base')
-    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
+    const $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.attributes('for')).toEqual('test-base')
+    expect($label.text()).toContain('No time selected')
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
-    const $btn = wrapper.find('button#test-base')
-    expect($btn.exists()).toBe(true)
-    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
-    expect($btn.attributes('aria-expanded')).toEqual('false')
-    expect($btn.find('svg.bi-clock').exists()).toBe(true)
+    const $button = wrapper.find('button#test-base')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('aria-haspopup')).toEqual('dialog')
+    expect($button.attributes('aria-expanded')).toEqual('false')
+    expect($button.find('svg.bi-clock').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -78,10 +80,10 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-form-timepicker')
     expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).not.toContain('form-control')
@@ -90,23 +92,26 @@ describe('form-timepicker', () => {
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.attributes('role')).not.toEqual('group')
 
-    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
-    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
-    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
-    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
+    expect($dropdownMenu.attributes('role')).toEqual('dialog')
+    expect($dropdownMenu.attributes('aria-modal')).toEqual('false')
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-button-only')
-    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
-    expect(wrapper.find('label.form-control').classes()).toContain('sr-only')
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.attributes('for')).toEqual('test-button-only')
+    expect($label.text()).toContain('No time selected')
+    expect($label.classes().length).toBe(1)
+    expect($label.classes()).toContain('sr-only')
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
-    const $btn = wrapper.find('button#test-button-only')
-    expect($btn.exists()).toBe(true)
-    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
-    expect($btn.attributes('aria-expanded')).toEqual('false')
-    expect($btn.find('svg.bi-clock').exists()).toBe(true)
+    const $button = wrapper.find('button#test-button-only')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('aria-haspopup')).toEqual('dialog')
+    expect($button.attributes('aria-expanded')).toEqual('false')
+    expect($button.find('svg.bi-clock').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -122,23 +127,24 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
+
+    let $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('name')).toBe('foobar')
+    expect($input.attributes('value')).toBe('')
+
+    await wrapper.setProps({ value: '01:02:03' })
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
-    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
-
-    await wrapper.setProps({
-      value: '01:02:03'
-    })
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
-    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:00')
+    $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('name')).toBe('foobar')
+    expect($input.attributes('value')).toBe('01:02:00')
 
     await wrapper.setProps({
       showSeconds: true,
@@ -147,9 +153,10 @@ describe('form-timepicker', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
-    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('01:02:33')
+    $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('name')).toBe('foobar')
+    expect($input.attributes('value')).toBe('01:02:33')
 
     wrapper.destroy()
   })
@@ -164,33 +171,32 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
+
+    let $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.text()).toContain('No time selected')
+
+    await wrapper.setProps({ placeholder: 'foobar' })
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').text()).toContain('No time selected')
+    $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.text()).not.toContain('No time selected')
+    expect($label.text()).toContain('foobar')
 
-    await wrapper.setProps({
-      placeholder: 'foobar'
-    })
+    await wrapper.setProps({ value: '01:02:03' })
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
-    expect(wrapper.find('label.form-control').text()).toContain('foobar')
-
-    await wrapper.setProps({
-      value: '01:02:03'
-    })
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').text()).not.toContain('No time selected')
-    expect(wrapper.find('label.form-control').text()).not.toContain('foobar')
+    $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.text()).not.toContain('No time selected')
+    expect($label.text()).not.toContain('foobar')
 
     wrapper.destroy()
   })
@@ -205,15 +211,14 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toggle = wrapper.find('button#test-focus-blur')
+    expect(wrapper.element.tagName).toBe('DIV')
 
+    const $toggle = wrapper.find('button#test-focus-blur')
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-
     expect(document.activeElement).not.toBe($toggle.element)
 
     wrapper.vm.focus()
@@ -241,9 +246,10 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $toggle = wrapper.find('button#test-hover')
     const $label = wrapper.find('button#test-hover ~ label')
@@ -282,29 +288,28 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toggle = wrapper.find('button#test-open')
+    expect(wrapper.element.tagName).toBe('DIV')
 
+    const $toggle = wrapper.find('button#test-open')
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
 
-    const $menu = wrapper.find('.dropdown-menu')
-
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
-
-    await $toggle.trigger('click')
-    await waitRAF()
-    await waitRAF()
-    expect($menu.classes()).toContain('show')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
+
+    await $toggle.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($dropdownMenu.classes()).not.toContain('show')
 
     wrapper.destroy()
   })
@@ -325,25 +330,26 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
+
     const $toggle = wrapper.find('button#test-footer')
-    const $menu = wrapper.find('.dropdown-menu')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
     expect($value.exists()).toBe(true)
@@ -353,16 +359,16 @@ describe('form-timepicker', () => {
     const $footer = wrapper.find('.b-time > footer')
     expect($footer.exists()).toBe(true)
 
-    let $btns = $footer.findAll('button')
+    let $buttons = $footer.findAll('button')
 
-    expect($btns.length).toBe(3)
+    expect($buttons.length).toBe(3)
 
-    const $now = $btns.at(0)
+    const $now = $buttons.at(0)
 
     await $now.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d\d:\d\d:\d\d$/.test($value.attributes('value'))).toBe(true)
 
@@ -370,34 +376,34 @@ describe('form-timepicker', () => {
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect($value.attributes('value')).not.toBe('')
 
-    $btns = wrapper.findAll('.b-time > footer button')
-    expect($btns.length).toBe(3)
-    const $reset = $btns.at(1)
+    $buttons = wrapper.findAll('.b-time > footer button')
+    expect($buttons.length).toBe(3)
+    const $reset = $buttons.at(1)
 
     await $reset.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
     // Open the popup again
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
-    $btns = wrapper.findAll('.b-time > footer button')
-    expect($btns.length).toBe(3)
-    const $close = $btns.at(2)
+    $buttons = wrapper.findAll('.b-time > footer button')
+    expect($buttons.length).toBe(3)
+    const $close = $buttons.at(2)
 
     await $close.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
     wrapper.destroy()
@@ -417,11 +423,12 @@ describe('form-timepicker', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $toggle = wrapper.find('button#test-button-slot')
 

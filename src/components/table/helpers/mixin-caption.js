@@ -20,8 +20,6 @@ export const captionMixin = Vue.extend({
   props,
   computed: {
     captionId() {
-      // Even though `this.safeId` looks like a method, it is a computed prop
-      // that returns a new function if the underlying ID changes
       return this.isStacked ? this.safeId('_caption_') : null
     }
   },
@@ -38,7 +36,8 @@ export const captionMixin = Vue.extend({
           {
             attrs: { id: this.captionId },
             domProps: hasCaptionSlot ? {} : htmlOrText(captionHtml, caption),
-            key: 'caption'
+            key: 'caption',
+            ref: 'caption'
           },
           this.normalizeSlot(SLOT_NAME_TABLE_CAPTION)
         )

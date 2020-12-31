@@ -27,8 +27,8 @@ supported components, form layout, and more.
           id="input-1"
           v-model="form.email"
           type="email"
-          required
           placeholder="Enter email"
+          required
         ></b-form-input>
       </b-form-group>
 
@@ -36,8 +36,8 @@ supported components, form layout, and more.
         <b-form-input
           id="input-2"
           v-model="form.name"
-          required
           placeholder="Enter name"
+          required
         ></b-form-input>
       </b-form-group>
 
@@ -50,8 +50,12 @@ supported components, form layout, and more.
         ></b-form-select>
       </b-form-group>
 
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
+      <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="form.checked"
+          id="checkboxes-4"
+          :aria-describedby="ariaDescribedby"
+        >
           <b-form-checkbox value="me">Check me out</b-form-checkbox>
           <b-form-checkbox value="that">Check that out</b-form-checkbox>
         </b-form-checkbox-group>

@@ -78,6 +78,11 @@
             "description": "When set, disables the focus styling of the component root element"
           },
           {
+            "prop": "noTagRemove",
+            "version": "2.21.0",
+            "description": "When set, the tags will not have a remove button"
+          },
+          {
             "prop": "placeholder",
             "description": "Sets the 'placeholder' attribute value on the form control"
           },
@@ -262,6 +267,12 @@
                 "description": "The value of the 'limit-tag-text' prop"
               },
               {
+                "prop": "noTagRemove",
+                "version": "2.21.0",
+                "type": "Boolean",
+                "description": "The value of the 'no-tag-remove' prop"
+              },
+              {
                 "prop": "placeholder",
                 "type": "String",
                 "description": "The value of the 'placeholder' prop"
@@ -340,6 +351,11 @@
           "BTag"
         ],
         "props": [
+          {
+            "prop": "noRemove",
+            "version": "2.21.0",
+            "description": "When set, the tag will not have a remove button"
+          },
           {
             "prop": "pill",
             "description": "Makes the tag have a pill appearance"

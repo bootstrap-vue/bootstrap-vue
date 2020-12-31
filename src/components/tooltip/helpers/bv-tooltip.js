@@ -63,6 +63,7 @@ import { toInteger } from '../../../utils/number'
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
+import { listenOnRootMixin } from '../../../mixins/listen-on-root'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
 // --- Constants ---
@@ -138,6 +139,7 @@ const templateData = {
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_HELPER,
+  mixins: [listenOnRootMixin],
   data() {
     return {
       // BTooltip/BPopover/VBTooltip/VBPopover will update this data
@@ -681,14 +683,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       })
     },
     emitEvent(bvEvent) {
-      // Emits a BvEvent on $root and this instance
-      const eventName = bvEvent.type
-      const $root = this.$root
-      if ($root && $root.$emit) {
-        // Emit an event on $root
-        $root.$emit(getRootEventName(this.templateType, eventName), bvEvent)
-      }
-      this.$emit(eventName, bvEvent)
+      const { type } = bvEvent
+      this.emitOnRoot(getRootEventName(this.templateType, type), bvEvent)
+      this.$emit(type, bvEvent)
     },
     // --- Event handler setup methods ---
     listen() {

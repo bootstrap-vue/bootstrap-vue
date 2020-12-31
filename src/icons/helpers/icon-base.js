@@ -10,7 +10,7 @@ import { makeProp } from '../../utils/props'
 // --- Constants ---
 
 // Base attributes needed on all icons
-const baseAttrs = {
+const BASE_ATTRS = {
   viewBox: '0 0 16 16',
   width: '1em',
   height: '1em',
@@ -20,7 +20,7 @@ const baseAttrs = {
 }
 
 // Attributes that are nulled out when stacked
-const stackedAttrs = {
+const STACKED_ATTRS = {
   width: null,
   height: null,
   focusable: null,
@@ -95,13 +95,14 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
       )
     }
 
+    // Wrap in an additional `<g>` for proper animation handling if stacked
     if (stacked) {
-      // Wrap in an additional `<g>` for proper
-      // animation handling if stacked
-      $inner = h('g', {}, [$inner])
+      $inner = h('g', [$inner])
     }
 
     const $title = title ? h('title', title) : null
+
+    const $content = [$title, $inner].filter(identity)
 
     return h(
       'svg',
@@ -112,13 +113,13 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
             [`text-${variant}`]: variant,
             [`b-icon-animation-${animation}`]: animation
           },
-          attrs: baseAttrs,
+          attrs: BASE_ATTRS,
           style: stacked ? {} : { fontSize: fontScale === 1 ? null : `${fontScale * 100}%` }
         },
         // Merge in user supplied data
         data,
-        // If icon is stacked, null out some attrs
-        stacked ? { attrs: stackedAttrs } : {},
+        // If icon is stacked, null-out some attrs
+        stacked ? { attrs: STACKED_ATTRS } : {},
         // These cannot be overridden by users
         {
           attrs: {
@@ -127,7 +128,7 @@ export const BVIconBase = /*#__PURE__*/ Vue.extend({
           }
         }
       ),
-      [$title, $inner]
+      $content
     )
   }
 })

@@ -1,9 +1,9 @@
 import { Vue, mergeData } from '../vue'
 import { NAME_ICON } from '../constants/components'
-import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../constants/props'
+import { PROP_TYPE_STRING } from '../constants/props'
 import { RX_ICON_PREFIX } from '../constants/regex'
 import { omit, sortKeys } from '../utils/object'
-import { makeProp, makePropsConfigurable } from '../utils/props'
+import { makeProp, makePropsConfigurable, pluckProps } from '../utils/props'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
 import { props as BVIconBaseProps } from './helpers/icon-base'
@@ -21,11 +21,12 @@ const findIconComponent = (ctx, iconName) => {
 
 // --- Props ---
 
+const iconProps = omit(BVIconBaseProps, ['content'])
+
 export const props = makePropsConfigurable(
   sortKeys({
-    ...omit(BVIconBaseProps, ['content', 'stacked']),
-    icon: makeProp(PROP_TYPE_STRING),
-    stacked: makeProp(PROP_TYPE_BOOLEAN, false)
+    ...iconProps,
+    icon: makeProp(PROP_TYPE_STRING)
   }),
   NAME_ICON
 )
@@ -47,7 +48,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     // If not registered, we render a blank icon
     return h(
       icon ? findIconComponent(parent, `BIcon${icon}`) || BIconBlank : BIconBlank,
-      mergeData(data, { props: { ...props, icon: null } })
+      mergeData(data, { props: pluckProps(iconProps, props) })
     )
   }
 })

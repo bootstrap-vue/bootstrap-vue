@@ -16,6 +16,7 @@ export const props = makePropsConfigurable(
   sortKeys({
     ...idProps,
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    noRemove: makeProp(PROP_TYPE_BOOLEAN, false),
     pill: makeProp(PROP_TYPE_BOOLEAN, false),
     removeLabel: makeProp(PROP_TYPE_STRING, 'Remove tag'),
     tag: makeProp(PROP_TYPE_STRING, 'span'),
@@ -33,7 +34,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, normalizeSlotMixin],
   props,
   methods: {
-    onDelete(event) {
+    onRemove(event) {
       const { type, keyCode } = event
       if (!this.disabled && (type === 'click' || (type === 'keydown' && keyCode === CODE_DELETE))) {
         this.$emit(EVENT_NAME_REMOVE)
@@ -46,7 +47,7 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
     const tagLabelId = this.safeId('_taglabel_')
 
     let $remove = h()
-    if (!disabled) {
+    if (!this.noRemove && !disabled) {
       $remove = h(BButtonClose, {
         staticClass: 'b-form-tag-remove',
         props: { ariaLabel: this.removeLabel },
@@ -56,8 +57,8 @@ export const BFormTag = /*#__PURE__*/ Vue.extend({
           'aria-keyshortcuts': 'Delete'
         },
         on: {
-          click: this.onDelete,
-          keydown: this.onDelete
+          click: this.onRemove,
+          keydown: this.onRemove
         }
       })
     }

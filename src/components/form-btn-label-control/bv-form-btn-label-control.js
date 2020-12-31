@@ -208,17 +208,15 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
     const $label = h(
       'label',
       {
-        staticClass: 'form-control text-break text-wrap bg-transparent h-auto',
-        class: [
-          {
-            // Hidden in button only mode
-            'sr-only': buttonOnly,
-            // Mute the text if showing the placeholder
-            'text-muted': !value
-          },
-          this.stateClass,
-          this.sizeFormClass
-        ],
+        class: buttonOnly
+          ? 'sr-only' // Hidden in button only mode
+          : [
+              'form-control',
+              // Mute the text if showing the placeholder
+              { 'text-muted': !value },
+              this.stateClass,
+              this.sizeFormClass
+            ],
         attrs: {
           id: idLabel,
           for: idButton,
@@ -254,9 +252,6 @@ export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
             {
               'btn-group': buttonOnly,
               'form-control': !buttonOnly,
-              'd-flex': !buttonOnly,
-              'h-auto': !buttonOnly,
-              'align-items-stretch': !buttonOnly,
               focus: hasFocus && !buttonOnly,
               show: visible,
               'is-valid': state === true,

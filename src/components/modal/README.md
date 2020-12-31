@@ -256,10 +256,10 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
-          :state="nameState"
           label="Name"
           label-for="name-input"
           invalid-feedback="Name is required"
+          :state="nameState"
         >
           <b-form-input
             id="name-input"

@@ -51,9 +51,8 @@ export const tableRendererMixin = Vue.extend({
   computed: {
     // Layout related computed props
     isResponsive() {
-      let { responsive } = this
-      responsive = responsive === '' ? true : responsive
-      return this.isStacked ? false : responsive
+      const { responsive } = this
+      return responsive === '' ? true : responsive
     },
     isStickyHeader() {
       let { stickyHeader } = this
@@ -113,17 +112,14 @@ export const tableRendererMixin = Vue.extend({
         selectableTableAttrs
       } = this
 
-      // Preserve user supplied aria-describedby, if provided in `$attrs`
-      const adb =
-        [(this.bvAttrs || {})['aria-describedby'], this.captionId].filter(identity).join(' ') ||
-        null
-
       const ariaAttrs = this.isTableSimple
         ? {}
         : {
             'aria-busy': this.computedBusy ? 'true' : 'false',
             'aria-colcount': toString(fields.length),
-            'aria-describedby': adb
+            // Preserve user supplied `aria-describedby`, if provided
+            'aria-describedby':
+              this.bvAttrs['aria-describedby'] || this.$refs.caption ? this.captionId : null
           }
 
       const rowCount =

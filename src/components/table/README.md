@@ -349,38 +349,44 @@ details.
 | `no-footer-sorting`  | Boolean           | When `foot-clone` is true and the table is sortable, disables the sorting icons and click behaviour on the footer heading cells. Refer to the [Sorting](#sorting) section below for more details.                                                                                                                                              |
 | `no-border-collapse` | Boolean           | Disables the default of collapsing of the table borders. Mainly for use with [sticky headers](#sticky-headers) and/or [sticky columns](#sticky-columns). Will cause the appearance of double borders in some situations.                                                                                                                       |
 
-**Note:** table style options `fixed`, `stacked`, `caption-top`, `no-border-collapse`, sticky
-headers, sticky columns, and the table sorting feature, all require BootstrapVue's custom CSS.
+**Note:** The table style options `fixed`, `stacked`, `caption-top`, `no-border-collapse`, sticky
+headers, sticky columns and the table sorting feature, all require BootstrapVue's custom CSS.
 
 **Example: Basic table styles**
 
 ```html
 <template>
   <div>
-    <b-form-group label="Table Options" label-cols-lg="2">
-      <b-form-checkbox v-model="striped" inline>Striped</b-form-checkbox>
-      <b-form-checkbox v-model="bordered" inline>Bordered</b-form-checkbox>
-      <b-form-checkbox v-model="borderless" inline>Borderless</b-form-checkbox>
-      <b-form-checkbox v-model="outlined" inline>Outlined</b-form-checkbox>
-      <b-form-checkbox v-model="small" inline>Small</b-form-checkbox>
-      <b-form-checkbox v-model="hover" inline>Hover</b-form-checkbox>
-      <b-form-checkbox v-model="dark" inline>Dark</b-form-checkbox>
-      <b-form-checkbox v-model="fixed" inline>Fixed</b-form-checkbox>
-      <b-form-checkbox v-model="footClone" inline>Foot Clone</b-form-checkbox>
-      <b-form-checkbox v-model="noCollapse" inline>No border collapse</b-form-checkbox>
+    <b-form-group label="Table Options" label-cols-lg="2" v-slot="{ ariaDescribedby }">
+      <b-form-checkbox v-model="striped" :aria-describedby="ariaDescribedby" inline>Striped</b-form-checkbox>
+      <b-form-checkbox v-model="bordered" :aria-describedby="ariaDescribedby" inline>Bordered</b-form-checkbox>
+      <b-form-checkbox v-model="borderless" :aria-describedby="ariaDescribedby" inline>Borderless</b-form-checkbox>
+      <b-form-checkbox v-model="outlined" :aria-describedby="ariaDescribedby" inline>Outlined</b-form-checkbox>
+      <b-form-checkbox v-model="small" :aria-describedby="ariaDescribedby" inline>Small</b-form-checkbox>
+      <b-form-checkbox v-model="hover" :aria-describedby="ariaDescribedby" inline>Hover</b-form-checkbox>
+      <b-form-checkbox v-model="dark" :aria-describedby="ariaDescribedby" inline>Dark</b-form-checkbox>
+      <b-form-checkbox v-model="fixed" :aria-describedby="ariaDescribedby" inline>Fixed</b-form-checkbox>
+      <b-form-checkbox v-model="footClone" :aria-describedby="ariaDescribedby" inline>Foot Clone</b-form-checkbox>
+      <b-form-checkbox v-model="noCollapse" :aria-describedby="ariaDescribedby" inline>No border collapse</b-form-checkbox>
     </b-form-group>
-    <b-form-group label="Head Variant" label-cols-lg="2">
-      <b-form-radio-group v-model="headVariant" class="mt-lg-2">
+
+    <b-form-group label="Head Variant" label-cols-lg="2" v-slot="{ ariaDescribedby }">
+      <b-form-radio-group
+        v-model="headVariant"
+        :aria-describedby="ariaDescribedby"
+        class="mt-lg-2"
+      >
         <b-form-radio :value="null" inline>None</b-form-radio>
         <b-form-radio value="light" inline>Light</b-form-radio>
         <b-form-radio value="dark" inline>Dark</b-form-radio>
       </b-form-radio-group>
     </b-form-group>
+
     <b-form-group label="Table Variant" label-for="table-style-variant" label-cols-lg="2">
       <b-form-select
+        id="table-style-variant"
         v-model="tableVariant"
         :options="tableVariants"
-        id="table-style-variant"
       >
         <template #first>
           <option value="">-- None --</option>
@@ -603,8 +609,8 @@ breakpoint values `'sm'`, `'md'`, `'lg'`, or `'xl'`.
 Column header labels will be rendered to the left of each field value using a CSS `::before` pseudo
 element, with a width of 40%.
 
-The prop `stacked` takes precedence over the `responsive` prop, [`sticky-header`](#sticky-headers)
-props, and the [`stickyColumn`](#sticky-columns) field definition property.
+The `stacked` prop takes precedence over the [`sticky-header`](#sticky-headers) prop and the
+[`stickyColumn`](#sticky-columns) field definition property.
 
 **Example: Always stacked table**
 
@@ -1396,8 +1402,8 @@ set.
   wrapped inside a horizontally scrollable `<div>`.
 - When you have multiple columns that are set as `stickyColumn`, the columns will stack over each
   other visually, and the left-most sticky columns may "peek" out from under the next sticky column.
-  To get around this behaviour, make sure your latter stickyColumns are the same width or wider than
-  previous sticky columns.
+  To get around this behaviour, make sure your latter sticky columns are the same width or wider
+  than previous sticky columns.
 - Bootstrap v4 uses the CSS style `border-collapse: collapsed` on table elements. This prevents any
   borders on the sticky columns from "sticking" to the column, and hence those borders will scroll
   when the body scrolls. To get around this issue, set the prop `no-border-collapse` on the table
@@ -1579,18 +1585,27 @@ selected, such as a virtual column as shown in the example below.
 ```html
 <template>
   <div>
-    <b-form-group label="Selection mode:" label-cols-md="4">
-      <b-form-select v-model="selectMode" :options="modes" class="mb-3"></b-form-select>
+    <b-form-group
+      label="Selection mode:"
+      label-for="table-select-mode-select"
+      label-cols-md="4"
+    >
+      <b-form-select
+        id="table-select-mode-select"
+        v-model="selectMode"
+        :options="modes"
+        class="mb-3"
+      ></b-form-select>
     </b-form-group>
 
     <b-table
-      ref="selectableTable"
-      selectable
-      :select-mode="selectMode"
       :items="items"
       :fields="fields"
-      @row-selected="onRowSelected"
+      :select-mode="selectMode"
       responsive="sm"
+      ref="selectableTable"
+      selectable
+      @row-selected="onRowSelected"
     >
       <!-- Example scoped slot for select state illustrative purposes -->
       <template #cell(selected)="{ rowSelected }">
@@ -2881,19 +2896,33 @@ your app handles the various inconsistencies with events.
       <b-col lg="6" class="my-1">
         <b-form-group
           label="Sort"
+          label-for="sort-by-select"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          label-for="sortBySelect"
           class="mb-0"
+          v-slot="{ ariaDescribedby }"
         >
           <b-input-group size="sm">
-            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
+            <b-form-select
+              id="sort-by-select"
+              v-model="sortBy"
+              :options="sortOptions"
+              :aria-describedby="ariaDescribedby"
+              class="w-75"
+            >
               <template #first>
                 <option value="">-- none --</option>
               </template>
             </b-form-select>
-            <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy" class="w-25">
+
+            <b-form-select
+              v-model="sortDesc"
+              :disabled="!sortBy"
+              :aria-describedby="ariaDescribedby"
+              size="sm"
+              class="w-25"
+            >
               <option :value="false">Asc</option>
               <option :value="true">Desc</option>
             </b-form-select>
@@ -2904,17 +2933,17 @@ your app handles the various inconsistencies with events.
       <b-col lg="6" class="my-1">
         <b-form-group
           label="Initial sort"
+          label-for="initial-sort-select"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          label-for="initialSortSelect"
           class="mb-0"
         >
           <b-form-select
+            id="initial-sort-select"
             v-model="sortDirection"
-            id="initialSortSelect"
-            size="sm"
             :options="['asc', 'desc', 'last']"
+            size="sm"
           ></b-form-select>
         </b-form-group>
       </b-col>
@@ -2922,19 +2951,20 @@ your app handles the various inconsistencies with events.
       <b-col lg="6" class="my-1">
         <b-form-group
           label="Filter"
+          label-for="filter-input"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          label-for="filterInput"
           class="mb-0"
         >
           <b-input-group size="sm">
             <b-form-input
+              id="filter-input"
               v-model="filter"
               type="search"
-              id="filterInput"
               placeholder="Type to Search"
             ></b-form-input>
+
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
             </b-input-group-append>
@@ -2944,13 +2974,20 @@ your app handles the various inconsistencies with events.
 
       <b-col lg="6" class="my-1">
         <b-form-group
+          v-model="sortDirection"
           label="Filter On"
+          description="Leave all unchecked to filter on all data"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
-          description="Leave all unchecked to filter on all data"
-          class="mb-0">
-          <b-form-checkbox-group v-model="filterOn" class="mt-1">
+          class="mb-0"
+          v-slot="{ ariaDescribedby }"
+        >
+          <b-form-checkbox-group
+            v-model="filterOn"
+            :aria-describedby="ariaDescribedby"
+            class="mt-1"
+          >
             <b-form-checkbox value="name">Name</b-form-checkbox>
             <b-form-checkbox value="age">Age</b-form-checkbox>
             <b-form-checkbox value="isActive">Active</b-form-checkbox>
@@ -2961,19 +2998,19 @@ your app handles the various inconsistencies with events.
       <b-col sm="5" md="6" class="my-1">
         <b-form-group
           label="Per page"
+          label-for="per-page-select"
           label-cols-sm="6"
           label-cols-md="4"
           label-cols-lg="3"
           label-align-sm="right"
           label-size="sm"
-          label-for="perPageSelect"
           class="mb-0"
         >
           <b-form-select
+            id="per-page-select"
             v-model="perPage"
-            id="perPageSelect"
-            size="sm"
             :options="pageOptions"
+            size="sm"
           ></b-form-select>
         </b-form-group>
       </b-col>
@@ -2992,9 +3029,6 @@ your app handles the various inconsistencies with events.
 
     <!-- Main table element -->
     <b-table
-      show-empty
-      small
-      stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
@@ -3004,6 +3038,9 @@ your app handles the various inconsistencies with events.
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
+      stacked="md"
+      show-empty
+      small
       @filtered="onFiltered"
     >
       <template #cell(name)="row">

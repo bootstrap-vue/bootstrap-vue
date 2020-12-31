@@ -286,9 +286,12 @@ describe('table', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.find('table').classes()).toContain('table')
-    expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(2)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes().length).toBe(2)
 
     wrapper.destroy()
   })
@@ -306,14 +309,17 @@ describe('table', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive-md')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.find('table').classes()).toContain('table')
-    expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(2)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes().length).toBe(2)
 
     wrapper.destroy()
   })
 
-  it('stacked has precedence over responsive', async () => {
+  it('stacked and responsive work together', async () => {
     const wrapper = mount(BTable, {
       propsData: {
         items: items1,
@@ -324,12 +330,16 @@ describe('table', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.element.tagName).toBe('TABLE')
-    expect(wrapper.classes()).not.toContain('table-responsive')
-    expect(wrapper.classes()).toContain('b-table-stacked')
-    expect(wrapper.classes()).toContain('table')
-    expect(wrapper.classes()).toContain('b-table')
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('table-responsive')
+    expect(wrapper.classes().length).toBe(1)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes()).toContain('b-table-stacked')
+    expect($table.classes().length).toBe(3)
 
     wrapper.destroy()
   })
@@ -342,6 +352,7 @@ describe('table', () => {
         stacked: true
       }
     })
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     const $trs = wrapper.findAll('tbody > tr').wrappers
