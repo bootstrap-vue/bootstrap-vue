@@ -2796,11 +2796,11 @@ handling table `dark` mode), and automatically applying certain accessibility at
 markup. Components `<b-table>` and `<b-table-lite>` use these helper components internally.
 
 In the [Simple tables](#simple-tables) example, we are using the helper components `<b-thead>`,
-`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-tr>` and `<b-tfoot>`. While you can use regular table child
+`<b-tbody>`, `<b-tr>`, `<b-th>`, `<b-td>` and `<b-tfoot>`. While you can use regular table child
 elements (i.e. `<tbody>`, `<tr>`, `<td>`, etc.) within `<b-table-simple>`, and the named slots
 `top-row`, `bottom-row`, and `thead-top`, it is recommended to use these BootstrapVue table `<b-t*>`
 helper components. Note that there are no helper components for `<caption>`, `<colgroup>` or
-`<col>`, so you may these three HTML5 elements directly in `<b-table-simple>`.
+`<col>`, so you may use these three HTML5 elements directly in `<b-table-simple>`.
 
 - Table helper components `<b-tr>`, `<b-td>` and `<b-th>` all accept a `variant` prop, which will
   apply one of the Bootstrap theme colors (custom theme colors are supported via
