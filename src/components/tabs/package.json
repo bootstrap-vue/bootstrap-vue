@@ -37,11 +37,11 @@
             "description": "Proportionately fills all horizontal space with nav items. All horizontal space is occupied, but not every nav item has the same width"
           },
           {
-            "prop": "hidePosinset",
+            "prop": "hidePosInSet",
             "description": "Prevents attribute aria-posinset to be rendered in link in tab navigation"
           },
           {
-            "prop": "hideSetsize",
+            "prop": "hideSetSize",
             "description": "Prevents attribute aria-setsize to be rendered in link in tab navigation"
           },
           {
