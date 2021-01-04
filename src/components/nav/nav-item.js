@@ -2,14 +2,16 @@ import { Vue, mergeData } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_OBJECT } from '../../constants/props'
 import { omit, sortKeys } from '../../utils/object'
-import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
+const linkProps = omit(BLinkProps, ['event', 'routerTag'])
+
 export const props = makePropsConfigurable(
   sortKeys({
-    ...omit(BLinkProps, ['event', 'routerTag']),
+    ...linkProps,
     linkAttrs: makeProp(PROP_TYPE_OBJECT, {}),
     linkClasses: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING)
   }),
@@ -36,7 +38,7 @@ export const BNavItem = /*#__PURE__*/ Vue.extend({
             staticClass: 'nav-link',
             class: props.linkClasses,
             attrs: props.linkAttrs,
-            props,
+            props: pluckProps(linkProps, props),
             on: listeners
           },
           children

@@ -44,7 +44,7 @@ $body-color: #111;
 
 ## Default theme colors
 
-The default them colors defined in the Bootstrap v4.4 SCSS are as follows:
+The default theme colors defined in the Bootstrap v4.4 SCSS are as follows:
 
 <div class="row">
   <div class="col-md-4">
@@ -73,9 +73,9 @@ The default them colors defined in the Bootstrap v4.4 SCSS are as follows:
   </div>
 </div>
 
-Various components will use variations (intensities) of these default theme colors.
+BootstrapVue components use variations (intensities) of these default theme colors.
 
-You can alter the theme colors, and create additional theme colors, as needed via SASS variables and
+You can alter these theme colors and create additional theme colors as needed via SASS variables and
 maps. Refer to the [Bootstrap theming](https://getbootstrap.com/docs/4.5/getting-started/theming/)
 docs for more details. All theme colors automatically become available as
 [color variants](/docs/reference/color-variants) to all BootstrapVue components.
