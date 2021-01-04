@@ -723,7 +723,7 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
-  it('does not render aria-posinset and aria-setsize if props to hide  are set to true', async () => {
+  it('does not render aria-posinset and aria-setsize if props to hide are set to true', async () => {
     const App = {
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
