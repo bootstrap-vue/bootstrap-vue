@@ -241,7 +241,7 @@ Use `<b-nav-form>` to place inline form controls into your navbar
 <!-- b-navbar-form.vue -->
 ```
 
-Input groups work as well:
+Input Groups work as well:
 
 ```html
 <div>

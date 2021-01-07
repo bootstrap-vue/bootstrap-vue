@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-spinbutton",
   "version": "1.0.0",
   "meta": {
-    "title": "Form spinbutton",
+    "title": "Form Spinbutton",
     "version": "2.5.0",
     "description": "BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n).",
     "components": [

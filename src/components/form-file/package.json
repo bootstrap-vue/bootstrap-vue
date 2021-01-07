@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-file",
   "version": "1.0.0",
   "meta": {
-    "title": "Form file",
+    "title": "Form File",
     "description": "Customized, cross-browser consistent, file input control that supports single file, multiple files, and directory upload.",
     "components": [
       {

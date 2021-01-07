@@ -734,7 +734,7 @@ font scaled by 125%).
 <!-- icons-button-toolbar.vue -->
 ```
 
-### Input groups
+### Input Groups
 
 ```html
 <template>
@@ -774,7 +774,7 @@ font scaled by 125%).
 <!-- icons-input-groups.vue -->
 ```
 
-### List groups
+### List Groups
 
 ```html
 <template>

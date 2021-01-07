@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/pagination-nav",
   "version": "1.0.0",
   "meta": {
-    "title": "Pagination nav",
+    "title": "Pagination Nav",
     "description": "Quick first, previous, next, last, and page buttons for navigation based pagination, supporting regular links or router links.",
     "components": [
       {

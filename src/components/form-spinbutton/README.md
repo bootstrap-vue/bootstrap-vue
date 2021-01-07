@@ -1,4 +1,4 @@
-# Form spinbutton
+# Form Spinbutton
 
 > Spin buttons are a BootstrapVue custom numerical range form control. Spin buttons allow for
 > incrementing or decrementing a numerical value within a range of a minimum and maximum number,

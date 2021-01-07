@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/input-group",
   "version": "1.0.0",
   "meta": {
-    "title": "Input group",
+    "title": "Input Group",
     "description": "Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs.",
     "components": [
       {

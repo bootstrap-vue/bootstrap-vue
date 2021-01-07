@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/button-toolbar",
   "version": "1.0.0",
   "meta": {
-    "title": "Button toolbar",
+    "title": "Button Toolbar",
     "description": "Group a series of <b-button-group> and/or <b-input-group> together on a single line, with optional keyboard navigation.",
     "components": [
       {

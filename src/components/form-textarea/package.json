@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-textarea",
   "version": "1.0.0",
   "meta": {
-    "title": "Form textarea",
+    "title": "Form Textarea",
     "description": "Create multi-line text inputs with support for auto height sizing, minimum and maximum number of rows, and contextual validation states.",
     "components": [
       {

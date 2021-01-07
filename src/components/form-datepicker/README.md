@@ -1,4 +1,4 @@
-# Form datepicker
+# Form Datepicker
 
 > `<b-form-datepicker>` is a BootstrapVue custom date picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.
