@@ -1,10 +1,10 @@
-# Button group
+# Button Group
 
 > Group a series of buttons together on a single line with `<b-button-group>`.
 
 ## Overview
 
-Button groups are an easy way to group a series of buttons together.
+Button Groups are an easy way to group a series of buttons together.
 
 ```html
 <div>

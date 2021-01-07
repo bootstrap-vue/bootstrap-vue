@@ -3474,7 +3474,7 @@ Released: 2017-07-04
   ([60b1fd8](https://github.com/bootstrap-vue/bootstrap-vue/commit/60b1fd8))
 - **docs:** add root wrapper to templates
   ([ff6432d](https://github.com/bootstrap-vue/bootstrap-vue/commit/ff6432d))
-- **docs:** Fix ScrollSpy example
+- **docs:** Fix Scrollspy example
   ([0365208](https://github.com/bootstrap-vue/bootstrap-vue/commit/0365208))
 - **docs:** form-radio typo fix
   ([db6d5d7](https://github.com/bootstrap-vue/bootstrap-vue/commit/db6d5d7))

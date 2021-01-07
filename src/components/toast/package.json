@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/toast",
   "version": "1.0.0",
   "meta": {
-    "title": "Toasts",
+    "title": "Toast",
     "slug": "toast",
     "description": "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.",
     "plugins": [

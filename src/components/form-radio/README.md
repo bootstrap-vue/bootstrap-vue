@@ -1,4 +1,4 @@
-# Form Radio Inputs
+# Form Radio
 
 > For cross browser consistency, `<b-form-radio-group>` and `<b-form-radio>` uses Bootstrap's custom
 > radio input to replace the browser default radio input. It is built on top of semantic and

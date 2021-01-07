@@ -1,4 +1,4 @@
-# Bootstrap Icons
+# Icons
 
 > Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation.
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they
@@ -661,7 +661,7 @@ font scaled by 125%).
 <!-- icons-buttons.vue -->
 ```
 
-### Button groups and toolbars
+### Button Groups and toolbars
 
 #### Button Group
 
@@ -734,7 +734,7 @@ font scaled by 125%).
 <!-- icons-button-toolbar.vue -->
 ```
 
-### Input groups
+### Input Groups
 
 ```html
 <template>
@@ -774,7 +774,7 @@ font scaled by 125%).
 <!-- icons-input-groups.vue -->
 ```
 
-### List groups
+### List Groups
 
 ```html
 <template>

@@ -1,4 +1,4 @@
-# Tables
+# Table
 
 > For displaying tabular data, `<b-table>` supports pagination, filtering, sorting, custom
 > rendering, various style options, events, and asynchronous data. For simple display of tabular
