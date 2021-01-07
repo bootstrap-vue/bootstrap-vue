@@ -1,4 +1,4 @@
-# Bootstrap Icons
+# Icons
 
 > Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation.
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they

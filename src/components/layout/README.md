@@ -1,4 +1,4 @@
-# Layout and Grid System
+# Layout and Grid system
 
 > Use the powerful mobile-first flexbox grid (via the `<b-container>`, `<b-row>`, `<b-form-row>` and
 > `<b-col>` components) to build layouts of all shapes and sizes thanks to a twelve column system,

@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/layout",
   "version": "1.0.0",
   "meta": {
-    "title": "Layout and Grid System",
+    "title": "Layout and Grid system",
     "description": "Use the powerful mobile-first flexbox grid (via the <b-container>, <b-row>, <b-form-row> and <b-col> components) to build layouts of all shapes and sizes thanks to a twelve column system, five default responsive tiers, CSS Sass variables and mixins, and dozens of predefined classes.",
     "slug": "layout",
     "components": [

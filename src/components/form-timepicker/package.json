@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-timepicker",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Timepicker",
+    "title": "Form timepicker",
     "description": "BootstrapVue custom time picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n).",
     "version": "2.6.0",
     "components": [

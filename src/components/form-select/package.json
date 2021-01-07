@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-select",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Select",
+    "title": "Form select",
     "description": "Custom <select> component using cross-browser custom styles. Optionally generate <option> entries based on an array, array of objects.",
     "components": [
       {

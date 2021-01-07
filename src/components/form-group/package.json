@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-group",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Group",
+    "title": "Form group",
     "description": "Easily add some structure to forms. Its purpose is to pair form controls with a legend or label, and to provide help text and invalid/valid feedback text, as well as visual (color) contextual state feedback.",
     "components": [
       {

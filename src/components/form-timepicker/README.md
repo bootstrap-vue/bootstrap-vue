@@ -1,4 +1,4 @@
-# Form Timepicker
+# Form timepicker
 
 > `<b-form-timepicker>` is a BootstrapVue custom time picker input form control, which provides full
 > WAI-ARIA compliance and internationalization support.

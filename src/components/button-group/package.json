@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/button-group",
   "version": "1.0.0",
   "meta": {
-    "title": "Button Group",
+    "title": "Button group",
     "description": "Group a series of buttons together on a single line with <b-button-group>.",
     "components": [
       {

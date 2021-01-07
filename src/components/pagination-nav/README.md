@@ -1,4 +1,4 @@
-# Pagination Navigation
+# Pagination nav
 
 > Quick first, previous, next, last, and page buttons for navigation based pagination, supporting
 > regular links or router links.

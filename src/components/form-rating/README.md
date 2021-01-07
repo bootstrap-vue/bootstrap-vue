@@ -1,4 +1,4 @@
-# Form Rating
+# Form rating
 
 > BootstrapVue's custom star rating component, `<b-form-rating>`, is for entering or displaying a
 > rating value. The component is fully WAI-ARIA accessible and supports keyboard control.

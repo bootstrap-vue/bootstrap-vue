@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-datepicker",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Datepicker",
+    "title": "Form datepicker",
     "version": "2.5.0",
     "slug": "form-datepicker",
     "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n).",
