@@ -861,8 +861,7 @@ SVGs are awesome to work with, but they do have some known quirks to work around
 
 ## Icons
 
-The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
-browse the available icons.
+Use the explorer below to search and browse the available icons.
 
 <!-- Component rendered by `docs/pages/docs/icons.index.js` -->
 <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->
