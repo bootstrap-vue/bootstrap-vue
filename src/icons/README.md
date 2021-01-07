@@ -661,7 +661,7 @@ font scaled by 125%).
 <!-- icons-buttons.vue -->
 ```
 
-### Button groups and toolbars
+### Button Groups and toolbars
 
 #### Button Group
 
