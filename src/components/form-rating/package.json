@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/form-rating",
   "version": "1.0.0",
   "meta": {
-    "title": "Form Rating",
+    "title": "Form rating",
     "version": "2.12.0",
     "description": "BootstrapVue custom star rating form control for ratings entry or aggregated display.",
     "components": [
