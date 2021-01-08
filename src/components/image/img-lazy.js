@@ -140,15 +140,15 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     return h(BImg, {
       directives,
       props: {
+        // Passthrough props
+        ...pluckProps(imgProps, this.$props),
         // Computed value props
         src: this.computedSrc,
         blank: this.computedBlank,
         width: this.computedWidth,
         height: this.computedHeight,
         srcset: this.computedSrcset || null,
-        sizes: this.computedSizes || null,
-        // Passthrough props
-        ...pluckProps(imgProps, this.$props)
+        sizes: this.computedSizes || null
       }
     })
   }
