@@ -148,7 +148,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "sass": "^1.32.2",
-    "sass-loader": "^10.1.0",
+    "sass-loader": "^10.1.1",
     "standard-version": "^9.1.0",
     "terser": "^5.5.1",
     "vue": "^2.6.12",
