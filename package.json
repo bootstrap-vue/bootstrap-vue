@@ -102,7 +102,7 @@
     "@nuxtjs/pwa": "^3.3.4",
     "@nuxtjs/robots": "^2.4.2",
     "@nuxtjs/sitemap": "^2.4.0",
-    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/jest-dom": "^5.11.9",
     "@vue/test-utils": "^1.1.2",
     "autoprefixer": "^10.2.1",
     "babel-core": "^7.0.0-bridge.0",
