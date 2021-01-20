@@ -3,6 +3,7 @@ import { NAME_DROPDOWN } from '../../constants/components'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_BOOLEAN,
+  PROP_TYPE_OBJECT,
   PROP_TYPE_OBJECT_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
@@ -42,6 +43,7 @@ export const props = makePropsConfigurable(
     text: makeProp(PROP_TYPE_STRING),
     toggleClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     toggleTag: makeProp(PROP_TYPE_STRING, 'button'),
+    toggleAttrs: makeProp(PROP_TYPE_OBJECT, {}),
     // TODO: This really should be `toggleLabel`
     toggleText: makeProp(PROP_TYPE_STRING, 'Toggle dropdown'),
     variant: makeProp(PROP_TYPE_STRING, 'secondary')
@@ -145,6 +147,9 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
         staticClass: 'dropdown-toggle',
         class: this.toggleClasses,
         attrs: {
+          // Merge in user supplied attributes
+          ...this.toggleAttrs,
+          // Must have attributes
           id: this.safeId('_BV_toggle_'),
           'aria-haspopup': 'true',
           'aria-expanded': toString(visible)

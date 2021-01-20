@@ -351,6 +351,17 @@ describe('dropdown', () => {
     wrapper.destroy()
   })
 
+  it('should have attrs on toggle when toggle-attrs is set', async () => {
+    const wrapper = mount(BDropdown, {
+      attachTo: createContainer(),
+      propsData: {
+        toggleAttrs: { 'data-foo-bar': 'foo-bar' }
+      }
+    })
+    expect(wrapper.find('.dropdown-toggle').attributes('data-foo-bar')).toBe('foo-bar')
+    wrapper.destroy()
+  })
+
   it('should have class dropup when prop dropup set', async () => {
     const wrapper = mount(BDropdown, {
       attachTo: createContainer(),
