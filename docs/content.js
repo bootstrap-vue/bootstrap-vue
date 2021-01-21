@@ -31,7 +31,7 @@ export const reference = importAll(referenceContext)
 
 export const nav = [
   {
-    title: 'Getting started',
+    title: 'Getting Started',
     base: '',
     exact: true
   },
