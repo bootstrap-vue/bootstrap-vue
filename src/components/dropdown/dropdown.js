@@ -41,9 +41,9 @@ export const props = makePropsConfigurable(
     splitTo: makeProp(PROP_TYPE_OBJECT_STRING),
     splitVariant: makeProp(PROP_TYPE_STRING),
     text: makeProp(PROP_TYPE_STRING),
+    toggleAttrs: makeProp(PROP_TYPE_OBJECT, {}),
     toggleClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     toggleTag: makeProp(PROP_TYPE_STRING, 'button'),
-    toggleAttrs: makeProp(PROP_TYPE_OBJECT, {}),
     // TODO: This really should be `toggleLabel`
     toggleText: makeProp(PROP_TYPE_STRING, 'Toggle dropdown'),
     variant: makeProp(PROP_TYPE_STRING, 'secondary')
