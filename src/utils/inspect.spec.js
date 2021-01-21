@@ -9,6 +9,7 @@ import {
   isBoolean,
   isString,
   isNumber,
+  isNumeric,
   isPrimitive,
   isDate,
   isEvent,
@@ -17,7 +18,7 @@ import {
 } from './inspect'
 
 describe('utils/inspect', () => {
-  it('toType', async () => {
+  it('toType()', async () => {
     expect(toType(123)).toEqual('number')
     expect(toType('123')).toEqual('string')
     expect(toType(true)).toEqual('boolean')
@@ -31,7 +32,7 @@ describe('utils/inspect', () => {
     expect(toType(null)).toEqual('object')
   })
 
-  it('toRawType', async () => {
+  it('toRawType()', async () => {
     expect(toRawType(123)).toEqual('Number')
     expect(toRawType('123')).toEqual('String')
     expect(toRawType(true)).toEqual('Boolean')
@@ -45,7 +46,7 @@ describe('utils/inspect', () => {
     expect(toRawType(null)).toEqual('Null')
   })
 
-  it('toRawTypeLC', async () => {
+  it('toRawTypeLC()', async () => {
     expect(toRawTypeLC(123)).toEqual('number')
     expect(toRawTypeLC('123')).toEqual('string')
     expect(toRawTypeLC(true)).toEqual('boolean')
@@ -59,7 +60,7 @@ describe('utils/inspect', () => {
     expect(toRawTypeLC(null)).toEqual('null')
   })
 
-  it('isUndefined', async () => {
+  it('isUndefined()', async () => {
     expect(isUndefined(123)).toEqual(false)
     expect(isUndefined('123')).toEqual(false)
     expect(isUndefined(true)).toEqual(false)
@@ -73,7 +74,7 @@ describe('utils/inspect', () => {
     expect(isUndefined(null)).toEqual(false)
   })
 
-  it('isNull', async () => {
+  it('isNull()', async () => {
     expect(isNull(123)).toEqual(false)
     expect(isNull('123')).toEqual(false)
     expect(isNull(true)).toEqual(false)
@@ -87,7 +88,7 @@ describe('utils/inspect', () => {
     expect(isNull(null)).toEqual(true)
   })
 
-  it('isUndefinedOrNull', async () => {
+  it('isUndefinedOrNull()', async () => {
     expect(isUndefinedOrNull(123)).toEqual(false)
     expect(isUndefinedOrNull('123')).toEqual(false)
     expect(isUndefinedOrNull(true)).toEqual(false)
@@ -101,7 +102,7 @@ describe('utils/inspect', () => {
     expect(isUndefinedOrNull(null)).toEqual(true)
   })
 
-  it('isFunction', async () => {
+  it('isFunction()', async () => {
     expect(isFunction(123)).toEqual(false)
     expect(isFunction('123')).toEqual(false)
     expect(isFunction(true)).toEqual(false)
@@ -115,7 +116,7 @@ describe('utils/inspect', () => {
     expect(isFunction(null)).toEqual(false)
   })
 
-  it('isBoolean', async () => {
+  it('isBoolean()', async () => {
     expect(isBoolean(123)).toEqual(false)
     expect(isBoolean('123')).toEqual(false)
     expect(isBoolean(true)).toEqual(true)
@@ -129,7 +130,7 @@ describe('utils/inspect', () => {
     expect(isBoolean(null)).toEqual(false)
   })
 
-  it('isString', async () => {
+  it('isString()', async () => {
     expect(isString(123)).toEqual(false)
     expect(isString('123')).toEqual(true)
     expect(isString(true)).toEqual(false)
@@ -143,8 +144,9 @@ describe('utils/inspect', () => {
     expect(isString(null)).toEqual(false)
   })
 
-  it('isNumber', async () => {
+  it('isNumber()', async () => {
     expect(isNumber(123)).toEqual(true)
+    expect(isNumber(123.5)).toEqual(true)
     expect(isNumber('123')).toEqual(false)
     expect(isNumber(true)).toEqual(false)
     expect(isNumber({})).toEqual(false)
@@ -157,7 +159,24 @@ describe('utils/inspect', () => {
     expect(isNumber(null)).toEqual(false)
   })
 
-  it('isPrimitive', async () => {
+  it('isNumeric()', async () => {
+    expect(isNumeric(123)).toEqual(true)
+    expect(isNumeric(123.5)).toEqual(true)
+    expect(isNumeric('123')).toEqual(true)
+    expect(isNumeric('123.5')).toEqual(true)
+    expect(isNumeric('123,5')).toEqual(false)
+    expect(isNumeric(true)).toEqual(false)
+    expect(isNumeric({})).toEqual(false)
+    expect(isNumeric([])).toEqual(false)
+    expect(isNumeric(/abc/)).toEqual(false)
+    expect(isNumeric(() => {})).toEqual(false)
+    expect(isNumeric(Date)).toEqual(false)
+    expect(isNumeric(new Date())).toEqual(false)
+    expect(isNumeric(undefined)).toEqual(false)
+    expect(isNumeric(null)).toEqual(false)
+  })
+
+  it('isPrimitive()', async () => {
     expect(isPrimitive(123)).toEqual(true)
     expect(isPrimitive('123')).toEqual(true)
     expect(isPrimitive(true)).toEqual(true)
@@ -171,7 +190,7 @@ describe('utils/inspect', () => {
     expect(isPrimitive(null)).toEqual(false)
   })
 
-  it('isDate', async () => {
+  it('isDate()', async () => {
     expect(isDate(123)).toEqual(false)
     expect(isDate('123')).toEqual(false)
     expect(isDate(true)).toEqual(false)
@@ -185,7 +204,7 @@ describe('utils/inspect', () => {
     expect(isDate(null)).toEqual(false)
   })
 
-  it('isEvent', async () => {
+  it('isEvent()', async () => {
     expect(isEvent(123)).toEqual(false)
     expect(isEvent('123')).toEqual(false)
     expect(isEvent(true)).toEqual(false)
@@ -201,7 +220,7 @@ describe('utils/inspect', () => {
     expect(isEvent(null)).toEqual(false)
   })
 
-  it('isRegExp', async () => {
+  it('isRegExp()', async () => {
     expect(isRegExp(123)).toEqual(false)
     expect(isRegExp('123')).toEqual(false)
     expect(isRegExp(true)).toEqual(false)
@@ -215,7 +234,7 @@ describe('utils/inspect', () => {
     expect(isRegExp(null)).toEqual(false)
   })
 
-  it('isPromise', async () => {
+  it('isPromise()', async () => {
     expect(isPromise(123)).toEqual(false)
     expect(isPromise('123')).toEqual(false)
     expect(isPromise(true)).toEqual(false)

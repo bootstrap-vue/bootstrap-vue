@@ -1,4 +1,4 @@
-# Form textarea
+# Form Textarea
 
 > Create multi-line text inputs with support for auto height sizing, minimum and maximum number of
 > rows, and contextual states.
@@ -172,7 +172,7 @@ disabled in auto-height mode.
 
 Auto-height works by computing the resulting height via CSS queries, hence the input has to be in
 document (DOM) and visible (not hidden via `display: none`). Initial height is computed on mount. If
-the browser client supports [`IntersectionObserver`](https://caniuse.com/#feat=intersectionobserver)
+the browser client supports [`IntersectionObserver`](https://caniuse.com/intersectionobserver)
 (either natively or via [a polyfill](/docs#js)), `<b-form-textarea>` will take advantage of this to
 determine when the textarea becomes visible and will then compute the height. Refer to the
 [Browser support](/docs#browser) section on the getting started page.
@@ -261,10 +261,10 @@ Formatting does not occur if a `formatter` is not provided.
 <template>
   <div>
     <b-form-group
-      class="mb-0"
       label="Textarea with formatter (on input)"
       label-for="textarea-formatter"
       description="We will convert your text to lowercase instantly"
+      class="mb-0"
     >
       <b-form-textarea
         id="textarea-formatter"
@@ -276,10 +276,10 @@ Formatting does not occur if a `formatter` is not provided.
     <p style="white-space: pre-line"><b>Value:</b> {{ text1 }}</p>
 
     <b-form-group
-      class="mb-0"
       label="Textarea with lazy formatter (on blur)"
       label-for="textarea-lazy"
       description="This one is a little lazy!"
+      class="mb-0"
     >
       <b-form-textarea
         id="textarea-lazy"

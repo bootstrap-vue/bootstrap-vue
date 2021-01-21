@@ -1,10 +1,13 @@
+import { DOCUMENT, WINDOW } from '../constants/env'
+import { Element } from '../constants/safe-types'
 import { from as arrayFrom } from './array'
-import { hasWindowSupport, hasDocumentSupport } from './env'
 import { isFunction, isNull } from './inspect'
 import { toFloat } from './number'
 import { toString } from './string'
 
 // --- Constants ---
+
+const ELEMENT_PROTO = Element.prototype
 
 const TABABLE_SELECTOR = [
   'button',
@@ -18,21 +21,17 @@ const TABABLE_SELECTOR = [
   .map(s => `${s}:not(:disabled):not([disabled])`)
   .join(', ')
 
-const w = hasWindowSupport ? window : {}
-const d = hasDocumentSupport ? document : {}
-const elProto = typeof Element !== 'undefined' ? Element.prototype : {}
-
 // --- Normalization utils ---
 
 // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/matches#Polyfill
 /* istanbul ignore next */
 export const matchesEl =
-  elProto.matches || elProto.msMatchesSelector || elProto.webkitMatchesSelector
+  ELEMENT_PROTO.matches || ELEMENT_PROTO.msMatchesSelector || ELEMENT_PROTO.webkitMatchesSelector
 
 // See: https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 /* istanbul ignore next */
 export const closestEl =
-  elProto.closest ||
+  ELEMENT_PROTO.closest ||
   function(sel) {
     let el = this
     do {
@@ -48,18 +47,18 @@ export const closestEl =
 // `requestAnimationFrame()` convenience method
 /* istanbul ignore next: JSDOM always returns the first option */
 export const requestAF =
-  w.requestAnimationFrame ||
-  w.webkitRequestAnimationFrame ||
-  w.mozRequestAnimationFrame ||
-  w.msRequestAnimationFrame ||
-  w.oRequestAnimationFrame ||
+  WINDOW.requestAnimationFrame ||
+  WINDOW.webkitRequestAnimationFrame ||
+  WINDOW.mozRequestAnimationFrame ||
+  WINDOW.msRequestAnimationFrame ||
+  WINDOW.oRequestAnimationFrame ||
   // Fallback, but not a true polyfill
   // Only needed for Opera Mini
   /* istanbul ignore next */
   (cb => setTimeout(cb, 16))
 
 export const MutationObs =
-  w.MutationObserver || w.WebKitMutationObserver || w.MozMutationObserver || null
+  WINDOW.MutationObserver || WINDOW.WebKitMutationObserver || WINDOW.MozMutationObserver || null
 
 // --- Utils ---
 
@@ -71,7 +70,7 @@ export const isElement = el => !!(el && el.nodeType === Node.ELEMENT_NODE)
 
 // Get the currently active HTML element
 export const getActiveElement = (excludes = []) => {
-  const activeElement = d.activeElement
+  const { activeElement } = DOCUMENT
   return activeElement && !excludes.some(el => el === activeElement) ? activeElement : null
 }
 
@@ -83,7 +82,7 @@ export const isActiveElement = el => isElement(el) && el === getActiveElement()
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
-  if (!isElement(el) || !el.parentNode || !contains(d.body, el)) {
+  if (!isElement(el) || !el.parentNode || !contains(DOCUMENT.body, el)) {
     // Note this can fail for shadow dom elements since they
     // are not a direct descendant of document.body
     return false
@@ -113,11 +112,11 @@ export const reflow = el => {
 
 // Select all elements matching selector. Returns `[]` if none found
 export const selectAll = (selector, root) =>
-  arrayFrom((isElement(root) ? root : d).querySelectorAll(selector))
+  arrayFrom((isElement(root) ? root : DOCUMENT).querySelectorAll(selector))
 
 // Select a single element, returns `null` if not found
 export const select = (selector, root) =>
-  (isElement(root) ? root : d).querySelector(selector) || null
+  (isElement(root) ? root : DOCUMENT).querySelector(selector) || null
 
 // Determine if an element matches a selector
 export const matches = (el, selector) => (isElement(el) ? matchesEl.call(el, selector) : false)
@@ -140,7 +139,7 @@ export const contains = (parent, child) =>
   parent && isFunction(parent.contains) ? parent.contains(child) : false
 
 // Get an element given an ID
-export const getById = id => d.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
+export const getById = id => DOCUMENT.getElementById(/^#/.test(id) ? id.slice(1) : id) || null
 
 // Add a class to an element
 export const addClass = (el, className) => {
@@ -220,12 +219,18 @@ export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null)
 
 // Get computed style object for an element
 /* istanbul ignore next: getComputedStyle() doesn't work in JSDOM */
-export const getCS = el => (hasWindowSupport && isElement(el) ? w.getComputedStyle(el) : {})
+export const getCS = el => {
+  const { getComputedStyle } = WINDOW
+  return getComputedStyle && isElement(el) ? getComputedStyle(el) : {}
+}
 
 // Returns a `Selection` object representing the range of text selected
 // Returns `null` if no window support is given
 /* istanbul ignore next: getSelection() doesn't work in JSDOM */
-export const getSel = () => (hasWindowSupport && w.getSelection ? w.getSelection() : null)
+export const getSel = () => {
+  const { getSelection } = WINDOW
+  return getSelection ? WINDOW.getSelection() : null
+}
 
 // Return an element's offset with respect to document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset

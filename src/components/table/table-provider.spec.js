@@ -232,11 +232,11 @@ describe('table > provider functions', () => {
     })
     expect(wrapper).toBeDefined()
 
-    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+    expect(wrapper.emitted('refreshed')).toBeUndefined()
 
     await waitNT(wrapper.vm)
 
-    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+    expect(wrapper.emitted('refreshed')).toBeUndefined()
     expect(wrapper.vm.localBusy).toBe(true)
 
     // No refreshing if localBusy is true
@@ -245,7 +245,7 @@ describe('table > provider functions', () => {
     // Trigger a context change that would trigger an internal _providerUpdate
     await wrapper.setProps({ sortBy: 'b' })
     await waitNT(wrapper.vm)
-    expect(wrapper.emitted('refreshed')).not.toBeDefined()
+    expect(wrapper.emitted('refreshed')).toBeUndefined()
 
     expect(callback).toBeDefined()
     callback(testItems.slice())

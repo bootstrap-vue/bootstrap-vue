@@ -122,7 +122,7 @@ describe('carousel-slide', () => {
   it('does not have style "background" when prop "background" not set', async () => {
     const wrapper = mount(BCarouselSlide)
 
-    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.attributes('style')).toBeUndefined()
 
     wrapper.destroy()
   })

@@ -1,10 +1,14 @@
-import Vue, { mergeData } from '../vue'
+import { Vue, mergeData } from '../vue'
 import { NAME_ICON } from '../constants/components'
+import { PROP_TYPE_STRING } from '../constants/props'
 import { RX_ICON_PREFIX } from '../constants/regex'
-import { makePropsConfigurable } from '../utils/config'
+import { omit, sortKeys } from '../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../utils/props'
 import { pascalCase, trim } from '../utils/string'
 import { BIconBlank } from './icons'
-import { commonIconProps } from './helpers/icon-base'
+import { props as BVIconBaseProps } from './helpers/icon-base'
+
+// --- Helper methods ---
 
 const findIconComponent = (ctx, iconName) => {
   if (!ctx) {
@@ -15,25 +19,27 @@ const findIconComponent = (ctx, iconName) => {
   return iconComponent || findIconComponent(ctx.$parent, iconName)
 }
 
+// --- Props ---
+
+const iconProps = omit(BVIconBaseProps, ['content'])
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...iconProps,
+    icon: makeProp(PROP_TYPE_STRING)
+  }),
+  NAME_ICON
+)
+
+// --- Main component ---
+
 // Helper BIcon component
 // Requires the requested icon component to be installed
+// @vue/component
 export const BIcon = /*#__PURE__*/ Vue.extend({
   name: NAME_ICON,
   functional: true,
-  props: makePropsConfigurable(
-    {
-      icon: {
-        type: String,
-        default: null
-      },
-      ...commonIconProps,
-      stacked: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_ICON
-  ),
+  props,
   render(h, { data, props, parent }) {
     const icon = pascalCase(trim(props.icon || '')).replace(RX_ICON_PREFIX, '')
 
@@ -42,7 +48,7 @@ export const BIcon = /*#__PURE__*/ Vue.extend({
     // If not registered, we render a blank icon
     return h(
       icon ? findIconComponent(parent, `BIcon${icon}`) || BIconBlank : BIconBlank,
-      mergeData(data, { props: { ...props, icon: null } })
+      mergeData(data, { props: pluckProps(iconProps, props) })
     )
   }
 })

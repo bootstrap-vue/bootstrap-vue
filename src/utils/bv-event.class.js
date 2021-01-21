@@ -1,6 +1,6 @@
 import { assign, defineProperty, defineProperties, readonlyDescriptor } from './object'
 
-class BvEvent {
+export class BvEvent {
   constructor(type, eventInit = {}) {
     // Start by emulating native Event constructor
     if (!type) {
@@ -58,6 +58,3 @@ class BvEvent {
     }
   }
 }
-
-// Named Exports
-export { BvEvent }

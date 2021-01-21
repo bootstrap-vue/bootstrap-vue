@@ -37,7 +37,7 @@ describe('form-valid-feedback', () => {
   it('default should not have id', async () => {
     const wrapper = mount(BFormValidFeedback)
 
-    expect(wrapper.attributes('id')).not.toBeDefined()
+    expect(wrapper.attributes('id')).toBeUndefined()
 
     wrapper.destroy()
   })

@@ -1,20 +1,19 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_MEDIA_BODY } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    tag: {
-      type: String,
-      default: 'div'
-    }
+    tag: makeProp(PROP_TYPE_STRING, 'div')
   },
   NAME_MEDIA_BODY
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BMediaBody = /*#__PURE__*/ Vue.extend({
   name: NAME_MEDIA_BODY,

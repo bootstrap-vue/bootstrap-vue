@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer } from '../../tests/utils'
-import listenOnDocumentMixin from './listen-on-document'
+import { listenOnDocumentMixin } from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
   it('works', async () => {
@@ -22,8 +22,8 @@ describe('mixins/listen-on-document', () => {
         this.listenOnDocument('click', spyClick2)
       },
       watch: {
-        offClickOne(newVal) {
-          if (newVal) {
+        offClickOne(newValue) {
+          if (newValue) {
             this.listenOffDocument('click', spyClick1)
           }
         }

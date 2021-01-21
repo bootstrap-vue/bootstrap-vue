@@ -1,4 +1,4 @@
-# Images
+# Image
 
 > Documentation and examples for opting images (via `<b-img>` component) into responsive behavior
 > (so they never become larger than their parent elements), optionally adding lightweight styles to

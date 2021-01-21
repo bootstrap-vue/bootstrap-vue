@@ -1,10 +1,10 @@
 import { NAME_TOOLTIP } from '../../constants/components'
-import getScopId from '../../utils/get-scope-id'
-import identity from '../../utils/identity'
-import looseEqual from '../../utils/loose-equal'
+import { IS_BROWSER } from '../../constants/env'
+import { EVENT_NAME_SHOW } from '../../constants/events'
 import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
-import { isBrowser } from '../../utils/env'
+import { getScopeId } from '../../utils/get-scope-id'
+import { identity } from '../../utils/identity'
 import {
   isFunction,
   isNumber,
@@ -13,6 +13,7 @@ import {
   isUndefined,
   isUndefinedOrNull
 } from '../../utils/inspect'
+import { looseEqual } from '../../utils/loose-equal'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
@@ -183,7 +184,7 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
 
 // Add/update Tooltip on our element
 const applyTooltip = (el, bindings, vnode) => {
-  if (!isBrowser) {
+  if (!IS_BROWSER) {
     /* istanbul ignore next */
     return
   }
@@ -193,10 +194,10 @@ const applyTooltip = (el, bindings, vnode) => {
     el[BV_TOOLTIP] = new BVTooltip({
       parent: $parent,
       // Add the parent's scoped style attribute data
-      _scopeId: getScopId($parent, undefined)
+      _scopeId: getScopeId($parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
-    el[BV_TOOLTIP].$on('show', () => /* istanbul ignore next: for now */ {
+    el[BV_TOOLTIP].$on(EVENT_NAME_SHOW, () => /* istanbul ignore next: for now */ {
       // Before showing the tooltip, we update the title if it is a function
       if (isFunction(config.title)) {
         el[BV_TOOLTIP].updateData({

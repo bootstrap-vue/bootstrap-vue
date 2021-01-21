@@ -1,98 +1,80 @@
-import { NAME_TABLE } from '../../../constants/components'
-import stableSort from '../../../utils/stable-sort'
+import { Vue } from '../../../vue'
+import {
+  EVENT_NAME_HEAD_CLICKED,
+  EVENT_NAME_SORT_CHANGED,
+  MODEL_EVENT_NAME_PREFIX
+} from '../../../constants/events'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../../constants/props'
 import { arrayIncludes } from '../../../utils/array'
-import { makePropsConfigurable } from '../../../utils/config'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
+import { makeProp } from '../../../utils/props'
+import { stableSort } from '../../../utils/stable-sort'
 import { trim } from '../../../utils/string'
-import defaultSortCompare from './default-sort-compare'
+import { defaultSortCompare } from './default-sort-compare'
 
-const SORT_DIRECTIONS = ['asc', 'desc', 'last']
+// --- Constants ---
 
-export default {
-  props: makePropsConfigurable(
-    {
-      sortBy: {
-        type: String,
-        default: ''
-      },
-      sortDesc: {
-        // TODO: Make this tri-state: true, false, null
-        type: Boolean,
-        default: false
-      },
-      sortDirection: {
-        // This prop is named incorrectly
-        // It should be `initialSortDirection` as it is a bit misleading
-        // (not to mention it screws up the ARIA label on the headers)
-        type: String,
-        default: 'asc',
-        validator(value) {
-          return arrayIncludes(SORT_DIRECTIONS, value)
-        }
-      },
-      sortCompare: {
-        type: Function
-        // default: null
-      },
-      sortCompareOptions: {
-        // Supported localCompare options, see `options` section of:
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
-        type: Object,
-        default: () => {
-          return { numeric: true }
-        }
-      },
-      sortCompareLocale: {
-        // String: locale code
-        // Array: array of Locale strings
-        type: [String, Array]
-        // default: undefined
-      },
-      sortNullLast: {
-        // Sort null and undefined to appear last
-        type: Boolean,
-        default: false
-      },
-      noSortReset: {
-        // Another prop that should have had a better name.
-        // It should be noSortClear (on non-sortable headers).
-        // We will need to make sure the documentation is clear on what
-        // this prop does (as well as in the code for future reference)
-        type: Boolean,
-        default: false
-      },
-      labelSortAsc: {
-        type: String,
-        default: 'Click to sort Ascending'
-      },
-      labelSortDesc: {
-        type: String,
-        default: 'Click to sort Descending'
-      },
-      labelSortClear: {
-        type: String,
-        default: 'Click to clear sorting'
-      },
-      noLocalSorting: {
-        type: Boolean,
-        default: false
-      },
-      noFooterSorting: {
-        type: Boolean,
-        default: false
-      },
-      sortIconLeft: {
-        // Place the sorting icon on the left of the header cells
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_TABLE
-  ),
+const MODEL_PROP_NAME_SORT_BY = 'sortBy'
+const MODEL_EVENT_NAME_SORT_BY = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_SORT_BY
+
+const MODEL_PROP_NAME_SORT_DESC = 'sortDesc'
+const MODEL_EVENT_NAME_SORT_DESC = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_SORT_DESC
+
+const SORT_DIRECTION_ASC = 'asc'
+const SORT_DIRECTION_DESC = 'desc'
+const SORT_DIRECTION_LAST = 'last'
+const SORT_DIRECTIONS = [SORT_DIRECTION_ASC, SORT_DIRECTION_DESC, SORT_DIRECTION_LAST]
+
+// --- Props ---
+
+export const props = {
+  labelSortAsc: makeProp(PROP_TYPE_STRING, 'Click to sort Ascending'),
+  labelSortClear: makeProp(PROP_TYPE_STRING, 'Click to clear sorting'),
+  labelSortDesc: makeProp(PROP_TYPE_STRING, 'Click to sort Descending'),
+  noFooterSorting: makeProp(PROP_TYPE_BOOLEAN, false),
+  noLocalSorting: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Another prop that should have had a better name
+  // It should be `noSortClear` (on non-sortable headers)
+  // We will need to make sure the documentation is clear on what
+  // this prop does (as well as in the code for future reference)
+  noSortReset: makeProp(PROP_TYPE_BOOLEAN, false),
+  [MODEL_PROP_NAME_SORT_BY]: makeProp(PROP_TYPE_STRING),
+  sortCompare: makeProp(PROP_TYPE_FUNCTION),
+  // String: locale code
+  // Array: array of Locale strings
+  sortCompareLocale: makeProp(PROP_TYPE_ARRAY_STRING),
+  // Supported localCompare options, see `options` section of:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+  sortCompareOptions: makeProp(PROP_TYPE_OBJECT, { numeric: true }),
+  // TODO: Make this tri-state: `true`, `false`, `null`
+  [MODEL_PROP_NAME_SORT_DESC]: makeProp(PROP_TYPE_BOOLEAN, false),
+  // This prop is named incorrectly
+  // It should be `initialSortDirection` as it is a bit misleading
+  // (not to mention it screws up the ARIA label on the headers)
+  sortDirection: makeProp(PROP_TYPE_STRING, SORT_DIRECTION_ASC, value => {
+    return arrayIncludes(SORT_DIRECTIONS, value)
+  }),
+  // Place the sorting icon on the left of the header cells
+  sortIconLeft: makeProp(PROP_TYPE_BOOLEAN, false),
+  // Sort null and undefined to appear last
+  sortNullLast: makeProp(PROP_TYPE_BOOLEAN, false)
+}
+
+// --- Mixin ---
+
+// @vue/component
+export const sortingMixin = Vue.extend({
+  props,
   data() {
     return {
-      localSortBy: this.sortBy || '',
-      localSortDesc: this.sortDesc || false
+      localSortBy: this[MODEL_PROP_NAME_SORT_BY] || '',
+      localSortDesc: this[MODEL_PROP_NAME_SORT_DESC] || false
     }
   },
   computed: {
@@ -102,17 +84,20 @@ export default {
     isSortable() {
       return this.computedFields.some(f => f.sortable)
     },
+    // Sorts the filtered items and returns a new array of the sorted items
+    // When not sorted, the original items array will be returned
     sortedItems() {
-      // Sorts the filtered items and returns a new array of the sorted items
-      // or the original items array if not sorted.
+      const {
+        localSortBy: sortBy,
+        localSortDesc: sortDesc,
+        sortCompareLocale: locale,
+        sortNullLast: nullLast,
+        sortCompare,
+        localSorting
+      } = this
       const items = (this.filteredItems || this.localItems || []).slice()
-      const sortBy = this.localSortBy
-      const sortDesc = this.localSortDesc
-      const sortCompare = this.sortCompare
-      const localSorting = this.localSorting
-      const sortOptions = { ...this.sortCompareOptions, usage: 'sort' }
-      const sortLocale = this.sortCompareLocale || undefined
-      const nullLast = this.sortNullLast
+      const localeOptions = { ...this.sortCompareOptions, usage: 'sort' }
+
       if (sortBy && localSorting) {
         const field = this.computedFieldsObj[sortBy] || {}
         const sortByFormatted = field.sortByFormatted
@@ -121,81 +106,83 @@ export default {
           : sortByFormatted
             ? this.getFieldFormatter(sortBy)
             : undefined
+
         // `stableSort` returns a new array, and leaves the original array intact
         return stableSort(items, (a, b) => {
           let result = null
+          // Call user provided `sortCompare` routine first
           if (isFunction(sortCompare)) {
-            // Call user provided sortCompare routine
-            result = sortCompare(a, b, sortBy, sortDesc, formatter, sortOptions, sortLocale)
+            // TODO:
+            //   Change the `sortCompare` signature to the one of `defaultSortCompare`
+            //   with the next major version bump
+            result = sortCompare(a, b, sortBy, sortDesc, formatter, localeOptions, locale)
           }
+          // Fallback to built-in `defaultSortCompare` if `sortCompare`
+          // is not defined or returns `null`/`false`
           if (isUndefinedOrNull(result) || result === false) {
-            // Fallback to built-in defaultSortCompare if sortCompare
-            // is not defined or returns null/false
-            result = defaultSortCompare(
-              a,
-              b,
+            result = defaultSortCompare(a, b, {
               sortBy,
-              sortDesc,
               formatter,
-              sortOptions,
-              sortLocale,
+              locale,
+              localeOptions,
               nullLast
-            )
+            })
           }
           // Negate result if sorting in descending order
           return (result || 0) * (sortDesc ? -1 : 1)
         })
       }
+
       return items
     }
   },
   watch: {
     /* istanbul ignore next: pain in the butt to test */
-    isSortable(newVal) {
-      if (newVal) {
+    isSortable(newValue) {
+      if (newValue) {
         if (this.isSortable) {
-          this.$on('head-clicked', this.handleSort)
+          this.$on(EVENT_NAME_HEAD_CLICKED, this.handleSort)
         }
       } else {
-        this.$off('head-clicked', this.handleSort)
+        this.$off(EVENT_NAME_HEAD_CLICKED, this.handleSort)
       }
     },
-    sortDesc(newVal) {
-      if (newVal === this.localSortDesc) {
-        /* istanbul ignore next */
+    [MODEL_PROP_NAME_SORT_DESC](newValue) {
+      /* istanbul ignore next */
+      if (newValue === this.localSortDesc) {
         return
       }
-      this.localSortDesc = newVal || false
+      this.localSortDesc = newValue || false
     },
-    sortBy(newVal) {
-      if (newVal === this.localSortBy) {
-        /* istanbul ignore next */
+    [MODEL_PROP_NAME_SORT_BY](newValue) {
+      /* istanbul ignore next */
+      if (newValue === this.localSortBy) {
         return
       }
-      this.localSortBy = newVal || ''
+      this.localSortBy = newValue || ''
     },
     // Update .sync props
-    localSortDesc(newVal, oldVal) {
+    localSortDesc(newValue, oldValue) {
       // Emit update to sort-desc.sync
-      if (newVal !== oldVal) {
-        this.$emit('update:sortDesc', newVal)
+      if (newValue !== oldValue) {
+        this.$emit(MODEL_EVENT_NAME_SORT_DESC, newValue)
       }
     },
-    localSortBy(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.$emit('update:sortBy', newVal)
+    localSortBy(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.$emit(MODEL_EVENT_NAME_SORT_BY, newValue)
       }
     }
   },
   created() {
     if (this.isSortable) {
-      this.$on('head-clicked', this.handleSort)
+      this.$on(EVENT_NAME_HEAD_CLICKED, this.handleSort)
     }
   },
   methods: {
     // Handlers
     // Need to move from thead-mixin
-    handleSort(key, field, evt, isFoot) {
+    handleSort(key, field, event, isFoot) {
       if (!this.isSortable) {
         /* istanbul ignore next */
         return
@@ -208,9 +195,9 @@ export default {
       let sortChanged = false
       const toggleLocalSortDesc = () => {
         const sortDirection = field.sortDirection || this.sortDirection
-        if (sortDirection === 'asc') {
+        if (sortDirection === SORT_DIRECTION_ASC) {
           this.localSortDesc = false
-        } else if (sortDirection === 'desc') {
+        } else if (sortDirection === SORT_DIRECTION_DESC) {
           this.localSortDesc = true
         } else {
           // sortDirection === 'last'
@@ -236,7 +223,7 @@ export default {
       }
       if (sortChanged) {
         // Sorting parameters changed
-        this.$emit('sort-changed', this.context)
+        this.$emit(EVENT_NAME_SORT_CHANGED, this.context)
       }
     },
     // methods to compute classes and attrs for thead>th cells
@@ -287,9 +274,9 @@ export default {
           labelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
           // Handle sortDirection setting
           const sortDirection = this.sortDirection || field.sortDirection
-          if (sortDirection === 'asc') {
+          if (sortDirection === SORT_DIRECTION_ASC) {
             labelSorting = this.labelSortAsc
-          } else if (sortDirection === 'desc') {
+          } else if (sortDirection === SORT_DIRECTION_DESC) {
             labelSorting = this.labelSortDesc
           }
         }
@@ -301,4 +288,4 @@ export default {
       return trim(labelSorting) || null
     }
   }
-}
+})

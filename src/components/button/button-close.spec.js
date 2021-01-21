@@ -30,7 +30,7 @@ describe('button-close', () => {
   it('does not have attribute "disabled" by default', async () => {
     const wrapper = mount(BButtonClose)
 
-    expect(wrapper.attributes('disabled')).not.toBeDefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
 
     wrapper.destroy()
   })

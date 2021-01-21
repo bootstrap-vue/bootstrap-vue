@@ -20,7 +20,7 @@ If you are migrating from a previous `v2.0.0-rc.##` release, please see the
 
 ## Documentation sections
 
-The online documentation is comprised of the following sections:
+The online documentation comprises:
 
 - [Components](/docs/components) - Components and component plugin documentation
 - [Directives](/docs/directives) - Directives and directive plugin documentation
@@ -31,9 +31,8 @@ The online documentation is comprised of the following sections:
 
 ## Prerequisites
 
-Before getting started with BootstrapVue, you should have general familiarity with Vue functionality
-and Bootstrap v{{ bootstrapVersionMajor }} CSS. If you are unfamiliar with Vue and/or Bootstrap,
-some good starting points would be:
+This BootstrapVue documentation assumes you are familiar with Vue and and Bootstrap
+v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
 - [Vue API](https://vuejs.org/v2/api/)
@@ -64,8 +63,8 @@ the normalization of cross browser styles. Refer to the following sub-sections f
 
 ### HTML5 doctype
 
-Bootstrap requires the use of the `HTML5` doctype. Without it, you _may_ see some funky incomplete
-styling, but including it shouldn't cause any considerable hiccups.
+Bootstrap requires the use of the `HTML5` doctype. Without it, you may see some strange incomplete
+styling.
 
 ```html
 <!doctype html>
@@ -76,9 +75,9 @@ styling, but including it shouldn't cause any considerable hiccups.
 
 ### Responsive meta tag
 
-Bootstrap is developed for mobile first, a strategy in which code is optimized for mobile devices
-first and then scales up components as necessary using CSS media queries. To ensure proper rendering
-and touch zooming for all devices, **add the responsive viewport meta** tag to your `<head>`.
+Bootstrap is optimized for mobile devices first and then scales up components as necessary using CSS
+media queries. To ensure proper rendering and touch zooming for all devices, **add the responsive
+viewport meta** tag to your `<head>`.
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -113,88 +112,70 @@ browsers and devices while providing slightly more opinionated resets to common
 
 ## Using module bundlers
 
-If you are using module bundlers like [Webpack](https://webpack.js.org/),
-[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), you may prefer to directly
-include the package into your project. To get started, use `yarn` or `npm` to get the latest version
-of Vue.js, BootstrapVue and Bootstrap v4:
+Most likely you are using module bundlers like [Webpack](https://webpack.js.org/),
+[Parcel](https://parceljs.org/) or [rollup.js](https://rollupjs.org/), which makes it easy to
+directly include the package into your project. To do this, use `npm` or `yarn` to get the latest
+version of Vue.js, Bootstrap v4 and BootstrapVue:
 
 ```bash
 # With npm
-npm install vue bootstrap-vue bootstrap
+npm install vue bootstrap bootstrap-vue
 
 # With yarn
-yarn add vue bootstrap-vue bootstrap
+yarn add vue bootstrap bootstrap-vue
 ```
 
-Then, register BootstrapVue in your app entry point:
+Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
 
 ```js
 // app.js
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// Install BootstrapVue
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 ```
 
-And import Bootstrap and BootstrapVue `css` files:
+### Theming Bootstrap
 
-```js
-// app.js
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-```
+If you want to change Bootstrap's default styles (e.g. the `$body-color`), you have to use
+Bootstrap's and BootstrapVue's `scss` files.
 
-**Alternatively** you can import Bootstrap and BootstrapVue `scss` files in a custom SCSS file:
+Create your own `scss` file (e.g. `app.scss`) containing **both** your custom definitions **and**
+the 2 `@import`'s at the end:
 
 ```scss
-// custom.scss
+// app.scss
+
+// Define variable defaults
+$body-bg: #000;
+$body-color: #111;
+
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```
 
-Make sure to import the `custom.scss` file in your app entry point:
+Then import that single `scss` file into your project:
 
 ```js
 // app.js
-import './custom.scss'
+import Vue from 'vue'
+import { BootstrapVue } from 'bootstrap-vue'
+
+import './app.scss'
+
+Vue.use(BootstrapVue)
 ```
 
-Be sure to `@import` or define your custom variable values _before_ including Bootstrap SCSS
-(`bootstrap.scss`), and include BootstrapVue SCSS (`bootstrap-vue.scss`) _after that_ to ensure
-variables are set up correctly.
-
-Place all of the SCSS `@import`s into a **single SCSS file**, and import that single file into your
-project. Importing individual SCSS files into your project will **not** share variable values and
-functions between files by default.
-
-Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
-a `scss` file:
-
-```scss
-// Webpack example
-@import '~bootstrap';
-@import '~bootstrap-vue';
-```
-
-```scss
-// Parcel example
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
-```
-
-For more details how to configure asset loading and how modules are resolved, please consult the
-module bundlers documentation.
-
-**Notes**:
-
-- Webpack configuration to load CSS files
-  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
-- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
-- Parcel CSS ([official guide](https://parceljs.org/css.html))
-- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
+Do not import the individual SCSS files separately into your project, because variables and
+functions will fail to be shared between files.
 
 For information on theming Bootstrap, check out the [Theming](/docs/reference/theming) reference
 section.
@@ -255,6 +236,34 @@ module.exports = {
 See the [Vue.js](https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only)
 Guide for full details on setting up aliases for [webpack](https://webpack.js.org/),
 [rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org/), etc.
+
+### Advanced module bundler usage
+
+Webpack and Parcel support prepending the `scss` modules with tilde paths (`~`) when importing from
+a `scss` file:
+
+```scss
+// Webpack example
+@import '~bootstrap';
+@import '~bootstrap-vue';
+```
+
+```scss
+// Parcel example
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+```
+
+For more details how to configure asset loading and how modules are resolved, please consult the
+module bundlers documentation.
+
+**Notes**:
+
+- Webpack configuration to load CSS files
+  ([official guide](https://webpack.js.org/guides/asset-management/#loading-css))
+- Webpack Loader for SASS/SCSS files ([official guide](https://webpack.js.org/loaders/sass-loader/))
+- Parcel CSS ([official guide](https://parceljs.org/css.html))
+- Parcel SCSS ([official guide](https://parceljs.org/scss.html))
 
 ## Tree shaking with module bundlers
 

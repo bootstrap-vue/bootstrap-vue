@@ -1,25 +1,32 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_DATALIST } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
-import formOptionsMixin, { props as formOptionsProps } from '../../mixins/form-options'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { formOptionsMixin, props as formOptionsProps } from '../../mixins/form-options'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...formOptionsProps,
+    id: makeProp(PROP_TYPE_STRING, undefined, true) // Required
+  }),
+  NAME_FORM_DATALIST
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BFormDatalist = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_DATALIST,
   mixins: [formOptionsMixin, normalizeSlotMixin],
-  props: makePropsConfigurable(
-    {
-      ...formOptionsProps,
-      id: {
-        type: String,
-        required: true
-      }
-    },
-    NAME_FORM_DATALIST
-  ),
+  props,
   render(h) {
+    const { id } = this
+
     const $options = this.formOptions.map((option, index) => {
       const { value, text, html, disabled } = option
 
@@ -30,6 +37,6 @@ export const BFormDatalist = /*#__PURE__*/ Vue.extend({
       })
     })
 
-    return h('datalist', { attrs: { id: this.id } }, [$options, this.normalizeSlot()])
+    return h('datalist', { attrs: { id } }, [$options, this.normalizeSlot()])
   }
 })

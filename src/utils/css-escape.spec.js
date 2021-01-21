@@ -1,4 +1,4 @@
-import cssEscape from './css-escape'
+import { cssEscape } from './css-escape'
 
 describe('utils/cssEscape', () => {
   it('works', () => {

@@ -1,4 +1,4 @@
-# Toasts
+# Toast
 
 > Push notifications to your visitors with a `<b-toast>` and `<b-toaster>`, lightweight components
 > which are easily customizable for generating alert messages.

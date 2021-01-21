@@ -1,6 +1,6 @@
-import OurVue from '../vue'
+import { Vue as OurVue } from '../vue'
+import { HAS_WINDOW_SUPPORT, IS_JSDOM } from '../constants/env'
 import { setConfig } from './config-set'
-import { hasWindowSupport, isJSDOM } from './env'
 import { warn } from './warn'
 
 /**
@@ -18,7 +18,7 @@ export const checkMultipleVue = (() => {
 
   return Vue => {
     /* istanbul ignore next */
-    if (!checkMultipleVueWarned && OurVue !== Vue && !isJSDOM) {
+    if (!checkMultipleVueWarned && OurVue !== Vue && !IS_JSDOM) {
       warn(MULTIPLE_VUE_WARNING)
     }
     checkMultipleVueWarned = true
@@ -159,11 +159,11 @@ export const registerDirectives = (Vue, directives = {}) => {
  */
 export const vueUse = VuePlugin => {
   /* istanbul ignore next */
-  if (hasWindowSupport && window.Vue) {
+  if (HAS_WINDOW_SUPPORT && window.Vue) {
     window.Vue.use(VuePlugin)
   }
   /* istanbul ignore next */
-  if (hasWindowSupport && VuePlugin.NAME) {
+  if (HAS_WINDOW_SUPPORT && VuePlugin.NAME) {
     window[VuePlugin.NAME] = VuePlugin
   }
 }

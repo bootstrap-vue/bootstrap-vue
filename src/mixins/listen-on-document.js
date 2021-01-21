@@ -1,17 +1,22 @@
-import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
+import { Vue } from '../vue'
+import { IS_BROWSER } from '../constants/env'
+import { EVENT_OPTIONS_NO_CAPTURE, HOOK_EVENT_NAME_BEFORE_DESTROY } from '../constants/events'
 import { arrayIncludes } from '../utils/array'
-import { isBrowser } from '../utils/env'
 import { eventOn, eventOff } from '../utils/events'
 import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
+// --- Constants ---
+
 const PROP = '$_bv_documentHandlers_'
 
+// --- Mixin ---
+
 // @vue/component
-export default {
+export const listenOnDocumentMixin = Vue.extend({
   created() {
     /* istanbul ignore next */
-    if (!isBrowser) {
+    if (!IS_BROWSER) {
       return
     }
     // Declare non-reactive property
@@ -20,37 +25,39 @@ export default {
     // Prop will be defined on client only
     this[PROP] = {}
     // Set up our beforeDestroy handler (client only)
-    this.$once('hook:beforeDestroy', () => {
+    this.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
       const items = this[PROP] || {}
       // Immediately delete this[PROP] to prevent the
       // listenOn/Off methods from running (which may occur
       // due to requestAnimationFrame/transition delays)
       delete this[PROP]
       // Remove all registered event handlers
-      keys(items).forEach(evtName => {
-        const handlers = items[evtName] || []
-        handlers.forEach(handler => eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE))
+      keys(items).forEach(eventName => {
+        const handlers = items[eventName] || []
+        handlers.forEach(handler =>
+          eventOff(document, eventName, handler, EVENT_OPTIONS_NO_CAPTURE)
+        )
       })
     })
   },
   methods: {
-    listenDocument(on, evtName, handler) {
-      on ? this.listenOnDocument(evtName, handler) : this.listenOffDocument(evtName, handler)
+    listenDocument(on, eventName, handler) {
+      on ? this.listenOnDocument(eventName, handler) : this.listenOffDocument(eventName, handler)
     },
-    listenOnDocument(evtName, handler) {
-      if (this[PROP] && isString(evtName) && isFunction(handler)) {
-        this[PROP][evtName] = this[PROP][evtName] || []
-        if (!arrayIncludes(this[PROP][evtName], handler)) {
-          this[PROP][evtName].push(handler)
-          eventOn(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
+    listenOnDocument(eventName, handler) {
+      if (this[PROP] && isString(eventName) && isFunction(handler)) {
+        this[PROP][eventName] = this[PROP][eventName] || []
+        if (!arrayIncludes(this[PROP][eventName], handler)) {
+          this[PROP][eventName].push(handler)
+          eventOn(document, eventName, handler, EVENT_OPTIONS_NO_CAPTURE)
         }
       }
     },
-    listenOffDocument(evtName, handler) {
-      if (this[PROP] && isString(evtName) && isFunction(handler)) {
-        eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
-        this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
+    listenOffDocument(eventName, handler) {
+      if (this[PROP] && isString(eventName) && isFunction(handler)) {
+        eventOff(document, eventName, handler, EVENT_OPTIONS_NO_CAPTURE)
+        this[PROP][eventName] = (this[PROP][eventName] || []).filter(h => h !== handler)
       }
     }
   }
-}
+})

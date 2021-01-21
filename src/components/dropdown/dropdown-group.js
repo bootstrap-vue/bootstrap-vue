@@ -1,39 +1,28 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
-import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
+import { isTag } from '../../utils/dom'
+import { identity } from '../../utils/identity'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
-import identity from '../../utils/identity'
+import { omit } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    id: {
-      type: String
-      // default: null
-    },
-    header: {
-      type: String
-      // default: null
-    },
-    headerTag: {
-      type: String,
-      default: 'header'
-    },
-    headerVariant: {
-      type: String
-      // default: null
-    },
-    headerClasses: {
-      type: [String, Array, Object]
-      // default: null
-    },
-    ariaDescribedby: {
-      type: String
-      // default: null
-    }
+    ariaDescribedby: makeProp(PROP_TYPE_STRING),
+    header: makeProp(PROP_TYPE_STRING),
+    headerClasses: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
+    headerVariant: makeProp(PROP_TYPE_STRING),
+    id: makeProp(PROP_TYPE_STRING)
   },
   NAME_DROPDOWN_GROUP
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
@@ -41,48 +30,46 @@ export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
   functional: true,
   props,
   render(h, { props, data, slots, scopedSlots }) {
+    const { id, variant, header, headerTag } = props
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
-    const $attrs = data.attrs || {}
-    data.attrs = {}
-    let header
-    let headerId = null
+    const slotScope = {}
+    const headerId = id ? `_bv_${id}_group_dd_header` : null
 
-    if (hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots) || props.header) {
-      headerId = props.id ? `_bv_${props.id}_group_dd_header` : null
-      header = h(
-        props.headerTag,
+    let $header = h()
+    if (hasNormalizedSlot(SLOT_NAME_HEADER, $scopedSlots, $slots) || header) {
+      $header = h(
+        headerTag,
         {
           staticClass: 'dropdown-header',
-          class: [props.headerClasses, { [`text-${props.variant}`]: props.variant }],
+          class: [props.headerClasses, { [`text-${variant}`]: variant }],
           attrs: {
             id: headerId,
-            role: 'heading'
+            role: isTag(headerTag, 'header') ? null : 'heading'
           }
         },
-        normalizeSlot(SLOT_NAME_HEADER, {}, $scopedSlots, $slots) || props.header
+        normalizeSlot(SLOT_NAME_HEADER, slotScope, $scopedSlots, $slots) || header
       )
     }
 
-    const adb = [headerId, props.ariaDescribedBy]
-      .filter(identity)
-      .join(' ')
-      .trim()
-
-    return h('li', mergeData(data, { attrs: { role: 'presentation' } }), [
-      header || h(),
+    return h('li', mergeData(omit(data, ['attrs']), { attrs: { role: 'presentation' } }), [
+      $header,
       h(
         'ul',
         {
           staticClass: 'list-unstyled',
           attrs: {
-            ...$attrs,
-            id: props.id || null,
+            ...(data.attrs || {}),
+            id,
             role: 'group',
-            'aria-describedby': adb || null
+            'aria-describedby':
+              [headerId, props.ariaDescribedBy]
+                .filter(identity)
+                .join(' ')
+                .trim() || null
           }
         },
-        normalizeSlot(SLOT_NAME_DEFAULT, {}, $scopedSlots, $slots)
+        normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
       )
     ])
   }

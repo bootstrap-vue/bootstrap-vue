@@ -32,9 +32,9 @@
 //   }
 
 import { RX_DIGITS } from '../../constants/regex'
-import looseEqual from '../../utils/loose-equal'
 import { requestAF } from '../../utils/dom'
 import { isFunction } from '../../utils/inspect'
+import { looseEqual } from '../../utils/loose-equal'
 import { clone, keys } from '../../utils/object'
 
 const OBSERVER_PROP_NAME = '__bv__visibility_observer'

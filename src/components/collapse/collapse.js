@@ -1,98 +1,110 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
-import { EVENT_OPTIONS_NO_CAPTURE } from '../../constants/events'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
-import { BVCollapse } from '../../utils/bv-collapse'
-import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
-import { isBrowser } from '../../utils/env'
-import { eventOnOff } from '../../utils/events'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { CLASS_NAME_SHOW } from '../../constants/classes'
+import { IS_BROWSER } from '../../constants/env'
 import {
-  EVENT_TOGGLE,
-  EVENT_STATE,
-  EVENT_STATE_REQUEST,
-  EVENT_STATE_SYNC
-} from '../../directives/toggle/toggle'
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  EVENT_OPTIONS_NO_CAPTURE
+} from '../../constants/events'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { addClass, hasClass, removeClass, closest, matches, getCS } from '../../utils/dom'
+import { getRootActionEventName, getRootEventName, eventOnOff } from '../../utils/events'
+import { makeModelMixin } from '../../utils/model'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { BVCollapse } from './helpers/bv-collapse'
 
 // --- Constants ---
 
-// Accordion event name we emit on `$root`
-const EVENT_ACCORDION = 'bv::collapse::accordion'
+const ROOT_ACTION_EVENT_NAME_TOGGLE = getRootActionEventName(NAME_COLLAPSE, 'toggle')
+const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = getRootActionEventName(NAME_COLLAPSE, 'request-state')
+
+const ROOT_EVENT_NAME_ACCORDION = getRootEventName(NAME_COLLAPSE, 'accordion')
+const ROOT_EVENT_NAME_STATE = getRootEventName(NAME_COLLAPSE, 'state')
+const ROOT_EVENT_NAME_SYNC_STATE = getRootEventName(NAME_COLLAPSE, 'sync-state')
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('visible', { type: PROP_TYPE_BOOLEAN, defaultValue: false })
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...modelProps,
+    // If `true` (and `visible` is `true` on mount), animate initially visible
+    accordion: makeProp(PROP_TYPE_STRING),
+    appear: makeProp(PROP_TYPE_BOOLEAN, false),
+    isNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div')
+  }),
+  NAME_COLLAPSE
+)
 
 // --- Main component ---
+
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: NAME_COLLAPSE,
-  mixins: [idMixin, listenOnRootMixin, normalizeSlotMixin],
-  model: {
-    prop: 'visible',
-    event: 'input'
-  },
-  props: makePropsConfigurable(
-    {
-      isNav: {
-        type: Boolean,
-        default: false
-      },
-      accordion: {
-        type: String
-        // default: null
-      },
-      visible: {
-        type: Boolean,
-        default: false
-      },
-      tag: {
-        type: String,
-        default: 'div'
-      },
-      appear: {
-        // If `true` (and `visible` is `true` on mount), animate initially visible
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_COLLAPSE
-  ),
+  mixins: [idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
+  props,
   data() {
     return {
-      show: this.visible,
+      show: this[MODEL_PROP_NAME],
       transitioning: false
     }
   },
   computed: {
     classObject() {
+      const { transitioning } = this
+
       return {
         'navbar-collapse': this.isNav,
-        collapse: !this.transitioning,
-        show: this.show && !this.transitioning
+        collapse: !transitioning,
+        show: this.show && !transitioning
+      }
+    },
+    slotScope() {
+      return {
+        visible: this.show,
+        close: () => {
+          this.show = false
+        }
       }
     }
   },
   watch: {
-    visible(newVal) {
-      if (newVal !== this.show) {
-        this.show = newVal
+    [MODEL_PROP_NAME](newValue) {
+      if (newValue !== this.show) {
+        this.show = newValue
       }
     },
-    show(newVal, oldVal) {
-      if (newVal !== oldVal) {
+    show(newValue, oldValue) {
+      if (newValue !== oldValue) {
         this.emitState()
       }
     }
   },
   created() {
-    this.show = this.visible
+    this.show = this[MODEL_PROP_NAME]
   },
   mounted() {
-    this.show = this.visible
+    this.show = this[MODEL_PROP_NAME]
     // Listen for toggle events to open/close us
-    this.listenOnRoot(EVENT_TOGGLE, this.handleToggleEvt)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_TOGGLE, this.handleToggleEvt)
     // Listen to other collapses for accordion events
-    this.listenOnRoot(EVENT_ACCORDION, this.handleAccordionEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_ACCORDION, this.handleAccordionEvt)
     if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true)
@@ -102,7 +114,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
       this.emitState()
     })
     // Listen for "Sync state" requests from `v-b-toggle`
-    this.listenOnRoot(EVENT_STATE_REQUEST, id => {
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, id => {
       if (id === this.safeId()) {
         this.$nextTick(this.emitSync)
       }
@@ -130,7 +142,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   beforeDestroy() {
     // Trigger state emit if needed
     this.show = false
-    if (this.isNav && isBrowser) {
+    if (this.isNav && IS_BROWSER) {
       this.setWindowEvents(false)
     }
   },
@@ -145,82 +157,83 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     onEnter() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
-      this.$emit('show')
+      this.$emit(EVENT_NAME_SHOW)
     },
     onAfterEnter() {
       this.transitioning = false
-      this.$emit('shown')
+      this.$emit(EVENT_NAME_SHOWN)
     },
     onLeave() {
       this.transitioning = true
       // This should be moved out so we can add cancellable events
-      this.$emit('hide')
+      this.$emit(EVENT_NAME_HIDE)
     },
     onAfterLeave() {
       this.transitioning = false
-      this.$emit('hidden')
+      this.$emit(EVENT_NAME_HIDDEN)
     },
     emitState() {
-      this.$emit('input', this.show)
+      const { show, accordion } = this
+      const id = this.safeId()
+
+      this.$emit(MODEL_EVENT_NAME, show)
+
       // Let `v-b-toggle` know the state of this collapse
-      this.emitOnRoot(EVENT_STATE, this.safeId(), this.show)
-      if (this.accordion && this.show) {
+      this.emitOnRoot(ROOT_EVENT_NAME_STATE, id, show)
+      if (accordion && show) {
         // Tell the other collapses in this accordion to close
-        this.emitOnRoot(EVENT_ACCORDION, this.safeId(), this.accordion)
+        this.emitOnRoot(ROOT_EVENT_NAME_ACCORDION, id, accordion)
       }
     },
     emitSync() {
       // Emit a private event every time this component updates to ensure
       // the toggle button is in sync with the collapse's state
       // It is emitted regardless if the visible state changes
-      this.emitOnRoot(EVENT_STATE_SYNC, this.safeId(), this.show)
+      this.emitOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.safeId(), this.show)
     },
     checkDisplayBlock() {
       // Check to see if the collapse has `display: block !important` set
       // We can't set `display: none` directly on `this.$el`, as it would
       // trigger a new transition to start (or cancel a current one)
-      const restore = hasClass(this.$el, 'show')
-      removeClass(this.$el, 'show')
-      const isBlock = getCS(this.$el).display === 'block'
+      const { $el } = this
+      const restore = hasClass($el, CLASS_NAME_SHOW)
+      removeClass($el, CLASS_NAME_SHOW)
+      const isBlock = getCS($el).display === 'block'
       if (restore) {
-        addClass(this.$el, 'show')
+        addClass($el, CLASS_NAME_SHOW)
       }
       return isBlock
     },
-    clickHandler(evt) {
+    clickHandler(event) {
+      const { target: el } = event
       // If we are in a nav/navbar, close the collapse when non-disabled link clicked
-      const el = evt.target
+      /* istanbul ignore next: can't test `getComputedStyle()` in JSDOM */
       if (!this.isNav || !el || getCS(this.$el).display !== 'block') {
-        /* istanbul ignore next: can't test getComputedStyle in JSDOM */
         return
       }
-      if (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) {
-        if (!this.checkDisplayBlock()) {
-          // Only close the collapse if it is not forced to be `display: block !important`
-          this.show = false
-        }
+      // Only close the collapse if it is not forced to be `display: block !important`
+      if (
+        (matches(el, '.nav-link,.dropdown-item') || closest('.nav-link,.dropdown-item', el)) &&
+        !this.checkDisplayBlock()
+      ) {
+        this.show = false
       }
     },
-    handleToggleEvt(target) {
-      if (target !== this.safeId()) {
-        return
+    handleToggleEvt(id) {
+      if (id === this.safeId()) {
+        this.toggle()
       }
-      this.toggle()
     },
-    handleAccordionEvt(openedId, accordion) {
-      if (!this.accordion || accordion !== this.accordion) {
+    handleAccordionEvt(openedId, openAccordion) {
+      const { accordion, show } = this
+      if (!accordion || accordion !== openAccordion) {
         return
       }
-      if (openedId === this.safeId()) {
-        // Open this collapse if not shown
-        if (!this.show) {
-          this.toggle()
-        }
-      } else {
-        // Close this collapse if shown
-        if (this.show) {
-          this.toggle()
-        }
+      const isThis = openedId === this.safeId()
+      // Open this collapse if not shown or
+      // close this collapse if shown
+      if ((isThis && !show) || (!isThis && show)) {
+        this.toggle()
       }
     },
     handleResize() {
@@ -229,11 +242,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const scope = {
-      visible: this.show,
-      close: () => (this.show = false)
-    }
-    const content = h(
+    const { appear } = this
+
+    const $content = h(
       this.tag,
       {
         class: this.classObject,
@@ -241,12 +252,13 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         attrs: { id: this.safeId() },
         on: { click: this.clickHandler }
       },
-      [this.normalizeSlot(SLOT_NAME_DEFAULT, scope)]
+      this.normalizeSlot(SLOT_NAME_DEFAULT, this.slotScope)
     )
+
     return h(
       BVCollapse,
       {
-        props: { appear: this.appear },
+        props: { appear },
         on: {
           enter: this.onEnter,
           afterEnter: this.onAfterEnter,
@@ -254,7 +266,7 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
           afterLeave: this.onAfterLeave
         }
       },
-      [content]
+      [$content]
     )
   }
 })

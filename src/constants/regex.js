@@ -1,6 +1,7 @@
 // --- General ---
 
 export const RX_ARRAY_NOTATION = /\[(\d+)]/g
+export const RX_BV_PREFIX = /^(BV?)/
 export const RX_DIGITS = /^\d+$/
 export const RX_EXTENSION = /^\..+/
 export const RX_HASH = /^#/

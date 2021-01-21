@@ -1,4 +1,4 @@
-import identity from '../../../utils/identity'
+import { identity } from '../../../utils/identity'
 import { isArray, isFunction, isObject, isString } from '../../../utils/inspect'
 import { clone, keys } from '../../../utils/object'
 import { startCase } from '../../../utils/string'
@@ -26,7 +26,7 @@ const processField = (key, value) => {
 
 // We normalize fields into an array of objects
 // [ { key:..., label:..., ...}, {...}, ..., {..}]
-const normalizeFields = (origFields, items) => {
+export const normalizeFields = (origFields, items) => {
   const fields = []
 
   if (isArray(origFields)) {
@@ -69,5 +69,3 @@ const normalizeFields = (origFields, items) => {
     return false
   })
 }
-
-export default normalizeFields

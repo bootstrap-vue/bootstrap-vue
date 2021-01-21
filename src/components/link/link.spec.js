@@ -10,8 +10,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -28,8 +28,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('foobar')
 
@@ -46,8 +46,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -64,8 +64,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('#foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -82,8 +82,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -100,8 +100,8 @@ describe('b-link', () => {
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toEqual('/foobar')
     expect(wrapper.attributes('target')).toEqual('_self')
-    expect(wrapper.attributes('rel')).not.toBeDefined()
-    expect(wrapper.attributes('aria-disabled')).not.toBeDefined()
+    expect(wrapper.attributes('rel')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBeUndefined()
     expect(wrapper.classes().length).toBe(0)
     expect(wrapper.text()).toEqual('')
 
@@ -202,21 +202,21 @@ describe('b-link', () => {
   describe('click handling', () => {
     it('should invoke click handler bound by Vue when clicked on', async () => {
       let called = 0
-      let evt = null
+      let event = null
       const wrapper = mount(BLink, {
         listeners: {
           click: e => {
-            evt = e
+            event = e
             called++
           }
         }
       })
       expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
-      expect(evt).toEqual(null)
+      expect(event).toEqual(null)
       await wrapper.find('a').trigger('click')
       expect(called).toBe(1)
-      expect(evt).toBeInstanceOf(MouseEvent)
+      expect(event).toBeInstanceOf(MouseEvent)
 
       wrapper.destroy()
     })
@@ -241,24 +241,24 @@ describe('b-link', () => {
 
     it('should NOT invoke click handler bound by Vue when disabled and clicked', async () => {
       let called = 0
-      let evt = null
+      let event = null
       const wrapper = mount(BLink, {
         propsData: {
           disabled: true
         },
         listeners: {
           click: e => {
-            evt = e
+            event = e
             called++
           }
         }
       })
       expect(wrapper.element.tagName).toBe('A')
       expect(called).toBe(0)
-      expect(evt).toEqual(null)
+      expect(event).toEqual(null)
       await wrapper.find('a').trigger('click')
       expect(called).toBe(0)
-      expect(evt).toEqual(null)
+      expect(event).toEqual(null)
 
       wrapper.destroy()
     })
@@ -278,6 +278,42 @@ describe('b-link', () => {
       wrapper.destroy()
     })
 
+    it('should emit "bv::link::clicked" on $root when clicked on', async () => {
+      const spy = jest.fn()
+      const App = {
+        render(h) {
+          return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
+        }
+      }
+
+      const wrapper = mount(App)
+      expect(wrapper.vm).toBeDefined()
+      wrapper.vm.$root.$on('bv::link::clicked', spy)
+
+      await wrapper.find('a').trigger('click')
+      expect(spy).toHaveBeenCalled()
+
+      wrapper.destroy()
+    })
+
+    it('should not emit "bv::link::clicked" on $root when clicked on when disabled', async () => {
+      const spy = jest.fn()
+      const App = {
+        render(h) {
+          return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
+        }
+      }
+
+      const wrapper = mount(App)
+      expect(wrapper.vm).toBeDefined()
+      wrapper.vm.$root.$on('bv::link::clicked', spy)
+
+      await wrapper.find('a').trigger('click')
+      expect(spy).not.toHaveBeenCalled()
+
+      wrapper.destroy()
+    })
+
     it('should emit "clicked::link" on $root when clicked on', async () => {
       const spy = jest.fn()
       const App = {
@@ -285,26 +321,29 @@ describe('b-link', () => {
           return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
       }
+
       const wrapper = mount(App)
+      expect(wrapper.vm).toBeDefined()
       wrapper.vm.$root.$on('clicked::link', spy)
+
       await wrapper.find('a').trigger('click')
       expect(spy).toHaveBeenCalled()
 
       wrapper.destroy()
     })
 
-    it('should NOT emit "clicked::link" on $root when clicked on when disabled', async () => {
+    it('should not emit "clicked::link" on $root when clicked on when disabled', async () => {
       const spy = jest.fn()
       const App = {
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
       }
+
       const wrapper = mount(App)
-
       expect(wrapper.vm).toBeDefined()
-
       wrapper.vm.$root.$on('clicked::link', spy)
+
       await wrapper.find('a').trigger('click')
       expect(spy).not.toHaveBeenCalled()
 

@@ -1,5 +1,5 @@
-import identity from './identity'
 import { concat } from './array'
+import { identity } from './identity'
 import { isFunction } from './inspect'
 
 // Note for functional components:
@@ -15,7 +15,7 @@ import { isFunction } from './inspect'
  * @param {Object} slots
  * @returns {Array|undefined} VNodes
  */
-const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
+export const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
   names = concat(names).filter(identity)
   // Returns true if the either a $scopedSlot or $slot exists with the specified name
@@ -31,7 +31,7 @@ const hasNormalizedSlot = (names, $scopedSlots = {}, $slots = {}) => {
  * @param {Object} slots
  * @returns {Array|undefined} VNodes
  */
-const normalizeSlot = (names, scope = {}, $scopedSlots = {}, $slots = {}) => {
+export const normalizeSlot = (names, scope = {}, $scopedSlots = {}, $slots = {}) => {
   // Ensure names is an array
   names = concat(names).filter(identity)
   let slot
@@ -42,9 +42,3 @@ const normalizeSlot = (names, scope = {}, $scopedSlots = {}, $slots = {}) => {
   // Note: in Vue 2.6.x, all named slots are also scoped slots
   return isFunction(slot) ? slot(scope) : slot
 }
-
-// Named exports
-export { hasNormalizedSlot, normalizeSlot }
-
-// Default export (backwards compatibility)
-export default normalizeSlot

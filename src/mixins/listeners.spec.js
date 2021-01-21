@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import listenersMixin from './listeners'
+import { listenersMixin } from './listeners'
 
 // Note: The following tests indirectly test `utils/cache`
 
@@ -20,13 +20,13 @@ describe('mixins > listeners', () => {
         listeners() {
           const listeners = {}
           if (this.listenClick) {
-            listeners.click = evt => this.$emit('click', evt)
+            listeners.click = event => this.$emit('click', event)
           }
           if (this.listenFocus) {
-            listeners.focus = evt => this.$emit('focus', evt)
+            listeners.focus = event => this.$emit('focus', event)
           }
           if (this.listenBlur) {
-            listeners.blur = evt => this.$emit('blur', evt)
+            listeners.blur = event => this.$emit('blur', event)
           }
           return listeners
         }
@@ -48,9 +48,9 @@ describe('mixins > listeners', () => {
     expect($test.vm).toBeDefined()
 
     expect($test.vm.bvListeners).toBeDefined()
-    expect($test.vm.bvListeners.click).not.toBeDefined()
-    expect($test.vm.bvListeners.focus).not.toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
+    expect($test.vm.bvListeners.focus).toBeUndefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     // Correctly adds new listeners
     await wrapper.setProps({
@@ -60,7 +60,7 @@ describe('mixins > listeners', () => {
 
     expect($test.vm.bvListeners.click).toBeDefined()
     expect($test.vm.bvListeners.focus).toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     // Correctly updates listeners
     await wrapper.setProps({
@@ -68,7 +68,7 @@ describe('mixins > listeners', () => {
       listenBlur: true
     })
 
-    expect($test.vm.bvListeners.click).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
     expect($test.vm.bvListeners.focus).toBeDefined()
     expect($test.vm.bvListeners.blur).toBeDefined()
 
@@ -79,9 +79,9 @@ describe('mixins > listeners', () => {
       listenBlur: false
     })
 
-    expect($test.vm.bvListeners.click).not.toBeDefined()
-    expect($test.vm.bvListeners.focus).not.toBeDefined()
-    expect($test.vm.bvListeners.blur).not.toBeDefined()
+    expect($test.vm.bvListeners.click).toBeUndefined()
+    expect($test.vm.bvListeners.focus).toBeUndefined()
+    expect($test.vm.bvListeners.blur).toBeUndefined()
 
     wrapper.destroy()
   })

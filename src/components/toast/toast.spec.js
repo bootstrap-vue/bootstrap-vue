@@ -92,10 +92,10 @@ describe('b-toast', () => {
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
-    expect(wrapper.emitted('shown')).not.toBeDefined()
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
+    expect(wrapper.emitted('shown')).toBeUndefined()
+    expect(wrapper.emitted('hide')).toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
 
     await wrapper.setProps({ visible: true })
     await waitRAF()
@@ -108,8 +108,8 @@ describe('b-toast', () => {
 
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('shown')).toBeDefined()
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
+    expect(wrapper.emitted('hide')).toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
     expect(wrapper.emitted('show').length).toBe(1)
     expect(wrapper.emitted('shown').length).toBe(1)
 
@@ -164,9 +164,9 @@ describe('b-toast', () => {
     expect($body.element.tagName).toBe('A')
     expect($body.attributes('href')).toEqual('#foobar')
 
-    expect(wrapper.emitted('hide')).not.toBeDefined()
-    expect(wrapper.emitted('hidden')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('hide')).toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
 
     $body.element.focus()
     await $body.trigger('click')

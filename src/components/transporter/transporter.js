@@ -1,14 +1,22 @@
-import Vue from '../vue'
-import { NAME_TRANSPORTER_SINGLE, NAME_TRANSPORTER_TARGET_SINGLE } from '../constants/components'
-import identity from './identity'
-import { concat } from './array'
-import { removeNode, select } from './dom'
-import { isBrowser } from './env'
-import { isFunction, isString } from './inspect'
-import { HTMLElement } from './safe-types'
-import normalizeSlotMixin from '../mixins/normalize-slot'
+import { Vue } from '../../vue'
+import { NAME_TRANSPORTER, NAME_TRANSPORTER_TARGET } from '../../constants/components'
+import { IS_BROWSER } from '../../constants/env'
+import {
+  PROP_TYPE_ARRAY_FUNCTION,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { HTMLElement } from '../../constants/safe-types'
+import { concat } from '../../utils/array'
+import { removeNode, select } from '../../utils/dom'
+import { identity } from '../../utils/identity'
+import { isFunction, isString } from '../../utils/inspect'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { makeProp } from '../../utils/props'
 
-// BTransporterSingle/BTransporterTargetSingle:
+// --- Helper components ---
+
+// BVTransporter/BVTransporterTarget:
 //
 // Single root node portaling of content, which retains parent/child hierarchy
 // Unlike Portal-Vue where portaled content is no longer a descendent of its
@@ -19,22 +27,19 @@ import normalizeSlotMixin from '../mixins/normalize-slot'
 // Based on vue-simple-portal
 // https://github.com/LinusBorg/vue-simple-portal
 
-// Transporter target used by BTransporterSingle
+// Transporter target used by BVTransporter
 // Supports only a single root element
 // @vue/component
-const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
+const BVTransporterTarget = /*#__PURE__*/ Vue.extend({
   // As an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
   abstract: true,
-  name: NAME_TRANSPORTER_TARGET_SINGLE,
+  name: NAME_TRANSPORTER_TARGET,
   props: {
-    nodes: {
-      // Even though we only support a single root element,
-      // VNodes are always passed as an array
-      type: [Array, Function]
-      // default: undefined
-    }
+    // Even though we only support a single root element,
+    // VNodes are always passed as an array
+    nodes: makeProp(PROP_TYPE_ARRAY_FUNCTION)
   },
   data: vm => {
     return {
@@ -45,41 +50,38 @@ const BTransporterTargetSingle = /*#__PURE__*/ Vue.extend({
     removeNode(this.$el)
   },
   render(h) {
-    let nodes = isFunction(this.updatedNodes) ? this.updatedNodes({}) : this.updatedNodes
-    nodes = concat(nodes).filter(Boolean)
-    /* istanbul ignore else */
-    if (nodes && nodes.length > 0 && !nodes[0].text) {
-      return nodes[0]
-    } else {
-      /* istanbul ignore next */
-      return h()
+    const { updatedNodes } = this
+
+    let $nodes = isFunction(updatedNodes) ? updatedNodes({}) : updatedNodes
+    $nodes = concat($nodes).filter(identity)
+    if ($nodes && $nodes.length > 0 && !$nodes[0].text) {
+      return $nodes[0]
     }
+
+    /* istanbul ignore next */
+    return h()
   }
 })
 
-// This component has no root element, so only a single VNode is allowed
+// --- Props ---
+
+export const props = {
+  // String: CSS selector,
+  // HTMLElement: Element reference
+  // Mainly needed for tooltips/popovers inside modals
+  container: makeProp([HTMLElement, PROP_TYPE_STRING], 'body'),
+  disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+  // This should be set to match the root element type
+  tag: makeProp(PROP_TYPE_STRING, 'div')
+}
+
+// --- Main component ---
+
 // @vue/component
-export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
-  name: NAME_TRANSPORTER_SINGLE,
+export const BVTransporter = /*#__PURE__*/ Vue.extend({
+  name: NAME_TRANSPORTER,
   mixins: [normalizeSlotMixin],
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    container: {
-      // String: CSS selector,
-      // HTMLElement: Element reference
-      // Mainly needed for tooltips/popovers inside modals
-      type: [String, HTMLElement],
-      default: 'body'
-    },
-    tag: {
-      // This should be set to match the root element type
-      type: String,
-      default: 'div'
-    }
-  },
+  props,
   watch: {
     disabled: {
       immediate: true,
@@ -113,8 +115,8 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     // Get the element which the target should be appended to
     getContainer() {
       /* istanbul ignore else */
-      if (isBrowser) {
-        const container = this.container
+      if (IS_BROWSER) {
+        const { container } = this
         return isString(container) ? select(container) : container
       } else {
         return null
@@ -123,12 +125,12 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     // Mount the target
     mountTarget() {
       if (!this.$_target) {
-        const container = this.getContainer()
-        if (container) {
-          const el = document.createElement('div')
-          container.appendChild(el)
-          this.$_target = new BTransporterTargetSingle({
-            el,
+        const $container = this.getContainer()
+        if ($container) {
+          const $el = document.createElement('div')
+          $container.appendChild($el)
+          this.$_target = new BVTransporterTarget({
+            el: $el,
             parent: this,
             propsData: {
               // Initial nodes to be rendered
@@ -140,7 +142,7 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     },
     // Update the content of the target
     updateTarget() {
-      if (isBrowser && this.$_target) {
+      if (IS_BROWSER && this.$_target) {
         const defaultFn = this.$scopedSlots.default
         if (!this.disabled) {
           /* istanbul ignore else: only applicable in Vue 2.5.x */
@@ -165,10 +167,11 @@ export const BTransporterSingle = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    // This component has no root element, so only a single VNode is allowed
     if (this.disabled) {
-      const nodes = concat(this.normalizeSlot()).filter(identity)
-      if (nodes.length > 0 && !nodes[0].text) {
-        return nodes[0]
+      const $nodes = concat(this.normalizeSlot()).filter(identity)
+      if ($nodes.length > 0 && !$nodes[0].text) {
+        return $nodes[0]
       }
     }
     return h()

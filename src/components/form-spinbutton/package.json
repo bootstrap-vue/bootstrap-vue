@@ -4,7 +4,7 @@
   "meta": {
     "title": "Form Spinbutton",
     "version": "2.5.0",
-    "description": "BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n)",
+    "description": "BootstrapVue custom numerical spinbutton form input component, featuring WAI-ARIA accessibility (a11y) and internationalization (i18n).",
     "components": [
       {
         "component": "BFormSpinbutton",
@@ -14,72 +14,48 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "The value of the spinbutton. Bound to the v-model"
-          },
-          {
-            "prop": "min",
-            "description": "The minimum value that can be selected. Negative numbers are allowed"
-          },
-          {
-            "prop": "max",
-            "description": "The maximum value that can be selected. Must be greater than the `min` prop.. Negative numbers are allowed"
-          },
-          {
-            "prop": "step",
-            "description": "A positive number that specifies the granularity that the value must adhere to"
-          },
-          {
-            "prop": "wrap",
-            "description": "When set, allows the value to wrap around when reaching the minimum or maximum value"
-          },
-          {
-            "prop": "locale",
-            "description": "Specify the local to use for formatting the number. Defaults to the browser locale. Only applicable when using the internal formatter"
-          },
-          {
-            "prop": "placeholder",
-            "description": "Value to show when the v-model is `null`"
-          },
-          {
-            "prop": "formatterFn",
-            "description": "A reference to a method to format the displayed value. It is passed a single argument which is the current value"
-          },
-          {
-            "prop": "required",
-            "description": "Adds the `aria-required=\"true\"` attribute on the component. Note this will not prevent for submission when the value is `null`"
-          },
-          {
-            "prop": "readonly",
-            "description": "Places the component in a readonly state"
+            "prop": "ariaLabel",
+            "description": "Value to place in the `aria-label` attribute of the spinbutton"
           },
           {
             "prop": "disabled",
             "description": "Places the component in a disabled state"
           },
           {
+            "prop": "formatterFn",
+            "description": "A reference to a method to format the displayed value. It is passed a single argument which is the current value"
+          },
+          {
             "prop": "inline",
             "description": "When set, renders the component as an inline element"
           },
           {
-            "prop": "vertical",
-            "description": "When set, renders the component with a vertical layout"
-          },
-          {
-            "prop": "ariaLabel",
-            "description": "Value to place in the `aria-label` attribute of the spinbutton"
-          },
-          {
-            "prop": "ariaControls",
-            "description": "If this component controls another component or element, set this to the ID of the controlled component or element"
+            "prop": "labelDecrement",
+            "description": "Text to be used for the `aria-label` attribute on the decrement button"
           },
           {
             "prop": "labelIncrement",
             "description": "Text to be used for the `aria-label` attribute on the increment button"
           },
           {
-            "prop": "labelDecrement",
-            "description": "Text to be used for the `aria-label` attribute on the decrement button"
+            "prop": "locale",
+            "description": "Specify the local to use for formatting the number. Defaults to the browser locale. Only applicable when using the internal formatter"
+          },
+          {
+            "prop": "max",
+            "description": "The maximum value that can be selected. Must be greater than the `min` prop.. Negative numbers are allowed"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum value that can be selected. Negative numbers are allowed"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Value to show when the v-model is `null`"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the component in a readonly state"
           },
           {
             "prop": "repeatDelay",
@@ -90,27 +66,35 @@
             "description": "Interval in milliseconds between increment or decrement repeats. Must be a positive integer"
           },
           {
+            "prop": "repeatStepMultiplier",
+            "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer. This value is also used for the page up and down keys"
+          },
+          {
             "prop": "repeatThreshold",
             "description": "Number of repeats to occur before increasing the step size by `repeat-step-multiplier`. Must be a positive integer"
           },
           {
-            "prop": "repeatStepMultiplier",
-            "description": "Number of steps to jump by once the `repeat-threshold` has been reached. Must be a positive integer. This value is also used for the page up and down keys"
+            "prop": "required",
+            "description": "Adds the `aria-required=\"true\"` attribute on the component. Note this will not prevent for submission when the value is `null`"
+          },
+          {
+            "prop": "step",
+            "description": "A positive number that specifies the granularity that the value must adhere to"
+          },
+          {
+            "prop": "value",
+            "description": "The value of the spinbutton. Bound to the v-model"
+          },
+          {
+            "prop": "vertical",
+            "description": "When set, renders the component with a vertical layout"
+          },
+          {
+            "prop": "wrap",
+            "description": "When set, allows the value to wrap around when reaching the minimum or maximum value"
           }
         ],
         "slots": [
-          {
-            "name": "increment",
-            "version": "2.8.0",
-            "description": "Custom content to place in the increment button",
-            "scope": [
-              {
-                "prop": "hasFocus",
-                "type": "Boolean",
-                "description": "`true` when the spinbutton has focus"
-              }
-            ]
-          },
           {
             "name": "decrement",
             "version": "2.8.0",
@@ -122,12 +106,24 @@
                 "description": "`true` when the spinbutton has focus"
               }
             ]
+          },
+          {
+            "name": "increment",
+            "version": "2.8.0",
+            "description": "Custom content to place in the increment button",
+            "scope": [
+              {
+                "prop": "hasFocus",
+                "type": "Boolean",
+                "description": "`true` when the spinbutton has focus"
+              }
+            ]
           }
         ],
         "events": [
           {
-            "event": "input",
-            "description": "Emitted to update the v-model on each value change",
+            "event": "change",
+            "description": "Emitted when the user releases the mouse button or key",
             "args": [
               {
                 "arg": "value",
@@ -137,8 +133,8 @@
             ]
           },
           {
-            "event": "change",
-            "description": "Emitted when the user releases the mouse button or key",
+            "event": "input",
+            "description": "Emitted to update the v-model on each value change",
             "args": [
               {
                 "arg": "value",

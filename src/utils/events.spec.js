@@ -1,10 +1,10 @@
+import { HAS_PASSIVE_EVENT_SUPPORT } from '../constants/env'
 import { parseEventOptions } from './events'
-import { hasPassiveEventSupport } from './env'
 
 describe('utils/events', () => {
   it('event options parsing works', async () => {
     // JSDOM probably does not support passive mode
-    if (hasPassiveEventSupport) {
+    if (HAS_PASSIVE_EVENT_SUPPORT) {
       // Converts boolean to object
       expect(parseEventOptions(true)).toEqual({ capture: true })
       expect(parseEventOptions(false)).toEqual({ capture: false })

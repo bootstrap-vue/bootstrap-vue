@@ -2,10 +2,11 @@ import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BSidebar } from './sidebar'
 
-const EVENT_TOGGLE = 'bv::toggle::collapse'
-const EVENT_STATE = 'bv::collapse::state'
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = 'bv::request-state::collapse'
+const ROOT_ACTION_EVENT_NAME_TOGGLE = 'bv::toggle::collapse'
+
+const ROOT_EVENT_NAME_STATE = 'bv::collapse::state'
+const ROOT_EVENT_NAME_SYNC_STATE = 'bv::collapse::sync-state'
 
 describe('sidebar', () => {
   it('should have expected default structure', async () => {
@@ -157,21 +158,21 @@ describe('sidebar', () => {
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).toBeVisible()
 
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-toggle')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test-toggle')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'foobar')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'foobar')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
@@ -196,7 +197,7 @@ describe('sidebar', () => {
     expect($sidebar.element.tagName).toBe('DIV')
     expect($sidebar.element).not.toBeVisible()
 
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test-esc')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
@@ -210,7 +211,7 @@ describe('sidebar', () => {
     expect($sidebar.element).not.toBeVisible()
 
     await wrapper.setProps({ noCloseOnEsc: true })
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test-esc')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test-esc')
     await waitRAF()
     await waitRAF()
     expect($sidebar.element.tagName).toBe('DIV')
@@ -240,20 +241,20 @@ describe('sidebar', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test-sync') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test-sync') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeUndefined()
 
-    rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test-sync')
+    rootWrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, 'test-sync')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitRAF()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test-sync') // ID
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[0][0]).toBe('test-sync') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[0][1]).toBe(true) // Visible state
 
     wrapper.destroy()
   })
@@ -319,6 +320,34 @@ describe('sidebar', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
+    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('should have expected structure when `header` slot provided', async () => {
+    const wrapper = mount(BSidebar, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'sidebar-header-slot',
+        visible: true,
+        title: 'TITLE'
+      },
+      slots: {
+        header: 'Custom header'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $header = wrapper.find('.b-sidebar-header')
+    expect($header.exists()).toBe(true)
+    expect($header.find('strong').exists()).toBe(false)
+    expect($header.find('button').exists()).toBe(false)
+    expect($header.text()).toContain('Custom header')
+    expect($header.text()).not.toContain('TITLE')
+
     expect(wrapper.find('.b-sidebar-footer').exists()).toBe(false)
 
     wrapper.destroy()

@@ -1,4 +1,4 @@
-import Vue from '../../../vue'
+import { Vue } from '../../../vue'
 import { NAME_POPOVER_TEMPLATE } from '../../../constants/components'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { BVTooltipTemplate } from '../../tooltip/helpers/bv-tooltip-template'
@@ -14,14 +14,15 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     renderTemplate(h) {
+      const { title, content } = this
+
       // Title and content could be a scoped slot function
-      const $title = isFunction(this.title) ? this.title({}) : this.title
-      const $content = isFunction(this.content) ? this.content({}) : this.content
+      const $title = isFunction(title) ? title({}) : title
+      const $content = isFunction(content) ? content({}) : content
 
       // Directive usage only
-      const titleDomProps = this.html && !isFunction(this.title) ? { innerHTML: this.title } : {}
-      const contentDomProps =
-        this.html && !isFunction(this.content) ? { innerHTML: this.content } : {}
+      const titleDomProps = this.html && !isFunction(title) ? { innerHTML: title } : {}
+      const contentDomProps = this.html && !isFunction(content) ? { innerHTML: content } : {}
 
       return h(
         'div',
@@ -32,7 +33,10 @@ export const BVPopoverTemplate = /*#__PURE__*/ Vue.extend({
           on: this.templateListeners
         },
         [
-          h('div', { ref: 'arrow', staticClass: 'arrow' }),
+          h('div', {
+            staticClass: 'arrow',
+            ref: 'arrow'
+          }),
           isUndefinedOrNull($title) || $title === ''
             ? /* istanbul ignore next */ h()
             : h('h3', { staticClass: 'popover-header', domProps: titleDomProps }, [$title]),

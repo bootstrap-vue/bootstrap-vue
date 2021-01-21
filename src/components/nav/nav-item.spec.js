@@ -18,7 +18,7 @@ describe('nav-item', () => {
     expect(link.classes().length).toBe(1)
     expect(link.attributes('href')).toBeDefined()
     expect(link.attributes('href')).toBe('#')
-    expect(link.attributes('role')).not.toBeDefined()
+    expect(link.attributes('role')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -32,7 +32,7 @@ describe('nav-item', () => {
       }
     })
 
-    expect(wrapper.attributes('role')).not.toBeDefined()
+    expect(wrapper.attributes('role')).toBeUndefined()
 
     const link = wrapper.find('a')
     expect(link).toBeDefined()

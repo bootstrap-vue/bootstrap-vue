@@ -1,4 +1,4 @@
-# ScrollSpy
+# Scrollspy
 
 > Automatically update Bootstrap navigation or list group components based on scroll position to
 > indicate which link is currently active in the viewport.
@@ -70,9 +70,9 @@ as well.
     methods: {
       // Convenience method to scroll a heading into view.
       // Not required for scrollspy to work
-      scrollIntoView(evt) {
-        evt.preventDefault()
-        const href = evt.target.getAttribute('href')
+      scrollIntoView(event) {
+        event.preventDefault()
+        const href = event.target.getAttribute('href')
         const el = href ? document.querySelector(href) : null
         if (el) {
           this.$refs.content.scrollTop = el.offsetTop
@@ -299,7 +299,7 @@ If any of the options are invalid types, then an error is written to the console
 
 - If scroll element is not present, then we assume scrolling on `<body>`
 - If scroll element is a CSS selector, the first found element is chosen
-- If scroll element is not found, then ScrollSpy silently does nothing
+- If scroll element is not found, then Scrollspy silently does nothing
 
 **Important! Requires relative positioning** No matter the implementation method, scrollspy requires
 the use of `position: relative;` on the element you're scrolling on. In most cases this is the

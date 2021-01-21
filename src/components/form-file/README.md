@@ -1,4 +1,4 @@
-# Form File Input
+# Form File
 
 > Customized, cross-browser consistent, file input control that supports single file, multiple
 > files, and directory upload (for browsers that support directory mode).
@@ -59,7 +59,7 @@ files are selected the return value will be an array of JavaScript
     <strong>CAUTION:</strong> Directory mode is a <em>non-standard</em> feature. While being
     supported by all modern browsers, it should not be relied on for production.
     Read more on <a class="alert-link" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">MDN</a>
-    and <a class="alert-link" href="https://caniuse.com/#feat=input-file-directory">Can I use</a>.
+    and <a class="alert-link" href="https://caniuse.com/input-file-directory">Can I use</a>.
   </p>
 </div>
 
@@ -158,15 +158,15 @@ available on other form controls.
 
 ```html
 <div>
-  <b-form-group label="Small:" label-for="file-small" label-cols-sm="2" label-size="sm">
+  <b-form-group label="Small:" label-cols-sm="2" label-size="sm">
     <b-form-file id="file-small" size="sm"></b-form-file>
   </b-form-group>
 
-  <b-form-group label="Default:" label-for="file-default" label-cols-sm="2">
+  <b-form-group label="Default:" label-cols-sm="2">
     <b-form-file id="file-default"></b-form-file>
   </b-form-group>
 
-  <b-form-group label="Large:" label-for="file-large" label-cols-sm="2" label-size="lg">
+  <b-form-group label="Large:" label-cols-sm="2" label-size="lg">
     <b-form-file id="file-large" size="lg"></b-form-file>
   </b-form-group>
 </div>

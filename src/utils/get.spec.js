@@ -1,4 +1,4 @@
-import get from './get'
+import { get } from './get'
 
 describe('get', () => {
   it('handles invalid values gracefully', async () => {

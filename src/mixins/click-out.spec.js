@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
-import clickOutMixin from './click-out'
+import { clickOutMixin } from './click-out'
 
 describe('utils/click-out', () => {
   it('works', async () => {

@@ -2,14 +2,12 @@ import { createWrapper, mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
 
-// Events collapse emits on $root
-const EVENT_STATE = 'bv::collapse::state'
-const EVENT_ACCORDION = 'bv::collapse::accordion'
-// Events collapse listens to on $root
-const EVENT_TOGGLE = 'bv::toggle::collapse'
+const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = 'bv::request-state::collapse'
+const ROOT_ACTION_EVENT_NAME_TOGGLE = 'bv::toggle::collapse'
 
-const EVENT_STATE_SYNC = 'bv::collapse::sync::state'
-const EVENT_STATE_REQUEST = 'bv::request::collapse::state'
+const ROOT_EVENT_NAME_ACCORDION = 'bv::collapse::accordion'
+const ROOT_EVENT_NAME_STATE = 'bv::collapse::state'
+const ROOT_EVENT_NAME_SYNC_STATE = 'bv::collapse::sync-state'
 
 describe('collapse', () => {
   const origGetBCR = Element.prototype.getBoundingClientRect
@@ -148,15 +146,15 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(false)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)).toBeUndefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(false) // Visible state
     expect(wrapper.element.style.display).toEqual('none')
 
     wrapper.destroy()
@@ -177,15 +175,15 @@ describe('collapse', () => {
     const rootWrapper = createWrapper(wrapper.vm.$root)
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)).toBeUndefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
@@ -207,24 +205,24 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)).toBeUndefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeUndefined()
 
-    rootWrapper.vm.$root.$emit(EVENT_STATE_REQUEST, 'test')
+    rootWrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, 'test')
     await waitNT(wrapper.vm)
     await waitRAF()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[0][1]).toBe(true) // Visible state
 
     wrapper.destroy()
   })
@@ -245,14 +243,14 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(false)
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(false) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(false) // Visible state
     expect(wrapper.element.style.display).toEqual('none')
 
     // Change visible prop
@@ -266,9 +264,9 @@ describe('collapse', () => {
     expect(wrapper.emitted('show').length).toBe(1)
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
-    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(2)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[1][1]).toBe(true) // Visible state
     expect(wrapper.element.style.display).toEqual('')
 
     wrapper.destroy()
@@ -292,34 +290,34 @@ describe('collapse', () => {
     await waitRAF()
 
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined()
+    expect(wrapper.emitted('show')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[0][0]).toBe('test')
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[0][1]).toBe('foo')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[0][0]).toBe('test')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[0][1]).toBe('foo')
 
     // Does not respond to accordion events for different accordion ID
-    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'bar')
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_ACCORDION, 'test', 'bar')
     await waitNT(wrapper.vm)
     await waitRAF()
 
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(2) // The event we just emitted
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[1][0]).toBe('test')
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[1][1]).toBe('bar')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION).length).toBe(2) // The event we just emitted
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[1][0]).toBe('test')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[1][1]).toBe('bar')
     expect(wrapper.element.style.display).toEqual('')
 
     // Should respond to accordion events
-    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'nottest', 'foo')
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_ACCORDION, 'nottest', 'foo')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -327,16 +325,16 @@ describe('collapse', () => {
 
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe(false)
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(2)
-    expect(rootWrapper.emitted(EVENT_STATE)[1][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[1][1]).toBe(false) // Visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(3) // The event we just emitted
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][0]).toBe('nottest')
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[2][1]).toBe('foo')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(2)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[1][1]).toBe(false) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION).length).toBe(3) // The event we just emitted
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[2][0]).toBe('nottest')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[2][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('none')
 
     // Toggling this closed collapse emits accordion event
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -344,16 +342,16 @@ describe('collapse', () => {
 
     expect(wrapper.emitted('input').length).toBe(3)
     expect(wrapper.emitted('input')[2][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(3)
-    expect(rootWrapper.emitted(EVENT_STATE)[2][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[2][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_ACCORDION).length).toBe(4) // The event emitted by collapse
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[3][0]).toBe('test')
-    expect(rootWrapper.emitted(EVENT_ACCORDION)[3][1]).toBe('foo')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(3)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[2][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[2][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION).length).toBe(4) // The event emitted by collapse
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[3][0]).toBe('test')
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)[3][1]).toBe('foo')
     expect(wrapper.element.style.display).toEqual('')
 
     // Toggling this open collapse to be closed
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'test')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'test')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -361,7 +359,7 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Should respond to accordion events targeting this ID when closed
-    wrapper.vm.$root.$emit(EVENT_ACCORDION, 'test', 'foo')
+    wrapper.vm.$root.$emit(ROOT_EVENT_NAME_ACCORDION, 'test', 'foo')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -496,7 +494,7 @@ describe('collapse', () => {
     expect(wrapper.element.style.display).toEqual('none')
 
     // Emit root event with different ID
-    wrapper.vm.$root.$emit(EVENT_TOGGLE, 'not-test')
+    wrapper.vm.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, 'not-test')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -527,16 +525,16 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     expect(wrapper.element.style.display).toEqual('')
-    expect(wrapper.emitted('show')).not.toBeDefined() // Does not emit show when initially visible
+    expect(wrapper.emitted('show')).toBeUndefined() // Does not emit show when initially visible
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(true)
-    expect(rootWrapper.emitted(EVENT_ACCORDION)).not.toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE).length).toBe(1)
-    expect(rootWrapper.emitted(EVENT_STATE)[0][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE)[0][1]).toBe(true) // Visible state
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).not.toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_ACCORDION)).toBeUndefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE).length).toBe(1)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_STATE)[0][1]).toBe(true) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeUndefined()
 
     expect(scope).not.toBe(null)
     expect(scope.visible).toBe(true)
@@ -546,10 +544,10 @@ describe('collapse', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)).toBeDefined()
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC).length).toBe(2)
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][0]).toBe('test') // ID
-    expect(rootWrapper.emitted(EVENT_STATE_SYNC)[1][1]).toBe(false) // Visible state
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)).toBeDefined()
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE).length).toBe(2)
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[1][0]).toBe('test') // ID
+    expect(rootWrapper.emitted(ROOT_EVENT_NAME_SYNC_STATE)[1][1]).toBe(false) // Visible state
 
     expect(scope).not.toBe(null)
     expect(scope.visible).toBe(false)

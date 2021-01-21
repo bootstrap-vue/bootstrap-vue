@@ -19,10 +19,10 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.attributes('height')).toBe('1em')
     expect(wrapper.attributes('viewBox')).toBe('0 0 16 16')
     expect(wrapper.attributes('fill')).toBe('currentColor')
-    expect(wrapper.attributes('style')).not.toBeDefined()
+    expect(wrapper.attributes('style')).toBeUndefined()
     expect(wrapper.element.style.fontSize).toEqual('')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
     expect(wrapper.find('svg > g > g').exists()).toBe(false)
 
     wrapper.destroy()
@@ -46,7 +46,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.attributes('aria-label')).toBe('icon')
     expect(wrapper.attributes('focusable')).toBe('false')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -70,7 +70,7 @@ describe('icons > b-iconstack', () => {
     expect(wrapper.attributes('style')).toBeDefined()
     expect(wrapper.element.style.fontSize).toEqual('125%')
     expect(wrapper.find('svg > g').exists()).toBe(true)
-    expect(wrapper.find('svg > g').attributes('transform')).not.toBeDefined()
+    expect(wrapper.find('svg > g').attributes('transform')).toBeUndefined()
 
     wrapper.destroy()
   })

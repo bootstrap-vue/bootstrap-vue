@@ -11,7 +11,7 @@ describe('dropdown > dropdown-header', () => {
     expect(header.element.tagName).toBe('HEADER')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
-    expect(header.attributes('id')).not.toBeDefined()
+    expect(header.attributes('id')).toBeUndefined()
     expect(header.text()).toEqual('')
 
     wrapper.destroy()
@@ -30,7 +30,7 @@ describe('dropdown > dropdown-header', () => {
     expect(header.element.tagName).toBe('H2')
     expect(header.classes()).toContain('dropdown-header')
     expect(header.classes().length).toBe(1)
-    expect(header.attributes('id')).not.toBeDefined()
+    expect(header.attributes('id')).toBeUndefined()
     expect(header.text()).toEqual('')
 
     wrapper.destroy()

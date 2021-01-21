@@ -1,4 +1,4 @@
-import looseEqual from './loose-equal'
+import { looseEqual } from './loose-equal'
 
 describe('utils/looseEqual', () => {
   it('compares booleans correctly', () => {

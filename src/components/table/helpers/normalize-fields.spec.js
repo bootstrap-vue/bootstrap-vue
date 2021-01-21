@@ -1,4 +1,4 @@
-import normalizeFields from './normalize-fields'
+import { normalizeFields } from './normalize-fields'
 
 describe('table/helpers/normalize-fields', () => {
   it('uses first row of items when fields are not defined and items passed', async () => {

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
-import defaultSortCompare from './helpers/default-sort-compare'
+import { defaultSortCompare } from './helpers/default-sort-compare'
 import { BTable } from './table'
 
 const testItems = [{ a: 3, b: 'b', c: 'x' }, { a: 1, b: 'c', c: 'y' }, { a: 2, b: 'a', c: 'z' }]
@@ -18,10 +18,13 @@ describe('table > sorting', () => {
         items: testItems
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    await waitNT(wrapper.vm)
+
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toEqual(testItems)
@@ -69,19 +72,19 @@ describe('table > sorting', () => {
         sortDesc: false
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -95,6 +98,7 @@ describe('table > sorting', () => {
 
     // Currently sorted as ascending
     expect($ths.at(0).attributes('aria-sort')).toBe('ascending')
+    expect($ths.at(0).attributes('tabindex')).toBe('0')
     // For switching to descending
     expect(
       $ths
@@ -105,6 +109,7 @@ describe('table > sorting', () => {
 
     // Not sorted by this column
     expect($ths.at(1).attributes('aria-sort')).toBe('none')
+    expect($ths.at(1).attributes('tabindex')).toBe('0')
     // For sorting by ascending
     expect(
       $ths
@@ -114,7 +119,8 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    expect($ths.at(2).attributes('aria-sort')).toBeUndefined()
+    expect($ths.at(2).attributes('tabindex')).toBeUndefined()
     // For clearing sorting
     expect(
       $ths
@@ -162,7 +168,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    expect($ths.at(2).attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect(
       $ths
@@ -213,7 +219,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortAsc)
 
     // Not a sortable column
-    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    expect($ths.at(2).attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect(
       $ths
@@ -234,15 +240,17 @@ describe('table > sorting', () => {
         sortDesc: false,
         sortCompare: (a, b, sortBy) => {
           // We just use our default sort compare to test passing a function
-          return defaultSortCompare(a, b, sortBy)
+          return defaultSortCompare(a, b, { sortBy })
         }
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
 
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     const $rows = wrapper.findAll('tbody > tr').wrappers
@@ -268,20 +276,20 @@ describe('table > sorting', () => {
         items: testItems
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
     // Should not be sorted
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -383,20 +391,20 @@ describe('table > sorting', () => {
         footClone: true
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
     // Should not be sorted
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -511,20 +519,20 @@ describe('table > sorting', () => {
         noFooterSorting: true
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
     // Should not be sorted
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -542,7 +550,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(0)
       .trigger('click')
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -564,7 +572,7 @@ describe('table > sorting', () => {
       .findAll('tfoot > tr > th')
       .at(2)
       .trigger('click')
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the column text value
@@ -593,17 +601,17 @@ describe('table > sorting', () => {
         sortDirection: 'desc'
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
-    await waitNT(wrapper.vm)
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -636,7 +644,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
-    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    expect($ths.at(2).attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect(
       $ths
@@ -687,7 +695,7 @@ describe('table > sorting', () => {
     ).toContain(wrapper.vm.labelSortDesc)
 
     // Not a sortable column
-    expect($ths.at(2).attributes('aria-sort')).not.toBeDefined()
+    expect($ths.at(2).attributes('aria-sort')).toBeUndefined()
     // For clearing sorting
     expect(
       $ths
@@ -707,20 +715,20 @@ describe('table > sorting', () => {
         noSortReset: true
       }
     })
+
+    await waitNT(wrapper.vm)
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').exists()).toBe(true)
     expect(wrapper.findAll('tbody > tr').length).toBe(3)
-    let $rows
-    let columnA
 
     // Should not be sorted
-    await waitNT(wrapper.vm)
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('sort-changed')).not.toBeDefined()
-    $rows = wrapper.findAll('tbody > tr').wrappers
+    expect(wrapper.emitted('sort-changed')).toBeUndefined()
+    let $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
-    columnA = $rows.map(row => {
+    let columnA = $rows.map(row => {
       return row
         .findAll('td')
         .at(0)
@@ -794,6 +802,7 @@ describe('table > sorting', () => {
     })
 
     expect(wrapper).toBeDefined()
+
     let $trs = wrapper.findAll('tbody > tr')
     expect($trs.length).toBe(2)
 

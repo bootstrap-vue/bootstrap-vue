@@ -1,154 +1,135 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
-import getScopId from '../../utils/get-scope-id'
-import { arrayIncludes } from '../../utils/array'
-import { makePropsConfigurable } from '../../utils/config'
-import { isArray, isString, isUndefinedOrNull } from '../../utils/inspect'
-import { HTMLElement, SVGElement } from '../../utils/safe-types'
+import {
+  EVENT_NAME_CLOSE,
+  EVENT_NAME_DISABLE,
+  EVENT_NAME_DISABLED,
+  EVENT_NAME_ENABLE,
+  EVENT_NAME_ENABLED,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_OPEN,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_SHOWN,
+  MODEL_EVENT_NAME_PREFIX
+} from '../../constants/events'
+import {
+  PROP_TYPE_ARRAY_STRING,
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_NUMBER_OBJECT_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_OBJECT,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { HTMLElement, SVGElement } from '../../constants/safe-types'
+import { getScopeId } from '../../utils/get-scope-id'
+import { isUndefinedOrNull } from '../../utils/inspect'
+import { pick } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BVTooltip } from './helpers/bv-tooltip'
+
+// --- Constants ---
+
+const MODEL_PROP_NAME_ENABLED = 'disabled'
+const MODEL_EVENT_NAME_ENABLED = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_ENABLED
+
+const MODEL_PROP_NAME_SHOW = 'show'
+const MODEL_EVENT_NAME_SHOW = MODEL_EVENT_NAME_PREFIX + MODEL_PROP_NAME_SHOW
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    // String: scrollParent, window, or viewport
+    // Element: element reference
+    // Object: Vue component
+    boundary: makeProp([HTMLElement, PROP_TYPE_OBJECT, PROP_TYPE_STRING], 'scrollParent'),
+    boundaryPadding: makeProp(PROP_TYPE_NUMBER_STRING, 50),
+    // String: HTML ID of container, if null body is used (default)
+    // HTMLElement: element reference reference
+    // Object: Vue Component
+    container: makeProp([HTMLElement, PROP_TYPE_OBJECT, PROP_TYPE_STRING]),
+    customClass: makeProp(PROP_TYPE_STRING),
+    delay: makeProp(PROP_TYPE_NUMBER_OBJECT_STRING, 50),
+    [MODEL_PROP_NAME_ENABLED]: makeProp(PROP_TYPE_BOOLEAN, false),
+    fallbackPlacement: makeProp(PROP_TYPE_ARRAY_STRING, 'flip'),
+    // ID to use for tooltip element
+    // If not provided on will automatically be generated
+    id: makeProp(PROP_TYPE_STRING),
+    noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+    noninteractive: makeProp(PROP_TYPE_BOOLEAN, false),
+    offset: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    placement: makeProp(PROP_TYPE_STRING, 'top'),
+    [MODEL_PROP_NAME_SHOW]: makeProp(PROP_TYPE_BOOLEAN, false),
+    // String ID of element, or element/component reference
+    // Or function that returns one of the above
+    // Required
+    target: makeProp(
+      [HTMLElement, SVGElement, PROP_TYPE_FUNCTION, PROP_TYPE_OBJECT, PROP_TYPE_STRING],
+      undefined,
+      true
+    ),
+    title: makeProp(PROP_TYPE_STRING),
+    triggers: makeProp(PROP_TYPE_ARRAY_STRING, 'hover focus'),
+    variant: makeProp(PROP_TYPE_STRING)
+  },
+  NAME_TOOLTIP
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
+  mixins: [normalizeSlotMixin],
   inheritAttrs: false,
-  props: makePropsConfigurable(
-    {
-      title: {
-        type: String
-        // default: undefined
-      },
-      // Added in by BPopover
-      // content: {
-      //   type: String,
-      //   default: undefined
-      // },
-      target: {
-        // String ID of element, or element/component reference
-        // Or function that returns one of the above
-        type: [String, HTMLElement, SVGElement, Function, Object],
-        required: true
-      },
-      triggers: {
-        type: [String, Array],
-        default: 'hover focus'
-      },
-      placement: {
-        type: String,
-        default: 'top'
-      },
-      fallbackPlacement: {
-        type: [String, Array],
-        default: 'flip',
-        validator(value) {
-          return (
-            (isArray(value) && value.every(v => isString(v))) ||
-            arrayIncludes(['flip', 'clockwise', 'counterclockwise'], value)
-          )
-        }
-      },
-      variant: {
-        type: String
-        // default: undefined
-      },
-      customClass: {
-        type: String
-        // default: undefined
-      },
-      delay: {
-        type: [Number, Object, String],
-        default: 50
-      },
-      boundary: {
-        // String: scrollParent, window, or viewport
-        // Element: element reference
-        // Object: Vue component
-        type: [String, HTMLElement, Object],
-        default: 'scrollParent'
-      },
-      boundaryPadding: {
-        type: [Number, String],
-        default: 5
-      },
-      offset: {
-        type: [Number, String],
-        default: 0
-      },
-      noFade: {
-        type: Boolean,
-        default: false
-      },
-      container: {
-        // String: HTML ID of container, if null body is used (default)
-        // HTMLElement: element reference reference
-        // Object: Vue Component
-        type: [String, HTMLElement, Object]
-        // default: undefined
-      },
-      show: {
-        type: Boolean,
-        default: false
-      },
-      noninteractive: {
-        type: Boolean,
-        default: false
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      id: {
-        // ID to use for tooltip element
-        // If not provided on will automatically be generated
-        type: String
-        // default: null
-      }
-    },
-    NAME_TOOLTIP
-  ),
+  props,
   data() {
     return {
-      localShow: this.show,
+      localShow: this[MODEL_PROP_NAME_SHOW],
       localTitle: '',
       localContent: ''
     }
   },
   computed: {
+    // Data that will be passed to the template and popper
     templateData() {
-      // Data that will be passed to the template and popper
       return {
-        // We use massaged versions of the title and content props/slots
         title: this.localTitle,
         content: this.localContent,
-        // Pass these props as is
-        target: this.target,
-        triggers: this.triggers,
-        placement: this.placement,
-        fallbackPlacement: this.fallbackPlacement,
-        variant: this.variant,
-        customClass: this.customClass,
-        container: this.container,
-        boundary: this.boundary,
-        boundaryPadding: this.boundaryPadding,
-        delay: this.delay,
-        offset: this.offset,
-        noFade: this.noFade,
         interactive: !this.noninteractive,
-        disabled: this.disabled,
-        id: this.id
+        // Pass these props as is
+        ...pick(this.$props, [
+          'boundary',
+          'boundaryPadding',
+          'container',
+          'customClass',
+          'delay',
+          'fallbackPlacement',
+          'id',
+          'noFade',
+          'offset',
+          'placement',
+          'target',
+          'target',
+          'triggers',
+          'variant',
+          MODEL_PROP_NAME_ENABLED
+        ])
       }
     },
+    // Used to watch for changes to the title and content props
     templateTitleContent() {
-      // Used to watch for changes to the title and content props
-      return {
-        title: this.title,
-        content: this.content
-      }
+      const { title, content } = this
+      return { title, content }
     }
   },
   watch: {
-    show(show, oldVal) {
-      if (show !== oldVal && show !== this.localShow && this.$_toolpop) {
-        if (show) {
+    [MODEL_PROP_NAME_SHOW](newValue, oldValue) {
+      if (newValue !== oldValue && newValue !== this.localShow && this.$_toolpop) {
+        if (newValue) {
           this.$_toolpop.show()
         } else {
           // We use `forceHide()` to override any active triggers
@@ -156,16 +137,16 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
         }
       }
     },
-    disabled(newVal) {
-      if (newVal) {
+    [MODEL_PROP_NAME_ENABLED](newValue) {
+      if (newValue) {
         this.doDisable()
       } else {
         this.doEnable()
       }
     },
-    localShow(newVal) {
+    localShow(newValue) {
       // TODO: May need to be done in a `$nextTick()`
-      this.$emit('update:show', newVal)
+      this.$emit(MODEL_EVENT_NAME_SHOW, newValue)
     },
     templateData() {
       this.$nextTick(() => {
@@ -190,10 +171,10 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     // Shutdown our local event listeners
-    this.$off('open', this.doOpen)
-    this.$off('close', this.doClose)
-    this.$off('disable', this.doDisable)
-    this.$off('enable', this.doEnable)
+    this.$off(EVENT_NAME_OPEN, this.doOpen)
+    this.$off(EVENT_NAME_CLOSE, this.doClose)
+    this.$off(EVENT_NAME_DISABLE, this.doDisable)
+    this.$off(EVENT_NAME_ENABLE, this.doEnable)
     // Destroy the tip instance
     if (this.$_toolpop) {
       this.$_toolpop.$destroy()
@@ -210,7 +191,7 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Ensure we have initial content
       this.updateContent()
       // Pass down the scoped style attribute if available
-      const scopeId = getScopId(this) || getScopId(this.$parent)
+      const scopeId = getScopeId(this) || getScopeId(this.$parent)
       // Create the instance
       const $toolpop = (this.$_toolpop = new Component({
         parent: this,
@@ -220,25 +201,25 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Set the initial data
       $toolpop.updateData(this.templateData)
       // Set listeners
-      $toolpop.$on('show', this.onShow)
-      $toolpop.$on('shown', this.onShown)
-      $toolpop.$on('hide', this.onHide)
-      $toolpop.$on('hidden', this.onHidden)
-      $toolpop.$on('disabled', this.onDisabled)
-      $toolpop.$on('enabled', this.onEnabled)
+      $toolpop.$on(EVENT_NAME_SHOW, this.onShow)
+      $toolpop.$on(EVENT_NAME_SHOWN, this.onShown)
+      $toolpop.$on(EVENT_NAME_HIDE, this.onHide)
+      $toolpop.$on(EVENT_NAME_HIDDEN, this.onHidden)
+      $toolpop.$on(EVENT_NAME_DISABLED, this.onDisabled)
+      $toolpop.$on(EVENT_NAME_ENABLED, this.onEnabled)
       // Initially disabled?
-      if (this.disabled) {
+      if (this[MODEL_PROP_NAME_ENABLED]) {
         // Initially disabled
         this.doDisable()
       }
       // Listen to open signals from others
-      this.$on('open', this.doOpen)
+      this.$on(EVENT_NAME_OPEN, this.doOpen)
       // Listen to close signals from others
-      this.$on('close', this.doClose)
+      this.$on(EVENT_NAME_CLOSE, this.doClose)
       // Listen to disable signals from others
-      this.$on('disable', this.doDisable)
+      this.$on(EVENT_NAME_DISABLE, this.doDisable)
       // Listen to enable signals from others
-      this.$on('enable', this.doEnable)
+      this.$on(EVENT_NAME_ENABLE, this.doEnable)
       // Initially show tooltip?
       if (this.localShow) {
         $toolpop.show()
@@ -256,58 +237,58 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Popover: Default slot is `content`, `title` slot is title
       // We pass a scoped slot function reference by default (Vue v2.6x)
       // And pass the title prop as a fallback
-      this.setTitle(this.$scopedSlots.default || this.title)
+      this.setTitle(this.normalizeSlot() || this.title)
     },
     // Helper methods for `updateContent()`
-    setTitle(val) {
-      val = isUndefinedOrNull(val) ? '' : val
+    setTitle(value) {
+      value = isUndefinedOrNull(value) ? '' : value
       // We only update the value if it has changed
-      if (this.localTitle !== val) {
-        this.localTitle = val
+      if (this.localTitle !== value) {
+        this.localTitle = value
       }
     },
-    setContent(val) {
-      val = isUndefinedOrNull(val) ? '' : val
+    setContent(value) {
+      value = isUndefinedOrNull(value) ? '' : value
       // We only update the value if it has changed
-      if (this.localContent !== val) {
-        this.localContent = val
+      if (this.localContent !== value) {
+        this.localContent = value
       }
     },
     // --- Template event handlers ---
-    onShow(bvEvt) {
+    onShow(bvEvent) {
       // Placeholder
-      this.$emit('show', bvEvt)
-      if (bvEvt) {
-        this.localShow = !bvEvt.defaultPrevented
+      this.$emit(EVENT_NAME_SHOW, bvEvent)
+      if (bvEvent) {
+        this.localShow = !bvEvent.defaultPrevented
       }
     },
-    onShown(bvEvt) {
+    onShown(bvEvent) {
       // Tip is now showing
       this.localShow = true
-      this.$emit('shown', bvEvt)
+      this.$emit(EVENT_NAME_SHOWN, bvEvent)
     },
-    onHide(bvEvt) {
-      this.$emit('hide', bvEvt)
+    onHide(bvEvent) {
+      this.$emit(EVENT_NAME_HIDE, bvEvent)
     },
-    onHidden(bvEvt) {
+    onHidden(bvEvent) {
       // Tip is no longer showing
-      this.$emit('hidden', bvEvt)
+      this.$emit(EVENT_NAME_HIDDEN, bvEvent)
       this.localShow = false
     },
-    onDisabled(bvEvt) {
+    onDisabled(bvEvent) {
       // Prevent possible endless loop if user mistakenly
       // fires `disabled` instead of `disable`
-      if (bvEvt && bvEvt.type === 'disabled') {
-        this.$emit('update:disabled', true)
-        this.$emit('disabled', bvEvt)
+      if (bvEvent && bvEvent.type === EVENT_NAME_DISABLED) {
+        this.$emit(MODEL_EVENT_NAME_ENABLED, true)
+        this.$emit(EVENT_NAME_DISABLED, bvEvent)
       }
     },
-    onEnabled(bvEvt) {
+    onEnabled(bvEvent) {
       // Prevent possible endless loop if user mistakenly
       // fires `enabled` instead of `enable`
-      if (bvEvt && bvEvt.type === 'enabled') {
-        this.$emit('update:disabled', false)
-        this.$emit('enabled', bvEvt)
+      if (bvEvent && bvEvent.type === EVENT_NAME_ENABLED) {
+        this.$emit(MODEL_EVENT_NAME_ENABLED, false)
+        this.$emit(EVENT_NAME_ENABLED, bvEvent)
       }
     },
     // --- Local event listeners ---

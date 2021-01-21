@@ -13,5 +13,3 @@ export const cloneDeep = (obj, defaultValue = obj) => {
   }
   return defaultValue
 }
-
-export default cloneDeep

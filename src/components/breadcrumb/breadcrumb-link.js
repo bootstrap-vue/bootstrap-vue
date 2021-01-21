@@ -1,33 +1,25 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
-import { omit } from '../../utils/object'
-import { pluckProps } from '../../utils/props'
+import { omit, sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { BLink, props as BLinkProps } from '../link/link'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
-    text: {
-      type: String,
-      default: null
-    },
-    html: {
-      type: String,
-      default: null
-    },
-    ariaCurrent: {
-      type: String,
-      default: 'location'
-    },
-    ...omit(BLinkProps, ['event', 'routerTag'])
-  },
+  sortKeys({
+    ...omit(BLinkProps, ['event', 'routerTag']),
+    ariaCurrent: makeProp(PROP_TYPE_STRING, 'location'),
+    html: makeProp(PROP_TYPE_STRING),
+    text: makeProp(PROP_TYPE_STRING)
+  }),
   NAME_BREADCRUMB_LINK
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
   name: NAME_BREADCRUMB_LINK,

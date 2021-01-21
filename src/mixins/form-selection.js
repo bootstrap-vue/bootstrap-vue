@@ -1,5 +1,7 @@
+import { Vue } from '../vue'
+
 // @vue/component
-export default {
+export const formSelectionMixin = Vue.extend({
   computed: {
     selectionStart: {
       // Expose selectionStart for formatters, etc
@@ -55,4 +57,4 @@ export default {
       this.$refs.input.setRangeText(...arguments)
     }
   }
-}
+})

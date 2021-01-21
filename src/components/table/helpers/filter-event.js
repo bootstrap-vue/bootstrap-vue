@@ -5,13 +5,13 @@ const TABLE_TAG_NAMES = ['TD', 'TH', 'TR']
 
 // Returns `true` if we should ignore the click/double-click/keypress event
 // Avoids having the user need to use `@click.stop` on the form control
-const filterEvent = evt => {
+export const filterEvent = event => {
   // Exit early when we don't have a target element
-  if (!evt || !evt.target) {
+  if (!event || !event.target) {
     /* istanbul ignore next */
     return false
   }
-  const el = evt.target
+  const el = event.target
   // Exit early when element is disabled or a table element
   if (el.disabled || TABLE_TAG_NAMES.indexOf(el.tagName) !== -1) {
     return false
@@ -36,5 +36,3 @@ const filterEvent = evt => {
   // Return `true` if we should ignore the event
   return matches(el, EVENT_FILTER)
 }
-
-export default filterEvent

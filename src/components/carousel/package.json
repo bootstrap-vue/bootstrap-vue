@@ -10,57 +10,32 @@
         "description": "The <b-carousel> component is a slideshow for cycling through a series of slide content",
         "props": [
           {
-            "prop": "fade",
-            "description": "When set, changes the slide animation to a crossfade instead of a sliding effect"
-          },
-          {
-            "prop": "noAnimation",
-            "description": "When set, disables animation when transitioning between slides"
-          },
-          {
-            "prop": "indicators",
-            "description": "Enable the indicator buttons for jumping to specific slides"
+            "prop": "background",
+            "description": "Set the CSS color of the carousel's background"
           },
           {
             "prop": "controls",
             "description": "Enable the previous and next controls"
           },
           {
-            "prop": "noWrap",
-            "version": "2.0.0",
-            "description": "Do not restart the slide show when then end is reached"
-          },
-          {
-            "prop": "noTouch",
-            "description": "Disable controlling the slides via touch swipes"
-          },
-          {
-            "prop": "noHoverPause",
-            "description": "When set, disables the pausing of the slide show when the current slide is hovered"
-          },
-          {
-            "prop": "interval",
-            "description": "Set the delay time (in milliseconds) between slides"
-          },
-          {
-            "prop": "imgWidth",
-            "description": "Set the default image 'width' attribute for all b-tab children"
+            "prop": "fade",
+            "description": "When set, changes the slide animation to a crossfade instead of a sliding effect"
           },
           {
             "prop": "imgHeight",
             "description": "Set the default image 'height' attribute for all b-tab children"
           },
           {
-            "prop": "value",
-            "description": "The currently active slide (zero-indexed)"
+            "prop": "imgWidth",
+            "description": "Set the default image 'width' attribute for all b-tab children"
           },
           {
-            "prop": "labelPrev",
-            "description": "Sets the 'aria-label' value for the previous slide control"
+            "prop": "indicators",
+            "description": "Enable the indicator buttons for jumping to specific slides"
           },
           {
-            "prop": "labelNext",
-            "description": "Sets the 'aria-label' value for the next slide control"
+            "prop": "interval",
+            "description": "Set the delay time (in milliseconds) between slides"
           },
           {
             "prop": "labelGotoSlide",
@@ -71,32 +46,63 @@
             "description": "Sets the 'aria-label' on the indicator controls wrapper"
           },
           {
-            "prop": "background",
-            "description": "Set the CSS color of the carousel's background"
+            "prop": "labelNext",
+            "description": "Sets the 'aria-label' value for the next slide control"
+          },
+          {
+            "prop": "labelPrev",
+            "description": "Sets the 'aria-label' value for the previous slide control"
+          },
+          {
+            "prop": "noAnimation",
+            "description": "When set, disables animation when transitioning between slides"
+          },
+          {
+            "prop": "noHoverPause",
+            "description": "When set, disables the pausing of the slide show when the current slide is hovered"
+          },
+          {
+            "prop": "noTouch",
+            "description": "Disable controlling the slides via touch swipes"
+          },
+          {
+            "prop": "noWrap",
+            "version": "2.0.0",
+            "description": "Do not restart the slide show when then end is reached"
+          },
+          {
+            "prop": "value",
+            "description": "The currently active slide (zero-indexed)"
           }
         ],
         "events": [
           {
-            "event": "sliding-start",
-            "description": "Emitted when transitioning to a new slide has started.",
+            "event": "sliding-end",
+            "description": "Emitted when transitioning to a new slide has ended",
             "args": [
               {
                 "arg": "slide",
                 "type": "Number",
-                "description": "Slide number that is being slid to."
+                "description": "Slide number that was slid to"
               }
             ]
           },
           {
-            "event": "sliding-end",
-            "description": "Emitted when transitioning to a new slide has ended.",
+            "event": "sliding-start",
+            "description": "Emitted when transitioning to a new slide has started",
             "args": [
               {
                 "arg": "slide",
                 "type": "Number",
-                "description": "Slide number that was slid to."
+                "description": "Slide number that is being slid to"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (slides) to place in the carousel"
           }
         ]
       },
@@ -105,20 +111,33 @@
         "description": "The <b-carousel-slide> component is a slide to be placed in the <b-carousel>",
         "props": [
           {
-            "prop": "imgSrc",
-            "description": "Sets the URL of the image"
+            "prop": "background",
+            "description": "CSS color to use as the slide's background color"
+          },
+          {
+            "prop": "caption",
+            "description": "Text content to place in the caption"
+          },
+          {
+            "prop": "captionHtml",
+            "description": "HTML string content to place in the caption",
+            "xss": true
+          },
+          {
+            "prop": "captionTag",
+            "description": "Specify the HTML tag to render instead of the default tag for the caption wrapper"
+          },
+          {
+            "prop": "contentTag",
+            "description": "Specify the HTML tag to render instead of the default tag for the content wrapper"
+          },
+          {
+            "prop": "contentVisibleUp",
+            "description": "Specify the breakpoint that the textual content will start to be shown. Leave at default to always show the textual content"
           },
           {
             "prop": "imgAlt",
             "description": "Sets the value of the 'alt' attribute on the image"
-          },
-          {
-            "prop": "imgWidth",
-            "description": "Set the default image 'width' attribute for all b-tab children"
-          },
-          {
-            "prop": "imgHeight",
-            "description": "Set the default image 'height' attribute for all b-tab children"
           },
           {
             "prop": "imgBlank",
@@ -129,24 +148,16 @@
             "description": "Set the CSS color to use as the fill of the blank image"
           },
           {
-            "prop": "contentTag",
-            "description": "Specify the HTML tag to render instead of the default tag for the content wrapper"
+            "prop": "imgHeight",
+            "description": "Set the default image 'height' attribute for all b-tab children"
           },
           {
-            "prop": "captionTag",
-            "description": "Specify the HTML tag to render instead of the default tag for the caption wrapper"
+            "prop": "imgSrc",
+            "description": "Sets the URL of the image"
           },
           {
-            "prop": "contentVisibleUp",
-            "description": "Specify the breakpoint that the textual content will start to be shown. Leave at default to always show the textual content"
-          },
-          {
-            "prop": "caption",
-            "description": "Text content to place in the caption"
-          },
-          {
-            "prop": "captionHtml",
-            "description": "HTML string content to place in the caption. Use with caution"
+            "prop": "imgWidth",
+            "description": "Set the default image 'width' attribute for all b-tab children"
           },
           {
             "prop": "text",
@@ -154,14 +165,15 @@
           },
           {
             "prop": "textHtml",
-            "description": "HTML string content to place in the text of the slide. Use with caution"
-          },
-          {
-            "prop": "background",
-            "description": "CSS color to use as the slide's background color"
+            "description": "HTML string content to place in the text of the slide",
+            "xss": true
           }
         ],
         "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the carousel slide"
+          },
           {
             "name": "img",
             "description": "Slot for img element or image component"

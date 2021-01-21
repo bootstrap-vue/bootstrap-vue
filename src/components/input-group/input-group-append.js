@@ -1,13 +1,23 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_APPEND } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { BInputGroupAddon, commonProps } from './input-group-addon'
+import { omit } from '../../utils/object'
+import { makePropsConfigurable } from '../../utils/props'
+import { BInputGroupAddon, props as BInputGroupAddonProps } from './input-group-addon'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  omit(BInputGroupAddonProps, ['append']),
+  NAME_INPUT_GROUP_APPEND
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BInputGroupAppend = /*#__PURE__*/ Vue.extend({
   name: NAME_INPUT_GROUP_APPEND,
   functional: true,
-  props: makePropsConfigurable(commonProps, NAME_INPUT_GROUP_APPEND),
+  props,
   render(h, { props, data, children }) {
     // Pass all our data down to child, and set `append` to `true`
     return h(

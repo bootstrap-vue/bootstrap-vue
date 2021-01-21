@@ -77,6 +77,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
         <b-form-group label="Variant" label-for="bg-variant" label-cols-sm="4" label-cols-lg="12">
           <b-form-select id="bg-variant" v-model="variant" :options="variants"></b-form-select>
         </b-form-group>
+
         <b-form-group label="Opacity" label-for="bg-opacity" label-cols-sm="4" label-cols-lg="12">
           <b-input-group>
             <b-form-input
@@ -93,10 +94,12 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
+
         <b-form-group label="Blur" label-for="bg-blur" label-cols-sm="4" label-cols-lg="12">
           <b-form-select id="bg-blur" v-model="blur" :options="blurs"></b-form-select>
         </b-form-group>
       </b-col>
+
       <b-col lg="6">
         <b-overlay
           id="overlay-background"
@@ -112,6 +115,7 @@ Control the opacity of the backdrop via the `opacity` prop (opacity values can r
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             </b-card-text>
+
             <b-button disabled variant="primary">Button</b-button>
           </b-card>
         </b-overlay>
@@ -684,6 +688,7 @@ This example also demonstrates additional accessibility markup.
           <b-form-input id="form-name" :disabled="busy"></b-form-input>
         </b-input-group>
       </b-form-group>
+
       <b-form-group label="Email" label-for="form-mail" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
@@ -692,6 +697,7 @@ This example also demonstrates additional accessibility markup.
           <b-form-input id="form-email" type="email" :disabled="busy"></b-form-input>
         </b-input-group>
       </b-form-group>
+
       <b-form-group label="Image" label-for="form-image" label-cols-lg="2">
         <b-input-group>
           <b-input-group-prepend is-text>
@@ -700,6 +706,7 @@ This example also demonstrates additional accessibility markup.
           <b-form-file id="form-image" :disabled="busy" accept="image/*"></b-form-file>
         </b-input-group>
       </b-form-group>
+
       <div class="d-flex justify-content-center">
          <b-button ref="submit" type="submit" :disabled="busy">Submit</b-button>
       </div>

@@ -1,52 +1,54 @@
-import Vue from '../../vue'
-import { NAME_NAVBAR_TOGGLE } from '../../constants/components'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
-import { VBToggle, EVENT_STATE, EVENT_STATE_SYNC } from '../../directives/toggle/toggle'
+import { Vue } from '../../vue'
+import { NAME_COLLAPSE, NAME_NAVBAR_TOGGLE } from '../../constants/components'
+import { EVENT_NAME_CLICK } from '../../constants/events'
+import { PROP_TYPE_ARRAY_STRING, PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_DEFAULT } from '../../constants/slots'
+import { getRootEventName } from '../../utils/events'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { VBToggle } from '../../directives/toggle/toggle'
 
 // --- Constants ---
 
 const CLASS_NAME = 'navbar-toggler'
 
+const ROOT_EVENT_NAME_STATE = getRootEventName(NAME_COLLAPSE, 'state')
+const ROOT_EVENT_NAME_SYNC_STATE = getRootEventName(NAME_COLLAPSE, 'sync-state')
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    label: makeProp(PROP_TYPE_STRING, 'Toggle navigation'),
+    target: makeProp(PROP_TYPE_ARRAY_STRING, undefined, true) // Required
+  },
+  NAME_NAVBAR_TOGGLE
+)
+
 // --- Main component ---
+
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR_TOGGLE,
   directives: { VBToggle },
   mixins: [listenOnRootMixin, normalizeSlotMixin],
-  props: makePropsConfigurable(
-    {
-      label: {
-        type: String,
-        default: 'Toggle navigation'
-      },
-      target: {
-        type: [Array, String],
-        required: true
-      },
-      disabled: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_NAVBAR_TOGGLE
-  ),
+  props,
   data() {
     return {
       toggleState: false
     }
   },
   created() {
-    this.listenOnRoot(EVENT_STATE, this.handleStateEvt)
-    this.listenOnRoot(EVENT_STATE_SYNC, this.handleStateEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_STATE, this.handleStateEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.handleStateEvt)
   },
   methods: {
-    onClick(evt) {
+    onClick(event) {
       if (!this.disabled) {
         // Emit courtesy `click` event
-        this.$emit('click', evt)
+        this.$emit(EVENT_NAME_CLICK, event)
       }
     },
     handleStateEvt(id, state) {

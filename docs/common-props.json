@@ -1,180 +1,21 @@
 {
-  "id": {
-    "description": "Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
+  "active": {
+    "description": "When set to `true`, places the component in the active state with active styling"
   },
-  "variant": {
-    "description": "Applies one of the Bootstrap theme color variants to the component"
-  },
-  "textVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the text"
-  },
-  "bgVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the background"
-  },
-  "borderVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the border"
-  },
-  "headerVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the header"
-  },
-  "headerTextVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the header text"
-  },
-  "titleTextVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the title text"
-  },
-  "subTitleTextVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the sub title text"
-  },
-  "headerBgVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the header background"
-  },
-  "headerBorderVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the header border"
-  },
-  "footerVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the footer"
-  },
-  "footerTextVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the footer text"
-  },
-  "footerBgVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the footer background"
-  },
-  "footerBorderVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the footer border"
-  },
-  "bodyVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the body"
-  },
-  "bodyTextVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the body text"
-  },
-  "bodyBgVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the body background"
-  },
-  "bodyBorderVariant": {
-    "description": "Applies one of the Bootstrap theme color variants to the body border"
-  },
-  "tag": {
-    "description": "Specify the HTML tag to render instead of the default tag"
-  },
-  "headerTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the header"
-  },
-  "footerTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the footer"
-  },
-  "bodyTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the body"
-  },
-  "titleTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the title"
-  },
-  "subTitleTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the sub title"
-  },
-  "textTag": {
-    "description": "Specify the HTML tag to render instead of the default tag for the text content"
-  },
-  "headerClass": {
-    "description": "CSS class (or classes) to apply to the header"
-  },
-  "footerClass": {
-    "description": "CSS class (or classes) to apply to the footer"
-  },
-  "bodyClass": {
-    "description": "CSS class (or classes) to apply to the body"
-  },
-  "titleClass": {
-    "description": "CSS class (or classes) to apply to the title"
-  },
-  "header": {
-    "description": "Text content to place in the header"
-  },
-  "headerHtml": {
-    "description": "HTML string content to place in the header. Use with caution"
-  },
-  "footer": {
-    "description": "Text content to place in the footer"
-  },
-  "footerHtml": {
-    "description": "HTML string content to place in the footer. Use with caution"
-  },
-  "title": {
-    "description": "Text content to place in the title"
-  },
-  "titleHtml": {
-    "description": "HTML string content to place in the title. Use with caution"
-  },
-  "subTitle": {
-    "description": "Text content to place in the sub title"
-  },
-  "size": {
-    "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
-  },
-  "required": {
-    "description": "Adds the `required` attribute to the form control"
-  },
-  "form": {
-    "description": "ID of the form that the form control belongs to. Sets the `form` attribute on the control"
-  },
-  "name": {
-    "description": "Sets the value of the `name` attribute on the form control"
-  },
-  "placeholder": {
-    "description": "Sets the `placeholder` attribute value on the form control"
-  },
-  "disabled": {
-    "description": "When set to `true`, disables the component's functionality and places it in a disabled state"
-  },
-  "readonly": {
-    "description": "Sets the `readonly` attribute on the form control"
-  },
-  "plaintext": {
-    "description": "Set the form control as readonly and renders the control to look like plain text (no borders)"
-  },
-  "autocomplete": {
-    "description": "Sets the 'autocomplete' attribute value on the form control"
-  },
-  "autofocus": {
-    "description": "When set to `true`, attempts to auto-focus the control when it is mounted, or re-activated when in a keep-alive. Does not set the `autofocus` attribute on the control"
-  },
-  "state": {
-    "description": "Controls the validation state appearance of the component. `true` for valid, `false` for invalid, or `null` for no validation state"
-  },
-  "options": {
-    "description": "Array of items to render in the component"
-  },
-  "valueField": {
-    "description": "Field name in the `options` array that should be used for the value"
-  },
-  "textField": {
-    "description": "Field name in the `options` array that should be used for the text label"
-  },
-  "htmlField": {
-    "description": "Field name in the `options` array that should be used for the html label instead of text field. Use with caution"
-  },
-  "disabledField": {
-    "description": "Field name in the `options` array that should be used for the disabled state"
-  },
-  "plain": {
-    "description": "Render the form control in plain mode, rather than custom styled mode"
-  },
-  "static": {
-    "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
-  },
-  "src": {
-    "description": "URL to set for the `src` attribute"
+  "activeClass": {
+    "description": "<router-link> prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'"
   },
   "alt": {
     "description": "Value to set for the `alt` attribute"
   },
-  "role": {
-    "description": "Sets the ARIA attribute `role` to a specific value"
+  "append": {
+    "description": "<router-link> prop: Setting append prop always appends the relative path to the current path"
   },
-  "ariaRole": {
-    "description": "Sets the ARIA attribute `role` to a specific value"
+  "ariaControls": {
+    "description": "If this component controls another component or element, set this to the ID of the controlled component or element"
+  },
+  "ariaDescribedby": {
+    "description": "The ID of the element that provides additional context for this component. Used as the value for the `aria-describedby` attribute"
   },
   "ariaLabel": {
     "description": "Sets the value of `aria-label` attribute on the rendered element"
@@ -182,63 +23,229 @@
   "ariaLabelledby": {
     "description": "The ID of the element that provides a label for this component. Used as the value for the `aria-labelledby` attribute"
   },
-  "ariaDescribedby": {
-    "description": "The ID of the element that provides additional context for this component. Used as the value for the `aria-describedby` attribute"
-  },
   "ariaLive": {
     "description": "When the rendered element is an `aria-live` region (for screen reader users), set to either 'polite' or 'assertive'"
   },
-  "fade": {
-    "description": "When set to `true`, enables the fade animation/transition on the component"
+  "ariaRole": {
+    "description": "Sets the ARIA attribute `role` to a specific value"
   },
-  "noFade": {
-    "description": "When set to `true`, disables the fade animation/transition on the component"
+  "autocomplete": {
+    "description": "Sets the 'autocomplete' attribute value on the form control"
   },
-  "active": {
-    "description": "When set to `true`, places the component in the active state with active styling"
+  "autofocus": {
+    "description": "When set to `true`, attempts to auto-focus the control when it is mounted, or re-activated when in a keep-alive. Does not set the `autofocus` attribute on the control"
   },
-  "href": {
-    "description": "<b-link> prop: Denotes the target URL of the link for standard a links"
+  "bgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the background"
   },
-  "rel": {
-    "description": "<b-link> prop: Sets the `rel` attribute on the rendered link"
+  "bodyBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body background"
   },
-  "target": {
-    "description": "<b-link> prop: Sets the `target` attribute on the rendered link"
+  "bodyBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body border"
   },
-  "to": {
-    "description": "<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to `router.push()` internally, so the value can be either a string or a Location descriptor object"
+  "bodyClass": {
+    "description": "CSS class (or classes) to apply to the body"
   },
-  "replace": {
-    "description": "<router-link> prop: Setting the replace prop will call `router.replace()` instead of `router.push()` when clicked, so the navigation will not leave a history record"
+  "bodyTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the body"
   },
-  "append": {
-    "description": "<router-link> prop: Setting append prop always appends the relative path to the current path"
+  "bodyTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body text"
+  },
+  "bodyVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the body"
+  },
+  "borderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the border"
+  },
+  "disabled": {
+    "description": "When set to `true`, disables the component's functionality and places it in a disabled state"
+  },
+  "disabledField": {
+    "description": "Field name in the `options` array that should be used for the disabled state"
+  },
+  "event": {
+    "description": "<router-link> prop: Specify the event that triggers the link. In most cases you should leave this as the default"
   },
   "exact": {
     "description": "<router-link> prop: The default active class matching behavior is inclusive match. Setting this prop forces the mode to exactly match the route"
   },
-  "activeClass": {
-    "description": "<router-link> prop: Configure the active CSS class applied when the link is active. Typically you will want to set this to class name 'active'"
-  },
   "exactActiveClass": {
     "description": "<router-link> prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
   },
-  "routerTag": {
-    "description": "<router-link> prop: Specify which tag to render, and it will still listen to click events for navigation. `router-tag` translates to the tag prop on the final rendered `<router-link>`. Typically you should use the default value"
+  "fade": {
+    "description": "When set to `true`, enables the fade animation/transition on the component"
   },
-  "event": {
-    "description": "<router-link> prop: Specify the event that triggers the link. In most cases you should leave this as the default"
+  "footer": {
+    "description": "Text content to place in the footer"
+  },
+  "footerBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer background"
+  },
+  "footerBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer border"
+  },
+  "footerClass": {
+    "description": "CSS class (or classes) to apply to the footer"
+  },
+  "footerHtml": {
+    "description": "HTML string content to place in the footer",
+    "xss": true
+  },
+  "footerTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the footer"
+  },
+  "footerTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer text"
+  },
+  "footerVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the footer"
+  },
+  "form": {
+    "description": "ID of the form that the form control belongs to. Sets the `form` attribute on the control"
+  },
+  "header": {
+    "description": "Text content to place in the header"
+  },
+  "headerBgVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header background"
+  },
+  "headerBorderVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header border"
+  },
+  "headerClass": {
+    "description": "CSS class (or classes) to apply to the header"
+  },
+  "headerHtml": {
+    "description": "HTML string content to place in the header",
+    "xss": true
+  },
+  "headerTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the header"
+  },
+  "headerTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header text"
+  },
+  "headerVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the header"
+  },
+  "href": {
+    "description": "<b-link> prop: Denotes the target URL of the link for standard a links"
+  },
+  "htmlField": {
+    "description": "Field name in the `options` array that should be used for the html label instead of text field",
+    "xss": true
+  },
+  "id": {
+    "description": "Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
+  },
+  "name": {
+    "description": "Sets the value of the `name` attribute on the form control"
+  },
+  "noFade": {
+    "description": "When set to `true`, disables the fade animation/transition on the component"
+  },
+  "noPrefetch": {
+    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled this feature for the specific link"
+  },
+  "options": {
+    "description": "Array of items to render in the component"
+  },
+  "placeholder": {
+    "description": "Sets the `placeholder` attribute value on the form control"
+  },
+  "plain": {
+    "description": "Render the form control in plain mode, rather than custom styled mode"
+  },
+  "plaintext": {
+    "description": "Set the form control as readonly and renders the control to look like plain text (no borders)"
   },
   "prefetch": {
     "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `prefetch` to `true` or `false` will overwrite the default value of `router.prefetchLinks`",
     "version": "2.15.0"
   },
-  "noPrefetch": {
-    "description": "<nuxt-link> prop: To improve the responsiveness of your Nuxt.js applications, when the link will be displayed within the viewport, Nuxt.js will automatically prefetch the code splitted page. Setting `no-prefetch` will disabled this feature for the specific link"
+  "readonly": {
+    "description": "Sets the `readonly` attribute on the form control"
+  },
+  "rel": {
+    "description": "<b-link> prop: Sets the `rel` attribute on the rendered link"
+  },
+  "replace": {
+    "description": "<router-link> prop: Setting the replace prop will call `router.replace()` instead of `router.push()` when clicked, so the navigation will not leave a history record"
+  },
+  "required": {
+    "description": "Adds the `required` attribute to the form control"
+  },
+  "role": {
+    "description": "Sets the ARIA attribute `role` to a specific value"
   },
   "routerComponentName": {
     "description": "<b-link> prop: BootstrapVue auto detects between `<router-link>` and `<nuxt-link>`. In cases where you want to use a 3rd party link component based on `<router-link>`, set this prop to the component name. e.g. set it to 'g-link' if you are using Gridsome (note only `<router-link>` specific props are passed to the component)",
     "version": "2.15.0"
+  },
+  "routerTag": {
+    "description": "<router-link> prop: Specify which tag to render, and it will still listen to click events for navigation. `router-tag` translates to the tag prop on the final rendered `<router-link>`. Typically you should use the default value"
+  },
+  "size": {
+    "description": "Set the size of the component's appearance. 'sm', 'md' (default), or 'lg'"
+  },
+  "src": {
+    "description": "URL to set for the `src` attribute"
+  },
+  "state": {
+    "description": "Controls the validation state appearance of the component. `true` for valid, `false` for invalid, or `null` for no validation state"
+  },
+  "static": {
+    "description": "Renders the content of the component in-place in the DOM, rather than portalling it to be appended to the body element"
+  },
+  "subTitle": {
+    "description": "Text content to place in the sub title"
+  },
+  "subTitleTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the sub title"
+  },
+  "subTitleTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the sub title text"
+  },
+  "tag": {
+    "description": "Specify the HTML tag to render instead of the default tag"
+  },
+  "target": {
+    "description": "<b-link> prop: Sets the `target` attribute on the rendered link"
+  },
+  "textField": {
+    "description": "Field name in the `options` array that should be used for the text label"
+  },
+  "textTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the text content"
+  },
+  "textVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the text"
+  },
+  "title": {
+    "description": "Text content to place in the title"
+  },
+  "titleClass": {
+    "description": "CSS class (or classes) to apply to the title"
+  },
+  "titleHtml": {
+    "description": "HTML string content to place in the title",
+    "xss": true
+  },
+  "titleTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for the title"
+  },
+  "titleTextVariant": {
+    "description": "Applies one of the Bootstrap theme color variants to the title text"
+  },
+  "to": {
+    "description": "<router-link> prop: Denotes the target route of the link. When clicked, the value of the to prop will be passed to `router.push()` internally, so the value can be either a string or a Location descriptor object"
+  },
+  "valueField": {
+    "description": "Field name in the `options` array that should be used for the value"
+  },
+  "variant": {
+    "description": "Applies one of the Bootstrap theme color variants to the component"
   }
 }
