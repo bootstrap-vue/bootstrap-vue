@@ -102,6 +102,7 @@ export const formTextMixin = Vue.extend({
   },
   watch: {
     [MODEL_PROP_NAME](newValue) {
+      console.log('form-text: watch value', newValue)
       const stringifyValue = toString(newValue)
       const modifiedValue = this.modifyValue(newValue)
       if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
@@ -149,6 +150,7 @@ export const formTextMixin = Vue.extend({
       return value
     },
     updateValue(value, force = false) {
+      console.log('form-text: updateValue', value)
       const { lazy } = this
       if (lazy && !force) {
         return
@@ -198,6 +200,7 @@ export const formTextMixin = Vue.extend({
       }
       const { value } = event.target
       const formattedValue = this.formatValue(value, event)
+      console.log('form-text: onInput', formattedValue)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
@@ -212,6 +215,7 @@ export const formTextMixin = Vue.extend({
     onChange(event) {
       const { value } = event.target
       const formattedValue = this.formatValue(value, event)
+      console.log('form-text: onChange', formattedValue)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
@@ -228,6 +232,7 @@ export const formTextMixin = Vue.extend({
       // on mobile browsers (e.g. caused by autocomplete)
       const { value } = event.target
       const formattedValue = this.formatValue(value, event, true)
+      console.log('form-text: onBlur', formattedValue)
       if (formattedValue !== false) {
         // We need to use the modified value here to apply the
         // `.trim` and `.number` modifiers properly
