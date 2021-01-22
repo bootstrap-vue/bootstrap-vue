@@ -447,6 +447,8 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[3][2]).toEqual([])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'three '
@@ -478,6 +480,7 @@ describe('form-tags', () => {
 
     $input.element.value = ' three two '
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: 'polite' })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -489,13 +492,18 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('polite')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(true)
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: null })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
     expect(wrapper.emitted('tag-state').length).toBe(6)
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toBeUndefined()
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toBeUndefined()
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
     $input.element.value = '    '
