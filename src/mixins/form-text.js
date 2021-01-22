@@ -199,6 +199,7 @@ export const formTextMixin = Vue.extend({
         return
       }
       const { value } = event.target
+      console.log('form-text: onInput', event.target, value)
       const formattedValue = this.formatValue(value, event)
       console.log('form-text: onInput', formattedValue)
       // Exit when the `formatter` function strictly returned `false`
