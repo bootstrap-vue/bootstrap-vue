@@ -107,6 +107,7 @@ const props = makePropsConfigurable(
     // Handy if using <select> as the input
     addOnChange: makeProp(PROP_TYPE_BOOLEAN, false),
     duplicateTagText: makeProp(PROP_TYPE_STRING, 'Duplicate tag(s)'),
+    feedbackAriaLive: makeProp(PROP_TYPE_STRING, 'assertive'),
     // Disable the input focus behavior when clicking
     // on element matching the selector (or selectors)
     ignoreInputFocusSelector: makeProp(PROP_TYPE_ARRAY_STRING, DEFAULT_INPUT_FOCUS_SELECTOR),
@@ -660,7 +661,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       if (invalidTagText || duplicateTagText || limitTagsText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not disabled the messages
-        const joiner = this.computedJoiner
+        const { feedbackAriaLive: ariaLive, computedJoiner: joiner } = this
 
         // Invalid tag feedback if needed (error)
         let $invalid = h()
@@ -670,6 +671,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             {
               props: {
                 id: invalidFeedbackId,
+                ariaLive,
                 forceShow: true
               },
               key: 'tags_invalid_feedback'
@@ -684,7 +686,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $duplicate = h(
             BFormText,
             {
-              props: { id: duplicateFeedbackId },
+              props: {
+                id: duplicateFeedbackId,
+                ariaLive
+              },
               key: 'tags_duplicate_feedback'
             },
             [this.duplicateTagText, ': ', this.duplicateTags.join(joiner)]
@@ -697,7 +702,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $limit = h(
             BFormText,
             {
-              props: { id: limitFeedbackId },
+              props: {
+                id: limitFeedbackId,
+                ariaLive
+              },
               key: 'tags_limit_feedback'
             },
             [limitTagsText]
