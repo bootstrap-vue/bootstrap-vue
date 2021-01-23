@@ -23,7 +23,6 @@ const imgProps = omit(BImgProps, ['blank'])
 export const props = makePropsConfigurable(
   {
     ...imgProps,
-    blankColor: makeProp(PROP_TYPE_STRING, 'transparent'),
     blankHeight: makeProp(PROP_TYPE_NUMBER_STRING),
     // If `null`, a blank image is generated
     blankSrc: makeProp(PROP_TYPE_STRING, null),
@@ -71,14 +70,14 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         .filter(identity)
         .join(',')
 
-      return !this.blankSrc || this.isShown ? srcset : null
+      return srcset && (!this.blankSrc || this.isShown) ? srcset : null
     },
     computedSizes() {
       const sizes = concat(this.sizes)
         .filter(identity)
         .join(',')
 
-      return !this.blankSrc || this.isShown ? sizes : null
+      return sizes && (!this.blankSrc || this.isShown) ? sizes : null
     }
   },
   watch: {
@@ -90,7 +89,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         this.isShown = visible
 
         // Ensure the show prop is synced (when no `IntersectionObserver`)
-        if (visible !== newValue) {
+        if (newValue !== visible) {
           this.$nextTick(this.updateShowProp)
         }
       }
@@ -124,7 +123,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       // We only add the visible directive if we are not shown
       directives.push({
         // Visible directive will silently do nothing if
-        // IntersectionObserver is not supported
+        // `IntersectionObserver` is not supported
         name: 'b-visible',
         // Value expects a callback (passed one arg of `visible` = `true` or `false`)
         value: this.doShow,
@@ -147,8 +146,8 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         blank: this.computedBlank,
         width: this.computedWidth,
         height: this.computedHeight,
-        srcset: this.computedSrcset || null,
-        sizes: this.computedSizes || null
+        srcset: this.computedSrcset,
+        sizes: this.computedSizes
       }
     })
   }
