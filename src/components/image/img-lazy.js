@@ -4,6 +4,7 @@ import { HAS_INTERACTION_OBSERVER_SUPPORT } from '../../constants/env'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { concat } from '../../utils/array'
+import { requestAF } from '../../utils/dom'
 import { identity } from '../../utils/identity'
 import { toInteger } from '../../utils/number'
 import { omit } from '../../utils/object'
@@ -113,7 +114,11 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       // If IntersectionObserver is not supported, the callback
       // will be called with `null` rather than `true` or `false`
       if ((visible || visible === null) && !this.isShown) {
-        this.isShown = true
+        // In a `requestAF()` to render the `blank` placeholder properly
+        // for fast loading images in some browsers (i.e. Firefox)
+        requestAF(() => {
+          this.isShown = true
+        })
       }
     }
   },
