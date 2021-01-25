@@ -107,11 +107,15 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   },
   watch: {
     [MODEL_PROP_NAME](newValue) {
-      this.localYMD = formatYMD(newValue) || ''
+      const ymd = newValue || ''
+      if (ymd !== this.localYMD) {
+        this.localYMD = ymd
+      }
     },
-    localYMD(newValue) {
-      // We only update the v-model when the datepicker is open
-      if (this.isVisible) {
+    localYMD(newValue, oldValue) {
+      // We only update the `v-model` value when the datepicker is open,
+      // to prevent cursor jumps when bound to a text input in button only mode
+      if (newValue !== oldValue && this.isVisible) {
         this.$emit(MODEL_EVENT_NAME, this.valueAsDate ? parseYMD(newValue) || null : newValue || '')
       }
     },
@@ -128,6 +132,9 @@ export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   },
   methods: {
     // Public methods
+    reset() {
+      this.localYMD = this.computedResetValue
+    },
     focus() {
       if (!this.disabled) {
         attemptFocus(this.$refs.control)
