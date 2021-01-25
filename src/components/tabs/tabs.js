@@ -88,7 +88,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     focus() {
       attemptFocus(this.$refs.link)
     },
-    handleEvt(event) {
+    handleEvent(event) {
       /* istanbul ignore next */
       if (this.tab.disabled) {
         return
@@ -124,7 +124,7 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { id, tabIndex, setSize, posInSet, controls, handleEvt } = this
+    const { id, tabIndex, setSize, posInSet, controls, handleEvent } = this
     const {
       title,
       localActive,
@@ -160,8 +160,8 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
           'aria-controls': controls
         },
         on: {
-          click: handleEvt,
-          keydown: handleEvt
+          click: handleEvent,
+          keydown: handleEvent
         },
         ref: 'link'
       },

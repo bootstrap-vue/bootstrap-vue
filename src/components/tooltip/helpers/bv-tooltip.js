@@ -439,11 +439,11 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // In the process of showing
       this.localShow = true
       // Create a cancelable BvEvent
-      const showEvt = this.buildEvent(EVENT_NAME_SHOW, { cancelable: true })
-      this.emitEvent(showEvt)
+      const showEvent = this.buildEvent(EVENT_NAME_SHOW, { cancelable: true })
+      this.emitEvent(showEvent)
       // Don't show if event cancelled
       /* istanbul ignore if */
-      if (showEvt.defaultPrevented) {
+      if (showEvent.defaultPrevented) {
         // Destroy the template (if for some reason it was created)
         this.destroyTemplate()
         return
@@ -466,10 +466,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
       // Emit cancelable BvEvent 'hide'
       // We disable cancelling if `force` is true
-      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, { cancelable: !force })
-      this.emitEvent(hideEvt)
+      const hideEvent = this.buildEvent(EVENT_NAME_HIDE, { cancelable: !force })
+      this.emitEvent(hideEvent)
       /* istanbul ignore if: ignore for now */
-      if (hideEvt.defaultPrevented) {
+      if (hideEvent.defaultPrevented) {
         // Don't hide if event cancelled
         return
       }

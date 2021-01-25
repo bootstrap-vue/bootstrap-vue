@@ -434,12 +434,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.isOpening = true
       // Set the element to return focus to when closed
       this.$_returnFocus = this.$_returnFocus || this.getActiveElement()
-      const showEvt = this.buildEvent(EVENT_NAME_SHOW, {
+      const showEvent = this.buildEvent(EVENT_NAME_SHOW, {
         cancelable: true
       })
-      this.emitEvent(showEvt)
+      this.emitEvent(showEvent)
       // Don't show if canceled
-      if (showEvt.defaultPrevented || this.isVisible) {
+      if (showEvent.defaultPrevented || this.isVisible) {
         this.isOpening = false
         // Ensure the v-model reflects the current state
         this.updateModel(false)
@@ -455,21 +455,21 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         return
       }
       this.isClosing = true
-      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, {
+      const hideEvent = this.buildEvent(EVENT_NAME_HIDE, {
         cancelable: trigger !== TRIGGER_FORCE,
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
       if (trigger === BUTTON_OK) {
-        this.$emit(EVENT_NAME_OK, hideEvt)
+        this.$emit(EVENT_NAME_OK, hideEvent)
       } else if (trigger === BUTTON_CANCEL) {
-        this.$emit(EVENT_NAME_CANCEL, hideEvt)
+        this.$emit(EVENT_NAME_CANCEL, hideEvent)
       } else if (trigger === BUTTON_CLOSE) {
-        this.$emit(EVENT_NAME_CLOSE, hideEvt)
+        this.$emit(EVENT_NAME_CLOSE, hideEvent)
       }
-      this.emitEvent(hideEvt)
+      this.emitEvent(hideEvent)
       // Hide if not canceled
-      if (hideEvt.defaultPrevented || !this.isVisible) {
+      if (hideEvent.defaultPrevented || !this.isVisible) {
         this.isClosing = false
         // Ensure v-model reflects current state
         this.updateModel(true)

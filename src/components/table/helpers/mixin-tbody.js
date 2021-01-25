@@ -79,7 +79,7 @@ export const tbodyMixin = Vue.extend({
         }
       }
     },
-    tbodyRowEvtStopped(event) {
+    tbodyRowEventStopped(event) {
       return this.stopIfBusy && this.stopIfBusy(event)
     },
     // Delegated row event handlers
@@ -87,7 +87,7 @@ export const tbodyMixin = Vue.extend({
       // Keyboard navigation and row click emulation
       const { target, keyCode } = event
       if (
-        this.tbodyRowEvtStopped(event) ||
+        this.tbodyRowEventStopped(event) ||
         target.tagName !== 'TR' ||
         !isActiveElement(target) ||
         target.tabIndex !== 0
@@ -126,23 +126,23 @@ export const tbodyMixin = Vue.extend({
     onTBodyRowClicked(event) {
       // Don't emit event when the table is busy, the user clicked
       // on a non-disabled control or is selecting text
-      if (this.tbodyRowEvtStopped(event) || filterEvent(event) || textSelectionActive(this.$el)) {
+      if (this.tbodyRowEventStopped(event) || filterEvent(event) || textSelectionActive(this.$el)) {
         return
       }
       this.emitTbodyRowEvent(EVENT_NAME_ROW_CLICKED, event)
     },
     onTbodyRowMiddleMouseRowClicked(event) {
-      if (!this.tbodyRowEvtStopped(event) && event.which === 2) {
+      if (!this.tbodyRowEventStopped(event) && event.which === 2) {
         this.emitTbodyRowEvent(EVENT_NAME_ROW_MIDDLE_CLICKED, event)
       }
     },
     onTbodyRowContextmenu(event) {
-      if (!this.tbodyRowEvtStopped(event)) {
+      if (!this.tbodyRowEventStopped(event)) {
         this.emitTbodyRowEvent(EVENT_NAME_ROW_CONTEXTMENU, event)
       }
     },
     onTbodyRowDblClicked(event) {
-      if (!this.tbodyRowEvtStopped(event) && !filterEvent(event)) {
+      if (!this.tbodyRowEventStopped(event) && !filterEvent(event)) {
         this.emitTbodyRowEvent(EVENT_NAME_ROW_DBLCLICKED, event)
       }
     },
