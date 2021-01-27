@@ -126,10 +126,9 @@ describe('b-toast', () => {
     expect(wrapper.emitted('shown')).toBeDefined()
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('hidden')).toBeDefined()
-
     expect(wrapper.emitted('show').length).toBe(1)
-    expect(wrapper.emitted('hide').length).toBe(1)
     expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hide').length).toBe(1)
     expect(wrapper.emitted('hidden').length).toBe(1)
 
     wrapper.destroy()
