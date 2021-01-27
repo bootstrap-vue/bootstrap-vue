@@ -128,6 +128,45 @@ describe('form-radio-group', () => {
     wrapper.destroy()
   })
 
+  it('default has attribute aria-invalid=true when aria-invalid=true', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        ariaInvalid: true
+      }
+    })
+    expect(wrapper.attributes('aria-invalid')).toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('default has attribute aria-invalid=true when aria-invalid="true"', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        ariaInvalid: 'true'
+      }
+    })
+    expect(wrapper.attributes('aria-invalid')).toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('default has attribute aria-invalid=true when aria-invalid=""', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        ariaInvalid: ''
+      }
+    })
+    expect(wrapper.attributes('aria-invalid')).toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
+  })
+
   it('has radios with input validation class "is-valid" when `state` is `true`', async () => {
     const wrapper = mount(BFormRadioGroup, {
       attachTo: createContainer(),
@@ -178,45 +217,6 @@ describe('form-radio-group', () => {
     expect($radios.length).toBe(3)
     expect($radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
     expect($radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
-
-    wrapper.destroy()
-  })
-
-  it('default has attribute aria-invalid=true when aria-invalid=true', async () => {
-    const wrapper = mount(BFormRadioGroup, {
-      attachTo: createContainer(),
-      propsData: {
-        ariaInvalid: true
-      }
-    })
-    expect(wrapper.attributes('aria-invalid')).toBeDefined()
-    expect(wrapper.attributes('aria-invalid')).toBe('true')
-
-    wrapper.destroy()
-  })
-
-  it('default has attribute aria-invalid=true when aria-invalid="true"', async () => {
-    const wrapper = mount(BFormRadioGroup, {
-      attachTo: createContainer(),
-      propsData: {
-        ariaInvalid: 'true'
-      }
-    })
-    expect(wrapper.attributes('aria-invalid')).toBeDefined()
-    expect(wrapper.attributes('aria-invalid')).toBe('true')
-
-    wrapper.destroy()
-  })
-
-  it('default has attribute aria-invalid=true when aria-invalid=""', async () => {
-    const wrapper = mount(BFormRadioGroup, {
-      attachTo: createContainer(),
-      propsData: {
-        ariaInvalid: ''
-      }
-    })
-    expect(wrapper.attributes('aria-invalid')).toBeDefined()
-    expect(wrapper.attributes('aria-invalid')).toBe('true')
 
     wrapper.destroy()
   })
