@@ -289,14 +289,13 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.vm.pendingActions.length).toBe(0)
-    await wait(400)
 
+    await wait(400)
     wrapper.vm.show()
     wrapper.vm.hide()
     expect(wrapper.vm.pendingActions.length).toBe(1)
 
     await wait(400)
-
     expect(wrapper.vm.pendingActions.length).toBe(0)
 
     wrapper.destroy()
@@ -318,13 +317,13 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    await wait(400)
 
+    await wait(400)
     wrapper.vm.hide()
     wrapper.vm.show()
     expect(wrapper.vm.pendingActions.length).toBe(1)
-    await wait(400)
 
+    await wait(400)
     expect(wrapper.vm.pendingActions.length).toBe(0)
 
     wrapper.destroy()
@@ -346,13 +345,13 @@ describe('b-toast', () => {
     })
 
     await wait(400)
-
     wrapper.vm.hide()
     wrapper.vm.show()
     wrapper.vm.hide()
     await waitNT(wrapper.vm)
-
     expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
 
     wrapper = mount(BToast, {
       attachTo: createContainer(),
@@ -369,11 +368,12 @@ describe('b-toast', () => {
     })
 
     await wait(400)
-
     wrapper.vm.show()
     wrapper.vm.hide()
     wrapper.vm.show()
     await waitNT(wrapper.vm)
     expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
   })
 })
