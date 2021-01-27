@@ -126,9 +126,10 @@ describe('b-toast', () => {
     expect(wrapper.emitted('shown')).toBeDefined()
     expect(wrapper.emitted('hide')).toBeDefined()
     expect(wrapper.emitted('hidden')).toBeDefined()
+
     expect(wrapper.emitted('show').length).toBe(1)
-    expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hide').length).toBe(1)
+    expect(wrapper.emitted('shown').length).toBe(1)
     expect(wrapper.emitted('hidden').length).toBe(1)
 
     wrapper.destroy()
@@ -312,6 +313,121 @@ describe('b-toast', () => {
     await wrapper.trigger('mouseleave')
     await waitRAF()
     expect(wrapper.vm.timer).not.toEqual(null)
+
+    wrapper.destroy()
+  })
+
+  it('should hide if called during appear transition', async () => {
+    const wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: false,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    wrapper.vm.show()
+    wrapper.vm.hide()
+    expect(wrapper.vm.pendingActions.length).toBe(1)
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hide').length).toBe(1)
+    expect(wrapper.emitted('hidden').length).toBe(1)
+    expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
+
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('should show if called during hide transition', async () => {
+    const wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: true,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+    expect(wrapper.emitted('show').length).toBe(1)
+    expect(wrapper.emitted('shown').length).toBe(1)
+    expect(wrapper.emitted('hide')).toBeUndefined()
+    expect(wrapper.emitted('hidden')).toBeUndefined()
+
+    wrapper.vm.hide()
+    wrapper.vm.show()
+    expect(wrapper.vm.pendingActions.length).toBe(1)
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.emitted('show').length).toBe(2)
+    expect(wrapper.emitted('shown').length).toBe(2)
+    expect(wrapper.emitted('hide').length).toBe(1)
+    expect(wrapper.emitted('hidden').length).toBe(1)
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    expect(wrapper.vm.pendingActions.length).toBe(0)
 
     wrapper.destroy()
   })
