@@ -357,6 +357,10 @@ $bv-escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"));
       }
     }
   }
+  // Fixes github.com/bootstrap-vue/bootstrap-vue/issues/6326
+  .sr-only {
+    left: 0;
+  }
 }
 
 // --- Selectable rows ---
