@@ -173,10 +173,12 @@ export const importAll = context => {
   )
 }
 
-// Smooth Scroll handler methods
+// Smooth scroll handler methods
 const easeInOutQuad = (t, b, c, d) => {
   t /= d / 2
-  if (t < 1) return (c / 2) * t * t + b
+  if (t < 1) {
+    return (c / 2) * t * t + b
+  }
   t--
   return (-c / 2) * (t * (t - 2) - 1) + b
 }
