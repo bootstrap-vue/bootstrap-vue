@@ -128,12 +128,12 @@ export const formRadioCheckGroupMixin = Vue.extend({
             // Individual radios or checks can be disabled in a group
             disabled: option.disabled || false,
             id: this.safeId(key),
-            value: option.value,
-            state: this.state
+            value: option.value
             // We don't need to include these, since the input's will know they are inside here
             // form: this.form || null,
             // name: this.groupName,
-            // required: Boolean(this.name && this.required)
+            // required: Boolean(this.name && this.required),
+            // state: this.state
           },
           attrs,
           key
