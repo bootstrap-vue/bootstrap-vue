@@ -36,6 +36,7 @@ import { clickOutMixin } from './click-out'
 import { focusInMixin } from './focus-in'
 import { idMixin, props as idProps } from './id'
 import { listenOnRootMixin } from './listen-on-root'
+import { HAS_TOUCH_SUPPORT } from '../constants/env'
 
 // --- Constants ---
 
@@ -386,7 +387,10 @@ export const dropdownMixin = Vue.extend({
       const { target } = event
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         this.clearHideTimeout()
-        this.$_hideTimeout = setTimeout(() => this.hide(), this.inNavbar ? 300 : 0)
+        this.$_hideTimeout = setTimeout(
+          () => this.hide(),
+          this.inNavbar ? (HAS_TOUCH_SUPPORT ? 300 : 50) : 0
+        )
       }
     },
     // Document click-out listener
