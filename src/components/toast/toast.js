@@ -105,7 +105,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       isHiding: false,
       order: 0,
       dismissStarted: 0,
-      resumeDismiss: 0
+      resumeDismiss: 0,
+      pendingActions: []
     }
   },
   computed: {
@@ -167,6 +168,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       if (newValue && this.localShow) {
         this.ensureToaster()
       }
+    },
+    isTransitioning(newValue) {
+      if (!newValue) {
+        this.pendingActions.forEach(fn => fn())
+        this.pendingActions = []
+      }
     }
   },
   created() {
@@ -223,6 +230,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
             this.localShow = true
           })
         })
+      } else if (this.isHiding) {
+        this.pendingActions.push(() => {
+          this.show()
+        })
       }
     },
     hide() {
@@ -235,6 +246,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.isHiding = true
         requestAF(() => {
           this.localShow = false
+        })
+      } else if (!this.isHiding) {
+        this.pendingActions.push(() => {
+          this.hide()
         })
       }
     },
