@@ -34,7 +34,7 @@
         <b-nav-item
           v-for="h3 in h2.toc"
           :key="h3.href"
-          :to="h3.href"
+          :href="h3.href"
           class="toc-entry toc-h3"
           @click="scrollIntoView($event, h3.href)"
         >
