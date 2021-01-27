@@ -231,9 +231,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           })
         })
       } else if (this.isHiding) {
-        this.pendingActions.push(() => {
-          this.show()
-        })
+        this.pendingActions.push(this.show)
       }
     },
     hide() {
@@ -248,9 +246,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           this.localShow = false
         })
       } else if (!this.isHiding) {
-        this.pendingActions.push(() => {
-          this.hide()
-        })
+        this.pendingActions.push(this.hide)
       }
     },
     buildEvent(type, options = {}) {
