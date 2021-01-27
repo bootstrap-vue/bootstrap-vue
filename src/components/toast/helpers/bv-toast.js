@@ -8,6 +8,7 @@ import {
   EVENT_NAME_HIDDEN,
   EVENT_NAME_HIDE,
   EVENT_NAME_SHOW,
+  EVENT_NAME_TOGGLE,
   HOOK_EVENT_NAME_DESTROYED
 } from '../../../constants/events'
 import { concat } from '../../../utils/array'
@@ -25,6 +26,7 @@ import {
   readonlyDescriptor
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
+import { pluckProps } from '../../../utils/props'
 import { warn, warnNotClient } from '../../../utils/warn'
 import { BToast, props as toastProps } from '../toast'
 
@@ -47,16 +49,6 @@ const propsToSlots = {
 
 // --- Helper methods ---
 
-// Method to filter only recognized props that are not undefined
-const filterOptions = options => {
-  return BASE_PROPS.reduce((memo, key) => {
-    if (!isUndefined(options[key])) {
-      memo[key] = options[key]
-    }
-    return memo
-  }, {})
-}
-
 // Method to install `$bvToast` VM injection
 const plugin = Vue => {
   // Create a private sub-component constructor that
@@ -75,16 +67,10 @@ const plugin = Vue => {
     mounted() {
       // Self destruct handler
       const handleDestroy = () => {
-        // Ensure the toast has been force hidden
-        this.localShow = false
-        this.doRender = false
         this.$nextTick(() => {
-          this.$nextTick(() => {
-            // In a `requestAF()` to release control back to application
-            // and to allow the portal-target time to remove the content
-            requestAF(() => {
-              this.$destroy()
-            })
+          // In a `requestAF()` to release control back to application
+          requestAF(() => {
+            this.$destroy()
           })
         })
       }
@@ -95,7 +81,7 @@ const plugin = Vue => {
       // Self destruct when toaster is destroyed
       this.listenOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), toaster => {
         /* istanbul ignore next: hard to test */
-        if (toaster === this.toaster) {
+        if (toaster === this.computedToaster) {
           handleDestroy()
         }
       })
@@ -114,7 +100,7 @@ const plugin = Vue => {
       // app `$root`, and it ensures `BToast` is destroyed when parent is destroyed
       parent: $parent,
       propsData: {
-        ...filterOptions(getComponentConfig(NAME_TOAST)),
+        ...pluckProps(BASE_PROPS, getComponentConfig(NAME_TOAST)),
         // Add in (filtered) user supplied props
         ...omit(props, keys(propsToSlots)),
         // Props that can't be overridden
@@ -154,25 +140,38 @@ const plugin = Vue => {
 
     // --- Public Instance methods ---
 
-    // Opens a user defined toast and returns immediately
-    toast(content, options = {}) {
+    // Shows a user defined toast and returns immediately
+    toast(content, props = {}) {
+      /* istanbul ignore next */
       if (!content || warnNotClient(PROP_NAME)) {
-        /* istanbul ignore next */
         return
       }
-      makeToast({ ...filterOptions(options), toastContent: content }, this._vm)
+      makeToast(
+        {
+          ...pluckProps(BASE_PROPS, props),
+          toastContent: content
+        },
+        this._vm
+      )
     }
 
-    // shows a `<b-toast>` component with the specified ID
+    // Show a toast with the specified ID
     show(id) {
       if (id) {
         this._root.$emit(getRootActionEventName(NAME_TOAST, EVENT_NAME_SHOW), id)
       }
     }
 
-    // Hide a toast with specified ID, or if not ID all toasts
+    // Hide a toast with specified ID, or if no ID all toasts
     hide(id = null) {
       this._root.$emit(getRootActionEventName(NAME_TOAST, EVENT_NAME_HIDE), id)
+    }
+
+    // Toggle a toast with the specified ID
+    toggle(id) {
+      if (id) {
+        this._root.$emit(getRootActionEventName(NAME_TOAST, EVENT_NAME_TOGGLE), id)
+      }
     }
   }
 

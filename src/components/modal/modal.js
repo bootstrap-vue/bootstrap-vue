@@ -369,8 +369,8 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     // Listen for `bv:modal::show events`, and close ourselves if the
     // opening modal not us
     this.listenOnRoot(getRootEventName(NAME_MODAL, EVENT_NAME_SHOW), this.modalListener)
-    // Initially show modal?
-    if (this[MODEL_PROP_NAME] === true) {
+    // Initially show modal
+    if (this[MODEL_PROP_NAME]) {
       this.$nextTick(this.show)
     }
   },
@@ -384,24 +384,20 @@ export const BModal = /*#__PURE__*/ Vue.extend({
     }
   },
   methods: {
-    setObserver(on = false) {
-      this.$_observer && this.$_observer.disconnect()
-      this.$_observer = null
-      if (on) {
-        this.$_observer = observeDom(
-          this.$refs.content,
-          this.checkModalOverflow.bind(this),
-          OBSERVER_CONFIG
-        )
-      }
+    // Private method to get the current document active element
+    getActiveElement() {
+      // Returning focus to `document.body` may cause unwanted scrolls,
+      // so we exclude setting focus on body
+      const activeElement = getActiveElement(IS_BROWSER ? [document.body] : [])
+      // Preset the fallback return focus value if it is not set
+      // `document.activeElement` should be the trigger element that was clicked or
+      // in the case of using the v-model, which ever element has current focus
+      // Will be overridden by some commands such as toggle, etc.
+      // Note: On IE 11, `document.activeElement` may be `null`
+      // So we test it for truthiness first
+      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
+      return activeElement && activeElement.focus ? activeElement : null
     },
-    // Private method to update the v-model
-    updateModel(value) {
-      if (value !== this[MODEL_PROP_NAME]) {
-        this.$emit(MODEL_EVENT_NAME, value)
-      }
-    },
-    // Private method to create a BvModalEvent object
     buildEvent(type, options = {}) {
       return new BvModalEvent(type, {
         // Default options
@@ -416,11 +412,34 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         componentId: this.modalId
       })
     },
-    // Public method to show modal
+    emitEvent(bvEvent) {
+      const { type } = bvEvent
+      // We emit on `$root` first in case a global listener wants to cancel
+      // the event first before the instance emits its event
+      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvEvent, bvEvent.componentId)
+      this.$emit(type, bvEvent)
+    },
+    setObserver(on = false) {
+      this.$_observer && this.$_observer.disconnect()
+      this.$_observer = null
+      if (on) {
+        this.$_observer = observeDom(
+          this.$refs.content,
+          this.checkModalOverflow.bind(this),
+          OBSERVER_CONFIG
+        )
+      }
+    },
+    // Private method to update the `v-model`
+    updateModel(value) {
+      if (value !== this[MODEL_PROP_NAME]) {
+        this.$emit(MODEL_EVENT_NAME, value)
+      }
+    },
     show() {
+      // If already open, or in the process of opening, do nothing
+      /* istanbul ignore next */
       if (this.isVisible || this.isOpening) {
-        // If already open, or in the process of opening, do nothing
-        /* istanbul ignore next */
         return
       }
       /* istanbul ignore next */
@@ -448,10 +467,10 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Show the modal
       this.doShow()
     },
-    // Public method to hide modal
     hide(trigger = '') {
+      // If already closed, or in the process of closing, do nothing
+      /* istanbul ignore next */
       if (!this.isVisible || this.isClosing) {
-        /* istanbul ignore next */
         return
       }
       this.isClosing = true
@@ -482,7 +501,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       // Update the v-model
       this.updateModel(false)
     },
-    // Public method to toggle modal visibility
     toggle(triggerEl) {
       if (triggerEl) {
         this.$_returnFocus = triggerEl
@@ -492,20 +510,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       } else {
         this.show()
       }
-    },
-    // Private method to get the current document active element
-    getActiveElement() {
-      // Returning focus to `document.body` may cause unwanted scrolls,
-      // so we exclude setting focus on body
-      const activeElement = getActiveElement(IS_BROWSER ? [document.body] : [])
-      // Preset the fallback return focus value if it is not set
-      // `document.activeElement` should be the trigger element that was clicked or
-      // in the case of using the v-model, which ever element has current focus
-      // Will be overridden by some commands such as toggle, etc.
-      // Note: On IE 11, `document.activeElement` may be `null`
-      // So we test it for truthiness first
-      // https://github.com/bootstrap-vue/bootstrap-vue/issues/3206
-      return activeElement && activeElement.focus ? activeElement : null
     },
     // Private method to finish showing modal
     doShow() {
@@ -587,13 +591,6 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         //       to the `hidden` event, not just only the `hide` event
         this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
       })
-    },
-    emitEvent(bvEvent) {
-      const { type } = bvEvent
-      // We emit on `$root` first in case a global listener wants to cancel
-      // the event first before the instance emits its event
-      this.emitOnRoot(getRootEventName(NAME_MODAL, type), bvEvent, bvEvent.componentId)
-      this.$emit(type, bvEvent)
     },
     // UI event handlers
     onDialogMousedown() {

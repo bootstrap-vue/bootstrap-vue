@@ -31,6 +31,8 @@ describe('b-toast', () => {
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-toast')
@@ -40,14 +42,14 @@ describe('b-toast', () => {
     expect(wrapper.attributes('aria-live')).toEqual('assertive')
     expect(wrapper.attributes('aria-atomic')).toEqual('true')
 
-    expect(wrapper.find('.toast').exists()).toBe(true)
     const $toast = wrapper.find('.toast')
+    expect($toast.exists()).toBe(true)
     expect($toast.element.tagName).toBe('DIV')
     expect($toast.classes()).toContain('toast')
     expect($toast.attributes('tabindex')).toEqual('0')
 
-    expect($toast.find('.toast-header').exists()).toBe(true)
     const $header = $toast.find('.toast-header')
+    expect($header.exists()).toBe(true)
     expect($header.element.tagName).toBe('HEADER')
     expect($header.classes().length).toBe(1)
     expect($header.find('strong').exists()).toBe(true)
@@ -58,8 +60,8 @@ describe('b-toast', () => {
     expect($header.find('button').classes()).toContain('ml-auto')
     expect($header.find('button').classes()).toContain('mb-1')
 
-    expect($toast.find('.toast-body').exists()).toBe(true)
     const $body = $toast.find('.toast-body')
+    expect($body.exists()).toBe(true)
     expect($body.element.tagName).toBe('DIV')
     expect($body.classes().length).toBe(1)
     expect($body.text()).toEqual('content')
@@ -98,6 +100,8 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hidden')).toBeUndefined()
 
     await wrapper.setProps({ visible: true })
+    await waitRAF()
+    await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()

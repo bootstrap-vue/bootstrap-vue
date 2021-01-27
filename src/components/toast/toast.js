@@ -8,6 +8,7 @@ import {
   EVENT_NAME_HIDE,
   EVENT_NAME_SHOW,
   EVENT_NAME_SHOWN,
+  EVENT_NAME_TOGGLE,
   EVENT_OPTIONS_NO_CAPTURE
 } from '../../constants/events'
 import {
@@ -99,16 +100,20 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       isMounted: false,
-      doRender: false,
-      localShow: false,
-      isTransitioning: false,
-      isHiding: false,
+      isHidden: true, // If toast should not be in document
+      isVisible: false, // Controls toast visible state
+      isTransitioning: false, // Used for style control
+      isShowing: false, // To signal that the toast is in the process of showing
+      isHiding: false, // To signal that the toast is in the process of hiding
       order: 0,
       dismissStarted: 0,
       resumeDismiss: 0
     }
   },
   computed: {
+    toastId() {
+      return this.safeId()
+    },
     toastClasses() {
       const { appendToast, variant } = this
 
@@ -120,8 +125,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       }
     },
     slotScope() {
-      const { hide } = this
-      return { hide }
+      const { hide, isVisible: visible } = this
+      return { hide, visible }
     },
     computedDuration() {
       // Minimum supported duration is 1 second
@@ -141,18 +146,15 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     computedAttrs() {
       return {
         ...this.bvAttrs,
-        id: this.safeId(),
+        id: this.toastId,
         tabindex: '0'
       }
     }
   },
   watch: {
-    [MODEL_PROP_NAME](newValue) {
-      this[newValue ? 'show' : 'hide']()
-    },
-    localShow(newValue) {
-      if (newValue !== this[MODEL_PROP_NAME]) {
-        this.$emit(MODEL_EVENT_NAME, newValue)
+    [MODEL_PROP_NAME](newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this[newValue ? 'show' : 'hide']()
       }
     },
     /* istanbul ignore next */
@@ -162,9 +164,9 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     /* istanbul ignore next */
     static(newValue) {
-      // If static changes to true, and the toast is showing,
+      // If static changes to `true`, and the toast is showing,
       // ensure the toaster target exists
-      if (newValue && this.localShow) {
+      if (newValue && this.isVisible) {
         this.ensureToaster()
       }
     }
@@ -175,81 +177,46 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     this.isMounted = true
-    this.$nextTick(() => {
-      if (this[MODEL_PROP_NAME]) {
-        requestAF(() => {
-          this.show()
-        })
-      }
-    })
-    // Listen for global $root show events
-    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_SHOW), id => {
-      if (id === this.safeId()) {
-        this.show()
-      }
-    })
-    // Listen for global $root hide events
-    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_HIDE), id => {
-      if (!id || id === this.safeId()) {
-        this.hide()
-      }
-    })
+    // Listen for events from others to either show or hide ourselves
+    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_SHOW), this.showHandler)
+    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_HIDE), this.hideHandler)
+    this.listenOnRoot(getRootActionEventName(NAME_TOAST, EVENT_NAME_TOGGLE), this.toggleHandler)
     // Make sure we hide when toaster is destroyed
     /* istanbul ignore next: difficult to test */
-    this.listenOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), toaster => {
-      /* istanbul ignore next */
-      if (toaster === this.computedToaster) {
-        this.hide()
-      }
-    })
+    this.listenOnRoot(
+      getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED),
+      this.toasterDestroyedHandler
+    )
+    // Initially show toast
+    if (this[MODEL_PROP_NAME]) {
+      this.$nextTick(this.show)
+    }
   },
   beforeDestroy() {
     this.clearDismissTimer()
+    if (this.isVisible) {
+      this.isVisible = false
+      this.isTransitioning = false
+    }
   },
   methods: {
-    show() {
-      if (!this.localShow) {
-        this.ensureToaster()
-        const showEvent = this.buildEvent(EVENT_NAME_SHOW)
-        this.emitEvent(showEvent)
-        this.dismissStarted = this.resumeDismiss = 0
-        this.order = Date.now() * (this.appendToast ? 1 : -1)
-        this.isHiding = false
-        this.doRender = true
-        this.$nextTick(() => {
-          // We show the toast after we have rendered the portal and b-toast wrapper
-          // so that screen readers will properly announce the toast
-          requestAF(() => {
-            this.localShow = true
-          })
-        })
-      }
-    },
-    hide() {
-      if (this.localShow) {
-        const hideEvent = this.buildEvent(EVENT_NAME_HIDE)
-        this.emitEvent(hideEvent)
-        this.setHoverHandler(false)
-        this.dismissStarted = this.resumeDismiss = 0
-        this.clearDismissTimer()
-        this.isHiding = true
-        requestAF(() => {
-          this.localShow = false
-        })
-      }
-    },
     buildEvent(type, options = {}) {
       return new BvEvent(type, {
+        // Default options
         cancelable: false,
         target: this.$el || null,
         relatedTarget: null,
+        // Supplied options
         ...options,
+        // Options that can't be overridden
         vueTarget: this,
-        componentId: this.safeId()
+        componentId: this.toastId
       })
     },
     emitEvent(bvEvent) {
       const { type } = bvEvent
+      // We emit on `$root` first in case a global listener wants to cancel
+      // the event first before the instance emits its event
       this.emitOnRoot(getRootEventName(NAME_TOAST, type), bvEvent)
       this.$emit(type, bvEvent)
     },
@@ -284,9 +251,143 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.$_dismissTimer = null
     },
     setHoverHandler(on) {
-      const el = this.$refs['b-toast']
-      eventOnOff(on, el, 'mouseenter', this.onPause, EVENT_OPTIONS_NO_CAPTURE)
-      eventOnOff(on, el, 'mouseleave', this.onUnPause, EVENT_OPTIONS_NO_CAPTURE)
+      const $el = this.$refs['b-toast']
+      eventOnOff(on, $el, 'mouseenter', this.onPause, EVENT_OPTIONS_NO_CAPTURE)
+      eventOnOff(on, $el, 'mouseleave', this.onUnpause, EVENT_OPTIONS_NO_CAPTURE)
+    },
+    // Private method to update the `v-model`
+    updateModel(value) {
+      if (value !== this[MODEL_PROP_NAME]) {
+        this.$emit(MODEL_EVENT_NAME, value)
+      }
+    },
+    show() {
+      console.log('show', {
+        id: this.toastId,
+        isVisible: this.isVisible,
+        isShowing: this.isShowing
+      })
+      // If already shown, or in the process of showing, do nothing
+      /* istanbul ignore next */
+      if (this.isVisible || this.isShowing) {
+        return
+      }
+      // If we are in the process of hiding, wait until hidden before showing
+      /* istanbul ignore next */
+      if (this.isHiding) {
+        this.$once(EVENT_NAME_HIDDEN, this.show)
+        return
+      }
+      this.isShowing = true
+      const showEvent = this.buildEvent(EVENT_NAME_SHOW, { cancelable: true })
+      this.emitEvent(showEvent)
+      // Don't show if canceled
+      if (showEvent.defaultPrevented || this.isVisible) {
+        this.isShowing = false
+        // Ensure the `v-model` reflects the current state
+        this.updateModel(false)
+        return
+      }
+      this.ensureToaster()
+      this.dismissStarted = this.resumeDismiss = 0
+      this.order = Date.now() * (this.appendToast ? 1 : -1)
+      // Place toast in DOM
+      this.isHidden = false
+      console.log('show', { id: this.toastId, isHidden: this.isHidden })
+      // We do this in `$nextTick()` to ensure the toast is in DOM first,
+      // before we show it
+      this.$nextTick(() => {
+        requestAF(() => {
+          this.isVisible = true
+          this.isShowing = false
+          // Update the `v-model`
+          this.updateModel(true)
+        })
+      })
+    },
+    hide() {
+      // If already hidden, or in the process of hiding, do nothing
+      /* istanbul ignore next */
+      if (!this.isVisible || this.isHiding) {
+        return
+      }
+      this.isHiding = true
+      const hideEvent = this.buildEvent(EVENT_NAME_HIDE, { cancelable: true })
+      this.emitEvent(hideEvent)
+      // Hide if not canceled
+      if (hideEvent.defaultPrevented || !this.isVisible) {
+        this.isHiding = false
+        // Ensure the `v-model` reflects the current state
+        this.updateModel(true)
+        return
+      }
+      this.setHoverHandler(false)
+      this.dismissStarted = this.resumeDismiss = 0
+      this.clearDismissTimer()
+      // Trigger the hide transition
+      this.isVisible = false
+      // Update the v-model
+      this.updateModel(false)
+    },
+    toggle() {
+      if (this.isVisible) {
+        this.hide()
+      } else {
+        this.show()
+      }
+    },
+    // Transition handlers
+    onBeforeEnter() {
+      console.log('onBeforeEnter', { id: this.toastId, isVisible: this.isVisible })
+      this.isTransitioning = true
+    },
+    onAfterEnter() {
+      console.log('onAfterEnter', { id: this.toastId, isVisible: this.isVisible })
+      this.isTransitioning = false
+      // We use `requestAF()` to allow transition hooks to complete
+      // before passing control over to the other handlers
+      requestAF(() => {
+        this.emitEvent(this.buildEvent(EVENT_NAME_SHOWN))
+
+        this.startDismissTimer()
+        this.setHoverHandler(true)
+      })
+    },
+    onBeforeLeave() {
+      console.log('onBeforeLeave', { id: this.toastId, isVisible: this.isVisible })
+      this.isTransitioning = true
+    },
+    onAfterLeave() {
+      console.log('onAfterLeave', { id: this.toastId, isVisible: this.isVisible })
+      this.isTransitioning = false
+      this.order = 0
+      this.resumeDismiss = this.dismissStarted = 0
+      this.isHidden = true
+      this.$nextTick(() => {
+        this.isHiding = false
+        this.emitEvent(this.buildEvent(EVENT_NAME_HIDDEN))
+      })
+    },
+    // Root listener handlers
+    showHandler(id) {
+      if (id === this.toastId) {
+        this.show()
+      }
+    },
+    hideHandler(id) {
+      if (!id || id === this.toastId) {
+        this.hide()
+      }
+    },
+    toggleHandler(id) {
+      if (id === this.toastId) {
+        this.toggle()
+      }
+    },
+    toasterDestroyedHandler(toaster) {
+      if (toaster === this.computedToaster) {
+        this.hide()
+      }
     },
     onPause() {
       // Determine time remaining, and then pause timer
@@ -299,7 +400,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         this.resumeDismiss = mathMax(this.computedDuration - passed, MIN_DURATION)
       }
     },
-    onUnPause() {
+    onUnpause() {
       // Restart timer with max of time remaining or 1 second
       if (this.noAutoHide || this.noHoverPause || !this.resumeDismiss) {
         this.resumeDismiss = this.dismissStarted = 0
@@ -308,37 +409,16 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.startDismissTimer()
     },
     onLinkClick() {
-      // We delay the close to allow time for the
-      // browser to process the link click
+      // We delay hiding to give the browser time to process the link click
       this.$nextTick(() => {
         requestAF(() => {
           this.hide()
         })
       })
     },
-    onBeforeEnter() {
-      this.isTransitioning = true
-    },
-    onAfterEnter() {
-      this.isTransitioning = false
-      const hiddenEvent = this.buildEvent(EVENT_NAME_SHOWN)
-      this.emitEvent(hiddenEvent)
-      this.startDismissTimer()
-      this.setHoverHandler(true)
-    },
-    onBeforeLeave() {
-      this.isTransitioning = true
-    },
-    onAfterLeave() {
-      this.isTransitioning = false
-      this.order = 0
-      this.resumeDismiss = this.dismissStarted = 0
-      const hiddenEvent = this.buildEvent(EVENT_NAME_HIDDEN)
-      this.emitEvent(hiddenEvent)
-      this.doRender = false
-    },
     // Render helper for generating the toast
     makeToast(h) {
+      console.log('makeToast', { id: this.toastId })
       const { title, slotScope } = this
       const link = isLink(this)
       const $headerContent = []
@@ -354,6 +434,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
+            props: { disabled: this.isTransitioning },
             on: {
               click: () => {
                 this.hide()
@@ -367,7 +448,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       if ($headerContent.length > 0) {
         $header = h(
           'header',
-          { staticClass: 'toast-header', class: this.headerClass },
+          {
+            staticClass: 'toast-header',
+            class: this.headerClass
+          },
           $headerContent
         )
       }
@@ -397,11 +481,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    if (!this.doRender || !this.isMounted) {
+    console.log('render', { id: this.toastId, isMounted: this.isMounted, isHidden: this.isHidden })
+    if (!this.isMounted || this.isHidden) {
       return h()
     }
 
-    const { order, static: isStatic, isHiding, isStatus } = this
+    const { order, noFade, static: isStatic, isHiding, isStatus } = this
     const name = `b-toast-${this[COMPONENT_UID_KEY]}`
 
     const $toast = h(
@@ -413,7 +498,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
           // If scoped styles are applied and the toast is not static,
           // make sure the scoped style data attribute is applied
           ...(isStatic ? {} : this.scopedStyleAttrs),
-          id: this.safeId('_toast_outer'),
+          id: this.safeId('__BV_toast_outer_'),
           role: isHiding ? null : isStatus ? 'status' : 'alert',
           'aria-live': isHiding ? null : isStatus ? 'polite' : 'assertive',
           'aria-atomic': isHiding ? null : 'true'
@@ -425,10 +510,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         h(
           BVTransition,
           {
-            props: { noFade: this.noFade },
+            props: { noFade },
             on: this.transitionHandlers
           },
-          [this.localShow ? this.makeToast(h) : h()]
+          [this.isVisible ? this.makeToast(h) : h()]
         )
       ]
     )

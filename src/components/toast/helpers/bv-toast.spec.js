@@ -6,7 +6,7 @@ const localVue = createLocalVue()
 localVue.use(ToastPlugin)
 
 describe('$bvToast', () => {
-  it('$bvToast.show() and $bvToast.hide() works', async () => {
+  it('`show()` and `hide()` methods work', async () => {
     const App = {
       render(h) {
         return h(
@@ -30,6 +30,8 @@ describe('$bvToast', () => {
 
     expect(wrapper.vm).toBeDefined()
 
+    await waitNT(wrapper.vm)
+    await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
@@ -68,7 +70,7 @@ describe('$bvToast', () => {
     wrapper.destroy()
   })
 
-  it('$bvModal.toast() works', async () => {
+  it('`toast()` method works', async () => {
     const App = {
       render(h) {
         return h('div', 'app')

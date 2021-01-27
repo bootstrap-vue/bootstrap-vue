@@ -3,6 +3,8 @@ import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
 import {
   EVENT_NAME_HIDDEN,
   EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  EVENT_NAME_TOGGLE,
   HOOK_EVENT_NAME_BEFORE_DESTROY,
   HOOK_EVENT_NAME_DESTROYED
 } from '../../../constants/events'
@@ -21,6 +23,7 @@ import {
   readonlyDescriptor
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
+import { pluckProps } from '../../../utils/props'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 import { BModal, props as modalProps } from '../modal'
 
@@ -50,16 +53,6 @@ const propsToSlots = {
 }
 
 // --- Helper methods ---
-
-// Method to filter only recognized props that are not undefined
-const filterOptions = options => {
-  return BASE_PROPS.reduce((memo, key) => {
-    if (!isUndefined(options[key])) {
-      memo[key] = options[key]
-    }
-    return memo
-  }, {})
-}
 
 // Method to install `$bvModal` VM injection
 const plugin = Vue => {
@@ -116,7 +109,7 @@ const plugin = Vue => {
       parent: $parent,
       // Preset the prop values
       propsData: {
-        ...filterOptions(getComponentConfig(NAME_MODAL)),
+        ...pluckProps(BASE_PROPS, getComponentConfig(NAME_MODAL)),
         // Defaults that user can override
         hideHeaderClose: true,
         hideHeader: !(props.title || props.titleHtml),
@@ -166,7 +159,7 @@ const plugin = Vue => {
 
   // Private utility method to open a user defined message box and returns a promise.
   // Not to be used directly by consumers, as this method may change calling syntax
-  const makeMsgBox = ($parent, content, options = {}, resolver = null) => {
+  const makeMsgBox = ($parent, content, props = {}, resolver = null) => {
     if (
       !content ||
       warnNoPromiseSupport(PROP_NAME) ||
@@ -176,7 +169,14 @@ const plugin = Vue => {
       /* istanbul ignore next */
       return
     }
-    return asyncMsgBox($parent, { ...filterOptions(options), msgBoxContent: content }, resolver)
+    return asyncMsgBox(
+      $parent,
+      {
+        ...pluckProps(BASE_PROPS, props),
+        msgBoxContent: content
+      },
+      resolver
+    )
   }
 
   // BvModal instance class
@@ -193,17 +193,24 @@ const plugin = Vue => {
 
     // --- Instance methods ---
 
-    // Show modal with the specified ID args are for future use
+    // Show modal with the specified ID
     show(id, ...args) {
-      if (id && this._root) {
-        this._root.$emit(getRootActionEventName(NAME_MODAL, 'show'), id, ...args)
+      if (id) {
+        this._root.$emit(getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW), id, ...args)
       }
     }
 
-    // Hide modal with the specified ID args are for future use
+    // Hide modal with the specified ID
     hide(id, ...args) {
-      if (id && this._root) {
-        this._root.$emit(getRootActionEventName(NAME_MODAL, 'hide'), id, ...args)
+      if (id) {
+        this._root.$emit(getRootActionEventName(NAME_MODAL, EVENT_NAME_HIDE), id, ...args)
+      }
+    }
+
+    // Toggle modal with the specified ID
+    toggle(id, ...args) {
+      if (id) {
+        this._root.$emit(getRootActionEventName(NAME_MODAL, EVENT_NAME_TOGGLE), id, ...args)
       }
     }
 
@@ -212,38 +219,44 @@ const plugin = Vue => {
     // should have a Polyfill loaded (which they need anyways for IE 11 support)
 
     // Open a message box with OK button only and returns a promise
-    msgBoxOk(message, options = {}) {
-      // Pick the modal props we support from options
-      const props = {
-        ...options,
-        // Add in overrides and our content prop
-        okOnly: true,
-        okDisabled: false,
-        hideFooter: false,
-        msgBoxContent: message
-      }
-      return makeMsgBox(this._vm, message, props, () => {
-        // Always resolve to true for OK
-        return true
-      })
+    msgBoxOk(message, props = {}) {
+      return makeMsgBox(
+        this._vm,
+        message,
+        {
+          ...props,
+          // Add in overrides and our content prop
+          okOnly: true,
+          okDisabled: false,
+          hideFooter: false,
+          msgBoxContent: message
+        },
+        () => {
+          // Always resolve to true for OK
+          return true
+        }
+      )
     }
 
     // Open a message box modal with OK and CANCEL buttons
     // and returns a promise
-    msgBoxConfirm(message, options = {}) {
-      // Set the modal props we support from options
-      const props = {
-        ...options,
-        // Add in overrides and our content prop
-        okOnly: false,
-        okDisabled: false,
-        cancelDisabled: false,
-        hideFooter: false
-      }
-      return makeMsgBox(this._vm, message, props, bvModalEvent => {
-        const trigger = bvModalEvent.trigger
-        return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
-      })
+    msgBoxConfirm(message, props = {}) {
+      return makeMsgBox(
+        this._vm,
+        message,
+        {
+          ...props,
+          // Add in overrides and our content prop
+          okOnly: false,
+          okDisabled: false,
+          cancelDisabled: false,
+          hideFooter: false
+        },
+        bvModalEvent => {
+          const trigger = bvModalEvent.trigger
+          return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
+        }
+      )
     }
   }
 

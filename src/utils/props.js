@@ -63,7 +63,11 @@ export const copyProps = (props, transformFn = identity) => {
 // that has props that reference the original prop values
 export const pluckProps = (keysToPluck, objToPluck, transformFn = identity) =>
   (isArray(keysToPluck) ? keysToPluck.slice() : keys(keysToPluck)).reduce((memo, prop) => {
-    memo[transformFn(prop)] = objToPluck[prop]
+    const value = objToPluck[prop]
+    if (!isUndefined(value)) {
+      memo[transformFn(prop)] = value
+    }
+
     return memo
   }, {})
 
