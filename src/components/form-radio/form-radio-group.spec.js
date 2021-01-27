@@ -128,6 +128,66 @@ describe('form-radio-group', () => {
     wrapper.destroy()
   })
 
+  it('default has input validation class is-invalid when state=false', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: false
+      }
+    })
+
+    const radios = wrapper.findAll('input')
+    expect(radios.length).toBe(3)
+    expect(radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(true)
+
+    expect(radios.wrappers[0].classes()).toContain('is-invalid')
+    expect(radios.wrappers[0].classes()).not.toContain('is-valid')
+
+    wrapper.destroy()
+  })
+
+  it('default has input validation class is-valid when state=true', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: true
+      }
+    })
+
+    const radios = wrapper.findAll('input')
+    expect(radios.length).toBe(3)
+    expect(radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(true)
+
+    expect(radios.wrappers[0].classes()).toContain('is-valid')
+    expect(radios.wrappers[0].classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
+  })
+
+  it('default does not have validation class when state=null', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: null
+      }
+    })
+
+    const radios = wrapper.findAll('input')
+    expect(radios.length).toBe(3)
+    expect(radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+
+    expect(radios.wrappers[0].classes()).not.toContain('is-valid')
+    expect(radios.wrappers[0].classes()).not.toContain('is-invalid')
+
+    wrapper.destroy()
+  })
+
   it('default has attribute aria-invalid=true when aria-invalid=true', async () => {
     const wrapper = mount(BFormRadioGroup, {
       attachTo: createContainer(),
