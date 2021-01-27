@@ -128,27 +128,7 @@ describe('form-radio-group', () => {
     wrapper.destroy()
   })
 
-  it('default has input validation class is-invalid when state=false', async () => {
-    const wrapper = mount(BFormRadioGroup, {
-      attachTo: createContainer(),
-      propsData: {
-        options: ['one', 'two', 'three'],
-        checked: '',
-        state: false
-      }
-    })
-
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
-    expect(radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(true)
-
-    expect(radios.wrappers[0].classes()).toContain('is-invalid')
-    expect(radios.wrappers[0].classes()).not.toContain('is-valid')
-
-    wrapper.destroy()
-  })
-
-  it('default has input validation class is-valid when state=true', async () => {
+  it('has radios with input validation class "is-valid" when `state` is `true`', async () => {
     const wrapper = mount(BFormRadioGroup, {
       attachTo: createContainer(),
       propsData: {
@@ -158,17 +138,33 @@ describe('form-radio-group', () => {
       }
     })
 
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
-    expect(radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(true)
-
-    expect(radios.wrappers[0].classes()).toContain('is-valid')
-    expect(radios.wrappers[0].classes()).not.toContain('is-invalid')
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+    expect($radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(true)
+    expect($radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
 
     wrapper.destroy()
   })
 
-  it('default does not have validation class when state=null', async () => {
+  it('has radios with input validation class "is-invalid" when `state` is `false`', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: false
+      }
+    })
+
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+    expect($radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has radios with no input validation class when `state` is `null`', async () => {
     const wrapper = mount(BFormRadioGroup, {
       attachTo: createContainer(),
       propsData: {
@@ -178,12 +174,10 @@ describe('form-radio-group', () => {
       }
     })
 
-    const radios = wrapper.findAll('input')
-    expect(radios.length).toBe(3)
-    expect(radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
-
-    expect(radios.wrappers[0].classes()).not.toContain('is-valid')
-    expect(radios.wrappers[0].classes()).not.toContain('is-invalid')
+    const $radios = wrapper.findAll('input[type=radio]')
+    expect($radios.length).toBe(3)
+    expect($radios.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($radios.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
 
     wrapper.destroy()
   })
