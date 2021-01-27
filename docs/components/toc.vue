@@ -34,7 +34,7 @@
         <b-nav-item
           v-for="h3 in h2.toc"
           :key="h3.href"
-          :href="h3.href"
+          :to="h3.href"
           class="toc-entry toc-h3"
           @click="scrollIntoView($event, h3.href)"
         >
@@ -72,7 +72,6 @@ export default {
       return Array.isArray(value)
     },
     scrollIntoView(evt, href) {
-      evt.preventDefault()
       evt.stopPropagation()
       // We use an attribute `querySelector()` rather than `getElementByID()`,
       // as some auto-generated ID's are invalid or not unique
