@@ -11,7 +11,7 @@ import { concat } from '../../utils/array'
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
 import { getRootEventName, stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
-import { sortKeys } from '../../utils/object'
+import { omit, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import { attrsMixin } from '../../mixins/attrs'
@@ -98,14 +98,18 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to, href }, this.computedTag)
     },
     computedProps() {
-      const { prefetch } = this
+      const { event, prefetch, routerTag } = this
       return this.isRouterLink
         ? {
-            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this),
-            // Coerce `prefetch` value `null` to be `undefined`
-            prefetch: isBoolean(prefetch) ? prefetch : undefined,
+            ...pluckProps(
+              omit({ ...routerLinkProps, ...nuxtLinkProps }, ['event', 'prefetch', 'routerTag']),
+              this
+            ),
+            // Only add these props, when actually defined
+            ...(event ? { event } : {}),
+            ...(isBoolean(prefetch) ? { prefetch } : {}),
             // Pass `router-tag` as `tag` prop
-            tag: this.routerTag
+            ...(routerTag ? { tag: routerTag } : {})
           }
         : {}
     },
