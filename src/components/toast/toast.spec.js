@@ -67,6 +67,34 @@ describe('b-toast', () => {
     wrapper.destroy()
   })
 
+  it('has correct header tag when "header-tag" prop is set', async () => {
+    const wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: true,
+        title: 'title',
+        headerTag: 'div'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $header = wrapper.find('.toast-header')
+    expect($header.exists()).toBe(true)
+    expect($header.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
   it('visible prop works', async () => {
     const wrapper = mount(BToast, {
       attachTo: createContainer(),
