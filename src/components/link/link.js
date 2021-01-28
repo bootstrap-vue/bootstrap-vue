@@ -29,11 +29,11 @@ const ROOT_EVENT_NAME_CLICKED = getRootEventName(NAME_LINK, 'clicked')
 export const routerLinkProps = {
   activeClass: makeProp(PROP_TYPE_STRING),
   append: makeProp(PROP_TYPE_BOOLEAN, false),
-  event: makeProp(PROP_TYPE_ARRAY_STRING, EVENT_NAME_CLICK),
+  event: makeProp(PROP_TYPE_ARRAY_STRING),
   exact: makeProp(PROP_TYPE_BOOLEAN, false),
   exactActiveClass: makeProp(PROP_TYPE_STRING),
   replace: makeProp(PROP_TYPE_BOOLEAN, false),
-  routerTag: makeProp(PROP_TYPE_STRING, 'a'),
+  routerTag: makeProp(PROP_TYPE_STRING),
   to: makeProp(PROP_TYPE_OBJECT_STRING)
 }
 
@@ -127,7 +127,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // (i.e. if `computedHref` is truthy)
         ...(href ? { href } : {}),
         // We don't render `rel` or `target` on non link tags when using `vue-router`
-        ...(isRouterLink && !isTag(routerTag, 'a') ? {} : { rel, target }),
+        ...(isRouterLink && routerTag && !isTag(routerTag, 'a') ? {} : { rel, target }),
         tabindex: disabled ? '-1' : isUndefined(bvAttrs.tabindex) ? null : bvAttrs.tabindex,
         'aria-disabled': disabled ? 'true' : null
       }
