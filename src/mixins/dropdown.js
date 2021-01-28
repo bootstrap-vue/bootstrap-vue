@@ -1,6 +1,7 @@
 import Popper from 'popper.js'
 import { Vue } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
+import { HAS_TOUCH_SUPPORT } from '../constants/env'
 import {
   EVENT_NAME_CLICK,
   EVENT_NAME_HIDDEN,
@@ -121,6 +122,9 @@ export const dropdownMixin = Vue.extend({
       // boundaries when boundary is anything other than `scrollParent`
       // See: https://github.com/twbs/bootstrap/issues/24251#issuecomment-341413786
       return this.boundary !== 'scrollParent' && !this.inNavbar ? 'position-static' : ''
+    },
+    hideDelay() {
+      return this.inNavbar ? (HAS_TOUCH_SUPPORT ? 300 : 50) : 0
     }
   },
   watch: {
@@ -386,7 +390,7 @@ export const dropdownMixin = Vue.extend({
       const { target } = event
       if (this.visible && !contains(this.$refs.menu, target) && !contains(this.toggler, target)) {
         this.clearHideTimeout()
-        this.$_hideTimeout = setTimeout(() => this.hide(), this.inNavbar ? 300 : 0)
+        this.$_hideTimeout = setTimeout(() => this.hide(), this.hideDelay)
       }
     },
     // Document click-out listener

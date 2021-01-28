@@ -132,7 +132,8 @@ export const formRadioCheckGroupMixin = Vue.extend({
             // We don't need to include these, since the input's will know they are inside here
             // form: this.form || null,
             // name: this.groupName,
-            // required: Boolean(this.name && this.required)
+            // required: Boolean(this.name && this.required),
+            // state: this.state
           },
           attrs,
           key
