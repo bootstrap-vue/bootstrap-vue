@@ -182,18 +182,71 @@ const renderContent = (h, ctx) => {
 }
 
 const renderBackdrop = (h, ctx) => {
-  if (!ctx.backdrop) {
+  let $backdrop = h()
+  if (ctx.backdrop) {
+    const { backdropVariant } = ctx
+
+    $backdrop = h('div', {
+      directives: [{ name: 'show', value: ctx.localShow }],
+      staticClass: 'b-sidebar-backdrop',
+      class: { [`bg-${backdropVariant}`]: backdropVariant },
+      on: { click: ctx.onBackdropClick }
+    })
+  }
+
+  return h(BVTransition, { props: { noFade: ctx.noSlide } }, [$backdrop])
+}
+
+const renderTabTrap = (h, ctx, focusHandler) => {
+  if (ctx.noEnforceFocus) {
     return h()
   }
 
-  const { backdropVariant } = ctx
-
-  return h('div', {
-    directives: [{ name: 'show', value: ctx.localShow }],
-    staticClass: 'b-sidebar-backdrop',
-    class: { [`bg-${backdropVariant}`]: backdropVariant },
-    on: { click: ctx.onBackdropClick }
+  return h('span', {
+    class: { 'd-none': !ctx.localShow },
+    attrs: { tabindex: '0' },
+    on: { focus: focusHandler }
   })
+}
+
+const renderSidebar = (h, ctx) => {
+  const { bgVariant, width, textVariant } = ctx
+  const shadow = ctx.shadow === '' ? true : ctx.shadow
+
+  return h(
+    'transition',
+    {
+      props: ctx.transitionProps,
+      on: {
+        beforeEnter: ctx.onBeforeEnter,
+        afterEnter: ctx.onAfterEnter,
+        afterLeave: ctx.onAfterLeave
+      }
+    },
+    [
+      h(
+        ctx.tag,
+        {
+          staticClass: CLASS_NAME,
+          class: [
+            {
+              shadow: shadow === true,
+              [`shadow-${shadow}`]: shadow && shadow !== true,
+              [`${CLASS_NAME}-right`]: ctx.right,
+              [`bg-${bgVariant}`]: bgVariant,
+              [`text-${textVariant}`]: textVariant
+            },
+            ctx.sidebarClass
+          ],
+          style: { width },
+          attrs: ctx.computedAttrs,
+          directives: [{ name: 'show', value: ctx.localShow }],
+          ref: 'content'
+        },
+        [renderContent(h, ctx)]
+      )
+    ]
+  )
 }
 
 // --- Main component ---
@@ -214,6 +267,9 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    sidebarId() {
+      return this.safeId()
+    },
     transitionProps() {
       return this.noSlide
         ? /* istanbul ignore next */ { css: true }
@@ -245,7 +301,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     computedAttrs() {
       return {
         ...this.bvAttrs,
-        id: this.safeId(),
+        id: this.sidebarId,
         tabindex: '-1',
         role: 'dialog',
         'aria-modal': this.backdrop ? 'true' : 'false',
@@ -256,8 +312,8 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   watch: {
-    [MODEL_PROP_NAME](newValue, oldValue) {
-      if (newValue !== oldValue) {
+    [MODEL_PROP_NAME](newValue) {
+      if (newValue !== this.localShow) {
         this.localShow = newValue
       }
     },
@@ -284,7 +340,7 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     this.listenOnRoot(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, this.handleSync)
     // Send out a gratuitous state event to ensure toggle button is synced
     this.$nextTick(() => {
-      this.emitState(this.localShow)
+      this.emitState()
     })
   },
   /* istanbul ignore next */
@@ -300,22 +356,22 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
       this.localShow = false
     },
     emitState(state = this.localShow) {
-      this.emitOnRoot(ROOT_EVENT_NAME_STATE, this.safeId(), state)
+      this.emitOnRoot(ROOT_EVENT_NAME_STATE, this.sidebarId, state)
     },
     emitSync(state = this.localShow) {
-      this.emitOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.safeId(), state)
+      this.emitOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.sidebarId, state)
     },
     handleToggle(id) {
-      // Note `safeId()` can be null until after mount
-      if (id && id === this.safeId()) {
+      // Note `sidebarId` can be `null` until after mount
+      if (id && id === this.sidebarId) {
         this.localShow = !this.localShow
       }
     },
     handleSync(id) {
-      // Note `safeId()` can be null until after mount
-      if (id && id === this.safeId()) {
+      // Note `sidebarId` can be `null` until after mount
+      if (id && id === this.sidebarId) {
         this.$nextTick(() => {
-          this.emitSync(this.localShow)
+          this.emitSync()
         })
       }
     },
@@ -332,13 +388,11 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     },
     /* istanbul ignore next */
     onTopTrapFocus() {
-      const tabables = getTabables(this.$refs.content)
-      this.enforceFocus(tabables.reverse()[0])
+      this.enforceFocus(getTabables(this.$refs.content).reverse()[0])
     },
     /* istanbul ignore next */
     onBottomTrapFocus() {
-      const tabables = getTabables(this.$refs.content)
-      this.enforceFocus(tabables[0])
+      this.enforceFocus(getTabables(this.$refs.content)[0])
     },
     onBeforeEnter() {
       // Returning focus to `document.body` may cause unwanted scrolls,
@@ -367,61 +421,6 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { bgVariant, width, textVariant, localShow } = this
-    const shadow = this.shadow === '' ? true : this.shadow
-
-    let $sidebar = h(
-      this.tag,
-      {
-        staticClass: CLASS_NAME,
-        class: [
-          {
-            shadow: shadow === true,
-            [`shadow-${shadow}`]: shadow && shadow !== true,
-            [`${CLASS_NAME}-right`]: this.right,
-            [`bg-${bgVariant}`]: bgVariant,
-            [`text-${textVariant}`]: textVariant
-          },
-          this.sidebarClass
-        ],
-        style: { width },
-        attrs: this.computedAttrs,
-        directives: [{ name: 'show', value: localShow }],
-        ref: 'content'
-      },
-      [renderContent(h, this)]
-    )
-
-    $sidebar = h(
-      'transition',
-      {
-        props: this.transitionProps,
-        on: {
-          beforeEnter: this.onBeforeEnter,
-          afterEnter: this.onAfterEnter,
-          afterLeave: this.onAfterLeave
-        }
-      },
-      [$sidebar]
-    )
-
-    const $backdrop = h(BVTransition, { props: { noFade: this.noSlide } }, [
-      renderBackdrop(h, this)
-    ])
-
-    let $tabTrapTop = h()
-    let $tabTrapBottom = h()
-    if (this.backdrop && localShow) {
-      $tabTrapTop = h('div', {
-        attrs: { tabindex: '0' },
-        on: { focus: this.onTopTrapFocus }
-      })
-      $tabTrapBottom = h('div', {
-        attrs: { tabindex: '0' },
-        on: { focus: this.onBottomTrapFocus }
-      })
-    }
-
     return h(
       'div',
       {
@@ -430,7 +429,12 @@ export const BSidebar = /*#__PURE__*/ Vue.extend({
         attrs: { tabindex: '-1' },
         on: { keydown: this.onKeydown }
       },
-      [$tabTrapTop, $sidebar, $tabTrapBottom, $backdrop]
+      [
+        renderTabTrap(h, this, this.onTopTrapFocus),
+        renderSidebar(h, this),
+        renderTabTrap(h, this, this.onBottomTrapFocus),
+        renderBackdrop(h, this)
+      ]
     )
   }
 })
