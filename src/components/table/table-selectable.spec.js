@@ -29,6 +29,7 @@ describe('table > row select', () => {
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('table')
     expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
@@ -58,6 +59,7 @@ describe('table > row select', () => {
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('table')
     expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
@@ -88,6 +90,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('grid')
     expect(wrapper.attributes('aria-multiselectable')).toBe('false')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-single')
@@ -113,6 +116,7 @@ describe('table > row select', () => {
 
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('grid')
     expect(wrapper.attributes('aria-multiselectable')).toBe('false')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-single')
@@ -200,6 +204,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('grid')
     expect(wrapper.attributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-multi')
@@ -300,6 +305,7 @@ describe('table > row select', () => {
     let $rows
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
+    expect(wrapper.attributes('role')).toBe('grid')
     expect(wrapper.attributes('aria-multiselectable')).toBe('true')
     expect(wrapper.classes()).toContain('b-table-selectable')
     expect(wrapper.classes()).toContain('b-table-select-range')
