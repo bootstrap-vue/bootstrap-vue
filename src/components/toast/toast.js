@@ -64,6 +64,7 @@ export const props = makePropsConfigurable(
     autoHideDelay: makeProp(PROP_TYPE_NUMBER_STRING, 5000),
     bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     // Switches role to 'status' and aria-live to 'polite'
     isStatus: makeProp(PROP_TYPE_BOOLEAN, false),
     noAutoHide: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -366,8 +367,11 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       let $header = h()
       if ($headerContent.length > 0) {
         $header = h(
-          'header',
-          { staticClass: 'toast-header', class: this.headerClass },
+          this.headerTag,
+          {
+            staticClass: 'toast-header',
+            class: this.headerClass
+          },
           $headerContent
         )
       }

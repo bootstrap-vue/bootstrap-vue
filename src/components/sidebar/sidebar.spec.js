@@ -331,7 +331,8 @@ describe('sidebar', () => {
       propsData: {
         id: 'sidebar-header-slot',
         visible: true,
-        title: 'TITLE'
+        title: 'TITLE',
+        headerTag: 'div'
       },
       slots: {
         header: 'Custom header'
@@ -343,6 +344,7 @@ describe('sidebar', () => {
 
     const $header = wrapper.find('.b-sidebar-header')
     expect($header.exists()).toBe(true)
+    expect($header.element.tagName).toBe('DIV')
     expect($header.find('strong').exists()).toBe(false)
     expect($header.find('button').exists()).toBe(false)
     expect($header.text()).toContain('Custom header')
@@ -358,7 +360,8 @@ describe('sidebar', () => {
       attachTo: createContainer(),
       propsData: {
         id: 'test-5',
-        visible: true
+        visible: true,
+        footerTag: 'div'
       },
       slots: {
         footer: '<span>FOOTER</span>'
@@ -367,10 +370,14 @@ describe('sidebar', () => {
 
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.element.tagName).toBe('DIV')
+
     expect(wrapper.find('.b-sidebar-header').exists()).toBe(true)
     expect(wrapper.find('.b-sidebar-body').exists()).toBe(true)
-    expect(wrapper.find('.b-sidebar-footer').exists()).toBe(true)
-    expect(wrapper.find('.b-sidebar-footer').text()).toEqual('FOOTER')
+
+    const $footer = wrapper.find('.b-sidebar-footer')
+    expect($footer.exists()).toBe(true)
+    expect($footer.element.tagName).toBe('DIV')
+    expect($footer.text()).toEqual('FOOTER')
 
     wrapper.destroy()
   })
