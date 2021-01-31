@@ -70,16 +70,17 @@ export const selectableMixin = Vue.extend({
       }
     },
     selectableTableAttrs() {
-      return {
-        // TODO:
-        //   Should this attribute not be included when no-select-on-click is set
-        //   since this attribute implies keyboard navigation?
-        'aria-multiselectable': !this.isSelectable
-          ? null
-          : this.selectableIsMultiSelect
-            ? 'true'
-            : 'false'
-      }
+      const role = this.bvAttrs.role || 'grid'
+
+      return this.isSelectable
+        ? {
+            role,
+            // TODO:
+            //   Should this attribute not be included when `no-select-on-click` is set
+            //   since this attribute implies keyboard navigation?
+            'aria-multiselectable': role === 'grid' ? String(this.selectableIsMultiSelect) : null
+          }
+        : {}
     }
   },
   watch: {

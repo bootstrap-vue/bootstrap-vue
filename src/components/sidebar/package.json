@@ -40,8 +40,18 @@
             "description": "Class, or classes, to apply to the optional `footer` slot"
           },
           {
+            "prop": "footerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
             "prop": "headerClass",
             "description": "Class, or classes, to apply to the built in header. Has no effect if prop `no-header` is set"
+          },
+          {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
           },
           {
             "prop": "lazy",

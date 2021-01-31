@@ -184,6 +184,60 @@ describe('form-checkbox-group', () => {
     wrapper.destroy()
   })
 
+  it('has checkboxes with input validation class "is-valid" when `state` is `true`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: true
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(true)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('has checkboxes with input validation class "is-invalid" when `state` is `false`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: false
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has checkboxes with no input validation class when `state` is `null`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: null
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
+
+    wrapper.destroy()
+  })
+
   // --- Button mode structure ---
 
   it('button mode has classes button-group and button-group-toggle', async () => {

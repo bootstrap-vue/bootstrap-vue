@@ -11,6 +11,16 @@
         "version": "2.6.0",
         "props": [
           {
+            "prop": "footerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
             "prop": "hideHeader",
             "description": "When set, visually hides the selected time header"
           },
