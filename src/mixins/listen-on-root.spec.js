@@ -48,17 +48,29 @@ describe('mixins/listen-on-root', () => {
     expect(spyOn).toHaveBeenCalledTimes(1)
     expect(spyOnce).not.toHaveBeenCalled()
 
-    await wrapper.setProps({ destroy: true })
-    expect(spyOn).toHaveBeenCalledTimes(1)
-    expect(spyOnce).not.toHaveBeenCalled()
-
-    $root.$emit('root-on')
-    expect(spyOn).toHaveBeenCalledTimes(1)
-    expect(spyOnce).not.toHaveBeenCalled()
-
     $root.$emit('root-once')
     expect(spyOn).toHaveBeenCalledTimes(1)
-    expect(spyOnce).not.toHaveBeenCalled()
+    expect(spyOnce).toHaveBeenCalledTimes(1)
+
+    $root.$emit('root-on')
+    expect(spyOn).toHaveBeenCalledTimes(2)
+    expect(spyOnce).toHaveBeenCalledTimes(1)
+
+    $root.$emit('root-once')
+    expect(spyOn).toHaveBeenCalledTimes(2)
+    expect(spyOnce).toHaveBeenCalledTimes(1)
+
+    await wrapper.setProps({ destroy: true })
+    expect(spyOn).toHaveBeenCalledTimes(2)
+    expect(spyOnce).toHaveBeenCalledTimes(1)
+
+    $root.$emit('root-on')
+    expect(spyOn).toHaveBeenCalledTimes(2)
+    expect(spyOnce).toHaveBeenCalledTimes(1)
+
+    $root.$emit('root-once')
+    expect(spyOn).toHaveBeenCalledTimes(2)
+    expect(spyOnce).toHaveBeenCalledTimes(1)
 
     wrapper.destroy()
   })

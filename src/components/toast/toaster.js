@@ -1,7 +1,7 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
 import { Vue } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
-import { EVENT_NAME_DESTROYED, HOOK_EVENT_NAME_BEFORE_DESTROY } from '../../constants/events'
+import { EVENT_NAME_DESTROYED } from '../../constants/events'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { removeClass, requestAF } from '../../utils/dom'
 import { getRootEventName } from '../../utils/events'
@@ -85,11 +85,13 @@ export const BToaster = /*#__PURE__*/ Vue.extend({
       this.dead = true
     } else {
       this.doRender = true
-      this.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
-        // Let toasts made with `this.$bvToast.toast()` know that this toaster
-        // is being destroyed and should should also destroy/hide themselves
-        this.emitOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), name)
-      })
+    }
+  },
+  beforeDestroy() {
+    // Let toasts made with `this.$bvToast.toast()` know that this toaster
+    // is being destroyed and should should also destroy/hide themselves
+    if (this.doRender) {
+      this.emitOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), this.name)
     }
   },
   destroyed() {
