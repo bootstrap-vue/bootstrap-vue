@@ -3,8 +3,7 @@ import {
   EVENT_NAME_BLUR,
   EVENT_NAME_CHANGE,
   EVENT_NAME_INPUT,
-  EVENT_NAME_UPDATE,
-  HOOK_EVENT_NAME_BEFORE_DESTROY
+  EVENT_NAME_UPDATE
 } from '../constants/events'
 import {
   PROP_TYPE_BOOLEAN,
@@ -116,10 +115,6 @@ export const formTextMixin = Vue.extend({
   created() {
     // Create private non-reactive props
     this.$_inputDebounceTimer = null
-  },
-  mounted() {
-    // Set up destroy handler
-    this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, this.clearDebounce)
   },
   beforeDestroy() {
     this.clearDebounce()
