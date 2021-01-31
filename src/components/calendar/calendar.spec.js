@@ -244,6 +244,26 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
+  it('has correct header tag when "header-tag" prop is set', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-02-15', // Leap year,
+        headerTag: 'div'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $header = wrapper.find('.b-calendar-header')
+    expect($header.exists()).toBe(true)
+    expect($header.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),

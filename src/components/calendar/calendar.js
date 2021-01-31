@@ -114,6 +114,7 @@ export const props = makePropsConfigurable(
     // 'ltr', 'rtl', or `null` (for auto detect)
     direction: makeProp(PROP_TYPE_STRING),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     // When `true`, renders a comment node, but keeps the component instance active
     // Mainly for <b-form-date>, so that we can get the component's value and locale
     // But we might just use separate date formatters, using the resolved locale
@@ -806,7 +807,7 @@ export const BCalendar = Vue.extend({
         : this.labelNoDateSelected || '\u00a0' // '&nbsp;'
     )
     $header = h(
-      'header',
+      this.headerTag,
       {
         staticClass: 'b-calendar-header',
         class: { 'sr-only': this.hideHeader },
@@ -936,7 +937,7 @@ export const BCalendar = Vue.extend({
 
     // Caption for calendar grid
     const $gridCaption = h(
-      'header',
+      'div',
       {
         staticClass: 'b-calendar-grid-caption text-center font-weight-bold',
         class: { 'text-muted': disabled },
@@ -1065,7 +1066,7 @@ export const BCalendar = Vue.extend({
     )
 
     const $gridHelp = h(
-      'footer',
+      'div',
       {
         staticClass: 'b-calendar-grid-help border-top small text-muted text-center bg-light',
         attrs: {

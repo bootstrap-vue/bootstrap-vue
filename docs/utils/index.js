@@ -173,27 +173,28 @@ export const importAll = context => {
   )
 }
 
-// Smooth Scroll handler methods
+// Smooth scroll handler methods
 const easeInOutQuad = (t, b, c, d) => {
   t /= d / 2
-  if (t < 1) return (c / 2) * t * t + b
+  if (t < 1) {
+    return (c / 2) * t * t + b
+  }
   t--
   return (-c / 2) * (t * (t - 2) - 1) + b
 }
 
-export const scrollTo = (scroller, to, duration, cb) => {
-  const start = scroller.scrollTop
+export const scrollTo = ($scroller, to, duration, callback) => {
+  const start = $scroller.scrollTop
   const change = to - start
   const increment = 20
   let currentTime = 0
   const animateScroll = function() {
     currentTime += increment
-    const val = easeInOutQuad(currentTime, start, change, duration)
-    scroller.scrollTop = Math.round(val)
+    $scroller.scrollTop = Math.round(easeInOutQuad(currentTime, start, change, duration))
     if (currentTime < duration) {
       setTimeout(animateScroll, increment)
-    } else if (cb && typeof cb === 'function') {
-      cb()
+    } else if (callback && typeof callback === 'function') {
+      callback()
     }
   }
   animateScroll()
@@ -201,11 +202,27 @@ export const scrollTo = (scroller, to, duration, cb) => {
 
 // Return an element's offset wrt document element
 // https://j11y.io/jquery/#v=git&fn=jQuery.fn.offset
-export const offsetTop = el => {
-  if (!el.getClientRects().length) {
-    return 0
+export const offsetTop = $el =>
+  $el.getClientRects().length > 0
+    ? $el.getBoundingClientRect().top + $el.ownerDocument.defaultView.pageYOffset
+    : 0
+
+// Scroll an in-page link target into view
+export const scrollTargetIntoView = (event, href) => {
+  event.stopPropagation()
+  // We use an attribute `querySelector()` rather than `getElementByID()`,
+  // as some auto-generated ID's are invalid or not unique
+  const id = (href || '').replace(/#/g, '')
+  const $el = document.body.querySelector(`[id="${id}"]`)
+  if ($el) {
+    // Get the document scrolling element
+    const $scroller = document.scrollingElement || document.documentElement || document.body
+    // Scroll heading into view (minus offset to account for nav top height
+    scrollTo($scroller, offsetTop($el) - 70, 150, () => {
+      // Set a tab index so we can focus header for a11y support
+      $el.tabIndex = -1
+      // Focus the heading
+      $el.focus()
+    })
   }
-  const bcr = el.getBoundingClientRect()
-  const win = el.ownerDocument.defaultView
-  return bcr.top + win.pageYOffset
 }

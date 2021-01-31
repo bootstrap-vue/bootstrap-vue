@@ -11,7 +11,7 @@ import { concat } from '../../utils/array'
 import { attemptBlur, attemptFocus, isTag } from '../../utils/dom'
 import { getRootEventName, stopEvent } from '../../utils/events'
 import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect'
-import { sortKeys } from '../../utils/object'
+import { omit, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
 import { attrsMixin } from '../../mixins/attrs'
@@ -29,11 +29,11 @@ const ROOT_EVENT_NAME_CLICKED = getRootEventName(NAME_LINK, 'clicked')
 export const routerLinkProps = {
   activeClass: makeProp(PROP_TYPE_STRING),
   append: makeProp(PROP_TYPE_BOOLEAN, false),
-  event: makeProp(PROP_TYPE_ARRAY_STRING, EVENT_NAME_CLICK),
+  event: makeProp(PROP_TYPE_ARRAY_STRING),
   exact: makeProp(PROP_TYPE_BOOLEAN, false),
   exactActiveClass: makeProp(PROP_TYPE_STRING),
   replace: makeProp(PROP_TYPE_BOOLEAN, false),
-  routerTag: makeProp(PROP_TYPE_STRING, 'a'),
+  routerTag: makeProp(PROP_TYPE_STRING),
   to: makeProp(PROP_TYPE_OBJECT_STRING)
 }
 
@@ -98,14 +98,18 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return computeHref({ to, href }, this.computedTag)
     },
     computedProps() {
-      const { prefetch } = this
+      const { event, prefetch, routerTag } = this
       return this.isRouterLink
         ? {
-            ...pluckProps({ ...routerLinkProps, ...nuxtLinkProps }, this),
-            // Coerce `prefetch` value `null` to be `undefined`
-            prefetch: isBoolean(prefetch) ? prefetch : undefined,
+            ...pluckProps(
+              omit({ ...routerLinkProps, ...nuxtLinkProps }, ['event', 'prefetch', 'routerTag']),
+              this
+            ),
+            // Only add these props, when actually defined
+            ...(event ? { event } : {}),
+            ...(isBoolean(prefetch) ? { prefetch } : {}),
             // Pass `router-tag` as `tag` prop
-            tag: this.routerTag
+            ...(routerTag ? { tag: routerTag } : {})
           }
         : {}
     },
@@ -127,7 +131,7 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // (i.e. if `computedHref` is truthy)
         ...(href ? { href } : {}),
         // We don't render `rel` or `target` on non link tags when using `vue-router`
-        ...(isRouterLink && !isTag(routerTag, 'a') ? {} : { rel, target }),
+        ...(isRouterLink && routerTag && !isTag(routerTag, 'a') ? {} : { rel, target }),
         tabindex: disabled ? '-1' : isUndefined(bvAttrs.tabindex) ? null : bvAttrs.tabindex,
         'aria-disabled': disabled ? 'true' : null
       }
@@ -153,10 +157,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // Needed to prevent `vue-router` for doing its thing
         stopEvent(event, { immediatePropagation: true })
       } else {
+        // Router links do not emit instance `click` events, so we
+        // add in an `$emit('click', event)` on its Vue instance
         /* istanbul ignore next: difficult to test, but we know it works */
         if (isRouterLink && event.currentTarget.__vue__) {
-          // Router links do not emit instance `click` events, so we
-          // add in an `$emit('click', event)` on its Vue instance
           event.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, event)
         }
         // Call the suppliedHandler(s), if any provided

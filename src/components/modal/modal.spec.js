@@ -262,6 +262,48 @@ describe('modal', () => {
 
       wrapper.destroy()
     })
+
+    it('has correct header tag when "header-tag" prop is set', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true,
+          id: 'test',
+          headerTag: 'div'
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $header = wrapper.find('.modal-header')
+      expect($header.exists()).toBe(true)
+      expect($header.element.tagName).toBe('DIV')
+
+      wrapper.destroy()
+    })
+
+    it('has correct footer tag when "footer-tag" prop is set', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true,
+          id: 'test',
+          footerTag: 'div'
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $footer = wrapper.find('.modal-footer')
+      expect($footer.exists()).toBe(true)
+      expect($footer.element.tagName).toBe('DIV')
+
+      wrapper.destroy()
+    })
   })
 
   describe('default button content, classes and attributes', () => {

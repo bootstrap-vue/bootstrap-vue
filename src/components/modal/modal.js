@@ -128,6 +128,7 @@ export const props = makePropsConfigurable(
     footerBgVariant: makeProp(PROP_TYPE_STRING),
     footerBorderVariant: makeProp(PROP_TYPE_STRING),
     footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    footerTag: makeProp(PROP_TYPE_STRING, 'footer'),
     footerTextVariant: makeProp(PROP_TYPE_STRING),
     headerBgVariant: makeProp(PROP_TYPE_STRING),
     headerBorderVariant: makeProp(PROP_TYPE_STRING),
@@ -135,6 +136,7 @@ export const props = makePropsConfigurable(
     headerCloseContent: makeProp(PROP_TYPE_STRING, '&times;'),
     headerCloseLabel: makeProp(PROP_TYPE_STRING, 'Close'),
     headerCloseVariant: makeProp(PROP_TYPE_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     headerTextVariant: makeProp(PROP_TYPE_STRING),
     // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
     hideBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -813,7 +815,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
 
         $header = h(
-          'header',
+          this.headerTag,
           {
             staticClass: 'modal-header',
             class: this.headerClasses,
@@ -887,7 +889,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
 
         $footer = h(
-          'footer',
+          this.footerTag,
           {
             staticClass: 'modal-footer',
             class: this.footerClasses,

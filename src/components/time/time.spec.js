@@ -145,6 +145,47 @@ describe('time', () => {
     wrapper.destroy()
   })
 
+  it('has correct header tag when "header-tag" prop is set', async () => {
+    const wrapper = mount(BTime, {
+      attachTo: createContainer(),
+      propsData: {
+        headerTag: 'div'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $header = wrapper.find('.b-time-header')
+    expect($header.exists()).toBe(true)
+    expect($header.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
+  it('has correct footer tag when "footer-tag" prop is set', async () => {
+    const wrapper = mount(BTime, {
+      attachTo: createContainer(),
+      propsData: {
+        footerTag: 'div'
+      },
+      slots: {
+        default: 'text'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $footer = wrapper.find('.b-time-footer')
+    expect($footer.exists()).toBe(true)
+    expect($footer.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
   it('spin buttons work', async () => {
     const wrapper = mount(BTime, {
       propsData: {
