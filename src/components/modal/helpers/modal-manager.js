@@ -5,7 +5,6 @@
 
 import { Vue } from '../../../vue'
 import { IS_BROWSER } from '../../../constants/env'
-import { HOOK_EVENT_NAME_BEFORE_DESTROY } from '../../../constants/events'
 import {
   addClass,
   getAttr,
@@ -82,11 +81,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
     registerModal(modal) {
       // Register the modal if not already registered
       if (modal && this.modals.indexOf(modal) === -1) {
-        // Add modal to modals array
         this.modals.push(modal)
-        modal.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
-          this.unregisterModal(modal)
-        })
       }
     },
     unregisterModal(modal) {
@@ -95,13 +90,13 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
         // Remove modal from modals array
         this.modals.splice(index, 1)
         // Reset the modal's data
-        if (!(modal._isBeingDestroyed || modal._isDestroyed)) {
+        if (!modal._isBeingDestroyed && !modal._isDestroyed) {
           this.resetModal(modal)
         }
       }
     },
     getBaseZIndex() {
-      if (isNull(this.baseZIndex) && IS_BROWSER) {
+      if (IS_BROWSER && isNull(this.baseZIndex)) {
         // Create a temporary `div.modal-backdrop` to get computed z-index
         const div = document.createElement('div')
         addClass(div, 'modal-backdrop')
@@ -114,7 +109,7 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
       return this.baseZIndex || DEFAULT_ZINDEX
     },
     getScrollbarWidth() {
-      if (isNull(this.scrollbarWidth) && IS_BROWSER) {
+      if (IS_BROWSER && isNull(this.scrollbarWidth)) {
         // Create a temporary `div.measure-scrollbar` to get computed z-index
         const div = document.createElement('div')
         addClass(div, 'modal-scrollbar-measure')

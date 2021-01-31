@@ -2,11 +2,7 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import {
-  EVENT_NAME_TAG_STATE,
-  EVENT_OPTIONS_PASSIVE,
-  HOOK_EVENT_NAME_BEFORE_DESTROY
-} from '../../constants/events'
+import { EVENT_NAME_TAG_STATE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import {
   PROP_TYPE_ARRAY,
@@ -286,9 +282,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
-        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      })
+    }
+  },
+  beforeDestroy() {
+    const $form = closest('form', this.$el)
+    if ($form) {
+      eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
     }
   },
   methods: {
