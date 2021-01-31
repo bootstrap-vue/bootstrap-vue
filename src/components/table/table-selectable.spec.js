@@ -33,6 +33,7 @@ describe('table > row select', () => {
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
 
+    expect(wrapper.attributes('role')).toBe('table')
     expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
