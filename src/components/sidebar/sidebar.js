@@ -67,7 +67,9 @@ export const props = makePropsConfigurable(
     // `aria-label` for close button
     closeLabel: makeProp(PROP_TYPE_STRING),
     footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    footerTag: makeProp(PROP_TYPE_STRING, 'footer'),
     headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     lazy: makeProp(PROP_TYPE_BOOLEAN, false),
     noCloseOnBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
     noCloseOnEsc: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -131,7 +133,7 @@ const renderHeader = (h, ctx) => {
   }
 
   return h(
-    'header',
+    ctx.headerTag,
     {
       staticClass: `${CLASS_NAME}-header`,
       class: ctx.headerClass,
@@ -160,7 +162,7 @@ const renderFooter = (h, ctx) => {
   }
 
   return h(
-    'footer',
+    ctx.footerTag,
     {
       staticClass: `${CLASS_NAME}-footer`,
       class: ctx.footerClass,

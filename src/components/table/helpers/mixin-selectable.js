@@ -12,11 +12,14 @@ import { isArray, isNumber } from '../../../utils/inspect'
 import { looseEqual } from '../../../utils/loose-equal'
 import { mathMax, mathMin } from '../../../utils/math'
 import { makeProp } from '../../../utils/props'
+import { toString } from '../../../utils/string'
 import { sanitizeRow } from './sanitize-row'
 
 // --- Constants ---
 
 const SELECT_MODES = ['range', 'multi', 'single']
+
+const ROLE_GRID = 'grid'
 
 // --- Props ---
 
@@ -70,15 +73,18 @@ export const selectableMixin = Vue.extend({
       }
     },
     selectableTableAttrs() {
+      if (!this.isSelectable) {
+        return {}
+      }
+
+      const role = this.bvAttrs.role || ROLE_GRID
+
       return {
+        role,
         // TODO:
-        //   Should this attribute not be included when no-select-on-click is set
+        //   Should this attribute not be included when `no-select-on-click` is set
         //   since this attribute implies keyboard navigation?
-        'aria-multiselectable': !this.isSelectable
-          ? null
-          : this.selectableIsMultiSelect
-            ? 'true'
-            : 'false'
+        'aria-multiselectable': role === ROLE_GRID ? toString(this.selectableIsMultiSelect) : null
       }
     }
   },

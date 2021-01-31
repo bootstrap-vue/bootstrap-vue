@@ -113,7 +113,15 @@ export const theadMixin = Vue.extend({
         const sortLabel = isSortable ? this.sortTheadThLabel(key, field, isFoot) : null
 
         const data = {
-          class: [this.fieldClasses(field), sortClass],
+          class: [
+            {
+              // We need to make the header cell relative when we have
+              // a `.sr-only` sort label to work around overflow issues
+              'position-relative': sortLabel
+            },
+            this.fieldClasses(field),
+            sortClass
+          ],
           props: { variant, stickyColumn },
           style: field.thStyle || {},
           attrs: {

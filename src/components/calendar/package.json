@@ -37,6 +37,11 @@
             "description": "Places the calendar in a non-interactive disabled state"
           },
           {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
             "prop": "hidden",
             "description": "When `true`, renders a comment node instead of the calendar widget while keeping the Vue instance active. Mainly used when implementing a custom date picker"
           },

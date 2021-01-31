@@ -29,6 +29,11 @@
             "description": "CSS class (or classes) to add to the toast header element"
           },
           {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
             "prop": "isStatus",
             "description": "When set to 'true', makes the toast have attributes aria-live=polite and role=status. When 'false' aria-live will be 'assertive' and role will be 'alert'"
           },
