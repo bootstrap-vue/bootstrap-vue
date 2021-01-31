@@ -378,6 +378,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     // Ensure everything is back to normal
+    modalManager.unregisterModal(this)
     this.setObserver(false)
     if (this.isVisible) {
       this.isVisible = false
