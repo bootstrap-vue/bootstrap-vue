@@ -80,7 +80,7 @@ export const selectableMixin = Vue.extend({
             //   since this attribute implies keyboard navigation?
             'aria-multiselectable': role === 'grid' ? String(this.selectableIsMultiSelect) : null
           }
-        : { role: this.bvAttrs.role || 'table' }
+        : {}
     }
   },
   watch: {
