@@ -135,7 +135,7 @@ export const tableRendererMixin = Vue.extend({
         ...this.bvAttrs,
         // Now we can override any `$attrs` here
         id: this.safeId(),
-        role: 'table',
+        role: this.bvAttrs.role || 'grid',
         ...ariaAttrs,
         ...selectableTableAttrs
       }
