@@ -51,7 +51,7 @@ describe('table > row select', () => {
     wrapper.destroy()
   })
 
-  it('should apply grid role if no role was provided', async () => {
+  it('should apply user role if provided, grid role if multiselectable or table role otherwise', async () => {
     let wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -62,8 +62,7 @@ describe('table > row select', () => {
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.attributes('role')).toBe('grid')
-
+    expect(wrapper.attributes('role')).toBe('table')
     wrapper.destroy()
 
     wrapper = mount(BTable, {
@@ -75,8 +74,21 @@ describe('table > row select', () => {
     })
 
     await waitNT(wrapper.vm)
-    expect(wrapper.attributes('role')).toBe('foobar')
 
+    expect(wrapper.attributes('role')).toBe('foobar')
+    wrapper.destroy()
+
+    wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: 'true'
+      }
+    })
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.attributes('role')).toBe('grid')
     wrapper.destroy()
   })
 
@@ -94,7 +106,7 @@ describe('table > row select', () => {
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)
 
-    expect(wrapper.attributes('role')).toBe('grid')
+    expect(wrapper.attributes('role')).toBe('table')
     expect(wrapper.attributes('aria-multiselectable')).toBeUndefined()
     expect(wrapper.classes()).not.toContain('b-table-selectable')
     expect(wrapper.classes()).not.toContain('b-table-selectable-no-click')
