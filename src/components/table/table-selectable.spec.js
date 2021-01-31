@@ -82,7 +82,7 @@ describe('table > row select', () => {
       propsData: {
         fields: testFields,
         items: testItems,
-        selectable: 'true'
+        selectable: true
       }
     })
 
