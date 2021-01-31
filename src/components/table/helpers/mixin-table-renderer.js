@@ -115,7 +115,7 @@ export const tableRendererMixin = Vue.extend({
       const ariaAttrs = this.isTableSimple
         ? {}
         : {
-            'aria-busy': this.computedBusy ? 'true' : 'false',
+            'aria-busy': toString(this.computedBusy),
             'aria-colcount': toString(fields.length),
             // Preserve user supplied `aria-describedby`, if provided
             'aria-describedby':
