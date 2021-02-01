@@ -115,7 +115,7 @@ export const tableRendererMixin = Vue.extend({
       const ariaAttrs = this.isTableSimple
         ? {}
         : {
-            'aria-busy': this.computedBusy ? 'true' : 'false',
+            'aria-busy': toString(this.computedBusy),
             'aria-colcount': toString(fields.length),
             // Preserve user supplied `aria-describedby`, if provided
             'aria-describedby':
@@ -135,7 +135,7 @@ export const tableRendererMixin = Vue.extend({
         ...this.bvAttrs,
         // Now we can override any `$attrs` here
         id: this.safeId(),
-        role: 'table',
+        role: this.bvAttrs.role || 'table',
         ...ariaAttrs,
         ...selectableTableAttrs
       }
