@@ -1258,15 +1258,15 @@
     rc9 "^1.2.0"
     std-env "^2.2.1"
 
-"@nuxt/content@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@nuxt/content/-/content-1.11.1.tgz#60d850d01d2f946b896ddb8a8736c43cfe2cdd72"
-  integrity sha512-aIB1LSJZfTx0cBq+oWi64lvPyX0vnE0D+g0kQCp52RSPWyxPtogrg3rnWQf/NU1JEDHaO8aFuXB/Pk57tjSZMQ==
+"@nuxt/content@^1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@nuxt/content/-/content-1.12.0.tgz#2e37e31a2cc4c821a7ac350045ead56059cccb54"
+  integrity sha512-UWVQ1NvUjUHP3dyFlNdrjTT6Nj5F098ChtlW0KrFQ2ObidK/+KKwq7t/nE+7YTsH0hOsuekSHihDIcTkWPR2QA==
   dependencies:
     "@lokidb/full-text-search" "^2.1.0"
     "@lokidb/loki" "^2.1.0"
     "@nuxt/types" "^2.14.7"
-    "@types/js-yaml" "^3.12.5"
+    "@types/js-yaml" "^4.0.0"
     "@types/xml2js" "^0.4.7"
     change-case "^4.1.1"
     chokidar "^3.4.3"
@@ -1280,7 +1280,7 @@
     hasha "^5.2.2"
     hookable "^4.3.1"
     html-tags "^3.1.0"
-    js-yaml "3.14.0"
+    js-yaml "4.0.0"
     mdast-util-to-hast "^10.0.1"
     mkdirp "^1.0.4"
     node-req "^2.1.2"
@@ -1796,10 +1796,10 @@
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
 
-"@types/js-yaml@^3.12.5":
-  version "3.12.5"
-  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.5.tgz#136d5e6a57a931e1cce6f9d8126aa98a9c92a6bb"
-  integrity sha512-JCcp6J0GV66Y4ZMDAQCXot4xprYB+Zfd3meK9+INSJeVZwJmHAW30BBEEkPzXswMXuiyReUGOP3GxrADc9wPww==
+"@types/js-yaml@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-4.0.0.tgz#d1a11688112091f2c711674df3a65ea2f47b5dfb"
+  integrity sha512-4vlpCM5KPCL5CfGmTbpjwVKbISRYhduEJvvUWsH5EB7QInhEj94XPZ3ts/9FPiLZFqYO0xoW4ZL8z2AabTGgJA==
 
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.6"
@@ -2578,6 +2578,11 @@ argparse@^1.0.7:
   integrity sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==
   dependencies:
     sprintf-js "~1.0.2"
+
+argparse@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
+  integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
 
 aria-query@^4.2.2:
   version "4.2.2"
@@ -8326,13 +8331,12 @@ js-tokens@^3.0.2:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
-js-yaml@3.14.0:
-  version "3.14.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.0.tgz#a7a34170f26a21bb162424d8adacb4113a69e482"
-  integrity sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==
+js-yaml@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.0.0.tgz#f426bc0ff4b4051926cd588c71113183409a121f"
+  integrity sha512-pqon0s+4ScYUvX30wxQi3PogGFAlUyH0awepWvwkj4jD4v+ova3RiYw8bmA6x2rDrEaj8i/oWKoRxpVNW+Re8Q==
   dependencies:
-    argparse "^1.0.7"
-    esprima "^4.0.0"
+    argparse "^2.0.1"
 
 js-yaml@^3.11.0, js-yaml@^3.13.1:
   version "3.14.1"
