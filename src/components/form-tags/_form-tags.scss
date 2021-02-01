@@ -7,6 +7,10 @@
       margin-top: 0.25rem;
     }
   }
+  
+  .b-form-tags-input {
+    color: $input-color;
+  }
 
   &.focus {
     color: $input-focus-color;
