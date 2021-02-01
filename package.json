@@ -116,7 +116,7 @@
     "codesandbox": "^2.2.1",
     "core-js": "^3.8.3",
     "cross-env": "^7.0.3",
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-config-vue": "^2.0.2",
