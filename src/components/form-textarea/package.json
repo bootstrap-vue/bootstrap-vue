@@ -73,7 +73,7 @@
         "events": [
           {
             "event": "blur",
-            "description": "Emitted after the textarea looses focus",
+            "description": "Emitted after the textarea loses focus",
             "args": [
               {
                 "arg": "event",
