@@ -881,7 +881,7 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
-  xit('emits focusin and focusout when internal focus changes', async () => {
+  it('emits focusin and focusout when internal focus changes', async () => {
     const onFocusIn = jest.fn()
     const onFocusOut = jest.fn()
     const wrapper = mount(BFormTags, {
@@ -899,7 +899,6 @@ describe('form-tags', () => {
 
     const $input = wrapper.find('input')
     const $tag = wrapper.find('.b-form-tag')
-    $tag.element.setAttribute('tabindex', '1')
 
     $input.trigger('focusin')
 
@@ -909,11 +908,12 @@ describe('form-tags', () => {
     expect(onFocusIn).toHaveBeenCalledTimes(1)
     expect(onFocusOut).not.toHaveBeenCalled()
 
-    $tag.trigger('click') // or focus or focusin
+    $tag.trigger('focusin')
+    $input.trigger('focusout')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    // expect(onFocusIn).toHaveBeenCalledTimes(2)
+    expect(onFocusIn).toHaveBeenCalledTimes(2)
     expect(onFocusOut).toHaveBeenCalledTimes(1)
   })
 })
