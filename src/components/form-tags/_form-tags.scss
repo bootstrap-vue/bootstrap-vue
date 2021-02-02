@@ -1,5 +1,4 @@
 .b-form-tags {
-  padding: 0;
   &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -28,7 +27,6 @@
 }
 
 .b-form-tags-list {
-  padding: 0.375rem 0.75rem;
   margin-top: -0.25rem;
 
   .b-from-tags-field,
