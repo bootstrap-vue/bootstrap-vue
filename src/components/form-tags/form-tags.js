@@ -405,8 +405,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     // --- Wrapper event handlers ---
     onClick(event) {
       const { computeIgnoreInputFocusSelector: ignoreFocusSelector } = this
-      const { target } = event
-      if (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true)) {
+      if (!ignoreFocusSelector || !closest(ignoreFocusSelector, event.target, true)) {
         this.$nextTick(() => {
           this.focus()
         })
