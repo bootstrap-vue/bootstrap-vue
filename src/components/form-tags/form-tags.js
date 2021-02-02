@@ -18,15 +18,7 @@ import { RX_SPACES } from '../../constants/regex'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_ADD_BUTTON_TEXT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { cssEscape } from '../../utils/css-escape'
-import {
-  attemptBlur,
-  attemptFocus,
-  closest,
-  isActiveElement,
-  matches,
-  requestAF,
-  select
-} from '../../utils/dom'
+import { attemptBlur, attemptFocus, closest, matches, requestAF, select } from '../../utils/dom'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
@@ -341,10 +333,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   will prevent the tag from being removed (i.e. confirmation)
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
-      // Return focus to the input (if possible)
-      this.$nextTick(() => {
-        this.focus()
-      })
     },
     reset() {
       this.newTag = ''
@@ -419,7 +407,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const { computeIgnoreInputFocusSelector: ignoreFocusSelector } = this
       const { target } = event
       if (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true)) {
-        this.focus()
+        this.$nextTick(() => {
+          this.focus()
+        })
       }
     },
     onFocusin() {
