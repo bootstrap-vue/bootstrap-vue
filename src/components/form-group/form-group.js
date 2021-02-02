@@ -305,7 +305,6 @@ export const BFormGroup = {
           props: {
             ariaLive: feedbackAriaLive,
             id: invalidFeedbackId,
-            role: feedbackAriaLive ? 'alert' : null,
             // If state is explicitly `false`, always show the feedback
             state,
             tooltip
@@ -326,7 +325,6 @@ export const BFormGroup = {
           props: {
             ariaLive: feedbackAriaLive,
             id: validFeedbackId,
-            role: feedbackAriaLive ? 'alert' : null,
             // If state is explicitly `true`, always show the feedback
             state,
             tooltip
