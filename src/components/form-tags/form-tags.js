@@ -154,7 +154,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Tags that were removed
       removedTags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagsState()
+      tagsState: cleanTagsState(),
+      focusState: null
     }
   },
   computed: {
@@ -180,11 +181,18 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        ...this.bvListeners,
+        ...pick(
+          this.bvListeners,
+          Object.keys(this.bvListeners).filter(key =>
+            ['focus', 'blur', 'focusin', 'focusout'].includes(key)
+          )
+        ),
         input: this.onInputInput,
         change: this.onInputChange,
         keydown: this.onInputKeydown,
-        reset: this.reset
+        reset: this.reset,
+        focus: this.onInputFocus,
+        blur: this.onInputBlur
       }
     },
     computedSeparator() {
@@ -408,6 +416,32 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       if (!ignoreFocusSelector || !closest(ignoreFocusSelector, event.target, true)) {
         this.$nextTick(() => {
           this.focus()
+        })
+      }
+    },
+    onInputFocus(event) {
+      if (typeof this.bvListeners.focus === 'function' && this.focusState !== 'out') {
+        this.focusState = 'in'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (this.hasFocus) {
+              this.bvListeners.focus(event)
+              this.focusState = null
+            }
+          })
+        })
+      }
+    },
+    onInputBlur(event) {
+      if (typeof this.bvListeners.blur === 'function' && this.focusState !== 'in') {
+        this.focusState = 'out'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (!this.hasFocus) {
+              this.bvListeners.blur(event)
+              this.focusState = null
+            }
+          })
         })
       }
     },
