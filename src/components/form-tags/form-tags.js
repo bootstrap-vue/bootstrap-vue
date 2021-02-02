@@ -2,7 +2,14 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import { EVENT_NAME_TAG_STATE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_TAG_STATE,
+  EVENT_OPTIONS_PASSIVE
+} from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import {
   PROP_TYPE_ARRAY,
@@ -24,7 +31,7 @@ import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { makeModelMixin } from '../../utils/model'
-import { pick, sortKeys } from '../../utils/object'
+import { omit, pick, sortKeys } from '../../utils/object'
 import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
@@ -181,18 +188,13 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        ...pick(
-          this.bvListeners,
-          Object.keys(this.bvListeners).filter(
-            key => !['focus', 'blur', 'focusin', 'focusout'].includes(key)
-          )
-        ),
-        input: this.onInputInput,
+        ...omit(this.bvListeners, [EVENT_NAME_FOCUSIN, EVENT_NAME_FOCUSOUT]),
+        blur: this.onInputBlur,
         change: this.onInputChange,
-        keydown: this.onInputKeydown,
-        reset: this.reset,
         focus: this.onInputFocus,
-        blur: this.onInputBlur
+        input: this.onInputInput,
+        keydown: this.onInputKeydown,
+        reset: this.reset
       }
     },
     computedSeparator() {
@@ -420,12 +422,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     onInputFocus(event) {
-      if (typeof this.bvListeners.focus === 'function' && this.focusState !== 'out') {
+      if (this.focusState !== 'out') {
         this.focusState = 'in'
         this.$nextTick(() => {
           requestAF(() => {
             if (this.hasFocus) {
-              this.bvListeners.focus(event)
+              this.$emit(EVENT_NAME_FOCUS, event)
               this.focusState = null
             }
           })
@@ -433,29 +435,25 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       }
     },
     onInputBlur(event) {
-      if (typeof this.bvListeners.blur === 'function' && this.focusState !== 'in') {
+      if (this.focusState !== 'in') {
         this.focusState = 'out'
         this.$nextTick(() => {
           requestAF(() => {
             if (!this.hasFocus) {
-              this.bvListeners.blur(event)
+              this.$emit(EVENT_NAME_BLUR, event)
               this.focusState = null
             }
           })
         })
       }
     },
-    onFocusin(e) {
+    onFocusin(event) {
       this.hasFocus = true
-      if (typeof this.bvListeners.focusin === 'function') {
-        this.bvListeners.focusin(e)
-      }
+      this.$emit(EVENT_NAME_FOCUSIN, event)
     },
-    onFocusout(e) {
+    onFocusout(event) {
       this.hasFocus = false
-      if (typeof this.bvListeners.focusout === 'function') {
-        this.bvListeners.focusout(e)
-      }
+      this.$emit(EVENT_NAME_FOCUSOUT, event)
     },
     handleAutofocus() {
       this.$nextTick(() => {
