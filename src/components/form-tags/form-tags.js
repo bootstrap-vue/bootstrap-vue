@@ -39,6 +39,7 @@ import { formControlMixin, props as formControlProps } from '../../mixins/form-c
 import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
 import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
 import { idMixin, props as idProps } from '../../mixins/id'
+import { listenersMixin } from '../../mixins/listeners'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
@@ -144,6 +145,7 @@ const props = makePropsConfigurable(
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TAGS,
   mixins: [
+    listenersMixin,
     idMixin,
     modelMixin,
     formControlMixin,
@@ -187,12 +189,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
+        ...this.bvListeners,
         input: this.onInputInput,
         change: this.onInputChange,
         keydown: this.onInputKeydown,
-        reset: this.reset,
-        focus: this.onInputFocus,
-        blur: this.onInputBlur
+        reset: this.reset
       }
     },
     computedSeparator() {
@@ -342,7 +343,9 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
       // Return focus to the input (if possible)
-      this.$nextTick(this.focus)
+      this.$nextTick(() => {
+        this.focus()
+      })
     },
     reset() {
       this.newTag = ''
@@ -421,32 +424,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         !isActiveElement(target) &&
         (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true))
       ) {
-        this.$nextTick(this.focus)
-      }
-    },
-    onInputFocus(event) {
-      if (typeof this.$listeners.focus === 'function' && this.focusState !== 'out') {
-        this.focusState = 'in'
         this.$nextTick(() => {
-          requestAF(() => {
-            if (this.hasFocus) {
-              this.$listeners.focus(event)
-              this.focusState = null
-            }
-          })
-        })
-      }
-    },
-    onInputBlur(event) {
-      if (typeof this.$listeners.blur === 'function' && this.focusState !== 'in') {
-        this.focusState = 'out'
-        this.$nextTick(() => {
-          requestAF(() => {
-            if (!this.hasFocus) {
-              this.$listeners.blur(event)
-              this.focusState = null
-            }
-          })
+          this.focus()
         })
       }
     },
