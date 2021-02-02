@@ -416,16 +416,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(event) {
-      const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
+      const { computeIgnoreInputFocusSelector: ignoreFocusSelector } = this
       const { target } = event
-      if (
-        !this.disabled &&
-        !isActiveElement(target) &&
-        (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true))
-      ) {
-        this.$nextTick(() => {
-          this.focus()
-        })
+      if (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true)) {
+        this.focus()
       }
     },
     onFocusin() {
@@ -437,7 +431,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     handleAutofocus() {
       this.$nextTick(() => {
         requestAF(() => {
-          if (this.autofocus && !this.disabled) {
+          if (this.autofocus) {
             this.focus()
           }
         })
