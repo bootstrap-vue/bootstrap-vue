@@ -162,8 +162,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Tags that were removed
       removedTags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagsState(),
-      focusState: null
+      tagsState: cleanTagsState()
     }
   },
   computed: {
