@@ -147,7 +147,7 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "sass": "^1.32.5",
+    "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
     "standard-version": "^9.1.0",
     "terser": "^5.5.1",
