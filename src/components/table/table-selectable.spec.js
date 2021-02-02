@@ -52,6 +52,47 @@ describe('table > row select', () => {
     wrapper.destroy()
   })
 
+  it('should apply user role if provided, grid role if multiselectable or table role otherwise', async () => {
+    let wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.attributes('role')).toBe('table')
+    wrapper.destroy()
+
+    wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        role: 'foobar'
+      }
+    })
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.attributes('role')).toBe('foobar')
+    wrapper.destroy()
+
+    wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true
+      }
+    })
+
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.attributes('role')).toBe('grid')
+    wrapper.destroy()
+  })
+
   it('should have tabindex but not aria-selected when not selectable and has row-clicked listener', async () => {
     const wrapper = mount(BTable, {
       propsData: {

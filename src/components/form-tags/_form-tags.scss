@@ -1,13 +1,4 @@
 .b-form-tags {
-  .b-form-tags-list {
-    margin-top: -0.25rem;
-
-    .b-from-tags-field,
-    .b-form-tag {
-      margin-top: 0.25rem;
-    }
-  }
-
   &.focus {
     color: $input-focus-color;
     background-color: $input-focus-bg;
@@ -33,6 +24,19 @@
   &.disabled {
     background-color: $input-disabled-bg;
   }
+}
+
+.b-form-tags-list {
+  margin-top: -0.25rem;
+
+  .b-from-tags-field,
+  .b-form-tag {
+    margin-top: 0.25rem;
+  }
+}
+
+.b-form-tags-input {
+  color: $input-color;
 }
 
 .b-form-tag {

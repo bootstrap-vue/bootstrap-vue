@@ -18,15 +18,7 @@ import { RX_SPACES } from '../../constants/regex'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_ADD_BUTTON_TEXT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { cssEscape } from '../../utils/css-escape'
-import {
-  attemptBlur,
-  attemptFocus,
-  closest,
-  isActiveElement,
-  matches,
-  requestAF,
-  select
-} from '../../utils/dom'
+import { attemptBlur, attemptFocus, closest, matches, requestAF, select } from '../../utils/dom'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
@@ -39,6 +31,7 @@ import { formControlMixin, props as formControlProps } from '../../mixins/form-c
 import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
 import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
 import { idMixin, props as idProps } from '../../mixins/id'
+import { listenersMixin } from '../../mixins/listeners'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
@@ -144,6 +137,7 @@ const props = makePropsConfigurable(
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TAGS,
   mixins: [
+    listenersMixin,
     idMixin,
     modelMixin,
     formControlMixin,
@@ -186,6 +180,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
+        ...this.bvListeners,
         input: this.onInputInput,
         change: this.onInputChange,
         keydown: this.onInputKeydown,
@@ -338,10 +333,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   will prevent the tag from being removed (i.e. confirmation)
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
-      // Return focus to the input (if possible)
-      this.$nextTick(() => {
-        this.focus()
-      })
     },
     reset() {
       this.newTag = ''
@@ -413,13 +404,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(event) {
-      const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
-      const { target } = event
-      if (
-        !this.disabled &&
-        !isActiveElement(target) &&
-        (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true))
-      ) {
+      const { computeIgnoreInputFocusSelector: ignoreFocusSelector } = this
+      if (!ignoreFocusSelector || !closest(ignoreFocusSelector, event.target, true)) {
         this.$nextTick(() => {
           this.focus()
         })
@@ -434,7 +420,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     handleAutofocus() {
       this.$nextTick(() => {
         requestAF(() => {
-          if (this.autofocus && !this.disabled) {
+          if (this.autofocus) {
             this.focus()
           }
         })
