@@ -183,8 +183,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       return {
         ...pick(
           this.bvListeners,
-          Object.keys(this.bvListeners).filter(key =>
-            ['focus', 'blur', 'focusin', 'focusout'].includes(key)
+          Object.keys(this.bvListeners).filter(
+            key => !['focus', 'blur', 'focusin', 'focusout'].includes(key)
           )
         ),
         input: this.onInputInput,
@@ -445,11 +445,17 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    onFocusin() {
+    onFocusin(e) {
       this.hasFocus = true
+      if (typeof this.bvListeners.focusin === 'function') {
+        this.bvListeners.focusin(e)
+      }
     },
-    onFocusout() {
+    onFocusout(e) {
       this.hasFocus = false
+      if (typeof this.bvListeners.focusout === 'function') {
+        this.bvListeners.focusout(e)
+      }
     },
     handleAutofocus() {
       this.$nextTick(() => {
