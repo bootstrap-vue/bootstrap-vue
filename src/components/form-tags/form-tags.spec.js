@@ -842,4 +842,41 @@ describe('form-tags', () => {
 
     wrapper.destroy()
   })
+
+  it('emits focus and blur events', async () => {
+    const onFocus = jest.fn()
+    const onBlur = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focus: onFocus,
+        blur: onBlur
+      }
+    })
+
+    expect(onFocus).not.toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    expect(typeof wrapper.vm.$listeners.focus).toBe('function')
+
+    $input.trigger('focus')
+    $input.trigger('focusin')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocus).toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    $input.trigger('blur')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onBlur).toHaveBeenCalled()
+
+    wrapper.destroy()
+  })
 })
