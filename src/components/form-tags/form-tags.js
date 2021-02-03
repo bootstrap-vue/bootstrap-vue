@@ -2,7 +2,14 @@
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
 import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
-import { EVENT_NAME_TAG_STATE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
+  EVENT_NAME_TAG_STATE,
+  EVENT_OPTIONS_PASSIVE
+} from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import {
   PROP_TYPE_ARRAY,
@@ -24,7 +31,7 @@ import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { makeModelMixin } from '../../utils/model'
-import { pick, sortKeys } from '../../utils/object'
+import { omit, pick, sortKeys } from '../../utils/object'
 import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
@@ -154,7 +161,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Tags that were removed
       removedTags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagsState()
+      tagsState: cleanTagsState(),
+      focusState: null
     }
   },
   computed: {
@@ -180,9 +188,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        ...this.bvListeners,
-        input: this.onInputInput,
+        ...omit(this.bvListeners, [EVENT_NAME_FOCUSIN, EVENT_NAME_FOCUSOUT]),
+        blur: this.onInputBlur,
         change: this.onInputChange,
+        focus: this.onInputFocus,
+        input: this.onInputInput,
         keydown: this.onInputKeydown,
         reset: this.reset
       }
@@ -411,11 +421,39 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
         })
       }
     },
-    onFocusin() {
-      this.hasFocus = true
+    onInputFocus(event) {
+      if (this.focusState !== 'out') {
+        this.focusState = 'in'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (this.hasFocus) {
+              this.$emit(EVENT_NAME_FOCUS, event)
+              this.focusState = null
+            }
+          })
+        })
+      }
     },
-    onFocusout() {
+    onInputBlur(event) {
+      if (this.focusState !== 'in') {
+        this.focusState = 'out'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (!this.hasFocus) {
+              this.$emit(EVENT_NAME_BLUR, event)
+              this.focusState = null
+            }
+          })
+        })
+      }
+    },
+    onFocusin(event) {
+      this.hasFocus = true
+      this.$emit(EVENT_NAME_FOCUSIN, event)
+    },
+    onFocusout(event) {
       this.hasFocus = false
+      this.$emit(EVENT_NAME_FOCUSOUT, event)
     },
     handleAutofocus() {
       this.$nextTick(() => {

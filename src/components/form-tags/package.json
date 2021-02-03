@@ -131,6 +131,50 @@
         ],
         "events": [
           {
+            "event": "blur",
+            "description": "Emitted when component loses focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native blur event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focus",
+            "description": "Emitted when component gains focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focus event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focusin",
+            "description": "Emitted when internal elements of component gain focus.",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focusin event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focusout",
+            "description": "Emitted when internal elements of component lose focus.",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focusout event (before any formatting)"
+              }
+            ]
+          },
+          {
             "event": "input",
             "description": "Emitted when the tags changes. Updates the v-model",
             "args": [
