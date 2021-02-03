@@ -705,7 +705,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
           eventOn(el, 'focusin', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
           eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'blur') {
-          // Used to close $tip when element looses focus
+          // Used to close $tip when element loses focus
           /* istanbul ignore next */
           eventOn(el, 'focusout', this.handleEvent, EVENT_OPTIONS_NO_CAPTURE)
         } else if (trigger === 'hover') {
