@@ -83,7 +83,7 @@
     left: 0;
     z-index: 0;
 
-    background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+    background: $b-skeleton-animate-wave-background;
     animation: b-skeleton-animate-wave $b-skeleton-animation-duration linear infinite;
 
     @media (prefers-reduced-motion: reduce) {
