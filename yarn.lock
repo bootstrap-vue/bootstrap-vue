@@ -842,10 +842,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@^7.12.13":
-  version "7.12.13"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.13.tgz#99650a35132de1a13e377d4a63b7286fd95c7e1b"
-  integrity sha512-GCI57RGfODuEv69t3HRv0ZGsZYHZf9Wb2dwne8BXod0UOcTN3HWAunSrSTR42fHTIQD1yj1r8Zx0AINSYz97Ew==
+"@babel/standalone@^7.12.14":
+  version "7.12.14"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.14.tgz#6a0342e1d0a312673807cd83fda197c72fc65fc6"
+  integrity sha512-P8HrOZ8e8BTQW+/mVLlgBu/DSJFAqeQZ8gxIRjgbNB4CytXiEnqkUfOkXQppuCdSrO/DiF/zChTRhTYqBInspQ==
 
 "@babel/template@^7.12.13", "@babel/template@^7.3.3":
   version "7.12.13"
@@ -8958,10 +8958,10 @@ markdown-table@^2.0.0:
   dependencies:
     repeat-string "^1.0.0"
 
-marked@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.8.tgz#5008ece15cfa43e653e85845f3525af4beb6bdd4"
-  integrity sha512-lzmFjGnzWHkmbk85q/ILZjFoHHJIQGF+SxGEfIdGk/XhiTPhqGs37gbru6Kkd48diJnEyYwnG67nru0Z2gQtuQ==
+marked@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.9.tgz#53786f8b05d4c01a2a5a76b7d1ec9943d29d72dc"
+  integrity sha512-H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==
 
 md5.js@^1.3.4:
   version "1.3.5"
