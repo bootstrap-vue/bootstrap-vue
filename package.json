@@ -139,7 +139,7 @@
     "lodash": "^4.17.20",
     "marked": "^1.2.9",
     "nuxt": "^2.14.12",
-    "postcss": "^8.2.4",
+    "postcss": "^8.2.5",
     "postcss-cli": "^8.3.1",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
