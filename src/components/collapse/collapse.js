@@ -102,9 +102,9 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
   mounted() {
     this.show = this[MODEL_PROP_NAME]
     // Listen for toggle events to open/close us
-    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_TOGGLE, this.handleToggleEvt)
+    this.listenOnRoot(ROOT_ACTION_EVENT_NAME_TOGGLE, this.handleToggleEvent)
     // Listen to other collapses for accordion events
-    this.listenOnRoot(ROOT_EVENT_NAME_ACCORDION, this.handleAccordionEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_ACCORDION, this.handleAccordionEvent)
     if (this.isNav) {
       // Set up handlers
       this.setWindowEvents(true)
@@ -219,12 +219,12 @@ export const BCollapse = /*#__PURE__*/ Vue.extend({
         this.show = false
       }
     },
-    handleToggleEvt(id) {
+    handleToggleEvent(id) {
       if (id === this.safeId()) {
         this.toggle()
       }
     },
-    handleAccordionEvt(openedId, openAccordion) {
+    handleAccordionEvent(openedId, openAccordion) {
       const { accordion, show } = this
       if (!accordion || accordion !== openAccordion) {
         return

@@ -447,6 +447,8 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[3][2]).toEqual([])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'three '
@@ -478,6 +480,7 @@ describe('form-tags', () => {
 
     $input.element.value = ' three two '
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: 'polite' })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -489,13 +492,18 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('polite')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(true)
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: null })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
     expect(wrapper.emitted('tag-state').length).toBe(6)
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toBeUndefined()
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toBeUndefined()
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
     $input.element.value = '    '
@@ -833,5 +841,79 @@ describe('form-tags', () => {
     expect($feedback.text()).toContain('Tag limit reached')
 
     wrapper.destroy()
+  })
+
+  it('emits focus and blur events when wrapper gains/loses focus', async () => {
+    const onFocus = jest.fn()
+    const onBlur = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focus: onFocus,
+        blur: onBlur
+      }
+    })
+
+    expect(onFocus).not.toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    expect(typeof wrapper.vm.$listeners.focus).toBe('function')
+
+    $input.trigger('focus')
+    $input.trigger('focusin')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocus).toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    $input.trigger('blur')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onBlur).toHaveBeenCalled()
+
+    wrapper.destroy()
+  })
+
+  it('emits focusin and focusout when internal focus changes', async () => {
+    const onFocusIn = jest.fn()
+    const onFocusOut = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focusin: onFocusIn,
+        focusout: onFocusOut
+      }
+    })
+
+    expect(onFocusIn).not.toHaveBeenCalled()
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    const $tag = wrapper.find('.b-form-tag')
+
+    $input.trigger('focusin')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(1)
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    $tag.trigger('focusin')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(2)
+    expect(onFocusOut).toHaveBeenCalledTimes(1)
   })
 })

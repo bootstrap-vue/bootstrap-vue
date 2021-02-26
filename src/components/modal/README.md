@@ -1,4 +1,4 @@
-# Modals
+# Modal
 
 > Modals are streamlined, but flexible dialog prompts powered by JavaScript and CSS. They support a
 > number of use cases from user notification to completely custom content and feature a handful of
@@ -292,9 +292,9 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
         this.name = ''
         this.nameState = null
       },
-      handleOk(bvModalEvt) {
+      handleOk(bvModalEvent) {
         // Prevent modal from closing
-        bvModalEvt.preventDefault()
+        bvModalEvent.preventDefault()
         // Trigger submit handler
         this.handleSubmit()
       },

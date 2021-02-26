@@ -1,4 +1,4 @@
-# Bootstrap Icons
+# Icons
 
 > Bootstrap Icons are designed to work with Bootstrap components, from form controls to navigation.
 > Bootstrap Icons are SVGs, so they scale quickly and easily and can be styled with CSS. While they
@@ -23,6 +23,8 @@ installed by default. You do not need `bootstrap-icons` as a dependency.
   added in BootstrapVue `v2.19.0`.
 - [Bootstrap Icons `v1.2.0`](https://blog.getbootstrap.com/2020/12/11/bootstrap-icons-1-2-0/) were
   added in BootstrapVue `v2.21.0`.
+- [Bootstrap Icons `v1.3.0`](https://blog.getbootstrap.com/2021/01/07/bootstrap-icons-1-3-0/) were
+  added in BootstrapVue `v2.22.0`.
 
 ## Usage
 
@@ -661,7 +663,7 @@ font scaled by 125%).
 <!-- icons-buttons.vue -->
 ```
 
-### Button groups and toolbars
+### Button Groups and toolbars
 
 #### Button Group
 
@@ -734,7 +736,7 @@ font scaled by 125%).
 <!-- icons-button-toolbar.vue -->
 ```
 
-### Input groups
+### Input Groups
 
 ```html
 <template>
@@ -774,7 +776,7 @@ font scaled by 125%).
 <!-- icons-input-groups.vue -->
 ```
 
-### List groups
+### List Groups
 
 ```html
 <template>
@@ -859,8 +861,7 @@ SVGs are awesome to work with, but they do have some known quirks to work around
 
 ## Icons
 
-The library includes over {{ bootstrapIconsCount }} icons. Use the explorer below to search and
-browse the available icons.
+Use the explorer below to search and browse the available icons.
 
 <!-- Component rendered by `docs/pages/docs/icons.index.js` -->
 <!-- We use a `<div is="...">` to prevent marked loader from mangling the unknown tag -->

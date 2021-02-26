@@ -27,7 +27,7 @@ describe('utils/click-out', () => {
       localVue
     })
 
-    const clickEvt = new MouseEvent('click')
+    const clickEvent = new MouseEvent('click')
 
     expect(wrapper).toBeDefined()
     expect(count).toBe(0)
@@ -39,13 +39,13 @@ describe('utils/click-out', () => {
     expect(count).toBe(0)
     await wrapper.trigger('click')
     expect(count).toBe(0)
-    document.dispatchEvent(clickEvt)
+    document.dispatchEvent(clickEvent)
     await waitNT(wrapper.vm)
     expect(count).toBe(1)
 
     // When `this.listenForClickOut` is `false`
     await wrapper.setData({ listenForClickOut: false })
-    document.dispatchEvent(clickEvt)
+    document.dispatchEvent(clickEvent)
     await waitNT(wrapper.vm)
     expect(count).toBe(1)
 

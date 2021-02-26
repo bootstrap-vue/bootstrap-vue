@@ -3,16 +3,16 @@ import { isNumber, isObject, isString } from '../../utils/inspect'
 import { mathRound } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
-import { BVScrollSpy } from './helpers/bv-scrollspy.class'
+import { BVScrollspy } from './helpers/bv-scrollspy.class'
 
 // Key we use to store our instance
-const BV_SCROLLSPY = '__BV_ScrollSpy__'
+const BV_SCROLLSPY = '__BV_Scrollspy__'
 
 // Pre-compiled regular expressions
 const onlyDigitsRE = /^\d+$/
 const offsetRE = /^(auto|position|offset)$/
 
-// Build a ScrollSpy config based on bindings (if any)
+// Build a Scrollspy config based on bindings (if any)
 // Arguments and modifiers take precedence over passed value config object
 /* istanbul ignore next: not easy to test */
 const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
@@ -47,7 +47,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
     // Value is config object
     // Filter the object based on our supported config options
     keys(bindings.value)
-      .filter(k => !!BVScrollSpy.DefaultType[k])
+      .filter(k => !!BVScrollspy.DefaultType[k])
       .forEach(k => {
         config[k] = bindings.value[k]
       })
@@ -56,7 +56,7 @@ const parseBindings = bindings => /* istanbul ignore next: not easy to test */ {
   return config
 }
 
-// Add or update ScrollSpy on our element
+// Add or update Scrollspy on our element
 const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not easy to test */ {
   if (!IS_BROWSER) {
     /* istanbul ignore next */
@@ -66,11 +66,11 @@ const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not eas
   if (el[BV_SCROLLSPY]) {
     el[BV_SCROLLSPY].updateConfig(config, vnode.context.$root)
   } else {
-    el[BV_SCROLLSPY] = new BVScrollSpy(el, config, vnode.context.$root)
+    el[BV_SCROLLSPY] = new BVScrollspy(el, config, vnode.context.$root)
   }
 }
 
-// Remove ScrollSpy on our element
+// Remove Scrollspy on our element
 /* istanbul ignore next: not easy to test */
 const removeScrollspy = el => /* istanbul ignore next: not easy to test */ {
   if (el[BV_SCROLLSPY]) {

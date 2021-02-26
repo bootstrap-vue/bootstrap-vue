@@ -78,6 +78,8 @@ export const props = makePropsConfigurable(
     // ID of label element
     ariaLabelledby: makeProp(PROP_TYPE_STRING),
     disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    footerTag: makeProp(PROP_TYPE_STRING, 'footer'),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     hidden: makeProp(PROP_TYPE_BOOLEAN, false),
     hideHeader: makeProp(PROP_TYPE_BOOLEAN, false),
     // Explicitly force 12 or 24 hour time
@@ -389,14 +391,22 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    // If hidden, we just render a placeholder comment
     /* istanbul ignore if */
     if (this.hidden) {
-      // If hidden, we just render a placeholder comment
       return h()
     }
 
-    const valueId = this.valueId
-    const computedAriaLabelledby = this.computedAriaLabelledby
+    const {
+      disabled,
+      readonly,
+      computedLocale: locale,
+      computedAriaLabelledby: ariaLabelledby,
+      labelIncrement,
+      labelDecrement,
+      valueId,
+      focus: focusHandler
+    } = this
     const spinIds = []
 
     // Helper method to render a spinbutton
@@ -411,11 +421,11 @@ export const BTime = /*#__PURE__*/ Vue.extend({
           placeholder: '--',
           vertical: true,
           required: true,
-          disabled: this.disabled,
-          readonly: this.readonly,
-          locale: this.computedLocale,
-          labelIncrement: this.labelIncrement,
-          labelDecrement: this.labelDecrement,
+          disabled,
+          readonly,
+          locale,
+          labelIncrement,
+          labelDecrement,
           wrap: true,
           ariaControls: valueId,
           min: 0,
@@ -441,9 +451,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         'div',
         {
           staticClass: 'd-flex flex-column',
-          class: {
-            'text-muted': this.disabled || this.readonly
-          },
+          class: { 'text-muted': disabled || readonly },
           attrs: { 'aria-hidden': 'true' }
         },
         [
@@ -520,14 +528,14 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         staticClass: 'd-flex align-items-center justify-content-center mx-auto',
         attrs: {
           role: 'group',
-          tabindex: this.disabled || this.readonly ? null : '-1',
-          'aria-labelledby': computedAriaLabelledby
+          tabindex: disabled || readonly ? null : '-1',
+          'aria-labelledby': ariaLabelledby
         },
         on: {
           keydown: this.onSpinLeftRight,
           click: /* istanbul ignore next */ event => {
             if (event.target === event.currentTarget) {
-              this.focus()
+              focusHandler()
             }
           }
         }
@@ -541,20 +549,20 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       {
         staticClass: 'form-control form-control-sm text-center',
         class: {
-          disabled: this.disabled || this.readonly
+          disabled: disabled || readonly
         },
         attrs: {
           id: valueId,
           role: 'status',
           for: spinIds.filter(identity).join(' ') || null,
-          tabindex: this.disabled ? null : '-1',
+          tabindex: disabled ? null : '-1',
           'aria-live': this.isLive ? 'polite' : 'off',
           'aria-atomic': 'true'
         },
         on: {
           // Transfer focus/click to focus hours spinner
-          click: this.focus,
-          focus: this.focus
+          click: focusHandler,
+          focus: focusHandler
         }
       },
       [
@@ -563,14 +571,16 @@ export const BTime = /*#__PURE__*/ Vue.extend({
       ]
     )
     const $header = h(
-      'header',
-      { staticClass: 'b-time-header', class: { 'sr-only': this.hideHeader } },
+      this.headerTag,
+      {
+        staticClass: 'b-time-header',
+        class: { 'sr-only': this.hideHeader }
+      },
       [$value]
     )
 
-    // Optional bottom slot
-    let $slot = this.normalizeSlot()
-    $slot = $slot ? h('footer', { staticClass: 'b-time-footer' }, $slot) : h()
+    const $content = this.normalizeSlot()
+    const $footer = $content ? h(this.footerTag, { staticClass: 'b-time-footer' }, $content) : h()
 
     return h(
       'div',
@@ -579,12 +589,12 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         attrs: {
           role: 'group',
           lang: this.computedLang || null,
-          'aria-labelledby': computedAriaLabelledby || null,
-          'aria-disabled': this.disabled ? 'true' : null,
-          'aria-readonly': this.readonly && !this.disabled ? 'true' : null
+          'aria-labelledby': ariaLabelledby || null,
+          'aria-disabled': disabled ? 'true' : null,
+          'aria-readonly': readonly && !disabled ? 'true' : null
         }
       },
-      [$header, $spinners, $slot]
+      [$header, $spinners, $footer]
     )
   }
 })

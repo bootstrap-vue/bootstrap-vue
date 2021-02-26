@@ -1,6 +1,6 @@
-# List group
+# List Group
 
-> List groups are a flexible and powerful component for displaying a series of content. List group
+> List Groups are a flexible and powerful component for displaying a series of content. List Group
 > items can be modified to support just about any content within. They can also be used as
 > navigation via various props.
 
@@ -161,7 +161,7 @@ more with the help of some [flex utility classes](/docs/reference/utility-classe
 <!-- b-list-group-badges.vue -->
 ```
 
-## List groups inside cards
+## List Groups inside cards
 
 Incorporate list groups into [cards](/docs/components/card). Use the `<b-list-group>` prop `flush`
 prop when using cards with `no-body` to make the sides of the list group flush with the card.
@@ -247,7 +247,7 @@ help of [flexbox utility classes](/docs/reference/utility-classes).
 <b-list-group>
   <b-list-group-item href="#" active class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
+      <h5 class="mb-1">List Group item heading</h5>
       <small>3 days ago</small>
     </div>
 
@@ -260,7 +260,7 @@ help of [flexbox utility classes](/docs/reference/utility-classes).
 
   <b-list-group-item href="#" class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
+      <h5 class="mb-1">List Group item heading</h5>
       <small class="text-muted">3 days ago</small>
     </div>
 
@@ -273,7 +273,7 @@ help of [flexbox utility classes](/docs/reference/utility-classes).
 
   <b-list-group-item href="#" disabled class="flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Disabled List group item</h5>
+      <h5 class="mb-1">Disabled List Group item</h5>
       <small class="text-muted">3 days ago</small>
     </div>
 

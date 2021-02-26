@@ -300,7 +300,9 @@ describe('dropdown', () => {
         block: true
       }
     })
+
     expect(wrapper.classes()).not.toContain('btn-group')
+
     wrapper.destroy()
   })
 
@@ -312,8 +314,10 @@ describe('dropdown', () => {
         split: true
       }
     })
+
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.classes()).toContain('d-flex')
+
     wrapper.destroy()
   })
 
@@ -324,7 +328,9 @@ describe('dropdown', () => {
         noCaret: true
       }
     })
+
     expect(wrapper.find('.dropdown-toggle').classes()).toContain('dropdown-toggle-no-caret')
+
     wrapper.destroy()
   })
 
@@ -336,7 +342,9 @@ describe('dropdown', () => {
         split: true
       }
     })
+
     expect(wrapper.find('.dropdown-toggle').classes()).not.toContain('dropdown-toggle-no-caret')
+
     wrapper.destroy()
   })
 
@@ -347,7 +355,22 @@ describe('dropdown', () => {
         toggleTag: 'div'
       }
     })
+
     expect(wrapper.find('.dropdown-toggle').element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
+  it('should have attributes on toggle when "toggle-attrs" prop is set', async () => {
+    const wrapper = mount(BDropdown, {
+      attachTo: createContainer(),
+      propsData: {
+        toggleAttrs: { 'data-foo-bar': 'foo-bar' }
+      }
+    })
+
+    expect(wrapper.find('.dropdown-toggle').attributes('data-foo-bar')).toBe('foo-bar')
+
     wrapper.destroy()
   })
 
@@ -358,17 +381,21 @@ describe('dropdown', () => {
         dropup: true
       }
     })
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropup')
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+
     wrapper.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropup')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+
     wrapper.destroy()
   })
 
@@ -379,17 +406,21 @@ describe('dropdown', () => {
         dropright: true
       }
     })
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropright')
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+
     wrapper.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropright')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+
     wrapper.destroy()
   })
 
@@ -400,17 +431,21 @@ describe('dropdown', () => {
         dropleft: true
       }
     })
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropleft')
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+
     wrapper.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('dropleft')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+
     wrapper.destroy()
   })
 
@@ -423,10 +458,12 @@ describe('dropdown', () => {
         split: true
       }
     })
+
     const $buttons = wrapper.findAll('button')
     const $split = $buttons.at(0)
-
     expect($split.classes()).toContain(splitClass)
+
+    wrapper.destroy()
   })
 
   it('menu should have class dropdown-menu-right when prop right set', async () => {
@@ -436,17 +473,21 @@ describe('dropdown', () => {
         right: true
       }
     })
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).not.toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('dropdown-menu-right')
     expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
+
     wrapper.vm.show()
     await waitNT(wrapper.vm)
     await waitRAF()
+
     expect(wrapper.classes()).toContain('dropdown')
     expect(wrapper.classes()).toContain('show')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('dropdown-menu-right')
     expect(wrapper.find('.dropdown-menu').classes()).toContain('show')
+
     wrapper.destroy()
   })
 
