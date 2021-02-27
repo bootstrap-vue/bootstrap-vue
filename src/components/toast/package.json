@@ -2,7 +2,7 @@
   "name": "@bootstrap-vue/toast",
   "version": "1.0.0",
   "meta": {
-    "title": "Toasts",
+    "title": "Toast",
     "slug": "toast",
     "description": "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.",
     "plugins": [
@@ -27,6 +27,11 @@
           {
             "prop": "headerClass",
             "description": "CSS class (or classes) to add to the toast header element"
+          },
+          {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
           },
           {
             "prop": "isStatus",

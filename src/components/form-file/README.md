@@ -1,4 +1,4 @@
-# Form File Input
+# Form File
 
 > Customized, cross-browser consistent, file input control that supports single file, multiple
 > files, and directory upload (for browsers that support directory mode).

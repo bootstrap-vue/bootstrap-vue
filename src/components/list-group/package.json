@@ -2,8 +2,8 @@
   "name": "@bootstrap-vue/list-group",
   "version": "1.0.0",
   "meta": {
-    "title": "List group",
-    "description": "List groups are a flexible and powerful component for displaying a series of content. List group items can be modified to support just about any content within. They can also be used as navigation via various props.",
+    "title": "List Group",
+    "description": "List Groups are a flexible and powerful component for displaying a series of content. List Group items can be modified to support just about any content within. They can also be used as navigation via various props.",
     "components": [
       {
         "component": "BListGroup",

@@ -1,4 +1,4 @@
-# Form Checkbox Inputs
+# Form Checkbox
 
 > For cross browser consistency, `<b-form-checkbox-group>` and `<b-form-checkbox>` use Bootstrap's
 > custom checkbox input to replace the browser default checkbox input. It is built on top of

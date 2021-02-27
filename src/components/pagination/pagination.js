@@ -102,13 +102,13 @@ export const BPagination = /*#__PURE__*/ Vue.extend({
       const { target } = event
 
       // Emit a user-cancelable `page-click` event
-      const clickEvt = new BvEvent(EVENT_NAME_PAGE_CLICK, {
+      const clickEvent = new BvEvent(EVENT_NAME_PAGE_CLICK, {
         cancelable: true,
         vueTarget: this,
         target
       })
-      this.$emit(clickEvt.type, clickEvt, pageNumber)
-      if (clickEvt.defaultPrevented) {
+      this.$emit(clickEvent.type, clickEvent, pageNumber)
+      if (clickEvent.defaultPrevented) {
         return
       }
 

@@ -1,4 +1,4 @@
-# Form group
+# Form Group
 
 > The `<b-form-group>` component is the easiest way to add some structure to forms. Its purpose is
 > to pair form controls with a legend or label, and to provide help text and invalid/valid feedback

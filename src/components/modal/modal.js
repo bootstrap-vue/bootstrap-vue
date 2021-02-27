@@ -128,6 +128,7 @@ export const props = makePropsConfigurable(
     footerBgVariant: makeProp(PROP_TYPE_STRING),
     footerBorderVariant: makeProp(PROP_TYPE_STRING),
     footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    footerTag: makeProp(PROP_TYPE_STRING, 'footer'),
     footerTextVariant: makeProp(PROP_TYPE_STRING),
     headerBgVariant: makeProp(PROP_TYPE_STRING),
     headerBorderVariant: makeProp(PROP_TYPE_STRING),
@@ -135,6 +136,7 @@ export const props = makePropsConfigurable(
     headerCloseContent: makeProp(PROP_TYPE_STRING, '&times;'),
     headerCloseLabel: makeProp(PROP_TYPE_STRING, 'Close'),
     headerCloseVariant: makeProp(PROP_TYPE_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     headerTextVariant: makeProp(PROP_TYPE_STRING),
     // TODO: Rename to `noBackdrop` and deprecate `hideBackdrop`
     hideBackdrop: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -376,6 +378,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
   },
   beforeDestroy() {
     // Ensure everything is back to normal
+    modalManager.unregisterModal(this)
     this.setObserver(false)
     if (this.isVisible) {
       this.isVisible = false
@@ -434,12 +437,12 @@ export const BModal = /*#__PURE__*/ Vue.extend({
       this.isOpening = true
       // Set the element to return focus to when closed
       this.$_returnFocus = this.$_returnFocus || this.getActiveElement()
-      const showEvt = this.buildEvent(EVENT_NAME_SHOW, {
+      const showEvent = this.buildEvent(EVENT_NAME_SHOW, {
         cancelable: true
       })
-      this.emitEvent(showEvt)
+      this.emitEvent(showEvent)
       // Don't show if canceled
-      if (showEvt.defaultPrevented || this.isVisible) {
+      if (showEvent.defaultPrevented || this.isVisible) {
         this.isOpening = false
         // Ensure the v-model reflects the current state
         this.updateModel(false)
@@ -455,21 +458,21 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         return
       }
       this.isClosing = true
-      const hideEvt = this.buildEvent(EVENT_NAME_HIDE, {
+      const hideEvent = this.buildEvent(EVENT_NAME_HIDE, {
         cancelable: trigger !== TRIGGER_FORCE,
         trigger: trigger || null
       })
       // We emit specific event for one of the three built-in buttons
       if (trigger === BUTTON_OK) {
-        this.$emit(EVENT_NAME_OK, hideEvt)
+        this.$emit(EVENT_NAME_OK, hideEvent)
       } else if (trigger === BUTTON_CANCEL) {
-        this.$emit(EVENT_NAME_CANCEL, hideEvt)
+        this.$emit(EVENT_NAME_CANCEL, hideEvent)
       } else if (trigger === BUTTON_CLOSE) {
-        this.$emit(EVENT_NAME_CLOSE, hideEvt)
+        this.$emit(EVENT_NAME_CLOSE, hideEvent)
       }
-      this.emitEvent(hideEvt)
+      this.emitEvent(hideEvent)
       // Hide if not canceled
-      if (hideEvt.defaultPrevented || !this.isVisible) {
+      if (hideEvent.defaultPrevented || !this.isVisible) {
         this.isClosing = false
         // Ensure v-model reflects current state
         this.updateModel(true)
@@ -813,7 +816,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
 
         $header = h(
-          'header',
+          this.headerTag,
           {
             staticClass: 'modal-header',
             class: this.headerClasses,
@@ -887,7 +890,7 @@ export const BModal = /*#__PURE__*/ Vue.extend({
         }
 
         $footer = h(
-          'footer',
+          this.footerTag,
           {
             staticClass: 'modal-footer',
             class: this.footerClasses,

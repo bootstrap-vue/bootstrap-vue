@@ -1,5 +1,5 @@
 /*
- * ScrollSpy class definition
+ * Scrollspy class definition
  */
 
 import { EVENT_OPTIONS_NO_CAPTURE } from '../../../constants/events'
@@ -115,7 +115,7 @@ const typeCheckConfig = (
  */
 
 /* istanbul ignore next: not easy to test */
-export class BVScrollSpy /* istanbul ignore next: not easy to test */ {
+export class BVScrollspy /* istanbul ignore next: not easy to test */ {
   constructor(element, config, $root) {
     // The element we activate links in
     this.$el = element

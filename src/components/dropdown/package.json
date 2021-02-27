@@ -99,6 +99,11 @@
             "description": "Text to place in the toggle button, or in the split button is split mode"
           },
           {
+            "prop": "toggleAttrs",
+            "version": "2.22.0",
+            "description": "Additional attributes to apply to the toggle button"
+          },
+          {
             "prop": "toggleClass",
             "description": "CSS class (or classes) to add to the toggle button"
           },

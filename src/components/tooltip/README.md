@@ -1,4 +1,4 @@
-# Tooltips
+# Tooltip
 
 > Easily add tooltips to elements or components via the `<b-tooltip>` component or
 > [`v-b-tooltip`](/docs/directives/tooltip) directive (preferred method).

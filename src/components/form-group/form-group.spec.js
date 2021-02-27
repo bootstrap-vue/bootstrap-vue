@@ -321,14 +321,12 @@ describe('form-group', () => {
     const $invalidFeedback = wrapper.find('.invalid-feedback')
     expect($invalidFeedback.exists()).toBe(true)
     expect($invalidFeedback.text()).toEqual('bar')
-    expect($invalidFeedback.attributes('role')).toEqual('alert')
     expect($invalidFeedback.attributes('aria-live')).toEqual('assertive')
     expect($invalidFeedback.attributes('aria-atomic')).toEqual('true')
 
     const $validFeedback = wrapper.find('.valid-feedback')
     expect($validFeedback.exists()).toBe(true)
     expect($validFeedback.text()).toEqual('baz')
-    expect($validFeedback.attributes('role')).toEqual('alert')
     expect($validFeedback.attributes('aria-live')).toEqual('assertive')
     expect($validFeedback.attributes('aria-atomic')).toEqual('true')
 
@@ -373,14 +371,12 @@ describe('form-group', () => {
     let $invalidFeedback = wrapper.find('.invalid-feedback')
     expect($invalidFeedback.exists()).toBe(true)
     expect($invalidFeedback.text()).toEqual('bar')
-    expect($invalidFeedback.attributes('role')).toEqual('alert')
     expect($invalidFeedback.attributes('aria-live')).toEqual('polite')
     expect($invalidFeedback.attributes('aria-atomic')).toEqual('true')
 
     let $validFeedback = wrapper.find('.valid-feedback')
     expect($validFeedback.exists()).toBe(true)
     expect($validFeedback.text()).toEqual('baz')
-    expect($validFeedback.attributes('role')).toEqual('alert')
     expect($validFeedback.attributes('aria-live')).toEqual('polite')
     expect($validFeedback.attributes('aria-atomic')).toEqual('true')
 

@@ -105,6 +105,11 @@
             "description": "Applies one of the Bootstrap theme color variants to the footer text"
           },
           {
+            "prop": "footerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+          },
+          {
             "prop": "headerBgVariant",
             "description": "Applies one of the Bootstrap theme color variants to the header background"
           },
@@ -132,6 +137,11 @@
           {
             "prop": "headerTextVariant",
             "description": "Applies one of the Bootstrap theme color variants to the header text"
+          },
+          {
+            "prop": "headerTag",
+            "version": "2.22.0",
+            "description": "Specify the HTML tag to render instead of the default tag for the footer"
           },
           {
             "prop": "hideBackdrop",

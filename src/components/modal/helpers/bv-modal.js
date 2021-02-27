@@ -147,11 +147,11 @@ const plugin = Vue => {
           reject(new Error('BootstrapVue MsgBox destroyed before resolve'))
         }
       })
-      msgBox.$on(EVENT_NAME_HIDE, bvModalEvt => {
-        if (!bvModalEvt.defaultPrevented) {
-          const result = resolver(bvModalEvt)
+      msgBox.$on(EVENT_NAME_HIDE, bvModalEvent => {
+        if (!bvModalEvent.defaultPrevented) {
+          const result = resolver(bvModalEvent)
           // If resolver didn't cancel hide, we resolve
-          if (!bvModalEvt.defaultPrevented) {
+          if (!bvModalEvent.defaultPrevented) {
             resolved = true
             resolve(result)
           }
@@ -240,8 +240,8 @@ const plugin = Vue => {
         cancelDisabled: false,
         hideFooter: false
       }
-      return makeMsgBox(this._vm, message, props, bvModalEvt => {
-        const trigger = bvModalEvt.trigger
+      return makeMsgBox(this._vm, message, props, bvModalEvent => {
+        const trigger = bvModalEvent.trigger
         return trigger === 'ok' ? true : trigger === 'cancel' ? false : null
       })
     }

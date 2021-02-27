@@ -82,16 +82,16 @@ export const tbodyRowMixin = Vue.extend({
     // Row event handlers
     rowHovered(event) {
       // `mouseenter` handler (non-bubbling)
-      // `this.tbodyRowEvtStopped` from tbody mixin
-      if (!this.tbodyRowEvtStopped(event)) {
+      // `this.tbodyRowEventStopped` from tbody mixin
+      if (!this.tbodyRowEventStopped(event)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent(EVENT_NAME_ROW_HOVERED, event)
       }
     },
     rowUnhovered(event) {
       // `mouseleave` handler (non-bubbling)
-      // `this.tbodyRowEvtStopped` from tbody mixin
-      if (!this.tbodyRowEvtStopped(event)) {
+      // `this.tbodyRowEventStopped` from tbody mixin
+      if (!this.tbodyRowEventStopped(event)) {
         // `this.emitTbodyRowEvent` from tbody mixin
         this.emitTbodyRowEvent(EVENT_NAME_ROW_UNHOVERED, event)
       }

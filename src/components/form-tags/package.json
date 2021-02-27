@@ -30,6 +30,11 @@
             "description": "The message when duplicate tags are detected. Set to an empty string to disable the message"
           },
           {
+            "prop": "feedbackAriaLive",
+            "version": "2.22.0",
+            "description": "Value to use for the `aria-live` attribute on the feedback text"
+          },
+          {
             "prop": "ignoreInputFocusSelector",
             "version": "2.16.0",
             "description": "Ignore certain elements from the click to focus input routine, specified by css selector(s)"
@@ -125,6 +130,50 @@
           }
         ],
         "events": [
+          {
+            "event": "blur",
+            "description": "Emitted when component loses focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native blur event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focus",
+            "description": "Emitted when component gains focus",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focus event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focusin",
+            "description": "Emitted when internal elements of component gain focus.",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focusin event (before any formatting)"
+              }
+            ]
+          },
+          {
+            "event": "focusout",
+            "description": "Emitted when internal elements of component lose focus.",
+            "args": [
+              {
+                "arg": "event",
+                "type": "FocusEvent",
+                "description": "Native focusout event (before any formatting)"
+              }
+            ]
+          },
           {
             "event": "input",
             "description": "Emitted when the tags changes. Updates the v-model",

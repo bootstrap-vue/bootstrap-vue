@@ -33,7 +33,7 @@
   &.b-icon-animation-fade,
   &.b-iconstack .b-icon-animation-fade > g {
     transform-origin: center;
-    animation: $b-icon-animation-throb-duration infinite ease-in-out alternate b-icon-animation-fade;
+    animation: $b-icon-animation-fade-duration infinite ease-in-out alternate b-icon-animation-fade;
 
     @media (prefers-reduced-motion: reduce) {
       animation: none;

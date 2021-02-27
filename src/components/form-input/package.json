@@ -77,7 +77,7 @@
         "events": [
           {
             "event": "blur",
-            "description": "Emitted after the input looses focus",
+            "description": "Emitted after the input loses focus",
             "args": [
               {
                 "arg": "event",

@@ -64,6 +64,7 @@ export const props = makePropsConfigurable(
     autoHideDelay: makeProp(PROP_TYPE_NUMBER_STRING, 5000),
     bodyClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     headerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    headerTag: makeProp(PROP_TYPE_STRING, 'header'),
     // Switches role to 'status' and aria-live to 'polite'
     isStatus: makeProp(PROP_TYPE_BOOLEAN, false),
     noAutoHide: makeProp(PROP_TYPE_BOOLEAN, false),
@@ -210,8 +211,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     show() {
       if (!this.localShow) {
         this.ensureToaster()
-        const showEvt = this.buildEvent(EVENT_NAME_SHOW)
-        this.emitEvent(showEvt)
+        const showEvent = this.buildEvent(EVENT_NAME_SHOW)
+        this.emitEvent(showEvent)
         this.dismissStarted = this.resumeDismiss = 0
         this.order = Date.now() * (this.appendToast ? 1 : -1)
         this.isHiding = false
@@ -227,8 +228,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     hide() {
       if (this.localShow) {
-        const hideEvt = this.buildEvent(EVENT_NAME_HIDE)
-        this.emitEvent(hideEvt)
+        const hideEvent = this.buildEvent(EVENT_NAME_HIDE)
+        this.emitEvent(hideEvent)
         this.setHoverHandler(false)
         this.dismissStarted = this.resumeDismiss = 0
         this.clearDismissTimer()
@@ -321,8 +322,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     },
     onAfterEnter() {
       this.isTransitioning = false
-      const hiddenEvt = this.buildEvent(EVENT_NAME_SHOWN)
-      this.emitEvent(hiddenEvt)
+      const hiddenEvent = this.buildEvent(EVENT_NAME_SHOWN)
+      this.emitEvent(hiddenEvent)
       this.startDismissTimer()
       this.setHoverHandler(true)
     },
@@ -333,8 +334,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       this.isTransitioning = false
       this.order = 0
       this.resumeDismiss = this.dismissStarted = 0
-      const hiddenEvt = this.buildEvent(EVENT_NAME_HIDDEN)
-      this.emitEvent(hiddenEvt)
+      const hiddenEvent = this.buildEvent(EVENT_NAME_HIDDEN)
+      this.emitEvent(hiddenEvent)
       this.doRender = false
     },
     // Render helper for generating the toast
@@ -366,8 +367,11 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       let $header = h()
       if ($headerContent.length > 0) {
         $header = h(
-          'header',
-          { staticClass: 'toast-header', class: this.headerClass },
+          this.headerTag,
+          {
+            staticClass: 'toast-header',
+            class: this.headerClass
+          },
           $headerContent
         )
       }

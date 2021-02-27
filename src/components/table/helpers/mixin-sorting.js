@@ -34,9 +34,9 @@ const SORT_DIRECTIONS = [SORT_DIRECTION_ASC, SORT_DIRECTION_DESC, SORT_DIRECTION
 // --- Props ---
 
 export const props = {
-  labelSortAsc: makeProp(PROP_TYPE_STRING, 'Click to sort Ascending'),
+  labelSortAsc: makeProp(PROP_TYPE_STRING, 'Click to sort ascending'),
   labelSortClear: makeProp(PROP_TYPE_STRING, 'Click to clear sorting'),
-  labelSortDesc: makeProp(PROP_TYPE_STRING, 'Click to sort Descending'),
+  labelSortDesc: makeProp(PROP_TYPE_STRING, 'Click to sort descending'),
   noFooterSorting: makeProp(PROP_TYPE_BOOLEAN, false),
   noLocalSorting: makeProp(PROP_TYPE_BOOLEAN, false),
   // Another prop that should have had a better name
@@ -254,37 +254,38 @@ export const sortingMixin = Vue.extend({
         'aria-sort': ariaSort
       }
     },
+    // A label to be placed in an `.sr-only` element in the header cell
     sortTheadThLabel(key, field, isFoot) {
-      // A label to be placed in an `.sr-only` element in the header cell
+      // No label if not a sortable table
       if (!this.isSortable || (isFoot && this.noFooterSorting)) {
-        // No label if not a sortable table
         return null
       }
-      const sortable = field.sortable
-      // The correctness of these labels is very important for screen-reader users.
+      const { localSortBy, localSortDesc, labelSortAsc, labelSortDesc } = this
+      const { sortable } = field
+      // The correctness of these labels is very important for screen reader users
       let labelSorting = ''
       if (sortable) {
-        if (this.localSortBy === key) {
-          // currently sorted sortable column.
-          labelSorting = this.localSortDesc ? this.labelSortAsc : this.labelSortDesc
+        if (localSortBy === key) {
+          // Currently sorted sortable column
+          labelSorting = localSortDesc ? labelSortAsc : labelSortDesc
         } else {
-          // Not currently sorted sortable column.
+          // Not currently sorted sortable column
           // Not using nested ternary's here for clarity/readability
-          // Default for ariaLabel
-          labelSorting = this.localSortDesc ? this.labelSortDesc : this.labelSortAsc
-          // Handle sortDirection setting
+          // Default for `aria-label`
+          labelSorting = localSortDesc ? labelSortDesc : labelSortAsc
+          // Handle `sortDirection` setting
           const sortDirection = this.sortDirection || field.sortDirection
           if (sortDirection === SORT_DIRECTION_ASC) {
-            labelSorting = this.labelSortAsc
+            labelSorting = labelSortAsc
           } else if (sortDirection === SORT_DIRECTION_DESC) {
-            labelSorting = this.labelSortDesc
+            labelSorting = labelSortDesc
           }
         }
       } else if (!this.noSortReset) {
         // Non sortable column
-        labelSorting = this.localSortBy ? this.labelSortClear : ''
+        labelSorting = localSortBy ? this.labelSortClear : ''
       }
-      // Return the sr-only sort label or null if no label
+      // Return the `.sr-only` sort label or `null` if no label
       return trim(labelSorting) || null
     }
   }

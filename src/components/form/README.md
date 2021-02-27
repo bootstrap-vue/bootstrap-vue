@@ -198,9 +198,9 @@ See also:
 - [`<b-form-timepicker>`](/docs/components/form-timepicker) Time picker custom form input
 - [`<b-form-rating>`](/docs/components/form-rating) Star rating custom form input and display
 - [`<b-button>`](/docs/components/button) Buttons
-- [`<b-form-group>`](/docs/components/form-group) Form input wrapper to generate form-groups that
+- [`<b-form-group>`](/docs/components/form-group) Form Input wrapper to generate form-groups that
   support labels, help text and feedback
-- [`<b-input-group>`](/docs/components/input-group) Form inputs with add-ons
+- [`<b-input-group>`](/docs/components/input-group) Form Inputs with add-ons
 - [`<b-form-row>`](/docs/components/layout) Create grid rows and columns with tighter margins
   (available via the [Layout and grid components](/docs/components/layout))
 

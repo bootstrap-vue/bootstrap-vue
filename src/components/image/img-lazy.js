@@ -4,6 +4,7 @@ import { HAS_INTERACTION_OBSERVER_SUPPORT } from '../../constants/env'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { concat } from '../../utils/array'
+import { requestAF } from '../../utils/dom'
 import { identity } from '../../utils/identity'
 import { toInteger } from '../../utils/number'
 import { omit } from '../../utils/object'
@@ -23,7 +24,6 @@ const imgProps = omit(BImgProps, ['blank'])
 export const props = makePropsConfigurable(
   {
     ...imgProps,
-    blankColor: makeProp(PROP_TYPE_STRING, 'transparent'),
     blankHeight: makeProp(PROP_TYPE_NUMBER_STRING),
     // If `null`, a blank image is generated
     blankSrc: makeProp(PROP_TYPE_STRING, null),
@@ -71,14 +71,14 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         .filter(identity)
         .join(',')
 
-      return !this.blankSrc || this.isShown ? srcset : null
+      return srcset && (!this.blankSrc || this.isShown) ? srcset : null
     },
     computedSizes() {
       const sizes = concat(this.sizes)
         .filter(identity)
         .join(',')
 
-      return !this.blankSrc || this.isShown ? sizes : null
+      return sizes && (!this.blankSrc || this.isShown) ? sizes : null
     }
   },
   watch: {
@@ -90,7 +90,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
         this.isShown = visible
 
         // Ensure the show prop is synced (when no `IntersectionObserver`)
-        if (visible !== newValue) {
+        if (newValue !== visible) {
           this.$nextTick(this.updateShowProp)
         }
       }
@@ -114,7 +114,11 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       // If IntersectionObserver is not supported, the callback
       // will be called with `null` rather than `true` or `false`
       if ((visible || visible === null) && !this.isShown) {
-        this.isShown = true
+        // In a `requestAF()` to render the `blank` placeholder properly
+        // for fast loading images in some browsers (i.e. Firefox)
+        requestAF(() => {
+          this.isShown = true
+        })
       }
     }
   },
@@ -124,7 +128,7 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
       // We only add the visible directive if we are not shown
       directives.push({
         // Visible directive will silently do nothing if
-        // IntersectionObserver is not supported
+        // `IntersectionObserver` is not supported
         name: 'b-visible',
         // Value expects a callback (passed one arg of `visible` = `true` or `false`)
         value: this.doShow,
@@ -140,15 +144,15 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
     return h(BImg, {
       directives,
       props: {
+        // Passthrough props
+        ...pluckProps(imgProps, this.$props),
         // Computed value props
         src: this.computedSrc,
         blank: this.computedBlank,
         width: this.computedWidth,
         height: this.computedHeight,
-        srcset: this.computedSrcset || null,
-        sizes: this.computedSizes || null,
-        // Passthrough props
-        ...pluckProps(imgProps, this.$props)
+        srcset: this.computedSrcset,
+        sizes: this.computedSizes
       }
     })
   }
