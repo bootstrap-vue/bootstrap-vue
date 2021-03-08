@@ -183,7 +183,7 @@ export const props = makePropsConfigurable(
       return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     }),
     // Has no effect if prop `block` is set
-    width: makeProp(PROP_TYPE_STRING, '270px'),
+    width: makeProp(PROP_TYPE_STRING, '270px')
   }),
   NAME_CALENDAR
 )
@@ -1017,7 +1017,7 @@ export const BCalendar = Vue.extend({
           classes = this.computedTodayDateButtonClasses
         } else if (!day.isThisMonth) {
           classes = this.computedOtherMonthDateButtonClasses
-        } 
+        }
 
         // "fake" button
         const $btn = h(

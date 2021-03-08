@@ -410,7 +410,7 @@ describe('calendar', () => {
     const $buttons = $nav.findAll('button')
 
     expect($buttons.length).toBe(5)
-    for(let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       expect($buttons.at(i).classes()).toContain('btn-primary')
       expect($buttons.at(i).classes()).not.toContain('btn-outline-primary')
     }
@@ -429,7 +429,7 @@ describe('calendar', () => {
     const $buttons = $nav.findAll('button')
 
     expect($buttons.length).toBe(5)
-    for(let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       expect($buttons.at(i).classes()).toContain('btn-primary')
       expect($buttons.at(i).classes()).not.toContain('btn-outline-secondary')
     }
@@ -542,7 +542,7 @@ describe('calendar', () => {
       const $button = $cell.find('span')
       const isSelected = $cell.attributes('data-date') === '2021-01-01' // expect selected date to remain untouched
 
-      if(inMonth && !isSelected) {
+      if (inMonth && !isSelected) {
         expect($button.classes()).toContain('btn-info')
       } else {
         expect($button.classes()).not.toContain('btn-info')
@@ -646,8 +646,8 @@ describe('calendar', () => {
     const $cells = $grid.findAll('[data-date]:not([data-date^="2021-02"])')
     expect($cells.length).toBe(7)
 
-    for(let i = 0; i < $cells.length; i++) {
-      const $button = $cells.at(i).find('span');
+    for (let i = 0; i < $cells.length; i++) {
+      const $button = $cells.at(i).find('span')
       expect($button.classes()).toContain('btn-success')
       expect($button.classes()).toContain('text-warning')
       expect($button.classes()).toContain('shadow')
