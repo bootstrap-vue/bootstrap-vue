@@ -648,6 +648,60 @@ describe('tabs', () => {
     wrapper.destroy()
   })
 
+  it('tabs-before slot is injected at the right place', async () => {
+    const wrapper = mount(BTabs, {
+      slots: {
+        default: [BTab, BTab],
+        'tabs-before': '<span class="test-tabs-before">foobar</span>'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAllComponents(BTab).length).toBe(2)
+
+    // check existance
+    const spans = wrapper.findAll('span.test-tabs-before')
+    expect(spans).toBeDefined()
+    expect(spans.length).toBe(1)
+    expect(spans.at(0).text()).toBe('foobar')
+
+    // check order
+    const childs = wrapper.findAll('div.tabs > div:first-of-type > *')
+    expect(childs.length).toBe(2)
+    expect(childs.at(0).classes().length).toBe(1)
+    expect(childs.at(0).classes()).toContain('test-tabs-before')
+    expect(childs.at(0).text()).toBe('foobar')
+    expect(childs.at(1).classes().length).toBe(2)
+    expect(childs.at(1).classes()).toContain('nav')
+    expect(childs.at(1).classes()).toContain('nav-tabs')
+  })
+
+  it('tabs-after slot is injected at the right place', async () => {
+    const wrapper = mount(BTabs, {
+      slots: {
+        default: [BTab, BTab],
+        'tabs-after': '<span class="test-tabs-after">foobar</span>'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    expect(wrapper.findAllComponents(BTab).length).toBe(2)
+
+    // check existance
+    const spans = wrapper.findAll('span.test-tabs-after')
+    expect(spans).toBeDefined()
+    expect(spans.length).toBe(1)
+    expect(spans.at(0).text()).toBe('foobar')
+
+    // check order
+    const childs = wrapper.findAll('div.tabs > div:first-of-type > *')
+    expect(childs.length).toBe(2)
+    expect(childs.at(0).classes().length).toBe(2)
+    expect(childs.at(0).classes()).toContain('nav')
+    expect(childs.at(0).classes()).toContain('nav-tabs')
+    expect(childs.at(1).classes().length).toBe(1)
+    expect(childs.at(1).classes()).toContain('test-tabs-after')
+    expect(childs.at(1).text()).toBe('foobar')
+  })
+
   it('"active-nav-item-class" is applied to active nav item', async () => {
     const activeNavItemClass = 'text-success'
     const App = {
