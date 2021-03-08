@@ -572,4 +572,28 @@ It is recommended to use the `disabled` attribute on the `<b-tab>` component ins
 <!-- b-tabs-dynamic.vue -->
 ```
 
+### Card title using tabs-before slot
+
+```html
+<template>
+  <div>
+    <b-card no-body>
+      <b-tabs card>
+        <template #tabs-before>
+          <b-card-title>Card Title</b-card-title>
+        </template>
+        <b-tab title="Tab 1">
+          Tab contents 1
+        </b-tab>
+        <b-tab title="Tab 2">
+          Tab contents 1
+        </b-tab>
+      </b-tabs>
+    </b-card>
+  </div>
+</template>
+
+<!-- b-tabs-card-title.vue -->
+```
+
 <!-- Component reference added automatically from component package.json -->
