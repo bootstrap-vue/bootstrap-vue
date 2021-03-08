@@ -22,6 +22,7 @@ import {
   CODE_UP
 } from '../../constants/key-codes'
 import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_ARRAY_STRING,
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_DATE_STRING,
@@ -172,7 +173,14 @@ export const props = makePropsConfigurable(
       return arrayIncludes([CALENDAR_LONG, CALENDAR_SHORT, CALENDAR_NARROW], value)
     }),
     // Has no effect if prop `block` is set
-    width: makeProp(PROP_TYPE_STRING, '270px')
+    width: makeProp(PROP_TYPE_STRING, '270px'),
+
+    dateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    otherMonthDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    todayDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    selectedDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+
+    navButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
   }),
   NAME_CALENDAR
 )
@@ -299,6 +307,22 @@ export const BCalendar = Vue.extend({
     computedNavButtonVariant() {
       return `btn-outline-${this.navButtonVariant || 'primary'}`
     },
+    computedNavButtonClasses() {
+      return this.navButtonClass || this.computedNavButtonVariant
+    },
+    computedDateButtonClasses() {
+      return this.dateButtonClass || ['btn-outline-light', 'text-dark', 'font-weight-bold']
+    },
+    computedOtherMonthDateButtonClasses() {
+      return this.otherMonthDateButtonClass || ['btn-outline-light', 'text-muted']
+    },
+    computedTodayDateButtonClasses() {
+      return this.todayDateButtonClass || [this.computedTodayVariant, 'font-weight-bold']
+    },
+    computedSelectedDateButtonClasses() {
+      return this.selectedDateButtonClass || [this.computedVariant, 'font-weight-bold']
+    },
+
     isRTL() {
       // `true` if the language requested is RTL
       const dir = toString(this.direction).toLowerCase()
@@ -849,7 +873,7 @@ export const BCalendar = Vue.extend({
         'button',
         {
           staticClass: 'btn btn-sm border-0 flex-fill',
-          class: [this.computedNavButtonVariant, { disabled: btnDisabled }],
+          class: [this.computedNavButtonClasses, { disabled: btnDisabled }],
           attrs: {
             title: label || null,
             type: 'button',
@@ -982,32 +1006,32 @@ export const BCalendar = Vue.extend({
         const isActive = day.ymd === activeYMD
         const isToday = day.ymd === todayYMD
         const idCell = safeId(`_cell-${day.ymd}_`)
+
+        let classes = this.computedDateButtonClasses
+        if (isSelected) {
+          classes = this.computedSelectedDateButtonClasses
+        } else if (isToday && highlightToday && day.isThisMonth) {
+          classes = this.computedTodayDateButtonClasses
+        } else if (!day.isThisMonth) {
+          classes = this.computedOtherMonthDateButtonClasses
+        } 
+
         // "fake" button
         const $btn = h(
           'span',
           {
             staticClass: 'btn border-0 rounded-circle text-nowrap',
             // Should we add some classes to signify if today/selected/etc?
-            class: {
-              // Give the fake button a focus ring
-              focus: isActive && this.gridHasFocus,
-              // Styling
-              disabled: day.isDisabled || disabled,
-              active: isSelected, // makes the button look "pressed"
-              // Selected date style (need to computed from variant)
-              [this.computedVariant]: isSelected,
-              // Today day style (if not selected), same variant color as selected date
-              [this.computedTodayVariant]:
-                isToday && highlightToday && !isSelected && day.isThisMonth,
-              // Non selected/today styling
-              'btn-outline-light': !(isToday && highlightToday) && !isSelected && !isActive,
-              'btn-light': !(isToday && highlightToday) && !isSelected && isActive,
-              // Text styling
-              'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark':
-                !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
-              'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
-            },
+            class: [
+              {
+                // Give the fake button a focus ring
+                focus: isActive && this.gridHasFocus,
+                // Styling
+                disabled: day.isDisabled || disabled,
+                active: isSelected // makes the button look "pressed"
+              },
+              classes
+            ],
             on: { click: () => this.onClickDay(day) }
           },
           day.day

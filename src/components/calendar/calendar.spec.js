@@ -379,7 +379,7 @@ describe('calendar', () => {
     )
   })
 
-  it('`nav-button-variant` changes nav button class', async () => {
+  it('`nav-button-variant` changes nav button class if `nav-button-class` not provided', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
       propsData: {
@@ -396,6 +396,265 @@ describe('calendar', () => {
     expect($buttons.at(2).classes()).toContain('btn-outline-primary')
     expect($buttons.at(3).classes()).toContain('btn-outline-primary')
     expect($buttons.at(4).classes()).toContain('btn-outline-primary')
+  })
+
+  it('`nav-button-class` changes nav button class', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        navButtonClass: 'btn-primary'
+      }
+    })
+
+    const $nav = wrapper.find('.b-calendar-nav')
+    const $buttons = $nav.findAll('button')
+
+    expect($buttons.length).toBe(5)
+    for(let i = 0; i < 5; i++) {
+      expect($buttons.at(i).classes()).toContain('btn-primary')
+      expect($buttons.at(i).classes()).not.toContain('btn-outline-primary')
+    }
+  })
+
+  it('`nav-button-class` changes nav button class even if `nav-button-variant` is provided', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        navButtonVariant: 'secondary',
+        navButtonClass: 'btn-primary'
+      }
+    })
+
+    const $nav = wrapper.find('.b-calendar-nav')
+    const $buttons = $nav.findAll('button')
+
+    expect($buttons.length).toBe(5)
+    for(let i = 0; i < 5; i++) {
+      expect($buttons.at(i).classes()).toContain('btn-primary')
+      expect($buttons.at(i).classes()).not.toContain('btn-outline-secondary')
+    }
+  })
+
+  it('`selected-variant` changes button class of selected date if `selected-date-button-classes` not provided', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        selectedVariant: 'warning',
+        value: '2021-01-01'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $cell = $grid.find('[data-date="2021-01-01"]')
+    expect($cell.exists()).toBe(true)
+
+    const $button = $cell.find('span')
+    expect($button.exists()).toBe(true)
+    expect($button.classes()).toContain('btn-warning')
+
+    wrapper.destroy()
+  })
+
+  it('`selected-date-button-class` changes button classes of selected date', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        selectedDateButtonClass: 'font-weight-bold btn-info text-warning',
+        value: '2021-01-01'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $cell = $grid.find('[data-date="2021-01-01"]')
+    expect($cell.exists()).toBe(true)
+
+    const $button = $cell.find('span')
+    expect($button.exists()).toBe(true)
+    expect($button.classes()).toContain('font-weight-bold')
+    expect($button.classes()).toContain('btn-info')
+    expect($button.classes()).toContain('text-warning')
+
+    wrapper.destroy()
+  })
+
+  it('`selected-date-button-classes` changes button classes of selected date even if `selected-variant` is provided', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        selectedDateButtonClass: 'font-weight-bold btn-info text-warning',
+        selectedVariant: 'warning',
+        value: '2021-01-01'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $cell = $grid.find('[data-date="2021-01-01"]')
+    expect($cell.exists()).toBe(true)
+
+    const $button = $cell.find('span')
+    expect($button.exists()).toBe(true)
+    expect($button.classes()).toContain('font-weight-bold')
+    expect($button.classes()).toContain('btn-info')
+    expect($button.classes()).toContain('text-warning')
+    expect($button.classes()).not.toContain('btn-warning')
+
+    wrapper.destroy()
+  })
+
+  it('`date-button-class` changes default date button classes', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        dateButtonClass: 'btn-info',
+        value: '2021-01-01'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $cells = $grid.findAll('[data-date]')
+    for (let i = 0; i < $cells.length; i++) {
+      const $cell = $cells.at(i)
+      const inMonth = $cell.attributes('data-date').startsWith('2021-01')
+      const $button = $cell.find('span')
+      const isSelected = $cell.attributes('data-date') === '2021-01-01' // expect selected date to remain untouched
+
+      if(inMonth && !isSelected) {
+        expect($button.classes()).toContain('btn-info')
+      } else {
+        expect($button.classes()).not.toContain('btn-info')
+      }
+    }
+
+    wrapper.destroy()
+  })
+
+  it('`today-variant` changes button class of today if `today-date-button-class` not provided', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        todayVariant: 'info'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $button = $grid.find('[aria-label~="(Today)"]>span')
+    expect($button.exists()).toBe(true)
+
+    expect($button.classes()).toContain('btn-outline-info')
+
+    wrapper.destroy()
+  })
+
+  it('`today-date-button-class` changes button class of today', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        todayDateButtonClass: 'btn-success text-warning shadow'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $button = $grid.find('[aria-label~="(Today)"]>span')
+    expect($button.exists()).toBe(true)
+
+    expect($button.classes()).toContain('btn-success')
+    expect($button.classes()).toContain('text-warning')
+    expect($button.classes()).toContain('shadow')
+
+    wrapper.destroy()
+  })
+
+  it('`today-date-button-class` changes button class of today even if `today-variant` is provided', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        todayVariant: 'info',
+        todayDateButtonClass: 'btn-success text-warning shadow'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $button = $grid.find('[aria-label~="(Today)"]>span')
+    expect($button.exists()).toBe(true)
+
+    expect($button.classes()).toContain('btn-success')
+    expect($button.classes()).toContain('text-warning')
+    expect($button.classes()).toContain('shadow')
+    expect($button.classes()).not.toContain('btn-info')
+
+    wrapper.destroy()
+  })
+
+  it('`other-month-date-button-class` changes button class of dates outside of the current month', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        otherMonthDateButtonClass: 'btn-success text-warning shadow',
+        value: '2021-02-01'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    const $cells = $grid.findAll('[data-date]:not([data-date^="2021-02"])')
+    expect($cells.length).toBe(7)
+
+    for(let i = 0; i < $cells.length; i++) {
+      const $button = $cells.at(i).find('span');
+      expect($button.classes()).toContain('btn-success')
+      expect($button.classes()).toContain('text-warning')
+      expect($button.classes()).toContain('shadow')
+      expect($button.classes()).not.toContain('text-muted')
+    }
+
+    wrapper.destroy()
   })
 
   it('disables dates based on `date-disabled-fn` prop', async () => {
