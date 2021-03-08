@@ -25,6 +25,10 @@
             "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
           },
           {
+            "prop": "dateButtonClass",
+            "description": "When set, adds the provided classes to all date buttons of the current except to the selected date"
+          },
+          {
             "prop": "dateInfoFn",
             "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See documentation for details"
           },
@@ -121,6 +125,10 @@
             "description": "The minimum date the calendar will show"
           },
           {
+            "prop": "navButtonClass",
+            "description": "When set, adds the provided classes to the navigation buttons and ignores the value set to `nav-button-variant`"
+          },
+          {
             "prop": "navButtonVariant",
             "version": "2.17.0",
             "description": "Theme color variant to use for the navigation buttons"
@@ -134,12 +142,20 @@
             "description": "Disable keyboard navigation of the calendar components"
           },
           {
+            "prop": "otherMonthDateButtonClass",
+            "description": "When set, adds the provided classes to the date buttons outside of the currently visible month"
+          },
+          {
             "prop": "readonly",
             "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
           },
           {
             "prop": "roleDescription",
             "description": "Sets a value for the `role-description` attribute on the component"
+          },
+          {
+            "prop": "selectedDateButtonClass",
+            "description": "When set, adds the provided classes to the selected date button and ignores the value set to `selected-variant`"
           },
           {
             "prop": "selectedVariant",
@@ -153,6 +169,10 @@
           {
             "prop": "startWeekday",
             "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc"
+          },
+          {
+            "prop": "todayDateButtonClass",
+            "description": "When set, adds the provided classes to the date button of today and ignores the value set to `today-variant`"
           },
           {
             "prop": "todayVariant",
