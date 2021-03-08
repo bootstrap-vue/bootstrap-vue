@@ -98,6 +98,8 @@ export const props = makePropsConfigurable(
     ariaControls: makeProp(PROP_TYPE_STRING),
     // Makes calendar the full width of its parent container
     block: makeProp(PROP_TYPE_BOOLEAN, false),
+    // overrides default date button classes
+    dateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     dateDisabledFn: makeProp(PROP_TYPE_FUNCTION),
     // `Intl.DateTimeFormat` object
     dateFormatOptions: makeProp(PROP_TYPE_OBJECT, {
@@ -146,13 +148,19 @@ export const props = makePropsConfigurable(
     locale: makeProp(PROP_TYPE_ARRAY_STRING),
     max: makeProp(PROP_TYPE_DATE_STRING),
     min: makeProp(PROP_TYPE_DATE_STRING),
+    // override the button classes for the navigation buttons
+    navButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for the navigation buttons
     navButtonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
     // Disable highlighting today's date
     noHighlightToday: makeProp(PROP_TYPE_BOOLEAN, false),
     noKeyNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    // override date button classes of dates outside the current month
+    otherMonthDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     readonly: makeProp(PROP_TYPE_BOOLEAN, false),
     roleDescription: makeProp(PROP_TYPE_STRING),
+    // overrides date button classes for the selected date
+    selectedDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for the selected date
     selectedVariant: makeProp(PROP_TYPE_STRING, 'primary'),
     // When `true` enables the decade navigation buttons
@@ -160,6 +168,8 @@ export const props = makePropsConfigurable(
     // Day of week to start calendar on
     // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
     startWeekday: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    // overrides date button classes for today
+    todayDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for today's date (defaults to `selectedVariant`)
     todayVariant: makeProp(PROP_TYPE_STRING),
     // Always return the `v-model` value as a date object
@@ -174,13 +184,6 @@ export const props = makePropsConfigurable(
     }),
     // Has no effect if prop `block` is set
     width: makeProp(PROP_TYPE_STRING, '270px'),
-
-    dateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-    otherMonthDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-    todayDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-    selectedDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
-
-    navButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
   }),
   NAME_CALENDAR
 )
