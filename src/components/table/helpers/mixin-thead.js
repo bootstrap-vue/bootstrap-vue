@@ -1,5 +1,5 @@
 import { Vue } from '../../../vue'
-import { EVENT_NAME_HEAD_CLICKED } from '../../../constants/events'
+import { EVENT_NAME_HEAD_CLICKED, EVENT_NAME_HEAD_CONTEXTMENU } from '../../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../../constants/props'
 import { SLOT_NAME_THEAD_TOP } from '../../../constants/slots'
@@ -59,6 +59,21 @@ export const theadMixin = Vue.extend({
       stopEvent(event)
       this.$emit(EVENT_NAME_HEAD_CLICKED, field.key, field, event, isFoot)
     },
+    headContextMenu(event, field, isFoot) {
+      if (this.stopIfBusy && this.stopIfBusy(event)) {
+        // If table is busy (via provider) then don't propagate
+        return
+      } else if (filterEvent(event)) {
+        // Clicked on a non-disabled control so ignore
+        return
+      } else if (textSelectionActive(this.$el)) {
+        // User is selecting text, so ignore
+        /* istanbul ignore next: JSDOM doesn't support getSelection() */
+        return
+      }
+      stopEvent(event)
+      this.$emit(EVENT_NAME_HEAD_CONTEXTMENU, field.key, field, event, isFoot)
+    },
     renderThead(isFoot = false) {
       const {
         computedFields: fields,
@@ -77,7 +92,12 @@ export const theadMixin = Vue.extend({
         return h()
       }
 
-      const hasHeadClickListener = isSortable || this.hasListener(EVENT_NAME_HEAD_CLICKED)
+      const hasHeadClickListener =
+        isSortable ||
+        this.hasListener(EVENT_NAME_HEAD_CLICKED) ||
+        this.hasListener(EVENT_NAME_HEAD_CONTEXTMENU)
+
+      const hasHeadContextMenuListener = this.hasListener(EVENT_NAME_HEAD_CONTEXTMENU)
 
       // Reference to `selectAllRows` and `clearSelected()`, if table is selectable
       const selectAllRows = isSelectable ? this.selectAllRows : noop
@@ -105,6 +125,12 @@ export const theadMixin = Vue.extend({
             if (keyCode === CODE_ENTER || keyCode === CODE_SPACE) {
               this.headClicked(event, field, isFoot)
             }
+          }
+        }
+
+        if (hasHeadContextMenuListener) {
+          on.contextmenu = event => {
+            this.headContextMenu(event, field, isFoot)
           }
         }
 
@@ -159,19 +185,13 @@ export const theadMixin = Vue.extend({
           ]
         }
 
-        const scope = {
-          label,
-          column: key,
-          field,
-          isFoot,
-          // Add in row select methods
-          selectAllRows,
-          clearSelected
-        }
+        const scope = { label, column: key, field, isFoot, selectAllRows, clearSelected } // Add in row select methods
 
         const $content =
           this.normalizeSlot(slotNames, scope) ||
-          h('div', { domProps: htmlOrText(labelHtml, label) })
+          h('div', {
+            domProps: htmlOrText(labelHtml, label)
+          })
 
         const $srLabel = sortLabel ? h('span', { staticClass: 'sr-only' }, ` (${sortLabel})`) : null
 
@@ -200,25 +220,10 @@ export const theadMixin = Vue.extend({
           )
         )
       } else {
-        const scope = {
-          columns: fields.length,
-          fields,
-          // Add in row select methods
-          selectAllRows,
-          clearSelected
-        }
+        const scope = { columns: fields.length, fields, selectAllRows, clearSelected } // Add in row select methods
         $trs.push(this.normalizeSlot(SLOT_NAME_THEAD_TOP, scope) || h())
 
-        $trs.push(
-          h(
-            BTr,
-            {
-              class: this.theadTrClass,
-              props: { variant: headRowVariant }
-            },
-            $cells
-          )
-        )
+        $trs.push(h(BTr, { class: this.theadTrClass, props: { variant: headRowVariant } }, $cells))
       }
 
       return h(
