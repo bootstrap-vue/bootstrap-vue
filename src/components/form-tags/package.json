@@ -197,12 +197,12 @@
               {
                 "arg": "invalidTags",
                 "type": "Array",
-                "description": "Array of tag(s) that can not added because they did not pass validation. Will be zero length if no invalid tags"
+                "description": "Array of tag(s) that cannot be added because they did not pass validation. Will be zero length if no invalid tags"
               },
               {
                 "arg": "duplicateTags",
                 "type": "Array",
-                "description": "Array of tag(s) that can not added because they would be a duplicate tag. Will be zero length if no duplicate tags"
+                "description": "Array of tag(s) that cannot be added because they would be a duplicate tag. Will be zero length if no duplicate tags"
               }
             ]
           }
