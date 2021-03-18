@@ -47,11 +47,11 @@ export const closestEl =
 // `requestAnimationFrame()` convenience method
 /* istanbul ignore next: JSDOM always returns the first option */
 export const requestAF =
-  WINDOW.requestAnimationFrame ||
-  WINDOW.webkitRequestAnimationFrame ||
-  WINDOW.mozRequestAnimationFrame ||
-  WINDOW.msRequestAnimationFrame ||
-  WINDOW.oRequestAnimationFrame ||
+  (WINDOW.requestAnimationFrame && WINDOW.requestAnimationFrame.bind(WINDOW)) ||
+  (WINDOW.webkitRequestAnimationFrame && WINDOW.webkitRequestAnimationFrame.bind(WINDOW)) ||
+  (WINDOW.mozRequestAnimationFrame && WINDOW.mozRequestAnimationFrame.bind(WINDOW)) ||
+  (WINDOW.msRequestAnimationFrame && WINDOW.msRequestAnimationFrame.bind(WINDOW)) ||
+  (WINDOW.oRequestAnimationFrame && WINDOW.oRequestAnimationFrame.bind(WINDOW)) ||
   // Fallback, but not a true polyfill
   // Only needed for Opera Mini
   /* istanbul ignore next */
