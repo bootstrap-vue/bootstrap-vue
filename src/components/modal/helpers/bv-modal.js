@@ -1,3 +1,4 @@
+import { defineComponent } from 'vue'
 // Plugin for adding `$bvModal` property to all Vue instances
 import { NAME_MODAL, NAME_MSG_BOX } from '../../../constants/components'
 import {
@@ -66,7 +67,7 @@ const plugin = Vue => {
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
   // @vue/component
-  const BMsgBox = Vue.extend({
+  const BMsgBox = defineComponent({
     name: NAME_MSG_BOX,
     extends: BModal,
     destroyed() {
@@ -258,8 +259,8 @@ const plugin = Vue => {
 
   // Define our read-only `$bvModal` instance property
   // Placed in an if just in case in HMR mode
-  if (!hasOwnProperty(Vue.prototype, PROP_NAME)) {
-    defineProperty(Vue.prototype, PROP_NAME, {
+  if (!hasOwnProperty(Vue.config.globalProperties, PROP_NAME)) {
+    defineProperty(Vue.config.globalProperties, PROP_NAME, {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {

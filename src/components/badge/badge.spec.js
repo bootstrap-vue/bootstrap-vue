@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import { BBadge } from './badge'
 
 describe('badge', () => {
+  window.ShadowRoot = jest.fn()
   it('should have base classes', async () => {
     const wrapper = mount(BBadge)
 
@@ -13,7 +14,7 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).toBeUndefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have default slot content', async () => {
@@ -32,12 +33,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('disabled')
     expect(wrapper.attributes('href')).toBeUndefined()
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply variant class', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         variant: 'danger'
       }
     })
@@ -49,12 +50,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should apply pill class', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         pill: true
       }
     })
@@ -66,12 +67,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have active class when prop active set', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         active: true
       }
     })
@@ -83,12 +84,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('should have disabled class when prop disabled set', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         disabled: true
       }
     })
@@ -100,12 +101,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('badge-pill')
     expect(wrapper.classes()).not.toContain('active')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders custom root element', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         tag: 'small'
       }
     })
@@ -117,12 +118,12 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 
   it('renders link when href provided', async () => {
     const wrapper = mount(BBadge, {
-      propsData: {
+      props: {
         href: '/foo/bar'
       }
     })
@@ -136,6 +137,6 @@ describe('badge', () => {
     expect(wrapper.classes()).not.toContain('active')
     expect(wrapper.classes()).not.toContain('disabled')
 
-    wrapper.destroy()
+    wrapper.unmount()
   })
 })

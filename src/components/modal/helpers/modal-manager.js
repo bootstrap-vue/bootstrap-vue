@@ -35,7 +35,7 @@ const SELECTOR_NAVBAR_TOGGLER = '.navbar-toggler'
 // --- Main component ---
 
 // @vue/component
-const ModalManager = /*#__PURE__*/ Vue.extend({
+export const ModalManager = /*#__PURE__*/ Vue.extend({
   data() {
     return {
       modals: [],
@@ -216,4 +216,4 @@ const ModalManager = /*#__PURE__*/ Vue.extend({
 })
 
 // Create and export our modal manager instance
-export const modalManager = new ModalManager()
+// export const modalManager = new ModalManager()

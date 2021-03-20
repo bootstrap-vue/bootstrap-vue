@@ -1,4 +1,5 @@
-import { Vue, mergeData } from '../../vue'
+import { mergeData } from '../../vue'
+import { defineComponent, h } from 'vue'
 import { NAME_BADGE } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { omit, sortKeys } from '../../utils/object'
@@ -25,31 +26,32 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BBadge = /*#__PURE__*/ Vue.extend({
+export const BBadge = /*#__PURE__*/ defineComponent({
   name: NAME_BADGE,
   functional: true,
   props,
-  render(h, { props, data, children }) {
-    const { active, disabled } = props
-    const link = isLink(props)
-    const tag = link ? BLink : props.tag
-    const variant = props.variant || 'secondary'
+  render() {
+    const { active, disabled } = this
+    const link = isLink(this)
+    const tag = link ? BLink : this.tag
+    const variant = this.variant || 'secondary'
 
     return h(
       tag,
-      mergeData(data, {
-        staticClass: 'badge',
-        class: [
-          `badge-${variant}`,
-          {
-            'badge-pill': props.pill,
-            active,
-            disabled
-          }
-        ],
-        props: link ? pluckProps(linkProps, props) : {}
-      }),
-      children
+      mergeData(
+        this,
+        {
+          class: [
+            'badge',
+            `badge-${variant}`,
+            { 'badge-pill': this.pill },
+            { active },
+            { disabled }
+          ]
+        },
+        link ? pluckProps(linkProps, this) : {}
+      ),
+      (this.$slots.default || (() => null))()
     )
   }
 })

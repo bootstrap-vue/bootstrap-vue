@@ -1,7 +1,7 @@
 /**
  * Plugin for adding `$bvToast` property to all Vue instances
  */
-
+import { defineComponent } from 'vue'
 import { NAME_TOAST, NAME_TOASTER, NAME_TOAST_POP } from '../../../constants/components'
 import {
   EVENT_NAME_DESTROYED,
@@ -62,7 +62,7 @@ const plugin = Vue => {
   // Create a private sub-component constructor that
   // extends BToast and self-destructs after hidden
   // @vue/component
-  const BVToastPop = Vue.extend({
+  const BVToastPop = defineComponent({
     name: NAME_TOAST_POP,
     extends: BToast,
     destroyed() {
@@ -187,8 +187,8 @@ const plugin = Vue => {
 
   // Define our read-only `$bvToast` instance property
   // Placed in an if just in case in HMR mode
-  if (!hasOwnProperty(Vue.prototype, PROP_NAME)) {
-    defineProperty(Vue.prototype, PROP_NAME, {
+  if (!hasOwnProperty(Vue.config.globalProperties, PROP_NAME)) {
+    defineProperty(Vue.config.globalProperties, PROP_NAME, {
       get() {
         /* istanbul ignore next */
         if (!this || !this[PROP_NAME_PRIV]) {

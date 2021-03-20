@@ -4,8 +4,7 @@ import { cloneDeep } from './clone-deep'
 import { memoize } from './memoize'
 
 // --- Constants ---
-
-const VueProto = Vue.prototype
+const VueProto = Vue.config.globalProperties
 
 // --- Getter methods ---
 // All methods return a deep clone (immutable) copy of the config value,

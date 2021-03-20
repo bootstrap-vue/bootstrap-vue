@@ -65,16 +65,21 @@ class BvConfig {
 export const setConfig = (config = {}, Vue = OurVue) => {
   // Ensure we have a `$bvConfig` Object on the Vue prototype
   // We set on Vue and OurVue just in case consumer has not set an alias of `vue`
-  Vue.prototype[PROP_NAME] = OurVue.prototype[PROP_NAME] =
-    Vue.prototype[PROP_NAME] || OurVue.prototype[PROP_NAME] || new BvConfig()
+  Vue.config.globalProperties[PROP_NAME] = OurVue.config.globalProperties[PROP_NAME] =
+    Vue.config.globalProperties[PROP_NAME] ||
+    OurVue.config.globalProperties[PROP_NAME] ||
+    new BvConfig()
   // Apply the config values
-  Vue.prototype[PROP_NAME].setConfig(config)
+  Vue.config.globalProperties[PROP_NAME].setConfig(config)
 }
 
 // Method for resetting the user config
 // Exported for testing purposes only
 export const resetConfig = () => {
-  if (OurVue.prototype[PROP_NAME] && OurVue.prototype[PROP_NAME].resetConfig) {
-    OurVue.prototype[PROP_NAME].resetConfig()
+  if (
+    OurVue.config.globalProperties[PROP_NAME] &&
+    OurVue.config.globalProperties[PROP_NAME].resetConfig
+  ) {
+    OurVue.config.globalProperties[PROP_NAME].resetConfig()
   }
 }

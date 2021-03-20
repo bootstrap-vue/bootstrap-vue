@@ -1,4 +1,5 @@
 import { Vue } from '../../vue'
+import { h } from 'vue'
 import { NAME_LINK } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import {
@@ -187,17 +188,18 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       attemptBlur(this.$el)
     }
   },
-  render(h) {
+  render() {
     const { active, disabled } = this
 
     return h(
       this.computedTag,
       {
-        class: { active, disabled },
-        attrs: this.computedAttrs,
-        props: this.computedProps,
+        class: [{ active }, { disabled }],
+        ...this.computedAttrs,
+        ...this.computedProps
+        // TODO: refactor listeners
         // We must use `nativeOn` for `<router-link>`/`<nuxt-link>` instead of `on`
-        [this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
+        //[this.isRouterLink ? 'nativeOn' : 'on']: this.computedListeners
       },
       this.normalizeSlot()
     )
