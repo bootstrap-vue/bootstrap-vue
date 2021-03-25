@@ -9,12 +9,18 @@
         "component": "BBadge",
         "props": [
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
-          },
-          {
             "prop": "pill",
             "description": "When set to 'true', renders the badge in pill style"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the badge"
           }
         ]
       }

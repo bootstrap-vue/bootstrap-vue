@@ -1,4 +1,4 @@
-# Dropdowns
+# Dropdown
 
 > Dropdowns are toggleable, contextual overlays for displaying lists of links and actions in a
 > dropdown menu format.
@@ -451,13 +451,13 @@ Disabled the dropdown item button by setting the `disabled` prop.
   </b-dropdown>
 </div>
 
-<!-- b-dropdown-item-buttons.vue -->
+<!-- b-dropdown-item-button.vue -->
 ```
 
 When the menu item doesn't trigger navigation, it is recommended to use the
 `<b-dropdown-item-button>` sub-component.
 
-### `<b-dropdown-item-divider>`
+### `<b-dropdown-divider>`
 
 Separate groups of related menu items with `<b-dropdown-divider>`.
 
@@ -471,7 +471,7 @@ Separate groups of related menu items with `<b-dropdown-divider>`.
   </b-dropdown>
 </div>
 
-<!-- b-dropdown-item-divider.vue -->
+<!-- b-dropdown-divider.vue -->
 ```
 
 ### `<b-dropdown-text>`
@@ -562,7 +562,7 @@ some basic styles which are suitable in most situations. By default its width wi
 the widest `<b-dropdown-item>` content. You may need to place additional styles or helper classes on
 the component.
 
-### `<b-dropdown-item-group>`
+### `<b-dropdown-group>`
 
 Group a set of dropdown sub components with an optional associated header. Place a
 `<b-dropdown-divider>` between your `<b-dropdown-group>` and other groups or non-grouped dropdown
@@ -590,13 +590,13 @@ contents
   </b-dropdown>
 </div>
 
-<!-- b-dropdown-item-group.vue -->
+<!-- b-dropdown-group.vue -->
 ```
 
 Using `<b-dropdown-group>` instead of `<b-dropdown-header>` is the recommended method for providing
 accessible grouped items with a header.
 
-### `<b-dropdown-item-header>`
+### `<b-dropdown-header>`
 
 Add a header to label sections of actions in any dropdown menu.
 
@@ -615,7 +615,7 @@ Add a header to label sections of actions in any dropdown menu.
   </b-dropdown>
 </div>
 
-<!-- b-dropdown-item-header.vue -->
+<!-- b-dropdown-header.vue -->
 ```
 
 See Section [Dropdown headers and accessibility](#dropdown-headers-and-accessibility) for details on

@@ -1,33 +1,25 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_BUTTON_CLOSE } from '../../constants/components'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_DEFAULT } from '../../constants/slots'
 import { stopEvent } from '../../utils/events'
 import { isEvent } from '../../utils/inspect'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { hasNormalizedSlot, normalizeSlot } from '../../utils/normalize-slot'
 
-const props = makePropsConfigurable(
+// --- Props ---
+
+export const props = makePropsConfigurable(
   {
-    content: {
-      type: String,
-      default: '&times;'
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    ariaLabel: {
-      type: String,
-      default: 'Close'
-    },
-    textVariant: {
-      type: String
-      // `textVariant` is `undefined` to inherit the current text color
-      // default: undefined
-    }
+    ariaLabel: makeProp(PROP_TYPE_STRING, 'Close'),
+    content: makeProp(PROP_TYPE_STRING, '&times;'),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    textVariant: makeProp(PROP_TYPE_STRING)
   },
   NAME_BUTTON_CLOSE
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BButtonClose = /*#__PURE__*/ Vue.extend({
@@ -49,19 +41,21 @@ export const BButtonClose = /*#__PURE__*/ Vue.extend({
         'aria-label': props.ariaLabel ? String(props.ariaLabel) : null
       },
       on: {
-        click(evt) {
+        click(event) {
           // Ensure click on button HTML content is also disabled
           /* istanbul ignore if: bug in JSDOM still emits click on inner element */
-          if (props.disabled && isEvent(evt)) {
-            stopEvent(evt)
+          if (props.disabled && isEvent(event)) {
+            stopEvent(event)
           }
         }
       }
     }
+
     // Careful not to override the default slot with innerHTML
     if (!hasNormalizedSlot(SLOT_NAME_DEFAULT, $scopedSlots, $slots)) {
       componentData.domProps = { innerHTML: props.content }
     }
+
     return h(
       'button',
       mergeData(data, componentData),

@@ -52,7 +52,7 @@ describe('form-checkbox-group', () => {
   it('default does not have aria-required set', async () => {
     const wrapper = mount(BFormCheckboxGroup)
 
-    expect(wrapper.attributes('aria-required')).not.toBeDefined()
+    expect(wrapper.attributes('aria-required')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -60,7 +60,7 @@ describe('form-checkbox-group', () => {
   it('default does not have aria-invalid set', async () => {
     const wrapper = mount(BFormCheckboxGroup)
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -124,7 +124,7 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -137,7 +137,7 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -180,6 +180,60 @@ describe('form-checkbox-group', () => {
 
     expect(wrapper.attributes('aria-invalid')).toBeDefined()
     expect(wrapper.attributes('aria-invalid')).toBe('true')
+
+    wrapper.destroy()
+  })
+
+  it('has checkboxes with input validation class "is-valid" when `state` is `true`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: true
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(true)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
+
+    wrapper.destroy()
+  })
+
+  it('has checkboxes with input validation class "is-invalid" when `state` is `false`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: false
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(true)
+
+    wrapper.destroy()
+  })
+
+  it('has checkboxes with no input validation class when `state` is `null`', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        options: ['one', 'two', 'three'],
+        checked: '',
+        state: null
+      }
+    })
+
+    const $checkboxes = wrapper.findAll('input[type=checkbox]')
+    expect($checkboxes.length).toBe(3)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-valid'))).toBe(false)
+    expect($checkboxes.wrappers.every(c => c.classes().includes('is-invalid'))).toBe(false)
 
     wrapper.destroy()
   })
@@ -311,11 +365,11 @@ describe('form-checkbox-group', () => {
       }
     })
 
-    expect(wrapper.classes()).toBeDefined()
+    expect(wrapper.vm.isRadioGroup).toEqual(false)
+    expect(wrapper.vm.localChecked).toEqual([])
 
     const $inputs = wrapper.findAll('input')
     expect($inputs.length).toBe(3)
-    expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
 
     wrapper.destroy()
@@ -336,8 +390,8 @@ describe('form-checkbox-group', () => {
     expect($inputs.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual([])
     expect($inputs.wrappers.every(c => c.find('input[type=checkbox]').exists())).toBe(true)
-    expect($inputs.at(0).attributes('disabled')).not.toBeDefined()
-    expect($inputs.at(1).attributes('disabled')).not.toBeDefined()
+    expect($inputs.at(0).attributes('disabled')).toBeUndefined()
+    expect($inputs.at(1).attributes('disabled')).toBeUndefined()
     expect($inputs.at(2).attributes('disabled')).toBeDefined()
 
     wrapper.destroy()
@@ -411,7 +465,7 @@ describe('form-checkbox-group', () => {
     expect($inputs.at(1).element.checked).toBe(true)
     expect($inputs.at(2).element.checked).toBe(true)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Set internal value to new array reference
     wrapper.vm.localChecked = value.slice()
@@ -423,7 +477,7 @@ describe('form-checkbox-group', () => {
     expect($inputs.at(1).element.checked).toBe(true)
     expect($inputs.at(2).element.checked).toBe(true)
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     // Set internal value to new array (reversed order)
     wrapper.vm.localChecked = value.slice().reverse()

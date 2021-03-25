@@ -1,13 +1,11 @@
-import looseEqual from './loose-equal'
+import { looseEqual } from './loose-equal'
 
-const looseIndexOf = (arr, val) => {
-  // Assumes that the first argument is an array
-  for (let i = 0; i < arr.length; i++) {
-    if (looseEqual(arr[i], val)) {
+// Assumes that the first argument is an array
+export const looseIndexOf = (array, value) => {
+  for (let i = 0; i < array.length; i++) {
+    if (looseEqual(array[i], value)) {
       return i
     }
   }
   return -1
 }
-
-export default looseIndexOf

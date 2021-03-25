@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDatepicker } from './form-datepicker'
-// import { formatYMD } from '../../utils/date'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
 
@@ -37,10 +36,10 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-form-datepicker')
     expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).toContain('form-control')
@@ -49,22 +48,24 @@ describe('form-date', () => {
     expect(wrapper.classes()).not.toContain('btn-group')
     expect(wrapper.attributes('role')).toEqual('group')
 
-    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
-    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
-    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
-    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
+    expect($dropdownMenu.attributes('role')).toEqual('dialog')
+    expect($dropdownMenu.attributes('aria-modal')).toEqual('false')
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-base')
-    expect(wrapper.find('label.form-control').classes()).not.toContain('sr-only')
+    const $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.attributes('for')).toEqual('test-base')
+    expect($label.classes()).not.toContain('sr-only')
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
-    const $btn = wrapper.find('button#test-base')
-    expect($btn.exists()).toBe(true)
-    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
-    expect($btn.attributes('aria-expanded')).toEqual('false')
-    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
+    const $button = wrapper.find('button#test-base')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('aria-haspopup')).toEqual('dialog')
+    expect($button.attributes('aria-expanded')).toEqual('false')
+    expect($button.find('svg.bi-calendar').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -79,10 +80,10 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-form-datepicker')
     expect(wrapper.classes()).toContain('b-form-btn-label-control')
     expect(wrapper.classes()).not.toContain('form-control')
@@ -91,22 +92,25 @@ describe('form-date', () => {
     expect(wrapper.classes()).toContain('btn-group')
     expect(wrapper.attributes('role')).not.toEqual('group')
 
-    expect(wrapper.find('.dropdown-menu').exists()).toBe(true)
-    expect(wrapper.find('.dropdown-menu').classes()).not.toContain('show')
-    expect(wrapper.find('.dropdown-menu').attributes('role')).toEqual('dialog')
-    expect(wrapper.find('.dropdown-menu').attributes('aria-modal')).toEqual('false')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
+    expect($dropdownMenu.attributes('role')).toEqual('dialog')
+    expect($dropdownMenu.attributes('aria-modal')).toEqual('false')
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').attributes('for')).toEqual('test-button-only')
-    expect(wrapper.find('label.form-control').classes()).toContain('sr-only')
+    const $label = wrapper.find('label')
+    expect($label.exists()).toBe(true)
+    expect($label.attributes('for')).toEqual('test-button-only')
+    expect($label.classes().length).toBe(1)
+    expect($label.classes()).toContain('sr-only')
 
     expect(wrapper.find('input[type="hidden"]').exists()).toBe(false)
 
-    const $btn = wrapper.find('button#test-button-only')
-    expect($btn.exists()).toBe(true)
-    expect($btn.attributes('aria-haspopup')).toEqual('dialog')
-    expect($btn.attributes('aria-expanded')).toEqual('false')
-    expect($btn.find('svg.bi-calendar').exists()).toBe(true)
+    const $button = wrapper.find('button#test-button-only')
+    expect($button.exists()).toBe(true)
+    expect($button.attributes('aria-haspopup')).toEqual('dialog')
+    expect($button.attributes('aria-expanded')).toEqual('false')
+    expect($button.find('svg.bi-calendar').exists()).toBe(true)
 
     wrapper.destroy()
   })
@@ -121,12 +125,14 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('label.form-control').exists()).toBe(true)
-    expect(wrapper.find('label.form-control').text()).toContain('FOOBAR')
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $label = wrapper.find('label.form-control')
+    expect($label.exists()).toBe(true)
+    expect($label.text()).toContain('FOOBAR')
 
     wrapper.destroy()
   })
@@ -141,46 +147,24 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
+
+    let $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('name')).toBe('foobar')
+    expect($input.attributes('value')).toBe('')
+
+    await wrapper.setProps({ value: '2020-01-20' })
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
-    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('')
-
-    await wrapper.setProps({
-      value: '2020-01-20'
-    })
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    expect(wrapper.find('input[type="hidden"]').exists()).toBe(true)
-    expect(wrapper.find('input[type="hidden"]').attributes('name')).toBe('foobar')
-    expect(wrapper.find('input[type="hidden"]').attributes('value')).toBe('2020-01-20')
-
-    wrapper.destroy()
-  })
-
-  it('reacts to changes in value', async () => {
-    const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
-      propsData: {
-        value: ''
-      }
-    })
-
-    expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-
-    await wrapper.setProps({
-      value: '2020-01-20'
-    })
-
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('name')).toBe('foobar')
+    expect($input.attributes('value')).toBe('2020-01-20')
 
     wrapper.destroy()
   })
@@ -195,15 +179,14 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toggle = wrapper.find('button#test-focus-blur')
+    expect(wrapper.element.tagName).toBe('DIV')
 
+    const $toggle = wrapper.find('button#test-focus-blur')
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-
     expect(document.activeElement).not.toBe($toggle.element)
 
     wrapper.vm.focus()
@@ -231,9 +214,10 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('DIV')
 
     const $toggle = wrapper.find('button#test-hover')
     const $label = wrapper.find('button#test-hover ~ label')
@@ -272,29 +256,28 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    const $toggle = wrapper.find('button#test-open')
+    expect(wrapper.element.tagName).toBe('DIV')
 
+    const $toggle = wrapper.find('button#test-open')
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
 
-    const $menu = wrapper.find('.dropdown-menu')
-
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
-
-    await $toggle.trigger('click')
-    await waitRAF()
-    await waitRAF()
-    expect($menu.classes()).toContain('show')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
+
+    await $toggle.trigger('click')
+    await waitRAF()
+    await waitRAF()
+    expect($dropdownMenu.classes()).not.toContain('show')
 
     wrapper.destroy()
   })
@@ -309,25 +292,25 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.emitted('input')).toBeUndefined()
 
     const $toggle = wrapper.find('button#test-emit-input')
-    const $menu = wrapper.find('.dropdown-menu')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
     expect(wrapper.emitted('context')).toBeDefined()
@@ -347,7 +330,7 @@ describe('form-date', () => {
     await $grid.trigger('keydown.enter')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
     expect(wrapper.emitted('input')[0][0]).toBe(activeYMD)
@@ -366,23 +349,24 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
+
     const $toggle = wrapper.find('button#test-no-close')
-    const $menu = wrapper.find('.dropdown-menu')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(true)
 
     expect(wrapper.emitted('context')).toBeDefined()
@@ -404,7 +388,7 @@ describe('form-date', () => {
     await waitRAF()
 
     // Calendar should remain open
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
 
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -428,25 +412,26 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
+
     const $toggle = wrapper.find('button#test-footer')
-    const $menu = wrapper.find('.dropdown-menu')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
     expect($value.exists()).toBe(true)
@@ -456,19 +441,18 @@ describe('form-date', () => {
     const $footer = wrapper.find('.b-form-date-controls')
     expect($footer.exists()).toBe(true)
 
-    const $btns = $footer.findAll('button')
+    const $buttons = $footer.findAll('button')
+    expect($buttons.length).toBe(3)
 
-    expect($btns.length).toBe(3)
-
-    const $today = $btns.at(0)
-    const $reset = $btns.at(1)
-    const $close = $btns.at(2)
+    const $today = $buttons.at(0)
+    const $reset = $buttons.at(1)
+    const $close = $buttons.at(2)
 
     await $today.trigger('click')
     await waitRAF()
     await waitRAF()
 
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect($value.attributes('value')).not.toBe('1900-01-01')
     expect($value.attributes('value')).not.toBe('')
     expect(/^\d+-\d\d-\d\d$/.test($value.attributes('value'))).toBe(true)
@@ -477,14 +461,14 @@ describe('form-date', () => {
     await waitRAF()
     await waitRAF()
 
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
     expect($value.attributes('value')).toBe('')
 
     await $close.trigger('click')
     await waitRAF()
     await waitRAF()
 
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('')
 
     wrapper.destroy()
@@ -503,26 +487,27 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    expect(wrapper.element.tagName).toBe('DIV')
     await waitNT(wrapper.vm)
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
 
+    expect(wrapper.element.tagName).toBe('DIV')
+
     const $toggle = wrapper.find('button#test-reset')
-    const $menu = wrapper.find('.dropdown-menu')
+    const $dropdownMenu = wrapper.find('.dropdown-menu')
 
     expect($toggle.exists()).toBe(true)
     expect($toggle.element.tagName).toBe('BUTTON')
-    expect($menu.exists()).toBe(true)
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.exists()).toBe(true)
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect(wrapper.find('.b-calendar').exists()).toBe(false)
 
     await $toggle.trigger('click')
     await waitRAF()
     await waitRAF()
 
-    expect($menu.classes()).toContain('show')
+    expect($dropdownMenu.classes()).toContain('show')
 
     const $value = wrapper.find('input[type="hidden"]')
     expect($value.exists()).toBe(true)
@@ -532,17 +517,16 @@ describe('form-date', () => {
     const $footer = wrapper.find('.b-form-date-controls')
     expect($footer.exists()).toBe(true)
 
-    const $btns = $footer.findAll('button')
+    const $buttons = $footer.findAll('button')
+    expect($buttons.length).toBe(1)
 
-    expect($btns.length).toBe(1)
-
-    const $reset = $btns.at(0)
+    const $reset = $buttons.at(0)
 
     await $reset.trigger('click')
     await waitRAF()
     await waitRAF()
 
-    expect($menu.classes()).not.toContain('show')
+    expect($dropdownMenu.classes()).not.toContain('show')
     expect($value.attributes('value')).toBe('1900-01-01')
 
     wrapper.destroy()
@@ -561,11 +545,12 @@ describe('form-date', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
     expect(wrapper.element.tagName).toBe('DIV')
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
 
     const $toggle = wrapper.find('button#test-button-slot')
 

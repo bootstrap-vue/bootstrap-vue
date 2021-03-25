@@ -44,7 +44,7 @@ describe('form-input', () => {
 
     const $input = wrapper.find('input')
     expect($input.classes()).not.toContain('form-control-plaintext')
-    expect($input.attributes('readonly')).not.toBeDefined()
+    expect($input.attributes('readonly')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -166,7 +166,7 @@ describe('form-input', () => {
     const wrapper = mount(BFormInput)
 
     const $input = wrapper.find('input')
-    expect($input.attributes('list')).not.toBeDefined()
+    expect($input.attributes('list')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -193,7 +193,7 @@ describe('form-input', () => {
     })
 
     const $input = wrapper.find('input')
-    expect($input.attributes('list')).not.toBeDefined()
+    expect($input.attributes('list')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -280,7 +280,7 @@ describe('form-input', () => {
   it('does not have aria-invalid attribute by default', async () => {
     const wrapper = mount(BFormInput)
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -292,7 +292,7 @@ describe('form-input', () => {
       }
     })
 
-    expect(wrapper.attributes('aria-invalid')).not.toBeDefined()
+    expect(wrapper.attributes('aria-invalid')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -472,7 +472,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toEqual(1)
     expect(wrapper.emitted('input')[0][0]).toEqual('TEST')
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect($input.vm.localValue).toEqual('TEST')
 
     wrapper.destroy()
@@ -507,7 +507,7 @@ describe('form-input', () => {
     expect(wrapper.emitted('update').length).toEqual(2)
     expect(wrapper.emitted('update')[1][0]).toEqual('test')
     expect(wrapper.emitted('input')).toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
     expect(wrapper.emitted('blur')).toBeDefined()
     expect(wrapper.emitted('blur').length).toEqual(1)
     expect($input.vm.localValue).toEqual('test')
@@ -528,10 +528,10 @@ describe('form-input', () => {
 
     const $input = wrapper.find('input')
     expect($input.vm.localValue).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined()
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -551,10 +551,10 @@ describe('form-input', () => {
     await wrapper.setProps({ value: 'TEST' })
 
     expect($input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined() // Note emitted as value hasn't changed
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined() // Note emitted as value hasn't changed
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -575,10 +575,10 @@ describe('form-input', () => {
     await wrapper.setProps({ value: 'TEST' })
 
     expect($input.element.value).toEqual('TEST')
-    expect(wrapper.emitted('update')).not.toBeDefined() // Not emitted when value doesnt change
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('change')).not.toBeDefined()
-    expect(wrapper.emitted('blur')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined() // Not emitted when value doesnt change
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(wrapper.emitted('blur')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -600,8 +600,8 @@ describe('form-input', () => {
     await $input.trigger('focus')
     await $input.setValue('TEST')
 
-    expect(wrapper.emitted('input')).not.toBeDefined()
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('input')).toBeUndefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // v-model should not change
     expect(wrapper.vm.localValue).toBe('abc')
     // Value in input should remain the same as entered
@@ -763,13 +763,13 @@ describe('form-input', () => {
     await $input.trigger('input')
     expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     $input.element.value = 'ab'
     await $input.trigger('input')
     expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
 
     // trigger a change event
     await $input.trigger('change')
@@ -816,7 +816,7 @@ describe('form-input', () => {
     await $input.trigger('input')
     expect($input.element.value).toBe('a')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // `input` event should be emitted
     expect(wrapper.emitted('input')).toBeDefined()
     expect(wrapper.emitted('input').length).toBe(1)
@@ -826,7 +826,7 @@ describe('form-input', () => {
     await $input.trigger('input')
     expect($input.element.value).toBe('ab')
     // `v-model` update event should not have emitted
-    expect(wrapper.emitted('update')).not.toBeDefined()
+    expect(wrapper.emitted('update')).toBeUndefined()
     // `input` event should be emitted
     expect(wrapper.emitted('input').length).toBe(2)
     expect(wrapper.emitted('input')[1][0]).toBe('ab')

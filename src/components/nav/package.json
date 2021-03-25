@@ -12,20 +12,13 @@
         "component": "BNav",
         "props": [
           {
-            "prop": "tabs",
-            "description": "Renders the nav items with the appearance of tabs"
-          },
-          {
-            "prop": "pills",
-            "description": "Renders the nav items with the appearance of pill buttons"
-          },
-          {
-            "prop": "small",
-            "description": "Makes the nav smaller"
-          },
-          {
             "prop": "align",
             "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
+          },
+          {
+            "prop": "cardHeader",
+            "version": "2.0.0",
+            "description": "Set this prop when the nav is placed inside a card header"
           },
           {
             "prop": "fill",
@@ -36,13 +29,26 @@
             "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
           },
           {
-            "prop": "vertical",
-            "description": "Renders the nav vertically"
+            "prop": "pills",
+            "description": "Renders the nav items with the appearance of pill buttons"
           },
           {
-            "prop": "cardHeader",
-            "version": "2.0.0",
-            "description": "Set this prop when the nav is placed inside a card header"
+            "prop": "small",
+            "description": "Makes the nav smaller"
+          },
+          {
+            "prop": "tabs",
+            "description": "Renders the nav items with the appearance of tabs"
+          },
+          {
+            "prop": "vertical",
+            "description": "Renders the nav vertically"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav"
           }
         ]
       },
@@ -57,14 +63,30 @@
             "prop": "linkClasses",
             "description": "CSS class (or classes) to place on the nested link element"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav item"
+          }
         ]
       },
       {
-        "component": "BNavText"
+        "component": "BNavText",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav text"
+          }
+        ]
       },
       {
         "component": "BNavForm",
         "props": [
+          {
+            "prop": "formClass",
+            "description": "CSS class (or classes) to add to the form"
+          },
           {
             "prop": "novalidate",
             "description": "When set, disables browser native HTML5 validation on controls in the form"
@@ -82,9 +104,15 @@
               {
                 "arg": "event",
                 "type": "Event",
-                "description": "Native submit event."
+                "description": "Native submit event"
               }
             ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the nav form"
           }
         ]
       },
@@ -97,110 +125,111 @@
         ],
         "props": [
           {
-            "prop": "text",
-            "description": "Text to place in the toggle element (link)"
-          },
-          {
-            "prop": "html",
-            "description": "HTML string to place in the toggle element (link). Use with caution"
-          },
-          {
-            "prop": "dropup",
-            "description": "When set, positions the menu on the top of the button"
-          },
-          {
-            "prop": "dropright",
-            "description": "When set, positions the menu to the right of the button"
+            "prop": "boundary",
+            "version": "2.4.0",
+            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement. Has no effect when dropdown is inside a `<b-navbar>`"
           },
           {
             "prop": "dropleft",
             "description": "When set, positions the menu to the left of the button"
           },
           {
-            "prop": "right",
-            "description": "Align the right edge of the menu with the right of the button"
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
           },
           {
-            "prop": "noFlip",
-            "description": "Prevent the menu from auto flipping positions"
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
+          },
+          {
+            "prop": "html",
+            "description": "HTML string to place in the toggle element (link)",
+            "xss": true
           },
           {
             "prop": "lazy",
             "description": "When set, will only mount the menu content into the DOM when the menu is open"
           },
           {
-            "prop": "popperOpts",
-            "description": "Additional configuration to pass to Popper.js"
-          },
-          {
             "prop": "menuClass",
             "description": "CSS class (or classes) to add to the menu container"
-          },
-          {
-            "prop": "toggleClass",
-            "description": "CSS class (or classes) to add to the toggle element (link)"
           },
           {
             "prop": "noCaret",
             "description": "Hide the caret indicator on the toggle element (link)"
           },
           {
-            "prop": "boundary",
-            "version": "2.4.0",
-            "description": "The boundary constraint of the menu: 'scrollParent', 'window', 'viewport', or a reference to an HTMLElement. Has no effect when dropdown is inside a `<b-navbar>`"
-          }
-        ],
-        "slots": [
-          {
-            "name": "button-content",
-            "description": "Can be used to implement custom text with icons and more styling."
+            "prop": "noFlip",
+            "description": "Prevent the menu from auto flipping positions"
           },
           {
-            "name": "default",
-            "description": "Optionally scoped default slot for dropdown menu content.",
-            "scope": [
-              {
-                "prop": "hide",
-                "type": "Function",
-                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button."
-              }
-            ]
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "text",
+            "description": "Text to place in the toggle element (link)"
+          },
+          {
+            "prop": "toggleClass",
+            "description": "CSS class (or classes) to add to the toggle element (link)"
           }
         ],
         "events": [
           {
-            "event": "show",
-            "description": "Emitted just before dropdown is shown. Cancelable.",
+            "event": "hidden",
+            "description": "Emitted when dropdown is hidden"
+          },
+          {
+            "event": "hide",
+            "description": "Emitted just before dropdown is hidden. Cancelable",
             "args": [
               {
-                "arg": "bvEvt",
+                "arg": "bvEvent",
                 "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel show."
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel hide"
+              }
+            ]
+          },
+          {
+            "event": "show",
+            "description": "Emitted just before dropdown is shown. Cancelable",
+            "args": [
+              {
+                "arg": "bvEvent",
+                "type": "BvEvent",
+                "description": "BvEvent object. Call bvEvent.preventDefault() to cancel show"
               }
             ]
           },
           {
             "event": "shown",
-            "description": "Emitted when dropdown is shown."
-          },
-          {
-            "event": "hide",
-            "description": "Emitted just before dropdown is hidden. Cancelable.",
-            "args": [
-              {
-                "arg": "bvEvt",
-                "type": "BvEvent",
-                "description": "BvEvent object. Call bvEvt.preventDefault() to cancel hide."
-              }
-            ]
-          },
-          {
-            "event": "hidden",
-            "description": "Emitted when dropdown is hidden."
+            "description": "Emitted when dropdown is shown"
           },
           {
             "event": "toggle",
-            "description": "Emitted when toggle button is clicked."
+            "description": "Emitted when toggle button is clicked"
+          }
+        ],
+        "slots": [
+          {
+            "name": "button-content",
+            "description": "Can be used to implement custom text with icons and more styling"
+          },
+          {
+            "name": "default",
+            "description": "Optionally scoped default slot for dropdown menu content",
+            "scope": [
+              {
+                "prop": "hide",
+                "type": "Function",
+                "description": "Can be used to close the dropdown menu. Accepts an optional boolean argument, which if true returns focus to the toggle button"
+              }
+            ]
           }
         ]
       }

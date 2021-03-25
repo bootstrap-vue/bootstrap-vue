@@ -133,7 +133,7 @@ describe('modal', () => {
       expect($modal.attributes('id')).toEqual('test')
       expect($modal.attributes('role')).toBeDefined()
       expect($modal.attributes('role')).toEqual('dialog')
-      expect($modal.attributes('aria-hidden')).not.toBeDefined()
+      expect($modal.attributes('aria-hidden')).toBeUndefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.classes()).toContain('modal')
@@ -176,7 +176,7 @@ describe('modal', () => {
       expect(outer).not.toBe(null)
 
       expect(outer.__vue__).toBeDefined() // Target
-      expect(outer.__vue__.$options.name).toBe('BTransporterTargetSingle')
+      expect(outer.__vue__.$options.name).toBe('BVTransporterTarget')
       expect(outer.parentElement).toBeDefined()
       expect(outer.parentElement).toBe(document.body)
 
@@ -214,7 +214,7 @@ describe('modal', () => {
       // Main modal wrapper
       const $modal = wrapper.find('div.modal')
       expect($modal.exists()).toBe(true)
-      expect($modal.attributes('aria-hidden')).not.toBeDefined()
+      expect($modal.attributes('aria-hidden')).toBeUndefined()
       expect($modal.attributes('aria-modal')).toBeDefined()
       expect($modal.attributes('aria-modal')).toEqual('true')
       expect($modal.element.style.display).toEqual('block')
@@ -234,7 +234,7 @@ describe('modal', () => {
 
       expect($modal.attributes('aria-hidden')).toBeDefined()
       expect($modal.attributes('aria-hidden')).toEqual('true')
-      expect($modal.attributes('aria-modal')).not.toBeDefined()
+      expect($modal.attributes('aria-modal')).toBeUndefined()
       expect($modal.element.style.display).toEqual('none')
 
       // Backdrop should be removed
@@ -259,6 +259,48 @@ describe('modal', () => {
       const $title = wrapper.find('.modal-title')
       expect($title.exists()).toBe(true)
       expect($title.html()).toContain('<em>title</em>')
+
+      wrapper.destroy()
+    })
+
+    it('has correct header tag when "header-tag" prop is set', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true,
+          id: 'test',
+          headerTag: 'div'
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $header = wrapper.find('.modal-header')
+      expect($header.exists()).toBe(true)
+      expect($header.element.tagName).toBe('DIV')
+
+      wrapper.destroy()
+    })
+
+    it('has correct footer tag when "footer-tag" prop is set', async () => {
+      const wrapper = mount(BModal, {
+        attachTo: createContainer(),
+        propsData: {
+          static: true,
+          id: 'test',
+          footerTag: 'div'
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $footer = wrapper.find('.modal-footer')
+      expect($footer.exists()).toBe(true)
+      expect($footer.element.tagName).toBe('DIV')
 
       wrapper.destroy()
     })
@@ -385,7 +427,7 @@ describe('modal', () => {
     it('header close button triggers modal close and is preventable', async () => {
       let cancelHide = true
       let trigger = null
-      let evt = null
+      let event = null
       const wrapper = mount(BModal, {
         attachTo: createContainer(),
         propsData: {
@@ -399,7 +441,7 @@ describe('modal', () => {
               bvEvent.preventDefault()
             }
             trigger = bvEvent.trigger
-            evt = bvEvent
+            event = bvEvent
           }
         }
       })
@@ -425,14 +467,14 @@ describe('modal', () => {
       expect($close.attributes('aria-label')).toBe('Close')
       expect($close.classes()).toContain('close')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
-      expect(evt).toEqual(null)
+      expect(event).toEqual(null)
 
       // Try and close modal (but we prevent it)
       await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvModalEvent)
+      expect(event).toBeInstanceOf(BvModalEvent)
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -445,10 +487,10 @@ describe('modal', () => {
       // Try and close modal (and not prevent it)
       cancelHide = false
       trigger = null
-      evt = null
+      event = null
       await $close.trigger('click')
       expect(trigger).toEqual('headerclose')
-      expect(evt).toBeInstanceOf(BvModalEvent)
+      expect(event).toBeInstanceOf(BvModalEvent)
 
       await waitNT(wrapper.vm)
       await waitRAF()
@@ -504,7 +546,7 @@ describe('modal', () => {
       const $ok = $buttons.at(1)
       expect($ok.text()).toContain('OK')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal (but we prevent it)
@@ -572,7 +614,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via ESC
@@ -593,8 +635,8 @@ describe('modal', () => {
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
 
-      expect(wrapper.emitted('ok')).not.toBeDefined()
-      expect(wrapper.emitted('cancel')).not.toBeDefined()
+      expect(wrapper.emitted('ok')).toBeUndefined()
+      expect(wrapper.emitted('cancel')).toBeUndefined()
 
       wrapper.destroy()
     })
@@ -627,7 +669,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via click out
@@ -648,8 +690,8 @@ describe('modal', () => {
       expect(wrapper.emitted('hidden')).toBeDefined()
       expect(wrapper.emitted('hidden').length).toBe(1)
 
-      expect(wrapper.emitted('ok')).not.toBeDefined()
-      expect(wrapper.emitted('cancel')).not.toBeDefined()
+      expect(wrapper.emitted('ok')).toBeUndefined()
+      expect(wrapper.emitted('cancel')).toBeUndefined()
 
       wrapper.destroy()
     })
@@ -690,7 +732,7 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('block')
 
-      expect(wrapper.emitted('hide')).not.toBeDefined()
+      expect(wrapper.emitted('hide')).toBeUndefined()
       expect(trigger).toEqual(null)
 
       // Try and close modal via a "dragged" click out
@@ -861,10 +903,10 @@ describe('modal', () => {
 
       expect($modal.element.style.display).toEqual('none')
 
-      wrapper.vm.$on('show', bvEvt => {
+      wrapper.vm.$on('show', bvEvent => {
         called = true
         if (prevent) {
-          bvEvt.preventDefault()
+          bvEvent.preventDefault()
         }
       })
 
@@ -1195,7 +1237,7 @@ describe('modal', () => {
 
       // Emulate TAB by focusing the `bottomTrap` span element
       // Should focus first button in modal (in the header)
-      const $bottomTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.bottomTrap)
+      const $bottomTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs['bottom-trap'])
       expect($bottomTrap.exists()).toBe(true)
       expect($bottomTrap.element.tagName).toBe('SPAN')
       // Find the close (x) button (it is the only one with the `.close` class)
@@ -1212,7 +1254,7 @@ describe('modal', () => {
 
       // Emulate CTRL-TAB by focusing the `topTrap` div element
       // Should focus last button in modal (in the footer)
-      const $topTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs.topTrap)
+      const $topTrap = createWrapper(wrapper.findComponent(BModal).vm.$refs['top-trap'])
       expect($topTrap.exists()).toBe(true)
       expect($topTrap.element.tagName).toBe('SPAN')
       // Find the OK button (it is the only one with `.btn-primary` class)

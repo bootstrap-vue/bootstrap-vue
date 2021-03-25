@@ -28,26 +28,26 @@ export const stringifyQueryObj = obj => {
 
   const query = keys(obj)
     .map(key => {
-      const val = obj[key]
-      if (isUndefined(val)) {
+      const value = obj[key]
+      if (isUndefined(value)) {
         return ''
-      } else if (isNull(val)) {
+      } else if (isNull(value)) {
         return encode(key)
-      } else if (isArray(val)) {
-        return val
-          .reduce((results, val2) => {
-            if (isNull(val2)) {
+      } else if (isArray(value)) {
+        return value
+          .reduce((results, value2) => {
+            if (isNull(value2)) {
               results.push(encode(key))
-            } else if (!isUndefined(val2)) {
+            } else if (!isUndefined(value2)) {
               // Faster than string interpolation
-              results.push(encode(key) + '=' + encode(val2))
+              results.push(encode(key) + '=' + encode(value2))
             }
             return results
           }, [])
           .join('&')
       }
       // Faster than string interpolation
-      return encode(key) + '=' + encode(val)
+      return encode(key) + '=' + encode(value)
     })
     /* must check for length, as we only want to filter empty strings, not things that look falsey! */
     .filter(x => x.length > 0)
@@ -69,14 +69,14 @@ export const parseQuery = query => {
   query.split('&').forEach(param => {
     const parts = param.replace(RX_PLUS, ' ').split('=')
     const key = decode(parts.shift())
-    const val = parts.length > 0 ? decode(parts.join('=')) : null
+    const value = parts.length > 0 ? decode(parts.join('=')) : null
 
     if (isUndefined(parsed[key])) {
-      parsed[key] = val
+      parsed[key] = value
     } else if (isArray(parsed[key])) {
-      parsed[key].push(val)
+      parsed[key].push(value)
     } else {
-      parsed[key] = [parsed[key], val]
+      parsed[key] = [parsed[key], value]
     }
   })
 

@@ -1,6 +1,7 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
+import { omit } from '../../utils/object'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
-import { commonIconProps, BVIconBase } from './icon-base'
+import { BVIconBase, props as BVIconBaseProps } from './icon-base'
 
 /**
  * Icon component generator function
@@ -17,17 +18,11 @@ export const makeIcon = (name, content) => {
   const iconNameClass = `bi-${kebabName}`
   const iconTitle = kebabName.replace(/-/g, ' ')
   const svgContent = trim(content || '')
-  // Return the icon component definition
+
   return /*#__PURE__*/ Vue.extend({
     name: iconName,
     functional: true,
-    props: {
-      ...commonIconProps,
-      stacked: {
-        type: Boolean,
-        default: false
-      }
-    },
+    props: omit(BVIconBaseProps, ['content']),
     render(h, { data, props }) {
       return h(
         BVIconBase,

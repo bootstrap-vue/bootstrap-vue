@@ -225,9 +225,12 @@ describe('table-lite', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.find('table').classes()).toContain('table')
-    expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(2)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes().length).toBe(2)
 
     wrapper.destroy()
   })
@@ -245,14 +248,17 @@ describe('table-lite', () => {
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('table-responsive-md')
     expect(wrapper.classes().length).toBe(1)
-    expect(wrapper.find('table').classes()).toContain('table')
-    expect(wrapper.find('table').classes()).toContain('b-table')
-    expect(wrapper.find('table').classes().length).toBe(2)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes().length).toBe(2)
 
     wrapper.destroy()
   })
 
-  it('stacked has precedence over responsive', async () => {
+  it('stacked and responsive work together', async () => {
     const wrapper = mount(BTableLite, {
       propsData: {
         items: items1,
@@ -263,12 +269,16 @@ describe('table-lite', () => {
     })
 
     expect(wrapper).toBeDefined()
-    expect(wrapper.element.tagName).toBe('TABLE')
-    expect(wrapper.classes()).not.toContain('table-responsive')
-    expect(wrapper.classes()).toContain('b-table-stacked')
-    expect(wrapper.classes()).toContain('table')
-    expect(wrapper.classes()).toContain('b-table')
-    expect(wrapper.classes().length).toBe(3)
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.classes()).toContain('table-responsive')
+    expect(wrapper.classes().length).toBe(1)
+
+    const $table = wrapper.find('table')
+    expect($table.exists()).toBe(true)
+    expect($table.classes()).toContain('table')
+    expect($table.classes()).toContain('b-table')
+    expect($table.classes()).toContain('b-table-stacked')
+    expect($table.classes().length).toBe(3)
 
     wrapper.destroy()
   })
@@ -281,6 +291,7 @@ describe('table-lite', () => {
         stacked: true
       }
     })
+
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(2)
     const $trs = wrapper.findAll('tbody > tr').wrappers
@@ -519,7 +530,7 @@ describe('table-lite', () => {
         .findAll('tbody > tr > *')
         .at(1)
         .attributes('scope')
-    ).not.toBeDefined()
+    ).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -551,15 +562,15 @@ describe('table-lite', () => {
     const $tds = wrapper.findAll('tbody > tr > td')
 
     expect($tds.at(0).attributes('data-foo')).toBe('bar')
-    expect($tds.at(0).attributes('data-parent')).not.toBeDefined()
+    expect($tds.at(0).attributes('data-parent')).toBeUndefined()
     expect($tds.at(0).classes().length).toBe(0)
 
     expect($tds.at(1).classes()).toContain('baz')
-    expect($tds.at(1).attributes('data-foo')).not.toBeDefined()
-    expect($tds.at(1).attributes('data-parent')).not.toBeDefined()
+    expect($tds.at(1).attributes('data-foo')).toBeUndefined()
+    expect($tds.at(1).attributes('data-parent')).toBeUndefined()
 
     expect($tds.at(2).attributes('data-parent')).toBe('parent')
-    expect($tds.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($tds.at(2).attributes('data-foo')).toBeUndefined()
     expect($tds.at(2).classes().length).toBe(0)
 
     wrapper.destroy()
@@ -600,20 +611,20 @@ describe('table-lite', () => {
 
     const $headerThs = wrapper.findAll('thead > tr > th')
     expect($headerThs.at(0).attributes('data-foo')).toBe('bar')
-    expect($headerThs.at(0).attributes('data-type')).not.toBeDefined()
+    expect($headerThs.at(0).attributes('data-type')).toBeUndefined()
     expect($headerThs.at(0).classes().length).toBe(0)
 
-    expect($headerThs.at(1).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(1).attributes('data-foo')).toBeUndefined()
     expect($headerThs.at(1).attributes('data-type')).toBe('head')
     expect($headerThs.at(1).classes().length).toBe(0)
 
-    expect($headerThs.at(2).attributes('data-foo')).not.toBeDefined()
+    expect($headerThs.at(2).attributes('data-foo')).toBeUndefined()
     expect($headerThs.at(2).attributes('data-type')).toBe('head')
     expect($headerThs.at(2).classes().length).toBe(0)
 
     const $bodyThs = wrapper.findAll('tbody > tr > th')
 
-    expect($bodyThs.at(0).attributes('data-foo')).not.toBeDefined()
+    expect($bodyThs.at(0).attributes('data-foo')).toBeUndefined()
     expect($bodyThs.at(0).attributes('data-type')).toBe('row')
     expect($bodyThs.at(0).classes().length).toBe(0)
 

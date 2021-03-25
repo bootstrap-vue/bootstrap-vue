@@ -39,9 +39,9 @@ describe('card-image', () => {
       }
     })
 
-    expect(wrapper.attributes('alt')).not.toBeDefined()
-    expect(wrapper.attributes('width')).not.toBeDefined()
-    expect(wrapper.attributes('height')).not.toBeDefined()
+    expect(wrapper.attributes('alt')).toBeUndefined()
+    expect(wrapper.attributes('width')).toBeUndefined()
+    expect(wrapper.attributes('height')).toBeUndefined()
 
     wrapper.destroy()
   })

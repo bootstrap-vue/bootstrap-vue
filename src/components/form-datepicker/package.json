@@ -5,7 +5,7 @@
     "title": "Form Datepicker",
     "version": "2.5.0",
     "slug": "form-datepicker",
-    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n)",
+    "description": "BootstrapVue custom date picker input form control, which provides full WAI-ARIA accessibility (a11y) and supports internationalization (i18n).",
     "components": [
       {
         "component": "BFormDatepicker",
@@ -16,62 +16,8 @@
         ],
         "props": [
           {
-            "prop": "value",
-            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
-          },
-          {
-            "prop": "valueAsDate",
-            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
-          },
-          {
-            "prop": "resetValue",
-            "description": "When the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
-          },
-          {
-            "prop": "initialDate",
-            "version": "2.7.0",
-            "description": "When a `value` is not specified, sets the initial calendar month date that will be presented to the user. Accepts a value in `YYYY-MM-DD` format or a `Date` object. Defaults to the current date (or min or max if the current date is out of range)"
-          },
-          {
-            "prop": "disabled",
-            "description": "Places the calendar in a non-interactive disabled state"
-          },
-          {
-            "prop": "readonly",
-            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
-          },
-          {
-            "prop": "required",
-            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
-          },
-          {
-            "prop": "selectedVariant",
-            "description": "Theme color variant to use for the selected date button"
-          },
-          {
-            "prop": "todayVariant",
-            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `selectedVariant` prop"
-          },
-          {
-            "prop": "navButtonVariant",
-            "version": "2.17.0",
-            "description": "Theme color variant to use for the navigation buttons"
-          },
-          {
-            "prop": "noHighlightToday",
-            "description": "Disabled the highlighting of todays date in the calendar"
-          },
-          {
-            "prop": "startWeekday",
-            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
-          },
-          {
-            "prop": "locale",
-            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
-          },
-          {
-            "prop": "direction",
-            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+            "prop": "boundary",
+            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
           },
           {
             "prop": "buttonOnly",
@@ -89,53 +35,6 @@
             "description": "Sets the width of the calendar dropdown (see the `b-calendar` prop `width` for details)"
           },
           {
-            "prop": "min",
-            "description": "The minimum date the calendar will show"
-          },
-          {
-            "prop": "max",
-            "description": "The maximum date the calendar will show"
-          },
-          {
-            "prop": "dateDisabledFn",
-            "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
-          },
-          {
-            "prop": "dateInfoFn",
-            "version": "2.12.0",
-            "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See calendar documentation for details. Passed through to the child calendar component"
-          },
-          {
-            "prop": "hideHeader",
-            "description": "When `true`, visually hides the selected date header"
-          },
-          {
-            "prop": "showDecadeNav",
-            "version": "2.11.0",
-            "description": "When `true`, shows the +/- decade navigation buttons"
-          },
-          {
-            "prop": "menuClass",
-            "version": "2.6.0",
-            "description": "Class (or classes) to apply to to popup menu wrapper"
-          },
-          {
-            "prop": "todayButton",
-            "description": "When set, shows the optional `select today` button"
-          },
-          {
-            "prop": "todayButtonVariant",
-            "description": "Button variant to use for the optional `select today` button"
-          },
-          {
-            "prop": "resetButton",
-            "description": "When set, shows the optional `reset` button"
-          },
-          {
-            "prop": "resetButtonVariant",
-            "description": "Button variant to use for the optional `reset` button"
-          },
-          {
             "prop": "closeButton",
             "description": "When set, shows the optional close button"
           },
@@ -144,65 +43,76 @@
             "description": "Button variant to use for the optional `close` button"
           },
           {
-            "prop": "noCloseOnSelect",
-            "description": "Disables closing the popup date picker when a date is clicked/selected"
+            "prop": "dark",
+            "description": "When set, gives the popup calendar dialog a dark background"
           },
           {
-            "prop": "dropup",
-            "description": "When set, positions the menu on the top of the button"
+            "prop": "dateDisabledFn",
+            "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
           },
           {
-            "prop": "dropright",
-            "description": "When set, positions the menu to the right of the button"
+            "prop": "dateFormatOptions",
+            "version": "2.6.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
+          },
+          {
+            "prop": "dateInfoFn",
+            "version": "2.12.0",
+            "description": "Set to a function reference which returns a class (string), or classes (array of strings) to apply to the date cell. See calendar documentation for details. Passed through to the child calendar component"
+          },
+          {
+            "prop": "direction",
+            "description": "Set to the string 'rtl' or 'ltr' to explicitly force the calendar to render in right-to-left or left-ro-right (respectively) mode. Defaults to the resolved locale's directionality"
+          },
+          {
+            "prop": "disabled",
+            "description": "Places the calendar in a non-interactive disabled state"
           },
           {
             "prop": "dropleft",
             "description": "When set, positions the menu to the left of the button"
           },
           {
-            "prop": "right",
-            "description": "Align the right edge of the menu with the right of the button"
+            "prop": "dropright",
+            "description": "When set, positions the menu to the right of the button"
           },
           {
-            "prop": "noFlip",
-            "description": "Prevent the menu from auto flipping positions"
+            "prop": "dropup",
+            "description": "When set, positions the menu on the top of the button"
           },
           {
-            "prop": "offset",
-            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+            "prop": "hideHeader",
+            "description": "When `true`, visually hides the selected date header"
           },
           {
-            "prop": "popperOpts",
-            "description": "Additional configuration to pass to Popper.js"
+            "prop": "initialDate",
+            "version": "2.7.0",
+            "description": "When a `value` is not specified, sets the initial calendar month date that will be presented to the user. Accepts a value in `YYYY-MM-DD` format or a `Date` object. Defaults to the current date (or min or max if the current date is out of range)"
           },
           {
-            "prop": "boundary",
-            "description": "The boundary constraint of the menu: `'scrollParent'`, `'window'`, `'viewport'`, or a reference to an `HTMLElement`"
+            "prop": "labelCalendar",
+            "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
           },
           {
-            "prop": "dark",
-            "description": "When set, gives the popup calendar dialog a dark background"
-          },
-          {
-            "prop": "placeholder",
-            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
-          },
-          {
-            "prop": "labelPrevDecade",
-            "version": "2.11.0",
-            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
-          },
-          {
-            "prop": "labelPrevYear",
-            "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
-          },
-          {
-            "prop": "labelPrevMonth",
-            "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
+            "prop": "labelCloseButton",
+            "description": "Content for the optional `Close` button"
           },
           {
             "prop": "labelCurrentMonth",
             "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
+          },
+          {
+            "prop": "labelHelp",
+            "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "labelNav",
+            "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
+          },
+          {
+            "prop": "labelNextDecade",
+            "version": "2.11.0",
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
           },
           {
             "prop": "labelNextMonth",
@@ -213,9 +123,25 @@
             "description": "Value of the `aria-label` and `title` attributes on the `Next Year` navigation button"
           },
           {
-            "prop": "labelNextDecade",
+            "prop": "labelNoDateSelected",
+            "description": "Label to use when no date is currently selected"
+          },
+          {
+            "prop": "labelPrevDecade",
             "version": "2.11.0",
-            "description": "Value of the `aria-label` and `title` attributes on the optional `Next Decade` navigation button"
+            "description": "Value of the `aria-label` and `title` attributes on the optional `Previous Decade` navigation button"
+          },
+          {
+            "prop": "labelPrevMonth",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Month` navigation button"
+          },
+          {
+            "prop": "labelPrevYear",
+            "description": "Value of the `aria-label` and `title` attributes on the `Previous Year` navigation button"
+          },
+          {
+            "prop": "labelResetButton",
+            "description": "Content for the optional `Reset` button"
           },
           {
             "prop": "labelSelected",
@@ -226,37 +152,111 @@
             "description": "Value of the `aria-label` attribute for the calendar grid date button to signify that the date is today's date"
           },
           {
-            "prop": "labelNoDateSelected",
-            "description": "Label to use when no date is currently selected"
-          },
-          {
-            "prop": "labelCalendar",
-            "description": "Value of the `aria-label` and `role-description` attributes applied to the calendar grid"
-          },
-          {
-            "prop": "labelNav",
-            "description": "Value of the `aria-label` attribute on to the calendar navigation button wrapper"
-          },
-          {
-            "prop": "labelHelp",
-            "description": "help text that appears at the bottom of the calendar grid"
-          },
-          {
             "prop": "labelTodayButton",
             "description": "Content for the optional `Select today` button"
           },
           {
-            "prop": "labelResetButton",
-            "description": "Content for the optional `Reset` button"
+            "prop": "locale",
+            "description": "Locale (or locales) for the calendar to use. When passing an array of locales, the order of the locales is from most preferred to least preferred"
           },
           {
-            "prop": "labelCloseButton",
-            "description": "Content for the optional `Close` button"
+            "prop": "max",
+            "description": "The maximum date the calendar will show"
           },
           {
-            "prop": "dateFormatOptions",
+            "prop": "menuClass",
             "version": "2.6.0",
-            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
+            "description": "Class (or classes) to apply to to popup menu wrapper"
+          },
+          {
+            "prop": "min",
+            "description": "The minimum date the calendar will show"
+          },
+          {
+            "prop": "navButtonVariant",
+            "version": "2.17.0",
+            "description": "Theme color variant to use for the navigation buttons"
+          },
+          {
+            "prop": "noCloseOnSelect",
+            "description": "Disables closing the popup date picker when a date is clicked/selected"
+          },
+          {
+            "prop": "noFlip",
+            "description": "Prevent the menu from auto flipping positions"
+          },
+          {
+            "prop": "noHighlightToday",
+            "description": "Disabled the highlighting of todays date in the calendar"
+          },
+          {
+            "prop": "offset",
+            "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "placeholder",
+            "description": "Text so show in the form control when no date is selected. Defaults to the `label-no-date-selected` prop value"
+          },
+          {
+            "prop": "popperOpts",
+            "description": "Additional configuration to pass to Popper.js"
+          },
+          {
+            "prop": "readonly",
+            "description": "Places the calendar in an interactive readonly state. Disables updating the v-model, while still allowing date navigation"
+          },
+          {
+            "prop": "required",
+            "description": "When set, adds the `aria-required=\"true\"` attribute on the component. Required validation needs to be handled by your application"
+          },
+          {
+            "prop": "resetButton",
+            "description": "When set, shows the optional `reset` button"
+          },
+          {
+            "prop": "resetButtonVariant",
+            "description": "Button variant to use for the optional `reset` button"
+          },
+          {
+            "prop": "resetValue",
+            "description": "When the optional `reset` button is clicked, the selected date will be set to this value. Default is to clear the selected value"
+          },
+          {
+            "prop": "right",
+            "description": "Align the right edge of the menu with the right of the button"
+          },
+          {
+            "prop": "selectedVariant",
+            "description": "Theme color variant to use for the selected date button"
+          },
+          {
+            "prop": "showDecadeNav",
+            "version": "2.11.0",
+            "description": "When `true`, shows the +/- decade navigation buttons"
+          },
+          {
+            "prop": "startWeekday",
+            "description": "Day of week to start the calendar. `0` for Sunday, `1` for Monday, `6` for Saturday, etc."
+          },
+          {
+            "prop": "todayButton",
+            "description": "When set, shows the optional `select today` button"
+          },
+          {
+            "prop": "todayButtonVariant",
+            "description": "Button variant to use for the optional `select today` button"
+          },
+          {
+            "prop": "todayVariant",
+            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `selectedVariant` prop"
+          },
+          {
+            "prop": "value",
+            "description": "Initially selected date value. Accepts either a `YYYY-MM-DD` string or a `Date` object"
+          },
+          {
+            "prop": "valueAsDate",
+            "description": "Returns a `Date` object for the v-model instead of a `YYYY-MM-DD` string"
           },
           {
             "prop": "weekdayHeaderFormat",
@@ -265,6 +265,22 @@
           }
         ],
         "events": [
+          {
+            "event": "context",
+            "description": "`b-calendar` context event. Emitted when the user changes the active date via date navigation buttons or cursor control",
+            "args": [
+              {
+                "arg": "context",
+                "description": "The `b-calendar` context object. See the `b-calendar` documentaion for details",
+                "type": "Object"
+              }
+            ]
+          },
+          {
+            "event": "hidden",
+            "version": "2.9.0",
+            "description": "Emitted when the picker popup has hidden"
+          },
           {
             "event": "input",
             "description": "Emitted when updating the v-model",
@@ -280,25 +296,9 @@
             ]
           },
           {
-            "event": "context",
-            "description": "`b-calendar` context event. Emitted when the user changes the active date via date navigation buttons or cursor control",
-            "args": [
-              {
-                "arg": "context",
-                "description": "The `b-calendar` context object. See the `b-calendar` documentaion for details",
-                "type": "Object"
-              }
-            ]
-          },
-          {
             "event": "shown",
             "version": "2.9.0",
             "description": "Emitted when the picker popup has shown"
-          },
-          {
-            "event": "hidden",
-            "version": "2.9.0",
-            "description": "Emitted when the picker popup has hidden"
           }
         ],
         "slots": [
@@ -330,45 +330,9 @@
             ]
           },
           {
-            "name": "nav-prev-decade",
+            "name": "nav-next-decade",
             "version": "2.12.0",
-            "description": "Used to place custom content in the previous decade navigation button",
-            "scope": [
-              {
-                "prop": "isRTL",
-                "type": "Boolean",
-                "description": "Will be `true` if the date navigation bar is rendered right to left"
-              }
-            ]
-          },
-          {
-            "name": "nav-prev-year",
-            "version": "2.12.0",
-            "description": "Used to place custom content in the previous year navigation button",
-            "scope": [
-              {
-                "prop": "isRTL",
-                "type": "Boolean",
-                "description": "Will be `true` if the date navigation bar is rendered right to left"
-              }
-            ]
-          },
-          {
-            "name": "nav-prev-month",
-            "version": "2.12.0",
-            "description": "Used to place custom content in the previous month navigation button",
-            "scope": [
-              {
-                "prop": "isRTL",
-                "type": "Boolean",
-                "description": "Will be `true` if the date navigation bar is rendered right to left"
-              }
-            ]
-          },
-          {
-            "name": "nav-this-month",
-            "version": "2.12.0",
-            "description": "Used to place custom content in the this month/day navigation button",
+            "description": "Used to place custom content in the next decade navigation button",
             "scope": [
               {
                 "prop": "isRTL",
@@ -402,9 +366,45 @@
             ]
           },
           {
-            "name": "nav-next-decade",
+            "name": "nav-prev-decade",
             "version": "2.12.0",
-            "description": "Used to place custom content in the next decade navigation button",
+            "description": "Used to place custom content in the previous decade navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-prev-month",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the previous month navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-prev-year",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the previous year navigation button",
+            "scope": [
+              {
+                "prop": "isRTL",
+                "type": "Boolean",
+                "description": "Will be `true` if the date navigation bar is rendered right to left"
+              }
+            ]
+          },
+          {
+            "name": "nav-this-month",
+            "version": "2.12.0",
+            "description": "Used to place custom content in the this month/day navigation button",
             "scope": [
               {
                 "prop": "isRTL",

@@ -1,93 +1,55 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { hasTouchSupport } from '../../utils/env'
+import { HAS_TOUCH_SUPPORT } from '../../constants/env'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
+import { SLOT_NAME_IMG } from '../../constants/slots'
 import { stopEvent } from '../../utils/events'
 import { htmlOrText } from '../../utils/html'
-import { pluckProps, unprefixPropName } from '../../utils/props'
-import idMixin from '../../mixins/id'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { identity } from '../../utils/identity'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable, pluckProps, unprefixPropName } from '../../utils/props'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BImg } from '../image/img'
 
 // --- Props ---
 
 const imgProps = {
-  imgSrc: {
-    type: String
-    // default: undefined
-  },
-  imgAlt: {
-    type: String
-    // default: undefined
-  },
-  imgWidth: {
-    type: [Number, String]
-    // default: undefined
-  },
-  imgHeight: {
-    type: [Number, String]
-    // default: undefined
-  },
-  imgBlank: {
-    type: Boolean,
-    default: false
-  },
-  imgBlankColor: {
-    type: String,
-    default: 'transparent'
-  }
+  imgAlt: makeProp(PROP_TYPE_STRING),
+  imgBlank: makeProp(PROP_TYPE_BOOLEAN, false),
+  imgBlankColor: makeProp(PROP_TYPE_STRING, 'transparent'),
+  imgHeight: makeProp(PROP_TYPE_NUMBER_STRING),
+  imgSrc: makeProp(PROP_TYPE_STRING),
+  imgWidth: makeProp(PROP_TYPE_NUMBER_STRING)
 }
 
 export const props = makePropsConfigurable(
-  {
+  sortKeys({
+    ...idProps,
     ...imgProps,
-    contentVisibleUp: {
-      type: String
-    },
-    contentTag: {
-      type: String,
-      default: 'div'
-    },
-    caption: {
-      type: String
-    },
-    captionHtml: {
-      type: String
-    },
-    captionTag: {
-      type: String,
-      default: 'h3'
-    },
-    text: {
-      type: String
-    },
-    textHtml: {
-      type: String
-    },
-    textTag: {
-      type: String,
-      default: 'p'
-    },
-    background: {
-      type: String
-    }
-  },
+    background: makeProp(PROP_TYPE_STRING),
+    caption: makeProp(PROP_TYPE_STRING),
+    captionHtml: makeProp(PROP_TYPE_STRING),
+    captionTag: makeProp(PROP_TYPE_STRING, 'h3'),
+    contentTag: makeProp(PROP_TYPE_STRING, 'div'),
+    contentVisibleUp: makeProp(PROP_TYPE_STRING),
+    text: makeProp(PROP_TYPE_STRING),
+    textHtml: makeProp(PROP_TYPE_STRING),
+    textTag: makeProp(PROP_TYPE_STRING, 'p')
+  }),
   NAME_CAROUSEL_SLIDE
 )
 
 // --- Main component ---
+
 // @vue/component
 export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
     bvCarousel: {
-      default() {
-        return {
-          // Explicitly disable touch if not a child of carousel
-          noTouch: true
-        }
-      }
+      // Explicitly disable touch if not a child of carousel
+      default: () => ({ noTouch: true })
     }
   },
   props,
@@ -108,13 +70,13 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    let $img = this.normalizeSlot('img')
+    let $img = this.normalizeSlot(SLOT_NAME_IMG)
     if (!$img && (this.imgSrc || this.imgBlank)) {
       const on = {}
       // Touch support event handler
       /* istanbul ignore if: difficult to test in JSDOM */
-      if (!this.bvCarousel.noTouch && hasTouchSupport) {
-        on.dragstart = evt => stopEvent(evt, { propagation: false })
+      if (!this.bvCarousel.noTouch && HAS_TOUCH_SUPPORT) {
+        on.dragstart = event => stopEvent(event, { propagation: false })
       }
 
       $img = h(BImg, {
@@ -143,7 +105,7 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
     ]
 
     let $content = h()
-    if ($contentChildren.some(Boolean)) {
+    if ($contentChildren.some(identity)) {
       $content = h(
         this.contentTag,
         {

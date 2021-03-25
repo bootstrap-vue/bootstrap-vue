@@ -1,4 +1,4 @@
-import normalizeSlot from './normalize-slot'
+import { normalizeSlot } from './normalize-slot'
 
 describe('utils/normalizeSlot', () => {
   it('works', async () => {
@@ -42,11 +42,11 @@ describe('utils/normalizeSlot', () => {
 
     // Returns undefined if slot name not found
     result = normalizeSlot('default', {}, {}, {})
-    expect(result).not.toBeDefined()
+    expect(result).toBeUndefined()
 
     // Returns undefined if slot name not found
     result = normalizeSlot('baz', {}, $scoped, $slots)
-    expect(result).not.toBeDefined()
+    expect(result).toBeUndefined()
 
     // Works with array (named slot)
     result = normalizeSlot(['none', 'default'], { a: ' foo' }, undefined, $slots)
@@ -58,6 +58,6 @@ describe('utils/normalizeSlot', () => {
 
     // Returns undefined if slot name not found with array
     result = normalizeSlot(['baz', 'bar'], {}, $scoped, $slots)
-    expect(result).not.toBeDefined()
+    expect(result).toBeUndefined()
   })
 })

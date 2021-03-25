@@ -1,19 +1,22 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_TFOOT } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import attrsMixin from '../../mixins/attrs'
-import listenersMixin from '../../mixins/listeners'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { PROP_TYPE_STRING } from '../../constants/props'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { attrsMixin } from '../../mixins/attrs'
+import { listenersMixin } from '../../mixins/listeners'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+
+// --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    footVariant: {
-      type: String, // Supported values: 'lite', 'dark', or null
-      default: null
-    }
+    // Supported values: 'lite', 'dark', or null
+    footVariant: makeProp(PROP_TYPE_STRING)
   },
   NAME_TFOOT
 )
+
+// --- Main component ---
 
 // TODO:
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
@@ -21,7 +24,6 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BTfoot = /*#__PURE__*/ Vue.extend({
   name: NAME_TFOOT,
-  // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
@@ -29,53 +31,50 @@ export const BTfoot = /*#__PURE__*/ Vue.extend({
     }
   },
   inject: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     bvTable: {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      /* istanbul ignore next */
-      default() {
-        return {}
-      }
+      default: /* istanbul ignore next */ () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isTfoot() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return true
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isDark() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.dark
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isStacked() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isStacked
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isResponsive() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.isResponsive
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Sticky headers are only supported in thead
     isStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Sticky headers are only supported in thead
       return false
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
+    // Needed to handle header background classes, due to lack of
+    // background color inheritance with Bootstrap v4 table CSS
     hasStickyHeader() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
-      // Needed to handle header background classes, due to lack of
-      // background color inheritance with Bootstrap v4 table CSS
       return !this.isStacked && this.bvTable.stickyHeader
     },
+    // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     tableVariant() {
-      // Sniffed by <b-tr> / <b-td> / <b-th>
       return this.bvTable.tableVariant
     },
     tfootClasses() {
       return [this.footVariant ? `thead-${this.footVariant}` : null]
     },
     tfootAttrs() {
-      return { role: 'rowgroup', ...this.bvAttrs }
+      return { ...this.bvAttrs, role: 'rowgroup' }
     }
   },
   render(h) {

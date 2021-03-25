@@ -1,133 +1,114 @@
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_CHANGE,
+  EVENT_NAME_INPUT,
+  EVENT_NAME_UPDATE
+} from '../constants/events'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_FUNCTION,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../constants/props'
 import { attemptBlur, attemptFocus } from '../utils/dom'
 import { stopEvent } from '../utils/events'
-import { isUndefined } from '../utils/inspect'
 import { mathMax } from '../utils/math'
+import { makeModelMixin } from '../utils/model'
 import { toInteger, toFloat } from '../utils/number'
+import { sortKeys } from '../utils/object'
+import { hasPropFunction, makeProp, makePropsConfigurable } from '../utils/props'
 import { toString } from '../utils/string'
+
+// --- Constants ---
+
+const {
+  mixin: modelMixin,
+  props: modelProps,
+  prop: MODEL_PROP_NAME,
+  event: MODEL_EVENT_NAME
+} = makeModelMixin('value', {
+  type: PROP_TYPE_NUMBER_STRING,
+  defaultValue: '',
+  event: EVENT_NAME_UPDATE
+})
+
+export { MODEL_PROP_NAME, MODEL_EVENT_NAME }
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
-  {
-    value: {
-      type: [String, Number],
-      default: ''
-    },
-    ariaInvalid: {
-      type: [Boolean, String],
-      default: false
-    },
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    plaintext: {
-      type: Boolean,
-      default: false
-    },
-    autocomplete: {
-      type: String
-      // default: null
-    },
-    placeholder: {
-      type: String
-      // default: null
-    },
-    formatter: {
-      type: Function
-      // default: null
-    },
-    lazyFormatter: {
-      type: Boolean,
-      default: false
-    },
-    trim: {
-      type: Boolean,
-      default: false
-    },
-    number: {
-      type: Boolean,
-      default: false
-    },
-    lazy: {
-      // Only update the `v-model` on blur/change events
-      type: Boolean,
-      default: false
-    },
-    debounce: {
-      // Debounce timeout (in ms). Not applicable with `lazy` prop
-      type: [Number, String],
-      default: 0
-    }
-  },
+  sortKeys({
+    ...modelProps,
+    ariaInvalid: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    autocomplete: makeProp(PROP_TYPE_STRING),
+    // Debounce timeout (in ms). Not applicable with `lazy` prop
+    debounce: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    formatter: makeProp(PROP_TYPE_FUNCTION),
+    // Only update the `v-model` on blur/change events
+    lazy: makeProp(PROP_TYPE_BOOLEAN, false),
+    lazyFormatter: makeProp(PROP_TYPE_BOOLEAN, false),
+    number: makeProp(PROP_TYPE_BOOLEAN, false),
+    placeholder: makeProp(PROP_TYPE_STRING),
+    plaintext: makeProp(PROP_TYPE_BOOLEAN, false),
+    readonly: makeProp(PROP_TYPE_BOOLEAN, false),
+    trim: makeProp(PROP_TYPE_BOOLEAN, false)
+  }),
   'formTextControls'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
-  model: {
-    prop: 'value',
-    event: 'update'
-  },
+export const formTextMixin = Vue.extend({
+  mixins: [modelMixin],
   props,
   data() {
+    const value = this[MODEL_PROP_NAME]
     return {
-      localValue: toString(this.value),
-      vModelValue: this.value
+      localValue: toString(value),
+      vModelValue: this.modifyValue(value)
     }
   },
   computed: {
     computedClass() {
+      const { plaintext, type } = this
+      const isRange = type === 'range'
+      const isColor = type === 'color'
+
       return [
         {
           // Range input needs class `custom-range`
-          'custom-range': this.type === 'range',
+          'custom-range': isRange,
           // `plaintext` not supported by `type="range"` or `type="color"`
-          'form-control-plaintext':
-            this.plaintext && this.type !== 'range' && this.type !== 'color',
+          'form-control-plaintext': plaintext && !isRange && !isColor,
           // `form-control` not used by `type="range"` or `plaintext`
           // Always used by `type="color"`
-          'form-control': (!this.plaintext && this.type !== 'range') || this.type === 'color'
+          'form-control': isColor || (!plaintext && !isRange)
         },
         this.sizeFormClass,
         this.stateClass
       ]
-    },
-    computedAriaInvalid() {
-      if (!this.ariaInvalid || this.ariaInvalid === 'false') {
-        // `this.ariaInvalid` is `null` or `false` or 'false'
-        return this.computedState === false ? 'true' : null
-      }
-      if (this.ariaInvalid === true) {
-        // User wants explicit `:aria-invalid="true"`
-        return 'true'
-      }
-      // Most likely a string value (which could be the string 'true')
-      return this.ariaInvalid
     },
     computedDebounce() {
       // Ensure we have a positive number equal to or greater than 0
       return mathMax(toInteger(this.debounce, 0), 0)
     },
     hasFormatter() {
-      let result = null
-      try {
-        result = this.formatter()
-      } catch {}
-      return !isUndefined(result)
+      return hasPropFunction(this.formatter)
     }
   },
   watch: {
-    value(newVal) {
-      const stringifyValue = toString(newVal)
-      if (stringifyValue !== this.localValue && newVal !== this.vModelValue) {
+    [MODEL_PROP_NAME](newValue) {
+      const stringifyValue = toString(newValue)
+      const modifiedValue = this.modifyValue(newValue)
+      if (stringifyValue !== this.localValue || modifiedValue !== this.vModelValue) {
         // Clear any pending debounce timeout, as we are overwriting the user input
         this.clearDebounce()
         // Update the local values
         this.localValue = stringifyValue
-        this.vModelValue = newVal
+        this.vModelValue = modifiedValue
       }
     }
   },
@@ -135,31 +116,23 @@ export default {
     // Create private non-reactive props
     this.$_inputDebounceTimer = null
   },
-  mounted() {
-    // Set up destroy handler
-    this.$on('hook:beforeDestroy', this.clearDebounce)
-    // Preset the internal state
-    const value = this.value
-    const stringifyValue = toString(value)
-    /* istanbul ignore next */
-    if (stringifyValue !== this.localValue && value !== this.vModelValue) {
-      this.localValue = stringifyValue
-      this.vModelValue = value
-    }
+  beforeDestroy() {
+    this.clearDebounce()
   },
   methods: {
     clearDebounce() {
       clearTimeout(this.$_inputDebounceTimer)
       this.$_inputDebounceTimer = null
     },
-    formatValue(value, evt, force = false) {
+    formatValue(value, event, force = false) {
       value = toString(value)
       if (this.hasFormatter && (!this.lazyFormatter || force)) {
-        value = this.formatter(value, evt)
+        value = this.formatter(value, event)
       }
       return value
     },
     modifyValue(value) {
+      value = toString(value)
       // Emulate `.trim` modifier behaviour
       if (this.trim) {
         value = value.trim()
@@ -171,7 +144,7 @@ export default {
       return value
     },
     updateValue(value, force = false) {
-      const lazy = this.lazy
+      const { lazy } = this
       if (lazy && !force) {
         return
       }
@@ -184,7 +157,7 @@ export default {
         value = this.modifyValue(value)
         if (value !== this.vModelValue) {
           this.vModelValue = value
-          this.$emit('update', value)
+          this.$emit(MODEL_EVENT_NAME, value)
         } else if (this.hasFormatter) {
           // When the `vModelValue` hasn't changed but the actual input value
           // is out of sync, make sure to change it to the given one
@@ -210,46 +183,46 @@ export default {
         doUpdate()
       }
     },
-    onInput(evt) {
-      // `evt.target.composing` is set by Vue
+    onInput(event) {
+      // `event.target.composing` is set by Vue
       // https://github.com/vuejs/vue/blob/dev/src/platforms/web/runtime/directives/model.js
       // TODO: Is this needed now with the latest Vue?
       /* istanbul ignore if: hard to test composition events */
-      if (evt.target.composing) {
+      if (event.target.composing) {
         return
       }
-      const value = evt.target.value
-      const formattedValue = this.formatValue(value, evt)
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
-      if (formattedValue === false || evt.defaultPrevented) {
-        stopEvent(evt, { propagation: false })
+      if (formattedValue === false || event.defaultPrevented) {
+        stopEvent(event, { propagation: false })
         return
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue)
-      this.$emit('input', formattedValue)
+      this.$emit(EVENT_NAME_INPUT, formattedValue)
     },
-    onChange(evt) {
-      const value = evt.target.value
-      const formattedValue = this.formatValue(value, evt)
+    onChange(event) {
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event)
       // Exit when the `formatter` function strictly returned `false`
       // or prevented the input event
       /* istanbul ignore next */
-      if (formattedValue === false || evt.defaultPrevented) {
-        stopEvent(evt, { propagation: false })
+      if (formattedValue === false || event.defaultPrevented) {
+        stopEvent(event, { propagation: false })
         return
       }
       this.localValue = formattedValue
       this.updateValue(formattedValue, true)
-      this.$emit('change', formattedValue)
+      this.$emit(EVENT_NAME_CHANGE, formattedValue)
     },
-    onBlur(evt) {
+    onBlur(event) {
       // Apply the `localValue` on blur to prevent cursor jumps
       // on mobile browsers (e.g. caused by autocomplete)
-      const value = evt.target.value
-      const formattedValue = this.formatValue(value, evt, true)
+      const { value } = event.target
+      const formattedValue = this.formatValue(value, event, true)
       if (formattedValue !== false) {
         // We need to use the modified value here to apply the
         // `.trim` and `.number` modifiers properly
@@ -259,7 +232,7 @@ export default {
         this.updateValue(formattedValue, true)
       }
       // Emit native blur event
-      this.$emit('blur', evt)
+      this.$emit(EVENT_NAME_BLUR, event)
     },
     focus() {
       // For external handler that may want a focus method
@@ -274,4 +247,4 @@ export default {
       }
     }
   }
-}
+})

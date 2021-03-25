@@ -103,7 +103,7 @@ describe('calendar', () => {
 
     const $cell = wrapper.find('[data-date="2020-01-25"]')
     expect($cell.exists()).toBe(true)
-    expect($cell.attributes('aria-selected')).not.toBeDefined()
+    expect($cell.attributes('aria-selected')).toBeUndefined()
     expect($cell.attributes('id')).toBeDefined()
     const $btn = $cell.find('.btn')
     expect($btn.exists()).toBe(true)
@@ -244,6 +244,26 @@ describe('calendar', () => {
     wrapper.destroy()
   })
 
+  it('has correct header tag when "header-tag" prop is set', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-02-15', // Leap year,
+        headerTag: 'div'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $header = wrapper.find('.b-calendar-header')
+    expect($header.exists()).toBe(true)
+    expect($header.element.tagName).toBe('DIV')
+
+    wrapper.destroy()
+  })
+
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
       attachTo: createContainer(),
@@ -376,5 +396,71 @@ describe('calendar', () => {
     expect($buttons.at(2).classes()).toContain('btn-outline-primary')
     expect($buttons.at(3).classes()).toContain('btn-outline-primary')
     expect($buttons.at(4).classes()).toContain('btn-outline-primary')
+  })
+
+  it('disables dates based on `date-disabled-fn` prop', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-01-01',
+        dateDisabledFn(ymd) {
+          return ymd === '2020-01-02'
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    let $cell = $grid.find('[data-date="2020-01-01"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toBeUndefined()
+
+    $cell = $grid.find('[data-date="2020-01-02"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toEqual('true')
+
+    $cell = $grid.find('[data-date="2020-01-03"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.attributes('aria-disabled')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('applies classes on dates based on `date-info-fn` prop', async () => {
+    const wrapper = mount(BCalendar, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2020-01-01',
+        dateInfoFn(ymd) {
+          return ymd === '2020-01-02' ? 'my-info' : null
+        }
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $grid = wrapper.find('[role="application"]')
+    expect($grid.exists()).toBe(true)
+
+    let $cell = $grid.find('[data-date="2020-01-01"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).not.toContain('my-info')
+
+    $cell = $grid.find('[data-date="2020-01-02"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).toContain('my-info')
+
+    $cell = $grid.find('[data-date="2020-01-03"]')
+    expect($cell.exists()).toBe(true)
+    expect($cell.classes()).not.toContain('my-info')
+
+    wrapper.destroy()
   })
 })

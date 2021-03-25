@@ -100,14 +100,21 @@ describe('form-tags', () => {
   it('has hidden inputs when name is set', async () => {
     const wrapper = mount(BFormTags, {
       propsData: {
-        value: ['apple', 'orange'],
-        name: 'foo'
+        value: [],
+        name: 'foo',
+        required: true
       }
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
 
-    const $hidden = wrapper.findAll('input[type=hidden]')
+    let $hidden = wrapper.find('input.sr-only')
+    expect($hidden.attributes('value')).toEqual('')
+    expect($hidden.attributes('name')).toEqual('foo')
+    expect($hidden.attributes('required')).toBeDefined()
+
+    await wrapper.setProps({ value: ['apple', 'orange'] })
+    $hidden = wrapper.findAll('input[type=hidden]')
     expect($hidden.length).toBe(2)
     expect($hidden.at(0).attributes('value')).toEqual('apple')
     expect($hidden.at(0).attributes('name')).toEqual('foo')
@@ -187,6 +194,28 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
     await wrapper.setProps({ addOnChange: false })
+
+    wrapper.destroy()
+  })
+
+  it('has tags without remove button when `no-tag-remove` prop set', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        noTagRemove: true,
+        value: ['apple', 'orange']
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $tags = wrapper.findAll('.b-form-tag')
+    expect($tags.length).toBe(2)
+
+    const $tag0 = $tags.at(0)
+    expect($tag0.find('button').exists()).toBe(false)
+
+    const $tag1 = $tags.at(1)
+    expect($tag1.find('button').exists()).toBe(false)
 
     wrapper.destroy()
   })
@@ -331,7 +360,7 @@ describe('form-tags', () => {
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.duplicateTags).toEqual([])
     expect(wrapper.vm.invalidTags).toEqual([])
-    expect(wrapper.emitted('tag-state')).not.toBeDefined()
+    expect(wrapper.emitted('tag-state')).toBeUndefined()
     expect(wrapper.find('.invalid-feedback').exists()).toBe(false)
     expect(wrapper.find('.form-text').exists()).toBe(false)
 
@@ -418,6 +447,8 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[3][2]).toEqual([])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('assertive')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(false)
     // Add next character
     $input.element.value = 'three '
@@ -449,6 +480,7 @@ describe('form-tags', () => {
 
     $input.element.value = ' three two '
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: 'polite' })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
@@ -460,13 +492,18 @@ describe('form-tags', () => {
     // Duplicate tags
     expect(wrapper.emitted('tag-state')[5][2]).toEqual(['two'])
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toEqual('polite')
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toEqual('true')
     expect(wrapper.find('.form-text').exists()).toBe(true)
     await $input.trigger('input')
+    await wrapper.setProps({ feedbackAriaLive: null })
     expect(wrapper.vm.tags).toEqual(['one', 'two', 'tag'])
     // No tags(s) were accepted so the input is left as is
     expect(wrapper.vm.newTag).toEqual(' three two ')
     expect(wrapper.emitted('tag-state').length).toBe(6)
     expect(wrapper.find('.invalid-feedback').exists()).toBe(true)
+    expect(wrapper.find('.invalid-feedback').attributes('aria-live')).toBeUndefined()
+    expect(wrapper.find('.invalid-feedback').attributes('aria-atomic')).toBeUndefined()
     expect(wrapper.find('.form-text').exists()).toBe(true)
 
     $input.element.value = '    '
@@ -517,6 +554,155 @@ describe('form-tags', () => {
     expect($button.classes()).toContain('invisible')
     expect(wrapper.vm.newTag).toEqual('')
     expect(wrapper.vm.tags).toEqual(['apple', 'orange', 'pear'])
+
+    wrapper.destroy()
+  })
+
+  it('reset() method works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['one', 'two'],
+        addOnChange: true,
+        tagValidator: tag => tag.length < 4
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('three')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.tagsState.invalid).toContain('three')
+
+    const $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(wrapper.vm.tags).toEqual(['one'])
+    expect(wrapper.vm.removedTags).toContain('two')
+
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual([])
+    expect(wrapper.vm.removedTags).toEqual([])
+    expect(wrapper.vm.tagsState.invalid).toEqual([])
+
+    wrapper.destroy()
+  })
+
+  it('native reset event works', async () => {
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['one', 'two'],
+        addOnChange: true,
+        tagValidator: tag => tag.length < 4
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('DIV')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.newTag).toEqual('')
+
+    const $input = wrapper.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(wrapper.vm.newTag).toEqual('three')
+    expect(wrapper.vm.tags).toEqual(['one', 'two'])
+    expect(wrapper.vm.tagsState.invalid).toContain('three')
+
+    const $tags = wrapper.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(wrapper.vm.tags).toEqual(['one'])
+    expect(wrapper.vm.removedTags).toContain('two')
+
+    await $input.trigger('reset')
+    await waitNT(wrapper.vm)
+
+    expect(wrapper.vm.newTag).toEqual('')
+    expect(wrapper.vm.tags).toEqual([])
+    expect(wrapper.vm.removedTags).toEqual([])
+    expect(wrapper.vm.tagsState.invalid).toEqual([])
+
+    wrapper.destroy()
+  })
+
+  it('form native reset event triggers reset', async () => {
+    const App = {
+      render(h) {
+        return h('form', [
+          h(BFormTags, {
+            props: {
+              value: ['one', 'two'],
+              addOnChange: true,
+              tagValidator: tag => tag.length < 4
+            }
+          })
+        ])
+      }
+    }
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    expect(wrapper.element.tagName).toBe('FORM')
+
+    const formTags = wrapper.findComponent(BFormTags)
+    expect(formTags.exists()).toBe(true)
+    expect(formTags.element.tagName).toBe('DIV')
+    expect(formTags.vm.tags).toEqual(['one', 'two'])
+    expect(formTags.vm.newTag).toEqual('')
+
+    const $input = formTags.find('input')
+    expect($input.exists()).toBe(true)
+    expect($input.element.value).toBe('')
+    expect($input.element.type).toBe('text')
+
+    $input.element.value = 'three'
+    await $input.trigger('input')
+    await $input.trigger('change')
+    expect(formTags.vm.newTag).toEqual('three')
+    expect(formTags.vm.tags).toEqual(['one', 'two'])
+    expect(formTags.vm.tagsState.invalid).toContain('three')
+
+    const $tags = formTags.findAll('.badge')
+    expect($tags.length).toBe(2)
+    await $tags
+      .at(1)
+      .find('button')
+      .trigger('click')
+    expect(formTags.vm.tags).toEqual(['one'])
+    expect(formTags.vm.removedTags).toContain('two')
+
+    // Trigger form's native reset event
+    wrapper.find('form').trigger('reset')
+    await waitNT(formTags.vm)
+
+    expect(formTags.vm.newTag).toEqual('')
+    expect(formTags.vm.tags).toEqual([])
+    expect(formTags.vm.removedTags).toEqual([])
+    expect(formTags.vm.tagsState.invalid).toEqual([])
 
     wrapper.destroy()
   })
@@ -655,5 +841,79 @@ describe('form-tags', () => {
     expect($feedback.text()).toContain('Tag limit reached')
 
     wrapper.destroy()
+  })
+
+  it('emits focus and blur events when wrapper gains/loses focus', async () => {
+    const onFocus = jest.fn()
+    const onBlur = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focus: onFocus,
+        blur: onBlur
+      }
+    })
+
+    expect(onFocus).not.toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    expect(typeof wrapper.vm.$listeners.focus).toBe('function')
+
+    $input.trigger('focus')
+    $input.trigger('focusin')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocus).toHaveBeenCalled()
+    expect(onBlur).not.toHaveBeenCalled()
+
+    $input.trigger('blur')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onBlur).toHaveBeenCalled()
+
+    wrapper.destroy()
+  })
+
+  it('emits focusin and focusout when internal focus changes', async () => {
+    const onFocusIn = jest.fn()
+    const onFocusOut = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focusin: onFocusIn,
+        focusout: onFocusOut
+      }
+    })
+
+    expect(onFocusIn).not.toHaveBeenCalled()
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    const $tag = wrapper.find('.b-form-tag')
+
+    $input.trigger('focusin')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(1)
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    $tag.trigger('focusin')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(2)
+    expect(onFocusOut).toHaveBeenCalledTimes(1)
   })
 })

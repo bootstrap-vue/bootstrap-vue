@@ -23,8 +23,8 @@
         ],
         "events": [
           {
-            "event": "click",
-            "description": "when link clicked",
+            "event": "bv::link::clicked",
+            "description": "Emitted on `$root` when link was clicked",
             "args": [
               {
                 "name": "event",
@@ -32,6 +32,23 @@
                 "description": "Native click event"
               }
             ]
+          },
+          {
+            "event": "click",
+            "description": "Emitted when link was clicked",
+            "args": [
+              {
+                "name": "event",
+                "type": "MouseEvent",
+                "description": "Native click event"
+              }
+            ]
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the link"
           }
         ]
       }

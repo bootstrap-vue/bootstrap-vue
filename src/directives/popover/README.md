@@ -1,4 +1,4 @@
-# Popovers
+# Popover
 
 > Documentation and examples for adding BootstrapVue popovers to any element on your site, using
 > Bootstrap v4 CSS for styling and animations. Popovers can be triggered by hovering, focusing, or

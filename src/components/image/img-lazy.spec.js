@@ -57,7 +57,7 @@ describe('img-lazy', () => {
     // removed from the element. Only when the component is destroyed... unlike Vue
     // Our directive instance should not exist
     // let observer = wrapper.element.__bv__visibility_observer
-    // expect(observer).not.toBeDefined()
+    // expect(observer).toBeUndefined()
 
     expect(wrapper.attributes('src')).toBeDefined()
     expect(wrapper.attributes('src')).toContain(src)
@@ -75,7 +75,7 @@ describe('img-lazy', () => {
 
     // Our directive instance should not exist
     // observer = wrapper.element.__bv__visibility_observer
-    // expect(observer).not.toBeDefined()
+    // expect(observer).toBeUndefined()
 
     await wrapper.setProps({
       show: false
@@ -89,7 +89,7 @@ describe('img-lazy', () => {
 
     // Our directive instance should not exist
     // observer = wrapper.element.__bv__visibility_observer
-    // expect(observer).not.toBeDefined()
+    // expect(observer).toBeUndefined()
 
     wrapper.destroy()
   })

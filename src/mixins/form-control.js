@@ -1,5 +1,7 @@
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../constants/props'
 import { attemptFocus, isVisible, matches, requestAF, select } from '../utils/dom'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 
 // --- Constants ---
 
@@ -7,41 +9,22 @@ const SELECTOR = 'input, textarea, select'
 
 // --- Props ---
 
-export const props = {
-  id: {
-    type: String
-    // default: undefined
+export const props = makePropsConfigurable(
+  {
+    autofocus: makeProp(PROP_TYPE_BOOLEAN, false),
+    disabled: makeProp(PROP_TYPE_BOOLEAN, false),
+    form: makeProp(PROP_TYPE_STRING),
+    id: makeProp(PROP_TYPE_STRING),
+    name: makeProp(PROP_TYPE_STRING),
+    required: makeProp(PROP_TYPE_BOOLEAN, false)
   },
-  name: {
-    type: String
-    // default: undefined
-  },
-  ...makePropsConfigurable(
-    {
-      disabled: {
-        type: Boolean,
-        default: false
-      },
-      required: {
-        type: Boolean,
-        default: false
-      },
-      form: {
-        type: String
-        // default: null
-      },
-      autofocus: {
-        type: Boolean,
-        default: false
-      }
-    },
-    'formControls'
-  )
-}
+  'formControls'
+)
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const formControlMixin = Vue.extend({
   props,
   mounted() {
     this.handleAutofocus()
@@ -65,4 +48,4 @@ export default {
       })
     }
   }
-}
+})

@@ -5,9 +5,13 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
-import Vue, { mergeData } from '../vue'
-import { NAME_COLLAPSE_HELPER } from '../constants/components'
-import { getBCR, reflow, removeStyle, requestAF, setStyle } from './dom'
+import { Vue, mergeData } from '../../../vue'
+import { NAME_COLLAPSE_HELPER } from '../../../constants/components'
+import { PROP_TYPE_BOOLEAN } from '../../../constants/props'
+import { getBCR, reflow, removeStyle, requestAF, setStyle } from '../../../utils/dom'
+import { makeProp } from '../../../utils/props'
+
+// --- Helper methods ---
 
 // Transition event handler helpers
 const onEnter = el => {
@@ -35,6 +39,8 @@ const onAfterLeave = el => {
   removeStyle(el, 'height')
 }
 
+// --- Constants ---
+
 // Default transition props
 // `appear` will use the enter classes
 const TRANSITION_PROPS = {
@@ -56,17 +62,20 @@ const TRANSITION_HANDLERS = {
   afterLeave: onAfterLeave
 }
 
+// --- Main component ---
+
+export const props = {
+  // // If `true` (and `visible` is `true` on mount), animate initially visible
+  appear: makeProp(PROP_TYPE_BOOLEAN, false)
+}
+
+// --- Main component ---
+
 // @vue/component
 export const BVCollapse = /*#__PURE__*/ Vue.extend({
   name: NAME_COLLAPSE_HELPER,
   functional: true,
-  props: {
-    appear: {
-      // If `true` (and `visible` is `true` on mount), animate initially visible
-      type: Boolean,
-      default: false
-    }
-  },
+  props,
   render(h, { props, data, children }) {
     return h(
       'transition',

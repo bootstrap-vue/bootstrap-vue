@@ -14,38 +14,40 @@
         "component": "BNavbar",
         "props": [
           {
-            "prop": "variant",
-            "description": "Applies one of the Bootstrap theme color variants to the component"
-          },
-          {
-            "prop": "type",
-            "description": "Control the text color by setting to 'light' for use with light background color variants, or 'dark' for dark background color variants"
-          },
-          {
-            "prop": "toggleable",
-            "description": "Set to 'true' for an always collapsed navbar, or to a specific breakpoint at which point the navbar will be expanded: 'sm', 'md', 'lg' or 'xl'"
-          },
-          {
             "prop": "fixed",
             "description": "Set to 'top' for fixed to the top of the viewport, or 'bottom' for fixed to the bottom of the viewport"
+          },
+          {
+            "prop": "print",
+            "description": "Navbars are hidden by default when printing. When this prop is set it will be printed"
           },
           {
             "prop": "sticky",
             "description": "Set to true to make the navbar stick to the top of the viewport (or parent container that has 'position: relative' set) when scrolled"
           },
           {
-            "prop": "print",
-            "description": "Navbars are hidden by default when printing. When this prop is set it will be printed"
+            "prop": "toggleable",
+            "description": "Set to 'true' for an always collapsed navbar, or to a specific breakpoint at which point the navbar will be expanded: 'sm', 'md', 'lg' or 'xl'"
+          },
+          {
+            "prop": "type",
+            "description": "Control the text color by setting to 'light' for use with light background color variants, or 'dark' for dark background color variants"
+          },
+          {
+            "prop": "variant",
+            "description": "Applies one of the Bootstrap theme color variants to the component"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the navbar"
           }
         ]
       },
       {
         "component": "BNavbarNav",
         "props": [
-          {
-            "prop": "small",
-            "description": "Makes the nav smaller"
-          },
           {
             "prop": "align",
             "description": "Align the nav items in the nav: 'start' (or 'left'), 'center', 'end' (or 'right')"
@@ -57,11 +59,27 @@
           {
             "prop": "justified",
             "description": "Fills all horizontal space with nav items, but unlike 'fill', every nav item will be the same width"
+          },
+          {
+            "prop": "small",
+            "description": "Makes the nav smaller"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the navbar nav"
           }
         ]
       },
       {
-        "component": "BNavbarBrand"
+        "component": "BNavbarBrand",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the navbar brand"
+          }
+        ]
       },
       {
         "component": "BNavbarToggle",
@@ -70,23 +88,23 @@
         ],
         "props": [
           {
-            "prop": "target",
-            "description": "ID (or array of IDs) of the collapse/sidebar components that should be toggled"
+            "prop": "disabled",
+            "version": "2.15.0",
+            "description": "When `true`, disables the navbar toggle button, and adds class `disabled` to the button"
           },
           {
             "prop": "label",
             "description": "String to place in the toggle's 'aria-label' attribute"
           },
           {
-            "prop": "disabled",
-            "version": "2.15.0",
-            "description": "When `true`, disables the navbar toggle button, and adds class `disabled` to the button"
+            "prop": "target",
+            "description": "ID (or array of IDs) of the collapse/sidebar components that should be toggled"
           }
         ],
         "events": [
           {
             "event": "click",
-            "description": "Emitted when the toggle is clicked.",
+            "description": "Emitted when the toggle is clicked",
             "args": [
               {
                 "name": "event",
@@ -105,7 +123,7 @@
                 "prop": "expanded",
                 "version": "2.9.0",
                 "type": "Boolean",
-                "description": "`true` if the collapse is expanded, `false` otherwise."
+                "description": "`true` if the collapse is expanded, `false` otherwise"
               }
             ]
           }

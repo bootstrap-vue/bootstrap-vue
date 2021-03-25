@@ -12,96 +12,117 @@
         ],
         "props": [
           {
-            "prop": "disabled",
-            "description": "Disabled the fieldset element, which in turn disables the form controls (on browsers that support disabled fieldsets). Has no effect if 'label-for' is set"
+            "prop": "contentCols",
+            "version": "2.21.0",
+            "description": "Number of columns for the content width 'xs' screens and up"
           },
           {
-            "prop": "label",
-            "description": "Text to place in the label/legend of the form group"
+            "prop": "contentColsLg",
+            "version": "2.21.0",
+            "description": "Number of columns for the content width 'lg' screens and up"
           },
           {
-            "prop": "labelFor",
-            "description": "Set to the ID of the singular form-control in the form-group. Do not set a value if there is more than one form control in the group."
+            "prop": "contentColsMd",
+            "version": "2.21.0",
+            "description": "Number of columns for the content width 'md' screens and up"
           },
           {
-            "prop": "labelSrOnly",
-            "description": "Visually hides the label content, but makes it available to screen reader users"
+            "prop": "contentColsSm",
+            "version": "2.21.0",
+            "description": "Number of columns for the content width 'sm' screens and up"
+          },
+          {
+            "prop": "contentColsXl",
+            "version": "2.21.0",
+            "description": "Number of columns for the content width 'xl' screens and up"
           },
           {
             "prop": "description",
             "description": "Text to place in the help text area of the form group"
           },
           {
+            "prop": "disabled",
+            "description": "Disabled the fieldset element, which in turn disables the form controls (on browsers that support disabled fieldsets). Has no effect if `label-for` is set"
+          },
+          {
+            "prop": "feedbackAriaLive",
+            "description": "Value to use for the `aria-live` attribute on the feedback text"
+          },
+          {
             "prop": "invalidFeedback",
             "description": "Text to show when the form group has an invalid state"
           },
           {
-            "prop": "validFeedback",
-            "description": "Text to show when the form group has a valid state"
-          },
-          {
-            "prop": "feedbackAriaLive",
-            "description": "Value to use for the 'aria-live' attribute on the feedback text"
-          },
-          {
-            "prop": "labelCols",
-            "description": "Number of columns for the label width xs screens and up"
-          },
-          {
-            "prop": "labelColsSm",
-            "description": "Number of columns for the label width sm screens and up"
-          },
-          {
-            "prop": "labelColsMd",
-            "description": "Number of columns for the label width md screens and up"
-          },
-          {
-            "prop": "labelColsLg",
-            "description": "Number of columns for the label width lg screens and up"
-          },
-          {
-            "prop": "labelColsXl",
-            "description": "Number of columns for the label width xl screens and up"
-          },
-          {
-            "prop": "labelClass",
-            "description": "CSS class (or classes) to add to the label/legend element"
+            "prop": "label",
+            "description": "Text to place in the label/legend of the form group"
           },
           {
             "prop": "labelAlign",
-            "description": "Text alignment 'left', 'center', 'right' for the label xs screens and up"
-          },
-          {
-            "prop": "labelAlignSm",
-            "description": "Text alignment 'left', 'center', 'right' for the label sm screens and up"
-          },
-          {
-            "prop": "labelAlignMd",
-            "description": "Text alignment 'left', 'center', 'right' for the label md screens and up"
+            "description": "Text alignment 'left', 'center', 'right' for the label 'xs' screens and up"
           },
           {
             "prop": "labelAlignLg",
-            "description": "Text alignment 'left', 'center', 'right' for the label lg screens and up"
+            "description": "Text alignment 'left', 'center', 'right' for the label 'lg' screens and up"
+          },
+          {
+            "prop": "labelAlignMd",
+            "description": "Text alignment 'left', 'center', 'right' for the label 'md' screens and up"
+          },
+          {
+            "prop": "labelAlignSm",
+            "description": "Text alignment 'left', 'center', 'right' for the label 'sm' screens and up"
           },
           {
             "prop": "labelAlignXl",
-            "description": "Text alignment 'left', 'center', 'right' for the label xl screens and up"
+            "description": "Text alignment 'left', 'center', 'right' for the label 'xl' screens and up"
           },
           {
             "prop": "labelClass",
             "description": "CSS class (or classes) to add to the label/legend element"
+          },
+          {
+            "prop": "labelCols",
+            "description": "Number of columns for the label width 'xs' screens and up"
+          },
+          {
+            "prop": "labelColsLg",
+            "description": "Number of columns for the label width 'lg' screens and up"
+          },
+          {
+            "prop": "labelColsMd",
+            "description": "Number of columns for the label width 'md' screens and up"
+          },
+          {
+            "prop": "labelColsSm",
+            "description": "Number of columns for the label width 'sm' screens and up"
+          },
+          {
+            "prop": "labelColsXl",
+            "description": "Number of columns for the label width 'xl' screens and up"
+          },
+          {
+            "prop": "labelFor",
+            "description": "Set to the ID of the singular form control in the form group. Do not set a value if there is more than one form control in the group"
           },
           {
             "prop": "labelSize",
             "description": "Sets the text size of the label: 'sm', 'md' (default) or 'lg'. Use this prop to have the label size match the form control size"
           },
           {
+            "prop": "labelSrOnly",
+            "description": "Visually hides the label content, but makes it available to screen reader users"
+          },
+          {
             "prop": "state",
-            "description": "Controls the validation state of the feedback. 'true' force shows valid-feedback, 'false' force shows invalid feedback, 'null' does not force show the feedback"
+            "description": "Controls the validation state of the feedback. `true` force shows valid-feedback, `false` force shows invalid feedback, `null` does not force show the feedback"
           },
           {
             "prop": "tooltip",
             "description": "Renders the feedback text in a rudimentary tooltip style"
+          },
+          {
+            "prop": "validFeedback",
+            "description": "Text to show when the form group has a valid state"
           },
           {
             "prop": "validated",
@@ -110,20 +131,50 @@
         ],
         "slots": [
           {
-            "name": "label",
-            "description": "Content to place inside the <label> element."
+            "name": "default",
+            "description": "Content to place in the form group",
+            "scope": [
+              {
+                "prop": "ariaDescribedby",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The value for the `aria-describedby` attribute for input elements in the form group. Will be auto-assigned when `label-for` prop is given"
+              },
+              {
+                "prop": "id",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the form group. Will equal `id` prop, when provided"
+              },
+              {
+                "prop": "descriptionId",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the description element. Will be `null` when no description content given"
+              },
+              {
+                "prop": "labelId",
+                "type": "String",
+                "version": "2.21.0",
+                "description": "The ID of the label element. Will be `null` when no description content given"
+              }
+            ]
           },
           {
             "name": "description",
-            "description": "Content to place in the description area."
+            "description": "Content to place in the description area. Overrides the `description` prop"
           },
           {
             "name": "invalid-feedback",
-            "description": "Content to place in the invalid feedback area"
+            "description": "Content to place in the invalid feedback area. Overrides the `invalid-feedback` prop"
+          },
+          {
+            "name": "label",
+            "description": "Content to place inside the label element. Overrides the `label` prop"
           },
           {
             "name": "valid-feedback",
-            "description": "Content to place in the valid feedback area"
+            "description": "Content to place in the valid feedback area. Overrides the `valid-feedback` prop"
           }
         ]
       }

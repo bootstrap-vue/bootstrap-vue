@@ -1,8 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils'
 import { createContainer, waitNT } from '../../tests/utils'
-import focusInMixin from './focus-in'
+import { focusInMixin } from './focus-in'
 
-describe('utils/focus-in', () => {
+describe('mixins/focus-in', () => {
   it('works', async () => {
     let count = 0
     const localVue = createLocalVue()
@@ -27,7 +27,7 @@ describe('utils/focus-in', () => {
       localVue
     })
 
-    const focusinEvt = new FocusEvent('focusin')
+    const focusinEvent = new FocusEvent('focusin')
 
     expect(wrapper).toBeDefined()
     expect(count).toBe(0)
@@ -37,7 +37,7 @@ describe('utils/focus-in', () => {
     expect(count).toBe(0)
     await wrapper.find('button').trigger('focusin')
     expect(count).toBe(1)
-    document.dispatchEvent(focusinEvt)
+    document.dispatchEvent(focusinEvent)
     await waitNT(wrapper.vm)
     expect(count).toBe(2)
 
@@ -46,7 +46,7 @@ describe('utils/focus-in', () => {
     expect(count).toBe(2)
     await wrapper.find('button').trigger('focusin')
     expect(count).toBe(2)
-    document.dispatchEvent(focusinEvt)
+    document.dispatchEvent(focusinEvent)
     await waitNT(wrapper.vm)
     expect(count).toBe(2)
 

@@ -22,7 +22,7 @@
       <b-link
         :href="h2.href"
         class="nav-link"
-        @click="scrollIntoView($event, h2.href)"
+        @click="scrollTargetIntoView($event, h2.href)"
       >
         <span v-html="h2.label"></span>
       </b-link>
@@ -36,7 +36,7 @@
           :key="h3.href"
           :href="h3.href"
           class="toc-entry toc-h3"
-          @click="scrollIntoView($event, h3.href)"
+          @click="scrollTargetIntoView($event, h3.href)"
         >
           <span v-html="h3.label"></span>
         </b-nav-item>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { offsetTop, scrollTo } from '~/utils'
+import { scrollTargetIntoView } from '~/utils'
 
 export default {
   name: 'BVToc',
@@ -68,27 +68,9 @@ export default {
     }
   },
   methods: {
+    scrollTargetIntoView,
     isArray(value) {
       return Array.isArray(value)
-    },
-    scrollIntoView(evt, href) {
-      evt.preventDefault()
-      evt.stopPropagation()
-      // We use an attribute `querySelector()` rather than `getElementByID()`,
-      // as some auto-generated ID's are invalid or not unique
-      const id = (href || '').replace(/#/g, '')
-      const $el = document.body.querySelector(`[id="${id}"]`)
-      if ($el) {
-        // Get the document scrolling element
-        const scroller = document.scrollingElement || document.documentElement || document.body
-        // Scroll heading into view (minus offset to account for nav top height
-        scrollTo(scroller, offsetTop($el) - 70, 100, () => {
-          // Set a tab index so we can focus header for a11y support
-          $el.tabIndex = -1
-          // Focus the heading
-          $el.focus()
-        })
-      }
     }
   }
 }

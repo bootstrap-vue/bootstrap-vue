@@ -9,12 +9,18 @@
         "component": "BEmbed",
         "props": [
           {
-            "prop": "type",
-            "description": "Type of embed. Possible values are 'iframe', 'video', 'embed' and 'object'"
-          },
-          {
             "prop": "aspect",
             "description": "Aspect ratio of the embed. Supported values are '16by9', '21by9', '4by3', and '1by1' and are translated to CSS classes. Refer to the docs for more details"
+          },
+          {
+            "prop": "type",
+            "description": "Type of embed. Possible values are 'iframe', 'video', 'embed' and 'object'"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the embed"
           }
         ]
       }

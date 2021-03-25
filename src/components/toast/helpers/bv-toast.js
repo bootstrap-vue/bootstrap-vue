@@ -2,10 +2,18 @@
  * Plugin for adding `$bvToast` property to all Vue instances
  */
 
-import { NAME_TOAST, NAME_TOAST_POP } from '../../../constants/components'
+import { NAME_TOAST, NAME_TOASTER, NAME_TOAST_POP } from '../../../constants/components'
+import {
+  EVENT_NAME_DESTROYED,
+  EVENT_NAME_HIDDEN,
+  EVENT_NAME_HIDE,
+  EVENT_NAME_SHOW,
+  HOOK_EVENT_NAME_DESTROYED
+} from '../../../constants/events'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
+import { getRootEventName, getRootActionEventName } from '../../../utils/events'
 import { isUndefined, isString } from '../../../utils/inspect'
 import {
   assign,
@@ -37,7 +45,7 @@ const propsToSlots = {
   title: 'toast-title'
 }
 
-// --- Utility methods ---
+// --- Helper methods ---
 
 // Method to filter only recognized props that are not undefined
 const filterOptions = options => {
@@ -59,8 +67,9 @@ const plugin = Vue => {
     extends: BToast,
     destroyed() {
       // Make sure we not in document any more
-      if (this.$el && this.$el.parentNode) {
-        this.$el.parentNode.removeChild(this.$el)
+      const { $el } = this
+      if ($el && $el.parentNode) {
+        $el.parentNode.removeChild($el)
       }
     },
     mounted() {
@@ -80,11 +89,11 @@ const plugin = Vue => {
         })
       }
       // Self destruct if parent destroyed
-      this.$parent.$once('hook:destroyed', handleDestroy)
+      this.$parent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
       // Self destruct after hidden
-      this.$once('hidden', handleDestroy)
+      this.$once(EVENT_NAME_HIDDEN, handleDestroy)
       // Self destruct when toaster is destroyed
-      this.listenOnRoot('bv::toaster::destroyed', toaster => {
+      this.listenOnRoot(getRootEventName(NAME_TOASTER, EVENT_NAME_DESTROYED), toaster => {
         /* istanbul ignore next: hard to test */
         if (toaster === this.toaster) {
           handleDestroy()
@@ -157,13 +166,13 @@ const plugin = Vue => {
     // shows a `<b-toast>` component with the specified ID
     show(id) {
       if (id) {
-        this._root.$emit('bv::show::toast', id)
+        this._root.$emit(getRootActionEventName(NAME_TOAST, EVENT_NAME_SHOW), id)
       }
     }
 
     // Hide a toast with specified ID, or if not ID all toasts
     hide(id = null) {
-      this._root.$emit('bv::hide::toast', id)
+      this._root.$emit(getRootActionEventName(NAME_TOAST, EVENT_NAME_HIDE), id)
     }
   }
 

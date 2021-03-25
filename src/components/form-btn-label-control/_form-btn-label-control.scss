@@ -1,0 +1,125 @@
+$bv-form-btn-label-control-defined: false !default;
+
+// Make sure to include these style definitions only once
+@if $bv-form-btn-label-control-defined == false {
+  $bv-form-btn-label-control-defined: true;
+
+  // Custom BVFormBtnLabelControl styling
+  // Currently used by BFormTimepicker and BFormDatepicker
+  // Does not apply to button-only styling
+  .b-form-btn-label-control.form-control {
+    display: flex;
+    align-items: stretch;
+    height: auto;
+    padding: 0;
+    // Remove background validation images and padding from
+    // main wrapper as they will be present in the inner label element
+    background-image: none;
+
+    @at-root {
+      // Handle `.input-group` padding overrides
+      .input-group & {
+        padding: 0;
+      }
+    }
+
+    @at-root {
+      // Prevent the button/label from reversing order on in horizontal RTL mode
+      [dir="rtl"] &,
+      &[dir="rtl"] {
+        flex-direction: row-reverse;
+
+        > label {
+          text-align: right;
+        }
+      }
+    }
+
+    > .btn {
+      line-height: 1;
+      font-size: inherit;
+      box-shadow: none !important;
+      border: 0;
+
+      &:disabled {
+        pointer-events: none;
+      }
+    }
+
+    &.is-valid > .btn {
+      color: $form-feedback-valid-color;
+    }
+
+    &.is-invalid > .btn {
+      color: $form-feedback-invalid-color;
+    }
+
+    > .dropdown-menu {
+      padding: 0.5rem;
+    }
+
+    > .form-control {
+      height: auto;
+      // Set a minimum height, as we have height set to `auto`
+      // (to allow the content to wrap, if needed)
+      // We subtract off the border, as we have border set to `0`
+      min-height: calc(#{$input-height} - #{$input-height-border});
+      padding-left: 0.25rem;
+      margin: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      word-break: break-word;
+      font-size: inherit;
+      white-space: normal;
+      @if $enable-pointer-cursor-for-buttons {
+        cursor: pointer;
+      }
+
+      &.form-control-sm {
+        min-height: calc(#{$input-height-sm} - #{$input-height-border});
+      }
+
+      &.form-control-lg {
+        min-height: calc(#{$input-height-lg} - #{$input-height-border});
+      }
+
+      @at-root {
+        // Handle input group sizing
+        .input-group.input-group-sm & {
+          min-height: calc(#{$input-height-sm} - #{$input-height-border});
+          padding-top: $input-padding-y-sm;
+          padding-bottom: $input-padding-y-sm;
+        }
+
+        .input-group.input-group-lg & {
+          min-height: calc(#{$input-height-lg} - #{$input-height-border});
+          padding-top: $input-padding-y-lg;
+          padding-bottom: $input-padding-y-lg;
+        }
+      }
+    }
+
+    // Disabled and read-only styling
+    &[aria-disabled="true"],
+    &[aria-readonly="true"] {
+      background-color: $input-disabled-bg;
+      opacity: 1;
+    }
+
+    &[aria-disabled="true"] {
+      pointer-events: none;
+
+      > label {
+        cursor: default;
+      }
+    }
+  }
+
+  // Button only mode menu padding overrides
+  .b-form-btn-label-control.btn-group {
+    > .dropdown-menu {
+      padding: 0.5rem;
+    }
+  }
+}

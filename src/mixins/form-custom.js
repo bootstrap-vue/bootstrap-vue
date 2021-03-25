@@ -1,24 +1,24 @@
-import { makePropsConfigurable } from '../utils/config'
+import { Vue } from '../vue'
+import { PROP_TYPE_BOOLEAN } from '../constants/props'
+import { makeProp, makePropsConfigurable } from '../utils/props'
 
 // --- Props ---
 
 export const props = makePropsConfigurable(
   {
-    plain: {
-      type: Boolean,
-      default: false
-    }
+    plain: makeProp(PROP_TYPE_BOOLEAN, false)
   },
   'formControls'
 )
 
 // --- Mixin ---
+
 // @vue/component
-export default {
+export const formCustomMixin = Vue.extend({
   props,
   computed: {
     custom() {
       return !this.plain
     }
   }
-}
+})

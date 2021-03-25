@@ -8,14 +8,20 @@
       {
         "component": "BButtonGroup",
         "description": "Group a series of buttons together on a single line",
+        "aliases": [
+          "BBtnGroup"
+        ],
         "props": [
           {
             "prop": "vertical",
             "description": "When set, rendered the button group in vertical mode"
           }
         ],
-        "aliases": [
-          "BBtnGroup"
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (buttons) to place in the button group"
+          }
         ]
       }
     ]

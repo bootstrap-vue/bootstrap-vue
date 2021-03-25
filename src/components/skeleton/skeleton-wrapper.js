@@ -1,22 +1,26 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
-import { SLOT_NAME_DEFAULT } from '../../constants/slot-names'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN } from '../../constants/props'
+import { SLOT_NAME_DEFAULT, SLOT_NAME_LOADING } from '../../constants/slots'
 import { normalizeSlot } from '../../utils/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    loading: makeProp(PROP_TYPE_BOOLEAN, false)
+  },
+  NAME_SKELETON_WRAPPER
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
   name: NAME_SKELETON_WRAPPER,
   functional: true,
-  props: makePropsConfigurable(
-    {
-      loading: {
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_SKELETON_WRAPPER
-  ),
+  props,
   render(h, { data, props, slots, scopedSlots }) {
     const $slots = slots()
     const $scopedSlots = scopedSlots || {}
@@ -34,10 +38,10 @@ export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
           staticClass: 'b-skeleton-wrapper',
           key: 'loading'
         }),
-        [normalizeSlot('loading', slotScope, $scopedSlots, $slots) || h()]
+        normalizeSlot(SLOT_NAME_LOADING, slotScope, $scopedSlots, $slots)
       )
     }
 
-    return normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots) || h()
+    return normalizeSlot(SLOT_NAME_DEFAULT, slotScope, $scopedSlots, $slots)
   }
 })

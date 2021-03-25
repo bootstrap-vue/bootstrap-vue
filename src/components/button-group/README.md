@@ -1,10 +1,10 @@
-# Button group
+# Button Group
 
 > Group a series of buttons together on a single line with `<b-button-group>`.
 
 ## Overview
 
-Button groups are an easy way to group a series of buttons together.
+Button Groups are an easy way to group a series of buttons together.
 
 ```html
 <div>
@@ -29,7 +29,7 @@ Button groups are an easy way to group a series of buttons together.
 
 ## Sizing
 
-Set the size prop to `lg` or `sm` to render larger or smaller, respectively, buttons. There is no
+Set the `size` prop to `lg` or `sm` to render larger or smaller, respectively, buttons. There is no
 need to specify the size on the individual buttons.
 
 ```html

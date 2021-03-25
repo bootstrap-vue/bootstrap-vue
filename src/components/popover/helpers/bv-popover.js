@@ -4,7 +4,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import Vue from '../../../vue'
+import { Vue } from '../../../vue'
 import { NAME_POPOVER_HELPER } from '../../../constants/components'
 import { BVTooltip } from '../../tooltip/helpers/bv-tooltip'
 import { BVPopoverTemplate } from './bv-popover-template'

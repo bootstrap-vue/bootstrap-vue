@@ -1,54 +1,22 @@
-import Vue, { mergeData } from '../../vue'
+import { Vue, mergeData } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { omit } from '../../utils/object'
-import { BImgLazy, props as imgLazyProps } from '../image/img-lazy'
+import { keys, omit, sortKeys } from '../../utils/object'
+import { makePropsConfigurable } from '../../utils/props'
+import { props as BImgProps } from '../image/img'
+import { BImgLazy, props as BImgLazyProps } from '../image/img-lazy'
+import { props as BCardImgProps } from './card-img'
 
-// Copy of `<b-img-lazy>` props, and remove conflicting/non-applicable props
-// The `omit()` util creates a new object, so we can just pass the original props
-const lazyProps = omit(imgLazyProps, [
-  'left',
-  'right',
-  'center',
-  'block',
-  'rounded',
-  'thumbnail',
-  'fluid',
-  'fluidGrow'
-])
+// --- Props ---
 
 export const props = makePropsConfigurable(
-  {
-    ...lazyProps,
-    top: {
-      type: Boolean,
-      default: false
-    },
-    bottom: {
-      type: Boolean,
-      default: false
-    },
-    start: {
-      type: Boolean,
-      default: false
-    },
-    left: {
-      // alias of 'start'
-      type: Boolean,
-      default: false
-    },
-    end: {
-      type: Boolean,
-      default: false
-    },
-    right: {
-      // alias of 'end'
-      type: Boolean,
-      default: false
-    }
-  },
+  sortKeys({
+    ...omit(BImgLazyProps, keys(BImgProps)),
+    ...omit(BCardImgProps, ['src', 'alt', 'width', 'height'])
+  }),
   NAME_CARD_IMG_LAZY
 )
+
+// --- Main component ---
 
 // @vue/component
 export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
@@ -67,13 +35,12 @@ export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
       baseClass += '-left'
     }
 
-    // False out the left/center/right props before passing to b-img-lazy
-    const lazyProps = { ...props, left: false, right: false, center: false }
     return h(
       BImgLazy,
       mergeData(data, {
         class: [baseClass],
-        props: lazyProps
+        // Exclude `left` and `right` props before passing to `<b-img-lazy>`
+        props: omit(props, ['left', 'right'])
       })
     )
   }

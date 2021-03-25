@@ -63,17 +63,37 @@
         ],
         "slots": [
           {
-            "name": "header",
-            "description": "For custom rendering of header content"
+            "name": "default",
+            "description": "Content to place in the card"
           },
           {
             "name": "footer",
             "description": "For custom rendering of footer content"
+          },
+          {
+            "name": "header",
+            "description": "For custom rendering of header content"
           }
         ]
       },
-      "BCardHeader",
-      "BCardFooter",
+      {
+        "component": "BCardHeader",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card header"
+          }
+        ]
+      },
+      {
+        "component": "BCardFooter",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card footer"
+          }
+        ]
+      },
       {
         "component": "BCardBody",
         "props": [
@@ -81,10 +101,32 @@
             "prop": "overlay",
             "description": "When set, will overlay the card body on top of the image (if the card has an image)"
           }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card body"
+          }
         ]
       },
-      "BCardTitle",
-      "BCardSubTitle",
+      {
+        "component": "BCardTitle",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card title"
+          }
+        ]
+      },
+      {
+        "component": "BCardSubTitle",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card sub-title"
+          }
+        ]
+      },
       {
         "component": "BCardImg",
         "props": [
@@ -187,7 +229,15 @@
           }
         ]
       },
-      "BCardText",
+      {
+        "component": "BCardText",
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content to place in the card text"
+          }
+        ]
+      },
       {
         "component": "BCardGroup",
         "props": [
@@ -198,6 +248,12 @@
           {
             "prop": "columns",
             "description": "When set, renders the card group in a masonry-like columnar style"
+          }
+        ],
+        "slots": [
+          {
+            "name": "default",
+            "description": "Content (cards) to place in the card group"
           }
         ]
       }

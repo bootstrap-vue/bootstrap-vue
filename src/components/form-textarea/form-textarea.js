@@ -1,20 +1,46 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
+import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
 import { isNull } from '../../utils/inspect'
 import { mathCeil, mathMax, mathMin } from '../../utils/math'
 import { toInteger, toFloat } from '../../utils/number'
-import formControlMixin, { props as formControlProps } from '../../mixins/form-control'
-import formSelectionMixin from '../../mixins/form-selection'
-import formSizeMixin, { props as formSizeProps } from '../../mixins/form-size'
-import formStateMixin, { props as formStateProps } from '../../mixins/form-state'
-import formTextMixin, { props as formTextProps } from '../../mixins/form-text'
-import formValidityMixin from '../../mixins/form-validity'
-import idMixin from '../../mixins/id'
-import listenOnRootMixin from '../../mixins/listen-on-root'
-import listenersMixin from '../../mixins/listeners'
+import { sortKeys } from '../../utils/object'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
+import { formSelectionMixin } from '../../mixins/form-selection'
+import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
+import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
+import { formTextMixin, props as formTextProps } from '../../mixins/form-text'
+import { formValidityMixin } from '../../mixins/form-validity'
+import { idMixin, props as idProps } from '../../mixins/id'
+import { listenOnRootMixin } from '../../mixins/listen-on-root'
+import { listenersMixin } from '../../mixins/listeners'
 import { VBVisible } from '../../directives/visible/visible'
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  sortKeys({
+    ...idProps,
+    ...formControlProps,
+    ...formSizeProps,
+    ...formStateProps,
+    ...formTextProps,
+    maxRows: makeProp(PROP_TYPE_NUMBER_STRING),
+    // When in auto resize mode, disable shrinking to content height
+    noAutoShrink: makeProp(PROP_TYPE_BOOLEAN, false),
+    // Disable the resize handle of textarea
+    noResize: makeProp(PROP_TYPE_BOOLEAN, false),
+    rows: makeProp(PROP_TYPE_NUMBER_STRING, 2),
+    // 'soft', 'hard' or 'off'
+    // Browser default is 'soft'
+    wrap: makeProp(PROP_TYPE_STRING, 'soft')
+  }),
+  NAME_FORM_TEXTAREA
+)
+
+// --- Main component ---
 
 // @vue/component
 export const BFormTextarea = /*#__PURE__*/ Vue.extend({
@@ -34,38 +60,7 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     formSelectionMixin,
     formValidityMixin
   ],
-  props: makePropsConfigurable(
-    {
-      ...formControlProps,
-      ...formSizeProps,
-      ...formStateProps,
-      ...formTextProps,
-      rows: {
-        type: [Number, String],
-        default: 2
-      },
-      maxRows: {
-        type: [Number, String]
-        // default: null
-      },
-      wrap: {
-        // 'soft', 'hard' or 'off'. Browser default is 'soft'
-        type: String,
-        default: 'soft'
-      },
-      noResize: {
-        // Disable the resize handle of textarea
-        type: Boolean,
-        default: false
-      },
-      noAutoShrink: {
-        // When in auto resize mode, disable shrinking to content height
-        type: Boolean,
-        default: false
-      }
-    },
-    NAME_FORM_TEXTAREA
-  ),
+  props,
   data() {
     return {
       heightInPx: null
@@ -209,7 +204,6 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
   },
   render(h) {
     return h('textarea', {
-      ref: 'input',
       class: this.computedClass,
       style: this.computedStyle,
       directives: [
@@ -222,7 +216,8 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
       ],
       attrs: this.computedAttrs,
       domProps: { value: this.localValue },
-      on: this.computedListeners
+      on: this.computedListeners,
+      ref: 'input'
     })
   }
 })

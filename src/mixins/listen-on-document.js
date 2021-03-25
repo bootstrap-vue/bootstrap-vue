@@ -1,56 +1,64 @@
+import { Vue } from '../vue'
+import { IS_BROWSER } from '../constants/env'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { arrayIncludes } from '../utils/array'
-import { isBrowser } from '../utils/env'
 import { eventOn, eventOff } from '../utils/events'
-import { isString, isFunction } from '../utils/inspect'
 import { keys } from '../utils/object'
 
-const PROP = '$_bv_documentHandlers_'
+// --- Constants ---
+
+const PROP = '$_documentListeners'
+
+// --- Mixin ---
 
 // @vue/component
-export default {
+export const listenOnDocumentMixin = Vue.extend({
   created() {
-    /* istanbul ignore next */
-    if (!isBrowser) {
-      return
-    }
-    // Declare non-reactive property
+    // Define non-reactive property
     // Object of arrays, keyed by event name,
-    // where value is an array of handlers
-    // Prop will be defined on client only
+    // where value is an array of callbacks
     this[PROP] = {}
-    // Set up our beforeDestroy handler (client only)
-    this.$once('hook:beforeDestroy', () => {
-      const items = this[PROP] || {}
-      // Immediately delete this[PROP] to prevent the
-      // listenOn/Off methods from running (which may occur
-      // due to requestAnimationFrame/transition delays)
-      delete this[PROP]
-      // Remove all registered event handlers
-      keys(items).forEach(evtName => {
-        const handlers = items[evtName] || []
-        handlers.forEach(handler => eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE))
+  },
+  beforeDestroy() {
+    // Unregister all registered listeners
+    keys(this[PROP] || {}).forEach(event => {
+      this[PROP][event].forEach(callback => {
+        this.listenOffDocument(event, callback)
       })
     })
+
+    this[PROP] = null
   },
   methods: {
-    listenDocument(on, evtName, handler) {
-      on ? this.listenOnDocument(evtName, handler) : this.listenOffDocument(evtName, handler)
-    },
-    listenOnDocument(evtName, handler) {
-      if (this[PROP] && isString(evtName) && isFunction(handler)) {
-        this[PROP][evtName] = this[PROP][evtName] || []
-        if (!arrayIncludes(this[PROP][evtName], handler)) {
-          this[PROP][evtName].push(handler)
-          eventOn(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
+    registerDocumentListener(event, callback) {
+      if (this[PROP]) {
+        this[PROP][event] = this[PROP][event] || []
+        if (!arrayIncludes(this[PROP][event], callback)) {
+          this[PROP][event].push(callback)
         }
       }
     },
-    listenOffDocument(evtName, handler) {
-      if (this[PROP] && isString(evtName) && isFunction(handler)) {
-        eventOff(document, evtName, handler, EVENT_OPTIONS_NO_CAPTURE)
-        this[PROP][evtName] = (this[PROP][evtName] || []).filter(h => h !== handler)
+    unregisterDocumentListener(event, callback) {
+      if (this[PROP] && this[PROP][event]) {
+        this[PROP][event] = this[PROP][event].filter(cb => cb !== callback)
       }
+    },
+
+    listenDocument(on, event, callback) {
+      on ? this.listenOnDocument(event, callback) : this.listenOffDocument(event, callback)
+    },
+    listenOnDocument(event, callback) {
+      if (IS_BROWSER) {
+        eventOn(document, event, callback, EVENT_OPTIONS_NO_CAPTURE)
+        this.registerDocumentListener(event, callback)
+      }
+    },
+    listenOffDocument(event, callback) {
+      if (IS_BROWSER) {
+        eventOff(document, event, callback, EVENT_OPTIONS_NO_CAPTURE)
+      }
+
+      this.unregisterDocumentListener(event, callback)
     }
   }
-}
+})

@@ -1,4 +1,4 @@
-# Spinners
+# Spinner
 
 > The `<b-spinner>` component can be used to show the loading state in your projects. They're
 > rendered only with basic HTML and CSS as a lightweight Vue functional component. Their appearance,

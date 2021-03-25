@@ -1,102 +1,71 @@
-import Vue from '../../vue'
+import { Vue } from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
-import { makePropsConfigurable } from '../../utils/config'
-import { BVTransition } from '../../utils/bv-transition'
+import { EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
+import {
+  PROP_TYPE_BOOLEAN,
+  PROP_TYPE_BOOLEAN_STRING,
+  PROP_TYPE_NUMBER_STRING,
+  PROP_TYPE_STRING
+} from '../../constants/props'
+import { SLOT_NAME_OVERLAY } from '../../constants/slots'
 import { toFloat } from '../../utils/number'
-import normalizeSlotMixin from '../../mixins/normalize-slot'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { makeProp, makePropsConfigurable } from '../../utils/props'
 import { BSpinner } from '../spinner/spinner'
+import { BVTransition } from '../transition/bv-transition'
 
-const positionCover = { top: 0, left: 0, bottom: 0, right: 0 }
+// --- Constants ---
 
+const POSITION_COVER = { top: 0, left: 0, bottom: 0, right: 0 }
+
+// --- Props ---
+
+export const props = makePropsConfigurable(
+  {
+    // Alternative to variant, allowing a specific
+    // CSS color to be applied to the overlay
+    bgColor: makeProp(PROP_TYPE_STRING),
+    blur: makeProp(PROP_TYPE_STRING, '2px'),
+    fixed: makeProp(PROP_TYPE_BOOLEAN, false),
+    noCenter: makeProp(PROP_TYPE_BOOLEAN, false),
+    noFade: makeProp(PROP_TYPE_BOOLEAN, false),
+    // If `true, does not render the default slot
+    // and switches to absolute positioning
+    noWrap: makeProp(PROP_TYPE_BOOLEAN, false),
+    opacity: makeProp(PROP_TYPE_NUMBER_STRING, 0.85, value => {
+      const number = toFloat(value, 0)
+      return number >= 0 && number <= 1
+    }),
+    overlayTag: makeProp(PROP_TYPE_STRING, 'div'),
+    rounded: makeProp(PROP_TYPE_BOOLEAN_STRING, false),
+    show: makeProp(PROP_TYPE_BOOLEAN, false),
+    spinnerSmall: makeProp(PROP_TYPE_BOOLEAN, false),
+    spinnerType: makeProp(PROP_TYPE_STRING, 'border'),
+    spinnerVariant: makeProp(PROP_TYPE_STRING),
+    variant: makeProp(PROP_TYPE_STRING, 'light'),
+    wrapTag: makeProp(PROP_TYPE_STRING, 'div'),
+    zIndex: makeProp(PROP_TYPE_NUMBER_STRING, 10)
+  },
+  NAME_OVERLAY
+)
+
+// --- Main component ---
+
+// @vue/component
 export const BOverlay = /*#__PURE__*/ Vue.extend({
   name: NAME_OVERLAY,
   mixins: [normalizeSlotMixin],
-  props: makePropsConfigurable(
-    {
-      show: {
-        type: Boolean,
-        default: false
-      },
-      variant: {
-        type: String,
-        default: 'light'
-      },
-      bgColor: {
-        // Alternative to variant, allowing a specific
-        // CSS color to be applied to the overlay
-        type: String
-        // default: null
-      },
-      opacity: {
-        type: [Number, String],
-        default: 0.85,
-        validator(value) {
-          const number = toFloat(value, 0)
-          return number >= 0 && number <= 1
-        }
-      },
-      blur: {
-        type: String,
-        default: '2px'
-      },
-      rounded: {
-        type: [Boolean, String],
-        default: false
-      },
-      noCenter: {
-        type: Boolean,
-        default: false
-      },
-      noFade: {
-        type: Boolean,
-        default: false
-      },
-      spinnerType: {
-        type: String,
-        default: 'border'
-      },
-      spinnerVariant: {
-        type: String
-        // default: null
-      },
-      spinnerSmall: {
-        type: Boolean,
-        default: false
-      },
-      overlayTag: {
-        type: String,
-        default: 'div'
-      },
-      wrapTag: {
-        type: String,
-        default: 'div'
-      },
-      noWrap: {
-        // If set, does not render the default slot
-        // and switches to absolute positioning
-        type: Boolean,
-        default: false
-      },
-      fixed: {
-        type: Boolean,
-        default: false
-      },
-      zIndex: {
-        type: [Number, String],
-        default: 10
-      }
-    },
-    NAME_OVERLAY
-  ),
+  props,
   computed: {
     computedRounded() {
-      const rounded = this.rounded
+      const { rounded } = this
       return rounded === true || rounded === '' ? 'rounded' : !rounded ? '' : `rounded-${rounded}`
     },
     computedVariant() {
-      return this.variant && !this.bgColor ? `bg-${this.variant}` : ''
+      const { variant } = this
+      return variant && !this.bgColor ? `bg-${variant}` : ''
     },
-    overlayScope() {
+    slotScope() {
       return {
         spinnerType: this.spinnerType || null,
         spinnerVariant: this.spinnerVariant || null,
@@ -116,64 +85,68 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
+    const { show, fixed, noFade, noWrap, slotScope } = this
+
     let $overlay = h()
-    if (this.show) {
-      const scope = this.overlayScope
-      // Overlay backdrop
+    if (show) {
       const $background = h('div', {
         staticClass: 'position-absolute',
         class: [this.computedVariant, this.computedRounded],
         style: {
-          ...positionCover,
+          ...POSITION_COVER,
           opacity: this.opacity,
           backgroundColor: this.bgColor || null,
           backdropFilter: this.blur ? `blur(${this.blur})` : null
         }
       })
-      // Overlay content
+
       const $content = h(
         'div',
         {
           staticClass: 'position-absolute',
           style: this.noCenter
-            ? /* istanbul ignore next */ { ...positionCover }
+            ? /* istanbul ignore next */ { ...POSITION_COVER }
             : { top: '50%', left: '50%', transform: 'translateX(-50%) translateY(-50%)' }
         },
-        [this.normalizeSlot('overlay', scope) || this.defaultOverlayFn(scope)]
+        [this.normalizeSlot(SLOT_NAME_OVERLAY, slotScope) || this.defaultOverlayFn(slotScope)]
       )
-      // Overlay positioning
+
       $overlay = h(
         this.overlayTag,
         {
-          key: 'overlay',
           staticClass: 'b-overlay',
           class: {
-            'position-absolute': !this.noWrap || (this.noWrap && !this.fixed),
-            'position-fixed': this.noWrap && this.fixed
+            'position-absolute': !noWrap || (noWrap && !fixed),
+            'position-fixed': noWrap && fixed
           },
-          style: { ...positionCover, zIndex: this.zIndex || 10 },
-          on: { click: evt => this.$emit('click', evt) }
+          style: {
+            ...POSITION_COVER,
+            zIndex: this.zIndex || 10
+          },
+          on: { click: event => this.$emit(EVENT_NAME_CLICK, event) },
+          key: 'overlay'
         },
         [$background, $content]
       )
     }
+
     // Wrap in a fade transition
     $overlay = h(
       BVTransition,
       {
         props: {
-          noFade: this.noFade,
+          noFade,
           appear: true
         },
         on: {
-          'after-enter': () => this.$emit('shown'),
-          'after-leave': () => this.$emit('hidden')
+          'after-enter': () => this.$emit(EVENT_NAME_SHOWN),
+          'after-leave': () => this.$emit(EVENT_NAME_HIDDEN)
         }
       },
       [$overlay]
     )
 
-    if (this.noWrap) {
+    if (noWrap) {
       return $overlay
     }
 
@@ -181,9 +154,9 @@ export const BOverlay = /*#__PURE__*/ Vue.extend({
       this.wrapTag,
       {
         staticClass: 'b-overlay-wrap position-relative',
-        attrs: { 'aria-busy': this.show ? 'true' : null }
+        attrs: { 'aria-busy': show ? 'true' : null }
       },
-      this.noWrap ? [$overlay] : [this.normalizeSlot(), $overlay]
+      noWrap ? [$overlay] : [this.normalizeSlot(), $overlay]
     )
   }
 })
