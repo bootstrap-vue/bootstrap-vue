@@ -350,6 +350,11 @@ export const BFormFile = /*#__PURE__*/ Vue.extend({
     defaultFileNameFormatter(flattenedFiles, clonedFiles, fileNames) {
       return fileNames.join(', ')
     },
+    browse() {
+      try {
+        this.$refs.input.click()
+      } catch {}
+    },
     setFiles(files) {
       // Reset the dragging flags
       this.dropAllowed = !this.noDrop
