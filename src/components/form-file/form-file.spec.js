@@ -381,6 +381,22 @@ describe('form-file', () => {
     wrapper.destroy()
   })
 
+  it('browse() method works', async () => {
+    const wrapper = mount(BFormFile, {
+      propsData: {
+        id: 'foo'
+      }
+    })
+
+    const inputClick = jest.spyOn(wrapper.vm.$refs.input, 'click')
+
+    wrapper.vm.browse()
+
+    expect(inputClick).toHaveBeenCalled()
+
+    wrapper.destroy()
+  })
+
   it('reset() method works in single mode', async () => {
     const wrapper = mount(BFormFile, {
       propsData: {
