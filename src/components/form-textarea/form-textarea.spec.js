@@ -330,6 +330,7 @@ describe('form-textarea', () => {
   it('emits a native focus event', async () => {
     const spy = jest.fn()
     const wrapper = mount(BFormTextarea, {
+      attachTo: createContainer(),
       listeners: {
         focus: spy
       }
