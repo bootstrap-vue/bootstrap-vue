@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [16]
 
     steps:
       - name: Clone repository
@@ -54,7 +54,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [16]
 
     steps:
       - name: Clone repository
@@ -91,7 +91,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [10, 12, 14]
+        node: [12, 14, 16]
 
     steps:
       - name: Clone repository
@@ -124,7 +124,6 @@ jobs:
 
       - name: CodeCov
         uses: codecov/codecov-action@v1
-        if: matrix.node == '14'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
