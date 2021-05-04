@@ -517,9 +517,14 @@ describe('dropdown', () => {
 
   it('dropdown opens and closes', async () => {
     const App = {
+      props: {
+        disabled: { type: Boolean, default: false }
+      },
       render(h) {
+        const { disabled } = this
+
         return h('div', { attrs: { id: 'container' } }, [
-          h(BDropdown, { props: { id: 'test' } }, [h(BDropdownItem, 'item')]),
+          h(BDropdown, { props: { id: 'test', disabled } }, [h(BDropdownItem, 'item')]),
           h('input', { attrs: { id: 'input' } })
         ])
       }
@@ -681,7 +686,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('true')
 
     // When disabled changes to true, menu should close
-    await $dropdown.setProps({ disabled: true })
+    await wrapper.setProps({ disabled: true })
     await waitRAF()
     await waitNT(wrapper.vm)
     await waitRAF()
@@ -700,7 +705,7 @@ describe('dropdown', () => {
     expect($toggle.attributes('aria-expanded')).toEqual('false')
 
     // Re-enable dropdown and open it
-    await $dropdown.setProps({ disabled: false })
+    await wrapper.setProps({ disabled: false })
     await waitRAF()
     $dropdown.vm.show()
     await waitNT(wrapper.vm)
