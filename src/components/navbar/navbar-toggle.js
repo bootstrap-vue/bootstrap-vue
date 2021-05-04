@@ -41,8 +41,8 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
     }
   },
   created() {
-    this.listenOnRoot(ROOT_EVENT_NAME_STATE, this.handleStateEvt)
-    this.listenOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.handleStateEvt)
+    this.listenOnRoot(ROOT_EVENT_NAME_STATE, this.handleStateEvent)
+    this.listenOnRoot(ROOT_EVENT_NAME_SYNC_STATE, this.handleStateEvent)
   },
   methods: {
     onClick(event) {
@@ -51,7 +51,7 @@ export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
         this.$emit(EVENT_NAME_CLICK, event)
       }
     },
-    handleStateEvt(id, state) {
+    handleStateEvent(id, state) {
       // We listen for state events so that we can pass the
       // boolean expanded state to the default scoped slot
       if (id === this.target) {

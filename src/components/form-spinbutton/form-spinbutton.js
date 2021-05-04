@@ -299,11 +299,7 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
       }
     },
     onFocusBlur(event) {
-      if (!this.disabled) {
-        this.hasFocus = event.type === 'focus'
-      } else {
-        this.hasFocus = false
-      }
+      this.hasFocus = this.disabled ? false : event.type === 'focus'
     },
     stepUp(multiplier = 1) {
       const value = this.localValue

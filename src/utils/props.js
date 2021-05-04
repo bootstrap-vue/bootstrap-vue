@@ -94,4 +94,5 @@ const configurablePropDefaultFnName = makePropConfigurable({}, '', '').default.n
 
 // Detect wether the given value is currently a function
 // and isn't the props default function
-export const hasPropFunction = fn => isFunction(fn) && fn.name !== configurablePropDefaultFnName
+export const hasPropFunction = fn =>
+  isFunction(fn) && fn.name && fn.name !== configurablePropDefaultFnName

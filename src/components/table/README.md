@@ -2765,7 +2765,7 @@ be sticky. For example:
       <b-th>Heading 4</b-th>
     </b-tr>
   </b-tfoot>
-</b-table-responsive>
+</b-table-simple>
 ```
 
 As with `<b-table>` and `<b-table-lite>`, sticky columns are not supported when the `stacked` prop

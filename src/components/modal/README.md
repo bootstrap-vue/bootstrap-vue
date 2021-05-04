@@ -292,9 +292,9 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
         this.name = ''
         this.nameState = null
       },
-      handleOk(bvModalEvt) {
+      handleOk(bvModalEvent) {
         // Prevent modal from closing
-        bvModalEvt.preventDefault()
+        bvModalEvent.preventDefault()
         // Trigger submit handler
         this.handleSubmit()
       },

@@ -168,3 +168,10 @@ $b-skeleton-loading-cursor: wait !default;
 $b-skeleton-animation-duration: 1.75s !default;
 $b-skeleton-text-spacing: map-get($spacers, 1) !default;
 $b-skeleton-btn-width: 75px !default;
+$b-skeleton-animate-wave-color: hsla(0, 0%, 100%, 0.4) !default;
+$b-skeleton-animate-wave-background: linear-gradient(
+  90deg,
+  transparent,
+  $b-skeleton-animate-wave-color,
+  transparent
+) !default;

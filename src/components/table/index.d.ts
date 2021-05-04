@@ -39,7 +39,7 @@ export declare class BTable extends BvComponent {
   busy?: boolean
   tbodyTrClass?: string | Array<any> | object | BvTableTbodyTrClassCallback
   tbodyTrAttr?: object | BvTableTbodyTrAttrCallback
-  tabelVariant?: BvTableVariant | string
+  tableVariant?: BvTableVariant | string
   headVariant?: BvTableHeadFootVariant | string
   footVariant?: BvTableHeadFootVariant | string
   tbodyTransitionProps?: BvTableTbodyTransitionProps
@@ -226,6 +226,7 @@ export interface BvTableField {
   class?: string | string[]
   formatter?: string | BvTableFormatterCallback
   sortable?: boolean
+  sortKey?: string
   sortDirection?: BvTableSortDirection
   sortByFormatted?: boolean | BvTableFormatterCallback
   filterByFormatted?: boolean | BvTableFormatterCallback

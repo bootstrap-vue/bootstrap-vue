@@ -3,9 +3,12 @@
 import { Vue } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import {
+  EVENT_NAME_BLUR,
+  EVENT_NAME_FOCUS,
+  EVENT_NAME_FOCUSIN,
+  EVENT_NAME_FOCUSOUT,
   EVENT_NAME_TAG_STATE,
-  EVENT_OPTIONS_PASSIVE,
-  HOOK_EVENT_NAME_BEFORE_DESTROY
+  EVENT_OPTIONS_PASSIVE
 } from '../../constants/events'
 import { CODE_BACKSPACE, CODE_DELETE, CODE_ENTER } from '../../constants/key-codes'
 import {
@@ -22,27 +25,20 @@ import { RX_SPACES } from '../../constants/regex'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_ADD_BUTTON_TEXT } from '../../constants/slots'
 import { arrayIncludes, concat } from '../../utils/array'
 import { cssEscape } from '../../utils/css-escape'
-import {
-  attemptBlur,
-  attemptFocus,
-  closest,
-  isActiveElement,
-  matches,
-  requestAF,
-  select
-} from '../../utils/dom'
+import { attemptBlur, attemptFocus, closest, matches, requestAF, select } from '../../utils/dom'
 import { eventOn, eventOff, stopEvent } from '../../utils/events'
 import { identity } from '../../utils/identity'
 import { isEvent, isNumber, isString } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { makeModelMixin } from '../../utils/model'
-import { pick, sortKeys } from '../../utils/object'
+import { omit, pick, sortKeys } from '../../utils/object'
 import { hasPropFunction, makeProp, makePropsConfigurable } from '../../utils/props'
 import { escapeRegExp, toString, trim, trimLeft } from '../../utils/string'
 import { formControlMixin, props as formControlProps } from '../../mixins/form-control'
 import { formSizeMixin, props as formSizeProps } from '../../mixins/form-size'
 import { formStateMixin, props as formStateProps } from '../../mixins/form-state'
 import { idMixin, props as idProps } from '../../mixins/id'
+import { listenersMixin } from '../../mixins/listeners'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BButton } from '../button/button'
 import { BFormInvalidFeedback } from '../form/form-invalid-feedback'
@@ -107,6 +103,7 @@ const props = makePropsConfigurable(
     // Handy if using <select> as the input
     addOnChange: makeProp(PROP_TYPE_BOOLEAN, false),
     duplicateTagText: makeProp(PROP_TYPE_STRING, 'Duplicate tag(s)'),
+    feedbackAriaLive: makeProp(PROP_TYPE_STRING, 'assertive'),
     // Disable the input focus behavior when clicking
     // on element matching the selector (or selectors)
     ignoreInputFocusSelector: makeProp(PROP_TYPE_ARRAY_STRING, DEFAULT_INPUT_FOCUS_SELECTOR),
@@ -147,6 +144,7 @@ const props = makePropsConfigurable(
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TAGS,
   mixins: [
+    listenersMixin,
     idMixin,
     modelMixin,
     formControlMixin,
@@ -163,7 +161,8 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       // Tags that were removed
       removedTags: [],
       // Populated when tags are parsed
-      tagsState: cleanTagsState()
+      tagsState: cleanTagsState(),
+      focusState: null
     }
   },
   computed: {
@@ -189,8 +188,11 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     computedInputHandlers() {
       return {
-        input: this.onInputInput,
+        ...omit(this.bvListeners, [EVENT_NAME_FOCUSIN, EVENT_NAME_FOCUSOUT]),
+        blur: this.onInputBlur,
         change: this.onInputChange,
+        focus: this.onInputFocus,
+        input: this.onInputInput,
         keydown: this.onInputKeydown,
         reset: this.reset
       }
@@ -285,9 +287,12 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     const $form = closest('form', this.$el)
     if ($form) {
       eventOn($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      this.$on(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
-        eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
-      })
+    }
+  },
+  beforeDestroy() {
+    const $form = closest('form', this.$el)
+    if ($form) {
+      eventOff($form, 'reset', this.reset, EVENT_OPTIONS_PASSIVE)
     }
   },
   methods: {
@@ -338,10 +343,6 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       //   will prevent the tag from being removed (i.e. confirmation)
       //   Or emit cancelable `BvEvent`
       this.tags = this.tags.filter(t => t !== tag)
-      // Return focus to the input (if possible)
-      this.$nextTick(() => {
-        this.focus()
-      })
     },
     reset() {
       this.newTag = ''
@@ -413,28 +414,51 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
     },
     // --- Wrapper event handlers ---
     onClick(event) {
-      const ignoreFocusSelector = this.computeIgnoreInputFocusSelector
-      const { target } = event
-      if (
-        !this.disabled &&
-        !isActiveElement(target) &&
-        (!ignoreFocusSelector || !closest(ignoreFocusSelector, target, true))
-      ) {
+      const { computeIgnoreInputFocusSelector: ignoreFocusSelector } = this
+      if (!ignoreFocusSelector || !closest(ignoreFocusSelector, event.target, true)) {
         this.$nextTick(() => {
           this.focus()
         })
       }
     },
-    onFocusin() {
-      this.hasFocus = true
+    onInputFocus(event) {
+      if (this.focusState !== 'out') {
+        this.focusState = 'in'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (this.hasFocus) {
+              this.$emit(EVENT_NAME_FOCUS, event)
+              this.focusState = null
+            }
+          })
+        })
+      }
     },
-    onFocusout() {
+    onInputBlur(event) {
+      if (this.focusState !== 'in') {
+        this.focusState = 'out'
+        this.$nextTick(() => {
+          requestAF(() => {
+            if (!this.hasFocus) {
+              this.$emit(EVENT_NAME_BLUR, event)
+              this.focusState = null
+            }
+          })
+        })
+      }
+    },
+    onFocusin(event) {
+      this.hasFocus = true
+      this.$emit(EVENT_NAME_FOCUSIN, event)
+    },
+    onFocusout(event) {
       this.hasFocus = false
+      this.$emit(EVENT_NAME_FOCUSOUT, event)
     },
     handleAutofocus() {
       this.$nextTick(() => {
         requestAF(() => {
-          if (this.autofocus && !this.disabled) {
+          if (this.autofocus) {
             this.focus()
           }
         })
@@ -660,7 +684,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       if (invalidTagText || duplicateTagText || limitTagsText) {
         // Add an aria live region for the invalid/duplicate tag
         // messages if the user has not disabled the messages
-        const joiner = this.computedJoiner
+        const { feedbackAriaLive: ariaLive, computedJoiner: joiner } = this
 
         // Invalid tag feedback if needed (error)
         let $invalid = h()
@@ -670,6 +694,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
             {
               props: {
                 id: invalidFeedbackId,
+                ariaLive,
                 forceShow: true
               },
               key: 'tags_invalid_feedback'
@@ -684,7 +709,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $duplicate = h(
             BFormText,
             {
-              props: { id: duplicateFeedbackId },
+              props: {
+                id: duplicateFeedbackId,
+                ariaLive
+              },
               key: 'tags_duplicate_feedback'
             },
             [this.duplicateTagText, ': ', this.duplicateTags.join(joiner)]
@@ -697,7 +725,10 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
           $limit = h(
             BFormText,
             {
-              props: { id: limitFeedbackId },
+              props: {
+                id: limitFeedbackId,
+                ariaLive
+              },
               key: 'tags_limit_feedback'
             },
             [limitTagsText]
