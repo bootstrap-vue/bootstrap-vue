@@ -187,7 +187,7 @@ default slide animation.
     img-height="480"
   >
     <b-carousel-slide
-      caption="First slide"
+      caption="First Slide"
       img-src="https://picsum.photos/1024/480/?image=10"
     ></b-carousel-slide>
     <b-carousel-slide
@@ -219,7 +219,7 @@ Set the `<b-carousel>` `no-animation` prop to `true` to disable slide animation.
     img-height="480"
   >
     <b-carousel-slide
-      caption="First slide"
+      caption="First Slide"
       img-src="https://picsum.photos/1024/480/?image=10"
     ></b-carousel-slide>
     <b-carousel-slide
