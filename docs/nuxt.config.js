@@ -58,7 +58,7 @@ renderer.code = (code, language) => {
   }
 
   const validLang = !!(language && hljs.getLanguage(language))
-  const highlighted = validLang ? hljs.highlight(language, code).value : code
+  const highlighted = validLang ? hljs.highlight(code, { language }).value : code
 
   const attrsMarkup = Object.keys(attrs).reduce(
     (markup, attr) => `${markup}${markup ? ' ' : ''}${attr}="${attrs[attr]}"`,

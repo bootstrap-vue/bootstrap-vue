@@ -847,6 +847,7 @@ describe('form-tags', () => {
     const onFocus = jest.fn()
     const onBlur = jest.fn()
     const wrapper = mount(BFormTags, {
+      attachTo: createContainer(),
       propsData: {
         value: ['apple', 'orange']
       },

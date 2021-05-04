@@ -7,7 +7,7 @@ const marked = require('marked')
 const { getOptions } = require('loader-utils')
 
 module.exports = function(markdown) {
-  // merge params and default config
+  // Merge params and default config
   const options = getOptions(this)
   // Make results cacheable
   this.cacheable()
@@ -15,6 +15,6 @@ module.exports = function(markdown) {
   marked.setOptions(options)
   // Return the converted file as HTML
   const html = marked(markdown) || ''
-  // Mark certain elements as translate="no"
+  // Mark certain elements as `translate="no"`
   return html.replace(/<(kbd|code|samp)>/gi, '<$1 class="notranslate" translate="no">')
 }

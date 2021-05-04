@@ -1,6 +1,11 @@
 module.exports = {
-  extends: ['standard', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
-  plugins: ['jest', 'markdown', 'node', 'promise'],
+  extends: [
+    'standard',
+    'plugin:vue/recommended',
+    'plugin:prettier/recommended',
+    'plugin:markdown/recommended'
+  ],
+  plugins: ['jest', 'node', 'promise'],
   parserOptions: {
     parser: 'babel-eslint',
     sourceType: 'module'
