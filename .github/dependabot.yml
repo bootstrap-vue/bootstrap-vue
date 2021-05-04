@@ -24,6 +24,8 @@ updates:
         versions: [">=5.0.0"]
       - dependency-name: "clean-css-cli"
         versions: [">=5.0.0"]
+      - dependency-name: "html-loader"
+        versions: [">=2.0.0"]
       - dependency-name: "prettier"
         versions: [">1.14.3"]
       - dependency-name: "sass-loader"
