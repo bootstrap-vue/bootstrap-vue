@@ -856,6 +856,7 @@ describe('form-checkbox', () => {
 
   it('stand-alone button has label class focus when input focused', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: createContainer(),
       propsData: {
         button: true,
         checked: '',
@@ -1094,6 +1095,7 @@ describe('form-checkbox', () => {
 
   it('emits a change event when clicked', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: createContainer(),
       propsData: {
         uncheckedValue: 'foo',
         value: 'bar'
@@ -1126,6 +1128,7 @@ describe('form-checkbox', () => {
 
   it('works when v-model bound to an array', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: createContainer(),
       propsData: {
         value: 'bar',
         checked: ['foo']
@@ -1187,6 +1190,7 @@ describe('form-checkbox', () => {
 
   it('works when value is an object', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: createContainer(),
       propsData: {
         value: { bar: 1, baz: 2 },
         checked: ['foo']
