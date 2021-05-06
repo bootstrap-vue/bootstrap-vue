@@ -103,7 +103,7 @@
           },
           {
             "prop": "footClone",
-            "description": "Enable to the footer of the table, and clone the header content by default"
+            "description": "Enable the footer of the table, and clone the header content by default"
           },
           {
             "prop": "footRowVariant",
