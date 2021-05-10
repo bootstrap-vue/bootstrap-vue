@@ -235,15 +235,19 @@ export const sortingMixin = Vue.extend({
       }
     },
     sortTheadThAttrs(key, field, isFoot) {
-      if (!this.isSortable || (isFoot && this.noFooterSorting)) {
+      const { isSortable, noFooterSorting, localSortDesc, localSortBy, localSorting } = this
+      if (!isSortable || (isFoot && noFooterSorting)) {
         // No attributes if not a sortable table
         return {}
       }
+
       const sortable = field.sortable
+      const sortKey = !localSorting ? field.sortKey ?? key : key
+
       // Assemble the aria-sort attribute value
       const ariaSort =
-        sortable && this.localSortBy === key
-          ? this.localSortDesc
+        sortable && localSortBy === sortKey
+          ? localSortDesc
             ? 'descending'
             : 'ascending'
           : sortable
