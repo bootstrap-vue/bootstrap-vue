@@ -46,7 +46,7 @@ export const closestEl =
 
 // `requestAnimationFrame()` convenience method
 /* istanbul ignore next: JSDOM always returns the first option */
-export const requestAF =
+export const requestAF = (
   WINDOW.requestAnimationFrame ||
   WINDOW.webkitRequestAnimationFrame ||
   WINDOW.mozRequestAnimationFrame ||
@@ -56,6 +56,7 @@ export const requestAF =
   // Only needed for Opera Mini
   /* istanbul ignore next */
   (cb => setTimeout(cb, 16))
+).bind(WINDOW)
 
 export const MutationObs =
   WINDOW.MutationObserver || WINDOW.WebKitMutationObserver || WINDOW.MozMutationObserver || null
