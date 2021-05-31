@@ -790,11 +790,12 @@ describe('form-checkbox', () => {
 
     const $label = wrapper.find('label')
     expect($label).toBeDefined()
-    expect($label.classes().length).toEqual(2)
+    expect($label.classes().length).toEqual(3)
     expect($label.classes()).not.toContain('active')
     expect($label.classes()).not.toContain('focus')
     expect($label.classes()).toContain('btn')
     expect($label.classes()).toContain('btn-secondary')
+    expect($label.classes()).toContain('btn-size-default')
 
     wrapper.destroy()
   })
@@ -813,10 +814,11 @@ describe('form-checkbox', () => {
 
     const $label = wrapper.find('label')
     expect($label).toBeDefined()
-    expect($label.classes().length).toEqual(3)
+    expect($label.classes().length).toEqual(4)
     expect($label.classes()).not.toContain('focus')
     expect($label.classes()).toContain('btn')
     expect($label.classes()).toContain('btn-secondary')
+    expect($label.classes()).toContain('btn-size-default')
     expect($label.classes()).toContain('active')
 
     wrapper.destroy()
@@ -839,17 +841,19 @@ describe('form-checkbox', () => {
 
     const $input = wrapper.find('input')
     expect($input).toBeDefined()
-    expect($label.classes().length).toEqual(2)
+    expect($label.classes().length).toEqual(3)
     expect($label.classes()).not.toContain('focus')
     expect($label.classes()).not.toContain('active')
     expect($label.classes()).toContain('btn')
     expect($label.classes()).toContain('btn-secondary')
+    expect($label.classes()).toContain('btn-size-default')
 
     await $input.setChecked(true)
-    expect($label.classes().length).toEqual(3)
+    expect($label.classes().length).toEqual(4)
     expect($label.classes()).toContain('active')
     expect($label.classes()).toContain('btn')
     expect($label.classes()).toContain('btn-secondary')
+    expect($label.classes()).toContain('btn-size-default')
 
     wrapper.destroy()
   })
@@ -871,19 +875,20 @@ describe('form-checkbox', () => {
     expect($label).toBeDefined()
 
     const $input = wrapper.find('input')
-    expect($label.classes().length).toEqual(2)
+    expect($label.classes().length).toEqual(3)
     expect($label.classes()).not.toContain('focus')
     expect($label.classes()).not.toContain('active')
     expect($label.classes()).toContain('btn')
     expect($label.classes()).toContain('btn-secondary')
+    expect($label.classes()).toContain('btn-size-default')
     expect($input).toBeDefined()
 
     await $input.trigger('focus')
-    expect($label.classes().length).toEqual(3)
+    expect($label.classes().length).toEqual(4)
     expect($label.classes()).toContain('focus')
 
     await $input.trigger('blur')
-    expect($label.classes().length).toEqual(2)
+    expect($label.classes().length).toEqual(3)
     expect($label.classes()).not.toContain('focus')
 
     wrapper.destroy()
@@ -904,7 +909,7 @@ describe('form-checkbox', () => {
 
     const $label = wrapper.find('label')
     expect($label).toBeDefined()
-    expect($label.classes().length).toEqual(2)
+    expect($label.classes().length).toEqual(3)
     expect($label.classes()).not.toContain('focus')
     expect($label.classes()).not.toContain('active')
     expect($label.classes()).not.toContain('btn-secondary')

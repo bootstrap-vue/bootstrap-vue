@@ -321,7 +321,7 @@ describe('form-radio-group', () => {
     await waitNT(wrapper.vm)
 
     // Find all the labels with .btn class
-    const btns = wrapper.findAll('label.btn')
+    const btns = wrapper.findAll('div.btn')
     expect(btns).toBeDefined()
     expect(btns.length).toBe(3)
     // Expect them to have the correct variant classes
