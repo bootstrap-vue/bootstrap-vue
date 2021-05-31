@@ -43,6 +43,7 @@ export const props = makePropsConfigurable(
     // Only applicable when rendered with button style
     buttonVariant: makeProp(PROP_TYPE_STRING),
     inline: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
     value: makeProp(PROP_TYPE_ANY)
   }),
   'formRadioCheckControls'
@@ -137,6 +138,9 @@ export const formRadioCheckMixin = Vue.extend({
     computedState() {
       return this.isGroup ? this.bvGroup.computedState : isBoolean(this.state) ? this.state : null
     },
+    computedTag() {
+      return this.isGroup ? (this.tag !== 'div' ? this.tag : this.bvGroup.itemTag) : this.tag
+    },
     computedButtonVariant() {
       // Local variant preferred over group variant
       const { buttonVariant } = this
@@ -149,12 +153,10 @@ export const formRadioCheckMixin = Vue.extend({
       return 'secondary'
     },
     buttonClasses() {
-      const { computedSize } = this
       return [
         'btn',
         `btn-${this.computedButtonVariant}`,
         {
-          [`btn-${computedSize}`]: computedSize,
           // 'disabled' class makes "button" look disabled
           disabled: this.isDisabled,
           // 'active' class makes "button" look pressed
@@ -163,6 +165,10 @@ export const formRadioCheckMixin = Vue.extend({
           focus: this.hasFocus
         }
       ]
+    },
+    buttonSizeClasses() {
+      const computedSize = this.computedSize || 'size-default'
+      return [`btn-${computedSize}`]
     },
     computedAttrs() {
       const { isDisabled: disabled, isRequired: required } = this
@@ -280,11 +286,17 @@ export const formRadioCheckMixin = Vue.extend({
     })
 
     if (isBtnMode) {
-      let $button = h('label', { class: this.buttonClasses }, [$input, $content])
-      if (!this.isGroup) {
+      let $button
+      if (this.isGroup) {
+        $button = h(this.tag, { class: ['p-0', this.buttonClasses] }, [
+          h('label', { class: ['m-0', this.buttonSizeClasses] }, [$input, $content])
+        ])
+      } else {
         // Standalone button mode, so wrap in 'btn-group-toggle'
         // and flag it as inline-block to mimic regular buttons
-        $button = h('div', { class: ['btn-group-toggle', 'd-inline-block'] }, [$button])
+        $button = h(this.tag, { class: ['btn-group-toggle', 'd-inline-block'] }, [
+          h('label', { class: [this.buttonClasses, this.buttonSizeClasses] }, [$input, $content])
+        ])
       }
 
       return $button
@@ -308,7 +320,7 @@ export const formRadioCheckMixin = Vue.extend({
     }
 
     return h(
-      'div',
+      this.computedTag,
       {
         class: [
           {

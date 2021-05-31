@@ -46,7 +46,9 @@ export const props = makePropsConfigurable(
     buttonVariant: makeProp(PROP_TYPE_STRING),
     // Render as button style
     buttons: makeProp(PROP_TYPE_BOOLEAN, false),
+    itemTag: makeProp(PROP_TYPE_STRING, 'div'),
     stacked: makeProp(PROP_TYPE_BOOLEAN, false),
+    tag: makeProp(PROP_TYPE_STRING, 'div'),
     validated: makeProp(PROP_TYPE_BOOLEAN, false)
   }),
   'formRadioCheckGroups'
@@ -128,7 +130,8 @@ export const formRadioCheckGroupMixin = Vue.extend({
             // Individual radios or checks can be disabled in a group
             disabled: option.disabled || false,
             id: this.safeId(key),
-            value: option.value
+            value: option.value,
+            tag: this.itemTag
             // We don't need to include these, since the input's will know they are inside here
             // form: this.form || null,
             // name: this.groupName,
@@ -143,7 +146,7 @@ export const formRadioCheckGroupMixin = Vue.extend({
     })
 
     return h(
-      'div',
+      this.tag,
       {
         class: [this.groupClasses, 'bv-no-focus-ring'],
         attrs: {
