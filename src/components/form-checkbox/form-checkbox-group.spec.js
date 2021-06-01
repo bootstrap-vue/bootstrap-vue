@@ -354,6 +354,48 @@ describe('form-checkbox-group', () => {
     wrapper.destroy()
   })
 
+  it('has custom root element when prop tag is set', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        tag: 'ul'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('UL')
+
+    wrapper.destroy()
+  })
+
+  it('has custom child elements when prop itemTag is set', async () => {
+    const App = {
+      render(h) {
+        return h(
+          BFormCheckboxGroup,
+          {
+            props: {
+              options: ['one', 'two', 'three'],
+              itemTag: 'span'
+            }
+          },
+          [h(BFormCheckbox, { props: { value: 'four', tag: 'small' } })]
+        )
+      }
+    }
+
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    const $checkboxes = wrapper.findAllComponents(BFormCheckbox)
+    expect($checkboxes.at(0).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(1).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(2).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(3).element.tagName).toBe('SMALL')
+
+    wrapper.destroy()
+  })
+
   // --- Functionality testing ---
 
   it('has checkboxes via options array', async () => {

@@ -27,6 +27,19 @@ describe('form-checkbox', () => {
     wrapper.destroy()
   })
 
+  it('default has custom root element when prop tag is set', async () => {
+    const wrapper = mount(BFormCheckbox, {
+      attachTo: createContainer(),
+      propsData: {
+        tag: 'span'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('SPAN')
+
+    wrapper.destroy()
+  })
+
   it('default has wrapper class custom-control and custom-checkbox', async () => {
     const wrapper = mount(BFormCheckbox, {
       propsData: {

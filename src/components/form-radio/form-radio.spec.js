@@ -25,6 +25,19 @@ describe('form-radio', () => {
     wrapper.destroy()
   })
 
+  it('default has custom root element when prop tag is set', async () => {
+    const wrapper = mount(BFormRadio, {
+      attachTo: createContainer(),
+      propsData: {
+        tag: 'span'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('SPAN')
+
+    wrapper.destroy()
+  })
+
   it('default has wrapper class custom-control and custom-radio', async () => {
     const wrapper = mount(BFormRadio, {
       propsData: {
