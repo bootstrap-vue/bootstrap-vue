@@ -2612,7 +2612,7 @@ sorting, pagination, filtering, foot-clone, items, fields, etc.).
 ```
 
 When in `responsive` or `sticky-header` mode, the `<table>` element is wrapped inside a `<div>`
-element. If you need to apply additional classes to the `<table>` element, use the `table-classes`
+element. If you need to apply additional classes to the `<table>` element, use the `table-class`
 prop.
 
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`
