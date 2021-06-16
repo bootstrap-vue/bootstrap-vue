@@ -67,4 +67,12 @@ describe('cloneDeep()', () => {
     expect(cloneDeep(a).c).toEqual(a.c)
     expect(cloneDeep(a).c).not.toBe(a.c)
   })
+
+  it('should clone files', () => {
+    const a = new File([1, 2, 3], 'test.txt', { type: 'text/plain' })
+    expect(cloneDeep(a)).toEqual(a)
+    expect(cloneDeep(a)).not.toBe(a)
+    expect(cloneDeep(a.name)).toEqual(a.name)
+    expect(cloneDeep(a.type)).toEqual(a.type)
+  })
 })
