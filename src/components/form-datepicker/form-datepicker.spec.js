@@ -532,6 +532,44 @@ describe('form-date', () => {
     wrapper.destroy()
   })
 
+  it('reset method works', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '2021-01-25',
+        resetValue: '1900-01-01',
+        name: 'foobar'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('value')).toBe('2021-01-25')
+
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($input.attributes('value')).toBe('1900-01-01')
+
+    await wrapper.setProps({ resetValue: '' })
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($input.attributes('value')).toBe('')
+
+    wrapper.destroy()
+  })
+
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormDatepicker, {
       attachTo: createContainer(),
