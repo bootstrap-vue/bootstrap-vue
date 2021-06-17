@@ -106,7 +106,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       isHiding: false,
       order: 0,
       dismissStarted: 0,
-      resumeDismiss: 0
+      resumeDismiss: 0,
+      pendingActions: []
     }
   },
   computed: {
@@ -168,6 +169,12 @@ export const BToast = /*#__PURE__*/ Vue.extend({
       if (newValue && this.localShow) {
         this.ensureToaster()
       }
+    },
+    isTransitioning(newValue) {
+      if (!newValue) {
+        this.pendingActions.forEach(fn => fn())
+        this.pendingActions = []
+      }
     }
   },
   created() {
@@ -178,9 +185,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     this.isMounted = true
     this.$nextTick(() => {
       if (this[MODEL_PROP_NAME]) {
-        requestAF(() => {
-          this.show()
-        })
+        requestAF(this.show)
       }
     })
     // Listen for global $root show events
@@ -210,6 +215,10 @@ export const BToast = /*#__PURE__*/ Vue.extend({
   methods: {
     show() {
       if (!this.localShow) {
+        if (this.pendingActions.length) {
+          this.pendingActions = []
+          return
+        }
         this.ensureToaster()
         const showEvent = this.buildEvent(EVENT_NAME_SHOW)
         this.emitEvent(showEvent)
@@ -224,10 +233,16 @@ export const BToast = /*#__PURE__*/ Vue.extend({
             this.localShow = true
           })
         })
+      } else if (this.isHiding) {
+        this.pendingActions.push(this.show)
       }
     },
     hide() {
       if (this.localShow) {
+        if (this.pendingActions.length) {
+          this.pendingActions = []
+          return
+        }
         const hideEvent = this.buildEvent(EVENT_NAME_HIDE)
         this.emitEvent(hideEvent)
         this.setHoverHandler(false)
@@ -237,6 +252,8 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         requestAF(() => {
           this.localShow = false
         })
+      } else if (!this.isHiding) {
+        this.pendingActions.push(this.hide)
       }
     },
     buildEvent(type, options = {}) {
@@ -311,11 +328,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
     onLinkClick() {
       // We delay the close to allow time for the
       // browser to process the link click
-      this.$nextTick(() => {
-        requestAF(() => {
-          this.hide()
-        })
-      })
+      this.$nextTick(this.hide)
     },
     onBeforeEnter() {
       this.isTransitioning = true
@@ -355,11 +368,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         $headerContent.push(
           h(BButtonClose, {
             staticClass: 'ml-auto mb-1',
-            on: {
-              click: () => {
-                this.hide()
-              }
-            }
+            on: { click: this.hide }
           })
         )
       }
