@@ -22,6 +22,7 @@ import {
   CODE_UP
 } from '../../constants/key-codes'
 import {
+  PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_ARRAY_STRING,
   PROP_TYPE_BOOLEAN,
   PROP_TYPE_DATE_STRING,
@@ -97,6 +98,8 @@ export const props = makePropsConfigurable(
     ariaControls: makeProp(PROP_TYPE_STRING),
     // Makes calendar the full width of its parent container
     block: makeProp(PROP_TYPE_BOOLEAN, false),
+    // overrides default date button classes
+    dateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     dateDisabledFn: makeProp(PROP_TYPE_FUNCTION),
     // `Intl.DateTimeFormat` object
     dateFormatOptions: makeProp(PROP_TYPE_OBJECT, {
@@ -145,13 +148,19 @@ export const props = makePropsConfigurable(
     locale: makeProp(PROP_TYPE_ARRAY_STRING),
     max: makeProp(PROP_TYPE_DATE_STRING),
     min: makeProp(PROP_TYPE_DATE_STRING),
+    // override the button classes for the navigation buttons
+    navButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for the navigation buttons
     navButtonVariant: makeProp(PROP_TYPE_STRING, 'secondary'),
     // Disable highlighting today's date
     noHighlightToday: makeProp(PROP_TYPE_BOOLEAN, false),
     noKeyNav: makeProp(PROP_TYPE_BOOLEAN, false),
+    // override date button classes of dates outside the current month
+    otherMonthDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     readonly: makeProp(PROP_TYPE_BOOLEAN, false),
     roleDescription: makeProp(PROP_TYPE_STRING),
+    // overrides date button classes for the selected date
+    selectedDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for the selected date
     selectedVariant: makeProp(PROP_TYPE_STRING, 'primary'),
     // When `true` enables the decade navigation buttons
@@ -159,6 +168,8 @@ export const props = makePropsConfigurable(
     // Day of week to start calendar on
     // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
     startWeekday: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    // overrides date button classes for today
+    todayDateButtonClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     // Variant color to use for today's date (defaults to `selectedVariant`)
     todayVariant: makeProp(PROP_TYPE_STRING),
     // Always return the `v-model` value as a date object
@@ -299,6 +310,22 @@ export const BCalendar = Vue.extend({
     computedNavButtonVariant() {
       return `btn-outline-${this.navButtonVariant || 'primary'}`
     },
+    computedNavButtonClasses() {
+      return this.navButtonClass || this.computedNavButtonVariant
+    },
+    computedDateButtonClasses() {
+      return this.dateButtonClass || ['btn-outline-light', 'text-dark', 'font-weight-bold']
+    },
+    computedOtherMonthDateButtonClasses() {
+      return this.otherMonthDateButtonClass || ['btn-outline-light', 'text-muted']
+    },
+    computedTodayDateButtonClasses() {
+      return this.todayDateButtonClass || [this.computedTodayVariant, 'font-weight-bold']
+    },
+    computedSelectedDateButtonClasses() {
+      return this.selectedDateButtonClass || [this.computedVariant, 'font-weight-bold']
+    },
+
     isRTL() {
       // `true` if the language requested is RTL
       const dir = toString(this.direction).toLowerCase()
@@ -849,7 +876,7 @@ export const BCalendar = Vue.extend({
         'button',
         {
           staticClass: 'btn btn-sm border-0 flex-fill',
-          class: [this.computedNavButtonVariant, { disabled: btnDisabled }],
+          class: [this.computedNavButtonClasses, { disabled: btnDisabled }],
           attrs: {
             title: label || null,
             type: 'button',
@@ -982,32 +1009,32 @@ export const BCalendar = Vue.extend({
         const isActive = day.ymd === activeYMD
         const isToday = day.ymd === todayYMD
         const idCell = safeId(`_cell-${day.ymd}_`)
+
+        let classes = this.computedDateButtonClasses
+        if (isSelected) {
+          classes = this.computedSelectedDateButtonClasses
+        } else if (isToday && highlightToday && day.isThisMonth) {
+          classes = this.computedTodayDateButtonClasses
+        } else if (!day.isThisMonth) {
+          classes = this.computedOtherMonthDateButtonClasses
+        }
+
         // "fake" button
         const $btn = h(
           'span',
           {
             staticClass: 'btn border-0 rounded-circle text-nowrap',
             // Should we add some classes to signify if today/selected/etc?
-            class: {
-              // Give the fake button a focus ring
-              focus: isActive && this.gridHasFocus,
-              // Styling
-              disabled: day.isDisabled || disabled,
-              active: isSelected, // makes the button look "pressed"
-              // Selected date style (need to computed from variant)
-              [this.computedVariant]: isSelected,
-              // Today day style (if not selected), same variant color as selected date
-              [this.computedTodayVariant]:
-                isToday && highlightToday && !isSelected && day.isThisMonth,
-              // Non selected/today styling
-              'btn-outline-light': !(isToday && highlightToday) && !isSelected && !isActive,
-              'btn-light': !(isToday && highlightToday) && !isSelected && isActive,
-              // Text styling
-              'text-muted': !day.isThisMonth && !isSelected,
-              'text-dark':
-                !(isToday && highlightToday) && !isSelected && !isActive && day.isThisMonth,
-              'font-weight-bold': (isSelected || day.isThisMonth) && !day.isDisabled
-            },
+            class: [
+              {
+                // Give the fake button a focus ring
+                focus: isActive && this.gridHasFocus,
+                // Styling
+                disabled: day.isDisabled || disabled,
+                active: isSelected // makes the button look "pressed"
+              },
+              classes
+            ],
             on: { click: () => this.onClickDay(day) }
           },
           day.day

@@ -47,6 +47,10 @@
             "description": "When set, gives the popup calendar dialog a dark background"
           },
           {
+            "prop": "dateButtonClass",
+            "description": "When set, adds the provided classes to all date buttons of the current except to the selected date"
+          },
+          {
             "prop": "dateDisabledFn",
             "description": "Set to a function reference which returns `true` if the date is disabled, or `false` if the date should be enabled. See documentation for details"
           },
@@ -173,6 +177,10 @@
             "description": "The minimum date the calendar will show"
           },
           {
+            "prop": "navButtonClass",
+            "description": "When set, adds the provided classes to the navigation buttons and ignores the value set to `nav-button-variant`"
+          },
+          {
             "prop": "navButtonVariant",
             "version": "2.17.0",
             "description": "Theme color variant to use for the navigation buttons"
@@ -192,6 +200,10 @@
           {
             "prop": "offset",
             "description": "Specify the number of pixels to shift the menu by. Negative values supported"
+          },
+          {
+            "prop": "otherMonthDateButtonClass",
+            "description": "When set, adds the provided classes to the date buttons outside of the currently visible month"
           },
           {
             "prop": "placeholder",
@@ -226,6 +238,10 @@
             "description": "Align the right edge of the menu with the right of the button"
           },
           {
+            "prop": "selectedDateButtonClass",
+            "description": "When set, adds the provided classes to the selected date button and ignores the value set to `selected-variant`"
+          },
+          {
             "prop": "selectedVariant",
             "description": "Theme color variant to use for the selected date button"
           },
@@ -241,6 +257,10 @@
           {
             "prop": "todayButton",
             "description": "When set, shows the optional `select today` button"
+          },
+          {
+            "prop": "todayDateButtonClass",
+            "description": "When set, adds the provided classes to the date button of today and ignores the value set to `today-variant`"
           },
           {
             "prop": "todayButtonVariant",
