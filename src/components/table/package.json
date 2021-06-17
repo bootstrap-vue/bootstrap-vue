@@ -360,6 +360,35 @@
             ]
           },
           {
+            "event": "head-contextmenu",
+            "description": "Emitted when a header or footer cell is context/right clicked. Not applicable for 'custom-foot' slot",
+            "args": [
+              {
+                "arg": "key",
+                "type": "String",
+                "description": "Column key clicked (field name)"
+              },
+              {
+                "arg": "field",
+                "type": "Object",
+                "description": "Field definition object"
+              },
+              {
+                "arg": "event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
+                "description": "Native event object"
+              },
+              {
+                "arg": "isFooter",
+                "type": "Boolean",
+                "description": "'True' if this event originated from clicking on the footer cell"
+              }
+            ]
+          },
+          {
             "event": "refreshed",
             "description": "Emitted when the items provider function has returned data"
           },
@@ -1157,6 +1186,35 @@
           {
             "event": "head-clicked",
             "description": "Emitted when a header or footer cell is clicked. Not applicable for 'custom-foot' slot",
+            "args": [
+              {
+                "arg": "key",
+                "type": "String",
+                "description": "Column key clicked (field name)"
+              },
+              {
+                "arg": "field",
+                "type": "Object",
+                "description": "Field definition object"
+              },
+              {
+                "arg": "event",
+                "type": [
+                  "MouseEvent",
+                  "KeyboardEvent"
+                ],
+                "description": "Native event object"
+              },
+              {
+                "arg": "isFooter",
+                "type": "Boolean",
+                "description": "'True' if this event originated from clicking on the footer cell"
+              }
+            ]
+          },
+          {
+            "event": "head-contextmenu",
+            "description": "Emitted when a header or footer cell is context/right clicked. Not applicable for 'custom-foot' slot",
             "args": [
               {
                 "arg": "key",
