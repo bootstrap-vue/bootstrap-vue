@@ -140,6 +140,9 @@
   "id": {
     "description": "Used to set the `id` attribute on the rendered content, and used as the base to generate any additional element IDs as needed"
   },
+  "itemTag": {
+    "description": "Specify the HTML tag to render instead of the default tag for child items"
+  },
   "name": {
     "description": "Sets the value of the `name` attribute on the form control"
   },

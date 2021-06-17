@@ -189,7 +189,7 @@ describe('form-checkbox-group', () => {
       attachTo: createContainer(),
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: true
       }
     })
@@ -207,7 +207,7 @@ describe('form-checkbox-group', () => {
       attachTo: createContainer(),
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: false
       }
     })
@@ -225,7 +225,7 @@ describe('form-checkbox-group', () => {
       attachTo: createContainer(),
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: null
       }
     })
@@ -343,13 +343,55 @@ describe('form-checkbox-group', () => {
     await waitNT(wrapper.vm)
 
     // Find all the labels with `.btn` class
-    const $btns = wrapper.findAll('label.btn')
+    const $btns = wrapper.findAll('div.btn')
     expect($btns).toBeDefined()
     expect($btns.length).toBe(3)
     // Expect them to have the correct variant classes
     expect($btns.at(0).classes()).toContain('btn-primary')
     expect($btns.at(1).classes()).toContain('btn-primary')
     expect($btns.at(2).classes()).toContain('btn-danger')
+
+    wrapper.destroy()
+  })
+
+  it('has custom root element when prop tag is set', async () => {
+    const wrapper = mount(BFormCheckboxGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        tag: 'ul'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('UL')
+
+    wrapper.destroy()
+  })
+
+  it('has custom child elements when prop itemTag is set', async () => {
+    const App = {
+      render(h) {
+        return h(
+          BFormCheckboxGroup,
+          {
+            props: {
+              options: ['one', 'two', 'three'],
+              itemTag: 'span'
+            }
+          },
+          [h(BFormCheckbox, { props: { value: 'four', tag: 'small' } })]
+        )
+      }
+    }
+
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    const $checkboxes = wrapper.findAllComponents(BFormCheckbox)
+    expect($checkboxes.at(0).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(1).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(2).element.tagName).toBe('SPAN')
+    expect($checkboxes.at(3).element.tagName).toBe('SMALL')
 
     wrapper.destroy()
   })

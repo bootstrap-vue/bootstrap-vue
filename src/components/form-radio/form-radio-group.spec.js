@@ -321,13 +321,55 @@ describe('form-radio-group', () => {
     await waitNT(wrapper.vm)
 
     // Find all the labels with .btn class
-    const btns = wrapper.findAll('label.btn')
+    const btns = wrapper.findAll('div.btn')
     expect(btns).toBeDefined()
     expect(btns.length).toBe(3)
     // Expect them to have the correct variant classes
     expect(btns.at(0).classes()).toContain('btn-primary')
     expect(btns.at(1).classes()).toContain('btn-primary')
     expect(btns.at(2).classes()).toContain('btn-danger')
+
+    wrapper.destroy()
+  })
+
+  it('has custom root element when prop tag is set', async () => {
+    const wrapper = mount(BFormRadioGroup, {
+      attachTo: createContainer(),
+      propsData: {
+        tag: 'ul'
+      }
+    })
+
+    expect(wrapper.element.tagName).toBe('UL')
+
+    wrapper.destroy()
+  })
+
+  it('has custom child elements when prop itemTag is set', async () => {
+    const App = {
+      render(h) {
+        return h(
+          BFormRadioGroup,
+          {
+            props: {
+              options: ['one', 'two', 'three'],
+              itemTag: 'span'
+            }
+          },
+          [h(BFormRadio, { props: { value: 'four', tag: 'small' } })]
+        )
+      }
+    }
+
+    const wrapper = mount(App, {
+      attachTo: createContainer()
+    })
+
+    const $radios = wrapper.findAllComponents(BFormRadio)
+    expect($radios.at(0).element.tagName).toBe('SPAN')
+    expect($radios.at(1).element.tagName).toBe('SPAN')
+    expect($radios.at(2).element.tagName).toBe('SPAN')
+    expect($radios.at(3).element.tagName).toBe('SMALL')
 
     wrapper.destroy()
   })

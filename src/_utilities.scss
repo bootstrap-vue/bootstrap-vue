@@ -19,4 +19,17 @@ $bv-utility-classes-defined: false !default;
       }
     }
   }
+
+  // Bootstrap does not generate a `.btn-md` class because these styles
+  // are already contained in the default `.btn` class. But a separate class
+  // with them is needed in the `form-radio-check.js` mixin.
+  .btn-size-default {
+    @include button-size(
+      $btn-padding-y,
+      $btn-padding-x,
+      $btn-font-size,
+      $btn-line-height,
+      $btn-border-radius
+    );
+  }
 }
