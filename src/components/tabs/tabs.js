@@ -27,6 +27,8 @@ import {
 } from '../../constants/props'
 import {
   SLOT_NAME_EMPTY,
+  SLOT_NAME_TABS_AFTER,
+  SLOT_NAME_TABS_BEFORE,
   SLOT_NAME_TABS_END,
   SLOT_NAME_TABS_START,
   SLOT_NAME_TITLE
@@ -635,7 +637,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         ],
         key: 'bv-tabs-nav'
       },
-      [$nav]
+      [
+        this.normalizeSlot(SLOT_NAME_TABS_BEFORE) || h(),
+        $nav,
+        this.normalizeSlot(SLOT_NAME_TABS_AFTER) || h()
+      ]
     )
 
     const $children = this.normalizeSlot() || []
