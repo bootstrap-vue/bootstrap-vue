@@ -83,7 +83,7 @@ export interface BvModal {
   show: (id: string) => void
 
   // Hide a modal by id
-  hide: (id: string) => void
+  hide: (id: string, trigger?: string) => void
 }
 
 // --- Vue prototype injections ---
