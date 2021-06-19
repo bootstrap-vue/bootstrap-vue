@@ -802,14 +802,14 @@ modifier.
           aria-label="Individual flavours"
           stacked
         ></b-form-checkbox-group>
-      </b-form-group>
+      </template>
+    </b-form-group>
 
-      <div>
-        Selected: <strong>{{ selected }}</strong><br>
-        All Selected: <strong>{{ allSelected }}</strong><br>
-        Indeterminate: <strong>{{ indeterminate }}</strong>
-      </div>
-    </template>
+    <div>
+      Selected: <strong>{{ selected }}</strong><br>
+      All Selected: <strong>{{ allSelected }}</strong><br>
+      Indeterminate: <strong>{{ indeterminate }}</strong>
+    </div>
   </div>
 </template>
 
