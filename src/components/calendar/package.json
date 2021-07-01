@@ -22,7 +22,22 @@
           {
             "prop": "dateFormatOptions",
             "version": "2.6.0",
-            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat`"
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat` for `date` `type` calendar. Ignored for `day`, `month`, and `year` `type` calendars."
+          },
+          {
+            "prop": "dayFormatOptions",
+            "version": "2.XX.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat` for `day` `type` calendar. Ignored for `date`, `month`, and `year` `type` calendars."
+          },
+          {
+            "prop": "monthFormatOptions",
+            "version": "2.XX.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat` for `month` `type` calendar. Ignored for `date`, `day`, and `year` `type` calendars."
+          },
+          {
+            "prop": "yearFormatOptions",
+            "version": "2.XX.0",
+            "description": "Format object for displayed text string that is passed to `Intl.DateTimeFormat` for `year` `type` calendar. Ignored for `date`, `day`, and `month` `type` calendars."
           },
           {
             "prop": "dateInfoFn",
@@ -60,11 +75,26 @@
           },
           {
             "prop": "labelCurrentMonth",
-            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button"
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button. Utilized when the `type` is set to `day`."
+          },
+          {
+            "prop": "labelCurrentDecade",
+            "version": "2.XX.0",
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Decade` navigation button. Only utilized the the `type` is set to `year`."
+          },
+          {
+            "prop": "labelDays",
+            "version": "2.XX.0",
+            "description": "The heading of the picker when `type` is set to `day`"
           },
           {
             "prop": "labelHelp",
             "description": "Help text that appears at the bottom of the calendar grid"
+          },
+          {
+            "prop": "labelMonths",
+            "version": "2.XX.0",
+            "description": "The heading of the picker when `type` is set to `month`"
           },
           {
             "prop": "labelNav",
@@ -156,7 +186,12 @@
           },
           {
             "prop": "todayVariant",
-            "description": "Theme color variant to use for highlighting todays date button. Defaults to the `selectedVariant` prop"
+            "description": "Theme color variant to use for highlighting today's date button. Defaults to the `selectedVariant` prop"
+          },
+          {
+            "prop": "type",
+            "version": "2.XX.0",
+            "description": "The type of calendar to display. Accepts `date`, `day`, `month`, or `year`."
           },
           {
             "prop": "value",
@@ -183,7 +218,7 @@
             "args": [
               {
                 "arg": "context",
-                "description": "The context object. See documentaion for details",
+                "description": "The context object. See documentation for details",
                 "type": [
                   "Object"
                 ]

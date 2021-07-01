@@ -463,4 +463,351 @@ describe('calendar', () => {
 
     wrapper.destroy()
   })
+
+  describe('types', () => {
+    describe('date', () => {
+      it('has expected header output when no value is set', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'date'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $header = wrapper.find('.b-calendar>div>header')
+        expect($header.exists()).toBe(true)
+        expect($header.find('output').exists()).toBe(true)
+        expect($header.find('output').text()).toEqual('No date selected')
+
+        wrapper.destroy()
+      })
+
+      it('has the correct navigation buttons for day `type` picker', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            value: '2021-01-01' // January 1, 2021
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        expect($grid.attributes('data-month')).toBe('2021-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('January 2021')
+
+        const $navBtns = wrapper.findAll('.b-calendar-nav button')
+        expect($navBtns.length).toBe(5)
+
+        wrapper.destroy()
+      })
+
+      it('grid contains days', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer()
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        const $gridBody = $grid.find('.b-calendar-grid-body')
+        expect($gridBody.findAll('.row').length).toBeGreaterThanOrEqual(4)
+        expect($gridBody.find('.row').findAll('.col').length).toBe(7)
+
+        wrapper.destroy()
+      })
+    })
+
+    describe('day', () => {
+      it('has expected header output when no value is set', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'day'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $header = wrapper.find('.b-calendar>div>header')
+        expect($header.exists()).toBe(true)
+        expect($header.find('output').exists()).toBe(true)
+        expect($header.find('output').text()).toEqual('No day selected')
+
+        wrapper.destroy()
+      })
+
+      it('navigation buttons do not exist', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            value: '2021-01-01',
+            type: 'day'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        expect($grid.attributes('data-month')).toBe('2021-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('Days')
+
+        const $navBtns = wrapper.findAll('.b-calendar-nav button')
+        expect($navBtns.length).toBe(0)
+
+        wrapper.destroy()
+      })
+
+      it('grid contains days of the week', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer()
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        const $gridBody = $grid.find('.b-calendar-grid-body')
+        expect($gridBody.findAll('.row').length).toBeGreaterThanOrEqual(4)
+        expect($gridBody.find('.row').findAll('.col').length).toBe(7)
+
+        wrapper.destroy()
+      })
+    })
+
+    describe('month', () => {
+      it('has expected header output when no value is set', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'month'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $header = wrapper.find('.b-calendar>div>header')
+        expect($header.exists()).toBe(true)
+        expect($header.find('output').exists()).toBe(true)
+        expect($header.find('output').text()).toEqual('No month selected')
+
+        wrapper.destroy()
+      })
+
+      it('clicking a month selects it', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            value: '2021-01-01', // January
+            type: 'month'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+
+        const $cell = wrapper.find('[data-date="2021-02-01"]') // February
+        expect($cell.exists()).toBe(true)
+        expect($cell.attributes('aria-selected')).toBeUndefined()
+        expect($cell.attributes('id')).toBeDefined()
+        const $btn = $cell.find('.btn')
+        expect($btn.exists()).toBe(true)
+        expect($cell.attributes('id')).toBeDefined()
+        expect($grid.attributes('aria-activedescendant')).toBeDefined()
+        expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
+
+        await $btn.trigger('click')
+
+        expect($cell.attributes('aria-selected')).toBeDefined()
+        expect($cell.attributes('aria-selected')).toEqual('true')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        expect(wrapper.vm.selectedYMD).toBe('2021-02-01')
+
+        wrapper.destroy()
+      })
+
+      it('navigation buttons do not exist', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'month',
+            value: '2021-01-01' // January
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        expect($grid.attributes('data-month')).toBe('2021-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('Months')
+
+        const $navBtns = wrapper.findAll('.b-calendar-nav button')
+        expect($navBtns.length).toBe(0)
+
+        wrapper.destroy()
+      })
+
+      it('grid contains months', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'month'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        const $gridBody = $grid.find('.b-calendar-grid-body')
+        expect($gridBody.findAll('.row').length).toBe(6)
+        expect($gridBody.findAll('.row .col.month').length).toBe(12)
+
+        wrapper.destroy()
+      })
+    })
+
+    describe('year', () => {
+      it('has expected header output when no value is set', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'year'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $header = wrapper.find('.b-calendar>div>header')
+        expect($header.exists()).toBe(true)
+        expect($header.find('output').exists()).toBe(true)
+        expect($header.find('output').text()).toEqual('No year selected')
+
+        wrapper.destroy()
+      })
+
+      it('clicking a year selects it', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            value: '2021-01-01', // 2021
+            type: 'year'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+
+        const $cell = wrapper.find('[data-date="2022-01-01"]') // 2022
+        expect($cell.exists()).toBe(true)
+        expect($cell.attributes('aria-selected')).toBeUndefined()
+        expect($cell.attributes('id')).toBeDefined()
+        const $btn = $cell.find('.btn')
+        expect($btn.exists()).toBe(true)
+        expect($cell.attributes('id')).toBeDefined()
+        expect($grid.attributes('aria-activedescendant')).toBeDefined()
+        expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
+
+        await $btn.trigger('click')
+
+        expect($cell.attributes('aria-selected')).toBeDefined()
+        expect($cell.attributes('aria-selected')).toEqual('true')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        expect(wrapper.vm.selectedYMD).toBe('2022-01-01')
+
+        wrapper.destroy()
+      })
+
+      it('decade navigation buttons work', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'year',
+            value: '2021-01-01' // 2021
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        expect($grid.attributes('data-month')).toBe('2021-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('2020 - 2029')
+
+        const $navBtns = wrapper.findAll('.b-calendar-nav button')
+        expect($navBtns.length).toBe(3)
+
+        // Prev Decade
+        await $navBtns.at(0).trigger('click')
+        expect($grid.attributes('data-month')).toBe('2011-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('2010 - 2019')
+
+        // Next Decade
+        await $navBtns.at(2).trigger('click')
+        expect($grid.attributes('data-month')).toBe('2021-01')
+        expect($grid.find('.b-calendar-grid-caption').text()).toEqual('2020 - 2029')
+
+        wrapper.destroy()
+      })
+
+      it('grid contains years', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'year'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBe(true)
+        const $gridBody = $grid.find('.b-calendar-grid-body')
+        expect($gridBody.findAll('.row').length).toBe(5)
+        expect($gridBody.findAll('.row .col.year').length).toBe(10)
+
+        wrapper.destroy()
+      })
+    })
+  })
 })
