@@ -53,5 +53,10 @@ export const looseEqual = (a, b) => {
       }
     }
   }
+  aValidType = typeof a === 'boolean' || typeof a === 'number'
+  bValidType = typeof b === 'boolean' || typeof b === 'number'
+  if (aValidType && bValidType) {
+    return Number(a) === Number(b)
+  }
   return String(a) === String(b)
 }

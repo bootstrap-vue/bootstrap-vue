@@ -6,8 +6,10 @@ describe('utils/looseEqual', () => {
     expect(looseEqual(false, false)).toBe(true)
     expect(looseEqual(true, false)).toBe(false)
     expect(looseEqual(true, true)).toBe(true)
-    expect(looseEqual(true, 1)).toBe(false)
-    expect(looseEqual(false, 0)).toBe(false)
+    expect(looseEqual(true, 2)).toBe(false)
+    expect(looseEqual(true, 1)).toBe(true)
+    expect(looseEqual(false, 0)).toBe(true)
+    expect(looseEqual(false, -1)).toBe(false)
   })
 
   it('compares strings correctly', () => {
