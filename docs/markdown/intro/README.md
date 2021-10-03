@@ -119,10 +119,10 @@ version of Vue.js, Bootstrap v4 and BootstrapVue:
 
 ```bash
 # With npm
-npm install vue bootstrap bootstrap-vue
+npm install vue bootstrap@4.6.0 bootstrap-vue
 
 # With yarn
-yarn add vue bootstrap bootstrap-vue
+yarn add vue bootstrap@4.6.0 bootstrap-vue
 ```
 
 Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
