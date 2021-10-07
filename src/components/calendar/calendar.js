@@ -221,13 +221,21 @@ export const BCalendar = Vue.extend({
   props,
   data() {
     const selected = formatYMD(this[MODEL_PROP_NAME]) || ''
+    const defaultActive = arrayIncludes([CALENDAR_TYPE_MONTH, CALENDAR_TYPE_YEAR], this.type)
+      ? createDate(
+          `${
+            this.type === CALENDAR_TYPE_MONTH ? this.getToday().getMonth() + 1 : '01'
+          }/01/${this.getToday().getFullYear()}`
+        )
+      : this.getToday()
+
     return {
       // Selected date
       selectedYMD: selected,
       // Date in calendar grid that has `tabindex` of `0`
       activeYMD:
-        selected ||
-        formatYMD(constrainDate(this.initialDate || this.getToday()), this.min, this.max),
+        selected || formatYMD(constrainDate(this.initialDate || defaultActive), this.min, this.max),
+      defaultActive,
       // Will be true if the calendar grid has/contains focus
       gridHasFocus: false,
       // Flag to enable the `aria-live` region(s) after mount
@@ -579,24 +587,23 @@ export const BCalendar = Vue.extend({
           }
         }
       } else if (this.type === CALENDAR_TYPE_DAY) {
-        const today = createDate()
+        const today = this.getToday()
         const offset = today.getDay()
-        let currentDay = createDate(
+        const startingDate = createDate(
           this.calendarYear,
           this.calendarMonth,
           today.getDate() - offset
-        ).getDate()
-
-        console.log({
-          currentDay,
-          today,
-          offset
-        })
+        )
+        let currentDay = startingDate.getDate()
+        let currentMonth = startingDate.getMonth()
 
         for (let row = 0; row < 7; row++) {
           matrix[row] = []
-          const date = createDate(this.calendarYear, this.calendarMonth, currentDay)
 
+          const date = createDate(today.getFullYear(), currentMonth, currentDay)
+
+          currentDay = date.getDate()
+          currentMonth = date.getMonth()
           matrix[row].push({
             ymd: formatYMD(date),
             day: this.formatDayName(date),
@@ -690,7 +697,9 @@ export const BCalendar = Vue.extend({
       // Reset the active focused day when hidden
       this.activeYMD =
         this.selectedYMD ||
-        formatYMD(this[MODEL_PROP_NAME] || this.constrainDate(this.initialDate || this.getToday()))
+        formatYMD(
+          this[MODEL_PROP_NAME] || this.constrainDate(this.initialDate || this.defaultActive)
+        )
       // Enable/disable the live regions
       this.setLive(!newValue)
     }
@@ -792,40 +801,155 @@ export const BCalendar = Vue.extend({
       const constrainedToday = this.constrainDate(this.getToday())
       const isRTL = this.isRTL
       if (keyCode === CODE_PAGEUP) {
-        // PAGEUP - Previous month/year
-        activeDate = (altKey ? (ctrlKey ? oneDecadeAgo : oneYearAgo) : oneMonthAgo)(activeDate)
-        // We check the first day of month to be in rage
-        checkDate = createDate(activeDate)
-        checkDate.setDate(1)
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // PAGEUP - Previous month/year
+          activeDate = (altKey ? (ctrlKey ? oneDecadeAgo : oneYearAgo) : oneMonthAgo)(activeDate)
+          // We check the first day of month to be in rage
+          checkDate = createDate(activeDate)
+          checkDate.setDate(1)
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // PAGEUP - Previous decade
+          activeDate = oneDecadeAgo(activeDate)
+          // We check the first day of month to be in rage
+          checkDate = createDate(activeDate)
+          checkDate.setDate(1)
+        }
       } else if (keyCode === CODE_PAGEDOWN) {
-        // PAGEDOWN - Next month/year
-        activeDate = (altKey ? (ctrlKey ? oneDecadeAhead : oneYearAhead) : oneMonthAhead)(
-          activeDate
-        )
-        // We check the last day of month to be in rage
-        checkDate = createDate(activeDate)
-        checkDate.setMonth(checkDate.getMonth() + 1)
-        checkDate.setDate(0)
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // PAGEDOWN - Next month/year
+          activeDate = (altKey ? (ctrlKey ? oneDecadeAhead : oneYearAhead) : oneMonthAhead)(
+            activeDate
+          )
+          // We check the last day of month to be in rage
+          checkDate = createDate(activeDate)
+          checkDate.setMonth(checkDate.getMonth() + 1)
+          checkDate.setDate(0)
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // PAGEDOWN - Next decade
+          activeDate = oneDecadeAhead(activeDate)
+          // We check the last day of month to be in rage
+          checkDate = createDate(activeDate)
+          checkDate.setMonth(checkDate.getMonth() + 1)
+          checkDate.setDate(0)
+        }
       } else if (keyCode === CODE_LEFT) {
-        // LEFT - Previous day (or next day for RTL)
-        activeDate.setDate(day + (isRTL ? 1 : -1))
-        activeDate = this.constrainDate(activeDate)
-        checkDate = activeDate
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // LEFT - Previous day (or next day for RTL)
+          activeDate.setDate(day + (isRTL ? 1 : -1))
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_MONTH) {
+          // LEFT - Last month
+          let monthOffset = activeDate.getMonth() + (isRTL ? 1 : -1)
+
+          if (monthOffset < 0) {
+            monthOffset = 11
+          }
+
+          activeDate.setMonth(monthOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // LEFT - Last year
+          activeDate.setFullYear(activeDate.getFullYear() + (isRTL ? 1 : -1))
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        }
       } else if (keyCode === CODE_RIGHT) {
-        // RIGHT - Next day (or previous day for RTL)
-        activeDate.setDate(day + (isRTL ? -1 : 1))
-        activeDate = this.constrainDate(activeDate)
-        checkDate = activeDate
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // RIGHT - Next day (or previous day for RTL)
+          activeDate.setDate(day + (isRTL ? -1 : 1))
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_MONTH) {
+          // RIGHT - Next month
+          let monthOffset = activeDate.getMonth() + (isRTL ? -1 : 1)
+
+          if (monthOffset > 11) {
+            monthOffset = 0
+          } else if (monthOffset < 0) {
+            monthOffset = 11
+          }
+
+          activeDate.setMonth(monthOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // RIGHT - Next year
+          activeDate.setFullYear(activeDate.getFullYear() + (isRTL ? -1 : 1))
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        }
       } else if (keyCode === CODE_UP) {
-        // UP - Previous week
-        activeDate.setDate(day - 7)
-        activeDate = this.constrainDate(activeDate)
-        checkDate = activeDate
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // UP - Previous week
+          activeDate.setDate(day - 7)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_DAY) {
+          // UP - Previous day
+          let dayOffset = day - 1
+
+          activeDate.setDate(dayOffset)
+          if (activeDate.getDay() === 6) {
+            dayOffset = this.getToday().getDate() + (6 - this.getToday().getDay())
+          }
+
+          activeDate.setDate(dayOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_MONTH) {
+          // UP - Last 2 months
+          let monthOffset = activeDate.getMonth() - 2
+
+          if (monthOffset < 0) {
+            monthOffset = 11
+          }
+
+          activeDate.setMonth(monthOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // UP - Last 2 years
+          activeDate.setFullYear(activeDate.getFullYear() - 2)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        }
       } else if (keyCode === CODE_DOWN) {
-        // DOWN - Next week
-        activeDate.setDate(day + 7)
-        activeDate = this.constrainDate(activeDate)
-        checkDate = activeDate
+        if (this.type === CALENDAR_TYPE_DATE) {
+          // DOWN - Next week
+          activeDate.setDate(day + 7)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_DAY) {
+          // DOWN - Next day
+          let dayOffset = day + 1
+
+          activeDate.setDate(dayOffset)
+          if (activeDate.getDay() === 0) {
+            dayOffset = this.getToday().getDate() - this.getToday().getDay()
+          }
+
+          activeDate.setDate(dayOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_MONTH) {
+          // DOWN - Next 2 months
+          let monthOffset = activeDate.getMonth() + 2
+
+          if (monthOffset > 11) {
+            monthOffset = 0
+          }
+
+          activeDate.setMonth(monthOffset)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        } else if (this.type === CALENDAR_TYPE_YEAR) {
+          // DOWN - Next 2 years
+          activeDate.setFullYear(activeDate.getFullYear() + 2)
+          activeDate = this.constrainDate(activeDate)
+          checkDate = activeDate
+        }
       } else if (keyCode === CODE_HOME) {
         // HOME - Today
         activeDate = constrainedToday
