@@ -65,14 +65,32 @@ default timezone.
 Displaying different calendar types can now be specified by the `type` prop. Valid options are
 `'date'`, `'day'`, `'month'`, or `'year'`, with the default of `'date'`.
 
-Setting to `'day'` will display the days of the week. The return value will be the date of the day
-of the current week selected.
+Setting to `'day'` will display the days of the week, and the return value will be the date of the
+day of the current week selected. Setting to `'month'` will display the months of the year, and the
+return value will be the first day of the selected month. Setting to `'year'` will display years in
+a decade, and the return value will be the first day of the selected year.
 
 ```html
 <template>
   <b-row>
     <b-col md="auto">
-      <b-calendar v-model="value" @context="onContext" locale="en-US" type="day"></b-calendar>
+      <b-form-group
+        label="Calendar type"
+        v-slot="{ ariaDescribedby }"
+      >
+        <b-form-radio-group
+          v-model="type"
+          :aria-describedby="ariaDescribedby"
+          aria-controls="ex-type"
+        >
+          <b-form-radio value="date">Date</b-form-radio>
+          <b-form-radio value="day">Day</b-form-radio>
+          <b-form-radio value="month">Month</b-form-radio>
+          <b-form-radio value="year">Year</b-form-radio>
+        </b-form-radio-group>
+      </b-form-group>
+
+      <b-calendar v-model="value" @context="onContext" locale="en-US" :type="type"></b-calendar>
     </b-col>
     <b-col>
       <p>Value: <b>'{{ value }}'</b></p>
@@ -86,76 +104,7 @@ of the current week selected.
   export default {
     data() {
       return {
-        value: '',
-        context: null
-      }
-    },
-    methods: {
-      onContext(ctx) {
-        this.context = ctx
-      }
-    }
-  }
-</script>
-<!-- b-calendar.vue -->
-```
-
-Setting to `'month'` will display the months of the year. The return value will be the first day of
-the selected month.
-
-```html
-<template>
-  <b-row>
-    <b-col md="auto">
-      <b-calendar v-model="value" @context="onContext" locale="en-US" type="month"></b-calendar>
-    </b-col>
-    <b-col>
-      <p>Value: <b>'{{ value }}'</b></p>
-      <p class="mb-0">Context:</p>
-      <pre class="small">{{ context }}</pre>
-    </b-col>
-  </b-row>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        value: '',
-        context: null
-      }
-    },
-    methods: {
-      onContext(ctx) {
-        this.context = ctx
-      }
-    }
-  }
-</script>
-<!-- b-calendar.vue -->
-```
-
-Setting to `'year'` will display years in a decade. The return value will be the first day of the
-selected year.
-
-```html
-<template>
-  <b-row>
-    <b-col md="auto">
-      <b-calendar v-model="value" @context="onContext" locale="en-US" type="year"></b-calendar>
-    </b-col>
-    <b-col>
-      <p>Value: <b>'{{ value }}'</b></p>
-      <p class="mb-0">Context:</p>
-      <pre class="small">{{ context }}</pre>
-    </b-col>
-  </b-row>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
+        type: 'date',
         value: '',
         context: null
       }
