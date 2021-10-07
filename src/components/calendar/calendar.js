@@ -156,7 +156,7 @@ export const props = makePropsConfigurable(
     labelCurrentDecade: makeProp(PROP_TYPE_STRING, 'Current decade'),
     labelCurrentMonth: makeProp(PROP_TYPE_STRING, 'Current month'),
     labelDays: makeProp(PROP_TYPE_STRING, 'Days'),
-    labelHelp: makeProp(PROP_TYPE_STRING, 'Use cursor keys to navigate calendar'),
+    labelHelp: makeProp(PROP_TYPE_STRING, 'Use cursor keys to navigate'),
     labelMonths: makeProp(PROP_TYPE_STRING, 'Months'),
     labelNav: makeProp(PROP_TYPE_STRING, 'Calendar navigation'),
     labelNextDecade: makeProp(PROP_TYPE_STRING, 'Next decade'),
@@ -952,11 +952,32 @@ export const BCalendar = Vue.extend({
         }
       } else if (keyCode === CODE_HOME) {
         // HOME - Today
-        activeDate = constrainedToday
+        if (arrayIncludes([CALENDAR_TYPE_DATE, CALENDAR_TYPE_DAY], this.type)) {
+          activeDate = constrainedToday
+        } else {
+          activeDate = this.constrainDate(
+            createDate(
+              `${
+                this.type === CALENDAR_TYPE_MONTH ? this.getToday().getMonth() + 1 : '01'
+              }/01/${this.getToday().getFullYear()}`
+            )
+          )
+        }
+
         checkDate = activeDate
       } else if (keyCode === CODE_END) {
         // END - Selected date, or today if no selected date
-        activeDate = parseYMD(this.selectedDate) || constrainedToday
+        if (arrayIncludes([CALENDAR_TYPE_DATE, CALENDAR_TYPE_DAY], this.type)) {
+          activeDate = parseYMD(this.selectedDate) || constrainedToday
+        } else {
+          activeDate = this.constrainDate(
+            createDate(
+              `${
+                this.type === CALENDAR_TYPE_MONTH ? this.getToday().getMonth() + 1 : '01'
+              }/01/${this.getToday().getFullYear()}`
+            )
+          )
+        }
         checkDate = activeDate
       }
       if (!this.dateOutOfRange(checkDate) && !datesEqual(activeDate, this.activeDate)) {

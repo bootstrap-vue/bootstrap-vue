@@ -486,7 +486,7 @@ describe('calendar', () => {
         wrapper.destroy()
       })
 
-      it('has the correct navigation buttons for day `type` picker', async () => {
+      it('has the correct navigation buttons for date `type` calendar', async () => {
         const wrapper = mount(BCalendar, {
           attachTo: createContainer(),
           propsData: {
@@ -587,6 +587,116 @@ describe('calendar', () => {
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBeGreaterThanOrEqual(4)
         expect($gridBody.find('.row').findAll('.col').length).toBe(7)
+
+        wrapper.destroy()
+      })
+
+      it('keyboard navigation works', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'day',
+            value: '2021-10-08'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBeTruthy()
+        expect($grid.attributes('aria-activedescendant')).toBeDefined()
+
+        let $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Left (does nothing)
+        await $grid.trigger('keydown.left')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Right (does nothing)
+        await $grid.trigger('keydown.right')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Up
+        await $grid.trigger('keydown.up')
+        $cell = wrapper.find('[data-date="2021-10-07"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Thursday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-10-09"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Saturday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down (should jump back to Sunday)
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-10-03"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Sunday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+        // jump back to Friday
+        await $grid.trigger('keydown.up')
+        await $grid.trigger('keydown.up')
+
+        // PageUp (does nothing)
+        await $grid.trigger('keydown.pageup')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // PageDown (does nothing)
+        await $grid.trigger('keydown.pagedown')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // End (selected date)
+        await $grid.trigger('keydown.end')
+        $cell = wrapper.find('[data-date="2021-10-08"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('Friday')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Home (today's date)
+        await $grid.trigger('keydown.home')
+        const todayID = $grid.attributes('aria-activedescendant')
+        expect(todayID).toBeDefined()
+        $cell = $grid.find(`#${todayID}`)
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('aria-label')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('(Today)')
 
         wrapper.destroy()
       })
@@ -691,6 +801,127 @@ describe('calendar', () => {
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBe(6)
         expect($gridBody.findAll('.row .col.month').length).toBe(12)
+
+        wrapper.destroy()
+      })
+
+      it('keyboard navigation works', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'month',
+            value: '2021-10-01'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBeTruthy()
+        expect($grid.attributes('aria-activedescendant')).toBeDefined()
+
+        let $cell = wrapper.find('[data-date="2021-10-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('October')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Left
+        await $grid.trigger('keydown.left')
+        $cell = wrapper.find('[data-date="2021-09-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('September')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Right
+        await $grid.trigger('keydown.right')
+        $cell = wrapper.find('[data-date="2021-10-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('October')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        await $grid.trigger('keydown.right')
+        $cell = wrapper.find('[data-date="2021-11-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('November')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Up
+        await $grid.trigger('keydown.up')
+        $cell = wrapper.find('[data-date="2021-09-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('September')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-11-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('November')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down (should jump back to January)
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('January')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // December should jump back to January
+        await $grid.trigger('keydown.right')
+        await $grid.trigger('keydown.up')
+        $cell = wrapper.find('[data-date="2021-12-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('December')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+        // jump back to January
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('January')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // PageUp (does nothing)
+        await $grid.trigger('keydown.pageup')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('January')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // PageDown (does nothing)
+        await $grid.trigger('keydown.pagedown')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('January')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // End (selected date)
+        await $grid.trigger('keydown.end')
+        $cell = wrapper.find('[data-date="2021-10-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('October')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Home (today's date)
+        await $grid.trigger('keydown.home')
+        const todayID = $grid.attributes('aria-activedescendant')
+        expect(todayID).toBeDefined()
+        $cell = $grid.find(`#${todayID}`)
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('aria-label')).toBeDefined()
 
         wrapper.destroy()
       })
@@ -805,6 +1036,125 @@ describe('calendar', () => {
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBe(5)
         expect($gridBody.findAll('.row .col.year').length).toBe(10)
+
+        wrapper.destroy()
+      })
+
+      it('keyboard navigation works', async () => {
+        const wrapper = mount(BCalendar, {
+          attachTo: createContainer(),
+          propsData: {
+            type: 'year',
+            value: '2021-01-01'
+          }
+        })
+
+        expect(wrapper.vm).toBeDefined()
+        await waitNT(wrapper.vm)
+        await waitRAF()
+
+        const $grid = wrapper.find('[role="application"]')
+        expect($grid.exists()).toBeTruthy()
+        expect($grid.attributes('aria-activedescendant')).toBeDefined()
+
+        let $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2021')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Left
+        await $grid.trigger('keydown.left')
+        $cell = wrapper.find('[data-date="2020-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2020')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Right
+        await $grid.trigger('keydown.right')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2021')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        await $grid.trigger('keydown.right')
+        $cell = wrapper.find('[data-date="2022-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2022')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Up
+        await $grid.trigger('keydown.up')
+        $cell = wrapper.find('[data-date="2020-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2020')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2022-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2022')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Down (should jump to next decade)
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2024-01-01"]')
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2026-01-01"]')
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2028-01-01"]')
+        await $grid.trigger('keydown.down')
+        $cell = wrapper.find('[data-date="2030-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2030')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Up (should jump to previous decade)
+        await $grid.trigger('keydown.up')
+        $cell = wrapper.find('[data-date="2028-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2028')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // PageUp (jumps to previous decade)
+        await $grid.trigger('keydown.pageup')
+        $cell = wrapper.find('[data-date="2018-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2018')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // PageDown (jumps to next decade)
+        await $grid.trigger('keydown.pagedown')
+        $cell = wrapper.find('[data-date="2028-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2028')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // End (selected date)
+        await $grid.trigger('keydown.end')
+        $cell = wrapper.find('[data-date="2021-01-01"]')
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('id')).toBeDefined()
+        expect($cell.attributes('aria-label')).toContain('2021')
+        expect($grid.attributes('aria-activedescendant')).toEqual($cell.attributes('id'))
+
+        // Home (today's date)
+        await $grid.trigger('keydown.home')
+        const todayID = $grid.attributes('aria-activedescendant')
+        expect(todayID).toBeDefined()
+        $cell = $grid.find(`#${todayID}`)
+        expect($cell.exists()).toBeTruthy()
+        expect($cell.attributes('aria-label')).toBeDefined()
 
         wrapper.destroy()
       })
