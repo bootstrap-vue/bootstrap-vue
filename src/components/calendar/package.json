@@ -75,7 +75,7 @@
           },
           {
             "prop": "labelCurrentMonth",
-            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button. Utilized when the `type` is set to `day`."
+            "description": "Value of the `aria-label` and `title` attributes on the `Current Month` navigation button. Utilized when the `type` is set to `date`."
           },
           {
             "prop": "labelCurrentDecade",
