@@ -647,24 +647,24 @@ describe('form-date', () => {
       await waitNT(wrapper.vm)
       await waitRAF()
 
-      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBe(true)
-      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBe(false)
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
 
       await $toggle.trigger('mouseenter')
-      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBe(false)
-      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBe(true)
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeFalsy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeTruthy()
 
       await $toggle.trigger('mouseleave')
-      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBe(true)
-      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBe(false)
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
 
       await $label.trigger('mouseenter')
-      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBe(false)
-      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBe(true)
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeFalsy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeTruthy()
 
       await $label.trigger('mouseleave')
-      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBe(true)
-      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBe(false)
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
     }
 
     expect.assertions(Object.keys(typeIcons).length * 10 + 1)

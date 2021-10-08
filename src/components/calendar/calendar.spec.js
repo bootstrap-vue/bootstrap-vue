@@ -479,8 +479,8 @@ describe('calendar', () => {
         await waitRAF()
 
         const $header = wrapper.find('.b-calendar>div>header')
-        expect($header.exists()).toBe(true)
-        expect($header.find('output').exists()).toBe(true)
+        expect($header.exists()).toBeTruthy()
+        expect($header.find('output').exists()).toBeTruthy()
         expect($header.find('output').text()).toEqual('No date selected')
 
         wrapper.destroy()
@@ -490,7 +490,7 @@ describe('calendar', () => {
         const wrapper = mount(BCalendar, {
           attachTo: createContainer(),
           propsData: {
-            value: '2021-01-01' // January 1, 2021
+            value: '2021-01-01'
           }
         })
 
@@ -499,7 +499,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         expect($grid.attributes('data-month')).toBe('2021-01')
         expect($grid.find('.b-calendar-grid-caption').text()).toEqual('January 2021')
 
@@ -519,7 +519,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBeGreaterThanOrEqual(4)
         expect($gridBody.find('.row').findAll('.col').length).toBe(7)
@@ -542,8 +542,8 @@ describe('calendar', () => {
         await waitRAF()
 
         const $header = wrapper.find('.b-calendar>div>header')
-        expect($header.exists()).toBe(true)
-        expect($header.find('output').exists()).toBe(true)
+        expect($header.exists()).toBeTruthy()
+        expect($header.find('output').exists()).toBeTruthy()
         expect($header.find('output').text()).toEqual('No day selected')
 
         wrapper.destroy()
@@ -563,7 +563,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         expect($grid.attributes('data-month')).toBe('2021-01')
         expect($grid.find('.b-calendar-grid-caption').text()).toEqual('Days')
 
@@ -583,7 +583,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBeGreaterThanOrEqual(4)
         expect($gridBody.find('.row').findAll('.col').length).toBe(7)
@@ -716,8 +716,8 @@ describe('calendar', () => {
         await waitRAF()
 
         const $header = wrapper.find('.b-calendar>div>header')
-        expect($header.exists()).toBe(true)
-        expect($header.find('output').exists()).toBe(true)
+        expect($header.exists()).toBeTruthy()
+        expect($header.find('output').exists()).toBeTruthy()
         expect($header.find('output').text()).toEqual('No month selected')
 
         wrapper.destroy()
@@ -737,14 +737,14 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
 
         const $cell = wrapper.find('[data-date="2021-02-01"]') // February
-        expect($cell.exists()).toBe(true)
+        expect($cell.exists()).toBeTruthy()
         expect($cell.attributes('aria-selected')).toBeUndefined()
         expect($cell.attributes('id')).toBeDefined()
         const $btn = $cell.find('.btn')
-        expect($btn.exists()).toBe(true)
+        expect($btn.exists()).toBeTruthy()
         expect($cell.attributes('id')).toBeDefined()
         expect($grid.attributes('aria-activedescendant')).toBeDefined()
         expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
@@ -765,7 +765,7 @@ describe('calendar', () => {
           attachTo: createContainer(),
           propsData: {
             type: 'month',
-            value: '2021-01-01' // January
+            value: '2021-01-01'
           }
         })
 
@@ -774,7 +774,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         expect($grid.attributes('data-month')).toBe('2021-01')
         expect($grid.find('.b-calendar-grid-caption').text()).toEqual('Months')
 
@@ -797,7 +797,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBe(6)
         expect($gridBody.findAll('.row .col.month').length).toBe(12)
@@ -941,8 +941,8 @@ describe('calendar', () => {
         await waitRAF()
 
         const $header = wrapper.find('.b-calendar>div>header')
-        expect($header.exists()).toBe(true)
-        expect($header.find('output').exists()).toBe(true)
+        expect($header.exists()).toBeTruthy()
+        expect($header.find('output').exists()).toBeTruthy()
         expect($header.find('output').text()).toEqual('No year selected')
 
         wrapper.destroy()
@@ -952,7 +952,7 @@ describe('calendar', () => {
         const wrapper = mount(BCalendar, {
           attachTo: createContainer(),
           propsData: {
-            value: '2021-01-01', // 2021
+            value: '2021-01-01',
             type: 'year'
           }
         })
@@ -962,14 +962,14 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
 
         const $cell = wrapper.find('[data-date="2022-01-01"]') // 2022
-        expect($cell.exists()).toBe(true)
+        expect($cell.exists()).toBeTruthy()
         expect($cell.attributes('aria-selected')).toBeUndefined()
         expect($cell.attributes('id')).toBeDefined()
         const $btn = $cell.find('.btn')
-        expect($btn.exists()).toBe(true)
+        expect($btn.exists()).toBeTruthy()
         expect($cell.attributes('id')).toBeDefined()
         expect($grid.attributes('aria-activedescendant')).toBeDefined()
         expect($grid.attributes('aria-activedescendant')).not.toEqual($cell.attributes('id'))
@@ -990,7 +990,7 @@ describe('calendar', () => {
           attachTo: createContainer(),
           propsData: {
             type: 'year',
-            value: '2021-01-01' // 2021
+            value: '2021-01-01'
           }
         })
 
@@ -999,7 +999,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         expect($grid.attributes('data-month')).toBe('2021-01')
         expect($grid.find('.b-calendar-grid-caption').text()).toEqual('2020 - 2029')
 
@@ -1032,7 +1032,7 @@ describe('calendar', () => {
         await waitRAF()
 
         const $grid = wrapper.find('[role="application"]')
-        expect($grid.exists()).toBe(true)
+        expect($grid.exists()).toBeTruthy()
         const $gridBody = $grid.find('.b-calendar-grid-body')
         expect($gridBody.findAll('.row').length).toBe(5)
         expect($gridBody.findAll('.row .col.year').length).toBe(10)
