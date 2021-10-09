@@ -63,7 +63,7 @@ export const BCardBody = /*#__PURE__*/ Vue.extend({
           props.bodyClass
         ]
       }),
-      [$title, $subTitle, children]
+      [$title, $subTitle, ...children]
     )
   }
 })
