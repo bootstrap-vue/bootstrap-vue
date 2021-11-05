@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBPopover } from './popover'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -52,7 +52,7 @@ describe('v-b-popover directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -87,7 +87,7 @@ describe('v-b-popover directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
