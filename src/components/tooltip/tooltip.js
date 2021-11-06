@@ -23,10 +23,12 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { HTMLElement, SVGElement } from '../../constants/safe-types'
+import { useParentMixin } from '../../mixins/use-parent'
 import { getScopeId } from '../../utils/get-scope-id'
 import { isUndefinedOrNull } from '../../utils/inspect'
 import { pick } from '../../utils/object'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { BVTooltip } from './helpers/bv-tooltip'
 
@@ -83,7 +85,7 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP,
-  mixins: [normalizeSlotMixin],
+  mixins: [normalizeSlotMixin, useParentMixin],
   inheritAttrs: false,
   props,
   data() {
@@ -191,10 +193,9 @@ export const BTooltip = /*#__PURE__*/ Vue.extend({
       // Ensure we have initial content
       this.updateContent()
       // Pass down the scoped style attribute if available
-      const scopeId = getScopeId(this) || getScopeId(this.$parent)
+      const scopeId = getScopeId(this) || getScopeId(this.bvParent)
       // Create the instance
-      const $toolpop = (this.$_toolpop = new Component({
-        parent: this,
+      const $toolpop = (this.$_toolpop = createNewChildComponent(this, Component, {
         // Pass down the scoped style ID
         _scopeId: scopeId || undefined
       }))

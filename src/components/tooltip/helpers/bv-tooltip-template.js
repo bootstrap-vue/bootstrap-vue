@@ -64,7 +64,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
 
       return {
         // Apply attributes from root tooltip component
-        ...this.$parent.$parent.$attrs,
+        ...this.bvParent.bvParent.$attrs,
 
         id,
         role: 'tooltip',

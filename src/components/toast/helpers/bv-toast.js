@@ -10,6 +10,7 @@ import {
   EVENT_NAME_SHOW,
   HOOK_EVENT_NAME_DESTROYED
 } from '../../../constants/events'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -26,6 +27,8 @@ import {
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient } from '../../../utils/warn'
+import { createNewChildComponent } from '../../../utils/create-new-child-component'
+import { getEventRoot } from '../../../utils/get-event-root'
 import { BToast, props as toastProps } from '../toast'
 
 // --- Constants ---
@@ -65,6 +68,7 @@ const plugin = Vue => {
   const BVToastPop = Vue.extend({
     name: NAME_TOAST_POP,
     extends: BToast,
+    mixins: [useParentMixin],
     destroyed() {
       // Make sure we not in document any more
       const { $el } = this
@@ -89,7 +93,7 @@ const plugin = Vue => {
         })
       }
       // Self destruct if parent destroyed
-      this.$parent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
+      this.bvParent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
       // Self destruct after hidden
       this.$once(EVENT_NAME_HIDDEN, handleDestroy)
       // Self destruct when toaster is destroyed
@@ -103,16 +107,15 @@ const plugin = Vue => {
   })
 
   // Private method to generate the on-demand toast
-  const makeToast = (props, $parent) => {
+  const makeToast = (props, parent) => {
     if (warnNotClient(PROP_NAME)) {
       /* istanbul ignore next */
       return
     }
     // Create an instance of `BVToastPop` component
-    const toast = new BVToastPop({
+    const toast = createNewChildComponent(parent, BVToastPop, {
       // We set parent as the local VM so these toasts can emit events on the
       // app `$root`, and it ensures `BToast` is destroyed when parent is destroyed
-      parent: $parent,
       propsData: {
         ...filterOptions(getComponentConfig(NAME_TOAST)),
         // Add in (filtered) user supplied props
@@ -129,7 +132,7 @@ const plugin = Vue => {
         // Can be a string, or array of VNodes
         if (prop === 'title' && isString(value)) {
           // Special case for title if it is a string, we wrap in a <strong>
-          value = [$parent.$createElement('strong', { class: 'mr-2' }, value)]
+          value = [parent.$createElement('strong', { class: 'mr-2' }, value)]
         }
         toast.$slots[propsToSlots[prop]] = concat(value)
       }
@@ -144,7 +147,7 @@ const plugin = Vue => {
   class BvToast {
     constructor(vm) {
       // Assign the new properties to this instance
-      assign(this, { _vm: vm, _root: vm.$root })
+      assign(this, { _vm: vm, _root: getEventRoot(vm) })
       // Set these properties as read-only and non-enumerable
       defineProperties(this, {
         _vm: readonlyDescriptor(),

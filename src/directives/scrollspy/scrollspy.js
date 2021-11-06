@@ -3,6 +3,7 @@ import { isNumber, isObject, isString } from '../../utils/inspect'
 import { mathRound } from '../../utils/math'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
+import { getEventRoot } from '../../utils/get-event-root'
 import { BVScrollspy } from './helpers/bv-scrollspy.class'
 
 // Key we use to store our instance
@@ -64,9 +65,9 @@ const applyScrollspy = (el, bindings, vnode) => /* istanbul ignore next: not eas
   }
   const config = parseBindings(bindings)
   if (el[BV_SCROLLSPY]) {
-    el[BV_SCROLLSPY].updateConfig(config, vnode.context.$root)
+    el[BV_SCROLLSPY].updateConfig(config, getEventRoot(vnode.context))
   } else {
-    el[BV_SCROLLSPY] = new BVScrollspy(el, config, vnode.context.$root)
+    el[BV_SCROLLSPY] = new BVScrollspy(el, config, getEventRoot(vnode.context))
   }
 }
 

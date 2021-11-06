@@ -16,6 +16,7 @@ import {
 import { looseEqual } from '../../utils/loose-equal'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
@@ -190,11 +191,10 @@ const applyTooltip = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_TOOLTIP]) {
-    const $parent = vnode.context
-    el[BV_TOOLTIP] = new BVTooltip({
-      parent: $parent,
+    const parent = vnode.context
+    el[BV_TOOLTIP] = createNewChildComponent(parent, BVTooltip, {
       // Add the parent's scoped style attribute data
-      _scopeId: getScopeId($parent, undefined)
+      _scopeId: getScopeId(parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
     el[BV_TOOLTIP].$on(EVENT_NAME_SHOW, () => /* istanbul ignore next: for now */ {
