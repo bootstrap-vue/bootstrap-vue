@@ -286,8 +286,8 @@ export const dropdownMixin = Vue.extend({
       // Hide the dropdown when it loses focus
       this.listenForFocusIn = isOpen
       // Hide the dropdown when another dropdown is opened
-      const method = isOpen ? '$on' : '$off'
-      this.$root[method](ROOT_EVENT_NAME_SHOWN, this.rootCloseListener)
+      const method = isOpen ? 'listenOnRoot' : 'listenOffRoot'
+      this[method](ROOT_EVENT_NAME_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {

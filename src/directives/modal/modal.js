@@ -5,6 +5,7 @@ import { getAttr, hasAttr, isDisabled, matches, select, setAttr } from '../../ut
 import { getRootActionEventName, eventOn, eventOff } from '../../utils/events'
 import { isString } from '../../utils/inspect'
 import { keys } from '../../utils/object'
+import { getEventRoot } from '../../utils/get-event-root'
 
 // Emitted show event for modal
 const ROOT_ACTION_EVENT_NAME_SHOW = getRootActionEventName(NAME_MODAL, EVENT_NAME_SHOW)
@@ -52,7 +53,7 @@ const bind = (el, binding, vnode) => {
           type === 'click' ||
           (type === 'keydown' && (key === CODE_ENTER || key === CODE_SPACE))
         ) {
-          vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_SHOW, target, currentTarget)
+          getEventRoot(vnode.context).$emit(ROOT_ACTION_EVENT_NAME_SHOW, target, currentTarget)
         }
       }
     }

@@ -21,6 +21,7 @@ import {
   PROP_TYPE_STRING
 } from '../../../constants/props'
 import { HTMLElement, SVGElement } from '../../../constants/safe-types'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { getCS, requestAF, select } from '../../../utils/dom'
 import { toFloat } from '../../../utils/number'
 import { makeProp } from '../../../utils/props'
@@ -83,6 +84,7 @@ export const props = {
 // @vue/component
 export const BVPopper = /*#__PURE__*/ Vue.extend({
   name: NAME_POPPER,
+  mixins: [useParentMixin],
   props,
   data() {
     return {
@@ -148,7 +150,7 @@ export const BVPopper = /*#__PURE__*/ Vue.extend({
       })
     }
     // Self destruct if parent destroyed
-    this.$parent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
+    this.bvParent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
     // Self destruct after hidden
     this.$once(EVENT_NAME_HIDDEN, handleDestroy)
   },
