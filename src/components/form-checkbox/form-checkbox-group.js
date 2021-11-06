@@ -30,7 +30,7 @@ export const BFormCheckboxGroup = /*#__PURE__*/ Vue.extend({
   mixins: [formRadioCheckGroupMixin],
   provide() {
     return {
-      bvCheckGroup: this
+      getBvCheckGroup: () => this
     }
   },
   props,

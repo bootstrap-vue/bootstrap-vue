@@ -47,13 +47,16 @@ export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
   name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
-    bvCarousel: {
+    getBvCarousel: {
       // Explicitly disable touch if not a child of carousel
-      default: () => ({ noTouch: true })
+      default: () => () => ({ noTouch: true })
     }
   },
   props,
   computed: {
+    bvCarousel() {
+      return this.getBvCarousel()
+    },
     contentClasses() {
       return [
         this.contentVisibleUp ? 'd-none' : '',

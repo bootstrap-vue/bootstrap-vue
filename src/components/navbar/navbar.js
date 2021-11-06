@@ -33,7 +33,7 @@ export const BNavbar = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR,
   mixins: [normalizeSlotMixin],
   provide() {
-    return { bvNavbar: this }
+    return { getBvNavbar: () => this }
   },
   props,
   computed: {

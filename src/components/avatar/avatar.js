@@ -71,7 +71,7 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
   name: NAME_AVATAR,
   mixins: [normalizeSlotMixin],
   inject: {
-    bvAvatarGroup: { default: null }
+    getBvAvatarGroup: { default: () => () => null }
   },
   props,
   data() {
@@ -80,6 +80,9 @@ export const BAvatar = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    bvAvatarGroup() {
+      return this.getBvAvatarGroup()
+    },
     computedSize() {
       // Always use the avatar group size
       const { bvAvatarGroup } = this

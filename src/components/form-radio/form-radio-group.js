@@ -18,7 +18,7 @@ export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
   mixins: [formRadioCheckGroupMixin],
   provide() {
     return {
-      bvRadioGroup: this
+      getBvRadioGroup: () => this
     }
   },
   props,

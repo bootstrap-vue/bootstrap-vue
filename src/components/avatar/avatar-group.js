@@ -37,7 +37,7 @@ export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
   name: NAME_AVATAR_GROUP,
   mixins: [normalizeSlotMixin],
   provide() {
-    return { bvAvatarGroup: this }
+    return { getBvAvatarGroup: () => this }
   },
   props,
   computed: {

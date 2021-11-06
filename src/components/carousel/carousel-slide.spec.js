@@ -144,9 +144,9 @@ describe('carousel-slide', () => {
   it('has style background inherited from carousel parent', async () => {
     const wrapper = mount(BCarouselSlide, {
       provide: {
-        bvCarousel: {
+        getBvCarousel: () => ({
           background: 'rgb(1, 2, 3)'
-        }
+        })
       }
     })
 
@@ -254,10 +254,10 @@ describe('carousel-slide', () => {
     const wrapper = mount(BCarouselSlide, {
       provide: {
         // Mock carousel injection
-        bvCarousel: {
+        getBvCarousel: () => ({
           imgWidth: '1024',
           imgHeight: '480'
-        }
+        })
       },
       propsData: {
         imgSrc: 'https://picsum.photos/1024/480/?image=52'

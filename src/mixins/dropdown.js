@@ -87,10 +87,10 @@ export const props = makePropsConfigurable(
 export const dropdownMixin = Vue.extend({
   mixins: [idMixin, listenOnRootMixin, clickOutMixin, focusInMixin],
   provide() {
-    return { bvDropdown: this }
+    return { getBvDropdown: () => this }
   },
   inject: {
-    bvNavbar: { default: null }
+    getBvNavbar: { default: () => () => null }
   },
   props,
   data() {
@@ -100,6 +100,9 @@ export const dropdownMixin = Vue.extend({
     }
   },
   computed: {
+    bvNavbar() {
+      return this.getBvNavbar()
+    },
     inNavbar() {
       return !isNull(this.bvNavbar)
     },

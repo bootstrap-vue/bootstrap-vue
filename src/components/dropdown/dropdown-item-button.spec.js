@@ -54,12 +54,12 @@ describe('dropdown-item-button', () => {
     let refocus = null
     const wrapper = mount(BDropdownItemButton, {
       provide: {
-        bvDropdown: {
+        getBvDropdown: () => ({
           hide(arg) {
             called = true
             refocus = arg
           }
-        }
+        })
       }
     })
     expect(wrapper.element.tagName).toBe('LI')
@@ -81,12 +81,12 @@ describe('dropdown-item-button', () => {
         disabled: true
       },
       provide: {
-        bvDropdown: {
+        getBvDropdown: () => ({
           hide(arg) {
             called = true
             refocus = arg
           }
-        }
+        })
       }
     })
     expect(wrapper.element.tagName).toBe('LI')
