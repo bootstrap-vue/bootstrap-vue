@@ -136,7 +136,7 @@ export const BCarousel = /*#__PURE__*/ Vue.extend({
   name: NAME_CAROUSEL,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
-    return { bvCarousel: this }
+    return { getBvCarousel: () => this }
   },
   props,
   data() {

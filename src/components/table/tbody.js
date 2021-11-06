@@ -27,18 +27,21 @@ export const BTbody = /*#__PURE__*/ Vue.extend({
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTableRowGroup: this
+      getBvTableRowGroup: () => this
     }
   },
   inject: {
     // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
-    bvTable: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTable: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvTable() {
+      return this.getBvTable()
+    },
     // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isTbody() {
       return true

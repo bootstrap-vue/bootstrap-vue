@@ -34,12 +34,15 @@ export const BProgressBar = /*#__PURE__*/ Vue.extend({
   name: NAME_PROGRESS_BAR,
   mixins: [normalizeSlotMixin],
   inject: {
-    bvProgress: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvProgress: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   props,
   computed: {
+    bvProgress() {
+      return this.getBvProgress()
+    },
     progressBarClasses() {
       const { computedAnimated, computedVariant } = this
       return [

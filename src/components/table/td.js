@@ -45,13 +45,16 @@ export const BTd = /*#__PURE__*/ Vue.extend({
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   inject: {
-    bvTableTr: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTableTr: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvTableTr() {
+      return this.getBvTableTr()
+    },
     // Overridden by `<b-th>`
     tag() {
       return 'td'

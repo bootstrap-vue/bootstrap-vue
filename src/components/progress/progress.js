@@ -31,7 +31,7 @@ export const BProgress = /*#__PURE__*/ Vue.extend({
   name: NAME_PROGRESS,
   mixins: [normalizeSlotMixin],
   provide() {
-    return { bvProgress: this }
+    return { getBvProgress: () => this }
   },
   props,
   computed: {
