@@ -19,12 +19,17 @@ export const BFormRadio = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_RADIO,
   mixins: [formRadioCheckMixin],
   inject: {
-    bvGroup: {
-      from: 'bvRadioGroup',
-      default: false
+    getBvGroup: {
+      from: 'getBvRadioGroup',
+      default: () => () => null
     }
   },
   props,
+  computed: {
+    bvGroup() {
+      return this.getBvGroup()
+    }
+  },
   watch: {
     computedLocalChecked(newValue, oldValue) {
       if (!looseEqual(newValue, oldValue)) {

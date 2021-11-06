@@ -41,13 +41,16 @@ export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_CHECKBOX,
   mixins: [formRadioCheckMixin],
   inject: {
-    bvGroup: {
-      from: 'bvCheckGroup',
-      default: null
+    getBvGroup: {
+      from: 'getBvCheckGroup',
+      default: () => () => null
     }
   },
   props,
   computed: {
+    bvGroup() {
+      return this.getBvGroup()
+    },
     isChecked() {
       const { value, computedLocalChecked: checked } = this
       return isArray(checked) ? looseIndexOf(checked, value) > -1 : looseEqual(checked, value)

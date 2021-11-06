@@ -47,8 +47,8 @@ export const BTab = /*#__PURE__*/ Vue.extend({
   name: NAME_TAB,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
-    bvTabs: {
-      default: () => ({})
+    getBvTabs: {
+      default: () => () => ({})
     }
   },
   props,
@@ -58,6 +58,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    bvTabs() {
+      return this.getBvTabs()
+    },
     // For parent sniffing of child
     _isTab() {
       return true

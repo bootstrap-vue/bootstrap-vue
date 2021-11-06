@@ -41,7 +41,7 @@ export const tableRendererMixin = Vue.extend({
   mixins: [attrsMixin],
   provide() {
     return {
-      bvTable: this
+      getBvTable: () => this
     }
   },
   // Don't place attributes on root element automatically,

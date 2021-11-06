@@ -30,11 +30,15 @@ export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
   name: NAME_DROPDOWN_ITEM_BUTTON,
   mixins: [attrsMixin, normalizeSlotMixin],
   inject: {
-    bvDropdown: { default: null }
+    getBvDropdown: { default: () => () => null }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvDropdown() {
+      return this.getBvDropdown()
+    },
+
     computedAttrs() {
       return {
         ...this.bvAttrs,

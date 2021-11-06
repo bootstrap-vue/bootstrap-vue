@@ -31,17 +31,20 @@ export const BTr = /*#__PURE__*/ Vue.extend({
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTableTr: this
+      getBvTableTr: () => this
     }
   },
   inject: {
-    bvTableRowGroup: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTableRowGroup: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvTableRowGroup() {
+      return this.getBvTableRowGroup()
+    },
     // Sniffed by `<b-td>` / `<b-th>`
     inTbody() {
       return this.bvTableRowGroup.isTbody

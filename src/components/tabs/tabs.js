@@ -70,8 +70,8 @@ const notDisabled = tab => !tab.disabled
 const BVTabButton = /*#__PURE__*/ Vue.extend({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
-    bvTabs: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTabs: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   props: {
@@ -83,6 +83,11 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     // Reference to the child <b-tab> instance
     tab: makeProp(),
     tabIndex: makeProp(PROP_TYPE_NUMBER)
+  },
+  computed: {
+    bvTabs() {
+      return this.getBvTabs()
+    }
   },
   methods: {
     focus() {
@@ -218,7 +223,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTabs: this
+      getBvTabs: () => this
     }
   },
   props,
