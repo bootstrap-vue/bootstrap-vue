@@ -21,6 +21,7 @@ import { getRootActionEventName, getRootEventName, eventOn, eventOff } from '../
 import { isString } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { keys } from '../../utils/object'
+import { getEventRoot } from '../../utils/get-event-root'
 
 // --- Constants ---
 
@@ -115,7 +116,7 @@ const addClickListener = (el, vnode) => {
       ) {
         const targets = el[BV_TOGGLE_TARGETS] || []
         targets.forEach(target => {
-          vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, target)
+          getEventRoot(vnode.context).$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, target)
         })
       }
     }
@@ -129,7 +130,7 @@ const addClickListener = (el, vnode) => {
 
 const removeRootListeners = (el, vnode) => {
   if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    vnode.context.$root.$off(
+    getEventRoot(vnode.context).$off(
       [ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE],
       el[BV_TOGGLE_ROOT_HANDLER]
     )
@@ -151,7 +152,7 @@ const addRootListeners = (el, vnode) => {
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
     // Listen for toggle state changes (public) and sync (private)
-    vnode.context.$root.$on([ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE], handler)
+    getEventRoot(vnode.context).$on([ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE], handler)
   }
 }
 
@@ -228,7 +229,7 @@ const handleUpdate = (el, binding, vnode) => {
     // Request a state update from targets so that we can
     // ensure expanded state is correct (in most cases)
     targets.forEach(target => {
-      vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, target)
+      getEventRoot(vnode.context).$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, target)
     })
   }
 }

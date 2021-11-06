@@ -10,6 +10,7 @@ import {
   PROP_TYPE_OBJECT_FUNCTION
 } from '../../../constants/props'
 import { SLOT_NAME_ROW_DETAILS } from '../../../constants/slots'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { get } from '../../../utils/get'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { makeProp } from '../../../utils/props'
@@ -31,30 +32,31 @@ export const props = {
 
 // @vue/component
 export const tbodyRowMixin = Vue.extend({
+  mixins: [useParentMixin],
   props,
   methods: {
     // Methods for computing classes, attributes and styles for table cells
     getTdValues(item, key, tdValue, defaultValue) {
-      const { $parent } = this
+      const { bvParent } = this
       if (tdValue) {
         const value = get(item, key, '')
         if (isFunction(tdValue)) {
           return tdValue(value, key, item)
-        } else if (isString(tdValue) && isFunction($parent[tdValue])) {
-          return $parent[tdValue](value, key, item)
+        } else if (isString(tdValue) && isFunction(bvParent[tdValue])) {
+          return bvParent[tdValue](value, key, item)
         }
         return tdValue
       }
       return defaultValue
     },
     getThValues(item, key, thValue, type, defaultValue) {
-      const { $parent } = this
+      const { bvParent } = this
       if (thValue) {
         const value = get(item, key, '')
         if (isFunction(thValue)) {
           return thValue(value, key, item, type)
-        } else if (isString(thValue) && isFunction($parent[thValue])) {
-          return $parent[thValue](value, key, item, type)
+        } else if (isString(thValue) && isFunction(bvParent[thValue])) {
+          return bvParent[thValue](value, key, item, type)
         }
         return thValue
       }

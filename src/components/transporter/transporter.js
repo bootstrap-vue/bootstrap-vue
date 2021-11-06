@@ -13,6 +13,7 @@ import { identity } from '../../utils/identity'
 import { isFunction, isString } from '../../utils/inspect'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { makeProp } from '../../utils/props'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 
 // --- Helper components ---
 
@@ -129,9 +130,8 @@ export const BVTransporter = /*#__PURE__*/ Vue.extend({
         if ($container) {
           const $el = document.createElement('div')
           $container.appendChild($el)
-          this.$_target = new BVTransporterTarget({
+          this.$_target = createNewChildComponent(this, BVTransporterTarget, {
             el: $el,
-            parent: this,
             propsData: {
               // Initial nodes to be rendered
               nodes: concat(this.normalizeSlot())
