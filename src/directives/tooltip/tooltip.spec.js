@@ -71,7 +71,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     wrapper.destroy()
   })
@@ -106,7 +106,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     expect($button.attributes('aria-describedby')).toBeUndefined()
 
@@ -158,7 +158,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     expect($button.attributes('aria-describedby')).toBeUndefined()
 
