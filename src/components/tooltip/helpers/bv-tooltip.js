@@ -24,6 +24,7 @@ import {
 } from '../../../constants/events'
 import { useParentMixin } from '../../../mixins/use-parent'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
+import { getInstanceFromVNode } from '../../../utils/get-instance-from-vnode'
 import {
   attemptFocus,
   closest,
@@ -795,8 +796,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Dropdown shown and hidden events will need to emit
       //   Note: Dropdown auto-ID happens in a `$nextTick()` after mount
       //         So the ID lookup would need to be done in a `$nextTick()`
-      if (target.__vue__) {
-        target.__vue__[on ? '$on' : '$off'](EVENT_NAME_SHOWN, this.forceHide)
+      if (getInstanceFromVNode(target)) {
+        getInstanceFromVNode(target)[on ? '$on' : '$off'](EVENT_NAME_SHOWN, this.forceHide)
       }
     },
     // --- Event handlers ---
