@@ -14,6 +14,7 @@ import { isBoolean, isEvent, isFunction, isUndefined } from '../../utils/inspect
 import { omit, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { computeHref, computeRel, computeTag, isRouterLink } from '../../utils/router'
+import { getInstanceFromVNode } from '../../utils/get-instance-from-vnode'
 import { attrsMixin } from '../../mixins/attrs'
 import { listenOnRootMixin } from '../../mixins/listen-on-root'
 import { listenersMixin } from '../../mixins/listeners'
@@ -162,8 +163,8 @@ export const BLink = /*#__PURE__*/ Vue.extend({
         // Router links do not emit instance `click` events, so we
         // add in an `$emit('click', event)` on its Vue instance
         /* istanbul ignore next: difficult to test, but we know it works */
-        if (isRouterLink && event.currentTarget.__vue__) {
-          event.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, event)
+        if (isRouterLink && getInstanceFromVNode(event.currentTarget)) {
+          getInstanceFromVNode(event.currentTarget).$emit(EVENT_NAME_CLICK, event)
         }
         // Call the suppliedHandler(s), if any provided
         concat(suppliedHandler)
