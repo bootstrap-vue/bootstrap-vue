@@ -134,7 +134,7 @@ describe('dropdown-item', () => {
       expect(wrapper.findAll('li').length).toBe(4)
       expect(wrapper.findAll('a').length).toBe(4)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
 
       expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')

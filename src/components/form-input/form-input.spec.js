@@ -463,7 +463,7 @@ describe('form-input', () => {
       attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
     $input.element.value = 'TEST'
     await $input.trigger('input')
 
@@ -491,7 +491,7 @@ describe('form-input', () => {
       attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
 
     // Input event needed to set initial value
     $input.element.value = 'TEST'
@@ -527,7 +527,7 @@ describe('form-input', () => {
       attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
     expect($input.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeUndefined()

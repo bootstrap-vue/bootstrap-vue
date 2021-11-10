@@ -542,7 +542,7 @@ describe('dropdown', () => {
     expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
 
     const $container = wrapper.find('#container')
-    const $dropdown = wrapper.find('.dropdown')
+    const $dropdown = wrapper.findComponent('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
     const $menu = wrapper.find('.dropdown-menu')
     const $item = wrapper.find('.dropdown-item')

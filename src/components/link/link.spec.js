@@ -412,7 +412,7 @@ describe('b-link', () => {
 
       expect(wrapper.findAll('a').length).toBe(5)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
 
       expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')
