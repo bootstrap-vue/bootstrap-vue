@@ -35,7 +35,12 @@ describe('tabs', () => {
   it('has correct card classes when prop card is true', async () => {
     const wrapper = mount(BTabs, {
       propsData: { card: true },
-      slots: { default: [BTab, BTab, BTab] }
+      slots: {
+        default: {
+          components: { BTab },
+          template: '<div><b-tab /><b-tab /><b-tab /></div>'
+        }
+      }
     })
 
     await waitNT(wrapper.vm)
@@ -55,7 +60,12 @@ describe('tabs', () => {
   it('has correct card classes when props card and vertical are true', async () => {
     const wrapper = mount(BTabs, {
       propsData: { card: true, vertical: true },
-      slots: { default: [BTab, BTab, BTab] }
+      slots: {
+        default: {
+          components: { BTab },
+          template: '<div><b-tab /><b-tab /><b-tab /></div>'
+        }
+      }
     })
 
     await waitNT(wrapper.vm)
@@ -84,7 +94,12 @@ describe('tabs', () => {
     const tabIndex = 1
     const wrapper = mount(BTabs, {
       propsData: { value: tabIndex },
-      slots: { default: [BTab, BTab, BTab] }
+      slots: {
+        default: {
+          components: { BTab },
+          template: '<div><b-tab /><b-tab /><b-tab /></div>'
+        }
+      }
     })
 
     await waitNT(wrapper.vm)
