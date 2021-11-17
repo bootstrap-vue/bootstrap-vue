@@ -104,7 +104,9 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // If `IntersectionObserver` is not available, image is always shown
-    this.isShown = HAS_INTERACTION_OBSERVER_SUPPORT ? this[MODEL_PROP_NAME_SHOW] : true
+    this.$nextTick(() => {
+      this.isShown = HAS_INTERACTION_OBSERVER_SUPPORT ? this[MODEL_PROP_NAME_SHOW] : true
+    })
   },
   methods: {
     updateShowProp() {
