@@ -67,6 +67,9 @@ export const BFormTextarea = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    type() {
+      return null
+    },
     computedStyle() {
       const styles = {
         // Setting `noResize` to true will disable the ability for the user to

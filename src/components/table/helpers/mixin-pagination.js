@@ -3,6 +3,7 @@ import { PROP_TYPE_NUMBER_STRING } from '../../../constants/props'
 import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 
 // --- Props ---
 
@@ -21,7 +22,8 @@ export const paginationMixin = Vue.extend({
       return this.hasProvider ? !!this.noProviderPaging : true
     },
     paginatedItems() {
-      let items = this.sortedItems || this.filteredItems || this.localItems || []
+      const { sortedItems, filteredItems, localItems } = safeVueInstance(this)
+      let items = sortedItems || filteredItems || localItems || []
       const currentPage = mathMax(toInteger(this.currentPage, 1), 1)
       const perPage = mathMax(toInteger(this.perPage, 0), 0)
       // Apply local pagination

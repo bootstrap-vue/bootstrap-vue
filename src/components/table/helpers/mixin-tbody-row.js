@@ -14,6 +14,7 @@ import { useParentMixin } from '../../../mixins/use-parent'
 import { get } from '../../../utils/get'
 import { isFunction, isString, isUndefinedOrNull } from '../../../utils/inspect'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { toString } from '../../../utils/string'
 import { BTr } from '../tr'
 import { BTd } from '../td'
@@ -160,7 +161,7 @@ export const tbodyRowMixin = Vue.extend({
       }
       // If table supports selectable mode, then add in the following scope
       // this.supportsSelectableRows will be undefined if mixin isn't loaded
-      if (this.supportsSelectableRows) {
+      if (safeVueInstance(this).supportsSelectableRows) {
         slotScope.rowSelected = this.isRowSelected(rowIndex)
         slotScope.selectRow = () => this.selectRow(rowIndex)
         slotScope.unselectRow = () => this.unselectRow(rowIndex)
@@ -193,13 +194,13 @@ export const tbodyRowMixin = Vue.extend({
         currentPage,
         perPage,
         tbodyTrClass,
-        tbodyTrAttr
-      } = this
+        tbodyTrAttr,
+        hasSelectableRowClick
+      } = safeVueInstance(this)
       const h = this.$createElement
       const hasDetailsSlot = this.hasNormalizedSlot(SLOT_NAME_ROW_DETAILS)
       const rowShowDetails = item[FIELD_KEY_SHOW_DETAILS] && hasDetailsSlot
-      const hasRowClickHandler =
-        this.$listeners[EVENT_NAME_ROW_CLICKED] || this.hasSelectableRowClick
+      const hasRowClickHandler = this.$listeners[EVENT_NAME_ROW_CLICKED] || hasSelectableRowClick
 
       // We can return more than one TR if rowDetails enabled
       const $rows = []
@@ -232,8 +233,12 @@ export const tbodyRowMixin = Vue.extend({
       const rowId = primaryKeyValue ? this.safeId(`_row_${primaryKeyValue}`) : null
 
       // Selectable classes and attributes
-      const selectableClasses = this.selectableRowClasses ? this.selectableRowClasses(rowIndex) : {}
-      const selectableAttrs = this.selectableRowAttrs ? this.selectableRowAttrs(rowIndex) : {}
+      const selectableClasses = safeVueInstance(this).selectableRowClasses
+        ? this.selectableRowClasses(rowIndex)
+        : {}
+      const selectableAttrs = safeVueInstance(this).selectableRowAttrs
+        ? this.selectableRowAttrs(rowIndex)
+        : {}
 
       // Additional classes and attributes
       const userTrClasses = isFunction(tbodyTrClass) ? tbodyTrClass(item, 'row') : tbodyTrClass
@@ -282,7 +287,7 @@ export const tbodyRowMixin = Vue.extend({
         }
         // If table supports selectable mode, then add in the following scope
         // this.supportsSelectableRows will be undefined if mixin isn't loaded
-        if (this.supportsSelectableRows) {
+        if (safeVueInstance(this).supportsSelectableRows) {
           detailsScope.rowSelected = this.isRowSelected(rowIndex)
           detailsScope.selectRow = () => this.selectRow(rowIndex)
           detailsScope.unselectRow = () => this.unselectRow(rowIndex)

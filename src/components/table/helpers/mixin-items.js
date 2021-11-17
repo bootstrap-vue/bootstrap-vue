@@ -10,6 +10,7 @@ import { makeModelMixin } from '../../../utils/model'
 import { toInteger } from '../../../utils/number'
 import { clone, sortKeys } from '../../../utils/object'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { normalizeFields } from './normalize-fields'
 
 // --- Constants ---
@@ -86,24 +87,26 @@ export const itemsMixin = Vue.extend({
       }, {})
     },
     computedItems() {
+      const { paginatedItems, sortedItems, filteredItems, localItems } = safeVueInstance(this)
       // Fallback if various mixins not provided
       return (
-        this.paginatedItems ||
-        this.sortedItems ||
-        this.filteredItems ||
-        this.localItems ||
+        paginatedItems ||
+        sortedItems ||
+        filteredItems ||
+        localItems ||
         /* istanbul ignore next */
         []
       ).slice()
     },
     context() {
+      const { perPage, currentPage } = safeVueInstance(this)
       // Current state of sorting, filtering and pagination props/values
       return {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: mathMax(toInteger(this.perPage, 0), 0),
-        currentPage: mathMax(toInteger(this.currentPage, 0), 1),
+        perPage: mathMax(toInteger(perPage, 0), 0),
+        currentPage: mathMax(toInteger(currentPage, 0), 1),
         apiUrl: this.apiUrl
       }
     }

@@ -2,6 +2,7 @@ import { RX_ENCODED_COMMA, RX_ENCODE_REVERSE, RX_PLUS, RX_QUERY_START } from '..
 import { isTag } from './dom'
 import { isArray, isNull, isPlainObject, isString, isUndefined } from './inspect'
 import { keys } from './object'
+import { safeVueInstance } from './safe-vue-instance'
 import { toString } from './string'
 
 const ANCHOR_TAG = 'a'
@@ -88,7 +89,8 @@ export const isLink = props => !!(props.href || props.to)
 export const isRouterLink = tag => !!(tag && !isTag(tag, 'a'))
 
 export const computeTag = ({ to, disabled, routerComponentName }, thisOrParent) => {
-  const hasRouter = !!thisOrParent.$router
+  const hasRouter = !!safeVueInstance(thisOrParent).$router
+  const hasNuxt = !!safeVueInstance(thisOrParent).$nuxt
   if (!hasRouter || (hasRouter && (disabled || !to))) {
     return ANCHOR_TAG
   }
@@ -101,7 +103,7 @@ export const computeTag = ({ to, disabled, routerComponentName }, thisOrParent) 
   //   exists = names.some(name => !!thisOrParent.$options.components[name])
   //   And may want to cache the result for performance or we just let the render fail
   //   if the component is not registered
-  return routerComponentName || (thisOrParent.$nuxt ? 'nuxt-link' : 'router-link')
+  return routerComponentName || (hasNuxt ? 'nuxt-link' : 'router-link')
 }
 
 export const computeRel = ({ target, rel } = {}) =>

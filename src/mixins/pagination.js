@@ -33,6 +33,7 @@ import { makeModelMixin } from '../utils/model'
 import { toInteger } from '../utils/number'
 import { sortKeys } from '../utils/object'
 import { hasPropFunction, makeProp, makePropsConfigurable } from '../utils/props'
+import { safeVueInstance } from '../utils/safe-vue-instance'
 import { toString } from '../utils/string'
 import { warn } from '../utils/warn'
 import { normalizeSlotMixin } from '../mixins/normalize-slot'
@@ -398,7 +399,7 @@ export const paginationMixin = Vue.extend({
       isNav,
       localNumberOfPages: numberOfPages,
       computedCurrentPage: currentPage
-    } = this
+    } = safeVueInstance(this)
     const pageNumbers = this.pageList.map(p => p.number)
     const { showFirstDots, showLastDots } = this.paginationParams
     const fill = this.align === 'fill'
@@ -426,7 +427,7 @@ export const paginationMixin = Vue.extend({
             type: isNav || isDisabled ? null : 'button',
             tabindex: isDisabled || isNav ? null : '-1',
             'aria-label': ariaLabel,
-            'aria-controls': this.ariaControls || null,
+            'aria-controls': safeVueInstance(this).ariaControls || null,
             'aria-disabled': isDisabled ? 'true' : null
           },
           on: isDisabled
@@ -491,7 +492,7 @@ export const paginationMixin = Vue.extend({
         role: isNav ? null : 'menuitemradio',
         type: isNav || disabled ? null : 'button',
         'aria-disabled': disabled ? 'true' : null,
-        'aria-controls': this.ariaControls || null,
+        'aria-controls': safeVueInstance(this).ariaControls || null,
         'aria-label': hasPropFunction(labelPage)
           ? /* istanbul ignore next */ labelPage(pageNumber)
           : `${isFunction(labelPage) ? labelPage() : labelPage} ${pageNumber}`,
