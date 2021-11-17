@@ -1,3 +1,4 @@
+import { isVue3 } from '../../vue'
 import { mount } from '@vue/test-utils'
 import { waitNT } from '../../../tests/utils'
 import { getInstanceFromVNode } from '../../utils/get-instance-from-vnode'
@@ -45,7 +46,9 @@ describe('utils/transporter component', () => {
     expect(target).toBeDefined()
     expect(target).not.toBe(null)
     expect(getInstanceFromVNode(target)).toBeDefined() // Target
-    expect(getInstanceFromVNode(target).$options.name).toBe('BVTransporterTarget')
+    if (!isVue3) {
+      expect(getInstanceFromVNode(target).$options.name).toBe('BVTransporterTarget')
+    }
     expect(target.tagName).toEqual('DIV')
     expect(target.parentElement).toBeDefined()
     expect(target.parentElement).toBe(document.body)
