@@ -16,6 +16,7 @@ import {
 import { PROP_TYPE_ARRAY_OBJECT_STRING } from '../../../constants/props'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { stopEvent } from '../../../utils/events'
 import { sortKeys } from '../../../utils/object'
 import { makeProp, pluckProps } from '../../../utils/props'
@@ -157,10 +158,16 @@ export const tbodyMixin = Vue.extend({
     //   Row hover handlers are handled by the tbody-row mixin
     //   As mouseenter/mouseleave events do not bubble
     renderTbody() {
-      const { computedItems: items, renderBusy, renderTopRow, renderEmpty, renderBottomRow } = this
+      const {
+        computedItems: items,
+        renderBusy,
+        renderTopRow,
+        renderEmpty,
+        renderBottomRow,
+        hasSelectableRowClick
+      } = safeVueInstance(this)
       const h = this.$createElement
-      const hasRowClickHandler =
-        this.hasListener(EVENT_NAME_ROW_CLICKED) || this.hasSelectableRowClick
+      const hasRowClickHandler = this.hasListener(EVENT_NAME_ROW_CLICKED) || hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []

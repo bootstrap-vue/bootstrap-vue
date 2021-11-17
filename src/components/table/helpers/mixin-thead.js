@@ -9,6 +9,7 @@ import { identity } from '../../../utils/identity'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import { noop } from '../../../utils/noop'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { startCase } from '../../../utils/string'
 import { BThead } from '../thead'
 import { BTfoot } from '../tfoot'
@@ -68,7 +69,7 @@ export const theadMixin = Vue.extend({
         footVariant,
         headRowVariant,
         footRowVariant
-      } = this
+      } = safeVueInstance(this)
       const h = this.$createElement
 
       // In always stacked mode, we don't bother rendering the head/foot

@@ -58,5 +58,6 @@ export const BTableLite = /*#__PURE__*/ Vue.extend({
     colgroupMixin
   ],
   props
+
   // Render function is provided by `tableRendererMixin`
 })

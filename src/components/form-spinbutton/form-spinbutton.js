@@ -113,6 +113,9 @@ export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    required() {
+      return false
+    },
     spinId() {
       return this.safeId()
     },
