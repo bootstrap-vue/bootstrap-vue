@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { Vue, isVue3 } from '../../vue'
 import { NAME_TRANSPORTER, NAME_TRANSPORTER_TARGET } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -79,7 +79,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-export const BVTransporter = /*#__PURE__*/ Vue.extend({
+const BVTransporterVue2 = /*#__PURE__*/ Vue.extend({
   name: NAME_TRANSPORTER,
   mixins: [normalizeSlotMixin],
   props,
@@ -177,3 +177,26 @@ export const BVTransporter = /*#__PURE__*/ Vue.extend({
     return h()
   }
 })
+
+const BVTransporterVue3 = /*#__PURE__*/ Vue.extend({
+  name: NAME_TRANSPORTER,
+  mixins: [normalizeSlotMixin],
+  props,
+  render(h) {
+    if (this.disabled) {
+      const $nodes = concat(this.normalizeSlot()).filter(identity)
+      if ($nodes.length > 0) {
+        return $nodes[0]
+      }
+    }
+    return h(
+      Vue.Teleport,
+      {
+        to: this.container
+      },
+      this.normalizeSlot()
+    )
+  }
+})
+
+export const BVTransporter = isVue3 ? BVTransporterVue3 : BVTransporterVue2
