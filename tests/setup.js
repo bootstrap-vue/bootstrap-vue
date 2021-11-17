@@ -6,10 +6,46 @@ import { installCompat as installVTUCompat, fullCompatConfig } from 'vue-test-ut
 const useVue2 = 'USE_VUE2' in process.env
 if (!useVue2) {
   Vue.configureCompat({
-    MODE: 2
+    MODE: 2,
+    ATTR_FALSE_VALUE: 'suppress-warning',
+    COMPONENT_FUNCTIONAL: 'suppress-warning',
+    COMPONENT_V_MODEL: 'suppress-warning',
+    CONFIG_OPTION_MERGE_STRATS: 'suppress-warning',
+    CONFIG_WHITESPACE: 'suppress-warning',
+    CUSTOM_DIR: 'suppress-warning',
+    GLOBAL_EXTEND: 'suppress-warning',
+    GLOBAL_MOUNT: 'suppress-warning',
+    GLOBAL_PRIVATE_UTIL: 'suppress-warning',
+    GLOBAL_PROTOTYPE: 'suppress-warning',
+    GLOBAL_SET: 'suppress-warning',
+    INSTANCE_ATTRS_CLASS_STYLE: 'suppress-warning',
+    INSTANCE_CHILDREN: 'suppress-warning',
+    INSTANCE_DELETE: 'suppress-warning',
+    INSTANCE_DESTROY: 'suppress-warning',
+    INSTANCE_EVENT_EMITTER: 'suppress-warning',
+    INSTANCE_EVENT_HOOKS: 'suppress-warning',
+    INSTANCE_LISTENERS: 'suppress-warning',
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning',
+    INSTANCE_SET: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning',
+    OPTIONS_DATA_MERGE: 'suppress-warning',
+    OPTIONS_DESTROYED: 'suppress-warning',
+    RENDER_FUNCTION: 'suppress-warning',
+    V_FOR_REF: 'suppress-warning',
+    WATCH_ARRAY: 'suppress-warning'
   })
 
-  const compatH = new Vue({}).$createElement
+  let compatH
+  Vue.config.compilerOptions.whitespace = 'condense'
+  Vue.createApp({
+    compatConfig: {
+      MODE: 3,
+      RENDER_FUNCTION: 'suppress-warning'
+    },
+    render(h) {
+      compatH = h
+    }
+  }).mount(document.createElement('div'))
   installVTUCompat(VTU, fullCompatConfig, compatH)
 }
 
