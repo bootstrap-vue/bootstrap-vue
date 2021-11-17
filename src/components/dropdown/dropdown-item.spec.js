@@ -1,7 +1,10 @@
 import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BDropdownItem } from './dropdown-item'
+
+Vue.use(VueRouter)
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
@@ -94,9 +97,6 @@ describe('dropdown-item', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = createLocalVue()
-      localVue.use(VueRouter)
-
       const router = new VueRouter({
         mode: 'abstract',
         routes: [
@@ -124,7 +124,6 @@ describe('dropdown-item', () => {
       }
 
       const wrapper = mount(App, {
-        localVue,
         attachTo: document.body
       })
 

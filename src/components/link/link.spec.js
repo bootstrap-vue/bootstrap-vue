@@ -1,6 +1,9 @@
 import VueRouter from 'vue-router'
 import { createLocalVue, mount } from '@vue/test-utils'
 import { BLink } from './link'
+import { Vue } from '../../vue'
+
+Vue.use(VueRouter)
 
 describe('b-link', () => {
   it('has expected default structure', async () => {
@@ -353,7 +356,6 @@ describe('b-link', () => {
   describe('router-link support', () => {
     it('works', async () => {
       const localVue = createLocalVue()
-      localVue.use(VueRouter)
 
       const router = new VueRouter({
         mode: 'abstract',
