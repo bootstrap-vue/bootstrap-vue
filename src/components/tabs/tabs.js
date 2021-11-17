@@ -357,7 +357,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
     },
     getTabs() {
       const $tabs = this.registeredTabs.filter(
-        $tab => $tab.$children.filter($t => $t._isTab).length === 0
+        $tab => $tab.$children.filter($t => $t && $t._isTab).length === 0
       )
 
       // DOM Order of Tabs
