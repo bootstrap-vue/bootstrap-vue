@@ -811,7 +811,7 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'b-calendar-header',
         class: { 'sr-only': this.hideHeader },
-        attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
+        attrs: { title: this.selectedDate ? this.labelSelected || null : null }
       },
       [$header]
     )
