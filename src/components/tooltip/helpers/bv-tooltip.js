@@ -756,9 +756,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     visibleCheck(on) {
       this.clearVisibilityInterval()
       const target = this.getTarget()
-      const tip = this.getTemplateElement()
       if (on) {
         this.$_visibleInterval = setInterval(() => {
+          const tip = this.getTemplateElement()
           if (tip && this.localShow && (!target.parentNode || !isVisible(target))) {
             // Target element is no longer visible or not in DOM, so force-hide the tooltip
             this.forceHide()
