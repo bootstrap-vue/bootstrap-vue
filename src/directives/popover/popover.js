@@ -5,6 +5,7 @@ import { concat } from '../../utils/array'
 import { getComponentConfig } from '../../utils/config'
 import { getScopeId } from '../../utils/get-scope-id'
 import { identity } from '../../utils/identity'
+import { getInstanceFromDirective } from '../../utils/get-instance-from-directive'
 import {
   isFunction,
   isNumber,
@@ -18,6 +19,7 @@ import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
 import { createNewChildComponent } from '../../utils/create-new-child-component'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
+import { nextTick } from '../../vue'
 
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_Popover__'
@@ -186,7 +188,7 @@ const applyPopover = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_POPOVER]) {
-    const parent = vnode.context
+    const parent = getInstanceFromDirective(vnode, bindings)
     el[BV_POPOVER] = createNewChildComponent(parent, BVPopover, {
       // Add the parent's scoped style attribute data
       _scopeId: getScopeId(parent, undefined)
@@ -263,7 +265,7 @@ export const VBPopover = {
   // waits until the containing component and children have finished updating
   componentUpdated(el, bindings, vnode) {
     // Performed in a `$nextTick()` to prevent endless render/update loops
-    vnode.context.$nextTick(() => {
+    nextTick(() => {
       applyPopover(el, bindings, vnode)
     })
   },
