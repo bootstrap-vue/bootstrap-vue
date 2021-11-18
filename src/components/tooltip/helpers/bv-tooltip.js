@@ -262,7 +262,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
         })
       })
     }
-
+  },
+  mounted() {
     this.$nextTick(() => {
       const target = this.getTarget()
       if (target && contains(document.body, target)) {
