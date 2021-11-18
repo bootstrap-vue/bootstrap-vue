@@ -189,7 +189,7 @@ describe('form-checkbox-group', () => {
       attachTo: document.body,
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: true
       }
     })
@@ -207,7 +207,7 @@ describe('form-checkbox-group', () => {
       attachTo: document.body,
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: false
       }
     })
@@ -225,7 +225,7 @@ describe('form-checkbox-group', () => {
       attachTo: document.body,
       propsData: {
         options: ['one', 'two', 'three'],
-        checked: '',
+        checked: [],
         state: null
       }
     })
