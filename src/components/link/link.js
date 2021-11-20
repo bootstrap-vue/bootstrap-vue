@@ -105,7 +105,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return this.isRouterLink
         ? {
             ...pluckProps(
-              omit({ ...routerLinkProps, ...nuxtLinkProps }, ['event', 'prefetch', 'routerTag']),
+              omit(
+                { ...routerLinkProps, ...(this.computedTag === 'nuxt-link' ? nuxtLinkProps : {}) },
+                ['event', 'prefetch', 'routerTag']
+              ),
               this
             ),
             // Only add these props, when actually defined
