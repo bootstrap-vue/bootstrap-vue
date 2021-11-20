@@ -114,6 +114,7 @@ describe('tabs', () => {
 
   it('sets correct tab active when first tab is disabled', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, [
           h(BTab, { props: { disabled: true } }, 'tab 0'),
@@ -146,6 +147,7 @@ describe('tabs', () => {
 
   it('sets current index based on active prop of b-tab', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, [
           h(BTab, { props: { active: false } }, 'tab 0'),
@@ -178,6 +180,7 @@ describe('tabs', () => {
 
   it('selects first non-disabled tab when active tab disabled', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 1 }
       },
@@ -228,6 +231,7 @@ describe('tabs', () => {
 
   it('v-model works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 0 }
       },
@@ -274,6 +278,7 @@ describe('tabs', () => {
 
   it('v-model works when trying to activate a disabled tab', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 0 }
       },
@@ -323,6 +328,7 @@ describe('tabs', () => {
 
   it('`activate-tab` event works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 0 }
       },
@@ -392,6 +398,7 @@ describe('tabs', () => {
 
   it('clicking on tab activates the tab, and tab emits click event', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -464,6 +471,7 @@ describe('tabs', () => {
 
   it('pressing space on tab activates the tab, and tab emits click event', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, { props: { value: 0, noKeyNav: true } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -536,6 +544,7 @@ describe('tabs', () => {
 
   it('key nav works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, { props: { value: 0 } }, [
           h(BTab, { props: { title: 'one' } }, 'tab 0'),
@@ -612,6 +621,7 @@ describe('tabs', () => {
 
   it('disabling active tab selects first non-disabled tab', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         disabledTabs: { type: Array, default: () => [] }
       },
@@ -668,6 +678,7 @@ describe('tabs', () => {
 
   it('tab title slots are reactive', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(BTabs, { props: { value: 2 } }, [
           h(BTab, { props: { title: 'original' } }, 'tab content')
@@ -705,6 +716,7 @@ describe('tabs', () => {
   it('"active-nav-item-class" is applied to active nav item', async () => {
     const activeNavItemClass = 'text-success'
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 0 }
       },
@@ -749,6 +761,7 @@ describe('tabs', () => {
   it('"active-tab-class" is applied to active tab', async () => {
     const activeTabClass = 'text-success'
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         activeTab: { type: Number, default: 0 }
       },
@@ -789,6 +802,7 @@ describe('tabs', () => {
 
   it('emits "changed" event when tabs change', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         tabs: {
           type: Array,

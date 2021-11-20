@@ -82,6 +82,11 @@ describe('button-toolbar', () => {
 
     // Test App for keynav
     const App = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        COMPONENT_FUNCTIONAL: 'suppress-warning'
+      },
       render(h) {
         return h(BButtonToolbar, { props: { keyNav: true } }, [
           h(BButtonGroup, [h(BButton, 'a'), h(BButton, 'b')]),

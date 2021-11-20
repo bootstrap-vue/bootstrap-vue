@@ -8,6 +8,7 @@ Vue.use(ToastPlugin)
 describe('$bvToast', () => {
   it('$bvToast.show() and $bvToast.hide() works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(
           'b-toast',
@@ -69,6 +70,7 @@ describe('$bvToast', () => {
 
   it('$bvModal.toast() works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', 'app')
       }

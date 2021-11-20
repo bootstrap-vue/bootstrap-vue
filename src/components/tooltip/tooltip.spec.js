@@ -6,6 +6,7 @@ const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
 
 // Our test application
 const App = {
+  compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
   props: [
     'target',
     'triggers',

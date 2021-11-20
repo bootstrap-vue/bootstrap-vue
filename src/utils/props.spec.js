@@ -91,6 +91,7 @@ describe('utils/props', () => {
       [NAME]: { text: 'bar' }
     }
     const ConfigurableComponent = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       name: NAME,
       props: makePropsConfigurable(props, NAME),
       render(h) {

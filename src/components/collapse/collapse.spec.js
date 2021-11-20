@@ -371,6 +371,7 @@ describe('collapse', () => {
 
   it('should close when clicking on contained nav-link prop is-nav is set', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)
@@ -421,6 +422,7 @@ describe('collapse', () => {
 
   it('should not close when clicking on nav-link prop is-nav is set & collapse is display block important', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', [
           // JSDOM supports `getComputedStyle()` when using stylesheets (non responsive)

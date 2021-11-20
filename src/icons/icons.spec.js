@@ -184,6 +184,7 @@ describe('icons', () => {
 
   it('b-icon with custom icon works', async () => {
     const ParentComponent = {
+      compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: 'suppress-warning' },
       name: 'ParentComponent',
       components: {
         // For testing user defined Icons

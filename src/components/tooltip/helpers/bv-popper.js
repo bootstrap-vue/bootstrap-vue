@@ -84,6 +84,12 @@ export const props = {
 // @vue/component
 export const BVPopper = /*#__PURE__*/ Vue.extend({
   name: NAME_POPPER,
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_DESTROY: 'suppress-warning',
+    INSTANCE_LISTENERS: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [useParentMixin],
   props,
   data() {

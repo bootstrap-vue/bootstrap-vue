@@ -517,6 +517,7 @@ describe('dropdown', () => {
 
   it('dropdown opens and closes', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       props: {
         disabled: { type: Boolean, default: false }
       },
@@ -787,6 +788,7 @@ describe('dropdown', () => {
 
   it('Keyboard navigation works when open', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', [
           h(BDropdown, { props: { id: 'test' } }, [

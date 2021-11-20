@@ -650,6 +650,7 @@ describe('form-tags', () => {
 
   it('form native reset event triggers reset', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('form', [
           h(BFormTags, {

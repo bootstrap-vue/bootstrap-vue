@@ -295,6 +295,7 @@ describe('form-radio-group', () => {
 
   it('button mode button-variant works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h(
           BFormRadioGroup,

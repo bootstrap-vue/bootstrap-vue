@@ -283,6 +283,7 @@ describe('b-link', () => {
     it('should emit "bv::link::clicked" on $root when clicked on', async () => {
       const spy = jest.fn()
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
@@ -301,6 +302,7 @@ describe('b-link', () => {
     it('should not emit "bv::link::clicked" on $root when clicked on when disabled', async () => {
       const spy = jest.fn()
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
@@ -319,6 +321,7 @@ describe('b-link', () => {
     it('should emit "clicked::link" on $root when clicked on', async () => {
       const spy = jest.fn()
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo' } }, 'link')])
         }
@@ -337,6 +340,7 @@ describe('b-link', () => {
     it('should not emit "clicked::link" on $root when clicked on when disabled', async () => {
       const spy = jest.fn()
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [h(BLink, { props: { href: '/foo', disabled: true } }, 'link')])
         }
@@ -369,6 +373,7 @@ describe('b-link', () => {
       // Fake Gridsome `<g-link>` component
       const GLink = {
         name: 'GLink',
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         props: {
           to: {
             type: [String, Object],
@@ -385,6 +390,11 @@ describe('b-link', () => {
       localVue.component('GLink', GLink)
 
       const App = {
+        compatConfig: {
+          MODE: 3,
+          RENDER_FUNCTION: 'suppress-warning',
+          COMPONENT_FUNCTIONAL: 'suppress-warning'
+        },
         router,
         components: { BLink },
         render(h) {

@@ -7,6 +7,7 @@ import { attrsMixin } from './attrs'
 describe('mixins > attrs', () => {
   it('works', async () => {
     const BTest = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       name: 'BTest',
       mixins: [attrsMixin],
       inheritAttrs: false,
@@ -15,6 +16,7 @@ describe('mixins > attrs', () => {
       }
     }
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       name: 'App',
       props: {
         attrs: {
@@ -98,6 +100,11 @@ describe('mixins > attrs', () => {
 
     const Input1 = {
       props: ['value'],
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        COMPONENT_V_MODEL: 'suppress-warning'
+      },
       render(h) {
         input1RenderCount++
         return h('input', {
@@ -109,6 +116,11 @@ describe('mixins > attrs', () => {
     }
     const Input2 = {
       props: ['value'],
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        COMPONENT_V_MODEL: 'suppress-warning'
+      },
       mixins: [attrsMixin],
       render(h) {
         input2RenderCount++

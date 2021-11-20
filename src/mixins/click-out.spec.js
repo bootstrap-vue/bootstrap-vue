@@ -6,6 +6,11 @@ describe('utils/click-out', () => {
   it('works', async () => {
     let count = 0
     const App = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       mixins: [clickOutMixin],
       // `listenForClickOut` comes from the mixin data
       created() {

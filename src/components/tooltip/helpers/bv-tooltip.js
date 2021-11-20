@@ -142,6 +142,12 @@ const templateData = {
 // @vue/component
 export const BVTooltip = /*#__PURE__*/ Vue.extend({
   name: NAME_TOOLTIP_HELPER,
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_DESTROY: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning',
+    INSTANCE_EVENT_EMITTER: 'suppress-warning'
+  },
   mixins: [listenOnRootMixin, useParentMixin],
   data() {
     return {

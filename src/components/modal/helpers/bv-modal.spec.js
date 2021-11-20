@@ -8,6 +8,7 @@ Vue.use(ModalPlugin)
 describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('b-modal', { props: { static: true, id: 'test1' } }, 'content')
       }
@@ -55,6 +56,7 @@ describe('$bvModal', () => {
 
   it('$bvModal.msgBoxOk() works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', 'app')
       }
@@ -116,6 +118,7 @@ describe('$bvModal', () => {
 
   it('$bvModal.msgBoxConfirm() works', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       render(h) {
         return h('div', 'app')
       }

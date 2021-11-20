@@ -1043,6 +1043,7 @@ describe('modal', () => {
   describe('focus management', () => {
     it('returns focus to previous active element when return focus not set and not using v-b-toggle', async () => {
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
@@ -1116,6 +1117,7 @@ describe('modal', () => {
 
     it('returns focus to element specified in toggle() method', async () => {
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [
             h('button', { class: 'trigger', attrs: { id: 'trigger', type: 'button' } }, 'trigger'),
@@ -1201,6 +1203,7 @@ describe('modal', () => {
 
     it('if focus leaves modal it returns to modal', async () => {
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button', type: 'button' } }, 'Button'),
@@ -1282,6 +1285,7 @@ describe('modal', () => {
 
     it('it allows focus for elements when "no-enforce-focus" enabled', async () => {
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),
@@ -1350,6 +1354,7 @@ describe('modal', () => {
 
     it('it allows focus for elements in "ignore-enforce-focus-selector" prop', async () => {
       const App = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', [
             h('button', { attrs: { id: 'button1', type: 'button' } }, 'Button 1'),

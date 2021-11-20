@@ -4,6 +4,7 @@ import { BPopover } from './popover'
 
 // Our test application definition
 const App = {
+  compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
   props: [
     'triggers',
     'show',

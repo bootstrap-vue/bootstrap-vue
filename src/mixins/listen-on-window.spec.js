@@ -8,6 +8,11 @@ describe('mixins/listen-on-window', () => {
     const spyScroll = jest.fn()
 
     const TestComponent = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       mixins: [listenOnWindowMixin],
       props: {
         offResizeOne: {
@@ -33,6 +38,7 @@ describe('mixins/listen-on-window', () => {
     }
 
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       components: { TestComponent },
       props: {
         offResizeOne: {

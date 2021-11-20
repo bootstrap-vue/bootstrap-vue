@@ -10,7 +10,11 @@ import { BVTooltip } from '../../tooltip/helpers/bv-tooltip'
 import { BVPopoverTemplate } from './bv-popover-template'
 
 // @vue/component
-export const BVPopover = /*#__PURE__*/ Vue.extend({
+export const BVPopover = /*#__PURE__*/ defineComponent({
+  compatConfig: {
+    INSTANCE_LISTENERS: 'suppress-warning',
+    INSTANCE_EVENT_EMITTER: 'suppress-warning'
+  },
   name: NAME_POPOVER_HELPER,
   extends: BVTooltip,
   computed: {

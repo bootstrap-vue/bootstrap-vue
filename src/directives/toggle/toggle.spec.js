@@ -15,6 +15,12 @@ describe('v-b-toggle directive', () => {
   it('works on buttons', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -61,6 +67,12 @@ describe('v-b-toggle directive', () => {
   it('works on passing ID as directive value', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -105,6 +117,12 @@ describe('v-b-toggle directive', () => {
   it('works on passing ID as directive argument', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -149,6 +167,12 @@ describe('v-b-toggle directive', () => {
   it('works on passing ID as href value on links', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -195,6 +219,12 @@ describe('v-b-toggle directive', () => {
   it('works with multiple targets, and updates when targets change', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -275,6 +305,12 @@ describe('v-b-toggle directive', () => {
   it('works on non-buttons', async () => {
     const spy = jest.fn()
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -369,6 +405,12 @@ describe('v-b-toggle directive', () => {
 
   it('responds to state update events', async () => {
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },
@@ -414,6 +456,12 @@ describe('v-b-toggle directive', () => {
 
   it('responds to private sync state update events', async () => {
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning',
+        INSTANCE_EVENT_EMITTER: 'suppress-warning',
+        OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+      },
       directives: {
         bToggle: VBToggle
       },

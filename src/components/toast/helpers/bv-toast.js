@@ -67,6 +67,10 @@ const plugin = Vue => {
   // @vue/component
   const BVToastPop = Vue.extend({
     name: NAME_TOAST_POP,
+    compatConfig: {
+      MODE: 3,
+      INSTANCE_DESTROY: 'suppress-warning'
+    },
     extends: BToast,
     mixins: [useParentMixin],
     destroyed() {

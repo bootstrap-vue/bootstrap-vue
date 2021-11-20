@@ -107,6 +107,11 @@ describe('dropdown-item', () => {
       })
 
       const App = {
+        compatConfig: {
+          MODE: 3,
+          RENDER_FUNCTION: 'suppress-warning',
+          COMPONENT_FUNCTIONAL: 'suppress-warning'
+        },
         router,
         render(h) {
           return h('ul', [

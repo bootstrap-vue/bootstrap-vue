@@ -44,6 +44,10 @@ describe('v-b-tooltip directive', () => {
     jest.useFakeTimers()
 
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning'
+      },
       directives: {
         bTooltip: VBTooltip
       },
@@ -79,6 +83,10 @@ describe('v-b-tooltip directive', () => {
     jest.useFakeTimers()
 
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning'
+      },
       directives: {
         bTooltip: VBTooltip
       },
@@ -131,6 +139,10 @@ describe('v-b-tooltip directive', () => {
     jest.useFakeTimers()
 
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning'
+      },
       directives: {
         bTooltip: VBTooltip
       },
@@ -178,6 +190,10 @@ describe('v-b-tooltip directive', () => {
     jest.useFakeTimers()
 
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning'
+      },
       directives: {
         bTooltip: VBTooltip
       },

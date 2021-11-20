@@ -6,6 +6,10 @@ describe('v-b-hover directive', () => {
     let hovered1 = false
     let hovered2 = false
     const App = {
+      compatConfig: {
+        MODE: 3,
+        CUSTOM_DIR: 'suppress-warning'
+      },
       data() {
         return {
           text: 'FOO',
