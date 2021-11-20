@@ -66,6 +66,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BFormTimepicker = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TIMEPICKER,
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning'
+  },
   mixins: [idMixin, modelMixin],
   props,
   data() {

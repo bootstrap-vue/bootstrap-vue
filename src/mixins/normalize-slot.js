@@ -5,6 +5,10 @@ import { concat } from '../utils/array'
 
 // @vue/component
 export const normalizeSlotMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning'
+  },
   methods: {
     // Returns `true` if the either a `$scopedSlot` or `$slot` exists with the specified name
     // `name` can be a string name or an array of names

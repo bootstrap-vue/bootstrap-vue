@@ -219,6 +219,12 @@ export const props = makePropsConfigurable(
 
 // @vue/component
 export const BTabs = /*#__PURE__*/ Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    V_FOR_REF: 'suppress-warning',
+    WATCH_ARRAY: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   name: NAME_TABS,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {

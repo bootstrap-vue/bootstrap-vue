@@ -13,6 +13,10 @@ const PROP = '$_documentListeners'
 
 // @vue/component
 export const listenOnDocumentMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   created() {
     // Define non-reactive property
     // Object of arrays, keyed by event name,

@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { Vue, isVue3 } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_HOVERED,
@@ -33,6 +33,7 @@ export const props = {
 
 // @vue/component
 export const tbodyRowMixin = Vue.extend({
+  compatConfig: { MODE: 3, INSTANCE_LISTENERS: 'suppress-warning' },
   mixins: [useParentMixin],
   props,
   methods: {
@@ -78,7 +79,11 @@ export const tbodyRowMixin = Vue.extend({
       // Returns a function to toggle a row's details slot
       return () => {
         if (hasDetailsSlot) {
-          this.$set(item, FIELD_KEY_SHOW_DETAILS, !item[FIELD_KEY_SHOW_DETAILS])
+          if (isVue3) {
+            item[FIELD_KEY_SHOW_DETAILS] = !item[FIELD_KEY_SHOW_DETAILS]
+          } else {
+            this.$set(item, FIELD_KEY_SHOW_DETAILS, !item[FIELD_KEY_SHOW_DETAILS])
+          }
         }
       }
     },

@@ -143,6 +143,10 @@ const props = makePropsConfigurable(
 // @vue/component
 export const BFormTags = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_TAGS,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [
     listenersMixin,
     idMixin,

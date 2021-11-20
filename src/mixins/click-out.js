@@ -5,6 +5,10 @@ import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
 export const clickOutMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   data() {
     return {
       listenForClickOut: false

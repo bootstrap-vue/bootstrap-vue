@@ -70,6 +70,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BAlert = /*#__PURE__*/ Vue.extend({
   name: NAME_ALERT,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [modelMixin, normalizeSlotMixin],
   props,
   data() {

@@ -81,6 +81,11 @@ export const props = {
 // @vue/component
 const BVTransporterVue2 = /*#__PURE__*/ Vue.extend({
   name: NAME_TRANSPORTER,
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [normalizeSlotMixin],
   props,
   watch: {
@@ -131,12 +136,12 @@ const BVTransporterVue2 = /*#__PURE__*/ Vue.extend({
           const $el = document.createElement('div')
           $container.appendChild($el)
           this.$_target = createNewChildComponent(this, BVTransporterTarget, {
-            el: $el,
             propsData: {
               // Initial nodes to be rendered
               nodes: concat(this.normalizeSlot())
             }
           })
+          this.$_target.$mount($el)
         }
       }
     },

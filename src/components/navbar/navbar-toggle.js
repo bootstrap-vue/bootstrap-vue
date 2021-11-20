@@ -32,6 +32,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BNavbarToggle = /*#__PURE__*/ Vue.extend({
   name: NAME_NAVBAR_TOGGLE,
+  compatConfig: {
+    MODE: 3,
+    CUSTOM_DIR: 'suppress-warning'
+  },
   directives: { VBToggle },
   mixins: [listenOnRootMixin, normalizeSlotMixin],
   props,

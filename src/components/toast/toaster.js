@@ -14,6 +14,10 @@ import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 
 // @vue/component
 export const DefaultTransition = /*#__PURE__*/ Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [normalizeSlotMixin],
   data() {
     return {

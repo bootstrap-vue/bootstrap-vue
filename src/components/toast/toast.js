@@ -88,6 +88,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BToast = /*#__PURE__*/ Vue.extend({
   name: NAME_TOAST,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [
     attrsMixin,
     idMixin,

@@ -37,6 +37,9 @@ export const props = {
 
 // @vue/component
 export const providerMixin = Vue.extend({
+  compatConfig: {
+    INSTANCE_LISTENERS: 'suppress-warning'
+  },
   mixins: [listenOnRootMixin],
   props,
   computed: {

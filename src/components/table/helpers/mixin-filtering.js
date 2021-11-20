@@ -41,6 +41,10 @@ export const props = {
 
 // @vue/component
 export const filteringMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   props,
   data() {
     return {

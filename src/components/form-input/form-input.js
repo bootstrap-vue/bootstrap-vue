@@ -63,6 +63,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BFormInput = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_INPUT,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   // Mixin order is important!
   mixins: [
     listenersMixin,

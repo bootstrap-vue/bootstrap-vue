@@ -178,6 +178,10 @@ const props = makePropsConfigurable(
 // @vue/component
 export const BFormFile = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_FILE,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [
     attrsMixin,
     idMixin,

@@ -41,6 +41,11 @@ export const props = sortKeys({
 
 // @vue/component
 export const tbodyMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    V_FOR_REF: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [tbodyRowMixin],
   props,
   beforeDestroy() {

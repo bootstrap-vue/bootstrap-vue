@@ -182,6 +182,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BCalendar = Vue.extend({
   name: NAME_CALENDAR,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
   props,

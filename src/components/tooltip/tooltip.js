@@ -84,6 +84,10 @@ export const props = makePropsConfigurable(
 
 // @vue/component
 export const BTooltip = /*#__PURE__*/ Vue.extend({
+  compatConfig: {
+    INSTANCE_LISTENERS: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   name: NAME_TOOLTIP,
   mixins: [normalizeSlotMixin, useParentMixin],
   inheritAttrs: false,

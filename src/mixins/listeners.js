@@ -4,6 +4,10 @@ import { Vue, isVue3 } from '../vue'
 const listenersMixinVue2 = makePropCacheMixin('$listeners', 'bvListeners')
 
 const listenersMixinVue3 = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_LISTENERS: 'suppress-warning'
+  },
   data() {
     return {
       bvListeners: {}

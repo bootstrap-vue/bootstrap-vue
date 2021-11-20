@@ -108,6 +108,11 @@ export const props = makePropsConfigurable(
 
 // @vue/component
 export const BTime = /*#__PURE__*/ Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    V_FOR_REF: 'suppress-warning',
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   name: NAME_TIME,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   props,

@@ -89,6 +89,12 @@ export const generateProps = () =>
 // immediately, which we do not want to happen
 // @vue/component
 export const BFormGroup = {
+  compatConfig: {
+    MODE: 3,
+    RENDER_FUNCTION: 'suppress-warning',
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning',
+    COMPONENT_FUNCTIONAL: 'suppress-warning'
+  },
   name: NAME_FORM_GROUP,
   mixins: [idMixin, formStateMixin, normalizeSlotMixin],
   get props() {

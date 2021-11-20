@@ -134,6 +134,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BCarousel = /*#__PURE__*/ Vue.extend({
   name: NAME_CAROUSEL,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
     return { getBvCarousel: () => this }

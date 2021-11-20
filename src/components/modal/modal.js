@@ -178,6 +178,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BModal = /*#__PURE__*/ Vue.extend({
   name: NAME_MODAL,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [
     attrsMixin,
     idMixin,

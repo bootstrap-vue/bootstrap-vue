@@ -74,6 +74,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BImg = /*#__PURE__*/ Vue.extend({
   name: NAME_IMG,
+  compatConfig: {
+    MODE: 3,
+    CUSTOM_DIR: 'suppress-warning'
+  },
   functional: true,
   props,
   render(h, { props, data }) {

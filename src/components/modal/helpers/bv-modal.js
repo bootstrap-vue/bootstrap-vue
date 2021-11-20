@@ -71,6 +71,11 @@ const plugin = Vue => {
   // @vue/component
   const BMsgBox = Vue.extend({
     name: NAME_MSG_BOX,
+    compatConfig: {
+      MODE: 3,
+      INSTANCE_DESTROY: 'suppress-warning',
+      INSTANCE_LISTENERS: 'suppress-warning'
+    },
     extends: BModal,
     mixins: [useParentMixin],
     destroyed() {

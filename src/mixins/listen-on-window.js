@@ -13,6 +13,10 @@ const PROP = '$_windowListeners'
 
 // @vue/component
 export const listenOnWindowMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   created() {
     // Define non-reactive property
     // Object of arrays, keyed by event name,

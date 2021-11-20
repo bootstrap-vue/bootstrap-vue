@@ -77,6 +77,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
   name: NAME_FORM_DATEPICKER,
+  compatConfig: {
+    MODE: 3,
+    INSTANCE_SCOPED_SLOTS: 'suppress-warning'
+  },
   mixins: [idMixin, modelMixin],
   props,
   data() {

@@ -10,6 +10,10 @@ const PROP = '$_rootListeners'
 
 // @vue/component
 export const listenOnRootMixin = Vue.extend({
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   computed: {
     bvEventRoot() {
       return getEventRoot(this)

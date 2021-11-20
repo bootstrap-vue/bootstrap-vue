@@ -57,6 +57,10 @@ export const props = makePropsConfigurable(
 // @vue/component
 export const BCollapse = /*#__PURE__*/ Vue.extend({
   name: NAME_COLLAPSE,
+  compatConfig: {
+    MODE: 3,
+    OPTIONS_BEFORE_DESTROY: 'suppress-warning'
+  },
   mixins: [idMixin, modelMixin, normalizeSlotMixin, listenOnRootMixin],
   props,
   data() {
