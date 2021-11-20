@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { EVENT_NAME_DESTROYED } from '../../constants/events'
 import { PROP_TYPE_STRING } from '../../constants/props'
@@ -13,7 +13,7 @@ import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 // --- Helper components ---
 
 // @vue/component
-export const DefaultTransition = /*#__PURE__*/ Vue.extend({
+export const DefaultTransition = /*#__PURE__*/ defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'
@@ -66,7 +66,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BToaster = /*#__PURE__*/ Vue.extend({
+export const BToaster = /*#__PURE__*/ defineComponent({
   name: NAME_TOASTER,
   mixins: [listenOnRootMixin],
   props,

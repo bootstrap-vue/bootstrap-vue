@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { defineComponent } from '../../../vue'
 import { SLOT_NAME_BOTTOM_ROW } from '../../../constants/slots'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -10,7 +10,7 @@ export const props = {}
 // --- Mixin ---
 
 // @vue/component
-export const bottomRowMixin = Vue.extend({
+export const bottomRowMixin = defineComponent({
   props,
   methods: {
     renderBottomRow() {

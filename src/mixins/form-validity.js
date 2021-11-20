@@ -1,7 +1,7 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 
 // @vue/component
-export const formValidityMixin = Vue.extend({
+export const formValidityMixin = defineComponent({
   computed: {
     validity: {
       // Expose validity property

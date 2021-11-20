@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { defineComponent } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import { EVENT_NAME_FILTERED } from '../../../constants/events'
 import {
@@ -40,7 +40,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const filteringMixin = Vue.extend({
+export const filteringMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

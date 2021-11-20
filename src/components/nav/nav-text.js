@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { defineComponent, mergeData } from '../../vue'
 import { NAME_NAV_TEXT } from '../../constants/components'
 
 // --- Props ---
@@ -8,7 +8,7 @@ export const props = {}
 // --- Main component ---
 
 // @vue/component
-export const BNavText = /*#__PURE__*/ Vue.extend({
+export const BNavText = /*#__PURE__*/ defineComponent({
   name: NAME_NAV_TEXT,
   functional: true,
   props,

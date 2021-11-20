@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import { PROP_TYPE_BOOLEAN } from '../constants/props'
 import { makeProp, makePropsConfigurable } from '../utils/props'
 
@@ -14,7 +14,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formCustomMixin = Vue.extend({
+export const formCustomMixin = defineComponent({
   props,
   computed: {
     custom() {

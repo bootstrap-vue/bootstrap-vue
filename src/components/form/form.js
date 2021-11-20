@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { defineComponent, mergeData } from '../../vue'
 import { NAME_FORM } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -18,7 +18,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BForm = /*#__PURE__*/ Vue.extend({
+export const BForm = /*#__PURE__*/ defineComponent({
   name: NAME_FORM,
   functional: true,
   props,

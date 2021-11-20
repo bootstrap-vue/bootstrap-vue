@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import {
@@ -43,7 +43,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTab = /*#__PURE__*/ Vue.extend({
+export const BTab = /*#__PURE__*/ defineComponent({
   name: NAME_TAB,
   compatConfig: {
     MODE: 3,

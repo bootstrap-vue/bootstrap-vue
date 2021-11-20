@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { defineComponent, mergeData } from '../../vue'
 import { NAME_SPINNER } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_LABEL } from '../../constants/slots'
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BSpinner = /*#__PURE__*/ Vue.extend({
+export const BSpinner = /*#__PURE__*/ defineComponent({
   name: NAME_SPINNER,
   compatConfig: {
     MODE: 3,

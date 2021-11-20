@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { defineComponent, mergeData } from '../../vue'
 import { NAME_BUTTON_GROUP } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { pick, sortKeys } from '../../utils/object'
@@ -21,7 +21,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BButtonGroup = /*#__PURE__*/ Vue.extend({
+export const BButtonGroup = /*#__PURE__*/ defineComponent({
   name: NAME_BUTTON_GROUP,
   functional: true,
   props,

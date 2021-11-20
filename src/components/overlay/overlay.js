@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_OVERLAY } from '../../constants/components'
 import { EVENT_NAME_CLICK, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import {
@@ -52,7 +52,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BOverlay = /*#__PURE__*/ Vue.extend({
+export const BOverlay = /*#__PURE__*/ defineComponent({
   name: NAME_OVERLAY,
   mixins: [normalizeSlotMixin],
   props,

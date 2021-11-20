@@ -1,10 +1,10 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { contains } from '../utils/dom'
 import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
-export const clickOutMixin = Vue.extend({
+export const clickOutMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

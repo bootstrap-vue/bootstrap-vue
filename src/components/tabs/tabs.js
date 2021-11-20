@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -67,7 +67,7 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BVTabButton = /*#__PURE__*/ Vue.extend({
+const BVTabButton = /*#__PURE__*/ defineComponent({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
     getBvTabs: {
@@ -218,7 +218,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTabs = /*#__PURE__*/ Vue.extend({
+export const BTabs = /*#__PURE__*/ defineComponent({
   compatConfig: {
     MODE: 3,
     V_FOR_REF: 'suppress-warning',

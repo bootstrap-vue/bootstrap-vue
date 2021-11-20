@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { defineComponent } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import { EVENT_NAME_REFRESH, EVENT_NAME_REFRESHED } from '../../../constants/events'
 import {
@@ -36,7 +36,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const providerMixin = Vue.extend({
+export const providerMixin = defineComponent({
   compatConfig: {
     INSTANCE_LISTENERS: 'suppress-warning'
   },

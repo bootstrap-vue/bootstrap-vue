@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import {
   EVENT_NAME_BLUR,
   EVENT_NAME_CHANGE,
@@ -61,7 +61,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formTextMixin = Vue.extend({
+export const formTextMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

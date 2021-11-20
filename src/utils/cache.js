@@ -1,4 +1,4 @@
-import { Vue, isVue3 } from '../vue'
+import { defineComponent, isVue3 } from '../vue'
 import { cloneDeep } from './clone-deep'
 import { looseEqual } from './loose-equal'
 import { hasOwnProperty, keys } from './object'
@@ -34,7 +34,7 @@ export const makePropWatcher = propName => ({
 })
 
 export const makePropCacheMixin = (propName, proxyPropName) =>
-  Vue.extend({
+  defineComponent({
     data() {
       return { [proxyPropName]: cloneDeep(this[propName]) }
     },

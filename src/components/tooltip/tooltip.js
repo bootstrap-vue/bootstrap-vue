@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import {
   EVENT_NAME_CLOSE,
@@ -83,7 +83,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTooltip = /*#__PURE__*/ Vue.extend({
+export const BTooltip = /*#__PURE__*/ defineComponent({
   compatConfig: {
     INSTANCE_LISTENERS: 'suppress-warning',
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

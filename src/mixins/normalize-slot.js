@@ -1,10 +1,10 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import { SLOT_NAME_DEFAULT } from '../constants/slots'
 import { hasNormalizedSlot, normalizeSlot } from '../utils/normalize-slot'
 import { concat } from '../utils/array'
 
 // @vue/component
-export const normalizeSlotMixin = Vue.extend({
+export const normalizeSlotMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     INSTANCE_SCOPED_SLOTS: 'suppress-warning'

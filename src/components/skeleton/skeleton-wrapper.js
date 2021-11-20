@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { defineComponent, mergeData } from '../../vue'
 import { NAME_SKELETON_WRAPPER } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_LOADING } from '../../constants/slots'
@@ -17,7 +17,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BSkeletonWrapper = /*#__PURE__*/ Vue.extend({
+export const BSkeletonWrapper = /*#__PURE__*/ defineComponent({
   name: NAME_SKELETON_WRAPPER,
   compatConfig: {
     MODE: 3,

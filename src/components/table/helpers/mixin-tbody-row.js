@@ -1,4 +1,4 @@
-import { Vue, isVue3 } from '../../../vue'
+import { defineComponent, isVue3 } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_HOVERED,
@@ -32,7 +32,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const tbodyRowMixin = Vue.extend({
+export const tbodyRowMixin = defineComponent({
   compatConfig: { MODE: 3, INSTANCE_LISTENERS: 'suppress-warning' },
   mixins: [useParentMixin],
   props,

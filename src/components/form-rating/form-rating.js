@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_RATING, NAME_FORM_RATING_STAR } from '../../constants/components'
 import { EVENT_NAME_CHANGE, EVENT_NAME_SELECTED } from '../../constants/events'
 import {
@@ -58,7 +58,7 @@ const clampValue = (value, min, max) => mathMax(mathMin(value, max), min)
 // --- Helper components ---
 
 // @vue/component
-const BVFormRatingStar = Vue.extend({
+const BVFormRatingStar = defineComponent({
   name: NAME_FORM_RATING_STAR,
   mixins: [normalizeSlotMixin],
   props: {
@@ -140,7 +140,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormRating = /*#__PURE__*/ Vue.extend({
+export const BFormRating = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RATING,
   compatConfig: {
     MODE: 3,

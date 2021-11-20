@@ -1,9 +1,9 @@
 import { makePropCacheMixin } from '../utils/cache'
-import { Vue, isVue3 } from '../vue'
+import { defineComponent, isVue3 } from '../vue'
 
 const listenersMixinVue2 = makePropCacheMixin('$listeners', 'bvListeners')
 
-const listenersMixinVue3 = Vue.extend({
+const listenersMixinVue3 = defineComponent({
   compatConfig: {
     MODE: 3,
     INSTANCE_LISTENERS: 'suppress-warning'

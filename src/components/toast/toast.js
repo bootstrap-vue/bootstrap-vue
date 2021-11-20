@@ -1,5 +1,5 @@
 import { Portal, Wormhole } from 'portal-vue'
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent } from '../../vue'
 import { NAME_TOAST, NAME_TOASTER } from '../../constants/components'
 import {
   EVENT_NAME_CHANGE,
@@ -86,7 +86,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BToast = /*#__PURE__*/ Vue.extend({
+export const BToast = /*#__PURE__*/ defineComponent({
   name: NAME_TOAST,
   compatConfig: {
     MODE: 3,

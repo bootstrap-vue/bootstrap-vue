@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_DATEPICKER } from '../../constants/components'
 import { EVENT_NAME_CONTEXT, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_DATE_STRING, PROP_TYPE_STRING } from '../../constants/props'
@@ -75,7 +75,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormDatepicker = /*#__PURE__*/ Vue.extend({
+export const BFormDatepicker = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_DATEPICKER,
   compatConfig: {
     MODE: 3,

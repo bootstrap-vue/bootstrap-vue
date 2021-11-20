@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_RADIO_GROUP } from '../../constants/components'
 import { makePropsConfigurable } from '../../utils/props'
 import {
@@ -13,7 +13,7 @@ export const props = makePropsConfigurable(formRadioCheckGroupProps, NAME_FORM_R
 // --- Main component ---
 
 // @vue/component
-export const BFormRadioGroup = /*#__PURE__*/ Vue.extend({
+export const BFormRadioGroup = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_RADIO_GROUP,
   mixins: [formRadioCheckGroupMixin],
   provide() {

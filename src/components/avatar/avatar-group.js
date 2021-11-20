@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
 import {
   PROP_TYPE_BOOLEAN,
@@ -33,7 +33,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
+export const BAvatarGroup = /*#__PURE__*/ defineComponent({
   name: NAME_AVATAR_GROUP,
   mixins: [normalizeSlotMixin],
   provide() {

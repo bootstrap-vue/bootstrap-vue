@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, defineComponent } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
 import { EVENT_NAME_DISMISSED, EVENT_NAME_DISMISS_COUNT_DOWN } from '../../constants/events'
 import {
@@ -68,7 +68,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAlert = /*#__PURE__*/ Vue.extend({
+export const BAlert = /*#__PURE__*/ defineComponent({
   name: NAME_ALERT,
   compatConfig: {
     MODE: 3,

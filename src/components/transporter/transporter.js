@@ -1,4 +1,4 @@
-import { Vue, isVue3 } from '../../vue'
+import { defineComponent, Vue, isVue3 } from '../../vue'
 import { NAME_TRANSPORTER, NAME_TRANSPORTER_TARGET } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -31,7 +31,7 @@ import { createNewChildComponent } from '../../utils/create-new-child-component'
 // Transporter target used by BVTransporter
 // Supports only a single root element
 // @vue/component
-const BVTransporterTarget = /*#__PURE__*/ Vue.extend({
+const BVTransporterTarget = /*#__PURE__*/ defineComponent({
   // As an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
@@ -79,7 +79,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-const BVTransporterVue2 = /*#__PURE__*/ Vue.extend({
+const BVTransporterVue2 = /*#__PURE__*/ defineComponent({
   name: NAME_TRANSPORTER,
   compatConfig: {
     MODE: 3,
@@ -183,7 +183,7 @@ const BVTransporterVue2 = /*#__PURE__*/ Vue.extend({
   }
 })
 
-const BVTransporterVue3 = /*#__PURE__*/ Vue.extend({
+const BVTransporterVue3 = /*#__PURE__*/ defineComponent({
   name: NAME_TRANSPORTER,
   mixins: [normalizeSlotMixin],
   props,

@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
 import { HAS_TOUCH_SUPPORT } from '../constants/env'
 import {
@@ -84,7 +84,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const dropdownMixin = Vue.extend({
+export const dropdownMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { defineComponent } from '../vue'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../constants/props'
 import { attemptFocus, isVisible, matches, requestAF, select } from '../utils/dom'
 import { makeProp, makePropsConfigurable } from '../utils/props'
@@ -24,7 +24,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formControlMixin = Vue.extend({
+export const formControlMixin = defineComponent({
   props,
   mounted() {
     this.handleAutofocus()

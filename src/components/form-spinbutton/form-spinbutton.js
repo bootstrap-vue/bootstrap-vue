@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
 import { EVENT_NAME_CHANGE } from '../../constants/events'
 import {
@@ -100,7 +100,7 @@ export const props = makePropsConfigurable(
 // --- Main Component ---
 
 // @vue/component
-export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
+export const BFormSpinbutton = /*#__PURE__*/ defineComponent({
   compatConfig: {
     MODE: 3,
     OPTIONS_BEFORE_DESTROY: 'suppress-warning'

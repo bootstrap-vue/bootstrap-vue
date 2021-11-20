@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_COLLAPSE } from '../../constants/components'
 import { CLASS_NAME_SHOW } from '../../constants/classes'
 import { IS_BROWSER } from '../../constants/env'
@@ -55,7 +55,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCollapse = /*#__PURE__*/ Vue.extend({
+export const BCollapse = /*#__PURE__*/ defineComponent({
   name: NAME_COLLAPSE,
   compatConfig: {
     MODE: 3,

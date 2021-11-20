@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
   CALENDAR_GREGORY,
@@ -180,7 +180,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCalendar = Vue.extend({
+export const BCalendar = defineComponent({
   name: NAME_CALENDAR,
   compatConfig: {
     MODE: 3,

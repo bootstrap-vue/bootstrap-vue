@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { IS_BROWSER, HAS_POINTER_EVENT_SUPPORT, HAS_TOUCH_SUPPORT } from '../../constants/env'
 import {
@@ -132,7 +132,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCarousel = /*#__PURE__*/ Vue.extend({
+export const BCarousel = /*#__PURE__*/ defineComponent({
   name: NAME_CAROUSEL,
   compatConfig: {
     MODE: 3,

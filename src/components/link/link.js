@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import {
@@ -75,7 +75,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BLink = /*#__PURE__*/ Vue.extend({
+export const BLink = /*#__PURE__*/ defineComponent({
   name: NAME_LINK,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, listenOnRootMixin, normalizeSlotMixin],

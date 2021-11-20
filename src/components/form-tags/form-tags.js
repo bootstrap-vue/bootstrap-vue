@@ -1,6 +1,6 @@
 // Tagged input form control
 // Based loosely on https://adamwathan.me/renderless-components-in-vuejs/
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_TAGS } from '../../constants/components'
 import {
   EVENT_NAME_BLUR,
@@ -141,7 +141,7 @@ const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormTags = /*#__PURE__*/ Vue.extend({
+export const BFormTags = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_TAGS,
   compatConfig: {
     MODE: 3,

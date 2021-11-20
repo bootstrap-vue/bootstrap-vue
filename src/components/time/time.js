@@ -1,5 +1,5 @@
 // BTime control (not form input control)
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_TIME } from '../../constants/components'
 import { EVENT_NAME_CONTEXT } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
@@ -107,7 +107,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTime = /*#__PURE__*/ Vue.extend({
+export const BTime = /*#__PURE__*/ defineComponent({
   compatConfig: {
     MODE: 3,
     V_FOR_REF: 'suppress-warning',

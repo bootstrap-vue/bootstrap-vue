@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_INPUT } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
@@ -61,7 +61,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormInput = /*#__PURE__*/ Vue.extend({
+export const BFormInput = /*#__PURE__*/ defineComponent({
   name: NAME_FORM_INPUT,
   compatConfig: {
     MODE: 3,

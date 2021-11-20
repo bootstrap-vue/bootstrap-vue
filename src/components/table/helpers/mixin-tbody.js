@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { defineComponent } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_CONTEXTMENU,
@@ -40,7 +40,7 @@ export const props = sortKeys({
 // --- Mixin ---
 
 // @vue/component
-export const tbodyMixin = Vue.extend({
+export const tbodyMixin = defineComponent({
   compatConfig: {
     MODE: 3,
     V_FOR_REF: 'suppress-warning',

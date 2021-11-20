@@ -1,7 +1,7 @@
 //
 // Private component used by `b-form-datepicker` and `b-form-timepicker`
 //
-import { Vue } from '../../vue'
+import { defineComponent } from '../../vue'
 import { NAME_FORM_BUTTON_LABEL_CONTROL } from '../../constants/components'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
@@ -54,7 +54,7 @@ export const props = sortKeys({
 // --- Main component ---
 
 // @vue/component
-export const BVFormBtnLabelControl = /*#__PURE__*/ Vue.extend({
+export const BVFormBtnLabelControl = /*#__PURE__*/ defineComponent({
   compatConfig: {
     MODE: 3,
     CUSTOM_DIR: 'suppress-warning'

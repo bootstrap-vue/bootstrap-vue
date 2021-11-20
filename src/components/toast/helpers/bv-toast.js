@@ -30,6 +30,7 @@ import { warn, warnNotClient } from '../../../utils/warn'
 import { createNewChildComponent } from '../../../utils/create-new-child-component'
 import { getEventRoot } from '../../../utils/get-event-root'
 import { BToast, props as toastProps } from '../toast'
+import { defineComponent } from '../../../vue'
 
 // --- Constants ---
 
@@ -65,7 +66,7 @@ const plugin = Vue => {
   // Create a private sub-component constructor that
   // extends BToast and self-destructs after hidden
   // @vue/component
-  const BVToastPop = Vue.extend({
+  const BVToastPop = defineComponent({
     name: NAME_TOAST_POP,
     compatConfig: {
       MODE: 3,

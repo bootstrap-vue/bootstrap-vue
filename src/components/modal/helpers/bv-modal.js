@@ -26,6 +26,7 @@ import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
 import { createNewChildComponent } from '../../../utils/create-new-child-component'
 import { getEventRoot } from '../../../utils/get-event-root'
 import { BModal, props as modalProps } from '../modal'
+import { defineComponent } from '../../../vue'
 
 // --- Constants ---
 
@@ -69,7 +70,7 @@ const plugin = Vue => {
   // Create a private sub-component that extends BModal
   // which self-destructs after hidden
   // @vue/component
-  const BMsgBox = Vue.extend({
+  const BMsgBox = defineComponent({
     name: NAME_MSG_BOX,
     compatConfig: {
       MODE: 3,
