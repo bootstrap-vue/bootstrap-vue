@@ -70,10 +70,13 @@ export const BVTransition = /*#__PURE__*/ Vue.extend({
       // We always need `css` true
       css: true
     }
+
+    const dataCopy = { ...data }
+    delete dataCopy.props
     return h(
       'transition',
       // Any transition event listeners will get merged here
-      mergeData(data, { props: transProps }),
+      mergeData(dataCopy, { props: transProps }),
       children
     )
   }
