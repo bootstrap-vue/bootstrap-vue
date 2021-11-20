@@ -42,70 +42,105 @@ if (isVue3) {
       el._assign = () => {}
     }
   }
+
+  function gatherCompatConfig(definition) {
+    const compatConfig = { ...(definition.compatConfig || {}) }
+    const mixinsCompatConfigDefinitions = (definition.mixins || []).map(
+      mixin => mixin.options.compatConfig || {}
+    )
+    const extendsCompatDefinition = definition.extends
+      ? gatherCompatConfig(definition.extends.options)
+      : {}
+
+    return Object.assign(
+      {},
+      ...mixinsCompatConfigDefinitions,
+      extendsCompatDefinition,
+      compatConfig
+    )
+  }
+
   Vue.extend = function(definition) {
-    if (typeof definition === 'object' && definition.render && !definition.__alreadyPatched) {
+    if (typeof definition === 'object' && !definition.__alreadyPatched) {
+      definition.compatConfig = {
+        MODE: 3,
+
+        // required for all files
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_ATTRS_CLASS_STYLE: 'suppress-warning',
+        ATTR_FALSE_VALUE: 'suppress-warning',
+        COMPONENT_FUNCTIONAL: 'suppress-warning',
+
+        // required for patched-compat function below to work
+        INSTANCE_LISTENERS: 'suppress-warning',
+
+        ...gatherCompatConfig(definition)
+      }
+
       const originalRender = definition.render
       definition.__alreadyPatched = true
-      definition.render = function(h) {
-        const patchedH = function(tag, dataObjOrChildren, ...rest) {
-          const isTag = typeof tag === 'string' && !KNOWN_COMPONENTS.includes(tag)
-          const isSecondArgumentDataObject =
-            dataObjOrChildren &&
-            typeof dataObjOrChildren === 'object' &&
-            !Array.isArray(dataObjOrChildren)
+      if (originalRender) {
+        definition.render = function(h) {
+          const patchedH = function(tag, dataObjOrChildren, ...rest) {
+            const isTag = typeof tag === 'string' && !KNOWN_COMPONENTS.includes(tag)
+            const isSecondArgumentDataObject =
+              dataObjOrChildren &&
+              typeof dataObjOrChildren === 'object' &&
+              !Array.isArray(dataObjOrChildren)
 
-          if (!isSecondArgumentDataObject) {
-            return h(tag, dataObjOrChildren, ...rest)
-          }
-
-          const { attrs, props, ...restData } = dataObjOrChildren
-          const normalizedData = {
-            ...restData,
-            attrs,
-            props: isTag ? {} : props
-          }
-          if (tag === 'router-link' && !normalizedData.slots && !normalizedData.scopedSlots) {
-            // terrible workaround to fix router-link rendering with compat vue-router
-            normalizedData.scopedSlots = { $hasNormal: () => {} }
-          }
-          return h(tag, normalizedData, ...rest)
-        }
-
-        if (definition.functional) {
-          const ctx = arguments[1]
-          const patchedCtx = { ...ctx }
-          patchedCtx.data = {
-            attrs: { ...(ctx.data.attrs || {}) },
-            props: { ...(ctx.data.props || {}) }
-          }
-          Object.keys(ctx.data || {}).forEach(key => {
-            if (ALLOWED_FIELDS_IN_DATA.includes(key)) {
-              patchedCtx.data[key] = ctx.data[key]
-            } else if (key in ctx.props) {
-              patchedCtx.data.props[key] = ctx.data[key]
-            } else if (!key.startsWith('on')) {
-              patchedCtx.data.attrs[key] = ctx.data[key]
+            if (!isSecondArgumentDataObject) {
+              return h(tag, dataObjOrChildren, ...rest)
             }
-          })
 
-          const IGNORED_CHILDREN_KEYS = ['_ctx']
-          const children = ctx.children?.default?.() || ctx.children
-
-          if (
-            children &&
-            Object.keys(patchedCtx.children).filter(k => !IGNORED_CHILDREN_KEYS.includes(k))
-              .length === 0
-          ) {
-            delete patchedCtx.children
-          } else {
-            patchedCtx.children = children
+            const { attrs, props, ...restData } = dataObjOrChildren
+            const normalizedData = {
+              ...restData,
+              attrs,
+              props: isTag ? {} : props
+            }
+            if (tag === 'router-link' && !normalizedData.slots && !normalizedData.scopedSlots) {
+              // terrible workaround to fix router-link rendering with compat vue-router
+              normalizedData.scopedSlots = { $hasNormal: () => {} }
+            }
+            return h(tag, normalizedData, ...rest)
           }
 
-          patchedCtx.data.on = ctx.listeners
-          return originalRender.call(this, patchedH, patchedCtx)
-        }
+          if (definition.functional) {
+            const ctx = arguments[1]
+            const patchedCtx = { ...ctx }
+            patchedCtx.data = {
+              attrs: { ...(ctx.data.attrs || {}) },
+              props: { ...(ctx.data.props || {}) }
+            }
+            Object.keys(ctx.data || {}).forEach(key => {
+              if (ALLOWED_FIELDS_IN_DATA.includes(key)) {
+                patchedCtx.data[key] = ctx.data[key]
+              } else if (key in ctx.props) {
+                patchedCtx.data.props[key] = ctx.data[key]
+              } else if (!key.startsWith('on')) {
+                patchedCtx.data.attrs[key] = ctx.data[key]
+              }
+            })
 
-        return originalRender.call(this, patchedH)
+            const IGNORED_CHILDREN_KEYS = ['_ctx']
+            const children = ctx.children?.default?.() || ctx.children
+
+            if (
+              children &&
+              Object.keys(patchedCtx.children).filter(k => !IGNORED_CHILDREN_KEYS.includes(k))
+                .length === 0
+            ) {
+              delete patchedCtx.children
+            } else {
+              patchedCtx.children = children
+            }
+
+            patchedCtx.data.on = ctx.listeners
+            return originalRender.call(this, patchedH, patchedCtx)
+          }
+
+          return originalRender.call(this, patchedH)
+        }
       }
     }
     return originalExtend.call(this, definition)
