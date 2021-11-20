@@ -408,6 +408,7 @@ describe('pagination-nav', () => {
 
   it('clicking buttons updates the v-model', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       methods: {
         onPageClick(bvEvent, page) {
           // Prevent 3rd page from being selected
@@ -543,6 +544,7 @@ describe('pagination-nav', () => {
 
     it('works with $router to detect path and linkGen returns location object', async () => {
       const App = {
+        compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: 'suppress-warning' },
         components: { BPaginationNav },
         methods: {
           linkGen(page) {
@@ -561,6 +563,7 @@ describe('pagination-nav', () => {
       }
       // Our router view component
       const FooRoute = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
@@ -604,6 +607,7 @@ describe('pagination-nav', () => {
 
     it('works with $router to detect path and use-router set and linkGen returns string', async () => {
       const App = {
+        compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: 'suppress-warning' },
         components: { BPaginationNav },
         methods: {
           linkGen(page) {
@@ -622,6 +626,7 @@ describe('pagination-nav', () => {
       }
       // Our router view component
       const FooRoute = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
