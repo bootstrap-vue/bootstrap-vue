@@ -126,16 +126,13 @@ describe('skeleton-img', () => {
 
   it('accepts custom classes', async () => {
     const wrapper = mount(BSkeletonImg, {
-      propsData: {
-        noAspect: true
-      },
       context: {
         class: ['foobar']
       }
     })
 
-    expect(wrapper.classes()).toContain('b-skeleton-img')
-    expect(wrapper.classes()).toContain('foobar')
+    expect(wrapper.find('.b-aspect-content > .b-skeleton-img').exists()).toBe(true)
+    expect(wrapper.find('.b-aspect-content > .b-skeleton-img').classes()).toContain('foobar')
 
     wrapper.destroy()
   })

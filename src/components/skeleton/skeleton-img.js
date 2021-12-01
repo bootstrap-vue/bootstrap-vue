@@ -44,6 +44,6 @@ export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
       })
     )
 
-    return props.noAspect ? $img : h(BAspect, mergeData(data, { props: { aspect } }), [$img])
+    return props.noAspect ? $img : h(BAspect, { props: { aspect } }, [$img])
   }
 })
