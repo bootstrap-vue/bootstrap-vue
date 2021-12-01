@@ -123,4 +123,20 @@ describe('skeleton-img', () => {
 
     wrapper.destroy()
   })
+
+  it('accepts custom classes', async () => {
+    const wrapper = mount(BSkeletonImg, {
+      propsData: {
+        noAspect: true
+      },
+      context: {
+        class: ['foobar']
+      }
+    })
+
+    expect(wrapper.classes()).toContain('b-skeleton-img')
+    expect(wrapper.classes()).toContain('foobar')
+
+    wrapper.destroy()
+  })
 })
