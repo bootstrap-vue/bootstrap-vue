@@ -40,7 +40,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     toggleId() {
       return this.safeId('_BV_toggle_')
     },
-    menuId(){
+    menuId() {
       return this.safeId('_BV_toggle_menu_')
     },
     dropdownClasses() {
