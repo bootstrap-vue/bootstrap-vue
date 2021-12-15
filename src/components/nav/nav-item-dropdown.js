@@ -40,6 +40,9 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     toggleId() {
       return this.safeId('_BV_toggle_')
     },
+    menuId() {
+      return this.safeId('_BV_toggle_menu_')
+    },
     dropdownClasses() {
       return [this.directionClass, this.boundaryClass, { show: this.visible }]
     },
@@ -57,7 +60,7 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
     }
   },
   render(h) {
-    const { toggleId, visible, hide } = this
+    const { toggleId, menuId, visible, hide } = this
 
     const $toggle = h(
       BLink,
@@ -72,7 +75,8 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
           id: toggleId,
           role: 'button',
           'aria-haspopup': 'true',
-          'aria-expanded': visible ? 'true' : 'false'
+          'aria-expanded': visible ? 'true' : 'false',
+          'aria-controls': menuId
         },
         on: {
           mousedown: this.onMousedown,
@@ -95,7 +99,8 @@ export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
         class: this.menuClasses,
         attrs: {
           tabindex: '-1',
-          'aria-labelledby': toggleId
+          'aria-labelledby': toggleId,
+          id: menuId
         },
         on: {
           keydown: this.onKeydown // Handle UP, DOWN and ESC
