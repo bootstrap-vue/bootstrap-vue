@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { createContainer, waitNT, waitRAF, wait } from '../../../tests/utils'
 import { BToast } from './toast'
 
 describe('b-toast', () => {
@@ -27,10 +27,7 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.classes()).toContain('b-toast')
@@ -111,12 +108,7 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
@@ -126,11 +118,7 @@ describe('b-toast', () => {
     expect(wrapper.emitted('hidden')).toBeUndefined()
 
     await wrapper.setProps({ visible: true })
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.tagName).toBe('DIV')
 
@@ -142,11 +130,7 @@ describe('b-toast', () => {
     expect(wrapper.emitted('shown').length).toBe(1)
 
     await wrapper.setProps({ visible: false })
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
@@ -178,13 +162,7 @@ describe('b-toast', () => {
     })
 
     expect(wrapper.vm).toBeDefined()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
+    await wait(400)
 
     expect(wrapper.element.tagName).toBe('DIV')
 
@@ -198,14 +176,7 @@ describe('b-toast', () => {
 
     $body.element.focus()
     await $body.trigger('click')
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
+    await wait(400)
 
     expect(wrapper.element.nodeType).toBe(Node.COMMENT_NODE)
 
@@ -277,14 +248,7 @@ describe('b-toast', () => {
 
     expect(wrapper.vm).toBeDefined()
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.$_dismissTimer).not.toEqual(null)
@@ -319,14 +283,7 @@ describe('b-toast', () => {
 
     expect(wrapper.vm).toBeDefined()
 
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
-    await waitNT(wrapper.vm)
-    await waitRAF()
+    await wait(400)
 
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm.timer).not.toEqual(null)
@@ -340,6 +297,110 @@ describe('b-toast', () => {
     await wrapper.trigger('mouseleave')
     await waitRAF()
     expect(wrapper.vm.timer).not.toEqual(null)
+
+    wrapper.destroy()
+  })
+
+  it('should hide if called during appear transition', async () => {
+    const wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: false,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    await wait(400)
+    wrapper.vm.show()
+    wrapper.vm.hide()
+    expect(wrapper.vm.pendingActions.length).toBe(1)
+
+    await wait(400)
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('should show if called during hide transition', async () => {
+    const wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: true,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+
+    await wait(400)
+    wrapper.vm.hide()
+    wrapper.vm.show()
+    expect(wrapper.vm.pendingActions.length).toBe(1)
+
+    await wait(400)
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
+  })
+
+  it('should clear pending actions while transitioning in rapid succession', async () => {
+    let wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: true,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    await wait(400)
+    wrapper.vm.hide()
+    wrapper.vm.show()
+    wrapper.vm.hide()
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.pendingActions.length).toBe(0)
+
+    wrapper.destroy()
+
+    wrapper = mount(BToast, {
+      attachTo: createContainer(),
+      propsData: {
+        static: true,
+        noAutoHide: true,
+        visible: false,
+        title: 'title',
+        href: '#foobar'
+      },
+      slots: {
+        default: 'content'
+      }
+    })
+
+    await wait(400)
+    wrapper.vm.show()
+    wrapper.vm.hide()
+    wrapper.vm.show()
+    await waitNT(wrapper.vm)
+    expect(wrapper.vm.pendingActions.length).toBe(0)
 
     wrapper.destroy()
   })
