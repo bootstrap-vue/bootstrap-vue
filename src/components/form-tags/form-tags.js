@@ -648,7 +648,7 @@ export const BFormTags = /*#__PURE__*/ Vue.extend({
       const $field = h(
         'li',
         {
-          staticClass: 'b-from-tags-field flex-grow-1',
+          staticClass: 'b-form-tags-field flex-grow-1',
           attrs: {
             role: 'none',
             'aria-live': 'off',
