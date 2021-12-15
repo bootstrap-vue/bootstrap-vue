@@ -74,6 +74,12 @@
   "exactActiveClass": {
     "description": "<router-link> prop: Configure the active CSS class applied when the link is active with exact match. Typically you will want to set this to class name 'active'"
   },
+  "exactPath": {
+    "description": "<router-link> prop: Allows matching only using the path section of the url, effectively ignoring the query and the hash sections"
+  },
+  "exactPathActiveClass": {
+    "description": "<router-link> prop: Configure the active CSS class applied when the link is active with exact path match. Typically you will want to set this to class name 'active'"
+  },
   "fade": {
     "description": "When set to `true`, enables the fade animation/transition on the component"
   },

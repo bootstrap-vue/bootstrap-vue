@@ -149,6 +149,34 @@ With components that support router links (have a `to` prop), you will want to s
 `'active'` (or a space separated string that includes `'active'`) to apply Bootstrap's active
 styling on the component when the current route matches the `to` prop.
 
+### `exact-path`
+
+- type: `boolean`
+- default: `false`
+- availability: Vue Router 3.5.0+
+
+Allows matching only using the `path` section of the url, effectively ignoring the `query` and the
+`hash` sections.
+
+```html
+<!-- this link will also be active at `/search?page=2` or `/search#filters` -->
+<router-link to="/search" exact-path> </router-link>
+```
+
+### `exact-path-active-class`
+
+- type: `string`
+- default: `'router-link-exact-path-active'`
+- availability: Vue Router 3.5.0+
+
+Configure the active CSS class applied when the link is active with exact path match. Note the
+default value can also be configured globally via the `linkExactPathActiveClass` router constructor
+option.
+
+With components that support router links (have a `to` prop), you will want to set this to the class
+`'active'` (or a space separated string that includes `'active'`) to apply Bootstrap's active
+styling on the component when the current route matches the `to` prop.
+
 ## Nuxt.js specific router link props
 
 When BootstrapVue detects that your app is running under [Nuxt.js](https://nuxtjs.org), it will
