@@ -72,4 +72,17 @@ describe('skeleton-icon', () => {
 
     wrapper.destroy()
   })
+
+  it('accepts custom classes', async () => {
+    const wrapper = mount(BSkeletonIcon, {
+      context: {
+        class: ['foobar']
+      }
+    })
+
+    expect(wrapper.classes()).toContain('b-skeleton-icon-wrapper')
+    expect(wrapper.classes()).toContain('foobar')
+
+    wrapper.destroy()
+  })
 })
