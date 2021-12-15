@@ -3,6 +3,8 @@ import { omit } from '../../utils/object'
 import { kebabCase, pascalCase, trim } from '../../utils/string'
 import { BVIconBase, props as BVIconBaseProps } from './icon-base'
 
+const iconProps = omit(BVIconBaseProps, ['content'])
+
 /**
  * Icon component generator function
  *
@@ -22,7 +24,7 @@ export const makeIcon = (name, content) => {
   return /*#__PURE__*/ Vue.extend({
     name: iconName,
     functional: true,
-    props: omit(BVIconBaseProps, ['content']),
+    props: iconProps,
     render(h, { data, props }) {
       return h(
         BVIconBase,
