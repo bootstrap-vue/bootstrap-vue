@@ -122,7 +122,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-vue": "^7.9.0",
+    "eslint-plugin-vue": "^8.2.0",
     "esm": "^3.2.25",
     "execa": "^5.0.0",
     "highlight.js": "^10.7.2",
