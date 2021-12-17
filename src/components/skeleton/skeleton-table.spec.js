@@ -103,4 +103,17 @@ describe('skeleton-table', () => {
 
     wrapper.destroy()
   })
+
+  it('accepts custom classes', async () => {
+    const wrapper = mount(BSkeletonTable, {
+      context: {
+        class: ['foobar']
+      }
+    })
+
+    expect(wrapper.classes()).toContain('b-table')
+    expect(wrapper.classes()).toContain('foobar')
+
+    wrapper.destroy()
+  })
 })
