@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../tests/utils'
 import {
   closest,
   contains,
@@ -31,7 +30,7 @@ const App = { template }
 describe('utils/dom', () => {
   it('isElement() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -45,7 +44,7 @@ describe('utils/dom', () => {
 
   it('isDisabled() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -62,7 +61,7 @@ describe('utils/dom', () => {
 
   it('hasClass() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -80,7 +79,7 @@ describe('utils/dom', () => {
 
   it('contains() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -102,7 +101,7 @@ describe('utils/dom', () => {
 
   it('closest() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -129,7 +128,7 @@ describe('utils/dom', () => {
 
   it('matches() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -155,7 +154,7 @@ describe('utils/dom', () => {
 
   it('hasAttr() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -176,7 +175,7 @@ describe('utils/dom', () => {
 
   it('getAttr() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -200,7 +199,7 @@ describe('utils/dom', () => {
 
   it('getStyle() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -217,7 +216,7 @@ describe('utils/dom', () => {
 
   it('select() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()
@@ -244,7 +243,7 @@ describe('utils/dom', () => {
 
   it('selectAll() works', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper).toBeDefined()

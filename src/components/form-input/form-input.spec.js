@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormInput } from './form-input'
 
 describe('form-input', () => {
@@ -137,7 +137,7 @@ describe('form-input', () => {
 
   it('has safeId after mount when no id provided', async () => {
     const wrapper = mount(BFormInput, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     // We need to wait a tick for `safeId` to be generated
@@ -394,7 +394,7 @@ describe('form-input', () => {
   it('emits a native focus event', async () => {
     const spy = jest.fn()
     const wrapper = mount(BFormInput, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       listeners: {
         focus: spy
       }
@@ -434,7 +434,7 @@ describe('form-input', () => {
           return value.toLowerCase()
         }
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const $input = wrapper.find('input')
@@ -460,10 +460,10 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
     $input.element.value = 'TEST'
     await $input.trigger('input')
 
@@ -488,10 +488,10 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
 
     // Input event needed to set initial value
     $input.element.value = 'TEST'
@@ -524,10 +524,10 @@ describe('form-input', () => {
           return String(value).toLowerCase()
         }
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
-    const $input = wrapper.find('input')
+    const $input = wrapper.findComponent('input')
     expect($input.vm.localValue).toEqual('TEST')
     expect(wrapper.emitted('update')).toBeUndefined()
     expect(wrapper.emitted('input')).toBeUndefined()
@@ -545,7 +545,7 @@ describe('form-input', () => {
           return value.toLowerCase()
         }
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const $input = wrapper.find('input')
@@ -569,7 +569,7 @@ describe('form-input', () => {
         },
         lazyFormatter: true
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const $input = wrapper.find('input')
@@ -592,7 +592,7 @@ describe('form-input', () => {
           return false
         }
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const $input = wrapper.find('input')
@@ -622,7 +622,7 @@ describe('form-input', () => {
       listeners: {
         blur: spy
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.type).toBe('number')
@@ -649,7 +649,7 @@ describe('form-input', () => {
       listeners: {
         blur: spy
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.type).toBe('number')
@@ -670,7 +670,7 @@ describe('form-input', () => {
   it('changing no-wheel after mount works', async () => {
     const spy = jest.fn(() => {})
     const wrapper = mount(BFormInput, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         noWheel: false,
         type: 'number',
@@ -905,7 +905,7 @@ describe('form-input', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormInput, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const $input = wrapper.find('input')
@@ -945,7 +945,7 @@ describe('form-input', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormInput, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           autofocus: true
         }
@@ -965,7 +965,7 @@ describe('form-input', () => {
 
     it('does not autofocus when false', async () => {
       const wrapper = mount(BFormInput, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           autofocus: false
         }

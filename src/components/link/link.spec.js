@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router'
 import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
+import { Vue } from '../../vue'
+
+Vue.use(VueRouter)
 
 describe('b-link', () => {
   it('has expected default structure', async () => {
@@ -182,7 +184,7 @@ describe('b-link', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BLink, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         href: '#foobar'
       }
@@ -354,7 +356,6 @@ describe('b-link', () => {
   describe('router-link support', () => {
     it('works', async () => {
       const localVue = createLocalVue()
-      localVue.use(VueRouter)
 
       const router = new VueRouter({
         mode: 'abstract',
@@ -405,7 +406,7 @@ describe('b-link', () => {
 
       const wrapper = mount(App, {
         localVue,
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -413,7 +414,7 @@ describe('b-link', () => {
 
       expect(wrapper.findAll('a').length).toBe(5)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
 
       expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')

@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBTooltip } from './tooltip'
-import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_Tooltip__'
@@ -52,7 +51,7 @@ describe('v-b-tooltip directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -71,7 +70,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     wrapper.destroy()
   })
@@ -87,7 +86,7 @@ describe('v-b-tooltip directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -106,7 +105,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     expect($button.attributes('aria-describedby')).toBeUndefined()
 
@@ -139,7 +138,7 @@ describe('v-b-tooltip directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -158,7 +157,7 @@ describe('v-b-tooltip directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_TOOLTIP]).toBeDefined()
-    expect($button.element[BV_TOOLTIP]).toBeInstanceOf(BVTooltip)
+    expect($button.element[BV_TOOLTIP].$options.name).toBe('BVTooltip')
 
     expect($button.attributes('aria-describedby')).toBeUndefined()
 
@@ -186,7 +185,7 @@ describe('v-b-tooltip directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()

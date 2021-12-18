@@ -12,10 +12,10 @@ import { props as BVIconBaseProps } from './helpers/icon-base'
 
 const findIconComponent = (ctx, iconName) => {
   if (!ctx) {
-    return null
+    return Vue.component(iconName)
   }
   const components = (ctx.$options || {}).components
-  const iconComponent = components[iconName]
+  const iconComponent = components && components[iconName]
   return iconComponent || findIconComponent(ctx.$parent, iconName)
 }
 

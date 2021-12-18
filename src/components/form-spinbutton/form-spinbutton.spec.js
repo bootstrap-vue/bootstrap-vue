@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormSpinbutton } from './form-spinbutton'
 
 describe('form-spinbutton', () => {
@@ -241,7 +241,7 @@ describe('form-spinbutton', () => {
 
   it('basic +/- buttons click', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
@@ -384,7 +384,7 @@ describe('form-spinbutton', () => {
 
   it('basic keyboard control works', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)
@@ -489,7 +489,7 @@ describe('form-spinbutton', () => {
   it('auto repeat works', async () => {
     jest.useFakeTimers()
     const wrapper = mount(BFormSpinbutton, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         min: 1,
         max: 100,
@@ -656,7 +656,7 @@ describe('form-spinbutton', () => {
 
   it('focus and blur handling works', async () => {
     const wrapper = mount(BFormSpinbutton, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper.vm).toBeDefined()
     await waitNT(wrapper.vm)

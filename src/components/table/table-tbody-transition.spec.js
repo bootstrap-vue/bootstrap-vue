@@ -1,5 +1,4 @@
 import { config as vtuConfig, mount } from '@vue/test-utils'
-import { createContainer } from '../../../tests/utils'
 import { TransitionGroupStub } from '../../../tests/components'
 import { BTable } from './table'
 
@@ -12,7 +11,7 @@ const testFields = ['a', 'b', 'c']
 describe('table > tbody transition', () => {
   it('tbody should not be a transition-group component by default', async () => {
     const wrapper = mount(BTable, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         fields: testFields,
         items: testItems
@@ -30,7 +29,7 @@ describe('table > tbody transition', () => {
 
   it('tbody should be a transition-group component when tbody-transition-props set', async () => {
     const wrapper = mount(BTable, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         fields: testFields,
         items: testItems,
@@ -50,7 +49,7 @@ describe('table > tbody transition', () => {
 
   it('tbody should be a transition-group component when tbody-transition-handlers set', async () => {
     const wrapper = mount(BTable, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         fields: testFields,
         items: testItems,

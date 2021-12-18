@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
@@ -663,7 +663,7 @@ describe('form-tags', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.tagName).toBe('FORM')
@@ -709,7 +709,7 @@ describe('form-tags', () => {
 
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: ['apple', 'orange']
       }
@@ -759,7 +759,7 @@ describe('form-tags', () => {
 
   it('autofocus works', async () => {
     const wrapper = mount(BFormTags, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         autofocus: true,
         value: ['apple', 'orange']
@@ -847,7 +847,7 @@ describe('form-tags', () => {
     const onFocus = jest.fn()
     const onBlur = jest.fn()
     const wrapper = mount(BFormTags, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: ['apple', 'orange']
       },

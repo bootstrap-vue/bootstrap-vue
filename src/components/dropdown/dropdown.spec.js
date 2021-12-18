@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BDropdown } from './dropdown'
 import { BDropdownItem } from './dropdown-item'
 
@@ -40,7 +40,7 @@ describe('dropdown', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.tagName).toBe('DIV')
@@ -63,7 +63,7 @@ describe('dropdown', () => {
     expect($button.classes()).toContain('dropdown-toggle')
     expect($button.classes().length).toBe(3)
     expect($button.attributes('aria-haspopup')).toBeDefined()
-    expect($button.attributes('aria-haspopup')).toEqual('true')
+    expect($button.attributes('aria-haspopup')).toEqual('menu')
     expect($button.attributes('aria-expanded')).toBeDefined()
     expect($button.attributes('aria-expanded')).toEqual('false')
     expect($button.attributes('id')).toBeDefined()
@@ -87,7 +87,7 @@ describe('dropdown', () => {
 
   it('split mode has expected default structure', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true
       }
@@ -125,7 +125,7 @@ describe('dropdown', () => {
     expect($toggle.classes()).toContain('dropdown-toggle-split')
     expect($toggle.classes().length).toBe(4)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($toggle.attributes('id')).toBeDefined()
@@ -153,7 +153,7 @@ describe('dropdown', () => {
 
   it('split mode accepts split-button-type value', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         splitButtonType: 'submit'
@@ -183,7 +183,7 @@ describe('dropdown', () => {
 
   it('renders default slot inside menu', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       slots: {
         default: 'foobar'
       }
@@ -201,7 +201,7 @@ describe('dropdown', () => {
 
   it('renders button-content slot inside toggle button', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       slots: {
         'button-content': 'foobar'
       }
@@ -220,7 +220,7 @@ describe('dropdown', () => {
 
   it('renders button-content slot inside split button', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true
       },
@@ -247,7 +247,7 @@ describe('dropdown', () => {
 
   it('does not render default slot inside menu when prop lazy set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         lazy: true
       },
@@ -268,7 +268,7 @@ describe('dropdown', () => {
 
   it('has user supplied ID', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test'
       }
@@ -295,7 +295,7 @@ describe('dropdown', () => {
 
   it('should not have "btn-group" class when block is true', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         block: true
       }
@@ -308,7 +308,7 @@ describe('dropdown', () => {
 
   it('should have "btn-group" and "d-flex" classes when block and split are true', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         block: true,
         split: true
@@ -323,7 +323,7 @@ describe('dropdown', () => {
 
   it('should have "dropdown-toggle-no-caret" class when no-caret is true', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         noCaret: true
       }
@@ -336,7 +336,7 @@ describe('dropdown', () => {
 
   it('should not have "dropdown-toggle-no-caret" class when no-caret and split are true', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         noCaret: true,
         split: true
@@ -350,7 +350,7 @@ describe('dropdown', () => {
 
   it('should have a toggle with the given toggle tag', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         toggleTag: 'div'
       }
@@ -363,7 +363,7 @@ describe('dropdown', () => {
 
   it('should have attributes on toggle when "toggle-attrs" prop is set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         toggleAttrs: { 'data-foo-bar': 'foo-bar' }
       }
@@ -376,7 +376,7 @@ describe('dropdown', () => {
 
   it('should have class dropup when prop dropup set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         dropup: true
       }
@@ -401,7 +401,7 @@ describe('dropdown', () => {
 
   it('should have class dropright when prop dropright set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         dropright: true
       }
@@ -426,7 +426,7 @@ describe('dropdown', () => {
 
   it('should have class dropleft when prop dropleft set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         dropleft: true
       }
@@ -452,7 +452,7 @@ describe('dropdown', () => {
   it('split should have class specified in split class property', () => {
     const splitClass = 'custom-button-class'
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         splitClass,
         split: true
@@ -468,7 +468,7 @@ describe('dropdown', () => {
 
   it('menu should have class dropdown-menu-right when prop right set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         right: true
       }
@@ -493,7 +493,7 @@ describe('dropdown', () => {
 
   it('split mode emits click event when split button clicked', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true
       }
@@ -531,7 +531,7 @@ describe('dropdown', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -542,7 +542,7 @@ describe('dropdown', () => {
     expect(wrapper.findAll('.dropdown-menu .dropdown-item').length).toBe(1)
 
     const $container = wrapper.find('#container')
-    const $dropdown = wrapper.find('.dropdown')
+    const $dropdown = wrapper.findComponent('.dropdown')
     const $toggle = wrapper.find('.dropdown-toggle')
     const $menu = wrapper.find('.dropdown-menu')
     const $item = wrapper.find('.dropdown-item')
@@ -551,7 +551,7 @@ describe('dropdown', () => {
     expect($dropdown.vm).toBeDefined()
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
@@ -564,7 +564,7 @@ describe('dropdown', () => {
     await waitNT(wrapper.vm)
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
@@ -731,7 +731,7 @@ describe('dropdown', () => {
   it('preventDefault() works on show event', async () => {
     let prevent = true
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       listeners: {
         show: bvEvent => {
           if (prevent) {
@@ -754,7 +754,7 @@ describe('dropdown', () => {
     const $dropdown = wrapper.find('.dropdown')
 
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
@@ -765,7 +765,7 @@ describe('dropdown', () => {
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(1)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('false')
     expect($dropdown.classes()).not.toContain('show')
@@ -777,7 +777,7 @@ describe('dropdown', () => {
     expect(wrapper.emitted('show')).toBeDefined()
     expect(wrapper.emitted('show').length).toBe(2)
     expect($toggle.attributes('aria-haspopup')).toBeDefined()
-    expect($toggle.attributes('aria-haspopup')).toEqual('true')
+    expect($toggle.attributes('aria-haspopup')).toEqual('menu')
     expect($toggle.attributes('aria-expanded')).toBeDefined()
     expect($toggle.attributes('aria-expanded')).toEqual('true')
     expect($dropdown.classes()).toContain('show')
@@ -800,7 +800,7 @@ describe('dropdown', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -900,7 +900,7 @@ describe('dropdown', () => {
 
   it('when boundary not set should not have class position-static', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper.element.tagName).toBe('DIV')
     expect(wrapper.vm).toBeDefined()
@@ -911,7 +911,7 @@ describe('dropdown', () => {
 
   it('when boundary set to viewport should have class position-static', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         boundary: 'viewport'
       }
@@ -925,7 +925,7 @@ describe('dropdown', () => {
 
   it('toggle button size works', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         size: 'lg'
       }
@@ -945,7 +945,7 @@ describe('dropdown', () => {
 
   it('split button size works', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         size: 'lg'
@@ -969,7 +969,7 @@ describe('dropdown', () => {
 
   it('toggle button content works', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         text: 'foobar'
       }
@@ -989,7 +989,7 @@ describe('dropdown', () => {
 
   it('split button content works', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         text: 'foobar'
@@ -1010,7 +1010,7 @@ describe('dropdown', () => {
 
   it('variant works on non-split button', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         variant: 'primary'
       }
@@ -1031,7 +1031,7 @@ describe('dropdown', () => {
 
   it('variant works on split button', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         variant: 'primary'
@@ -1065,7 +1065,7 @@ describe('dropdown', () => {
 
   it('split mode has href when prop split-href set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         splitHref: '/foo'
@@ -1093,7 +1093,7 @@ describe('dropdown', () => {
 
   it('split mode has href when prop split-to set', async () => {
     const wrapper = mount(BDropdown, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         split: true,
         splitTo: '/foo'

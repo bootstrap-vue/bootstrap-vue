@@ -1,9 +1,9 @@
-import { createLocalVue, createWrapper, mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
+import { createWrapper, mount } from '@vue/test-utils'
+import { Vue } from '../../../vue'
+import { waitNT, waitRAF } from '../../../../tests/utils'
 import { ToastPlugin } from '../index'
 
-const localVue = createLocalVue()
-localVue.use(ToastPlugin)
+Vue.use(ToastPlugin)
 
 describe('$bvToast', () => {
   it('$bvToast.show() and $bvToast.hide() works', async () => {
@@ -24,8 +24,7 @@ describe('$bvToast', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -75,8 +74,7 @@ describe('$bvToast', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()

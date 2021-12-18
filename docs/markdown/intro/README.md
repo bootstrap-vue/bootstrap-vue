@@ -132,7 +132,7 @@ Then, register BootstrapVue in your app entry point (typically `app.js` or `main
 import Vue from 'vue'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-// Import Bootstrap an BootstrapVue CSS files (order is important)
+// Import Bootstrap and BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -157,7 +157,7 @@ the 2 `@import`'s at the end:
 $body-bg: #000;
 $body-color: #111;
 
-// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+// Then import Bootstrap and BootstrapVue SCSS files (order is important)
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 ```

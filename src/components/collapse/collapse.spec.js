@@ -1,5 +1,5 @@
 import { createWrapper, mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BCollapse } from './collapse'
 
 const ROOT_ACTION_EVENT_NAME_REQUEST_STATE = 'bv::request-state::collapse'
@@ -32,7 +32,7 @@ describe('collapse', () => {
 
   it('should have expected default structure', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -56,7 +56,7 @@ describe('collapse', () => {
 
   it('should have expected structure when prop is-nav is set', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -81,7 +81,7 @@ describe('collapse', () => {
 
   it('renders default slot content', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -107,7 +107,7 @@ describe('collapse', () => {
 
   it('should mount as visible when prop visible is true', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -134,7 +134,7 @@ describe('collapse', () => {
 
   it('should emit its state on mount (initially hidden)', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -162,7 +162,7 @@ describe('collapse', () => {
 
   it('should emit its state on mount (initially visible)', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -191,7 +191,7 @@ describe('collapse', () => {
 
   it('should respond to state sync requests', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -229,7 +229,7 @@ describe('collapse', () => {
 
   it('setting visible to true after mount shows collapse', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -274,7 +274,7 @@ describe('collapse', () => {
 
   it('should respond to according events', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',
@@ -391,7 +391,7 @@ describe('collapse', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -447,7 +447,7 @@ describe('collapse', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -477,7 +477,7 @@ describe('collapse', () => {
 
   it('should not respond to root toggle event that does not match ID', async () => {
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test'
@@ -508,7 +508,7 @@ describe('collapse', () => {
   it('default slot scope works', async () => {
     let scope = null
     const wrapper = mount(BCollapse, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // 'id' is a required prop
         id: 'test',

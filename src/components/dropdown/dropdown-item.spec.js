@@ -1,7 +1,10 @@
 import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer, waitRAF } from '../../../tests/utils'
+import { mount } from '@vue/test-utils'
+import { waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BDropdownItem } from './dropdown-item'
+
+Vue.use(VueRouter)
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
@@ -94,9 +97,6 @@ describe('dropdown-item', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = createLocalVue()
-      localVue.use(VueRouter)
-
       const router = new VueRouter({
         mode: 'abstract',
         routes: [
@@ -124,8 +124,7 @@ describe('dropdown-item', () => {
       }
 
       const wrapper = mount(App, {
-        localVue,
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -134,7 +133,7 @@ describe('dropdown-item', () => {
       expect(wrapper.findAll('li').length).toBe(4)
       expect(wrapper.findAll('a').length).toBe(4)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
 
       expect($links.at(0).vm).toBeDefined()
       expect($links.at(0).vm.$options.name).toBe('BLink')

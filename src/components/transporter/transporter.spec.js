@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BVTransporter } from './transporter'
 
 describe('utils/transporter component', () => {
@@ -11,7 +11,7 @@ describe('utils/transporter component', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -31,7 +31,7 @@ describe('utils/transporter component', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
