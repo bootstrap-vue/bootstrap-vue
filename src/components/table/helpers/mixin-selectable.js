@@ -231,7 +231,7 @@ export const selectableMixin = Vue.extend({
             selectedRows = []
             selected = true
           }
-          this.selectedLastRow = selected ? index : -1
+          if (selected) this.selectedLastRow = index
         }
       }
       selectedRows[index] = selected

@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../tests/utils'
 import { listenersMixin } from './listeners'
 
 // Note: The following tests indirectly test `utils/cache`
@@ -132,8 +131,8 @@ describe('mixins > listeners', () => {
       </div>`
     }
 
-    const wrapper1 = mount(App1, { attachTo: createContainer() })
-    const wrapper2 = mount(App2, { attachTo: createContainer() })
+    const wrapper1 = mount(App1, { attachTo: document.body })
+    const wrapper2 = mount(App2, { attachTo: document.body })
 
     // --- `Input1` tests ---
 

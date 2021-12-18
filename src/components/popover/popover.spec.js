@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BPopover } from './popover'
 
 // Our test application definition
@@ -95,7 +95,7 @@ describe('b-popover', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click'
       },
@@ -130,7 +130,7 @@ describe('b-popover', () => {
   it('initially open has expected structure', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true

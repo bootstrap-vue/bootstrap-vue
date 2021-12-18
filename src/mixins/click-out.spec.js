@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../tests/utils'
+import { waitNT } from '../../tests/utils'
 import { clickOutMixin } from './click-out'
 
 describe('utils/click-out', () => {
@@ -23,7 +23,7 @@ describe('utils/click-out', () => {
     })
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       localVue
     })
 
