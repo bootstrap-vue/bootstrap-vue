@@ -560,6 +560,33 @@ describe('table > row select', () => {
     wrapper.destroy()
   })
 
+  it('range selection works after deselection (issue #6397)', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        selectable: true,
+        selectMode: 'range'
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    await waitNT(wrapper.vm)
+
+    const $rows = wrapper.findAll('tbody > tr')
+    // Click second row
+    await $rows.at(1).trigger('click')
+    // Ctrl-click first row
+    await $rows.at(0).trigger('click', { ctrlKey: true })
+    // Ctrl-click second row
+    await $rows.at(1).trigger('click', { ctrlKey: true })
+    // Shift-click third row
+    await $rows.at(2).trigger('click', { shiftKey: true })
+
+    expect(wrapper.findAll('tbody .b-table-row-selected')).toHaveLength(3)
+    wrapper.destroy()
+  })
+
   it('sort change clears selection', async () => {
     const wrapper = mount(BTable, {
       propsData: {
