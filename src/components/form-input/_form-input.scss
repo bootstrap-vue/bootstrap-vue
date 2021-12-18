@@ -17,20 +17,20 @@
 input[type="color"].form-control {
   height: $input-height;
   // We use the smaller padding to make the color block larger
-  padding: ($input-padding-y-sm / 2) ($input-padding-x-sm / 2);
+  padding: ($input-padding-y-sm * 0.5) ($input-padding-x-sm * 0.5);
 }
 
 input[type="color"].form-control.form-control-sm,
 .input-group-sm input[type="color"].form-control {
   height: $input-height-sm;
   // We use the smaller padding to make the color block larger
-  padding: ($input-padding-y-sm / 2) ($input-padding-x-sm / 2);
+  padding: ($input-padding-y-sm * 0.5) ($input-padding-x-sm * 0.5);
 }
 
 input[type="color"].form-control.form-control-lg,
 .input-group-lg input[type="color"].form-control {
   height: $input-height-lg;
-  padding: ($input-padding-y-sm / 2) ($input-padding-x-sm / 2);
+  padding: ($input-padding-y-sm * 0.5) ($input-padding-x-sm * 0.5);
 }
 
 input[type="color"].form-control:disabled {

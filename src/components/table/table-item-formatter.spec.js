@@ -1,3 +1,4 @@
+import { wrapWithMethods } from '../../../tests/utils'
 import { mount } from '@vue/test-utils'
 import { BTable } from './table'
 
@@ -29,20 +30,19 @@ describe('table > field-formatter', () => {
   })
 
   it('item field formatter as string works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTable, {
         formatter(value, key, item) {
           return item.a + item.b
         }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2 }],
+          fields: [{ key: 'a', formatter: 'formatter' }, 'b']
+        }
       }
-    }
-    const wrapper = mount(BTable, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2 }],
-        fields: [{ key: 'a', formatter: 'formatter' }, 'b']
-      }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(1)

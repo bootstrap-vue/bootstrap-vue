@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { BTable } from './table'
+import { wrapWithMethods } from '../../../tests/utils'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields1 = ['a', 'b', 'c']
@@ -597,24 +598,23 @@ describe('table', () => {
   })
 
   it('item field tdAttr and tdClass works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTable, {
         parentTdAttrs() {
           return { 'data-parent': 'parent' }
         }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2, c: 3 }],
+          fields: [
+            { key: 'a', tdAttr: { 'data-foo': 'bar' } },
+            { key: 'b', tdClass: () => 'baz' },
+            { key: 'c', tdAttr: 'parentTdAttrs' }
+          ]
+        }
       }
-    }
-    const wrapper = mount(BTable, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2, c: 3 }],
-        fields: [
-          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
-          { key: 'b', tdClass: () => 'baz' },
-          { key: 'c', tdAttr: 'parentTdAttrs' }
-        ]
-      }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -638,30 +638,28 @@ describe('table', () => {
   })
 
   it('item field thAttr works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTable, {
         parentThAttrs(value, key, item, type) {
           return { 'data-type': type }
         }
-      }
-    }
-
-    const wrapper = mount(BTable, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2, c: 3 }],
-        fields: [
-          { key: 'a', thAttr: { 'data-foo': 'bar' } },
-          { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
-          {
-            key: 'c',
-            thAttr: (v, k, i, t) => {
-              return { 'data-type': t }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2, c: 3 }],
+          fields: [
+            { key: 'a', thAttr: { 'data-foo': 'bar' } },
+            { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
+            {
+              key: 'c',
+              thAttr: (v, k, i, t) => {
+                return { 'data-type': t }
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('thead > tr').length).toBe(1)

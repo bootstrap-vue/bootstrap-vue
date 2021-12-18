@@ -196,15 +196,11 @@ describe('icons', () => {
         // For testing user defined Icons
         BIconFakeIconTest: makeIcon('FakeIconTest', '<path class="fake-path" />')
       },
-      render(h) {
-        return h(this.$slots.default)
-      }
+      template: '<b-icon icon="fake-icon-test" />'
     }
 
-    const wrapper = mount(BIcon, {
+    const wrapper = mount(ParentComponent, {
       localVue,
-      // Parent component has a custom icon registered
-      parentComponent: ParentComponent,
       propsData: {
         icon: 'fake-icon-test'
       }
