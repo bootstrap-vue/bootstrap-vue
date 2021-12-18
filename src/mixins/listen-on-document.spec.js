@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../tests/utils'
 import { listenOnDocumentMixin } from './listen-on-document'
 
 describe('mixins/listen-on-document', () => {
@@ -58,7 +57,7 @@ describe('mixins/listen-on-document', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         destroy: false
       }

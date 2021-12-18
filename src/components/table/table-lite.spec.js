@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { BTableLite } from './table-lite'
+import { wrapWithMethods } from '../../../tests/utils'
 
 const items1 = [{ a: 1, b: 2, c: 3 }, { a: 4, b: 5, c: 6 }]
 const fields1 = ['a', 'b', 'c']
@@ -536,24 +537,23 @@ describe('table-lite', () => {
   })
 
   it('item field tdAttr and tdClass works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTableLite, {
         parentTdAttrs() {
           return { 'data-parent': 'parent' }
         }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2, c: 3 }],
+          fields: [
+            { key: 'a', tdAttr: { 'data-foo': 'bar' } },
+            { key: 'b', tdClass: () => 'baz' },
+            { key: 'c', tdAttr: 'parentTdAttrs' }
+          ]
+        }
       }
-    }
-    const wrapper = mount(BTableLite, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2, c: 3 }],
-        fields: [
-          { key: 'a', tdAttr: { 'data-foo': 'bar' } },
-          { key: 'b', tdClass: () => 'baz' },
-          { key: 'c', tdAttr: 'parentTdAttrs' }
-        ]
-      }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
@@ -577,30 +577,28 @@ describe('table-lite', () => {
   })
 
   it('item field thAttr works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTableLite, {
         parentThAttrs(value, key, item, type) {
           return { 'data-type': type }
         }
-      }
-    }
-
-    const wrapper = mount(BTableLite, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2, c: 3 }],
-        fields: [
-          { key: 'a', thAttr: { 'data-foo': 'bar' } },
-          { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
-          {
-            key: 'c',
-            thAttr: (v, k, i, t) => {
-              return { 'data-type': t }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2, c: 3 }],
+          fields: [
+            { key: 'a', thAttr: { 'data-foo': 'bar' } },
+            { key: 'b', thAttr: 'parentThAttrs', isRowHeader: true },
+            {
+              key: 'c',
+              thAttr: (v, k, i, t) => {
+                return { 'data-type': t }
+              }
             }
-          }
-        ]
+          ]
+        }
       }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('thead > tr').length).toBe(1)
@@ -658,20 +656,19 @@ describe('table-lite', () => {
   })
 
   it('item field formatter as string works', async () => {
-    const Parent = {
-      methods: {
+    const wrapper = mount(
+      wrapWithMethods(BTableLite, {
         formatter(value, key, item) {
           return item.a + item.b
         }
+      }),
+      {
+        propsData: {
+          items: [{ a: 1, b: 2 }],
+          fields: [{ key: 'a', formatter: 'formatter' }, 'b']
+        }
       }
-    }
-    const wrapper = mount(BTableLite, {
-      parentComponent: Parent,
-      propsData: {
-        items: [{ a: 1, b: 2 }],
-        fields: [{ key: 'a', formatter: 'formatter' }, 'b']
-      }
-    })
+    )
 
     expect(wrapper).toBeDefined()
     expect(wrapper.findAll('tbody > tr').length).toBe(1)
