@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BPaginationNav } from './pagination-nav'
 
-const localVue = createLocalVue()
-localVue.use(VueRouter)
+Vue.use(VueRouter)
 
 // The majority of tests for the core of pagination mixin are performed
 // in pagination.spec.js. Here we just test the differences that
@@ -408,6 +408,7 @@ describe('pagination-nav', () => {
 
   it('clicking buttons updates the v-model', async () => {
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       methods: {
         onPageClick(bvEvent, page) {
           // Prevent 3rd page from being selected
@@ -543,6 +544,7 @@ describe('pagination-nav', () => {
 
     it('works with $router to detect path and linkGen returns location object', async () => {
       const App = {
+        compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: 'suppress-warning' },
         components: { BPaginationNav },
         methods: {
           linkGen(page) {
@@ -561,6 +563,7 @@ describe('pagination-nav', () => {
       }
       // Our router view component
       const FooRoute = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
@@ -569,7 +572,7 @@ describe('pagination-nav', () => {
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
-      const wrapper = mount(App, { localVue, router })
+      const wrapper = mount(App, { router })
 
       expect(wrapper).toBeDefined()
 
@@ -604,6 +607,7 @@ describe('pagination-nav', () => {
 
     it('works with $router to detect path and use-router set and linkGen returns string', async () => {
       const App = {
+        compatConfig: { MODE: 3, COMPONENT_FUNCTIONAL: 'suppress-warning' },
         components: { BPaginationNav },
         methods: {
           linkGen(page) {
@@ -622,6 +626,7 @@ describe('pagination-nav', () => {
       }
       // Our router view component
       const FooRoute = {
+        compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
         render(h) {
           return h('div', { class: 'foo-content' }, ['stub'])
         }
@@ -630,7 +635,7 @@ describe('pagination-nav', () => {
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
-      const wrapper = mount(App, { localVue, router })
+      const wrapper = mount(App, { router })
 
       expect(wrapper).toBeDefined()
 

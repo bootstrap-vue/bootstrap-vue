@@ -105,7 +105,7 @@ describe('button-toolbar', () => {
       expect($groups).toBeDefined()
       expect($groups.length).toBe(3)
 
-      const $btns = wrapper.findAllComponents(BButton)
+      const $btns = wrapper.findAll('button')
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
       expect(

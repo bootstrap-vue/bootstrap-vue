@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBPopover } from './popover'
-import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
 // Key which we use to store tooltip object on element
 const BV_POPOVER = '__BV_Popover__'

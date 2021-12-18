@@ -87,10 +87,11 @@ describe('b-popover', () => {
     }))
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     // Reset overrides
     document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
+    await waitRAF()
   })
 
   it('has expected default structure', async () => {
@@ -147,6 +148,7 @@ describe('b-popover', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()

@@ -95,6 +95,7 @@ describe('b-tooltip', () => {
     // Reset overrides
     document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
+    return waitRAF()
   })
 
   it('has expected default structure', async () => {

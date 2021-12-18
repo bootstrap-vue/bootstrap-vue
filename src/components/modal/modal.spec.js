@@ -571,6 +571,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -625,6 +626,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -680,6 +682,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
