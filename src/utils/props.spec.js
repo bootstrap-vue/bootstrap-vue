@@ -80,7 +80,7 @@ describe('utils/props', () => {
   })
 
   it('makePropsConfigurable() works', async () => {
-    const NAME = 'Component'
+    const NAME = 'MyComponent'
     const props = {
       text: {
         type: String,

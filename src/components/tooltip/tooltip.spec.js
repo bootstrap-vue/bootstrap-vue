@@ -1,5 +1,5 @@
 import { createWrapper, mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BTooltip } from './tooltip'
 
 const MODAL_CLOSE_EVENT = 'bv::modal::hidden'
@@ -99,7 +99,7 @@ describe('b-tooltip', () => {
 
   it('has expected default structure', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click'
       },
@@ -136,7 +136,7 @@ describe('b-tooltip', () => {
   it('initially open has expected structure', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true
@@ -220,7 +220,7 @@ describe('b-tooltip', () => {
   it('title prop is reactive', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -287,9 +287,8 @@ describe('b-tooltip', () => {
 
   it('providing the trigger element by function works', async () => {
     jest.useFakeTimers()
-    const container = createContainer()
     const wrapper = mount(App, {
-      attachTo: container,
+      attachTo: document.body,
       propsData: {
         target: () => wrapper.vm.$refs.target,
         triggers: 'click',
@@ -350,7 +349,7 @@ describe('b-tooltip', () => {
   it('activating trigger element (click) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: false
@@ -410,7 +409,7 @@ describe('b-tooltip', () => {
   it('activating trigger element (focus) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'focus',
         show: false,
@@ -488,7 +487,7 @@ describe('b-tooltip', () => {
   it('activating trigger element (hover) opens tooltip', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'hover',
         show: false,
@@ -567,7 +566,7 @@ describe('b-tooltip', () => {
   it('disabled tooltip does not open on trigger', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: false,
@@ -669,7 +668,7 @@ describe('b-tooltip', () => {
   it('closes/opens on instance events', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -750,7 +749,7 @@ describe('b-tooltip', () => {
   it('closes on $root close specific ID event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -822,7 +821,7 @@ describe('b-tooltip', () => {
   it('does not close on $root close specific other ID event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -893,7 +892,7 @@ describe('b-tooltip', () => {
   it('closes on $root close all event', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -966,7 +965,7 @@ describe('b-tooltip', () => {
   it('does not close on $root modal hidden event by default', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1038,7 +1037,7 @@ describe('b-tooltip', () => {
   it('closes on $root modal hidden event when inside a modal', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1112,7 +1111,7 @@ describe('b-tooltip', () => {
     jest.spyOn(console, 'warn').mockImplementation(() => {})
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true,
@@ -1224,7 +1223,7 @@ describe('b-tooltip', () => {
   it('closes when title is set to empty', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         show: true,
         title: 'hello'
@@ -1288,7 +1287,7 @@ describe('b-tooltip', () => {
   it('applies noninteractive class based on noninteractive prop', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         show: true
       },
@@ -1342,7 +1341,7 @@ describe('b-tooltip', () => {
   it('applies variant class', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         show: true,
         variant: 'danger'
@@ -1394,7 +1393,7 @@ describe('b-tooltip', () => {
   it('applies custom class', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         show: true,
         customClass: 'foobar-class'
@@ -1449,7 +1448,7 @@ describe('b-tooltip', () => {
   it('saves title in data attribute on open and adds to back on hide', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: false,

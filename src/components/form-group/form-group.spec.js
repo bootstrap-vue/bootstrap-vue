@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BCol } from '../layout/col'
 import { BFormGroup } from './form-group'
 
@@ -448,7 +448,7 @@ describe('form-group', () => {
 
   it('clicking legend focuses input', async () => {
     const wrapper = mount(BFormGroup, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'group-id',
         label: 'test'

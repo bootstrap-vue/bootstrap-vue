@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BOverlay } from './overlay'
 
 describe('overlay', () => {
@@ -74,7 +74,7 @@ describe('overlay', () => {
 
   it('responds to changes in the `show` prop', async () => {
     const wrapper = mount(BOverlay, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         show: false
       },

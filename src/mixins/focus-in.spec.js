@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../tests/utils'
+import { waitNT } from '../../tests/utils'
 import { focusInMixin } from './focus-in'
 
 describe('mixins/focus-in', () => {
@@ -23,7 +23,7 @@ describe('mixins/focus-in', () => {
     })
 
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       localVue
     })
 
