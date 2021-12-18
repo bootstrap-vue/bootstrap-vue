@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BPaginationNav } from './pagination-nav'
 
-const localVue = createLocalVue()
-localVue.use(VueRouter)
+Vue.use(VueRouter)
 
 // The majority of tests for the core of pagination mixin are performed
 // in pagination.spec.js. Here we just test the differences that
@@ -569,7 +569,7 @@ describe('pagination-nav', () => {
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
-      const wrapper = mount(App, { localVue, router })
+      const wrapper = mount(App, { router })
 
       expect(wrapper).toBeDefined()
 
@@ -630,7 +630,7 @@ describe('pagination-nav', () => {
       const router = new VueRouter({
         routes: [{ path: '/', component: FooRoute }, { path: '/:page', component: FooRoute }]
       })
-      const wrapper = mount(App, { localVue, router })
+      const wrapper = mount(App, { router })
 
       expect(wrapper).toBeDefined()
 
