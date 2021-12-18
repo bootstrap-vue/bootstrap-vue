@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router'
 import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer, waitRAF } from '../../../tests/utils'
+import { waitRAF } from '../../../tests/utils'
 import { BDropdownItem } from './dropdown-item'
 
 describe('dropdown-item', () => {
@@ -125,7 +125,7 @@ describe('dropdown-item', () => {
 
       const wrapper = mount(App, {
         localVue,
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()

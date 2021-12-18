@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBPopover } from './popover'
 import { BVPopover } from '../../components/popover/helpers/bv-popover'
 
@@ -52,7 +52,7 @@ describe('v-b-popover directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -71,7 +71,7 @@ describe('v-b-popover directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
+    expect($button.element[BV_POPOVER].$options.name).toBe('BVPopover')
 
     wrapper.destroy()
   })
@@ -87,7 +87,7 @@ describe('v-b-popover directive', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -105,7 +105,7 @@ describe('v-b-popover directive', () => {
 
     // Should have instance of popover class on it
     expect($button.element[BV_POPOVER]).toBeDefined()
-    expect($button.element[BV_POPOVER]).toBeInstanceOf(BVPopover)
+    expect($button.element[BV_POPOVER].$options.name).toBe('BVPopover')
 
     expect($button.attributes('aria-describedby')).toBeUndefined()
 
