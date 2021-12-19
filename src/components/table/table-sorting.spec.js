@@ -63,6 +63,25 @@ describe('table > sorting', () => {
     expect(wrapper.emitted('sort-changed')[0][0].sortBy).toEqual('non-local')
   })
 
+  it('should set `aria-sort` when `field.sortKey` and `no-local-sorting` is used', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: [...testFields, { key: 'd', label: 'D', sortable: true, sortKey: 'non-local' }],
+        items: testItems,
+        noLocalSorting: true
+      }
+    })
+
+    expect(wrapper).toBeDefined()
+    const $header = wrapper.findAll('thead > tr > th').at(3)
+
+    await $header.trigger('keydown.enter')
+    expect(wrapper.emitted('sort-changed').length).toBe(1)
+    expect(wrapper.emitted('sort-changed')[0][0].sortBy).toEqual('non-local')
+
+    expect($header.attributes('aria-sort')).toBe('ascending')
+  })
+
   it('should sort column descending when sortBy set and sortDesc changed, with proper attributes', async () => {
     const wrapper = mount(BTable, {
       propsData: {
@@ -182,7 +201,12 @@ describe('table > sorting', () => {
       sortBy: null,
       sortDesc: false
     })
-    expect(wrapper.emitted('input').length).toBe(4)
+    const [[lastInput]] = wrapper.emitted('input').reverse()
+    expect(lastInput).toStrictEqual([
+      { a: 3, b: 'b', c: 'x' },
+      { a: 1, b: 'c', c: 'y' },
+      { a: 2, b: 'a', c: 'z' }
+    ])
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value

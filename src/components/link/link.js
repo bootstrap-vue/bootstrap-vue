@@ -32,6 +32,8 @@ export const routerLinkProps = {
   event: makeProp(PROP_TYPE_ARRAY_STRING),
   exact: makeProp(PROP_TYPE_BOOLEAN, false),
   exactActiveClass: makeProp(PROP_TYPE_STRING),
+  exactPath: makeProp(PROP_TYPE_BOOLEAN, false),
+  exactPathActiveClass: makeProp(PROP_TYPE_STRING),
   replace: makeProp(PROP_TYPE_BOOLEAN, false),
   routerTag: makeProp(PROP_TYPE_STRING),
   to: makeProp(PROP_TYPE_OBJECT_STRING)

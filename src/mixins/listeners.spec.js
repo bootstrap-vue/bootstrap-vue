@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../tests/utils'
 import { listenersMixin } from './listeners'
 
 // Note: The following tests indirectly test `utils/cache`
@@ -7,6 +6,11 @@ import { listenersMixin } from './listeners'
 describe('mixins > listeners', () => {
   it('works', async () => {
     const BTest = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       name: 'BTest',
       mixins: [listenersMixin],
       inheritAttrs: false,
@@ -15,6 +19,7 @@ describe('mixins > listeners', () => {
       }
     }
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       name: 'App',
       props: ['listenClick', 'listenFocus', 'listenBlur'],
       computed: {
@@ -92,6 +97,11 @@ describe('mixins > listeners', () => {
     let input2RenderCount = 0
 
     const Input1 = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       props: ['value'],
       render(h) {
         input1RenderCount++
@@ -103,6 +113,11 @@ describe('mixins > listeners', () => {
       }
     }
     const Input2 = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       props: ['value'],
       mixins: [listenersMixin],
       render(h) {
@@ -132,8 +147,8 @@ describe('mixins > listeners', () => {
       </div>`
     }
 
-    const wrapper1 = mount(App1, { attachTo: createContainer() })
-    const wrapper2 = mount(App2, { attachTo: createContainer() })
+    const wrapper1 = mount(App1, { attachTo: document.body })
+    const wrapper2 = mount(App2, { attachTo: document.body })
 
     // --- `Input1` tests ---
 

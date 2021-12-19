@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BPopover } from './popover'
 
 // Our test application definition
@@ -87,15 +87,16 @@ describe('b-popover', () => {
     }))
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     // Reset overrides
     document.createRange = originalCreateRange
     Element.prototype.getBoundingClientRect = origGetBCR
+    await waitRAF()
   })
 
   it('has expected default structure', async () => {
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click'
       },
@@ -130,7 +131,7 @@ describe('b-popover', () => {
   it('initially open has expected structure', async () => {
     jest.useFakeTimers()
     const wrapper = mount(App, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         triggers: 'click',
         show: true
@@ -147,6 +148,7 @@ describe('b-popover', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
     jest.runOnlyPendingTimers()
+    await waitNT(wrapper.vm)
 
     expect(wrapper.element.tagName).toBe('ARTICLE')
     expect(wrapper.attributes('id')).toBeDefined()

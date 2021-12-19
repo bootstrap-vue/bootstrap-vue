@@ -1,9 +1,9 @@
-import { createLocalVue, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { IconsPlugin } from '../../icons'
+import { Vue } from '../../vue'
 import { BSkeletonIcon } from './skeleton-icon'
 
-const localVue = createLocalVue()
-localVue.use(IconsPlugin)
+Vue.use(IconsPlugin)
 
 describe('skeleton-icon', () => {
   it('root element is DIV and contains SVG', async () => {
@@ -40,7 +40,6 @@ describe('skeleton-icon', () => {
 
   it('`icon` prop works', async () => {
     const wrapper = mount(BSkeletonIcon, {
-      localVue,
       propsData: {
         icon: 'heart'
       }
@@ -55,7 +54,6 @@ describe('skeleton-icon', () => {
 
   it('`icon-props` is passed correctly to icon', async () => {
     const wrapper = mount(BSkeletonIcon, {
-      localVue,
       propsData: {
         icon: 'heart',
         iconProps: {
@@ -69,6 +67,19 @@ describe('skeleton-icon', () => {
     expect(wrapper.find('svg').exists()).toBe(true)
     expect(wrapper.find('svg').classes()).toContain('text-primary')
     expect(wrapper.find('svg').element.style.fontSize).toBe('200%')
+
+    wrapper.destroy()
+  })
+
+  it('accepts custom classes', async () => {
+    const wrapper = mount(BSkeletonIcon, {
+      context: {
+        class: ['foobar']
+      }
+    })
+
+    expect(wrapper.classes()).toContain('b-skeleton-icon-wrapper')
+    expect(wrapper.classes()).toContain('foobar')
 
     wrapper.destroy()
   })
