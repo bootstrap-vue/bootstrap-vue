@@ -1007,10 +1007,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@^7.14.1":
-  version "7.14.1"
-  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.14.1.tgz#2c5f6908f03108583eea75bdcc94eb29e720fbac"
-  integrity sha512-HFkwJyIv91mP38447ERwnVgw9yhx2/evs+r0+1hdAXf1Q1fBypPwtY8YOqsPniqoYCEVbBIqYELt0tNrOAg/Iw==
+"@babel/standalone@^7.16.6":
+  version "7.16.6"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.16.6.tgz#2999d50df80207f747095118c19ed63a596a268b"
+  integrity sha512-wjildVe951w1IPEPN4G76j+y5JFZfJN9gdyP8o9zd61qbiVEecAgORKskK1D/7VrJZrZS+nxDbhj2akEFU2RJw==
 
 "@babel/template@^7.12.13", "@babel/template@^7.16.0", "@babel/template@^7.3.3":
   version "7.16.0"
@@ -7585,10 +7585,10 @@ import-local@^3.0.2:
     pkg-dir "^4.2.0"
     resolve-cwd "^3.0.0"
 
-improved-yarn-audit@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/improved-yarn-audit/-/improved-yarn-audit-2.3.2.tgz#f18e13c6ca2c96e80fec1818619cbc0ab9a326be"
-  integrity sha512-82F04JFheMtMOMOp8uyfu8kicEttYRfl0d0j0wZOLGCDEbDg4qaXafM6+At1u11vrqWSWlJJidHMOWkLoWV7EA==
+improved-yarn-audit@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/improved-yarn-audit/-/improved-yarn-audit-3.0.0.tgz#dfb09cea1a3a92c790ea2b4056431f6fb1b99bfa"
+  integrity sha512-b7CrBYYwMidtPciCBkW62C7vqGjAV10bxcAWHeJvGrltrcMSEnG5I9CQgi14nmAlUKUQiSvpz47Lo3d7Z3Vjcg==
 
 imurmurhash@^0.1.4:
   version "0.1.4"
