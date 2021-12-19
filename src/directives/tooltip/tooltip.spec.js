@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { waitNT, waitRAF } from '../../../tests/utils'
 import { VBTooltip } from './tooltip'
-import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
 const BV_TOOLTIP = '__BV_Tooltip__'

@@ -206,10 +206,12 @@ describe('table > provider functions', () => {
     // Instance refresh method
     wrapper.vm.refresh()
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(2)
 
     // Root event refreshing
     wrapper.vm.$root.$emit('bv::refresh::table', 'the-table')
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
@@ -297,6 +299,7 @@ describe('table > provider functions', () => {
     expect(wrapper.find('tbody').findAll('tr').length).toBe(testItems.length)
 
     await wrapper.setProps({ items: provider2 })
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
