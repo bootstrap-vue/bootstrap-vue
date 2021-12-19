@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormCheckbox } from './form-checkbox'
 
 describe('form-checkbox', () => {
@@ -856,6 +856,7 @@ describe('form-checkbox', () => {
 
   it('stand-alone button has label class focus when input focused', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: document.body,
       propsData: {
         button: true,
         checked: '',
@@ -1094,6 +1095,7 @@ describe('form-checkbox', () => {
 
   it('emits a change event when clicked', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: document.body,
       propsData: {
         uncheckedValue: 'foo',
         value: 'bar'
@@ -1126,6 +1128,7 @@ describe('form-checkbox', () => {
 
   it('works when v-model bound to an array', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: document.body,
       propsData: {
         value: 'bar',
         checked: ['foo']
@@ -1187,6 +1190,7 @@ describe('form-checkbox', () => {
 
   it('works when value is an object', async () => {
     const wrapper = mount(BFormCheckbox, {
+      attachTo: document.body,
       propsData: {
         value: { bar: 1, baz: 2 },
         checked: ['foo']
@@ -1221,7 +1225,7 @@ describe('form-checkbox', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormCheckbox, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         checked: false
       },
@@ -1278,7 +1282,7 @@ describe('form-checkbox', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           checked: false,
           autofocus: true
@@ -1302,7 +1306,7 @@ describe('form-checkbox', () => {
 
     it('does not auto focus when false', async () => {
       const wrapper = mount(BFormCheckbox, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           checked: false,
           autofocus: false

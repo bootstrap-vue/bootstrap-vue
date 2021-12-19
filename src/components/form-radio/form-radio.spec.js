@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormRadio } from './form-radio'
 
 describe('form-radio', () => {
@@ -677,6 +677,7 @@ describe('form-radio', () => {
 
   it('stand-alone button has label class focus when input focused', async () => {
     const wrapper = mount(BFormRadio, {
+      attachTo: document.body,
       propsData: {
         button: true,
         checked: '',
@@ -686,8 +687,10 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+
     const label = wrapper.find('label')
     expect(label).toBeDefined()
+
     const input = wrapper.find('input')
     expect(label.classes().length).toEqual(2)
     expect(label.classes()).not.toContain('focus')
@@ -695,9 +698,11 @@ describe('form-radio', () => {
     expect(label.classes()).toContain('btn')
     expect(label.classes()).toContain('btn-secondary')
     expect(input).toBeDefined()
+
     await input.trigger('focus')
     expect(label.classes().length).toEqual(3)
     expect(label.classes()).toContain('focus')
+
     await input.trigger('blur')
     expect(label.classes().length).toEqual(2)
     expect(label.classes()).not.toContain('focus')
@@ -792,6 +797,7 @@ describe('form-radio', () => {
 
   it('emits a change event when clicked', async () => {
     const wrapper = mount(BFormRadio, {
+      attachTo: document.body,
       propsData: {
         checked: '',
         value: 'bar'
@@ -800,6 +806,7 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toBe('')
@@ -818,6 +825,7 @@ describe('form-radio', () => {
 
   it('works when value is an object', async () => {
     const wrapper = mount(BFormRadio, {
+      attachTo: document.body,
       propsData: {
         value: { bar: 1, baz: 2 },
         checked: ''
@@ -826,6 +834,7 @@ describe('form-radio', () => {
         default: 'foobar'
       }
     })
+
     expect(wrapper.vm).toBeDefined()
     expect(wrapper.vm.localChecked).toBeDefined()
     expect(wrapper.vm.localChecked).toEqual('')
@@ -841,7 +850,7 @@ describe('form-radio', () => {
 
   it('focus() and blur() methods work', async () => {
     const wrapper = mount(BFormRadio, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         checked: false
       },
@@ -897,7 +906,7 @@ describe('form-radio', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormRadio, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           checked: false,
           autofocus: true
@@ -920,7 +929,7 @@ describe('form-radio', () => {
 
     it('does not autofocus by default', async () => {
       const wrapper = mount(BFormRadio, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           checked: false
         },

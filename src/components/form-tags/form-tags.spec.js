@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormTags } from './form-tags'
 
 describe('form-tags', () => {
@@ -663,7 +663,7 @@ describe('form-tags', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.tagName).toBe('FORM')
@@ -709,7 +709,7 @@ describe('form-tags', () => {
 
   it('focuses input when wrapper div clicked', async () => {
     const wrapper = mount(BFormTags, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: ['apple', 'orange']
       }
@@ -759,7 +759,7 @@ describe('form-tags', () => {
 
   it('autofocus works', async () => {
     const wrapper = mount(BFormTags, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         autofocus: true,
         value: ['apple', 'orange']
@@ -843,10 +843,11 @@ describe('form-tags', () => {
     wrapper.destroy()
   })
 
-  it('emits focus and blur events', async () => {
+  it('emits focus and blur events when wrapper gains/loses focus', async () => {
     const onFocus = jest.fn()
     const onBlur = jest.fn()
     const wrapper = mount(BFormTags, {
+      attachTo: document.body,
       propsData: {
         value: ['apple', 'orange']
       },
@@ -864,6 +865,7 @@ describe('form-tags', () => {
 
     $input.trigger('focus')
     $input.trigger('focusin')
+
     await waitNT(wrapper.vm)
     await waitRAF()
 
@@ -878,5 +880,41 @@ describe('form-tags', () => {
     expect(onBlur).toHaveBeenCalled()
 
     wrapper.destroy()
+  })
+
+  it('emits focusin and focusout when internal focus changes', async () => {
+    const onFocusIn = jest.fn()
+    const onFocusOut = jest.fn()
+    const wrapper = mount(BFormTags, {
+      propsData: {
+        value: ['apple', 'orange']
+      },
+      listeners: {
+        focusin: onFocusIn,
+        focusout: onFocusOut
+      }
+    })
+
+    expect(onFocusIn).not.toHaveBeenCalled()
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    const $input = wrapper.find('input')
+    const $tag = wrapper.find('.b-form-tag')
+
+    $input.trigger('focusin')
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(1)
+    expect(onFocusOut).not.toHaveBeenCalled()
+
+    $tag.trigger('focusin')
+    $input.trigger('focusout')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(onFocusIn).toHaveBeenCalledTimes(2)
+    expect(onFocusOut).toHaveBeenCalledTimes(1)
   })
 })

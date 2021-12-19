@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BImgLazy } from './img-lazy'
 
 const src = 'https://picsum.photos/1024/400/?image=41'
@@ -7,7 +7,7 @@ const src = 'https://picsum.photos/1024/400/?image=41'
 describe('img-lazy', () => {
   it('has root element "img"', async () => {
     const wrapper = mount(BImgLazy, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         src
       }
@@ -19,7 +19,7 @@ describe('img-lazy', () => {
 
   it('is initially shown show prop is set', async () => {
     const wrapper = mount(BImgLazy, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         src,
         show: true
@@ -35,7 +35,7 @@ describe('img-lazy', () => {
 
   it('shows when IntersectionObserver not supported', async () => {
     const wrapper = mount(BImgLazy, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         src,
         show: false

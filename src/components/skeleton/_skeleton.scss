@@ -83,7 +83,7 @@
     left: 0;
     z-index: 0;
 
-    background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.4), transparent);
+    background: $b-skeleton-animate-wave-background;
     animation: b-skeleton-animate-wave $b-skeleton-animation-duration linear infinite;
 
     @media (prefers-reduced-motion: reduce) {
@@ -104,7 +104,7 @@
 
 // Fade animation
 .b-skeleton-animate-fade {
-  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration / 2) ease-in-out alternate
+  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration * 0.5) ease-in-out alternate
     infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -123,7 +123,7 @@
 
 // Throb animation
 .b-skeleton-animate-throb {
-  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration / 2) ease-in alternate
+  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration * 0.5) ease-in alternate
     infinite;
 
   @media (prefers-reduced-motion: reduce) {

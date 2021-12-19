@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BTime } from './time'
 
 //  Note that JSDOM only supports `en-US` (`en`) locale for Intl
@@ -147,7 +147,7 @@ describe('time', () => {
 
   it('has correct header tag when "header-tag" prop is set', async () => {
     const wrapper = mount(BTime, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         headerTag: 'div'
       }
@@ -166,7 +166,7 @@ describe('time', () => {
 
   it('has correct footer tag when "footer-tag" prop is set', async () => {
     const wrapper = mount(BTime, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         footerTag: 'div'
       },
@@ -246,7 +246,7 @@ describe('time', () => {
 
   it('blur and focus methods work', async () => {
     const wrapper = mount(BTime, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -275,7 +275,7 @@ describe('time', () => {
 
   it('arrow left/right moves focus', async () => {
     const wrapper = mount(BTime, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         showSeconds: true,
         value: '00:00:00',

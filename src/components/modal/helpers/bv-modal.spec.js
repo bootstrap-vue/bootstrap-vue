@@ -1,13 +1,9 @@
-import { config as vtuConfig, createLocalVue, createWrapper, mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../../tests/utils'
-import { TransitionStub } from '../../../../tests/components'
+import { Vue } from '../../../vue'
+import { createWrapper, mount } from '@vue/test-utils'
+import { waitNT, waitRAF } from '../../../../tests/utils'
 import { ModalPlugin } from '../index'
 
-// Stub `<transition>` component
-vtuConfig.stubs.transition = TransitionStub
-
-const localVue = createLocalVue()
-localVue.use(ModalPlugin)
+Vue.use(ModalPlugin)
 
 describe('$bvModal', () => {
   it('$bvModal.show() and $bvModal.hide() works', async () => {
@@ -17,8 +13,7 @@ describe('$bvModal', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -44,7 +39,7 @@ describe('$bvModal', () => {
     await waitNT(wrapper.vm)
     await waitRAF()
 
-    expect($modal.element.style.display).toEqual('')
+    expect($modal.element.style.display).not.toEqual('none')
 
     wrapper.vm.$bvModal.hide('test1')
 
@@ -65,8 +60,7 @@ describe('$bvModal', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -127,8 +121,7 @@ describe('$bvModal', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer(),
-      localVue
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()

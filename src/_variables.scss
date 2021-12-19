@@ -30,8 +30,8 @@ $b-custom-checkbox-indicator-border-radius-sm: $border-radius-sm !default;
 // Custom switch sizes
 $b-custom-switch-width-lg: $b-custom-control-indicator-size-lg * 1.75 !default;
 $b-custom-switch-width-sm: $b-custom-control-indicator-size-sm * 1.75 !default;
-$b-custom-switch-indicator-border-radius-lg: $b-custom-control-indicator-size-lg / 2 !default;
-$b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm / 2 !default;
+$b-custom-switch-indicator-border-radius-lg: $b-custom-control-indicator-size-lg * 0.5 !default;
+$b-custom-switch-indicator-border-radius-sm: $b-custom-control-indicator-size-sm * 0.5 !default;
 $b-custom-switch-indicator-size-lg: calc(
   #{$b-custom-control-indicator-size-lg} - #{$custom-control-indicator-border-width * 4}
 ) !default;
@@ -168,3 +168,10 @@ $b-skeleton-loading-cursor: wait !default;
 $b-skeleton-animation-duration: 1.75s !default;
 $b-skeleton-text-spacing: map-get($spacers, 1) !default;
 $b-skeleton-btn-width: 75px !default;
+$b-skeleton-animate-wave-color: hsla(0, 0%, 100%, 0.4) !default;
+$b-skeleton-animate-wave-background: linear-gradient(
+  90deg,
+  transparent,
+  $b-skeleton-animate-wave-color,
+  transparent
+) !default;

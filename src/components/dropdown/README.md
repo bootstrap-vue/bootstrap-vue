@@ -664,7 +664,8 @@ Providing a unique `id` prop ensures ARIA compliance by automatically adding the
 `aria-*` attributes in the rendered markup.
 
 The default ARIA role is set to `menu`, but you can change this default to another role (such as
-`navigation`) via the `role` prop, depending on your user case.
+`navigation`) via the `role` prop, depending on your user case. The `role` prop value will be used
+to determine `aria-haspopup` attribute for the toggle button.
 
 When a menu item doesn't trigger navigation, it is recommended to use the `<b-dropdown-item-button>`
 sub-component (which is not announced as a link) instead of `<b-dropdown-item>` (which is presented
