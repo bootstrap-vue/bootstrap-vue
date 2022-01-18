@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormFile } from './form-file'
 
 describe('form-file', () => {
@@ -545,7 +545,7 @@ describe('form-file', () => {
       }
     }
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     const file = new File(['foo'], 'foo.txt', {
@@ -741,7 +741,7 @@ describe('form-file', () => {
 
     it('works when true', async () => {
       const wrapper = mount(BFormFile, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           autofocus: true
         }

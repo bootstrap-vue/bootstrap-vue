@@ -1,12 +1,12 @@
 import { PortalTarget } from 'portal-vue'
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BToaster } from './toaster'
 
 describe('b-toaster', () => {
   it('has expected structure', async () => {
     const wrapper = mount(BToaster, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         name: 'foo'
       }
@@ -39,7 +39,7 @@ describe('b-toaster', () => {
 
   it('accepts aria props', async () => {
     const wrapper = mount(BToaster, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         name: 'bar',
         ariaLive: 'assertive',

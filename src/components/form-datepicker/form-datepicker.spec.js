@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BFormDatepicker } from './form-datepicker'
 
 // Note that JSDOM only supports `en-US` (`en`) locale for `Intl`
@@ -29,7 +29,7 @@ describe('form-date', () => {
 
   it('has expected base structure', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test-base'
       }
@@ -72,7 +72,7 @@ describe('form-date', () => {
 
   it('has expected base structure in button-only mode', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test-button-only',
         buttonOnly: true
@@ -117,7 +117,7 @@ describe('form-date', () => {
 
   it('renders custom placeholder', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         placeholder: 'FOOBAR'
@@ -139,7 +139,7 @@ describe('form-date', () => {
 
   it('renders hidden input when name prop is set', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         name: 'foobar'
@@ -171,7 +171,7 @@ describe('form-date', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         id: 'test-focus-blur'
@@ -206,7 +206,7 @@ describe('form-date', () => {
 
   it('hover works to change icons', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         id: 'test-hover'
@@ -248,7 +248,7 @@ describe('form-date', () => {
 
   it('opens calendar when toggle button clicked', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         id: 'test-open'
@@ -284,7 +284,7 @@ describe('form-date', () => {
 
   it('emits new value when date updated', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         id: 'test-emit-input'
@@ -340,7 +340,7 @@ describe('form-date', () => {
 
   it('does not close popup when prop `no-close-on-select` is set', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '',
         id: 'test-no-close',
@@ -399,7 +399,7 @@ describe('form-date', () => {
 
   it('renders optional footer buttons', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test-footer',
         value: '1900-01-01',
@@ -476,7 +476,7 @@ describe('form-date', () => {
 
   it('prop reset-value works', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test-reset',
         value: '2020-01-15',
@@ -534,7 +534,7 @@ describe('form-date', () => {
 
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormDatepicker, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         id: 'test-button-slot',
         value: '2020-01-15'

@@ -104,7 +104,7 @@
 
 // Fade animation
 .b-skeleton-animate-fade {
-  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration / 2) ease-in-out alternate
+  animation: b-skeleton-animate-fade ($b-skeleton-animation-duration * 0.5) ease-in-out alternate
     infinite;
 
   @media (prefers-reduced-motion: reduce) {
@@ -123,7 +123,7 @@
 
 // Throb animation
 .b-skeleton-animate-throb {
-  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration / 2) ease-in alternate
+  animation: b-skeleton-animate-throb ($b-skeleton-animation-duration * 0.5) ease-in alternate
     infinite;
 
   @media (prefers-reduced-motion: reduce) {

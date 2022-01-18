@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router'
 import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer } from '../../../tests/utils'
 import { BLink } from './link'
+import { Vue } from '../../vue'
+
+Vue.use(VueRouter)
 
 describe('b-link', () => {
   it('has expected default structure', async () => {
@@ -182,7 +184,7 @@ describe('b-link', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BLink, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         href: '#foobar'
       }
@@ -354,7 +356,6 @@ describe('b-link', () => {
   describe('router-link support', () => {
     it('works', async () => {
       const localVue = createLocalVue()
-      localVue.use(VueRouter)
 
       const router = new VueRouter({
         mode: 'abstract',
@@ -394,8 +395,6 @@ describe('b-link', () => {
             h('b-link', { props: { href: '/a' } }, ['href-a']),
             // router-link
             h('b-link', { props: { to: { path: '/b' } } }, ['to-path-b']),
-            // regular link
-            h('b-link', { props: { href: '/b' } }, ['href-a']),
             // g-link
             h('b-link', { props: { routerComponentName: 'g-link', to: '/a' } }, ['g-link-a']),
             h('router-view')
@@ -405,38 +404,29 @@ describe('b-link', () => {
 
       const wrapper = mount(App, {
         localVue,
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
       expect(wrapper.element.tagName).toBe('MAIN')
 
-      expect(wrapper.findAll('a').length).toBe(5)
+      expect(wrapper.findAll('a').length).toBe(4)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
+      $links.wrappers.forEach($link => {
+        expect($link.vm).toBeDefined()
+        expect($links.at(0).vm.$options.name).toBe('BLink')
+      })
+      expect(
+        $links.wrappers.map($link => $link.findComponent({ name: 'RouterLink' }).exists())
+      ).toStrictEqual([true, false, true, false])
 
-      expect($links.at(0).vm).toBeDefined()
-      expect($links.at(0).vm.$options.name).toBe('BLink')
-      expect($links.at(0).vm.$children.length).toBe(1)
-      expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
-
-      expect($links.at(1).vm).toBeDefined()
-      expect($links.at(1).vm.$options.name).toBe('BLink')
-      expect($links.at(1).vm.$children.length).toBe(0)
-
-      expect($links.at(2).vm).toBeDefined()
-      expect($links.at(2).vm.$options.name).toBe('BLink')
-      expect($links.at(2).vm.$children.length).toBe(1)
-      expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
-
-      expect($links.at(3).vm).toBeDefined()
-      expect($links.at(3).vm.$options.name).toBe('BLink')
-      expect($links.at(3).vm.$children.length).toBe(0)
-
-      expect($links.at(4).vm).toBeDefined()
-      expect($links.at(4).vm.$options.name).toBe('BLink')
-      expect($links.at(4).vm.$children.length).toBe(1)
-      expect($links.at(4).vm.$children[0].$options.name).toBe('GLink')
+      expect(
+        $links
+          .at(3)
+          .findComponent(GLink)
+          .exists()
+      ).toBe(true)
 
       wrapper.destroy()
     })

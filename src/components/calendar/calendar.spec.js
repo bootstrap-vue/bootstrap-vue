@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { waitNT, waitRAF } from '../../../tests/utils'
 import { BCalendar } from './calendar'
 import { formatYMD } from '../../utils/date'
 
@@ -8,7 +8,7 @@ import { formatYMD } from '../../utils/date'
 describe('calendar', () => {
   it('has expected base structure', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -42,7 +42,7 @@ describe('calendar', () => {
 
   it('has expected structure when value is set', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -62,7 +62,7 @@ describe('calendar', () => {
 
   it('reacts to changes in value', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-01-01' // Leap year
       }
@@ -88,7 +88,7 @@ describe('calendar', () => {
 
   it('clicking a date selects date', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-01-01' // Leap year
       }
@@ -122,7 +122,7 @@ describe('calendar', () => {
 
   it('date navigation buttons work', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         showDecadeNav: true,
         value: '2020-02-15' // Leap year
@@ -178,7 +178,7 @@ describe('calendar', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -211,7 +211,7 @@ describe('calendar', () => {
 
   it('clicking output header focuses grid', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -246,7 +246,7 @@ describe('calendar', () => {
 
   it('has correct header tag when "header-tag" prop is set', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-02-15', // Leap year,
         headerTag: 'div'
@@ -266,7 +266,7 @@ describe('calendar', () => {
 
   it('keyboard navigation works', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-02-15' // Leap year
       }
@@ -362,7 +362,7 @@ describe('calendar', () => {
 
   it('should disable key navigation when `no-key-nav` prop set', () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         noKeyNav: true,
         navButtonVariant: 'primary'
@@ -381,7 +381,7 @@ describe('calendar', () => {
 
   it('`nav-button-variant` changes nav button class', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         navButtonVariant: 'primary'
       }
@@ -400,7 +400,7 @@ describe('calendar', () => {
 
   it('disables dates based on `date-disabled-fn` prop', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-01-01',
         dateDisabledFn(ymd) {
@@ -433,7 +433,7 @@ describe('calendar', () => {
 
   it('applies classes on dates based on `date-info-fn` prop', async () => {
     const wrapper = mount(BCalendar, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         value: '2020-01-01',
         dateInfoFn(ymd) {

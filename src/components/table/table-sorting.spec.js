@@ -201,7 +201,12 @@ describe('table > sorting', () => {
       sortBy: null,
       sortDesc: false
     })
-    expect(wrapper.emitted('input').length).toBe(4)
+    const [[lastInput]] = wrapper.emitted('input').reverse()
+    expect(lastInput).toStrictEqual([
+      { a: 3, b: 'b', c: 'x' },
+      { a: 1, b: 'c', c: 'y' },
+      { a: 2, b: 'a', c: 'z' }
+    ])
     $rows = wrapper.findAll('tbody > tr').wrappers
     expect($rows.length).toBe(3)
     // Map the rows to the first column text value
