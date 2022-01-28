@@ -1,11 +1,11 @@
-const useVue2 = 'USE_VUE2' in process.env
+const useVue3 = 'USE_VUE3' in process.env
 
-const moduleNameMapper = useVue2
-  ? {}
-  : {
+const moduleNameMapper = useVue3
+  ? {
       '^vue$': '@vue/compat',
       '^@vue/test-utils$': '@vue/test-utils-vue3'
     }
+  : {}
 
 module.exports = {
   testRegex: 'spec.js$',
@@ -15,7 +15,7 @@ module.exports = {
     '^.+\\.js$': 'babel-jest'
   },
   transformIgnorePatterns: ['/node_modules(?![\\\\/]vue-test-utils-compat[\\\\/])'],
-  coverageDirectory: './coverage/',
+  coverageDirectory: useVue3 ? './coverage-vue3' : './coverage/',
   testEnvironmentOptions: {
     pretendToBeVisual: true
   },
