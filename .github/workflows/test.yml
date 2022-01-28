@@ -125,8 +125,19 @@ jobs:
       - name: Test unit
         run: yarn run test:unit --coverage --maxWorkers=2
 
+      - name: Test unit (Vue 3)
+        run: yarn run test:unit --coverage --maxWorkers=2
+        env:
+          USE_VUE3: '1'
+
+      - name: Merge coverage
+        run:
+          npx istanbul-merge --out ./coverage-final.json coverage/coverage-final.json
+          coverage-vue3/coverage-final.json
+
       - name: CodeCov
         uses: codecov/codecov-action@v3.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
+          files: ./coverage-final.json
