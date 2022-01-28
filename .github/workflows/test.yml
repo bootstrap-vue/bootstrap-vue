@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Node.js version
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
 
@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Node.js version
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
 
@@ -98,7 +98,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Node.js version
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
 
