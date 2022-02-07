@@ -719,7 +719,7 @@ JavaScript files.
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
-<script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue@2/dist/vue.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 <!-- Load the following for BootstrapVueIcons support -->
