@@ -130,11 +130,11 @@ export const BPaginationNav = /*#__PURE__*/ Vue.extend({
       const clickEvent = new BvEvent(EVENT_NAME_PAGE_CLICK, {
         cancelable: true,
         vueTarget: this,
+        nativeEvent: event,
         target
       })
       this.$emit(clickEvent.type, clickEvent, pageNumber)
       if (clickEvent.defaultPrevented) {
-        event.preventDefault()
         return
       }
 
