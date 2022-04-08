@@ -9306,10 +9306,10 @@ markdown-table@^2.0.0:
   dependencies:
     repeat-string "^1.0.0"
 
-marked@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-2.0.3.tgz#3551c4958c4da36897bda2a16812ef1399c8d6b0"
-  integrity sha512-5otztIIcJfPc2qGTN8cVtOJEjNJZ0jwa46INMagrYfk0EvqtRuEHLsEe0LrFS0/q+ZRKT0+kXK7P2T1AN5lWRA==
+marked@^4.0.13:
+  version "4.0.13"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.13.tgz#4fd46ca93da46448f3d83f054d938c4f905a258d"
+  integrity sha512-lS/ZCa4X0gsRcfWs1eoh6dLnHr9kVH3K1t2X4M/tTtNouhZ7anS1Csb6464VGLQHv8b2Tw1cLeZQs58Jav8Rzw==
 
 md5.js@^1.3.4:
   version "1.3.5"
