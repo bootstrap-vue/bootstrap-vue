@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.21.2",
+  "version": "2.22.0",
   "description": "With more than 85 components, over 45 available plugins, several directives, and 1000+ icons, BootstrapVue provides one of the most comprehensive implementations of the Bootstrap v4 component and grid system available for Vue.js v2.6, complete with extensive and automated WAI-ARIA accessibility markup.",
   "main": "./dist/bootstrap-vue.common.js",
   "web": "./dist/bootstrap-vue.js",
@@ -81,7 +81,7 @@
   },
   "dependencies": {
     "@nuxt/opencollective": "^0.3.2",
-    "bootstrap": ">=4.5.3 <5.0.0",
+    "bootstrap": "^4.6.1",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue-functional-data-merge": "^3.1.0"
