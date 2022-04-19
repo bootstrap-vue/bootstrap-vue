@@ -136,7 +136,7 @@
     "marked": "^2.0.3",
     "nuxt": "^2.15.8",
     "postcss": "^8.2.15",
-    "postcss-cli": "^8.3.1",
+    "postcss-cli": "^9.1.0",
     "prettier": "1.14.3",
     "require-context": "^1.1.0",
     "rollup": "^2.47.0",
