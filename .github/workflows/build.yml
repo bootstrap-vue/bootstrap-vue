@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set Node.js version
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v3.1.1
         with:
           node-version: ${{ matrix.node }}
 
@@ -33,7 +33,7 @@ jobs:
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
       - name: Cache node_modules
-        uses: actions/cache@v2.1.7
+        uses: actions/cache@v3.0.2
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-yarn-${{ hashFiles('**/yarn.lock') }}
