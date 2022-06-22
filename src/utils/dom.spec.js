@@ -3,9 +3,11 @@ import {
   closest,
   contains,
   getAttr,
+  getShadowRootOrRoot,
   getStyle,
   hasAttr,
   hasClass,
+  isConnectedToDOM,
   isDisabled,
   isElement,
   matches,
@@ -25,28 +27,30 @@ const template = `
   </div>
 </div>
 `
-const App = { template }
+let App
+let wrapper
 
 describe('utils/dom', () => {
-  it('isElement() works', async () => {
-    const wrapper = mount(App, {
+  beforeEach(() => {
+    App = { template }
+    wrapper = mount(App, {
       attachTo: document.body
     })
+  })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
+  it('isElement() works', async () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.find('div.foo').exists()).toBe(true)
     expect(isElement(wrapper.element)).toBe(true)
     expect(isElement(null)).toBe(false)
     expect(isElement(App)).toBe(false)
-
-    wrapper.destroy()
   })
 
   it('isDisabled() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -55,15 +59,28 @@ describe('utils/dom', () => {
     expect(isDisabled($btns.at(0).element)).toBe(false)
     expect(isDisabled($btns.at(1).element)).toBe(false)
     expect(isDisabled($btns.at(2).element)).toBe(true)
+  })
 
-    wrapper.destroy()
+  // NOTE: Need to figure out how to test against shadowDOM
+  it('isConnectedToDOM() Regular DOM', async () => {
+    expect(wrapper).toBeDefined()
+
+    const $barspan = wrapper.findAll('span.barspan')
+    expect($barspan).toBeDefined()
+    expect($barspan.length).toBe(1)
+    expect(isConnectedToDOM($barspan.at(0).element)).toBe(true)
+  })
+
+  it('getShadowRootOrRoot() Regular DOM', async () => {
+    expect(wrapper).toBeDefined()
+
+    const $baz = wrapper.find('div.baz')
+    const $documentBody = getShadowRootOrRoot($baz.element)
+    expect($documentBody).toBeDefined()
+    expect($documentBody.toString()).toBe('[object HTMLBodyElement]')
   })
 
   it('hasClass() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -73,15 +90,9 @@ describe('utils/dom', () => {
     expect(hasClass($span.element, 'foobar')).toBe(true)
     expect(hasClass($span.element, 'fizzle-rocks')).toBe(false)
     expect(hasClass(null, 'foobar')).toBe(false)
-
-    wrapper.destroy()
   })
 
   it('contains() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -95,15 +106,9 @@ describe('utils/dom', () => {
     expect(contains(wrapper.element, $btn1.element)).toBe(true)
     expect(contains($span.element, $btn1.element)).toBe(false)
     expect(contains(null, $btn1.element)).toBe(false)
-
-    wrapper.destroy()
   })
 
   it('closest() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -122,15 +127,9 @@ describe('utils/dom', () => {
     expect(closest('div.not-here', $btns.at(0).element)).toBe(null)
     expect(closest('div.baz', $baz.element)).toBe(null)
     expect(closest('div.baz', $baz.element, true)).toBe($baz.element)
-
-    wrapper.destroy()
   })
 
   it('matches() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -148,15 +147,9 @@ describe('utils/dom', () => {
     expect(matches($btns.at(0).element, 'div.bar > button')).toBe(false)
     expect(matches($btns.at(0).element, 'button#button1')).toBe(true)
     expect(matches(null, 'div.foo')).toBe(false)
-
-    wrapper.destroy()
   })
 
   it('hasAttr() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -169,15 +162,9 @@ describe('utils/dom', () => {
     expect(hasAttr($btns.at(2).element, 'disabled')).toBe(true)
     expect(hasAttr($btns.at(2).element, 'role')).toBe(false)
     expect(hasAttr(null, 'role')).toBe(null)
-
-    wrapper.destroy()
   })
 
   it('getAttr() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -193,15 +180,9 @@ describe('utils/dom', () => {
     expect(getAttr(null, 'role')).toBe(null)
     expect(getAttr($btns.at(0).element, '')).toBe(null)
     expect(getAttr($btns.at(0).element, undefined)).toBe(null)
-
-    wrapper.destroy()
   })
 
   it('getStyle() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $span = wrapper.find('span.barspan')
@@ -210,15 +191,9 @@ describe('utils/dom', () => {
     expect(getStyle($span.element, 'color')).toBe('red')
     expect(getStyle($span.element, 'width')).toBe(null)
     expect(getStyle(null, 'color')).toBe(null)
-
-    wrapper.destroy()
   })
 
   it('select() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -230,22 +205,15 @@ describe('utils/dom', () => {
     expect(select('button#button3', wrapper.element)).toBe($btns.at(2).element)
     expect(select('span.not-here', wrapper.element)).toBe(null)
 
-    // Note: It appears that `vue-test-utils` is not detaching previous
-    //       app instances and elements once the test is complete!
+    // Without root element specified
     expect(select('button')).not.toBe(null)
     expect(select('button')).toBe($btns.at(0).element)
     expect(select('button#button3')).not.toBe(null)
     expect(select('button#button3')).toBe($btns.at(2).element)
     expect(select('span.not-here')).toBe(null)
-
-    wrapper.destroy()
   })
 
   it('selectAll() works', async () => {
-    const wrapper = mount(App, {
-      attachTo: document.body
-    })
-
     expect(wrapper).toBeDefined()
 
     const $btns = wrapper.findAll('div.baz > button')
@@ -268,8 +236,6 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button', wrapper.element)[2]).toBe($btns.at(2).element)
 
     // Without root element specified (assumes document as root)
-    // Note: It appears that `vue-test-utils` is not detaching previous
-    //       app instances and elements once the test is complete!
     expect(Array.isArray(selectAll('button'))).toBe(true)
     expect(selectAll('button')).not.toEqual([])
     expect(selectAll('button').length).toBe(3)
@@ -285,7 +251,5 @@ describe('utils/dom', () => {
     expect(selectAll('div.baz button')[0]).toBe($btns.at(0).element)
     expect(selectAll('div.baz button')[1]).toBe($btns.at(1).element)
     expect(selectAll('div.baz button')[2]).toBe($btns.at(2).element)
-
-    wrapper.destroy()
   })
 })

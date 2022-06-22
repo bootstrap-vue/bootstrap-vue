@@ -83,7 +83,7 @@ export const isActiveElement = el => isElement(el) && el === getActiveElement()
 
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
-  if (!isElement(el) || !el.parentNode || !contains(DOCUMENT.body, el)) {
+  if (!isElement(el) || !el.parentNode || !isConnectedToDOM(el)) {
     // Note this can fail for shadow dom elements since they
     // are not a direct descendant of document.body
     return false
@@ -98,6 +98,23 @@ export const isVisible = el => {
   // Except when we override the getBCR prototype in some tests
   const bcr = getBCR(el)
   return !!(bcr && bcr.height > 0 && bcr.width > 0)
+}
+
+// used to grab either the shadow root in a web component or the main document body
+export const getShadowRootOrRoot = el => {
+  if (el.getRootNode == null) {
+    return DOCUMENT.body
+  }
+  const root = el.getRootNode()
+  if (root.nodeType === 9) {
+    return root.body
+  }
+  return root
+}
+
+export const isConnectedToDOM = el => {
+  // If node.isConnected undefined then fallback to IE11 compliant check
+  return el.isConnected == null ? contains(DOCUMENT.body, el) : el.isConnected
 }
 
 // Determine if an element is disabled

@@ -29,8 +29,10 @@ import {
   contains,
   getAttr,
   getById,
+  getShadowRootOrRoot,
   hasAttr,
   hasClass,
+  isConnectedToDOM,
   isDisabled,
   isElement,
   isVisible,
@@ -262,7 +264,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
 
     this.$nextTick(() => {
       const target = this.getTarget()
-      if (target && contains(document.body, target)) {
+      if (target && (target.isConnected || isConnectedToDOM(target))) {
         // Copy the parent's scoped style attribute
         this.scopeId = getScopeId(this.$parent)
         // Set up all trigger handlers and listeners
@@ -420,7 +422,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (
         !target ||
-        !contains(document.body, target) ||
+        !isConnectedToDOM(target) ||
         !isVisible(target) ||
         this.dropdownOpen() ||
         ((isUndefinedOrNull(this.title) || this.title === '') &&
@@ -567,8 +569,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     getContainer() {
       // Handle case where container may be a component ref
       const container = this.container ? this.container.$el || this.container : false
-      const body = document.body
       const target = this.getTarget()
+      const body = getShadowRootOrRoot(target)
+
       // If we are in a modal, we append to the modal, If we
       // are in a sidebar, we append to the sidebar, else append
       // to body, unless a container is specified
