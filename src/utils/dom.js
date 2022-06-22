@@ -84,8 +84,7 @@ export const isActiveElement = el => isElement(el) && el === getActiveElement()
 // Determine if an HTML element is visible - Faster than CSS check
 export const isVisible = el => {
   if (!isElement(el) || !el.parentNode || !isConnectedToDOM(el)) {
-    // Note this can fail for shadow dom elements since they
-    // are not a direct descendant of document.body
+    // Fail for IE11 Shadow DOM. Fixed for all other Browsers
     return false
   }
   if (getStyle(el, 'display') === 'none') {
@@ -106,7 +105,7 @@ export const getShadowRootOrRoot = el => {
     return DOCUMENT.body
   }
   const root = el.getRootNode()
-  if (root.nodeType === 9) {
+  if (root.nodeName === '#document') {
     return root.body
   }
   return root

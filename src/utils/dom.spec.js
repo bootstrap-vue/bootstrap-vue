@@ -10,6 +10,7 @@ import {
   isConnectedToDOM,
   isDisabled,
   isElement,
+  isVisible,
   matches,
   select,
   selectAll
@@ -36,6 +37,28 @@ describe('utils/dom', () => {
     wrapper = mount(App, {
       attachTo: document.body
     })
+    // https://github.com/FezVrasta/popper.js/issues/478#issuecomment-407422016
+    // Hack to make Popper not bork out during tests
+    // Note popper still does not do any positioning calculation in JSDOM though
+    // So we cannot test actual positioning, just detect when it is open
+    document.createRange = () => ({
+      setStart: () => {},
+      setEnd: () => {},
+      commonAncestorContainer: {
+        nodeName: 'BODY',
+        ownerDocument: document
+      }
+    })
+    // Mock `getBoundingClientRect()` so that the `isVisible(el)` test returns `true`
+    // Needed for visibility checks of trigger element, etc
+    Element.prototype.getBoundingClientRect = jest.fn(() => ({
+      width: 24,
+      height: 24,
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0
+    }))
   })
 
   afterEach(() => {
@@ -61,7 +84,31 @@ describe('utils/dom', () => {
     expect(isDisabled($btns.at(2).element)).toBe(true)
   })
 
-  // NOTE: Need to figure out how to test against shadowDOM
+  it('isVisible() works', async () => {
+    expect(wrapper).toBeDefined()
+    const $baz = wrapper.find('div.baz')
+    expect($baz).toBeDefined()
+    expect(isVisible($baz.element)).toBe(true)
+  })
+  it('isVisible() is not connected', async () => {
+    const el = document.createElement('div')
+
+    expect(el).toBeDefined()
+    // test for element not connected
+    expect(isVisible(el)).toBe(false)
+    // test for not an element
+    expect(isVisible({})).toBe(false)
+  })
+
+  it('isVisible() element display none', async () => {
+    expect(wrapper).toBeDefined()
+
+    const $baz = wrapper.find('div.baz')
+    $baz.element.style.display = 'none'
+    expect($baz).toBeDefined()
+    expect(isVisible($baz.element)).toBe(false)
+  })
+
   it('isConnectedToDOM() Regular DOM', async () => {
     expect(wrapper).toBeDefined()
 
@@ -71,13 +118,51 @@ describe('utils/dom', () => {
     expect(isConnectedToDOM($barspan.at(0).element)).toBe(true)
   })
 
+  it('isConnectedToDOM() Shadow DOM', async () => {
+    const rootEl = document.createElement('div')
+    const shadow = rootEl.attachShadow({ mode: 'open' })
+    const subElement = document.createElement('p')
+    shadow.appendChild(subElement)
+    document.body.appendChild(rootEl)
+
+    expect(rootEl).toBeDefined()
+    expect(shadow).toBeDefined()
+    expect(isConnectedToDOM(subElement)).toBe(true)
+  })
+
+  it('isConnectedToDOM() not connected', async () => {
+    const el = document.createElement('div')
+
+    expect(el).toBeDefined()
+    expect(isConnectedToDOM(el)).toBe(false)
+  })
+
+  it('getShadowRootOrRoot() Shadow Dom', async () => {
+    const rootEl = document.createElement('div')
+    const shadow = rootEl.attachShadow({ mode: 'open' })
+    const subElement = document.createElement('p')
+    shadow.appendChild(subElement)
+    const testRoot = getShadowRootOrRoot(subElement)
+
+    expect(rootEl).toBeDefined()
+    expect(shadow).toBeDefined()
+    expect(testRoot).toBe(shadow)
+  })
   it('getShadowRootOrRoot() Regular DOM', async () => {
     expect(wrapper).toBeDefined()
 
     const $baz = wrapper.find('div.baz')
     const $documentBody = getShadowRootOrRoot($baz.element)
     expect($documentBody).toBeDefined()
-    expect($documentBody.toString()).toBe('[object HTMLBodyElement]')
+    expect($documentBody.nodeName.toLowerCase()).toBe('body')
+  })
+
+  it('getShadowRootOrRoot() getRootNode is Null', async () => {
+    const el = {
+      getRootNode: null
+    }
+
+    expect(getShadowRootOrRoot(el).nodeName.toLowerCase()).toBe('body')
   })
 
   it('hasClass() works', async () => {
