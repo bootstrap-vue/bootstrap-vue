@@ -1931,7 +1931,7 @@ sorting, as well as pass sort options via the `sort-compare-options` prop.
 
 The `sort-compare-locale` prop defaults to `undefined`, which uses the browser (or Node.js runtime)
 default locale. The prop `sort-compare-locale` can either accept a
-[BCP 47 language tag](https://tools.ietf.org/html/rfc5646) string or an _array_ of such tags. For
+[BCP 47 language tag](https://www.rfc-editor.org/info/bcp47) string or an _array_ of such tags. For
 more details on locales, please see
 [Locale identification and negotiation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation)
 on MDN.
