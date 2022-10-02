@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { Vue, REF_FOR_KEY } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_HOVERED,
@@ -271,7 +271,7 @@ export const tbodyRowMixin = Vue.extend({
             },
             key: `__b-table-row-${rowKey}__`,
             ref: 'item-rows',
-            refInFor: true
+            [REF_FOR_KEY]: true
           },
           $tds
         )

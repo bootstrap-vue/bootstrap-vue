@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, REF_FOR_KEY, Vue } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -598,7 +598,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         key: $tab[COMPONENT_UID_KEY] || index,
         ref: 'buttons',
         // Needed to make `this.$refs.buttons` an array
-        refInFor: true
+        [REF_FOR_KEY]: true
       })
     })
 

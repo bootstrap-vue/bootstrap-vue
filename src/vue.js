@@ -6,6 +6,8 @@ const COMPONENT_UID_KEY = '_uid'
 
 const isVue3 = Vue.version.startsWith('3')
 
+export const REF_FOR_KEY = isVue3 ? 'ref_for' : 'refInFor'
+
 const ALLOWED_FIELDS_IN_DATA = [
   'class',
   'staticClass',
