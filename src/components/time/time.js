@@ -1,5 +1,5 @@
 // BTime control (not form input control)
-import { Vue } from '../../vue'
+import { Vue, REF_FOR_KEY } from '../../vue'
 import { NAME_TIME } from '../../constants/components'
 import { EVENT_NAME_CONTEXT } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
@@ -441,7 +441,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         key,
         ref: 'spinners',
-        refInFor: true
+        [REF_FOR_KEY]: true
       })
     }
 

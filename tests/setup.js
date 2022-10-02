@@ -31,7 +31,6 @@ if (useVue3) {
     OPTIONS_DATA_MERGE: 'suppress-warning',
     OPTIONS_DESTROYED: 'suppress-warning',
     RENDER_FUNCTION: 'suppress-warning',
-    V_FOR_REF: 'suppress-warning',
     WATCH_ARRAY: 'suppress-warning'
   })
 
