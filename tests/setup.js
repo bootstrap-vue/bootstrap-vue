@@ -3,8 +3,7 @@ import Vue from 'vue'
 import * as VTU from '@vue/test-utils'
 import { installCompat as installVTUCompat, fullCompatConfig } from 'vue-test-utils-compat'
 
-const useVue3 = 'USE_VUE3' in process.env
-if (useVue3) {
+if (Vue.configureCompat) {
   Vue.configureCompat({
     MODE: 2,
     ATTR_FALSE_VALUE: 'suppress-warning',
