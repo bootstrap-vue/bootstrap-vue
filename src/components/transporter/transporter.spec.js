@@ -1,7 +1,6 @@
 import { isVue3 } from '../../vue'
 import { mount } from '@vue/test-utils'
-import { waitNT } from '../../../tests/utils'
-import { getInstanceFromVNode } from '../../utils/get-instance-from-vnode'
+import { waitNT, getInstanceFromVNode } from '../../../tests/utils'
 import { BVTransporter } from './transporter'
 
 describe('utils/transporter component', () => {

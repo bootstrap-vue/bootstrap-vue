@@ -1,7 +1,6 @@
 import { createWrapper, mount } from '@vue/test-utils'
 import { isVue3 } from '../../vue'
-import { waitNT, waitRAF } from '../../../tests/utils'
-import { getInstanceFromVNode } from '../../utils/get-instance-from-vnode'
+import { waitNT, waitRAF, getInstanceFromVNode } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
 
