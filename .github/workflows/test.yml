@@ -94,7 +94,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [12, 14, 16]
+        node: [14, 16, 18]
 
     steps:
       - name: Clone repository
