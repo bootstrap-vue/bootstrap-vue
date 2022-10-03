@@ -170,6 +170,10 @@ export const BButton = /*#__PURE__*/ Vue.extend({
       on
     }
 
-    return h(link ? BLink : props.tag, mergeData(data, componentData), children)
+    return h(
+      link ? BLink : props.tag,
+      mergeData({ ...data, props: undefined }, componentData),
+      children
+    )
   }
 })
