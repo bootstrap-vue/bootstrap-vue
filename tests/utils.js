@@ -1,3 +1,5 @@
+import { isVue3 } from '../src/vue'
+
 // --- Utils for testing ---
 
 export const wrapWithMethods = (Component, methods) => ({
@@ -14,3 +16,6 @@ export const wrapWithMethods = (Component, methods) => ({
 
 export const waitNT = ctx => new Promise(resolve => ctx.$nextTick(resolve))
 export const waitRAF = () => new Promise(resolve => requestAnimationFrame(resolve))
+
+export const getInstanceFromVNode = vnode =>
+  isVue3 ? vnode.__vueParentComponent.ctx : vnode.__vue__

@@ -37,6 +37,10 @@ import { clickOutMixin } from './click-out'
 import { focusInMixin } from './focus-in'
 import { idMixin, props as idProps } from './id'
 import { listenOnRootMixin } from './listen-on-root'
+import {
+  registerElementToInstance,
+  removeElementToInstance
+} from '../utils/element-to-vue-instance-registry'
 
 // --- Constants ---
 
@@ -181,11 +185,15 @@ export const dropdownMixin = Vue.extend({
     this.whileOpenListen(false)
     this.destroyPopper()
   },
+  mounted() {
+    registerElementToInstance(this.$el, this)
+  },
   beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
     this.destroyPopper()
     this.clearHideTimeout()
+    removeElementToInstance(this.$el)
   },
   methods: {
     // Event emitter
