@@ -49,7 +49,12 @@ if (isVue3) {
       const originalRender = definition.render
       definition.__alreadyPatched = true
       definition.render = function(h) {
-        const patchedH = function(tag, dataObjOrChildren, ...rest) {
+        const patchedH = function(tag, dataObjOrChildren, rawSlots) {
+          const slots =
+            rawSlots === undefined
+              ? []
+              : [Array.isArray(rawSlots) ? rawSlots.filter(Boolean) : rawSlots]
+
           const isTag = typeof tag === 'string' && !KNOWN_COMPONENTS.includes(tag)
           const isSecondArgumentDataObject =
             dataObjOrChildren &&
@@ -57,7 +62,7 @@ if (isVue3) {
             !Array.isArray(dataObjOrChildren)
 
           if (!isSecondArgumentDataObject) {
-            return h(tag, dataObjOrChildren, ...rest)
+            return h(tag, dataObjOrChildren, ...slots)
           }
 
           const { attrs, props, ...restData } = dataObjOrChildren
@@ -70,7 +75,7 @@ if (isVue3) {
             // terrible workaround to fix router-link rendering with compat vue-router
             normalizedData.scopedSlots = { $hasNormal: () => {} }
           }
-          return h(tag, normalizedData, ...rest)
+          return h(tag, normalizedData, ...slots)
         }
 
         if (definition.functional) {
