@@ -29,12 +29,5 @@ export const BFormRadio = /*#__PURE__*/ extend({
     bvGroup() {
       return this.getBvGroup()
     }
-  },
-  watch: {
-    computedLocalChecked(newValue, oldValue) {
-      if (!looseEqual(newValue, oldValue)) {
-        this.$emit(MODEL_EVENT_NAME, newValue)
-      }
-    }
   }
 })
