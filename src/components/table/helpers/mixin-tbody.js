@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_CONTEXTMENU,
@@ -40,7 +40,7 @@ export const props = sortKeys({
 // --- Mixin ---
 
 // @vue/component
-export const tbodyMixin = Vue.extend({
+export const tbodyMixin = extend({
   mixins: [tbodyRowMixin],
   props,
   beforeDestroy() {

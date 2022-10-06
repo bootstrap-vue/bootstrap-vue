@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { PROP_TYPE_ARRAY_OBJECT, PROP_TYPE_STRING } from '../constants/props'
 import { get } from '../utils/get'
 import { stripTags } from '../utils/html'
@@ -28,7 +28,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formOptionsMixin = Vue.extend({
+export const formOptionsMixin = extend({
   props,
   computed: {
     formOptions() {

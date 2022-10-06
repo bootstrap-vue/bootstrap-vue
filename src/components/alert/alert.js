@@ -1,4 +1,3 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
 import { NAME_ALERT } from '../../constants/components'
 import { EVENT_NAME_DISMISSED, EVENT_NAME_DISMISS_COUNT_DOWN } from '../../constants/events'
 import {
@@ -7,13 +6,14 @@ import {
   PROP_TYPE_STRING
 } from '../../constants/props'
 import { SLOT_NAME_DISMISS } from '../../constants/slots'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { requestAF } from '../../utils/dom'
 import { isBoolean, isNumeric } from '../../utils/inspect'
 import { makeModelMixin } from '../../utils/model'
 import { toInteger } from '../../utils/number'
 import { sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
-import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { COMPONENT_UID_KEY, extend } from '../../vue'
 import { BButtonClose } from '../button/button-close'
 import { BVTransition } from '../transition/bv-transition'
 
@@ -68,7 +68,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAlert = /*#__PURE__*/ Vue.extend({
+export const BAlert = /*#__PURE__*/ extend({
   name: NAME_ALERT,
   mixins: [modelMixin, normalizeSlotMixin],
   props,

@@ -6,7 +6,7 @@
  *  - false for is-invalid
  *  - null for no contextual state
  */
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { PROP_TYPE_BOOLEAN } from '../constants/props'
 import { isBoolean } from '../utils/inspect'
 import { makeProp, makePropsConfigurable } from '../utils/props'
@@ -25,7 +25,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formStateMixin = Vue.extend({
+export const formStateMixin = extend({
   props,
   computed: {
     computedState() {

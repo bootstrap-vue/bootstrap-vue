@@ -6,7 +6,7 @@
 //
 
 import Popper from 'popper.js'
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { NAME_POPPER } from '../../../constants/components'
 import {
   EVENT_NAME_HIDDEN,
@@ -82,7 +82,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-export const BVPopper = /*#__PURE__*/ Vue.extend({
+export const BVPopper = /*#__PURE__*/ extend({
   name: NAME_POPPER,
   mixins: [useParentMixin],
   props,

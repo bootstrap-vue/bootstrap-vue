@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { EVENT_NAME_HEAD_CLICKED } from '../../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../../constants/props'
@@ -38,7 +38,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const theadMixin = Vue.extend({
+export const theadMixin = extend({
   props,
   methods: {
     fieldClasses(field) {

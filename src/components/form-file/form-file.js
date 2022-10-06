@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_FILE } from '../../constants/components'
 import { HAS_PROMISE_SUPPORT } from '../../constants/env'
 import { EVENT_NAME_CHANGE, EVENT_OPTIONS_PASSIVE } from '../../constants/events'
@@ -176,7 +176,7 @@ const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormFile = /*#__PURE__*/ Vue.extend({
+export const BFormFile = /*#__PURE__*/ extend({
   name: NAME_FORM_FILE,
   mixins: [
     attrsMixin,

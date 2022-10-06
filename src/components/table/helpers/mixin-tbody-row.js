@@ -1,4 +1,4 @@
-import { Vue, REF_FOR_KEY } from '../../../vue'
+import { extend, REF_FOR_KEY } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_HOVERED,
@@ -32,7 +32,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const tbodyRowMixin = Vue.extend({
+export const tbodyRowMixin = extend({
   mixins: [useParentMixin],
   props,
   methods: {

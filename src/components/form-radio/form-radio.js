@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
 import { looseEqual } from '../../utils/loose-equal'
 import { makePropsConfigurable } from '../../utils/props'
@@ -15,7 +15,7 @@ export const props = makePropsConfigurable(formRadioCheckProps, NAME_FORM_RADIO)
 // --- Main component ---
 
 // @vue/component
-export const BFormRadio = /*#__PURE__*/ Vue.extend({
+export const BFormRadio = /*#__PURE__*/ extend({
   name: NAME_FORM_RADIO,
   mixins: [formRadioCheckMixin],
   inject: {

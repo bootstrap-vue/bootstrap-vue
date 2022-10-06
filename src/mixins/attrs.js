@@ -1,8 +1,8 @@
 import { makePropCacheMixin } from '../utils/cache'
-import { Vue, isVue3 } from '../vue'
+import { extend, isVue3 } from '../vue'
 
 const attrsMixinVue2 = makePropCacheMixin('$attrs', 'bvAttrs')
-const attrsMixinVue3 = Vue.extend({
+const attrsMixinVue3 = extend({
   computed: {
     bvAttrs() {
       const bvAttrs = { ...this.$attrs }

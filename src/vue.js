@@ -25,6 +25,8 @@ const ALLOWED_FIELDS_IN_DATA = [
   'refInFor'
 ]
 
+let extend = Vue.extend.bind(Vue)
+
 if (isVue3) {
   const { extend: originalExtend } = Vue
   const KNOWN_COMPONENTS = ['router-link', 'transition']
@@ -44,7 +46,7 @@ if (isVue3) {
       el._assign = () => {}
     }
   }
-  Vue.extend = function(definition) {
+  extend = function patchedBootstrapVueExtend(definition) {
     if (typeof definition === 'object' && definition.render && !definition.__alreadyPatched) {
       const originalRender = definition.render
       definition.__alreadyPatched = true
@@ -116,9 +118,9 @@ if (isVue3) {
       }
     }
     return originalExtend.call(this, definition)
-  }
+  }.bind(Vue)
 }
 
 const nextTick = Vue.nextTick
 
-export { COMPONENT_UID_KEY, Vue, mergeData, isVue3, nextTick }
+export { COMPONENT_UID_KEY, Vue, mergeData, isVue3, nextTick, extend }

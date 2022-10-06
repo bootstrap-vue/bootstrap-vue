@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TOOLTIP } from '../../constants/components'
 import {
   EVENT_NAME_CLOSE,
@@ -83,7 +83,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTooltip = /*#__PURE__*/ Vue.extend({
+export const BTooltip = /*#__PURE__*/ extend({
   name: NAME_TOOLTIP,
   mixins: [normalizeSlotMixin, useParentMixin],
   inheritAttrs: false,

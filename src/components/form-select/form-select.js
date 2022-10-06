@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_SELECT } from '../../constants/components'
 import { EVENT_NAME_CHANGE } from '../../constants/events'
 import {
@@ -51,7 +51,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormSelect = /*#__PURE__*/ Vue.extend({
+export const BFormSelect = /*#__PURE__*/ extend({
   name: NAME_FORM_SELECT,
   mixins: [
     idMixin,

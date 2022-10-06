@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import {
   EVENT_NAME_HEAD_CLICKED,
   EVENT_NAME_SORT_CHANGED,
@@ -70,7 +70,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const sortingMixin = Vue.extend({
+export const sortingMixin = extend({
   props,
   data() {
     return {

@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { EVENT_NAME_CONTEXT_CHANGED } from '../../../constants/events'
 import { PROP_TYPE_ARRAY, PROP_TYPE_STRING } from '../../../constants/props'
 import { useParentMixin } from '../../../mixins/use-parent'
@@ -44,7 +44,7 @@ export const props = sortKeys({
 // --- Mixin ---
 
 // @vue/component
-export const itemsMixin = Vue.extend({
+export const itemsMixin = extend({
   mixins: [modelMixin, useParentMixin],
   props,
   data() {

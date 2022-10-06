@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_NUMBER_STRING } from '../../../constants/props'
 import { mathMax } from '../../../utils/math'
 import { toInteger } from '../../../utils/number'
@@ -15,7 +15,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const paginationMixin = Vue.extend({
+export const paginationMixin = extend({
   props,
   computed: {
     localPaging() {

@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_NAVBAR } from '../../constants/components'
 import {
   PROP_TYPE_BOOLEAN,
@@ -29,7 +29,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BNavbar = /*#__PURE__*/ Vue.extend({
+export const BNavbar = /*#__PURE__*/ extend({
   name: NAME_NAVBAR,
   mixins: [normalizeSlotMixin],
   provide() {

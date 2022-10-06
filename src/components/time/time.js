@@ -1,5 +1,5 @@
 // BTime control (not form input control)
-import { Vue, REF_FOR_KEY } from '../../vue'
+import { extend, REF_FOR_KEY } from '../../vue'
 import { NAME_TIME } from '../../constants/components'
 import { EVENT_NAME_CONTEXT } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
@@ -107,7 +107,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTime = /*#__PURE__*/ Vue.extend({
+export const BTime = /*#__PURE__*/ extend({
   name: NAME_TIME,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   props,

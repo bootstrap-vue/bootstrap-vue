@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { MODEL_EVENT_NAME_PREFIX } from '../../../constants/events'
 import { PROP_TYPE_BOOLEAN } from '../../../constants/props'
 import { SLOT_NAME_TABLE_BUSY } from '../../../constants/slots'
@@ -22,7 +22,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const busyMixin = Vue.extend({
+export const busyMixin = extend({
   props,
   data() {
     return {

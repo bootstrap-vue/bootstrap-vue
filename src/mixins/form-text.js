@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import {
   EVENT_NAME_BLUR,
   EVENT_NAME_CHANGE,
@@ -61,7 +61,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formTextMixin = Vue.extend({
+export const formTextMixin = extend({
   mixins: [modelMixin],
   props,
   data() {
