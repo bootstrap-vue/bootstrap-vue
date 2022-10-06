@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_CARD_BODY } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { sortKeys } from '../../utils/object'
@@ -29,7 +29,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCardBody = /*#__PURE__*/ Vue.extend({
+export const BCardBody = /*#__PURE__*/ extend({
   name: NAME_CARD_BODY,
   functional: true,
   props,

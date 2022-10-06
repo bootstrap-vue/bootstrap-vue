@@ -1,9 +1,9 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
-export const focusInMixin = Vue.extend({
+export const focusInMixin = extend({
   data() {
     return {
       listenForFocusIn: false

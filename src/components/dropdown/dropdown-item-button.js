@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_DROPDOWN_ITEM_BUTTON } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import {
@@ -26,7 +26,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdownItemButton = /*#__PURE__*/ Vue.extend({
+export const BDropdownItemButton = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN_ITEM_BUTTON,
   mixins: [attrsMixin, normalizeSlotMixin],
   inject: {

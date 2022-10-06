@@ -1,10 +1,10 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { contains } from '../utils/dom'
 import { eventOn, eventOff } from '../utils/events'
 
 // @vue/component
-export const clickOutMixin = Vue.extend({
+export const clickOutMixin = extend({
   data() {
     return {
       listenForClickOut: false

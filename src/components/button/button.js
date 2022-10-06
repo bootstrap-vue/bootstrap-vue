@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_BUTTON } from '../../constants/components'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
@@ -115,7 +115,7 @@ const computeAttrs = (props, data) => {
 // --- Main component ---
 
 // @vue/component
-export const BButton = /*#__PURE__*/ Vue.extend({
+export const BButton = /*#__PURE__*/ extend({
   name: NAME_BUTTON,
   functional: true,
   props,

@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { arrayIncludes } from '../utils/array'
 import { keys } from '../utils/object'
 import { getEventRoot } from '../utils/get-event-root'
@@ -9,7 +9,7 @@ const PROP = '$_rootListeners'
 // --- Mixin ---
 
 // @vue/component
-export const listenOnRootMixin = Vue.extend({
+export const listenOnRootMixin = extend({
   computed: {
     bvEventRoot() {
       return getEventRoot(this)

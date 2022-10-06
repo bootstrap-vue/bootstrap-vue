@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_CARD_IMG } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { pick, sortKeys } from '../../utils/object'
@@ -21,7 +21,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCardImg = /*#__PURE__*/ Vue.extend({
+export const BCardImg = /*#__PURE__*/ extend({
   name: NAME_CARD_IMG,
   functional: true,
   props,

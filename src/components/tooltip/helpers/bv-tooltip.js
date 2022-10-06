@@ -3,7 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import { COMPONENT_UID_KEY, Vue } from '../../../vue'
+import { COMPONENT_UID_KEY, extend } from '../../../vue'
 import { NAME_MODAL, NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import {
   EVENT_NAME_DISABLE,
@@ -140,7 +140,7 @@ const templateData = {
 // --- Main component ---
 
 // @vue/component
-export const BVTooltip = /*#__PURE__*/ Vue.extend({
+export const BVTooltip = /*#__PURE__*/ extend({
   name: NAME_TOOLTIP_HELPER,
   mixins: [listenOnRootMixin, useParentMixin],
   data() {

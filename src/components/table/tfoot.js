@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TFOOT } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BTfoot = /*#__PURE__*/ Vue.extend({
+export const BTfoot = /*#__PURE__*/ extend({
   name: NAME_TFOOT,
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {

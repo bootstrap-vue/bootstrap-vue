@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_NAV_FORM } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING } from '../../constants/props'
 import { omit, sortKeys } from '../../utils/object'
@@ -20,7 +20,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BNavForm = /*#__PURE__*/ Vue.extend({
+export const BNavForm = /*#__PURE__*/ extend({
   name: NAME_NAV_FORM,
   functional: true,
   props,

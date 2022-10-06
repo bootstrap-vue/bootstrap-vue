@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
 import { HAS_TOUCH_SUPPORT } from '../constants/env'
 import {
@@ -88,7 +88,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const dropdownMixin = Vue.extend({
+export const dropdownMixin = extend({
   mixins: [idMixin, listenOnRootMixin, clickOutMixin, focusInMixin],
   provide() {
     return { getBvDropdown: () => this }

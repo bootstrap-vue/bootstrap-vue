@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
   PROP_TYPE_BOOLEAN,
@@ -38,7 +38,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const tableRendererMixin = Vue.extend({
+export const tableRendererMixin = extend({
   mixins: [attrsMixin],
   provide() {
     return {

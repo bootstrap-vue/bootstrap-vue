@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
 import {
   SLOT_NAME_EMPTY,
@@ -25,7 +25,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const emptyMixin = Vue.extend({
+export const emptyMixin = extend({
   props,
   methods: {
     renderEmpty() {

@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_TEXTAREA } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { getCS, getStyle, isVisible, requestAF, setStyle } from '../../utils/dom'
@@ -43,7 +43,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormTextarea = /*#__PURE__*/ Vue.extend({
+export const BFormTextarea = /*#__PURE__*/ extend({
   name: NAME_FORM_TEXTAREA,
   directives: {
     'b-visible': VBVisible

@@ -1,5 +1,5 @@
 import { PortalTarget, Wormhole } from 'portal-vue'
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TOASTER } from '../../constants/components'
 import { EVENT_NAME_DESTROYED } from '../../constants/events'
 import { PROP_TYPE_STRING } from '../../constants/props'
@@ -13,7 +13,7 @@ import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 // --- Helper components ---
 
 // @vue/component
-export const DefaultTransition = /*#__PURE__*/ Vue.extend({
+export const DefaultTransition = /*#__PURE__*/ extend({
   mixins: [normalizeSlotMixin],
   data() {
     return {
@@ -62,7 +62,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BToaster = /*#__PURE__*/ Vue.extend({
+export const BToaster = /*#__PURE__*/ extend({
   name: NAME_TOASTER,
   mixins: [listenOnRootMixin],
   props,

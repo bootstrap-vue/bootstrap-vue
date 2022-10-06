@@ -1,7 +1,7 @@
 // SSR safe client-side ID attribute generation
 // ID's can only be generated client-side, after mount
 // `this._uid` is not synched between server and client
-import { COMPONENT_UID_KEY, Vue } from '../vue'
+import { COMPONENT_UID_KEY, extend } from '../vue'
 import { PROP_TYPE_STRING } from '../constants/props'
 import { makeProp } from '../utils/props'
 
@@ -14,7 +14,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const idMixin = Vue.extend({
+export const idMixin = extend({
   props,
   data() {
     return {

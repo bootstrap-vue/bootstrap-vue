@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_SPINBUTTON } from '../../constants/components'
 import { EVENT_NAME_CHANGE } from '../../constants/events'
 import {
@@ -100,7 +100,7 @@ export const props = makePropsConfigurable(
 // --- Main Component ---
 
 // @vue/component
-export const BFormSpinbutton = /*#__PURE__*/ Vue.extend({
+export const BFormSpinbutton = /*#__PURE__*/ extend({
   name: NAME_FORM_SPINBUTTON,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, modelMixin, formSizeMixin, formStateMixin, normalizeSlotMixin],

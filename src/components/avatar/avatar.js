@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_AVATAR } from '../../constants/components'
 import { EVENT_NAME_CLICK, EVENT_NAME_IMG_ERROR } from '../../constants/events'
 import {
@@ -67,7 +67,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAvatar = /*#__PURE__*/ Vue.extend({
+export const BAvatar = /*#__PURE__*/ extend({
   name: NAME_AVATAR,
   mixins: [normalizeSlotMixin],
   inject: {

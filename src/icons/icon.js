@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../vue'
+import { Vue, extend, mergeData } from '../vue'
 import { NAME_ICON } from '../constants/components'
 import { PROP_TYPE_STRING } from '../constants/props'
 import { RX_ICON_PREFIX } from '../constants/regex'
@@ -36,7 +36,7 @@ export const props = makePropsConfigurable(
 // Helper BIcon component
 // Requires the requested icon component to be installed
 // @vue/component
-export const BIcon = /*#__PURE__*/ Vue.extend({
+export const BIcon = /*#__PURE__*/ extend({
   name: NAME_ICON,
   functional: true,
   props,

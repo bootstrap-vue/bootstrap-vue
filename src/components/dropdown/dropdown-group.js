@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_DROPDOWN_GROUP } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_HEADER } from '../../constants/slots'
@@ -25,7 +25,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdownGroup = /*#__PURE__*/ Vue.extend({
+export const BDropdownGroup = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN_GROUP,
   functional: true,
   props,
