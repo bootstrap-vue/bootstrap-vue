@@ -27,6 +27,28 @@ describe('table > thead events', () => {
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
   })
 
+  it('should not emit head-contextmenu event when a head cell is clicked and no head-contextmenu listener', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {}
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('thead > tr')
+    expect($rows.length).toBe(1)
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(0).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(1).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(2).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+  })
+
   it('should emit head-clicked event when a head cell is clicked', async () => {
     const wrapper = mount(BTable, {
       propsData: {
@@ -62,6 +84,41 @@ describe('table > thead events', () => {
     wrapper.destroy()
   })
 
+  it('should emit head-contextmenu event when a head cell is context clicked', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Head-contextmenu will only be emitted if there is a registered listener
+        'head-contextmenu': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $rows = wrapper.findAll('thead > tr')
+    expect($rows.length).toBe(1)
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(0).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeDefined()
+    expect(wrapper.emitted('head-contextmenu').length).toBe(1)
+    expect(wrapper.emitted('head-contextmenu')[0][0]).toEqual(testFields[0].key) // Field key
+    expect(wrapper.emitted('head-contextmenu')[0][1]).toEqual(testFields[0]) // Field definition
+    expect(wrapper.emitted('head-contextmenu')[0][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-contextmenu')[0][3]).toBe(false) // Is footer
+
+    await $ths.at(2).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu').length).toBe(2)
+    expect(wrapper.emitted('head-contextmenu')[1][0]).toEqual(testFields[2].key) // Field key
+    expect(wrapper.emitted('head-contextmenu')[1][1]).toEqual(testFields[2]) // Field definition
+    expect(wrapper.emitted('head-contextmenu')[1][2]).toBeInstanceOf(MouseEvent) // Event
+    expect(wrapper.emitted('head-contextmenu')[1][3]).toBe(false) // Is footer
+
+    wrapper.destroy()
+  })
+
   it('should not emit head-clicked event when prop busy is set', async () => {
     const wrapper = mount(BTable, {
       propsData: {
@@ -80,6 +137,28 @@ describe('table > thead events', () => {
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
     await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('should not emit head-contextmenu event when prop busy is set', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems,
+        busy: true
+      },
+      listeners: {
+        // Head-contextmenu will only be emitted if there is a registered listener
+        'head-contextmenu': () => {}
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(0).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -104,6 +183,28 @@ describe('table > thead events', () => {
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
     await $ths.at(0).trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('should not emit head-contextmenu event when vm.localBusy is true', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Head-contextmenu will only be emitted if there is a registered listener
+        'head-contextmenu': () => {}
+      }
+    })
+    await wrapper.setData({ localBusy: true })
+    expect(wrapper).toBeDefined()
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+    await $ths.at(0).trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
 
     wrapper.destroy()
   })
@@ -144,6 +245,46 @@ describe('table > thead events', () => {
     expect($link.exists()).toBe(true)
     await $link.trigger('click')
     expect(wrapper.emitted('head-clicked')).toBeUndefined()
+
+    wrapper.destroy()
+  })
+
+  it('should not emit head-contextmenu event when clicking on a button or other interactive element', async () => {
+    const wrapper = mount(BTable, {
+      propsData: {
+        fields: testFields,
+        items: testItems
+      },
+      listeners: {
+        // Head-contextmenu will only be emitted if there is a registered listener
+        'head-contextmenu': () => {}
+      },
+      slots: {
+        // In Vue 2.6x, slots get translated into scopedSlots
+        'head(a)': '<button id="a">button</button>',
+        'head(b)': '<input id="b">',
+        'head(c)': '<a href="#" id="c">link</a>'
+      }
+    })
+    expect(wrapper).toBeDefined()
+    const $ths = wrapper.findAll('thead > tr > th')
+    expect($ths.length).toBe(testFields.length)
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+
+    const $btn = wrapper.find('button[id="a"]')
+    expect($btn.exists()).toBe(true)
+    await $btn.trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+
+    const $input = wrapper.find('input[id="b"]')
+    expect($input.exists()).toBe(true)
+    await $input.trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
+
+    const $link = wrapper.find('a[id="c"]')
+    expect($link.exists()).toBe(true)
+    await $link.trigger('contextmenu')
+    expect(wrapper.emitted('head-contextmenu')).toBeUndefined()
 
     wrapper.destroy()
   })
