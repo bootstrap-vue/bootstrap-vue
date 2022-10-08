@@ -31,7 +31,7 @@ The online documentation comprises:
 
 ## Prerequisites
 
-This BootstrapVue documentation assumes you are familiar with Vue and and Bootstrap
+This BootstrapVue documentation assumes you are familiar with Vue and Bootstrap
 v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
