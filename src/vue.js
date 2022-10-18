@@ -29,7 +29,7 @@ let extend = Vue.extend.bind(Vue)
 
 if (isVue3) {
   const { extend: originalExtend } = Vue
-  const KNOWN_COMPONENTS = ['router-link', 'transition']
+  const KNOWN_COMPONENTS = ['router-link', 'transition', 'transition-group']
   const originalVModelDynamicCreated = Vue.vModelDynamic.created
   const originalVModelDynamicBeforeUpdate = Vue.vModelDynamic.beforeUpdate
 
