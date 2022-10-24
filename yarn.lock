@@ -2807,10 +2807,10 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.40.tgz#e57799da2a930b975321981fcee3d1e90ed257ae"
   integrity sha512-0PLQ6RUtZM0vO3teRfzGi4ltLUO5aO+kLgwh4Um3THSR03rpQWLTuRCkuO5A41ITzwdWeKdPHtSARuPkoo5pCQ==
 
-"@vue/test-utils-vue3@npm:@vue/test-utils@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.1.0.tgz#c2f646aa2d6ac779f79a83f18c5b82fc40952bfd"
-  integrity sha512-U4AxAD/tKJ3ajxYew1gkfEotpr96DE/gLXpbl+nPbsNRqGBfQZZA7YhwGoQNDPgon56v+IGZDrYq7pe3GDl9aw==
+"@vue/test-utils-vue3@npm:@vue/test-utils@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.2.0.tgz#3d8fc020802db9b726e2d91b6e3fb5b21aa0bf0c"
+  integrity sha512-EKp5/N7ieNZdoLTkD16j/irUjIEDN63QUIc41vLUMqGvSsTQN0QxbFiQqh5v49RPfS5vZH+DhjNUEkijCMOCSg==
 
 "@vue/test-utils@^1.3.0":
   version "1.3.0"
