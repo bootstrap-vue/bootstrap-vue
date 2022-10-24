@@ -44,7 +44,7 @@ v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
 such as <code class="text-nowrap">ml-2</code>, <code class="text-nowrap">py-1</code>, etc. These are
-Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning
+Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning,
 and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
