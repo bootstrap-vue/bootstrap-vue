@@ -30,6 +30,7 @@ export const getInstanceFromElement = element => {
 
   while (currentElement) {
     if (registry.has(currentElement)) {
+      /* istanbul ignore next */
       return registry.get(currentElement)
     }
     currentElement = currentElement.parentNode
