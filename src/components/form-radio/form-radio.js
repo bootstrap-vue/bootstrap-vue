@@ -1,12 +1,7 @@
 import { extend } from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
-import { looseEqual } from '../../utils/loose-equal'
 import { makePropsConfigurable } from '../../utils/props'
-import {
-  MODEL_EVENT_NAME,
-  formRadioCheckMixin,
-  props as formRadioCheckProps
-} from '../../mixins/form-radio-check'
+import { formRadioCheckMixin, props as formRadioCheckProps } from '../../mixins/form-radio-check'
 
 // --- Props ---
 
