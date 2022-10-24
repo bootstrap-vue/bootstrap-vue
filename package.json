@@ -154,7 +154,7 @@
     "vue-router": "^3.5.1",
     "vue-server-renderer": "^2.6.12",
     "vue-template-compiler": "^2.6.12",
-    "vue-test-utils-compat": "0.0.3"
+    "vue-test-utils-compat": "0.0.6"
   },
   "keywords": [
     "Bootstrap",

@@ -14876,10 +14876,10 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-test-utils-compat@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/vue-test-utils-compat/-/vue-test-utils-compat-0.0.3.tgz#d3efb08b049e97fc4577bdb1a93e417f546c2651"
-  integrity sha512-2zFkkcoirkp2FTrO7y2y4fZ9ZJ3WaoPoxwAZ7MmptlUhLchxbcay1KJ8t9qdJS1PHnu6aF98mD0Dn0jMQGoDGQ==
+vue-test-utils-compat@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/vue-test-utils-compat/-/vue-test-utils-compat-0.0.6.tgz#3600c63dc8175167641f7af170918e59354e6a79"
+  integrity sha512-yr/PpRQeJU0xkV7d0OVThE+YeY6FgsB8+Bj9X7Z3vY6PUFthDXNfOJPHx2JIPO4l1TQ0kZ7mlOVQmDduLiBP1Q==
 
 vue@^2.6.12:
   version "2.6.12"
