@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_ICON_BASE } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { identity } from '../../utils/identity'
@@ -49,7 +49,7 @@ export const props = {
 
 // Shared private base component to reduce bundle/runtime size
 // @vue/component
-export const BVIconBase = /*#__PURE__*/ Vue.extend({
+export const BVIconBase = /*#__PURE__*/ extend({
   name: NAME_ICON_BASE,
   functional: true,
   props,

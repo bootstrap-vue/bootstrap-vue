@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_FORM_VALID_FEEDBACK } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormValidFeedback = /*#__PURE__*/ Vue.extend({
+export const BFormValidFeedback = /*#__PURE__*/ extend({
   name: NAME_FORM_VALID_FEEDBACK,
   functional: true,
   props,

@@ -15,9 +15,6 @@ module.exports = {
     es6: true,
     'jest/globals': true
   },
-  globals: {
-    Vue: true
-  },
   rules: {
     'no-unused-vars': [
       'error',

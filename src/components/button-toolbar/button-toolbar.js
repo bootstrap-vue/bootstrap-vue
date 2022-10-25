@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_BUTTON_TOOLBAR } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN } from '../../constants/props'
 import { CODE_DOWN, CODE_LEFT, CODE_RIGHT, CODE_UP } from '../../constants/key-codes'
@@ -30,7 +30,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BButtonToolbar = /*#__PURE__*/ Vue.extend({
+export const BButtonToolbar = /*#__PURE__*/ extend({
   name: NAME_BUTTON_TOOLBAR,
   mixins: [normalizeSlotMixin],
   props,

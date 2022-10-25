@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_DATALIST } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
@@ -20,7 +20,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormDatalist = /*#__PURE__*/ Vue.extend({
+export const BFormDatalist = /*#__PURE__*/ extend({
   name: NAME_FORM_DATALIST,
   mixins: [formOptionsMixin, normalizeSlotMixin],
   props,

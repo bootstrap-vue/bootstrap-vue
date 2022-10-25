@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { SLOT_NAME_TABLE_COLGROUP } from '../../../constants/slots'
 
 // --- Props ---
@@ -8,7 +8,7 @@ export const props = {}
 // --- Mixin ---
 
 // @vue/component
-export const colgroupMixin = Vue.extend({
+export const colgroupMixin = extend({
   methods: {
     renderColgroup() {
       const { computedFields: fields } = this
