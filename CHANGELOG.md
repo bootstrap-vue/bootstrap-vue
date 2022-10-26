@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
-## [2.23.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.22.0...v2.24.0) (2022-10-25)
+## [2.23.1](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.23.0...v2.23.1) (2022-10-26)
+
+### Bug Fixes
+
+- correctly pass parent relations for Vue.js2
+  ([58e2d7e](https://github.com/bootstrap-vue/bootstrap-vue/commit/58e2d7e4f5e883207c4f7baa856532d3ae924a0c))
+
+## [2.23.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.22.0...v2.23.0) (2022-10-25)
 
 ### Bug Fixes
 
