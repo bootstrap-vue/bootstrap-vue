@@ -58,4 +58,28 @@ describe('utils/transporter component', () => {
 
     expect(target.parentElement).toEqual(null)
   })
+
+  it('maintains provide-inject relation', async () => {
+    const Child = {
+      inject: ['foo'],
+      render(h) {
+        return h('article', this.foo)
+      }
+    }
+
+    const App = {
+      provide() {
+        return { foo: 'foo' }
+      },
+      render(h) {
+        return h(BVTransporter, { props: { disabled: false } }, [h(Child)])
+      }
+    }
+
+    mount(App, {
+      attachTo: document.body
+    })
+
+    expect(document.querySelector('article').textContent).toBe('foo')
+  })
 })
