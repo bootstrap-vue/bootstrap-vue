@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See
 [standard-version](https://github.com/conventional-changelog/standard-version) for commit
 guidelines.
 
+## [2.23.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.22.0...v2.24.0) (2022-10-25)
+
+### Bug Fixes
+
+- **vue3:** do not rely on \_\_vueParentComponent in tooltip
+  ([fe13503](https://github.com/bootstrap-vue/bootstrap-vue/commit/fe13503f7aa6d0bd6f7e1ed4f4a2e7acff421106))
+- update refs inside v-for to work for @vue/compat
+  ([ae4bac8](https://github.com/bootstrap-vue/bootstrap-vue/commit/ae4bac8a4327a1f293afbcf571e84ed1de4497f8))
+
+### Other v2.23.0
+
+- add support for @vue/compat
+
 ## [2.22.0](https://github.com/bootstrap-vue/bootstrap-vue/compare/v2.21.2...v2.22.0) (2022-04-17)
 
 ### Features
