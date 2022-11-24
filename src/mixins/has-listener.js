@@ -2,13 +2,16 @@
 // either via `v-on:name` (in the parent) or programmatically
 // via `vm.$on('name', ...)`
 // See: https://github.com/vuejs/vue/issues/10825
-import { Vue } from '../vue'
+import { isVue3, extend } from '../vue'
 import { isArray, isUndefined } from '../utils/inspect'
 
 // @vue/component
-export const hasListenerMixin = Vue.extend({
+export const hasListenerMixin = extend({
   methods: {
     hasListener(name) {
+      if (isVue3) {
+        return true
+      }
       // Only includes listeners registered via `v-on:name`
       const $listeners = this.$listeners || {}
       // Includes `v-on:name` and `this.$on('name')` registered listeners

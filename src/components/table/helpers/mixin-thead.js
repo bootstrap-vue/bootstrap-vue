@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { EVENT_NAME_HEAD_CLICKED } from '../../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../../constants/key-codes'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../../constants/props'
@@ -9,6 +9,7 @@ import { identity } from '../../../utils/identity'
 import { isUndefinedOrNull } from '../../../utils/inspect'
 import { noop } from '../../../utils/noop'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { startCase } from '../../../utils/string'
 import { BThead } from '../thead'
 import { BTfoot } from '../tfoot'
@@ -37,7 +38,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const theadMixin = Vue.extend({
+export const theadMixin = extend({
   props,
   methods: {
     fieldClasses(field) {
@@ -68,7 +69,7 @@ export const theadMixin = Vue.extend({
         footVariant,
         headRowVariant,
         footRowVariant
-      } = this
+      } = safeVueInstance(this)
       const h = this.$createElement
 
       // In always stacked mode, we don't bother rendering the head/foot

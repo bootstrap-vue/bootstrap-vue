@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { EVENT_NAME_INPUT } from '../constants/events'
 import { PROP_TYPE_ANY } from '../constants/props'
 import { makeProp } from './props'
@@ -17,7 +17,7 @@ export const makeModelMixin = (
   }
 
   // @vue/component
-  const mixin = Vue.extend({
+  const mixin = extend({
     model: {
       prop,
       event

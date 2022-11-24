@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../vue'
+import { extend, mergeData } from '../vue'
 import { NAME_ICONSTACK } from '../constants/components'
 import { omit } from '../utils/object'
 import { makePropsConfigurable } from '../utils/props'
@@ -14,7 +14,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BIconstack = /*#__PURE__*/ Vue.extend({
+export const BIconstack = /*#__PURE__*/ extend({
   name: NAME_ICONSTACK,
   functional: true,
   props,

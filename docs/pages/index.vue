@@ -7,7 +7,6 @@
           <b-col tag="aside" cols="12" md="4" order-md="2" class="logo-aside mb-4 mb-md-0">
             <BvLogo></bvLogo>
           </b-col>
-
           <b-col tag="header" cols="12" md="8" order-md="1">
             <h1 class="mb-3 text-center text-md-left bd-text-purple-bright">
               Bootstrap<span class="text-vue-green">Vue</span>

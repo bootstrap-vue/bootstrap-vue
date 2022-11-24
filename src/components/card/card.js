@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_CARD } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_DEFAULT, SLOT_NAME_FOOTER, SLOT_NAME_HEADER } from '../../constants/slots'
@@ -40,7 +40,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCard = /*#__PURE__*/ Vue.extend({
+export const BCard = /*#__PURE__*/ extend({
   name: NAME_CARD,
   functional: true,
   props,

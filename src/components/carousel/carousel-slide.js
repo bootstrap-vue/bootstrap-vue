@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_CAROUSEL_SLIDE } from '../../constants/components'
 import { HAS_TOUCH_SUPPORT } from '../../constants/env'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
@@ -43,17 +43,20 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCarouselSlide = /*#__PURE__*/ Vue.extend({
+export const BCarouselSlide = /*#__PURE__*/ extend({
   name: NAME_CAROUSEL_SLIDE,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
-    bvCarousel: {
+    getBvCarousel: {
       // Explicitly disable touch if not a child of carousel
-      default: () => ({ noTouch: true })
+      default: () => () => ({ noTouch: true })
     }
   },
   props,
   computed: {
+    bvCarousel() {
+      return this.getBvCarousel()
+    },
     contentClasses() {
       return [
         this.contentVisibleUp ? 'd-none' : '',

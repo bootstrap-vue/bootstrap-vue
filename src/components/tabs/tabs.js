@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, REF_FOR_KEY, extend } from '../../vue'
 import { NAME_TABS, NAME_TAB_BUTTON_HELPER } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -67,11 +67,11 @@ const notDisabled = tab => !tab.disabled
 // --- Helper components ---
 
 // @vue/component
-const BVTabButton = /*#__PURE__*/ Vue.extend({
+const BVTabButton = /*#__PURE__*/ extend({
   name: NAME_TAB_BUTTON_HELPER,
   inject: {
-    bvTabs: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTabs: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   props: {
@@ -83,6 +83,11 @@ const BVTabButton = /*#__PURE__*/ Vue.extend({
     // Reference to the child <b-tab> instance
     tab: makeProp(),
     tabIndex: makeProp(PROP_TYPE_NUMBER)
+  },
+  computed: {
+    bvTabs() {
+      return this.getBvTabs()
+    }
   },
   methods: {
     focus() {
@@ -213,12 +218,12 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTabs = /*#__PURE__*/ Vue.extend({
+export const BTabs = /*#__PURE__*/ extend({
   name: NAME_TABS,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTabs: this
+      getBvTabs: () => this
     }
   },
   props,
@@ -351,9 +356,11 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
       }
     },
     getTabs() {
-      const $tabs = this.registeredTabs.filter(
-        $tab => $tab.$children.filter($t => $t._isTab).length === 0
-      )
+      const $tabs = this.registeredTabs
+      // Dropped intentionally
+      // .filter(
+      //   $tab => $tab.$children.filter($t => $t && $t._isTab).length === 0
+      // )
 
       // DOM Order of Tabs
       let order = []
@@ -591,7 +598,7 @@ export const BTabs = /*#__PURE__*/ Vue.extend({
         key: $tab[COMPONENT_UID_KEY] || index,
         ref: 'buttons',
         // Needed to make `this.$refs.buttons` an array
-        refInFor: true
+        [REF_FOR_KEY]: true
       })
     })
 

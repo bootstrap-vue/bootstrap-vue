@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_BREADCRUMB_LINK } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
@@ -21,7 +21,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BBreadcrumbLink = /*#__PURE__*/ Vue.extend({
+export const BBreadcrumbLink = /*#__PURE__*/ extend({
   name: NAME_BREADCRUMB_LINK,
   functional: true,
   props,

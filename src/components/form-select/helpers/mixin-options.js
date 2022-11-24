@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_STRING } from '../../../constants/props'
 import { get } from '../../../utils/get'
 import { isNull, isPlainObject, isUndefined } from '../../../utils/inspect'
@@ -20,7 +20,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const optionsMixin = Vue.extend({
+export const optionsMixin = extend({
   mixins: [formOptionsMixin],
   props,
   methods: {

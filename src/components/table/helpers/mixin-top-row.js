@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { SLOT_NAME_TOP_ROW } from '../../../constants/slots'
 import { isFunction } from '../../../utils/inspect'
 import { BTr } from '../tr'
@@ -10,7 +10,7 @@ export const props = {}
 // --- Mixin ---
 
 // @vue/component
-export const topRowMixin = Vue.extend({
+export const topRowMixin = extend({
   methods: {
     renderTopRow() {
       const { computedFields: fields, stacked, tbodyTrClass, tbodyTrAttr } = this

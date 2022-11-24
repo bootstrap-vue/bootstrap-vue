@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_ASPECT } from '../../constants/components'
 import { PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { RX_ASPECT, RX_ASPECT_SEPARATOR } from '../../constants/regex'
@@ -26,7 +26,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAspect = /*#__PURE__*/ Vue.extend({
+export const BAspect = /*#__PURE__*/ extend({
   name: NAME_ASPECT,
   mixins: [normalizeSlotMixin],
   props,

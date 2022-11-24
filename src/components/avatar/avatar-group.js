@@ -1,4 +1,3 @@
-import { Vue } from '../../vue'
 import { NAME_AVATAR_GROUP } from '../../constants/components'
 import {
   PROP_TYPE_BOOLEAN,
@@ -6,10 +5,11 @@ import {
   PROP_TYPE_NUMBER_STRING,
   PROP_TYPE_STRING
 } from '../../constants/props'
+import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { mathMax, mathMin } from '../../utils/math'
 import { toFloat } from '../../utils/number'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
-import { normalizeSlotMixin } from '../../mixins/normalize-slot'
+import { extend } from '../../vue'
 import { computeSize } from './avatar'
 
 // --- Props ---
@@ -33,11 +33,11 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BAvatarGroup = /*#__PURE__*/ Vue.extend({
+export const BAvatarGroup = /*#__PURE__*/ extend({
   name: NAME_AVATAR_GROUP,
   mixins: [normalizeSlotMixin],
   provide() {
-    return { bvAvatarGroup: this }
+    return { getBvAvatarGroup: () => this }
   },
   props,
   computed: {
