@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_IMG } from '../../constants/components'
 import {
   PROP_TYPE_ARRAY_STRING,
@@ -72,7 +72,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BImg = /*#__PURE__*/ Vue.extend({
+export const BImg = /*#__PURE__*/ extend({
   name: NAME_IMG,
   functional: true,
   props,

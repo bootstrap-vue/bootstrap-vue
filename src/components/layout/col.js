@@ -106,7 +106,7 @@ export const generateProps = () => {
 
 // --- Main component ---
 
-// We do not use Vue.extend here as that would evaluate the props
+// We do not use extend here as that would evaluate the props
 // immediately, which we do not want to happen
 // @vue/component
 export const BCol = {

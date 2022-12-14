@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { PROP_TYPE_ANY, PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../constants/props'
 import { EVENT_NAME_CHANGE } from '../constants/events'
 import { attemptBlur, attemptFocus } from '../utils/dom'
@@ -51,7 +51,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formRadioCheckMixin = Vue.extend({
+export const formRadioCheckMixin = extend({
   mixins: [
     attrsMixin,
     idMixin,

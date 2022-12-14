@@ -25,6 +25,10 @@
         "description": "Positions the tooltip on the right of the trigger element"
       },
       {
+        "name": "left",
+        "description": "Positions the tooltip on the left of the trigger element"
+      },
+      {
         "name": "bottom",
         "description": "Positions the tooltip on the bottom of the trigger element"
       },
@@ -63,6 +67,18 @@
       {
         "name": "rightbottom",
         "description": "Positions the tooltip on the right-bottom of the trigger element"
+      },
+      {
+        "name": "hover",
+        "description": "Trigger the tooltip on hovering"
+      },
+      {
+        "name": "click",
+        "description": "Trigger the tooltip on clicking"
+      },
+      {
+        "name": "focus",
+        "description": "Trigger the tooltip on focusing"
       },
       {
         "name": "nofade",

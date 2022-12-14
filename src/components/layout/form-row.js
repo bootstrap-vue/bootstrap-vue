@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_FORM_ROW } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -15,7 +15,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormRow = /*#__PURE__*/ Vue.extend({
+export const BFormRow = /*#__PURE__*/ extend({
   name: NAME_FORM_ROW,
   functional: true,
   props,

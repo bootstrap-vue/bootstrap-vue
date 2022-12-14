@@ -1,5 +1,5 @@
 // BTime control (not form input control)
-import { Vue } from '../../vue'
+import { extend, REF_FOR_KEY } from '../../vue'
 import { NAME_TIME } from '../../constants/components'
 import { EVENT_NAME_CONTEXT } from '../../constants/events'
 import { CODE_LEFT, CODE_RIGHT } from '../../constants/key-codes'
@@ -107,7 +107,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTime = /*#__PURE__*/ Vue.extend({
+export const BTime = /*#__PURE__*/ extend({
   name: NAME_TIME,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   props,
@@ -441,7 +441,7 @@ export const BTime = /*#__PURE__*/ Vue.extend({
         },
         key,
         ref: 'spinners',
-        refInFor: true
+        [REF_FOR_KEY]: true
       })
     }
 
@@ -504,7 +504,8 @@ export const BTime = /*#__PURE__*/ Vue.extend({
     }
 
     // AM/PM ?
-    if (this.is12Hour) {
+    // depends on client settings, shouldn't be rendered on server
+    if (this.isLive && this.is12Hour) {
       // TODO:
       //   If locale is RTL, unshift this instead of push?
       //   And switch class `ml-2` to `mr-2`

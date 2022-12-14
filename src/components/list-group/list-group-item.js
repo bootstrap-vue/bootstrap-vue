@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_LIST_GROUP_ITEM } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
@@ -32,7 +32,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BListGroupItem = /*#__PURE__*/ Vue.extend({
+export const BListGroupItem = /*#__PURE__*/ extend({
   name: NAME_LIST_GROUP_ITEM,
   functional: true,
   props,

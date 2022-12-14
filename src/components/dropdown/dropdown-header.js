@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_DROPDOWN_HEADER } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { isTag } from '../../utils/dom'
@@ -19,7 +19,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdownHeader = /*#__PURE__*/ Vue.extend({
+export const BDropdownHeader = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN_HEADER,
   functional: true,
   props,

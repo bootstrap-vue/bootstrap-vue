@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { PROP_TYPE_STRING } from '../constants/props'
 import { makeProp, makePropsConfigurable } from '../utils/props'
 
@@ -14,7 +14,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formSizeMixin = Vue.extend({
+export const formSizeMixin = extend({
   props,
   computed: {
     sizeFormClass() {

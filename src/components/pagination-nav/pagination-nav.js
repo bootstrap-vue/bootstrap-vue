@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_PAGINATION_NAV } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import { EVENT_NAME_CHANGE, EVENT_NAME_PAGE_CLICK } from '../../constants/events'
@@ -64,7 +64,7 @@ const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BPaginationNav = /*#__PURE__*/ Vue.extend({
+export const BPaginationNav = /*#__PURE__*/ extend({
   name: NAME_PAGINATION_NAV,
   // The render function is brought in via the pagination mixin
   mixins: [paginationMixin],

@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { NAME_CARD } from '../constants/components'
 import { PROP_TYPE_STRING } from '../constants/props'
 import { makeProp, makePropsConfigurable } from '../utils/props'
@@ -18,6 +18,6 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const cardMixin = Vue.extend({
+export const cardMixin = extend({
   props
 })

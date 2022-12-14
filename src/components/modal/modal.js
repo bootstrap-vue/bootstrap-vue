@@ -1,4 +1,4 @@
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, extend } from '../../vue'
 import { NAME_MODAL } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -176,7 +176,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BModal = /*#__PURE__*/ Vue.extend({
+export const BModal = /*#__PURE__*/ extend({
   name: NAME_MODAL,
   mixins: [
     attrsMixin,

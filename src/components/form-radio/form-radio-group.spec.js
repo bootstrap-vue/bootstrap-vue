@@ -348,7 +348,7 @@ describe('form-radio-group', () => {
 
     const radios = wrapper.findAll('input')
     expect(radios.length).toBe(3)
-    expect(radios.wrappers.every(c => c.find('input[type=radio]').exists())).toBe(true)
+    expect(radios.wrappers.every(c => c.element.matches('input[type=radio]'))).toBe(true)
 
     wrapper.destroy()
   })
@@ -365,7 +365,7 @@ describe('form-radio-group', () => {
     const radios = wrapper.findAll('input')
     expect(radios.length).toBe(3)
     expect(wrapper.vm.localChecked).toEqual('')
-    expect(radios.wrappers.every(c => c.find('input[type=radio]').exists())).toBe(true)
+    expect(radios.wrappers.every(c => c.element.matches('input[type=radio]'))).toBe(true)
     expect(radios.at(0).attributes('disabled')).toBeUndefined()
     expect(radios.at(1).attributes('disabled')).toBeUndefined()
     expect(radios.at(2).attributes('disabled')).toBeDefined()

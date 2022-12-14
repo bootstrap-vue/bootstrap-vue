@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TABLE } from '../../constants/components'
 import { sortKeys } from '../../utils/object'
 import { makePropsConfigurable } from '../../utils/props'
@@ -53,7 +53,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTable = /*#__PURE__*/ Vue.extend({
+export const BTable = /*#__PURE__*/ extend({
   name: NAME_TABLE,
   // Order of mixins is important!
   // They are merged from first to last, followed by this component

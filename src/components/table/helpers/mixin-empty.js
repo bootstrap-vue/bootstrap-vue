@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../../constants/props'
 import {
   SLOT_NAME_EMPTY,
@@ -8,6 +8,7 @@ import {
 import { htmlOrText } from '../../../utils/html'
 import { isFunction } from '../../../utils/inspect'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { BTr } from '../tr'
 import { BTd } from '../td'
 
@@ -24,18 +25,18 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const emptyMixin = Vue.extend({
+export const emptyMixin = extend({
   props,
   methods: {
     renderEmpty() {
-      const { computedItems: items } = this
+      const { computedItems: items, computedBusy } = safeVueInstance(this)
       const h = this.$createElement
 
       let $empty = h()
       if (
         this.showEmpty &&
         (!items || items.length === 0) &&
-        !(this.computedBusy && this.hasNormalizedSlot(SLOT_NAME_TABLE_BUSY))
+        !(computedBusy && this.hasNormalizedSlot(SLOT_NAME_TABLE_BUSY))
       ) {
         const {
           computedFields: fields,

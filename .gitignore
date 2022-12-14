@@ -4,6 +4,7 @@
 .vercel/
 .vscode/
 coverage/
+coverage-vue3/
 dist/
 docs-dist/
 esm/
