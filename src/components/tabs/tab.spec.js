@@ -125,12 +125,12 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: true,
             noKeyNav: true
-          }
+          })
         }
       }
     })
@@ -147,12 +147,12 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: true,
             noKeyNav: true
-          }
+          })
         }
       },
       propsData: {
@@ -174,7 +174,7 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: false,
@@ -184,7 +184,7 @@ describe('tab', () => {
               vm = tab
               return true
             }
-          }
+          })
         }
       },
       slots: {
@@ -209,7 +209,7 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: false,
@@ -226,7 +226,7 @@ describe('tab', () => {
               tab.localActive = false
               return true
             }
-          }
+          })
         }
       }
     })
@@ -265,7 +265,7 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: false,
@@ -276,7 +276,7 @@ describe('tab', () => {
               tab.localActive = true
               return true
             }
-          }
+          })
         }
       },
       propsData: { disabled: true }
@@ -300,7 +300,7 @@ describe('tab', () => {
     const wrapper = mount(BTab, {
       provide() {
         return {
-          bvTabs: {
+          getBvTabs: () => ({
             fade: false,
             lazy: false,
             card: false,
@@ -311,7 +311,7 @@ describe('tab', () => {
               tab.localActive = false
               return true
             }
-          }
+          })
         }
       }
     })

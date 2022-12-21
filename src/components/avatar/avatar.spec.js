@@ -250,7 +250,7 @@ describe('avatar', () => {
     const wrapper1 = mount(BAvatar, {
       provide: {
         // Emulate `undefined`/`null` props
-        bvAvatarGroup: {}
+        getBvAvatarGroup: () => ({})
       }
     })
 
@@ -265,9 +265,9 @@ describe('avatar', () => {
 
     const wrapper2 = mount(BAvatar, {
       provide: {
-        bvAvatarGroup: {
+        getBvAvatarGroup: () => ({
           variant: 'danger'
-        }
+        })
       }
     })
 
@@ -289,7 +289,7 @@ describe('avatar', () => {
       },
       provide: {
         // Emulate `undefined`/`null` props
-        bvAvatarGroup: {}
+        getBvAvatarGroup: () => ({})
       }
     })
 
@@ -307,9 +307,9 @@ describe('avatar', () => {
         size: '2em'
       },
       provide: {
-        bvAvatarGroup: {
+        getBvAvatarGroup: () => ({
           size: '5em'
-        }
+        })
       }
     })
 

@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_CALENDAR } from '../../constants/components'
 import {
   CALENDAR_GREGORY,
@@ -180,7 +180,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCalendar = Vue.extend({
+export const BCalendar = extend({
   name: NAME_CALENDAR,
   // Mixin order is important!
   mixins: [attrsMixin, idMixin, modelMixin, normalizeSlotMixin],
@@ -811,7 +811,7 @@ export const BCalendar = Vue.extend({
       {
         staticClass: 'b-calendar-header',
         class: { 'sr-only': this.hideHeader },
-        attrs: { title: this.selectedDate ? this.labelSelectedDate || null : null }
+        attrs: { title: this.selectedDate ? this.labelSelected || null : null }
       },
       [$header]
     )

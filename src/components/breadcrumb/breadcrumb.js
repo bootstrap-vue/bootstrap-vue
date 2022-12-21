@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_BREADCRUMB } from '../../constants/components'
 import { PROP_TYPE_ARRAY } from '../../constants/props'
 import { isArray, isObject } from '../../utils/inspect'
@@ -18,7 +18,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BBreadcrumb = /*#__PURE__*/ Vue.extend({
+export const BBreadcrumb = /*#__PURE__*/ extend({
   name: NAME_BREADCRUMB,
   functional: true,
   props,

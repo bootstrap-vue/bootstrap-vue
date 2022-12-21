@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_NAV_ITEM_DROPDOWN } from '../../constants/components'
 import { SLOT_NAME_BUTTON_CONTENT, SLOT_NAME_DEFAULT, SLOT_NAME_TEXT } from '../../constants/slots'
 import { htmlOrText } from '../../utils/html'
@@ -32,7 +32,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BNavItemDropdown = /*#__PURE__*/ Vue.extend({
+export const BNavItemDropdown = /*#__PURE__*/ extend({
   name: NAME_NAV_ITEM_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,

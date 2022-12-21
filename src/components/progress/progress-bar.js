@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_PROGRESS_BAR } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
@@ -30,16 +30,19 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BProgressBar = /*#__PURE__*/ Vue.extend({
+export const BProgressBar = /*#__PURE__*/ extend({
   name: NAME_PROGRESS_BAR,
   mixins: [normalizeSlotMixin],
   inject: {
-    bvProgress: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvProgress: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   props,
   computed: {
+    bvProgress() {
+      return this.getBvProgress()
+    },
     progressBarClasses() {
       const { computedAnimated, computedVariant } = this
       return [

@@ -1,13 +1,16 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { EVENT_NAME_CONTEXT_CHANGED } from '../../../constants/events'
 import { PROP_TYPE_ARRAY, PROP_TYPE_STRING } from '../../../constants/props'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { isArray, isFunction, isString } from '../../../utils/inspect'
 import { looseEqual } from '../../../utils/loose-equal'
 import { mathMax } from '../../../utils/math'
 import { makeModelMixin } from '../../../utils/model'
+
 import { toInteger } from '../../../utils/number'
 import { clone, sortKeys } from '../../../utils/object'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { normalizeFields } from './normalize-fields'
 
 // --- Constants ---
@@ -41,8 +44,8 @@ export const props = sortKeys({
 // --- Mixin ---
 
 // @vue/component
-export const itemsMixin = Vue.extend({
-  mixins: [modelMixin],
+export const itemsMixin = extend({
+  mixins: [modelMixin, useParentMixin],
   props,
   data() {
     const { items } = this
@@ -64,15 +67,15 @@ export const itemsMixin = Vue.extend({
       // Mainly for formatter lookup and use in `scopedSlots` for convenience
       // If the field has a formatter, it normalizes formatter to a
       // function ref or `undefined` if no formatter
-      const { $parent } = this
+      const { bvParent } = this
       return this.computedFields.reduce((obj, f) => {
         // We use object spread here so we don't mutate the original field object
         obj[f.key] = clone(f)
         if (f.formatter) {
           // Normalize formatter to a function ref or `undefined`
           let formatter = f.formatter
-          if (isString(formatter) && isFunction($parent[formatter])) {
-            formatter = $parent[formatter]
+          if (isString(formatter) && isFunction(bvParent[formatter])) {
+            formatter = bvParent[formatter]
           } else if (!isFunction(formatter)) {
             /* istanbul ignore next */
             formatter = undefined
@@ -84,24 +87,26 @@ export const itemsMixin = Vue.extend({
       }, {})
     },
     computedItems() {
+      const { paginatedItems, sortedItems, filteredItems, localItems } = safeVueInstance(this)
       // Fallback if various mixins not provided
       return (
-        this.paginatedItems ||
-        this.sortedItems ||
-        this.filteredItems ||
-        this.localItems ||
+        paginatedItems ||
+        sortedItems ||
+        filteredItems ||
+        localItems ||
         /* istanbul ignore next */
         []
       ).slice()
     },
     context() {
+      const { perPage, currentPage } = safeVueInstance(this)
       // Current state of sorting, filtering and pagination props/values
       return {
         filter: this.localFilter,
         sortBy: this.localSortBy,
         sortDesc: this.localSortDesc,
-        perPage: mathMax(toInteger(this.perPage, 0), 0),
-        currentPage: mathMax(toInteger(this.currentPage, 0), 1),
+        perPage: mathMax(toInteger(perPage, 0), 0),
+        currentPage: mathMax(toInteger(currentPage, 0), 1),
         apiUrl: this.apiUrl
       }
     }

@@ -1,5 +1,5 @@
 import { Portal, Wormhole } from 'portal-vue'
-import { COMPONENT_UID_KEY, Vue } from '../../vue'
+import { COMPONENT_UID_KEY, extend } from '../../vue'
 import { NAME_TOAST, NAME_TOASTER } from '../../constants/components'
 import {
   EVENT_NAME_CHANGE,
@@ -26,6 +26,7 @@ import { toInteger } from '../../utils/number'
 import { pick, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { isLink } from '../../utils/router'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 import { attrsMixin } from '../../mixins/attrs'
 import { idMixin, props as idProps } from '../../mixins/id'
 import { listenOnRootMixin } from '../../mixins/listen-on-root'
@@ -85,7 +86,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BToast = /*#__PURE__*/ Vue.extend({
+export const BToast = /*#__PURE__*/ extend({
   name: NAME_TOAST,
   mixins: [
     attrsMixin,
@@ -264,8 +265,7 @@ export const BToast = /*#__PURE__*/ Vue.extend({
         const div = document.createElement('div')
         document.body.appendChild(div)
 
-        const toaster = new BToaster({
-          parent: this.$root,
+        const toaster = createNewChildComponent(this.bvEventRoot, BToaster, {
           propsData: { name: computedToaster }
         })
 

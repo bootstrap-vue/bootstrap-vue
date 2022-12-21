@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP_APPEND } from '../../constants/components'
 import { omit } from '../../utils/object'
 import { makePropsConfigurable } from '../../utils/props'
@@ -14,7 +14,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BInputGroupAppend = /*#__PURE__*/ Vue.extend({
+export const BInputGroupAppend = /*#__PURE__*/ extend({
   name: NAME_INPUT_GROUP_APPEND,
   functional: true,
   props,

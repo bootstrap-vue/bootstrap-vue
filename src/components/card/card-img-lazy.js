@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_CARD_IMG_LAZY } from '../../constants/components'
 import { keys, omit, sortKeys } from '../../utils/object'
 import { makePropsConfigurable } from '../../utils/props'
@@ -19,7 +19,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCardImgLazy = /*#__PURE__*/ Vue.extend({
+export const BCardImgLazy = /*#__PURE__*/ extend({
   name: NAME_CARD_IMG_LAZY,
   functional: true,
   props,

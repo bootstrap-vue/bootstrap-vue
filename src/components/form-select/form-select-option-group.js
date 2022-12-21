@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_SELECT_OPTION_GROUP } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_FIRST } from '../../constants/slots'
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormSelectOptionGroup = /*#__PURE__*/ Vue.extend({
+export const BFormSelectOptionGroup = /*#__PURE__*/ extend({
   name: NAME_FORM_SELECT_OPTION_GROUP,
   mixins: [normalizeSlotMixin, formOptionsMixin],
   props,

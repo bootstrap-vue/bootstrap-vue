@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { Vue, extend, isVue3 } from '../../vue'
 import { NAME_TRANSPORTER, NAME_TRANSPORTER_TARGET } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import {
@@ -13,6 +13,7 @@ import { identity } from '../../utils/identity'
 import { isFunction, isString } from '../../utils/inspect'
 import { normalizeSlotMixin } from '../../mixins/normalize-slot'
 import { makeProp } from '../../utils/props'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 
 // --- Helper components ---
 
@@ -30,7 +31,7 @@ import { makeProp } from '../../utils/props'
 // Transporter target used by BVTransporter
 // Supports only a single root element
 // @vue/component
-const BVTransporterTarget = /*#__PURE__*/ Vue.extend({
+const BVTransporterTarget = /*#__PURE__*/ extend({
   // As an abstract component, it doesn't appear in the $parent chain of
   // components, which means the next parent of any component rendered inside
   // of this one will be the parent from which is was portal'd
@@ -78,7 +79,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-export const BVTransporter = /*#__PURE__*/ Vue.extend({
+const BVTransporterVue2 = /*#__PURE__*/ extend({
   name: NAME_TRANSPORTER,
   mixins: [normalizeSlotMixin],
   props,
@@ -129,9 +130,8 @@ export const BVTransporter = /*#__PURE__*/ Vue.extend({
         if ($container) {
           const $el = document.createElement('div')
           $container.appendChild($el)
-          this.$_target = new BVTransporterTarget({
+          this.$_target = createNewChildComponent(this, BVTransporterTarget, {
             el: $el,
-            parent: this,
             propsData: {
               // Initial nodes to be rendered
               nodes: concat(this.normalizeSlot())
@@ -177,3 +177,26 @@ export const BVTransporter = /*#__PURE__*/ Vue.extend({
     return h()
   }
 })
+
+const BVTransporterVue3 = /*#__PURE__*/ extend({
+  name: NAME_TRANSPORTER,
+  mixins: [normalizeSlotMixin],
+  props,
+  render(h) {
+    if (this.disabled) {
+      const $nodes = concat(this.normalizeSlot()).filter(identity)
+      if ($nodes.length > 0) {
+        return $nodes[0]
+      }
+    }
+    return h(
+      Vue.Teleport,
+      {
+        to: this.container
+      },
+      this.normalizeSlot()
+    )
+  }
+})
+
+export const BVTransporter = isVue3 ? BVTransporterVue3 : BVTransporterVue2

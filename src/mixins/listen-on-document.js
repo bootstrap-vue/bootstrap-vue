@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { IS_BROWSER } from '../constants/env'
 import { EVENT_OPTIONS_NO_CAPTURE } from '../constants/events'
 import { arrayIncludes } from '../utils/array'
@@ -12,7 +12,7 @@ const PROP = '$_documentListeners'
 // --- Mixin ---
 
 // @vue/component
-export const listenOnDocumentMixin = Vue.extend({
+export const listenOnDocumentMixin = extend({
   created() {
     // Define non-reactive property
     // Object of arrays, keyed by event name,

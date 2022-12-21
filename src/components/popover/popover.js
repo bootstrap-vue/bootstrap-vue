@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_POPOVER } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import { PROP_TYPE_ARRAY_STRING, PROP_TYPE_STRING } from '../../constants/props'
@@ -23,7 +23,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BPopover = /*#__PURE__*/ Vue.extend({
+export const BPopover = /*#__PURE__*/ extend({
   name: NAME_POPOVER,
   extends: BTooltip,
   inheritAttrs: false,

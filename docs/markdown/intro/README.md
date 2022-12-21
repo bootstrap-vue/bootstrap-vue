@@ -31,7 +31,7 @@ The online documentation comprises:
 
 ## Prerequisites
 
-This BootstrapVue documentation assumes you are familiar with Vue and and Bootstrap
+This BootstrapVue documentation assumes you are familiar with Vue and Bootstrap
 v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
@@ -44,8 +44,8 @@ v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
 such as <code class="text-nowrap">ml-2</code>, <code class="text-nowrap">py-1</code>, etc. These are
-Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning
-and more. You can find information on these classes in the
+Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins,
+positioning, and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for an enhanced

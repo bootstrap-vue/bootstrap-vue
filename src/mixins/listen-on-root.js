@@ -1,7 +1,7 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { arrayIncludes } from '../utils/array'
 import { keys } from '../utils/object'
-
+import { getEventRoot } from '../utils/get-event-root'
 // --- Constants ---
 
 const PROP = '$_rootListeners'
@@ -9,7 +9,12 @@ const PROP = '$_rootListeners'
 // --- Mixin ---
 
 // @vue/component
-export const listenOnRootMixin = Vue.extend({
+export const listenOnRootMixin = extend({
+  computed: {
+    bvEventRoot() {
+      return getEventRoot(this)
+    }
+  },
   created() {
     // Define non-reactive property
     // Object of arrays, keyed by event name,
@@ -55,8 +60,8 @@ export const listenOnRootMixin = Vue.extend({
      * @param {function} callback
      */
     listenOnRoot(event, callback) {
-      if (this.$root) {
-        this.$root.$on(event, callback)
+      if (this.bvEventRoot) {
+        this.bvEventRoot.$on(event, callback)
         this.registerRootListener(event, callback)
       }
     },
@@ -75,14 +80,14 @@ export const listenOnRootMixin = Vue.extend({
      * @param {function} callback
      */
     listenOnRootOnce(event, callback) {
-      if (this.$root) {
+      if (this.bvEventRoot) {
         const _callback = (...args) => {
           this.unregisterRootListener(_callback)
           // eslint-disable-next-line node/no-callback-literal
           callback(...args)
         }
 
-        this.$root.$once(event, _callback)
+        this.bvEventRoot.$once(event, _callback)
         this.registerRootListener(event, _callback)
       }
     },
@@ -96,8 +101,8 @@ export const listenOnRootMixin = Vue.extend({
     listenOffRoot(event, callback) {
       this.unregisterRootListener(event, callback)
 
-      if (this.$root) {
-        this.$root.$off(event, callback)
+      if (this.bvEventRoot) {
+        this.bvEventRoot.$off(event, callback)
       }
     },
 
@@ -108,8 +113,8 @@ export const listenOnRootMixin = Vue.extend({
      * @param {*} args
      */
     emitOnRoot(event, ...args) {
-      if (this.$root) {
-        this.$root.$emit(event, ...args)
+      if (this.bvEventRoot) {
+        this.bvEventRoot.$emit(event, ...args)
       }
     }
   }

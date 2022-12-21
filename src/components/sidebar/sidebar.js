@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_COLLAPSE, NAME_SIDEBAR } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import { EVENT_NAME_CHANGE, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
@@ -201,7 +201,7 @@ const renderBackdrop = (h, ctx) => {
 // --- Main component ---
 
 // @vue/component
-export const BSidebar = /*#__PURE__*/ Vue.extend({
+export const BSidebar = /*#__PURE__*/ extend({
   name: NAME_SIDEBAR,
   mixins: [attrsMixin, idMixin, modelMixin, listenOnRootMixin, normalizeSlotMixin],
   inheritAttrs: false,

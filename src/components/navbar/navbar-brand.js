@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_NAVBAR_BRAND } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { omit, sortKeys } from '../../utils/object'
@@ -22,7 +22,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BNavbarBrand = /*#__PURE__*/ Vue.extend({
+export const BNavbarBrand = /*#__PURE__*/ extend({
   name: NAME_NAVBAR_BRAND,
   functional: true,
   props,
