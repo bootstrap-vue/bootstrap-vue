@@ -1,5 +1,6 @@
+import { isVue3 } from '../../vue'
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT, getInstanceFromVNode } from '../../../tests/utils'
 import { BVTransporter } from './transporter'
 
 describe('utils/transporter component', () => {
@@ -11,7 +12,7 @@ describe('utils/transporter component', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -31,7 +32,7 @@ describe('utils/transporter component', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.vm).toBeDefined()
@@ -43,8 +44,10 @@ describe('utils/transporter component', () => {
     const target = document.getElementById('foobar')
     expect(target).toBeDefined()
     expect(target).not.toBe(null)
-    expect(target.__vue__).toBeDefined() // Target
-    expect(target.__vue__.$options.name).toBe('BVTransporterTarget')
+    expect(getInstanceFromVNode(target)).toBeDefined() // Target
+    if (!isVue3) {
+      expect(getInstanceFromVNode(target).$options.name).toBe('BVTransporterTarget')
+    }
     expect(target.tagName).toEqual('DIV')
     expect(target.parentElement).toBeDefined()
     expect(target.parentElement).toBe(document.body)
@@ -54,5 +57,29 @@ describe('utils/transporter component', () => {
     await waitNT(wrapper.vm)
 
     expect(target.parentElement).toEqual(null)
+  })
+
+  it('maintains provide-inject relation', async () => {
+    const Child = {
+      inject: ['foo'],
+      render(h) {
+        return h('article', this.foo)
+      }
+    }
+
+    const App = {
+      provide() {
+        return { foo: 'foo' }
+      },
+      render(h) {
+        return h(BVTransporter, { props: { disabled: false } }, [h(Child)])
+      }
+    }
+
+    mount(App, {
+      attachTo: document.body
+    })
+
+    expect(document.querySelector('article').textContent).toBe('foo')
   })
 })

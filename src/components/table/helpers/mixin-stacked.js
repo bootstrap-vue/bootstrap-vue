@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_BOOLEAN_STRING } from '../../../constants/props'
 import { makeProp } from '../../../utils/props'
 
@@ -11,7 +11,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const stackedMixin = Vue.extend({
+export const stackedMixin = extend({
   props,
   computed: {
     isStacked() {

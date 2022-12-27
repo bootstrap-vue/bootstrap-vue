@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BButton } from '../button/button'
 import { BButtonGroup } from '../button-group/button-group'
 import { BButtonToolbar } from './button-toolbar'
@@ -93,7 +93,7 @@ describe('button-toolbar', () => {
 
     it('has correct structure', async () => {
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       await waitNT(wrapper.vm)
@@ -105,52 +105,22 @@ describe('button-toolbar', () => {
       expect($groups).toBeDefined()
       expect($groups.length).toBe(3)
 
-      const $btns = wrapper.findAllComponents(BButton)
+      const $btns = wrapper.findAll('button')
       expect($btns).toBeDefined()
       expect($btns.length).toBe(6)
-      expect(
-        $btns
-          .at(0)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(true)
-      expect(
-        $btns
-          .at(1)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(true)
-      expect(
-        $btns
-          .at(2)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(false) // Disabled button
-      expect(
-        $btns
-          .at(3)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(true)
-      expect(
-        $btns
-          .at(4)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(true)
-      expect(
-        $btns
-          .at(5)
-          .find('button[tabindex="-1"')
-          .exists()
-      ).toBe(true)
+      expect($btns.at(0).element.matches('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(1).element.matches('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(2).element.matches('button[tabindex="-1"')).toBe(false) // Disabled button
+      expect($btns.at(3).element.matches('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(4).element.matches('button[tabindex="-1"')).toBe(true)
+      expect($btns.at(5).element.matches('button[tabindex="-1"')).toBe(true)
 
       wrapper.destroy()
     })
 
     it('focuses first button when tabbed into', async () => {
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       await waitNT(wrapper.vm)
@@ -173,7 +143,7 @@ describe('button-toolbar', () => {
 
     it('keyboard navigation works', async () => {
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       await waitNT(wrapper.vm)

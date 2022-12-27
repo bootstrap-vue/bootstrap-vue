@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_SKELETON_IMG } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -23,23 +23,26 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BSkeletonImg = /*#__PURE__*/ Vue.extend({
+export const BSkeletonImg = /*#__PURE__*/ extend({
   name: NAME_SKELETON_IMG,
   functional: true,
   props,
-  render(h, { props }) {
+  render(h, { data, props }) {
     const { aspect, width, height, animation, variant, cardImg } = props
 
-    const $img = h(BSkeleton, {
-      props: {
-        type: 'img',
-        width,
-        height,
-        animation,
-        variant
-      },
-      class: { [`card-img-${cardImg}`]: cardImg }
-    })
+    const $img = h(
+      BSkeleton,
+      mergeData(data, {
+        props: {
+          type: 'img',
+          width,
+          height,
+          animation,
+          variant
+        },
+        class: { [`card-img-${cardImg}`]: cardImg }
+      })
+    )
 
     return props.noAspect ? $img : h(BAspect, { props: { aspect } }, [$img])
   }

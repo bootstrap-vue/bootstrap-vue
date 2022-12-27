@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { PROP_TYPE_STRING } from '../../../constants/props'
 import { SLOT_NAME_TABLE_CAPTION } from '../../../constants/slots'
 import { htmlOrText } from '../../../utils/html'
@@ -16,7 +16,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const captionMixin = Vue.extend({
+export const captionMixin = extend({
   props,
   computed: {
     captionId() {

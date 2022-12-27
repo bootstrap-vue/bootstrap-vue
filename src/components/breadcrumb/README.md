@@ -39,8 +39,9 @@
 ## Breadcrumb items
 
 Items are rendered using `:items` prop. It can be an array of objects to provide link and active
-state. Links can be `href`'s for anchor tags, or `to`'s for router-links. Active state of last
-element is automatically set if it is `undefined`.
+state. Links can be `href`'s for anchor tags, or `to`'s for router-links. Breadcrumb works under the
+assumption that there is one active link in every set of ordered breadcrumbs, so the active state of
+the last element is automatically set to `false`.
 
 <!-- eslint-disable no-unused-vars -->
 

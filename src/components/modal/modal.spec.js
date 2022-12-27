@@ -1,5 +1,6 @@
 import { createWrapper, mount } from '@vue/test-utils'
-import { createContainer, waitNT, waitRAF } from '../../../tests/utils'
+import { isVue3 } from '../../vue'
+import { waitNT, waitRAF, getInstanceFromVNode } from '../../../tests/utils'
 import { BModal } from './modal'
 import { BvModalEvent } from './helpers/bv-modal-event.class'
 
@@ -30,7 +31,7 @@ describe('modal', () => {
   describe('structure', () => {
     it('has expected default structure', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test'
@@ -76,7 +77,7 @@ describe('modal', () => {
 
     it('has expected default structure when static and lazy', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           lazy: true
@@ -93,7 +94,7 @@ describe('modal', () => {
 
     it('has expected default structure when not static', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: false
         }
@@ -109,7 +110,7 @@ describe('modal', () => {
 
     it('has expected structure when initially open', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -158,7 +159,7 @@ describe('modal', () => {
 
     it('renders appended to body when initially open and not static', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: false,
           id: 'test-target',
@@ -175,8 +176,10 @@ describe('modal', () => {
       expect(outer).toBeDefined()
       expect(outer).not.toBe(null)
 
-      expect(outer.__vue__).toBeDefined() // Target
-      expect(outer.__vue__.$options.name).toBe('BVTransporterTarget')
+      expect(getInstanceFromVNode(outer)).toBeDefined() // Target
+      if (!isVue3) {
+        expect(getInstanceFromVNode(outer).$options.name).toBe('BVTransporterTarget')
+      }
       expect(outer.parentElement).toBeDefined()
       expect(outer.parentElement).toBe(document.body)
 
@@ -192,7 +195,7 @@ describe('modal', () => {
 
     it('has expected structure when closed after being initially open', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -245,7 +248,7 @@ describe('modal', () => {
 
     it('title-html prop works', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -265,7 +268,7 @@ describe('modal', () => {
 
     it('has correct header tag when "header-tag" prop is set', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -286,7 +289,7 @@ describe('modal', () => {
 
     it('has correct footer tag when "footer-tag" prop is set', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -310,7 +313,7 @@ describe('modal', () => {
     // We may want to move these tests into individual files for manageability
     it('default footer ok and cancel buttons', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true
         }
@@ -339,7 +342,7 @@ describe('modal', () => {
 
     it('default header close button', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true
         }
@@ -360,7 +363,7 @@ describe('modal', () => {
 
     it('ok-title-html and cancel-title-html works', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           okTitleHtml: '<em>ok</em>',
@@ -391,7 +394,7 @@ describe('modal', () => {
 
     it('modal-ok and modal-cancel button content slots works', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true
         },
@@ -429,7 +432,7 @@ describe('modal', () => {
       let trigger = null
       let event = null
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -507,7 +510,7 @@ describe('modal', () => {
       let cancelHide = true
       let trigger = null
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -571,6 +574,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -589,7 +593,7 @@ describe('modal', () => {
     it('pressing ESC closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -625,6 +629,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -644,7 +649,7 @@ describe('modal', () => {
     it('click outside closes modal', async () => {
       let trigger = null
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -680,6 +685,7 @@ describe('modal', () => {
       await waitRAF()
       await waitNT(wrapper.vm)
       await waitRAF()
+      await waitNT(wrapper.vm)
 
       // Modal should now be closed
       expect($modal.element.style.display).toEqual('none')
@@ -700,7 +706,7 @@ describe('modal', () => {
       let trigger = null
       let called = false
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -776,7 +782,7 @@ describe('modal', () => {
 
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -823,7 +829,7 @@ describe('modal', () => {
 
     it('$root bv::toggle::modal works', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -883,7 +889,7 @@ describe('modal', () => {
       let prevent = true
       let called = 0
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -948,7 +954,7 @@ describe('modal', () => {
 
     it('instance .toggle() methods works', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -995,7 +1001,7 @@ describe('modal', () => {
 
     it('modal closes when no-stacking is true and another modal opens', async () => {
       const wrapper = mount(BModal, {
-        attachTo: createContainer(),
+        attachTo: document.body,
         propsData: {
           static: true,
           id: 'test',
@@ -1044,7 +1050,7 @@ describe('modal', () => {
         }
       }
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1122,7 +1128,7 @@ describe('modal', () => {
         }
       }
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1202,7 +1208,7 @@ describe('modal', () => {
         }
       }
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1295,7 +1301,7 @@ describe('modal', () => {
         }
       }
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
@@ -1363,7 +1369,7 @@ describe('modal', () => {
         }
       }
       const wrapper = mount(App, {
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()

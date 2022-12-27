@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_SKELETON_TABLE } from '../../constants/components'
 import {
   PROP_TYPE_BOOLEAN,
@@ -32,11 +32,11 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
+export const BSkeletonTable = /*#__PURE__*/ extend({
   name: NAME_SKELETON_TABLE,
   functional: true,
   props,
-  render(h, { props }) {
+  render(h, { data, props }) {
     const { animation, columns } = props
 
     const $th = h('th', [h(BSkeleton, { props: { animation } })])
@@ -49,6 +49,10 @@ export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
     const $thead = !props.hideHeader ? h('thead', [$thTr]) : h()
     const $tfoot = props.showFooter ? h('tfoot', [$thTr]) : h()
 
-    return h(BTableSimple, { props: { ...props.tableProps } }, [$thead, $tbody, $tfoot])
+    return h(BTableSimple, mergeData(data, { props: { ...props.tableProps } }), [
+      $thead,
+      $tbody,
+      $tfoot
+    ])
   }
 })

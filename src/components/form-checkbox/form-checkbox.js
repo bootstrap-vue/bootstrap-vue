@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_CHECKBOX } from '../../constants/components'
 import { EVENT_NAME_CHANGE, MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import { PROP_TYPE_ANY, PROP_TYPE_BOOLEAN } from '../../constants/props'
@@ -37,17 +37,20 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormCheckbox = /*#__PURE__*/ Vue.extend({
+export const BFormCheckbox = /*#__PURE__*/ extend({
   name: NAME_FORM_CHECKBOX,
   mixins: [formRadioCheckMixin],
   inject: {
-    bvGroup: {
-      from: 'bvCheckGroup',
-      default: null
+    getBvGroup: {
+      from: 'getBvCheckGroup',
+      default: () => () => null
     }
   },
   props,
   computed: {
+    bvGroup() {
+      return this.getBvGroup()
+    },
     isChecked() {
       const { value, computedLocalChecked: checked } = this
       return isArray(checked) ? looseIndexOf(checked, value) > -1 : looseEqual(checked, value)

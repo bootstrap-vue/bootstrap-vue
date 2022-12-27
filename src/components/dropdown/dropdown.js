@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
@@ -54,7 +54,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdown = /*#__PURE__*/ Vue.extend({
+export const BDropdown = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,
@@ -140,6 +140,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
       $buttonChildren = [h('span', { class: ['sr-only'] }, [this.toggleText])]
       buttonContentDomProps = {}
     }
+    const ariaHasPopupRoles = ['menu', 'listbox', 'tree', 'grid', 'dialog']
 
     const $toggle = h(
       BButton,
@@ -151,7 +152,7 @@ export const BDropdown = /*#__PURE__*/ Vue.extend({
           ...this.toggleAttrs,
           // Must have attributes
           id: this.safeId('_BV_toggle_'),
-          'aria-haspopup': 'true',
+          'aria-haspopup': ariaHasPopupRoles.includes(role) ? role : 'false',
           'aria-expanded': toString(visible)
         },
         props: {

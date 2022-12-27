@@ -6,6 +6,7 @@ import {
   HOOK_EVENT_NAME_BEFORE_DESTROY,
   HOOK_EVENT_NAME_DESTROYED
 } from '../../../constants/events'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { concat } from '../../../utils/array'
 import { getComponentConfig } from '../../../utils/config'
 import { requestAF } from '../../../utils/dom'
@@ -22,6 +23,8 @@ import {
 } from '../../../utils/object'
 import { pluginFactory } from '../../../utils/plugins'
 import { warn, warnNotClient, warnNoPromiseSupport } from '../../../utils/warn'
+import { createNewChildComponent } from '../../../utils/create-new-child-component'
+import { getEventRoot } from '../../../utils/get-event-root'
 import { BModal, props as modalProps } from '../modal'
 
 // --- Constants ---
@@ -69,6 +72,7 @@ const plugin = Vue => {
   const BMsgBox = Vue.extend({
     name: NAME_MSG_BOX,
     extends: BModal,
+    mixins: [useParentMixin],
     destroyed() {
       // Make sure we not in document any more
       if (this.$el && this.$el.parentNode) {
@@ -86,7 +90,7 @@ const plugin = Vue => {
         })
       }
       // Self destruct if parent destroyed
-      this.$parent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
+      this.bvParent.$once(HOOK_EVENT_NAME_DESTROYED, handleDestroy)
       // Self destruct after hidden
       this.$once(EVENT_NAME_HIDDEN, handleDestroy)
       // Self destruct on route change
@@ -103,17 +107,16 @@ const plugin = Vue => {
 
   // Method to generate the on-demand modal message box
   // Returns a promise that resolves to a value returned by the resolve
-  const asyncMsgBox = ($parent, props, resolver = defaultResolver) => {
+  const asyncMsgBox = (parent, props, resolver = defaultResolver) => {
     if (warnNotClient(PROP_NAME) || warnNoPromiseSupport(PROP_NAME)) {
       /* istanbul ignore next */
       return
     }
     // Create an instance of `BMsgBox` component
-    const msgBox = new BMsgBox({
-      // We set parent as the local VM so these modals can emit events on
-      // the app `$root`, as needed by things like tooltips and popovers
-      // And it helps to ensure `BMsgBox` is destroyed when parent is destroyed
-      parent: $parent,
+    // We set parent as the local VM so these modals can emit events on
+    // the app `$root`, as needed by things like tooltips and popovers
+    // And it helps to ensure `BMsgBox` is destroyed when parent is destroyed
+    const msgBox = createNewChildComponent(parent, BMsgBox, {
       // Preset the prop values
       propsData: {
         ...filterOptions(getComponentConfig(NAME_MODAL)),
@@ -166,7 +169,7 @@ const plugin = Vue => {
 
   // Private utility method to open a user defined message box and returns a promise.
   // Not to be used directly by consumers, as this method may change calling syntax
-  const makeMsgBox = ($parent, content, options = {}, resolver = null) => {
+  const makeMsgBox = (parent, content, options = {}, resolver = null) => {
     if (
       !content ||
       warnNoPromiseSupport(PROP_NAME) ||
@@ -176,14 +179,14 @@ const plugin = Vue => {
       /* istanbul ignore next */
       return
     }
-    return asyncMsgBox($parent, { ...filterOptions(options), msgBoxContent: content }, resolver)
+    return asyncMsgBox(parent, { ...filterOptions(options), msgBoxContent: content }, resolver)
   }
 
   // BvModal instance class
   class BvModal {
     constructor(vm) {
       // Assign the new properties to this instance
-      assign(this, { _vm: vm, _root: vm.$root })
+      assign(this, { _vm: vm, _root: getEventRoot(vm) })
       // Set these properties as read-only and non-enumerable
       defineProperties(this, {
         _vm: readonlyDescriptor(),

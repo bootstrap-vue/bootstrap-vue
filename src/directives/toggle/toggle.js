@@ -4,6 +4,7 @@ import { EVENT_OPTIONS_PASSIVE } from '../../constants/events'
 import { CODE_ENTER, CODE_SPACE } from '../../constants/key-codes'
 import { RX_HASH, RX_HASH_ID, RX_SPACE_SPLIT } from '../../constants/regex'
 import { arrayIncludes, concat } from '../../utils/array'
+import { getInstanceFromDirective } from '../../utils/get-instance-from-directive'
 import {
   addClass,
   getAttr,
@@ -21,6 +22,7 @@ import { getRootActionEventName, getRootEventName, eventOn, eventOff } from '../
 import { isString } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { keys } from '../../utils/object'
+import { getEventRoot } from '../../utils/get-event-root'
 
 // --- Constants ---
 
@@ -105,9 +107,9 @@ const removeClickListener = el => {
   el[BV_TOGGLE_CLICK_HANDLER] = null
 }
 
-const addClickListener = (el, vnode) => {
+const addClickListener = (el, instance) => {
   removeClickListener(el)
-  if (vnode.context) {
+  if (instance) {
     const handler = event => {
       if (
         !(event.type === 'keydown' && !arrayIncludes(KEYDOWN_KEY_CODES, event.keyCode)) &&
@@ -115,7 +117,7 @@ const addClickListener = (el, vnode) => {
       ) {
         const targets = el[BV_TOGGLE_TARGETS] || []
         targets.forEach(target => {
-          vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, target)
+          getEventRoot(instance).$emit(ROOT_ACTION_EVENT_NAME_TOGGLE, target)
         })
       }
     }
@@ -127,9 +129,9 @@ const addClickListener = (el, vnode) => {
   }
 }
 
-const removeRootListeners = (el, vnode) => {
-  if (el[BV_TOGGLE_ROOT_HANDLER] && vnode.context) {
-    vnode.context.$root.$off(
+const removeRootListeners = (el, instance) => {
+  if (el[BV_TOGGLE_ROOT_HANDLER] && instance) {
+    getEventRoot(instance).$off(
       [ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE],
       el[BV_TOGGLE_ROOT_HANDLER]
     )
@@ -137,9 +139,9 @@ const removeRootListeners = (el, vnode) => {
   el[BV_TOGGLE_ROOT_HANDLER] = null
 }
 
-const addRootListeners = (el, vnode) => {
-  removeRootListeners(el, vnode)
-  if (vnode.context) {
+const addRootListeners = (el, instance) => {
+  removeRootListeners(el, instance)
+  if (instance) {
     const handler = (id, state) => {
       // `state` will be `true` if target is expanded
       if (arrayIncludes(el[BV_TOGGLE_TARGETS] || [], id)) {
@@ -151,7 +153,7 @@ const addRootListeners = (el, vnode) => {
     }
     el[BV_TOGGLE_ROOT_HANDLER] = handler
     // Listen for toggle state changes (public) and sync (private)
-    vnode.context.$root.$on([ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE], handler)
+    getEventRoot(instance).$on([ROOT_EVENT_NAME_STATE, ROOT_EVENT_NAME_SYNC_STATE], handler)
   }
 }
 
@@ -177,7 +179,7 @@ const resetProp = (el, prop) => {
 // Handle directive updates
 const handleUpdate = (el, binding, vnode) => {
   /* istanbul ignore next: should never happen */
-  if (!IS_BROWSER || !vnode.context) {
+  if (!IS_BROWSER || !getInstanceFromDirective(vnode, binding)) {
     return
   }
 
@@ -217,7 +219,7 @@ const handleUpdate = (el, binding, vnode) => {
   // Wrap in a `requestAF()` to allow any previous
   // click handling to occur first
   requestAF(() => {
-    addClickListener(el, vnode)
+    addClickListener(el, getInstanceFromDirective(vnode, binding))
   })
 
   // If targets array has changed, update
@@ -228,7 +230,10 @@ const handleUpdate = (el, binding, vnode) => {
     // Request a state update from targets so that we can
     // ensure expanded state is correct (in most cases)
     targets.forEach(target => {
-      vnode.context.$root.$emit(ROOT_ACTION_EVENT_NAME_REQUEST_STATE, target)
+      getEventRoot(getInstanceFromDirective(vnode, binding)).$emit(
+        ROOT_ACTION_EVENT_NAME_REQUEST_STATE,
+        target
+      )
     })
   }
 }
@@ -243,7 +248,7 @@ export const VBToggle = {
     // Assume no targets initially
     el[BV_TOGGLE_TARGETS] = []
     // Add our root listeners
-    addRootListeners(el, vnode)
+    addRootListeners(el, getInstanceFromDirective(vnode, binding))
     // Initial update of trigger
     handleUpdate(el, binding, vnode)
   },
@@ -252,7 +257,7 @@ export const VBToggle = {
   unbind(el, binding, vnode) {
     removeClickListener(el)
     // Remove our $root listener
-    removeRootListeners(el, vnode)
+    removeRootListeners(el, getInstanceFromDirective(vnode, binding))
     // Reset custom props
     resetProp(el, BV_TOGGLE_ROOT_HANDLER)
     resetProp(el, BV_TOGGLE_CLICK_HANDLER)

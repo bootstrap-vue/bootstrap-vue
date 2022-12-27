@@ -36,11 +36,12 @@ import { requestAF } from '../../utils/dom'
 import { isFunction } from '../../utils/inspect'
 import { looseEqual } from '../../utils/loose-equal'
 import { clone, keys } from '../../utils/object'
+import { nextTick } from '../../vue'
 
 const OBSERVER_PROP_NAME = '__bv__visibility_observer'
 
 class VisibilityObserver {
-  constructor(el, options, vnode) {
+  constructor(el, options) {
     this.el = el
     this.callback = options.callback
     this.margin = options.margin || 0
@@ -49,10 +50,10 @@ class VisibilityObserver {
     this.visible = undefined
     this.doneOnce = false
     // Create the observer instance (if possible)
-    this.createObserver(vnode)
+    this.createObserver()
   }
 
-  createObserver(vnode) {
+  createObserver() {
     // Remove any previous observer
     if (this.observer) {
       /* istanbul ignore next */
@@ -87,7 +88,7 @@ class VisibilityObserver {
 
     // Start observing in a `$nextTick()` (to allow DOM to complete rendering)
     /* istanbul ignore next: IntersectionObserver not supported in JSDOM */
-    vnode.context.$nextTick(() => {
+    nextTick(() => {
       requestAF(() => {
         // Placed in an `if` just in case we were destroyed before
         // this `requestAnimationFrame` runs
@@ -127,7 +128,7 @@ const destroy = el => {
   delete el[OBSERVER_PROP_NAME]
 }
 
-const bind = (el, { value, modifiers }, vnode) => {
+const bind = (el, { value, modifiers }) => {
   // `value` is the callback function
   const options = {
     margin: '0px',
@@ -146,7 +147,7 @@ const bind = (el, { value, modifiers }, vnode) => {
   // Destroy any previous observer
   destroy(el)
   // Create new observer
-  el[OBSERVER_PROP_NAME] = new VisibilityObserver(el, options, vnode)
+  el[OBSERVER_PROP_NAME] = new VisibilityObserver(el, options)
   // Store the current modifiers on the object (cloned)
   el[OBSERVER_PROP_NAME]._prevModifiers = clone(modifiers)
 }

@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { isVue3 } from '../../vue'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }, { a: 5, b: 5, c: 6 }, { a: 7, b: 8, c: 9 }]
@@ -245,6 +246,11 @@ describe('table > tbody row events', () => {
   })
 
   it('should not emit row-hovered event when a row is hovered and no listener', async () => {
+    if (isVue3) {
+      // We can't track if we have an event listener in vue3 so we skip this test for vue 3
+      return
+    }
+
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -309,6 +315,11 @@ describe('table > tbody row events', () => {
   })
 
   it('should not emit row-unhovered event when a row is hovered and no listener', async () => {
+    if (isVue3) {
+      // We can't track if we have an event listener in vue3 so we skip this test for vue 3
+      return
+    }
+
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,
@@ -357,7 +368,7 @@ describe('table > tbody row events', () => {
         // Rows will only have tabindex=0 when a row-clicked listener present
         'row-clicked': () => {}
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper).toBeDefined()
     const $rows = wrapper.findAll('tbody > tr')
@@ -402,7 +413,7 @@ describe('table > tbody row events', () => {
 
   it('should not emit row-clicked event when clicking on a button or other interactive element', async () => {
     const wrapper = mount(BTable, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         // Add extra virtual columns
         fields: [].concat(testFields, ['d', 'e', 'f']),
@@ -473,7 +484,7 @@ describe('table > tbody row events', () => {
         // Tabindex will only be set if there is a row-clicked listener
         'row-clicked': () => {}
       },
-      attachTo: createContainer()
+      attachTo: document.body
     })
     expect(wrapper).toBeDefined()
     await waitNT(wrapper.vm)

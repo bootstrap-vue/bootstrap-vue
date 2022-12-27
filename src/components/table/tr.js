@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TR } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -26,22 +26,25 @@ export const props = makePropsConfigurable(
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BTr = /*#__PURE__*/ Vue.extend({
+export const BTr = /*#__PURE__*/ extend({
   name: NAME_TR,
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTableTr: this
+      getBvTableTr: () => this
     }
   },
   inject: {
-    bvTableRowGroup: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTableRowGroup: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvTableRowGroup() {
+      return this.getBvTableRowGroup()
+    },
     // Sniffed by `<b-td>` / `<b-th>`
     inTbody() {
       return this.bvTableRowGroup.isTbody

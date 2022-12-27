@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_IMG_LAZY } from '../../constants/components'
 import { HAS_INTERACTION_OBSERVER_SUPPORT } from '../../constants/env'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
@@ -39,7 +39,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BImgLazy = /*#__PURE__*/ Vue.extend({
+export const BImgLazy = /*#__PURE__*/ extend({
   name: NAME_IMG_LAZY,
   directives: {
     'b-visible': VBVisible
@@ -104,7 +104,9 @@ export const BImgLazy = /*#__PURE__*/ Vue.extend({
   },
   mounted() {
     // If `IntersectionObserver` is not available, image is always shown
-    this.isShown = HAS_INTERACTION_OBSERVER_SUPPORT ? this[MODEL_PROP_NAME_SHOW] : true
+    this.$nextTick(() => {
+      this.isShown = HAS_INTERACTION_OBSERVER_SUPPORT ? this[MODEL_PROP_NAME_SHOW] : true
+    })
   },
   methods: {
     updateShowProp() {

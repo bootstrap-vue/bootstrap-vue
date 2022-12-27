@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BTable } from './table'
 
 const testItems = [
@@ -206,10 +206,12 @@ describe('table > provider functions', () => {
     // Instance refresh method
     wrapper.vm.refresh()
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(2)
 
     // Root event refreshing
     wrapper.vm.$root.$emit('bv::refresh::table', 'the-table')
+    await waitNT(wrapper.vm)
     await waitNT(wrapper.vm)
     expect(wrapper.emitted('refreshed').length).toBe(3)
 
@@ -298,6 +300,7 @@ describe('table > provider functions', () => {
 
     await wrapper.setProps({ items: provider2 })
     await waitNT(wrapper.vm)
+    await waitNT(wrapper.vm)
 
     expect(wrapper.find('tbody').exists()).toBe(true)
     expect(
@@ -374,7 +377,7 @@ describe('table > provider functions', () => {
     }
 
     const wrapper = mount(App, {
-      attachTo: createContainer()
+      attachTo: document.body
     })
 
     expect(wrapper.element.tagName).toBe('TABLE')

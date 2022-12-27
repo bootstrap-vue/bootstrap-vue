@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import {
   EVENT_NAME_ROW_CLICKED,
   EVENT_NAME_ROW_CONTEXTMENU,
@@ -16,6 +16,7 @@ import {
 import { PROP_TYPE_ARRAY_OBJECT_STRING } from '../../../constants/props'
 import { arrayIncludes, from as arrayFrom } from '../../../utils/array'
 import { attemptFocus, closest, isActiveElement, isElement } from '../../../utils/dom'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { stopEvent } from '../../../utils/events'
 import { sortKeys } from '../../../utils/object'
 import { makeProp, pluckProps } from '../../../utils/props'
@@ -39,7 +40,7 @@ export const props = sortKeys({
 // --- Mixin ---
 
 // @vue/component
-export const tbodyMixin = Vue.extend({
+export const tbodyMixin = extend({
   mixins: [tbodyRowMixin],
   props,
   beforeDestroy() {
@@ -124,9 +125,15 @@ export const tbodyMixin = Vue.extend({
       }
     },
     onTBodyRowClicked(event) {
+      const { $refs } = this
+      const tbody = $refs.tbody ? $refs.tbody.$el || $refs.tbody : null
       // Don't emit event when the table is busy, the user clicked
       // on a non-disabled control or is selecting text
-      if (this.tbodyRowEventStopped(event) || filterEvent(event) || textSelectionActive(this.$el)) {
+      if (
+        this.tbodyRowEventStopped(event) ||
+        filterEvent(event) ||
+        textSelectionActive(tbody || this.$el)
+      ) {
         return
       }
       this.emitTbodyRowEvent(EVENT_NAME_ROW_CLICKED, event)
@@ -151,10 +158,16 @@ export const tbodyMixin = Vue.extend({
     //   Row hover handlers are handled by the tbody-row mixin
     //   As mouseenter/mouseleave events do not bubble
     renderTbody() {
-      const { computedItems: items, renderBusy, renderTopRow, renderEmpty, renderBottomRow } = this
+      const {
+        computedItems: items,
+        renderBusy,
+        renderTopRow,
+        renderEmpty,
+        renderBottomRow,
+        hasSelectableRowClick
+      } = safeVueInstance(this)
       const h = this.$createElement
-      const hasRowClickHandler =
-        this.hasListener(EVENT_NAME_ROW_CLICKED) || this.hasSelectableRowClick
+      const hasRowClickHandler = this.hasListener(EVENT_NAME_ROW_CLICKED) || hasSelectableRowClick
 
       // Prepare the tbody rows
       const $rows = []

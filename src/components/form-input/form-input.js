@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_FORM_INPUT } from '../../constants/components'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_NUMBER_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { arrayIncludes } from '../../utils/array'
@@ -61,7 +61,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BFormInput = /*#__PURE__*/ Vue.extend({
+export const BFormInput = /*#__PURE__*/ extend({
   name: NAME_FORM_INPUT,
   // Mixin order is important!
   mixins: [

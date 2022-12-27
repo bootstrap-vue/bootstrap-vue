@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import {
   EVENT_NAME_HEAD_CLICKED,
   EVENT_NAME_SORT_CHANGED,
@@ -14,6 +14,7 @@ import {
 import { arrayIncludes } from '../../../utils/array'
 import { isFunction, isUndefinedOrNull } from '../../../utils/inspect'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { stableSort } from '../../../utils/stable-sort'
 import { trim } from '../../../utils/string'
 import { defaultSortCompare } from './default-sort-compare'
@@ -69,7 +70,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const sortingMixin = Vue.extend({
+export const sortingMixin = extend({
   props,
   data() {
     return {
@@ -93,9 +94,11 @@ export const sortingMixin = Vue.extend({
         sortCompareLocale: locale,
         sortNullLast: nullLast,
         sortCompare,
-        localSorting
-      } = this
-      const items = (this.filteredItems || this.localItems || []).slice()
+        localSorting,
+        filteredItems,
+        localItems
+      } = safeVueInstance(this)
+      const items = (filteredItems || localItems || []).slice()
       const localeOptions = { ...this.sortCompareOptions, usage: 'sort' }
 
       if (sortBy && localSorting) {

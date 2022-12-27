@@ -5,7 +5,7 @@
 //   during the enter/leave transition phases only
 //   Although it appears that Vue may be leaving the classes
 //   in-place after the transition completes
-import { Vue, mergeData } from '../../../vue'
+import { extend, mergeData } from '../../../vue'
 import { NAME_COLLAPSE_HELPER } from '../../../constants/components'
 import { PROP_TYPE_BOOLEAN } from '../../../constants/props'
 import { getBCR, reflow, removeStyle, requestAF, setStyle } from '../../../utils/dom'
@@ -72,7 +72,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-export const BVCollapse = /*#__PURE__*/ Vue.extend({
+export const BVCollapse = /*#__PURE__*/ extend({
   name: NAME_COLLAPSE_HELPER,
   functional: true,
   props,

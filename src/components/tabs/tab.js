@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_TAB } from '../../constants/components'
 import { MODEL_EVENT_NAME_PREFIX } from '../../constants/events'
 import {
@@ -43,12 +43,12 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BTab = /*#__PURE__*/ Vue.extend({
+export const BTab = /*#__PURE__*/ extend({
   name: NAME_TAB,
   mixins: [idMixin, normalizeSlotMixin],
   inject: {
-    bvTabs: {
-      default: () => ({})
+    getBvTabs: {
+      default: () => () => ({})
     }
   },
   props,
@@ -58,6 +58,9 @@ export const BTab = /*#__PURE__*/ Vue.extend({
     }
   },
   computed: {
+    bvTabs() {
+      return this.getBvTabs()
+    },
     // For parent sniffing of child
     _isTab() {
       return true

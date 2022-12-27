@@ -1,5 +1,5 @@
 import Popper from 'popper.js'
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { NAME_DROPDOWN } from '../constants/components'
 import { HAS_TOUCH_SUPPORT } from '../constants/env'
 import {
@@ -37,6 +37,10 @@ import { clickOutMixin } from './click-out'
 import { focusInMixin } from './focus-in'
 import { idMixin, props as idProps } from './id'
 import { listenOnRootMixin } from './listen-on-root'
+import {
+  registerElementToInstance,
+  removeElementToInstance
+} from '../utils/element-to-vue-instance-registry'
 
 // --- Constants ---
 
@@ -84,13 +88,13 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const dropdownMixin = Vue.extend({
+export const dropdownMixin = extend({
   mixins: [idMixin, listenOnRootMixin, clickOutMixin, focusInMixin],
   provide() {
-    return { bvDropdown: this }
+    return { getBvDropdown: () => this }
   },
   inject: {
-    bvNavbar: { default: null }
+    getBvNavbar: { default: () => () => null }
   },
   props,
   data() {
@@ -100,6 +104,9 @@ export const dropdownMixin = Vue.extend({
     }
   },
   computed: {
+    bvNavbar() {
+      return this.getBvNavbar()
+    },
     inNavbar() {
       return !isNull(this.bvNavbar)
     },
@@ -178,11 +185,15 @@ export const dropdownMixin = Vue.extend({
     this.whileOpenListen(false)
     this.destroyPopper()
   },
+  mounted() {
+    registerElementToInstance(this.$el, this)
+  },
   beforeDestroy() {
     this.visible = false
     this.whileOpenListen(false)
     this.destroyPopper()
     this.clearHideTimeout()
+    removeElementToInstance(this.$el)
   },
   methods: {
     // Event emitter
@@ -283,8 +294,8 @@ export const dropdownMixin = Vue.extend({
       // Hide the dropdown when it loses focus
       this.listenForFocusIn = isOpen
       // Hide the dropdown when another dropdown is opened
-      const method = isOpen ? '$on' : '$off'
-      this.$root[method](ROOT_EVENT_NAME_SHOWN, this.rootCloseListener)
+      const method = isOpen ? 'listenOnRoot' : 'listenOffRoot'
+      this[method](ROOT_EVENT_NAME_SHOWN, this.rootCloseListener)
     },
     rootCloseListener(vm) {
       if (vm !== this) {

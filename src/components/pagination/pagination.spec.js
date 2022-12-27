@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { isVisible, getBCR, contains } from '../../utils/dom'
 import { BPagination } from './pagination'
 
@@ -410,7 +410,7 @@ describe('pagination', () => {
     expect(
       wrapper
         .findAll('button.page-link')
-        .wrappers.every(w => w.find('[aria-controls="foo"]').exists())
+        .wrappers.every(w => w.element.matches('[aria-controls="foo"]'))
     ).toBe(true)
 
     await wrapper.setProps({
@@ -480,10 +480,10 @@ describe('pagination', () => {
     expect(wrapper.findAll('li').length).toBe(7)
     expect(wrapper.findAll('.page-item').length).toBe(7)
     expect(
-      wrapper.findAll('.page-item').wrappers.every(w => w.find('li.page-item.disabled').exists())
+      wrapper.findAll('.page-item').wrappers.every(w => w.element.matches('li.page-item.disabled'))
     ).toBe(true)
     expect(
-      wrapper.findAll('.page-link').wrappers.every(w => w.find('span.page-link').exists())
+      wrapper.findAll('.page-link').wrappers.every(w => w.element.matches('span.page-link'))
     ).toBe(true)
     expect(
       wrapper
@@ -1091,7 +1091,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachTo: createContainer()
+        attachTo: document.body
       })
       await waitNT(wrapper.vm)
       expect(wrapper.element.tagName).toBe('UL')
@@ -1146,7 +1146,7 @@ describe('pagination', () => {
           value: 2,
           limit: 3
         },
-        attachTo: createContainer()
+        attachTo: document.body
       })
       await waitNT(wrapper.vm)
       expect(wrapper.element.tagName).toBe('UL')
@@ -1174,7 +1174,7 @@ describe('pagination', () => {
           value: 1,
           limit: 5
         },
-        attachTo: createContainer()
+        attachTo: document.body
       })
       let links
 

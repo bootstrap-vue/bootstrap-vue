@@ -1,5 +1,5 @@
+import { isVue3 } from '../vue'
 import { mount } from '@vue/test-utils'
-import { createContainer } from '../../tests/utils'
 import { listenersMixin } from './listeners'
 
 // Note: The following tests indirectly test `utils/cache`
@@ -7,6 +7,11 @@ import { listenersMixin } from './listeners'
 describe('mixins > listeners', () => {
   it('works', async () => {
     const BTest = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       name: 'BTest',
       mixins: [listenersMixin],
       inheritAttrs: false,
@@ -15,6 +20,7 @@ describe('mixins > listeners', () => {
       }
     }
     const App = {
+      compatConfig: { MODE: 3, RENDER_FUNCTION: 'suppress-warning' },
       name: 'App',
       props: ['listenClick', 'listenFocus', 'listenBlur'],
       computed: {
@@ -92,6 +98,11 @@ describe('mixins > listeners', () => {
     let input2RenderCount = 0
 
     const Input1 = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       props: ['value'],
       render(h) {
         input1RenderCount++
@@ -103,6 +114,11 @@ describe('mixins > listeners', () => {
       }
     }
     const Input2 = {
+      compatConfig: {
+        MODE: 3,
+        RENDER_FUNCTION: 'suppress-warning',
+        INSTANCE_LISTENERS: 'suppress-warning'
+      },
       props: ['value'],
       mixins: [listenersMixin],
       render(h) {
@@ -118,22 +134,46 @@ describe('mixins > listeners', () => {
     const App1 = {
       components: { Input1 },
       props: ['listenFocus1', 'listenFocus2'],
+      methods: {
+        emit1($event) {
+          if (this.listenFocus1) {
+            this.$emit('focus1', $event)
+          }
+        },
+        emit2($event) {
+          if (this.listenFocus2) {
+            this.$emit('focus2', $event)
+          }
+        }
+      },
       template: `<div>
-        <Input1 @focus="listenFocus1 ? $emit('focus1', $event) : () => {}" />
-        <Input1 @focus="listenFocus2 ? $emit('focus2', $event) : () => {}" />
+        <Input1 @focus="emit1" />
+        <Input1 @focus="emit2" />
       </div>`
     }
     const App2 = {
       components: { Input2 },
       props: ['listenFocus1', 'listenFocus2'],
+      methods: {
+        emit1($event) {
+          if (this.listenFocus1) {
+            this.$emit('focus1', $event)
+          }
+        },
+        emit2($event) {
+          if (this.listenFocus2) {
+            this.$emit('focus2', $event)
+          }
+        }
+      },
       template: `<div>
-        <Input2 @focus="listenFocus1 ? $emit('focus1', $event) : () => {}" />
-        <Input2 @focus="listenFocus2 ? $emit('focus2', $event) : () => {}" />
+        <Input2 @focus="emit1" />
+        <Input2 @focus="emit2" />
       </div>`
     }
 
-    const wrapper1 = mount(App1, { attachTo: createContainer() })
-    const wrapper2 = mount(App2, { attachTo: createContainer() })
+    const wrapper1 = mount(App1, { attachTo: document.body })
+    const wrapper2 = mount(App2, { attachTo: document.body })
 
     // --- `Input1` tests ---
 
@@ -157,7 +197,7 @@ describe('mixins > listeners', () => {
     expect(wrapper1.emitted().focus1).toBeTruthy()
     expect(wrapper1.emitted().focus2).not.toBeTruthy()
     // Both `Input1`'s are re-rendered (See: https://github.com/vuejs/vue/issues/7257)
-    expect(input1RenderCount).toBe(4)
+    expect(input1RenderCount).toBe(isVue3 ? 2 : 4)
 
     // Enable focus events for the second input and trigger it
     await wrapper1.setProps({ listenFocus2: true })
@@ -165,7 +205,7 @@ describe('mixins > listeners', () => {
     expect(wrapper1.emitted().focus1).toBeTruthy()
     expect(wrapper1.emitted().focus2).toBeTruthy()
     // Both `Input1`'s are re-rendered (See: https://github.com/vuejs/vue/issues/7257)
-    expect(input1RenderCount).toBe(6)
+    expect(input1RenderCount).toBe(isVue3 ? 2 : 6)
 
     // --- `Input2` tests ---
 

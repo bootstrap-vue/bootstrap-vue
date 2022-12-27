@@ -70,24 +70,9 @@ describe('form-select-option-group', () => {
     expect($options.at(0).attributes('value')).toBe('1')
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('3')
-    expect(
-      $options
-        .at(0)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
-    expect(
-      $options
-        .at(1)
-        .find('[disabled]')
-        .exists()
-    ).toBe(true)
-    expect(
-      $options
-        .at(2)
-        .find('[disabled]')
-        .exists()
-    ).toBe(false)
+    expect($options.at(0).element.matches('[disabled]')).toBe(false)
+    expect($options.at(1).element.matches('[disabled]')).toBe(true)
+    expect($options.at(2).element.matches('[disabled]')).toBe(false)
 
     wrapper.destroy()
   })
@@ -114,7 +99,7 @@ describe('form-select-option-group', () => {
     expect($options.at(1).attributes('value')).toBe('2')
     expect($options.at(2).attributes('value')).toBe('three')
 
-    expect(spyWarn).toHaveBeenLastCalledWith(
+    expect(spyWarn).toHaveBeenCalledWith(
       '[BootstrapVue warn]: BFormSelectOptionGroup - Setting prop "options" to an object is deprecated. Use the array format instead.'
     )
 

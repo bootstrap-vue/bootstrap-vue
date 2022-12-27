@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { createContainer, waitNT } from '../../../tests/utils'
+import { waitNT } from '../../../tests/utils'
 import { BFormRating } from './form-rating'
 
 describe('form-rating', () => {
@@ -66,8 +66,8 @@ describe('form-rating', () => {
 
     const $icons = wrapper.findAll('.b-icon')
     expect($icons.length).toBe(5)
-    expect($icons.wrappers.every(i => i.find('.bi-star').exists())).toBe(true)
-    expect($icons.wrappers.every(i => i.find('.text-primary').exists())).toBe(true)
+    expect($icons.wrappers.every(i => i.element.matches('.bi-star'))).toBe(true)
+    expect($icons.wrappers.every(i => i.element.matches('.text-primary'))).toBe(true)
     expect($icons.wrappers.every(i => i.find('.text-warning').exists())).toBe(false)
 
     wrapper.destroy()
@@ -322,18 +322,8 @@ describe('form-rating', () => {
     const $stars = wrapper.findAll('.b-rating-star')
     // The clear button is a "star"
     expect($stars.length).toBe(6)
-    expect(
-      $stars
-        .at(0)
-        .find('.b-rating-star-clear')
-        .exists()
-    ).toBe(true)
-    expect(
-      $stars
-        .at(1)
-        .find('.b-rating-star-clear')
-        .exists()
-    ).toBe(false)
+    expect($stars.at(0).element.matches('.b-rating-star-clear')).toBe(true)
+    expect($stars.at(1).element.matches('.b-rating-star-clear')).toBe(false)
 
     const $clear = wrapper.find('.b-rating-star-clear')
     expect($clear.exists()).toBe(true)
@@ -424,7 +414,7 @@ describe('form-rating', () => {
 
   it('focus and blur methods work', async () => {
     const wrapper = mount(BFormRating, {
-      attachTo: createContainer(),
+      attachTo: document.body,
       propsData: {
         locale: 'en',
         showValue: true,

@@ -1053,7 +1053,7 @@ formatted value as a string (HTML strings are not supported)
 
 ## Header and Footer custom rendering via scoped slots
 
-It is also possible to provide custom rendering for the tables `thead` and `tfoot` elements. Note by
+It is also possible to provide custom rendering for the table's `thead` and `tfoot` elements. Note by
 default the table footer is not rendered unless `foot-clone` is set to `true`.
 
 Scoped slots for the header and footer cells uses a special naming convention of
@@ -2612,7 +2612,7 @@ sorting, pagination, filtering, foot-clone, items, fields, etc.).
 ```
 
 When in `responsive` or `sticky-header` mode, the `<table>` element is wrapped inside a `<div>`
-element. If you need to apply additional classes to the `<table>` element, use the `table-classes`
+element. If you need to apply additional classes to the `<table>` element, use the `table-class`
 prop.
 
 Any additional attributes given to `<b-table-simple>` will always be applied to the `<table>`

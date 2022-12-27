@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_INPUT_GROUP } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_APPEND, SLOT_NAME_DEFAULT, SLOT_NAME_PREPEND } from '../../constants/slots'
@@ -27,7 +27,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BInputGroup = /*#__PURE__*/ Vue.extend({
+export const BInputGroup = /*#__PURE__*/ extend({
   name: NAME_INPUT_GROUP,
   functional: true,
   props,

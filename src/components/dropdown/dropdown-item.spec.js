@@ -1,7 +1,10 @@
 import VueRouter from 'vue-router'
-import { createLocalVue, mount } from '@vue/test-utils'
-import { createContainer, waitRAF } from '../../../tests/utils'
+import { mount } from '@vue/test-utils'
+import { waitRAF } from '../../../tests/utils'
+import { Vue } from '../../vue'
 import { BDropdownItem } from './dropdown-item'
+
+Vue.use(VueRouter)
 
 describe('dropdown-item', () => {
   it('renders with tag "a" and href="#" by default', async () => {
@@ -31,12 +34,12 @@ describe('dropdown-item', () => {
     let refocus = null
     const wrapper = mount(BDropdownItem, {
       provide: {
-        bvDropdown: {
+        getBvDropdown: () => ({
           hide(arg) {
             called = true
             refocus = arg
           }
-        }
+        })
       }
     })
     expect(wrapper.element.tagName).toBe('LI')
@@ -57,12 +60,12 @@ describe('dropdown-item', () => {
     const wrapper = mount(BDropdownItem, {
       propsData: { disabled: true },
       provide: {
-        bvDropdown: {
+        getBvDropdown: () => ({
           hide(arg) {
             called = true
             refocus = arg
           }
-        }
+        })
       }
     })
     expect(wrapper.element.tagName).toBe('LI')
@@ -94,9 +97,6 @@ describe('dropdown-item', () => {
 
   describe('router-link support', () => {
     it('works', async () => {
-      const localVue = createLocalVue()
-      localVue.use(VueRouter)
-
       const router = new VueRouter({
         mode: 'abstract',
         routes: [
@@ -116,43 +116,30 @@ describe('dropdown-item', () => {
             h(BDropdownItem, { props: { href: '/a' } }, ['href-a']),
             // <router-link>
             h(BDropdownItem, { props: { to: { path: '/b' } } }, ['to-path-b']),
-            // Regular link
-            h(BDropdownItem, { props: { href: '/b' } }, ['href-a']),
             h('router-view')
           ])
         }
       }
 
       const wrapper = mount(App, {
-        localVue,
-        attachTo: createContainer()
+        attachTo: document.body
       })
 
       expect(wrapper.vm).toBeDefined()
       expect(wrapper.element.tagName).toBe('UL')
 
-      expect(wrapper.findAll('li').length).toBe(4)
-      expect(wrapper.findAll('a').length).toBe(4)
+      expect(wrapper.findAll('li').length).toBe(3)
+      expect(wrapper.findAll('a').length).toBe(3)
 
-      const $links = wrapper.findAll('a')
+      const $links = wrapper.findAllComponents('a')
 
-      expect($links.at(0).vm).toBeDefined()
-      expect($links.at(0).vm.$options.name).toBe('BLink')
-      expect($links.at(0).vm.$children.length).toBe(1)
-      expect($links.at(0).vm.$children[0].$options.name).toBe('RouterLink')
-
-      expect($links.at(1).vm).toBeDefined()
-      expect($links.at(1).vm.$options.name).toBe('BLink')
-      expect($links.at(1).vm.$children.length).toBe(0)
-
-      expect($links.at(2).vm).toBeDefined()
-      expect($links.at(2).vm.$options.name).toBe('BLink')
-      expect($links.at(2).vm.$children.length).toBe(1)
-      expect($links.at(2).vm.$children[0].$options.name).toBe('RouterLink')
-
-      expect($links.at(3).vm).toBeDefined()
-      expect($links.at(3).vm.$options.name).toBe('BLink')
-      expect($links.at(3).vm.$children.length).toBe(0)
+      $links.wrappers.forEach($link => {
+        expect($link.vm).toBeDefined()
+        expect($links.at(0).vm.$options.name).toBe('BLink')
+      })
+      expect(
+        $links.wrappers.map($link => $link.findComponent({ name: 'RouterLink' }).exists())
+      ).toStrictEqual([true, false, true])
 
       wrapper.destroy()
     })

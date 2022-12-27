@@ -3,7 +3,7 @@
 // Handles trigger events, etc.
 // Instantiates template on demand
 
-import { COMPONENT_UID_KEY, Vue } from '../../../vue'
+import { COMPONENT_UID_KEY, extend } from '../../../vue'
 import { NAME_MODAL, NAME_TOOLTIP_HELPER } from '../../../constants/components'
 import {
   EVENT_NAME_DISABLE,
@@ -22,7 +22,9 @@ import {
   HOOK_EVENT_NAME_BEFORE_DESTROY,
   HOOK_EVENT_NAME_DESTROYED
 } from '../../../constants/events'
+import { useParentMixin } from '../../../mixins/use-parent'
 import { arrayIncludes, concat, from as arrayFrom } from '../../../utils/array'
+import { getInstanceFromElement } from '../../../utils/element-to-vue-instance-registry'
 import {
   attemptFocus,
   closest,
@@ -63,6 +65,7 @@ import { toInteger } from '../../../utils/number'
 import { keys } from '../../../utils/object'
 import { warn } from '../../../utils/warn'
 import { BvEvent } from '../../../utils/bv-event.class'
+import { createNewChildComponent } from '../../../utils/create-new-child-component'
 import { listenOnRootMixin } from '../../../mixins/listen-on-root'
 import { BVTooltipTemplate } from './bv-tooltip-template'
 
@@ -137,9 +140,9 @@ const templateData = {
 // --- Main component ---
 
 // @vue/component
-export const BVTooltip = /*#__PURE__*/ Vue.extend({
+export const BVTooltip = /*#__PURE__*/ extend({
   name: NAME_TOOLTIP_HELPER,
-  mixins: [listenOnRootMixin],
+  mixins: [listenOnRootMixin, useParentMixin],
   data() {
     return {
       // BTooltip/BPopover/VBTooltip/VBPopover will update this data
@@ -249,8 +252,8 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     this.$_noop = noop.bind(this)
 
     // Destroy ourselves when the parent is destroyed
-    if (this.$parent) {
-      this.$parent.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
+    if (this.bvParent) {
+      this.bvParent.$once(HOOK_EVENT_NAME_BEFORE_DESTROY, () => {
         this.$nextTick(() => {
           // In a `requestAF()` to release control back to application
           requestAF(() => {
@@ -264,7 +267,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       const target = this.getTarget()
       if (target && contains(document.body, target)) {
         // Copy the parent's scoped style attribute
-        this.scopeId = getScopeId(this.$parent)
+        this.scopeId = getScopeId(this.bvParent)
         // Set up all trigger handlers and listeners
         this.listen()
       } else {
@@ -330,8 +333,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Creates the template instance and show it
       const container = this.getContainer()
       const Template = this.getTemplate()
-      const $tip = (this.$_tip = new Template({
-        parent: this,
+      const $tip = (this.$_tip = createNewChildComponent(this, Template, {
         // The following is not reactive to changes in the props data
         propsData: {
           // These values cannot be changed while template is showing
@@ -730,15 +732,12 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     setRootListener(on) {
       // Listen for global `bv::{hide|show}::{tooltip|popover}` hide request event
-      const $root = this.$root
-      if ($root) {
-        const method = on ? '$on' : '$off'
-        const type = this.templateType
-        $root[method](getRootActionEventName(type, EVENT_NAME_HIDE), this.doHide)
-        $root[method](getRootActionEventName(type, EVENT_NAME_SHOW), this.doShow)
-        $root[method](getRootActionEventName(type, EVENT_NAME_DISABLE), this.doDisable)
-        $root[method](getRootActionEventName(type, EVENT_NAME_ENABLE), this.doEnable)
-      }
+      const method = on ? 'listenOnRoot' : 'listenOffRoot'
+      const type = this.templateType
+      this[method](getRootActionEventName(type, EVENT_NAME_HIDE), this.doHide)
+      this[method](getRootActionEventName(type, EVENT_NAME_SHOW), this.doShow)
+      this[method](getRootActionEventName(type, EVENT_NAME_DISABLE), this.doDisable)
+      this[method](getRootActionEventName(type, EVENT_NAME_ENABLE), this.doEnable)
     },
     setWhileOpenListeners(on) {
       // Events that are only registered when the template is showing
@@ -756,9 +755,9 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     visibleCheck(on) {
       this.clearVisibilityInterval()
       const target = this.getTarget()
-      const tip = this.getTemplateElement()
       if (on) {
         this.$_visibleInterval = setInterval(() => {
+          const tip = this.getTemplateElement()
           if (tip && this.localShow && (!target.parentNode || !isVisible(target))) {
             // Target element is no longer visible or not in DOM, so force-hide the tooltip
             this.forceHide()
@@ -770,7 +769,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       // Handle case where tooltip/target is in a modal
       if (this.isInModal()) {
         // We can listen for modal hidden events on `$root`
-        this.$root[on ? '$on' : '$off'](ROOT_EVENT_NAME_MODAL_HIDDEN, this.forceHide)
+        this[on ? 'listenOnRoot' : 'listenOffRoot'](ROOT_EVENT_NAME_MODAL_HIDDEN, this.forceHide)
       }
     },
     /* istanbul ignore next: JSDOM doesn't support `ontouchstart` */
@@ -787,7 +786,7 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
     },
     setDropdownListener(on) {
       const target = this.getTarget()
-      if (!target || !this.$root || !this.isDropdown) {
+      if (!target || !this.bvEventRoot || !this.isDropdown) {
         return
       }
       // We can listen for dropdown shown events on its instance
@@ -797,8 +796,10 @@ export const BVTooltip = /*#__PURE__*/ Vue.extend({
       //   Dropdown shown and hidden events will need to emit
       //   Note: Dropdown auto-ID happens in a `$nextTick()` after mount
       //         So the ID lookup would need to be done in a `$nextTick()`
-      if (target.__vue__) {
-        target.__vue__[on ? '$on' : '$off'](EVENT_NAME_SHOWN, this.forceHide)
+      const instance = getInstanceFromElement(target)
+
+      if (instance) {
+        instance[on ? '$on' : '$off'](EVENT_NAME_SHOWN, this.forceHide)
       }
     },
     // --- Event handlers ---
