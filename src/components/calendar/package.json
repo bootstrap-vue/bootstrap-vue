@@ -39,7 +39,7 @@
           {
             "prop": "headerTag",
             "version": "2.22.0",
-            "description": "Specify the HTML tag to render instead of the default tag for the footer"
+            "description": "Specify the HTML tag to render instead of the default tag for the header"
           },
           {
             "prop": "hidden",
