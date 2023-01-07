@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { NAME_TOOLTIP_TEMPLATE } from '../../../constants/components'
 import {
   EVENT_NAME_FOCUSIN,
@@ -24,7 +24,7 @@ export const props = {
 // --- Main component ---
 
 // @vue/component
-export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
+export const BVTooltipTemplate = /*#__PURE__*/ extend({
   name: NAME_TOOLTIP_TEMPLATE,
   extends: BVPopper,
   mixins: [scopedStyleMixin],
@@ -64,7 +64,7 @@ export const BVTooltipTemplate = /*#__PURE__*/ Vue.extend({
 
       return {
         // Apply attributes from root tooltip component
-        ...this.$parent.$parent.$attrs,
+        ...this.bvParent.bvParent.$attrs,
 
         id,
         role: 'tooltip',

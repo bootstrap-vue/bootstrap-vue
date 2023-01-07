@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_CAROUSEL } from '../../constants/components'
 import { IS_BROWSER, HAS_POINTER_EVENT_SUPPORT, HAS_TOUCH_SUPPORT } from '../../constants/env'
 import {
@@ -132,11 +132,11 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCarousel = /*#__PURE__*/ Vue.extend({
+export const BCarousel = /*#__PURE__*/ extend({
   name: NAME_CAROUSEL,
   mixins: [idMixin, modelMixin, normalizeSlotMixin],
   provide() {
-    return { bvCarousel: this }
+    return { getBvCarousel: () => this }
   },
   props,
   data() {

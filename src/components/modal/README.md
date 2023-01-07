@@ -317,7 +317,9 @@ To prevent `<b-modal>` from closing (for example when validation fails). you can
 <!-- b-modal-prevent-closing.vue -->
 ```
 
-**Note**: events `ok`, `cancel`, and `close` are emitted by modal's built in **OK**, **Cancel**, and
+## Events
+
+The events `ok`, `cancel`, and `close` are emitted by modal's built in **OK**, **Cancel**, and
 header close (**X**) buttons respectively. These events will not be emitted, by default, if you have
 provided your own buttons in the `modal-footer` slot or have hidden the footer. In this case use the
 `hide` event to control cancelling of the modal close. Event `hide` is always emitted, even if `ok`,

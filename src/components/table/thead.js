@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_THEAD } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -23,23 +23,26 @@ export const props = makePropsConfigurable(
 //   In Bootstrap v5, we won't need "sniffing" as table element variants properly inherit
 //   to the child elements, so this can be converted to a functional component
 // @vue/component
-export const BThead = /*#__PURE__*/ Vue.extend({
+export const BThead = /*#__PURE__*/ extend({
   name: NAME_THEAD,
   mixins: [attrsMixin, listenersMixin, normalizeSlotMixin],
   provide() {
     return {
-      bvTableRowGroup: this
+      getBvTableRowGroup: () => this
     }
   },
   inject: {
     // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
-    bvTable: {
-      default: /* istanbul ignore next */ () => ({})
+    getBvTable: {
+      default: /* istanbul ignore next */ () => () => ({})
     }
   },
   inheritAttrs: false,
   props,
   computed: {
+    bvTable() {
+      return this.getBvTable()
+    },
     // Sniffed by `<b-tr>` / `<b-td>` / `<b-th>`
     isThead() {
       return true

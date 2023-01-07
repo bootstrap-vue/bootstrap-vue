@@ -331,12 +331,7 @@ describe('table > row details', () => {
         .find('tr.b-table-details')
         .exists()
     ).toBe(false)
-    expect(
-      $trs
-        .at(1)
-        .find('tr.d-none')
-        .exists()
-    ).toBe(true)
+    expect($trs.at(1).element.matches('tr.d-none')).toBe(true)
     expect(
       $trs
         .at(2)

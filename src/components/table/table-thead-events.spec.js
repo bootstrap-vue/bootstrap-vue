@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+import { isVue3 } from '../../vue'
 import { BTable } from './table'
 
 const testItems = [{ a: 1, b: 2, c: 3 }]
@@ -6,6 +7,10 @@ const testFields = [{ key: 'a', label: 'A' }, { key: 'b', label: 'B' }, { key: '
 
 describe('table > thead events', () => {
   it('should not emit head-clicked event when a head cell is clicked and no head-clicked listener', async () => {
+    if (isVue3) {
+      // We can't track if we have an event listener in vue3 so we skip this test for vue 3
+      return
+    }
     const wrapper = mount(BTable, {
       propsData: {
         fields: testFields,

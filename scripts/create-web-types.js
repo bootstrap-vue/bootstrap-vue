@@ -30,14 +30,14 @@ const webTypes = {
   framework: 'vue',
   name: libraryName,
   version: libraryVersion,
+  'js-types-syntax': 'typescript',
+  'description-markup': 'markdown',
   contributions: {
     html: {
-      'types-syntax': 'typescript',
-      'description-markup': 'markdown',
       // Components get placed here
-      tags: [],
+      'vue-components': [],
       // Directives get placed in here
-      attributes: []
+      'vue-directives': []
     }
   }
 }
@@ -113,7 +113,7 @@ const computePropDefault = ({ default: def, type }) => {
 }
 
 // Process a single component's meta and definition/class objects
-const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
+const processComponentMeta = (meta, groupRef, groupDescription, docUrl, postprocess) => {
   const componentName = meta.component
 
   // Pull information from the component definition/class
@@ -134,8 +134,8 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
     return obj
   }, {})
 
-  // Build the tag reference
-  const tag = {
+  // Build the component reference
+  const component = {
     name: componentName,
     source: {
       module: libraryName,
@@ -143,12 +143,12 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
     },
     'doc-url': docUrl,
     description: groupDescription,
-    attributes: []
+    props: []
   }
 
   // Add v-model information
   if ($model && $model.prop && $model.event) {
-    tag['vue-model'] = {
+    component['vue-model'] = {
       prop: $model.prop,
       event: $model.event
     }
@@ -156,17 +156,14 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
 
   // Add props
   if (Object.keys($props).length) {
-    tag.attributes = Object.keys($props).map(propName => {
+    component.props = Object.keys($props).map(propName => {
       const $prop = $props[propName]
       const $propExtra = $propsExtra[propName] || {}
       const $propFallbackExtra = commonPropsMeta[propName] || {}
       const type = computePropType($prop)
       const prop = {
         name: propName,
-        value: {
-          kind: 'expression',
-          type
-        },
+        type,
         default: computePropDefault($prop),
         'doc-url': docUrl
       }
@@ -201,7 +198,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
 
   // Add events
   if ($events.length) {
-    tag.events = $events.map(eventObj => {
+    component.events = $events.map(eventObj => {
       const event = {
         name: eventObj.event,
         'doc-url': docUrl
@@ -232,7 +229,7 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
 
   // Add slots
   if ($slots.length) {
-    tag.slots = $slots.map(slotObj => {
+    component.slots = $slots.map(slotObj => {
       const slot = {
         name: slotObj.name,
         'doc-url': docUrl
@@ -266,16 +263,25 @@ const processComponentMeta = (meta, groupRef, groupDescription, docUrl) => {
     })
   }
 
-  // Add the component tag
-  webTypes.contributions.html.tags.push(tag)
+  // Do any additional postprocessing
+  if (postprocess) {
+    postprocess(component)
+  }
 
-  // Add in any component alias tags
+  // Add the component
+  webTypes.contributions.html['vue-components'].push(component)
+
+  // Add in any component aliases
   if ($aliases.length) {
     // Add the aliases
     $aliases.forEach(alias => {
-      const aliasTag = { ...tag, name: alias, source: { ...tag.source, symbol: alias } }
-      aliasTag.description = `${tag.description}\n\n*Alias for ${tag.name}*`
-      webTypes.contributions.html.tags.push(aliasTag)
+      const aliasComponent = {
+        ...component,
+        name: alias,
+        source: { ...component.source, symbol: alias }
+      }
+      aliasComponent.description = `${component.description}\n\n*Alias for ${component.name}*`
+      webTypes.contributions.html['vue-components'].push(aliasComponent)
     })
   }
 }
@@ -292,21 +298,20 @@ const processDirectiveMeta = (directiveMeta, directiveDescription, docUrl) => {
   // Object
   const expression = directiveMeta.expression
 
-  // Build the attribute (directive) def
-  const attribute = {
-    name: kebabCase(name),
+  // Build the directive def
+  const directive = {
+    name: kebabCase(name).substring(2),
     source: {
       module: libraryName,
       symbol: name
     },
-    required: false,
     description: directiveDescription,
     'doc-url': docUrl
   }
 
   // Add in argument details
   if (arg) {
-    attribute['vue-argument'] = {
+    directive.argument = {
       // RegExpr string pattern for argument
       pattern: arg.pattern,
       description: arg.description,
@@ -316,7 +321,7 @@ const processDirectiveMeta = (directiveMeta, directiveDescription, docUrl) => {
 
   // Add in any modifier details
   if (modifiers) {
-    attribute['vue-modifiers'] = modifiers.map(mod => {
+    directive.modifiers = modifiers.map(mod => {
       const modifier = {
         name: mod.name,
         'doc-url': docUrl
@@ -333,17 +338,17 @@ const processDirectiveMeta = (directiveMeta, directiveDescription, docUrl) => {
 
   // Add in value (expression) type (Array of types or a single type)
   if (expression) {
-    attribute.value = {
+    directive['attribute-value'] = {
       kind: 'expression',
       type: computePropType({ type: expression })
     }
   }
 
-  // Add the directive to the html attributes array
-  webTypes.contributions.html.attributes.push(attribute)
+  // Add the directive to the html vue-directives array
+  webTypes.contributions.html['vue-directives'].push(directive)
 }
 
-// Create tag entries for each component in a component group
+// Create vue-component entries for each component in a component group
 const processComponentGroup = groupSlug => {
   // Array of components in the group
   const groupMeta = componentGroups[groupSlug] || {}
@@ -368,7 +373,7 @@ const processComponentGroup = groupSlug => {
   })
 }
 
-// Create tag entries for each component in a component group
+// Create vue-component entries for each component in a component group
 const processIconGroup = groupSlug => {
   // Array of components in the group
   const groupMeta = iconGroups[groupSlug] || {}
@@ -380,13 +385,79 @@ const processIconGroup = groupSlug => {
   // We import the component from the transpiled `esm/` dir
   const groupRef = require(path.resolve(baseDir, 'esm/icons'))
 
-  // Process each icon component
-  iconsMeta.forEach(meta => {
-    processComponentMeta(meta, groupRef, groupMeta.description, docUrl)
+  // Get SVGs for each icon
+  const iconsFile = fs.readFileSync(path.resolve(baseDir, 'esm/icons/icons.js')).toString()
+  const regex = /makeIcon\('([a-zA-Z0-9]+)','([^']+)'/g
+  let m = regex.exec(iconsFile)
+  const svgs = {}
+  while (m) {
+    svgs[m[1]] = m[2]
+    m = regex.exec(iconsFile)
+  }
+  const svgPrefix = `<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 16 16" xml:space="preserve" height="16px" width="16px">`
+
+  // Create list of vue-bootstrap-icons
+  const iconNames = iconsMeta
+    .filter(it => !!it['auto-gen'] && it.component.startsWith('BIcon'))
+    .map(it => it.component.substring('BIcon'.length))
+
+  webTypes.contributions.html['vue-bootstrap-icons'] = iconNames.map(name => ({
+    name,
+    icon: `${svgPrefix}${svgs[name]}</svg>`,
+    'doc-url': 'https://bootstrap-vue.org/docs/icons/#icons-1'
+  }))
+
+  webTypes.contributions.html['vue-bootstrap-icons-kebabized'] = iconNames.map(name => ({
+    name: kebabCase(name),
+    icon: `${svgPrefix}${svgs[name]}</svg>`,
+    'doc-url': 'https://bootstrap-vue.org/docs/icons/#icons-1'
+  }))
+
+  // Process each regular component
+  iconsMeta.filter(it => !it['auto-gen'] || !it.component.startsWith('BIcon')).forEach(meta => {
+    processComponentMeta(meta, groupRef, groupMeta.description, docUrl, component => {
+      // Add list of icons to BIcon icon prop
+      if (component.name === 'BIcon') {
+        const iconProp = component.props.find(it => it.name === 'icon')
+        iconProp['attribute-value'] = {
+          kind: 'plain',
+          type: 'enum'
+        }
+        iconProp.values = {
+          name: 'Bootstrap icon',
+          pattern: {
+            items: '/html/vue-bootstrap-icons-kebabized'
+          }
+        }
+      }
+    })
   })
+
+  // Add special Vue component, which enables completion for all icons based on IconBlank
+  processComponentMeta(
+    iconsMeta.find(it => it['auto-gen'] && it.component.startsWith('BIcon')),
+    groupRef,
+    groupMeta.description,
+    docUrl,
+    component => {
+      component.name = 'Bootstrap Icon'
+      component.pattern = {
+        or: [
+          {
+            items: '/html/vue-bootstrap-icons',
+            template: ['BIcon', '$...', '#item:icon name']
+          },
+          {
+            items: '/html/vue-bootstrap-icons-kebabized',
+            template: ['b-icon-', '$...', '#item:icon name']
+          }
+        ]
+      }
+    }
+  )
 }
 
-// Create attribute entries for each directive
+// Create vue-directive entries for each directive
 const processDirectiveGroup = groupSlug => {
   // Directives only have a single entry in their Meta for `directive`
   const directiveMeta = directiveGroups[groupSlug] || {}
@@ -431,8 +502,9 @@ try {
   const veturTags = {}
   const veturAttributes = {}
   // Add component specific info
-  Object.keys(webTypes.contributions.html.tags).forEach(component => {
-    const def = webTypes.contributions.html.tags[component]
+  Object.keys(webTypes.contributions.html['vue-components']).forEach(component => {
+    const def = webTypes.contributions.html['vue-components'][component]
+    if (def.pattern) return
     const tag = kebabCase(def.name)
     // Component tag
     veturTags[tag] = {
@@ -440,21 +512,46 @@ try {
       // we do not have a way of populating this at the moment
       // subtags: [],
       description: def.description,
-      attributes: def.attributes.map(attrObj => kebabCase(attrObj.name))
+      attributes: def.props.map(attrObj => kebabCase(attrObj.name))
     }
     // Component props
-    def.attributes.forEach(attrObj => {
-      const type = (attrObj.value || { type: 'any' }).type
+    def.props.forEach(propObj => {
+      const type = propObj.type || 'any'
+      veturAttributes[`${tag}/${kebabCase(propObj.name)}`] = {
+        description: propObj.description || `One of: ${type.split('|').join(' or ')}`,
+        type
+      }
+    })
+  })
+
+  // Create icon components info
+  const blankIcon = webTypes.contributions.html['vue-components'].find(
+    it => it.name === 'Bootstrap Icon'
+  )
+  for (const icon of webTypes.contributions.html['vue-bootstrap-icons-kebabized']) {
+    const tag = 'b-icon-' + icon.name
+    // Component tag
+    veturTags[tag] = {
+      // `subtags` is a list of supported child components, but
+      // we do not have a way of populating this at the moment
+      // subtags: [],
+      description: blankIcon.description,
+      attributes: blankIcon.props.map(attrObj => kebabCase(attrObj.name))
+    }
+    // Component props
+    blankIcon.props.forEach(attrObj => {
+      const type = (attrObj['attribute-value'] || { type: 'any' }).type
       veturAttributes[`${tag}/${kebabCase(attrObj.name)}`] = {
         description: attrObj.description || `One of: ${type.split('|').join(' or ')}`,
         type
       }
     })
-  })
+  }
+
   // Add global directive "attributes"
-  Object.keys(webTypes.contributions.html.attributes).forEach(directive => {
-    const def = webTypes.contributions.html.attributes[directive]
-    const attr = kebabCase(def.name)
+  Object.keys(webTypes.contributions.html['vue-directives']).forEach(directive => {
+    const def = webTypes.contributions.html['vue-directives'][directive]
+    const attr = 'v-' + kebabCase(def.name)
     veturAttributes[attr] = {
       global: true,
       description: def.description

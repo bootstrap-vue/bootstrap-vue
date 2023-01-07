@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_LINK } from '../../constants/components'
 import { EVENT_NAME_CLICK } from '../../constants/events'
 import {
@@ -74,7 +74,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BLink = /*#__PURE__*/ Vue.extend({
+export const BLink = /*#__PURE__*/ extend({
   name: NAME_LINK,
   // Mixin order is important!
   mixins: [attrsMixin, listenersMixin, listenOnRootMixin, normalizeSlotMixin],
@@ -104,7 +104,10 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       return this.isRouterLink
         ? {
             ...pluckProps(
-              omit({ ...routerLinkProps, ...nuxtLinkProps }, ['event', 'prefetch', 'routerTag']),
+              omit(
+                { ...routerLinkProps, ...(this.computedTag === 'nuxt-link' ? nuxtLinkProps : {}) },
+                ['event', 'prefetch', 'routerTag']
+              ),
               this
             ),
             // Only add these props, when actually defined
@@ -161,9 +164,11 @@ export const BLink = /*#__PURE__*/ Vue.extend({
       } else {
         // Router links do not emit instance `click` events, so we
         // add in an `$emit('click', event)` on its Vue instance
+        //
+        // seems not to be required for Vue3 compat build
         /* istanbul ignore next: difficult to test, but we know it works */
-        if (isRouterLink && event.currentTarget.__vue__) {
-          event.currentTarget.__vue__.$emit(EVENT_NAME_CLICK, event)
+        if (isRouterLink) {
+          event.currentTarget.__vue__?.$emit(EVENT_NAME_CLICK, event)
         }
         // Call the suppliedHandler(s), if any provided
         concat(suppliedHandler)

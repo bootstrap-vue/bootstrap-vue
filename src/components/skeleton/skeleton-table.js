@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_SKELETON_TABLE } from '../../constants/components'
 import {
   PROP_TYPE_BOOLEAN,
@@ -32,7 +32,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BSkeletonTable = /*#__PURE__*/ Vue.extend({
+export const BSkeletonTable = /*#__PURE__*/ extend({
   name: NAME_SKELETON_TABLE,
   functional: true,
   props,

@@ -1,4 +1,4 @@
-import { Vue } from '../../vue'
+import { extend } from '../../vue'
 import { NAME_DROPDOWN } from '../../constants/components'
 import {
   PROP_TYPE_ARRAY_OBJECT_STRING,
@@ -54,7 +54,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdown = /*#__PURE__*/ Vue.extend({
+export const BDropdown = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN,
   mixins: [idMixin, dropdownMixin, normalizeSlotMixin],
   props,

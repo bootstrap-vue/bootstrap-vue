@@ -1,4 +1,4 @@
-import { Vue } from '../../../vue'
+import { extend } from '../../../vue'
 import { NAME_TABLE } from '../../../constants/components'
 import { EVENT_NAME_REFRESH, EVENT_NAME_REFRESHED } from '../../../constants/events'
 import {
@@ -11,6 +11,7 @@ import { isArray, isFunction, isPromise } from '../../../utils/inspect'
 import { looseEqual } from '../../../utils/loose-equal'
 import { clone } from '../../../utils/object'
 import { makeProp } from '../../../utils/props'
+import { safeVueInstance } from '../../../utils/safe-vue-instance'
 import { warn } from '../../../utils/warn'
 import { listenOnRootMixin } from '../../../mixins/listen-on-root'
 
@@ -35,7 +36,7 @@ export const props = {
 // --- Mixin ---
 
 // @vue/component
-export const providerMixin = Vue.extend({
+export const providerMixin = extend({
   mixins: [listenOnRootMixin],
   props,
   computed: {
@@ -100,11 +101,11 @@ export const providerMixin = Vue.extend({
   },
   methods: {
     refresh() {
-      const { items, refresh } = this
+      const { items, refresh, computedBusy } = safeVueInstance(this)
 
       // Public Method: Force a refresh of the provider function
       this.$off(EVENT_NAME_REFRESHED, refresh)
-      if (this.computedBusy) {
+      if (computedBusy) {
         // Can't force an update when forced busy by user (busy prop === true)
         if (this.localBusy && this.hasProvider) {
           // But if provider running (localBusy), re-schedule refresh once `refreshed` emitted
@@ -137,7 +138,7 @@ export const providerMixin = Vue.extend({
         return
       }
       // If table is busy, wait until refreshed before calling again
-      if (this.computedBusy) {
+      if (safeVueInstance(this).computedBusy) {
         // Schedule a new refresh once `refreshed` is emitted
         this.$nextTick(this.refresh)
         return

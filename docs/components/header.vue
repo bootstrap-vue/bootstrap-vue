@@ -31,6 +31,7 @@
     <div class="navbar-nav-scroll">
       <b-navbar-nav class="bd-navbar-nav flex-row">
         <b-nav-item to="/docs" active-class="active" exact no-prefetch>Docs</b-nav-item>
+        <b-nav-item to="/vue3" active-class="active" exact no-prefetch>Vue.js 3</b-nav-item>
         <b-nav-item to="/docs/components" active-class="active" no-prefetch>Components</b-nav-item>
         <b-nav-item to="/docs/directives" active-class="active" no-prefetch>Directives</b-nav-item>
         <b-nav-item to="/docs/icons" active-class="active" no-prefetch>Icons</b-nav-item>

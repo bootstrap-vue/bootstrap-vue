@@ -2,9 +2,11 @@ import { NAME_TOOLTIP } from '../../constants/components'
 import { IS_BROWSER } from '../../constants/env'
 import { EVENT_NAME_SHOW } from '../../constants/events'
 import { concat } from '../../utils/array'
+import { isVue3, nextTick } from '../../vue'
 import { getComponentConfig } from '../../utils/config'
 import { getScopeId } from '../../utils/get-scope-id'
 import { identity } from '../../utils/identity'
+import { getInstanceFromDirective } from '../../utils/get-instance-from-directive'
 import {
   isFunction,
   isNumber,
@@ -16,6 +18,7 @@ import {
 import { looseEqual } from '../../utils/loose-equal'
 import { toInteger } from '../../utils/number'
 import { keys } from '../../utils/object'
+import { createNewChildComponent } from '../../utils/create-new-child-component'
 import { BVTooltip } from '../../components/tooltip/helpers/bv-tooltip'
 
 // Key which we use to store tooltip object on element
@@ -68,7 +71,6 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
     variant: getComponentConfig(NAME_TOOLTIP, 'variant'),
     customClass: getComponentConfig(NAME_TOOLTIP, 'customClass')
   }
-
   // Process `bindings.value`
   if (isString(bindings.value) || isNumber(bindings.value)) {
     // Value is tooltip content (HTML optionally supported)
@@ -84,8 +86,8 @@ const parseBindings = (bindings, vnode) => /* istanbul ignore next: not easy to 
   // If title is not provided, try title attribute
   if (isUndefined(config.title)) {
     // Try attribute
-    const data = vnode.data || {}
-    config.title = data.attrs && !isUndefinedOrNull(data.attrs.title) ? data.attrs.title : undefined
+    const attrs = isVue3 ? vnode.props : (vnode.data || {}).attrs
+    config.title = attrs && !isUndefinedOrNull(attrs.title) ? attrs.title : undefined
   }
 
   // Normalize delay
@@ -190,11 +192,10 @@ const applyTooltip = (el, bindings, vnode) => {
   }
   const config = parseBindings(bindings, vnode)
   if (!el[BV_TOOLTIP]) {
-    const $parent = vnode.context
-    el[BV_TOOLTIP] = new BVTooltip({
-      parent: $parent,
+    const parent = getInstanceFromDirective(vnode, bindings)
+    el[BV_TOOLTIP] = createNewChildComponent(parent, BVTooltip, {
       // Add the parent's scoped style attribute data
-      _scopeId: getScopeId($parent, undefined)
+      _scopeId: getScopeId(parent, undefined)
     })
     el[BV_TOOLTIP].__bv_prev_data__ = {}
     el[BV_TOOLTIP].$on(EVENT_NAME_SHOW, () => /* istanbul ignore next: for now */ {
@@ -259,7 +260,7 @@ export const VBTooltip = {
   // waits until the containing component and children have finished updating
   componentUpdated(el, bindings, vnode) {
     // Performed in a `$nextTick()` to prevent render update loops
-    vnode.context.$nextTick(() => {
+    nextTick(() => {
       applyTooltip(el, bindings, vnode)
     })
   },

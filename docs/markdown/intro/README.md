@@ -31,7 +31,7 @@ The online documentation comprises:
 
 ## Prerequisites
 
-This BootstrapVue documentation assumes you are familiar with Vue and and Bootstrap
+This BootstrapVue documentation assumes you are familiar with Vue and Bootstrap
 v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 - [Vue Guide](https://vuejs.org/v2/guide/)
@@ -44,8 +44,8 @@ v{{ bootstrapVersionMajor }} CSS. Good starting points for these:
 
 In many of the examples shown in BootstrapVue's documentation, you may see the use of CSS classes
 such as <code class="text-nowrap">ml-2</code>, <code class="text-nowrap">py-1</code>, etc. These are
-Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins, positioning
-and more. You can find information on these classes in the
+Bootstrap v{{bootstrapVersionMinor}} utility classes that help control padding, margins,
+positioning, and more. You can find information on these classes in the
 [Utility Classes](/docs/reference/utility-classes) reference section.
 
 Many of the examples in this documentation are _live_ and can be edited in-place for an enhanced
@@ -712,14 +712,14 @@ JavaScript files.
 <!-- Add this to <head> -->
 
 <!-- Load required Bootstrap and BootstrapVue CSS -->
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap@{{ bootstrapVersion }}/dist/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
 <!-- Load polyfills to support older browsers -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
-<script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue@{{ vueVersion }}/dist/vue.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 <!-- Load the following for BootstrapVueIcons support -->

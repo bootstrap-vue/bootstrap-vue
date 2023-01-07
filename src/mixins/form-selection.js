@@ -1,7 +1,7 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 
 // @vue/component
-export const formSelectionMixin = Vue.extend({
+export const formSelectionMixin = extend({
   computed: {
     selectionStart: {
       // Expose selectionStart for formatters, etc

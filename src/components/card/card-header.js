@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_CARD_HEADER } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { htmlOrText } from '../../utils/html'
@@ -21,7 +21,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BCardHeader = /*#__PURE__*/ Vue.extend({
+export const BCardHeader = /*#__PURE__*/ extend({
   name: NAME_CARD_HEADER,
   functional: true,
   props,

@@ -1,4 +1,4 @@
-import { Vue } from '../vue'
+import { extend } from '../vue'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_BOOLEAN_STRING, PROP_TYPE_STRING } from '../constants/props'
 import { SLOT_NAME_FIRST } from '../constants/slots'
 import { htmlOrText } from '../utils/html'
@@ -55,7 +55,7 @@ export const props = makePropsConfigurable(
 // --- Mixin ---
 
 // @vue/component
-export const formRadioCheckGroupMixin = Vue.extend({
+export const formRadioCheckGroupMixin = extend({
   mixins: [
     idMixin,
     modelMixin,

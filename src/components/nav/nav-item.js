@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_NAV_ITEM } from '../../constants/components'
 import { PROP_TYPE_ARRAY_OBJECT_STRING, PROP_TYPE_OBJECT } from '../../constants/props'
 import { omit, sortKeys } from '../../utils/object'
@@ -21,7 +21,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BNavItem = /*#__PURE__*/ Vue.extend({
+export const BNavItem = /*#__PURE__*/ extend({
   name: NAME_NAV_ITEM,
   functional: true,
   props,

@@ -124,15 +124,15 @@ You can easily nest media objects by including another `<b-media>` inside parent
 
 ## Vertical align
 
-Aside can be vertical aligned using `vertical-align` should be either `top`, `center` or `end`.
-Default is `top`.
+Aside can be vertically aligned using `vertical-align` prop, set to `top`, `center` or `end`. The
+default alignment is `top`.
 
 ## Media list
 
-Because the media object has so few structural requirements, you can also use these component as
-list HTML elements. On your `<ul>` or `<ol>`, add the class `list-unstyled` to remove any browser
-default list styles, and then use the `<b-media>` component with `tag` prop set to `li`. As always,
-use spacing utilities wherever needed to fine tune.
+Because the media object has few structural requirements, you can use this component as a list item
+in HTML lists. On your `<ul>` or `<ol>`, add the class `list-unstyled` to remove any browser default
+list styles, and then use the `<b-media>` component with `tag` prop set to `li`. As always, use
+spacing utilities wherever needed to fine tune.
 
 ```html
 <div>

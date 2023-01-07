@@ -1,4 +1,4 @@
-import { Vue, mergeData } from '../../vue'
+import { extend, mergeData } from '../../vue'
 import { NAME_DROPDOWN_DIVIDER } from '../../constants/components'
 import { PROP_TYPE_STRING } from '../../constants/props'
 import { makeProp, makePropsConfigurable } from '../../utils/props'
@@ -16,7 +16,7 @@ export const props = makePropsConfigurable(
 // --- Main component ---
 
 // @vue/component
-export const BDropdownDivider = /*#__PURE__*/ Vue.extend({
+export const BDropdownDivider = /*#__PURE__*/ extend({
   name: NAME_DROPDOWN_DIVIDER,
   functional: true,
   props,

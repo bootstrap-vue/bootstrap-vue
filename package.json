@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-vue",
-  "version": "2.22.0",
+  "version": "2.23.1",
   "description": "With more than 85 components, over 45 available plugins, several directives, and 1000+ icons, BootstrapVue provides one of the most comprehensive implementations of the Bootstrap v4 component and grid system available for Vue.js v2.6, complete with extensive and automated WAI-ARIA accessibility markup.",
   "main": "./dist/bootstrap-vue.common.js",
   "web": "./dist/bootstrap-vue.js",
@@ -66,7 +66,7 @@
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
     "lint": "eslint --ext .js,.md,.vue ./",
     "postinstall": "opencollective || exit 0",
-    "prepare": "husky install",
+    "prepare": "husky install && yarn run build",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "yarn run prettify && yarn run test && yarn run build && yarn run release-notes && standard-version",
     "release-notes": "jiti ./scripts/release-notes",
@@ -87,7 +87,7 @@
     "vue-functional-data-merge": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
+    "@babel/cli": "^7.19.3",
     "@babel/core": "^7.16.5",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
     "@babel/plugin-transform-runtime": "^7.16.5",
@@ -99,7 +99,10 @@
     "@nuxtjs/robots": "^2.5.0",
     "@nuxtjs/sitemap": "^2.4.0",
     "@testing-library/jest-dom": "^5.12.0",
+    "@vue/compat": "^3.2.40",
+    "@vue/compiler-dom": "^3.2.40",
     "@vue/test-utils": "^1.3.0",
+    "@vue/test-utils-vue3": "npm:@vue/test-utils@2.2.0",
     "autoprefixer": "^10.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
@@ -146,12 +149,12 @@
     "sass": "^1.45.0",
     "sass-loader": "^10.1.1",
     "standard-version": "^9.3.0",
-    "terser": "^5.10.0",
+    "terser": "^5.15.0",
     "vue": "^2.6.12",
-    "vue-jest": "^3.0.7",
     "vue-router": "^3.5.1",
     "vue-server-renderer": "^2.6.12",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "vue-test-utils-compat": "0.0.6"
   },
   "keywords": [
     "Bootstrap",
