@@ -463,7 +463,7 @@ To close a **specific tooltip**, pass the trigger element's `id`, or the `id` of
 was provided in the config object) as the first argument:
 
 ```js
-this.$root.$emit('bv::show::tooltip', 'my-trigger-button-id')
+this.$root.$emit('bv::hide::tooltip', 'my-trigger-button-id')
 ```
 
 To open a **specific tooltip**, pass the trigger element's `id`, or the `id` of the tooltip (if one
