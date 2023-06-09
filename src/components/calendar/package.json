@@ -12,6 +12,10 @@
         "version": "2.5.0",
         "props": [
           {
+            "prop": "alwaysSixWeeks",
+            "description": "When `false`, the number of weeks in a month will be 5 or 6 to avoid displaying a while week of the next month. When `true`, always display 6 weeks per month, event if the current month have 5 weeks. THis prevent layout shift when navigating from month to month"
+          },
+          {
             "prop": "block",
             "description": "Makes the calendar full width"
           },
