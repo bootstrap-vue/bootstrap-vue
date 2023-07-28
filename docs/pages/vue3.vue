@@ -10,7 +10,7 @@
       With the release of <b>v2.23.0</b> you can now use  <span class="bd-text-purple-bright">BootstrapVue</span> with <a href="https://v3-migration.vuejs.org/migration-build.html" target="_blank">migration build</a> of Vue.js 3
 
       <b-alert show variant="warning" class="mt-3">
-        @vue/compat support is designed for early migration to Vue.js 3 and will be eventually replaced with bootstrap-vue 3.0
+        @vue/compat support is designed for early migration to Vue.js 3 and will be eventually replaced with <a href="https://bootstrap-vue-next.github.io/bootstrap-vue-next/" target="_blank" rel="noopener">BootstrapVueNext</a>. BootstrapVueNext is currently in <b>Alpha</b>
       </b-alert>
       <h2 id="limitations" class="bv-no-focus-ring mb-3">
         <span class="bd-content-title">Important limitations<a href="#prerequisites" aria-labelledby="limitations" class="anchorjs-link"></a></span>
