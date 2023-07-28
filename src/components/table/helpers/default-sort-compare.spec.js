@@ -109,4 +109,18 @@ describe('table/helpers/default-sort-compare', () => {
     expect(defaultSortCompare(x, w, optionsNullLast)).toBe(-1)
     expect(defaultSortCompare(w, x, optionsNullLast)).toBe(1)
   })
+
+  it('sorts numeric string correctly', async () => {
+    const options = { sortBy: 'a', numeric: true }
+    expect(defaultSortCompare({ a: '1' }, { a: '2' }, options)).toBe(-1)
+    expect(defaultSortCompare({ a: '2' }, { a: '1' }, options)).toBe(1)
+    expect(defaultSortCompare({ a: '1' }, { a: '1' }, options)).toBe(0)
+    expect(defaultSortCompare({ a: '-1' }, { a: '1' }, options)).toBe(-1)
+    expect(defaultSortCompare({ a: '1' }, { a: '-1' }, options)).toBe(1)
+    expect(defaultSortCompare({ a: '0' }, { a: '0' }, options)).toBe(0)
+    expect(defaultSortCompare({ a: '1.234' }, { a: '1.567' }, options)).toBe(-1)
+    expect(defaultSortCompare({ a: '1.561' }, { a: '1.234' }, options)).toBe(1)
+    expect(defaultSortCompare({ a: '-10' }, { a: '-100' }, options)).toBe(1)
+    expect(defaultSortCompare({ a: '-20' }, { a: '-30' }, options)).toBe(1)
+  })
 })
