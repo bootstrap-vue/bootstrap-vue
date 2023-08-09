@@ -58,6 +58,67 @@ If no date is selected, `<b-calendar>` returns an empty string `''`, or returns 
 Note that when `value-as-date` prop is set, the returned `Date` object will be in the browser's
 default timezone.
 
+## Types
+
+<span class="badge badge-info small">v2.XX.0+</span>
+
+Displaying different calendar types can now be specified by the `type` prop. Valid options are
+`'date'`, `'day'`, `'month'`, or `'year'`, with the default of `'date'`.
+
+Setting to `'day'` will display the days of the week, and the return value will be the date of the
+day of the current week selected. Setting to `'month'` will display the months of the year, and the
+return value will be the first day of the selected month. Setting to `'year'` will display years in
+a decade, and the return value will be the first day of the selected year.
+
+```html
+<template>
+  <b-row>
+    <b-col md="auto">
+      <b-form-group
+        label="Calendar type"
+        v-slot="{ ariaDescribedby }"
+      >
+        <b-form-radio-group
+          v-model="type"
+          :aria-describedby="ariaDescribedby"
+          aria-controls="ex-type"
+        >
+          <b-form-radio value="date">Date</b-form-radio>
+          <b-form-radio value="day">Day</b-form-radio>
+          <b-form-radio value="month">Month</b-form-radio>
+          <b-form-radio value="year">Year</b-form-radio>
+        </b-form-radio-group>
+      </b-form-group>
+
+      <b-calendar v-model="value" @context="onContext" locale="en-US" :type="type"></b-calendar>
+    </b-col>
+    <b-col>
+      <p>Value: <b>'{{ value }}'</b></p>
+      <p class="mb-0">Context:</p>
+      <pre class="small">{{ context }}</pre>
+    </b-col>
+  </b-row>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        type: 'date',
+        value: '',
+        context: null
+      }
+    },
+    methods: {
+      onContext(ctx) {
+        this.context = ctx
+      }
+    }
+  }
+</script>
+<!-- b-calendar.vue -->
+```
+
 ## Disabled and readonly states
 
 Setting the `disabled` prop will remove all interactivity of the `<b-calendar>` component.
