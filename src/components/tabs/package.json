@@ -142,6 +142,14 @@
             "description": "Renders this slot if no tabs are present"
           },
           {
+            "name": "tabs-after",
+            "description": "Content to place after the content tab buttons"
+          },
+          {
+            "name": "tabs-before",
+            "description": "Content to place before the content tab buttons"
+          },
+          {
             "name": "tabs-end",
             "description": "Additional tab buttons without tab content placed after content tab buttons"
           },
