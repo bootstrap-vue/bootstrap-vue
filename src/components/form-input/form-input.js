@@ -146,7 +146,7 @@ export const BFormInput = /*#__PURE__*/ extend({
       }
     },
     onWheelFocus() {
-      eventOn(document, 'wheel', this.stopWheel)
+      eventOn(document, 'wheel', this.stopWheel, { passive: false })
     },
     onWheelBlur() {
       eventOff(document, 'wheel', this.stopWheel)
