@@ -89,6 +89,10 @@
             "description": "CSS class (or classes) to apply to the '.modal-dialog' wrapper element"
           },
           {
+            "prop": "draggable",
+            "description": "Enables dragging of the modal by the header"
+          },
+          {
             "prop": "footerBgVariant",
             "description": "Applies one of the Bootstrap theme color variants to the footer background"
           },
