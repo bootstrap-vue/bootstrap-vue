@@ -397,6 +397,11 @@
                 "arg": "modalId",
                 "type": "String",
                 "description": "ID of modal to hide"
+              },
+              {
+                "arg": "trigger",
+                "type": "String",
+                "description": "Specify which trigger the modal should use when hidden, like `ok`, `cancel` or event a custom trigger (optional)"
               }
             ]
           },

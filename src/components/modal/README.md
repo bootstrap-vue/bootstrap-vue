@@ -81,7 +81,7 @@ several methods, of which two are for showing and hiding modals:
 | Method                   | Description                            |
 | ------------------------ | -------------------------------------- |
 | `this.$bvModal.show(id)` | Show the modal with the specified `id` |
-| `this.$bvModal.hide(id)` | Hide the modal with the specified `id` |
+| `this.$bvModal.hide(id, trigger = "event")` | Hide the modal with the specified `id`, and optionally supply a `trigger` like `ok`. Which will cause the modal to close as if the `OK` button was clicked |
 
 Both methods return immediately after being called.
 
@@ -960,24 +960,31 @@ method to generate VNodes.
 <template>
   <div>
     <b-button @click="showMsgOk">Show OK message box with custom content</b-button>
+    Return value: {{ returnValue }}
   </div>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        returnValue: ''
+      }
+    },
     methods: {
-      showMsgOk() {
+      async showMsgOk() {
         const h = this.$createElement
+        const modalId = "my-confirm-modal";
         // Using HTML string
         const titleVNode = h('div', { domProps: { innerHTML: 'Title from <i>HTML<i> string' } })
         // More complex structure
         const messageVNode = h('div', { class: ['foobar'] }, [
-          h('p', { class: ['text-center'] }, [
+          h('p', { staticClass: 'text-center' }, [
             ' Flashy ',
             h('strong', 'msgBoxOk'),
             ' message ',
           ]),
-          h('p', { class: ['text-center'] }, [h('b-spinner')]),
+          h('p', { staticClass: 'text-center' }, [h('b-spinner')]),
           h('b-img', {
             props: {
               src: 'https://picsum.photos/id/20/250/250',
@@ -985,14 +992,38 @@ method to generate VNodes.
               center: true,
               fluid: true, rounded: 'circle'
             }
-          })
+          }),
+          // You can use `$bvModal.hide` to hide the modal along with an optional trigger to create custom `ok` or `cancel`.
+          h('p', { staticClass: 'd-flex justify-content-around mt-2' }, [
+            h('b-button', {
+              props: { variant: 'danger' },
+              on: {
+                click: () => {
+                  this.$bvModal.hide(modalId, 'cancel')
+                }
+              }
+            }, 'Custom \'CANCEL\' button'),
+            h('b-button', {
+              props: { variant: 'primary' },
+              on: {
+                click: () => {
+                  this.$bvModal.hide(modalId, 'ok')
+                }
+              }
+            }, 'Custom \'OK\' button')
+          ])
         ])
         // We must pass the generated VNodes as arrays
-        this.$bvModal.msgBoxOk([messageVNode], {
-          title: [titleVNode],
-          buttonSize: 'sm',
-          centered: true, size: 'sm'
-        })
+        try {
+          this.returnValue = await this.$bvModal.msgBoxConfirm([messageVNode], {
+            id: modalId,
+            title: [titleVNode],
+            buttonSize: 'sm',
+            centered: true
+          })
+        } catch(err) {
+          // An error occurred
+        }        
       }
     }
   }
