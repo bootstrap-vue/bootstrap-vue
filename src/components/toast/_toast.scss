@@ -36,6 +36,16 @@
       opacity: 0;
     }
 
+    // fix close icon in rtl direction
+    .toast-header {
+      .close {
+        [dir="rtl"] & {
+          margin-left: unset !important; // override bootstrap's ml-auto class
+          margin-right: auto;
+        }
+      }
+    }
+
     .toast-body {
       display: block; // Needed when we use a link as the body element
     }
