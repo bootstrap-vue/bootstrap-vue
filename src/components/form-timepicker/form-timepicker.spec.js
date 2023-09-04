@@ -409,6 +409,45 @@ describe('form-timepicker', () => {
     wrapper.destroy()
   })
 
+  it('reset method works', async () => {
+    const wrapper = mount(BFormTimepicker, {
+      attachTo: createContainer(),
+      propsData: {
+        value: '01:02:03',
+        resetValue: '04:05:06',
+        showSeconds: true,
+        name: 'foobar'
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect(wrapper.element.tagName).toBe('DIV')
+
+    const $input = wrapper.find('input[type="hidden"]')
+    expect($input.exists()).toBe(true)
+    expect($input.attributes('value')).toBe('01:02:03')
+
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($input.attributes('value')).toBe('04:05:06')
+
+    await wrapper.setProps({ resetValue: '' })
+    wrapper.vm.reset()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    expect($input.attributes('value')).toBe('')
+
+    wrapper.destroy()
+  })
+
   it('`button-content` static slot works', async () => {
     const wrapper = mount(BFormTimepicker, {
       attachTo: document.body,

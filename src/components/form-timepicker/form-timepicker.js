@@ -83,23 +83,31 @@ export const BFormTimepicker = /*#__PURE__*/ extend({
   computed: {
     computedLang() {
       return (this.localLocale || '').replace(/-u-.*$/i, '') || null
+    },
+    computedResetValue() {
+      return this.resetValue || ''
     }
   },
   watch: {
     [MODEL_PROP_NAME](newValue) {
-      this.localHMS = newValue || ''
+      const hms = newValue || ''
+      if (hms !== this.localHMS) {
+        this.localHMS = hms
+      }
     },
-    localHMS(newValue) {
-      // We only update the v-model value when the timepicker
-      // is open, to prevent cursor jumps when bound to a
-      // text input in button only mode
-      if (this.isVisible) {
+    localHMS(newValue, oldValue) {
+      // We only update the `v-model` value when the timepicker is open,
+      // to prevent cursor jumps when bound to a text input in button only mode
+      if (newValue !== oldValue && this.isVisible) {
         this.$emit(MODEL_EVENT_NAME, newValue || '')
       }
     }
   },
   methods: {
     // Public methods
+    reset() {
+      this.localHMS = this.computedResetValue
+    },
     focus() {
       if (!this.disabled) {
         attemptFocus(this.$refs.control)
@@ -140,7 +148,7 @@ export const BFormTimepicker = /*#__PURE__*/ extend({
       this.setAndClose(value)
     },
     onResetButton() {
-      this.setAndClose(this.resetValue)
+      this.setAndClose(this.computedResetValue)
     },
     onCloseButton() {
       this.$refs.control.hide(true)

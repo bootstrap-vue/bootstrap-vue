@@ -14,7 +14,7 @@ export declare class BCalendar extends BvComponent {
 // --- Interfaces ---
 
 // Calendar context event object
-export interface BcCalendarCtxObject {
+export interface BvCalendarCtxObject {
   readonly selectedFormatted: string
   readonly selectedYMD: string
   readonly selectedDate: Date | null
