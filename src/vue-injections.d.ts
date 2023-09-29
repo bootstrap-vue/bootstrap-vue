@@ -12,7 +12,6 @@ declare module 'vue/types/vue' {
   }
 }
 
-
 // TODO: figure out why it cannot be 'vue' like said in docs
 // @ts-ignore: works on Vue 3, fails in Vue 2
 declare module '@vue/runtime-core' {

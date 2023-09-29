@@ -118,7 +118,7 @@ export const theadMixin = extend({
             {
               // We need to make the header cell relative when we have
               // a `.sr-only` sort label to work around overflow issues
-              'position-relative': sortLabel && !stickyColumn
+              'position-relative': sortLabel
             },
             this.fieldClasses(field),
             sortClass

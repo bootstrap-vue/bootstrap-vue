@@ -1,7 +1,12 @@
 import { extend } from '../../vue'
 import { NAME_FORM_RADIO } from '../../constants/components'
+import { looseEqual } from '../../utils/loose-equal'
 import { makePropsConfigurable } from '../../utils/props'
-import { formRadioCheckMixin, props as formRadioCheckProps } from '../../mixins/form-radio-check'
+import {
+  MODEL_EVENT_NAME,
+  formRadioCheckMixin,
+  props as formRadioCheckProps
+} from '../../mixins/form-radio-check'
 
 // --- Props ---
 
@@ -23,6 +28,13 @@ export const BFormRadio = /*#__PURE__*/ extend({
   computed: {
     bvGroup() {
       return this.getBvGroup()
+    }
+  },
+  watch: {
+    computedLocalChecked(newValue, oldValue) {
+      if (!looseEqual(newValue, oldValue)) {
+        this.$emit(MODEL_EVENT_NAME, newValue)
+      }
     }
   }
 })
