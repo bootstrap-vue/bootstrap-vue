@@ -3,7 +3,6 @@ export const createNewChildComponent = (parent, Component, config = {}) => {
 
   return new Component({
     ...config,
-    parent,
     bvParent: parent,
     bvEventRoot
   })

@@ -504,8 +504,7 @@ export const BTime = /*#__PURE__*/ extend({
     }
 
     // AM/PM ?
-    // depends on client settings, shouldn't be rendered on server
-    if (this.isLive && this.is12Hour) {
+    if (this.is12Hour) {
       // TODO:
       //   If locale is RTL, unshift this instead of push?
       //   And switch class `ml-2` to `mr-2`
