@@ -84,6 +84,8 @@ const computeAttrs = (props, data) => {
   const nonStandardTag = isNonStandardTag(props)
   const hashLink = link && props.href === '#'
   const role = data.attrs && data.attrs.role ? data.attrs.role : null
+  const ariaDisabled =
+    data.attrs && data.attrs['aria-disabled'] ? data.attrs['aria-disabled'] : null
   let tabindex = data.attrs ? data.attrs.tabindex : null
   if (nonStandardTag || hashLink) {
     tabindex = '0'
@@ -98,7 +100,7 @@ const computeAttrs = (props, data) => {
     // Except when link has `href` of `#`
     role: nonStandardTag || hashLink ? 'button' : role,
     // We set the `aria-disabled` state for non-standard tags
-    'aria-disabled': nonStandardTag ? String(props.disabled) : null,
+    'aria-disabled': nonStandardTag ? String(props.disabled) : ariaDisabled,
     // For toggles, we need to set the pressed state for ARIA
     'aria-pressed': toggle ? String(props.pressed) : null,
     // `autocomplete="off"` is needed in toggle mode to prevent some browsers
