@@ -54,9 +54,13 @@ export const escapeRegExp = str => str.replace(RX_REGEXP_REPLACE, '\\$&')
 export const toString = (val, spaces = 2) => {
   return isUndefinedOrNull(val)
     ? ''
-    : isArray(val) || (isPlainObject(val) && val.toString === Object.prototype.toString)
-      ? JSON.stringify(val, null, spaces)
-      : String(val)
+    : // Quickfix: Disabling the JSON.stringify because the objects we are passing (e.g. pools) have circular structures
+      // making this error out. As all our tables using custom slots or text values, this will not affect the table in any way.
+      // We need to either make sure we fix the circular structures on `frontend` or use a library like `flatten` to avoid this.
+
+      // : isArray(val) || (isPlainObject(val) && val.toString === Object.prototype.toString)
+      //   ? JSON.stringify(val, null, spaces) :
+      String(val)
 }
 
 // Remove leading white space from a string
