@@ -176,6 +176,18 @@ describe('button', () => {
     wrapper.destroy()
   })
 
+  it('button has aria-disabled attribute when explicitly set', () => {
+    const wrapper = mount(BButton, {
+      attrs: {
+        'aria-disabled': 'true'
+      }
+    })
+
+    expect(wrapper.attributes('aria-disabled')).toBe('true')
+
+    wrapper.destroy()
+  })
+
   it('link has attribute aria-disabled when disabled set', async () => {
     const wrapper = mount(BButton, {
       propsData: {
