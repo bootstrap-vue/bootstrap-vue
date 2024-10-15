@@ -60,6 +60,16 @@
         margin: 3px auto;
         padding: 9px 0;
       }
+
+      &.day,
+      &.month,
+      &.year {
+        .btn {
+          width: auto;
+          height: auto;
+          padding: 9px 12px;
+        }
+      }
     }
   }
 
