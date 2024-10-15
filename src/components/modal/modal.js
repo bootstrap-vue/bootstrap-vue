@@ -697,9 +697,9 @@ export const BModal = /*#__PURE__*/ extend({
         this.show()
       }
     },
-    hideHandler(id) {
+    hideHandler(id, trigger = 'event') {
       if (id === this.modalId) {
-        this.hide('event')
+        this.hide(trigger)
       }
     },
     toggleHandler(id, triggerEl) {
