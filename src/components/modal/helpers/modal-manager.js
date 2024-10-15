@@ -70,9 +70,11 @@ const ModalManager = /*#__PURE__*/ extend({
       }
     },
     modals(newValue) {
-      this.checkScrollbar()
-      requestAF(() => {
-        this.updateModals(newValue || [])
+      this.$nextTick(() => {
+        this.checkScrollbar()
+        requestAF(() => {
+          this.updateModals(newValue || [])
+        })
       })
     }
   },
