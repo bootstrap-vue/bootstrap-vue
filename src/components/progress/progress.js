@@ -8,7 +8,7 @@ import { BProgressBar, props as BProgressBarProps } from './progress-bar'
 
 // --- Props ---
 
-const progressBarProps = omit(BProgressBarProps, ['label', 'labelHtml'])
+const progressBarProps = omit(BProgressBarProps, ['ariaLabel', 'label', 'labelHtml'])
 
 export const props = makePropsConfigurable(
   sortKeys({

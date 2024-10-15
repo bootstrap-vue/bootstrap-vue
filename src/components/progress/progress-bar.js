@@ -16,6 +16,7 @@ export const props = makePropsConfigurable(
     animated: makeProp(PROP_TYPE_BOOLEAN, null),
     label: makeProp(PROP_TYPE_STRING),
     labelHtml: makeProp(PROP_TYPE_STRING),
+    ariaLabel: makeProp(PROP_TYPE_STRING, 'progress-bar'),
     max: makeProp(PROP_TYPE_NUMBER_STRING, null),
     precision: makeProp(PROP_TYPE_NUMBER_STRING, null),
     showProgress: makeProp(PROP_TYPE_BOOLEAN, null),
@@ -99,7 +100,7 @@ export const BProgressBar = /*#__PURE__*/ extend({
     }
   },
   render(h) {
-    const { label, labelHtml, computedValue, computedPrecision } = this
+    const { ariaLabel, label, labelHtml, computedValue, computedPrecision } = this
 
     let $children
     let domProps = {}
@@ -121,6 +122,7 @@ export const BProgressBar = /*#__PURE__*/ extend({
         style: this.progressBarStyles,
         attrs: {
           role: 'progressbar',
+          'aria-label': ariaLabel,
           'aria-valuemin': '0',
           'aria-valuemax': toString(this.computedMax),
           'aria-valuenow': toFixed(computedValue, computedPrecision)
