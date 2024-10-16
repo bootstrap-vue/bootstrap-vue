@@ -135,7 +135,9 @@ export default {
       }
 
       xhr.open('GET', url, true)
-      xhr.addEventListener('load', onLoad)
+      xhr.addEventListener('load', onLoad, {
+        signal: this.controller?.signal
+      })
       // Initiate the request
       xhr.send()
     },
@@ -248,6 +250,14 @@ export default {
       // Donors are people/organizations with one-time (paid) donations
       this.makeOcRequest(this.processDonors.bind(this), { status: 'paid' })
     }
+  },
+
+  beforeDestroy() {
+    this.controller.abort()
+  },
+
+  created() {
+    this.controller = new window.AbortController()
   }
 }
 </script>
