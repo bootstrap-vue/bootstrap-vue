@@ -3,3 +3,9 @@
 .modal-backdrop {
   opacity: $modal-backdrop-opacity;
 }
+
+// When draggable property is set to true
+// cursor is all-scroll on modal-header hover
+.modal-drag {
+  cursor: all-scroll;
+}
