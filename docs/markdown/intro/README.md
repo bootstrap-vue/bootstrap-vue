@@ -27,7 +27,6 @@ The online documentation comprises:
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Playground](/play) - Online playground
-- [Themes](/themes) - Themes and dashboards
 
 ## Prerequisites
 

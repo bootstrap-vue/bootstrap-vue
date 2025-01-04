@@ -52,24 +52,6 @@
     </b-link>
 
     <b-link
-      to="/themes"
-      router-tag="div"
-      active-class="active"
-      no-prefetch
-      exact
-    >
-      <b-link
-        to="/themes"
-        active-class=""
-        exact
-        no-prefetch
-        class="bd-toc-link"
-      >
-        Themes
-      </b-link>
-    </b-link>
-
-    <b-link
       to="/play"
       router-tag="div"
       active-class="active"

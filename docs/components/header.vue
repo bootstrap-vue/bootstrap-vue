@@ -36,7 +36,6 @@
         <b-nav-item to="/docs/directives" active-class="active" no-prefetch>Directives</b-nav-item>
         <b-nav-item to="/docs/icons" active-class="active" no-prefetch>Icons</b-nav-item>
         <b-nav-item to="/docs/reference" active-class="active">Reference</b-nav-item>
-        <b-nav-item to="/themes" active-class="active" no-prefetch>Themes</b-nav-item>
         <b-nav-item to="/play" active-class="active" no-prefetch>Play</b-nav-item>
       </b-navbar-nav>
     </div>
