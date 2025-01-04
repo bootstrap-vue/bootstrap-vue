@@ -8,7 +8,6 @@
       </h1>
       <p v-if="groupDescription" class="bd-lead">{{ groupDescription }}</p>
     </Section>
-    <CarbonAd :key="`ad-{$route.path}`"></CarbonAd>
     <Section>
       <b-list-group tag="nav" :aria-label="`${groupTitle} section navigation`" class="mb-5">
         <b-list-group-item
@@ -28,7 +27,6 @@
 </template>
 
 <script>
-import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import Section from '~/components/section'
 import { nav } from '~/content'
@@ -43,7 +41,6 @@ const groups = nav.reduce((obj, g) => {
 export default {
   name: 'BVSectionToc',
   components: {
-    CarbonAd,
     Main,
     Section
   },

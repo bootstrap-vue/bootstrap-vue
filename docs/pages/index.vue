@@ -131,10 +131,6 @@
               </b-col>
             </b-row>
           </div>
-
-          <div class="order-1 order-md-2">
-            <BVCarbonAd></BVCarbonAd>
-          </div>
         </div>
       </b-container>
     </section>
@@ -400,13 +396,11 @@ import {
   vueVersionMinor
 } from '~/content'
 import BvLogo from '~/components/bv-logo'
-import BVCarbonAd from '~/components/carbon-ad'
 import BVContributors from '~/components/contributors'
 
 export default {
   components: {
     BvLogo,
-    BVCarbonAd,
     BVContributors
   },
   created() {
