@@ -4,7 +4,7 @@
       <b-row class="justify-content-center">
         <b-col cols="12" sm order-sm="3" class="text-center text-sm-right">
           <b-link to="/" class="d-inline-block mx-auto">
-            <BvLogo width="120" height="120" class="img-fluid mb-4 mb-sm-0"></BvLogo>
+            <bv-logo-animated width="120" height="120" class="img-fluid mb-4 mb-sm-0"></bv-logo-animated>
           </b-link>
         </b-col>
 
@@ -57,11 +57,11 @@
 
 <script>
 import { version } from '~/content'
-import BvLogo from '~/components/bv-logo'
+import BvLogoAnimated from '~/components/bv-logo-animated'
 
 export default {
   name: 'BVFooter',
-  components: { BvLogo },
+  components: { BvLogoAnimated },
   props: {
     isDocs: {
       type: Boolean,
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style scoped>
-.bv-logo {
+.bv-logo-animated {
   margin-top: -2rem;
 }
 
