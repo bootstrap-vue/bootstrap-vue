@@ -311,7 +311,8 @@ module.exports = {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       {
-        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver',
+        src:
+          'https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=es2015%2CIntersectionObserver',
         crossorigin: 'anonymous'
       }
     ]
