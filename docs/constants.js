@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://bootstrap-vue.org'
+export const BASE_URL = 'https://bootstrap-vue.github.io/bootstrap-vue/'
 export const BASE_URL_DEV = 'https://dev.bootstrap-vue.org'
 
 export const GA_TRACKING_ID = 'UA-89526435-1'

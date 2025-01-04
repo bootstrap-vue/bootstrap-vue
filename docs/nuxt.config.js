@@ -31,6 +31,16 @@ const IS_PROD_DOCS =
 
 // --- Utility methods ---
 
+const getBaseUrlPath = url => {
+  const { pathname } = new URL(url)
+
+  if (pathname.endsWith('/')) {
+    return pathname
+  }
+
+  return `${pathname}/`
+}
+
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
   fs
@@ -233,6 +243,10 @@ module.exports = {
 
     // Transpile dependencies for legacy browser support (i.e. IE 11)
     transpile: [({ isLegacy }) => isLegacy && 'highlight.js']
+  },
+
+  router: {
+    base: getBaseUrlPath(BASE_URL)
   },
 
   loading: {
