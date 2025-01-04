@@ -146,6 +146,7 @@ renderer.table = function() {
 module.exports = {
   srcDir: __dirname,
 
+  target: 'static',
   modern: 'client',
 
   env: {
