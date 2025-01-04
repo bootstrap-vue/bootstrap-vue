@@ -49,7 +49,7 @@
       >
         <template v-if="isPR || isDev || isLocal">
           <b-dropdown-item v-if="isPR" active href="/">
-            Pull Request {{ prId ? '#' + prId : '- ' + branchName }}
+            Pull Request - {{ branchName }}
           </b-dropdown-item>
           <b-dropdown-item v-else-if="isLocal" active href="/">
             Local copy
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { BASE_URL, BASE_URL_DEV, NETLIFY_URL } from '~/constants'
+import { BASE_URL, BASE_URL_DEV } from '~/constants'
 import { version } from '~/content'
 
 export default {
@@ -181,44 +181,26 @@ export default {
       return BASE_URL
     },
     devURL() {
-      if (this.isNetlify) {
-        return NETLIFY_URL
-      }
       return BASE_URL_DEV
-    },
-    isNetlify() {
-      return Boolean(process.env.NETLIFY)
     },
     isVercel() {
       return Boolean(process.env.VERCEL_NOW)
     },
     branchName() {
-      // Netlify doesn't support providing the branch name
       return this.isVercel ? process.env.VERCEL_BRANCH || '' : ''
     },
     isDev() {
-      // In our case, `production` is the dev branch preview (Netlify)
-      return (
-        (this.isNetlify && process.env.NETLIFY_CONTEXT === 'production') ||
-        (this.isVercel && this.branchName === 'dev')
-      )
+      // In our case, `production` is the dev branch preview (Vercel)
+      return this.isVercel && this.branchName === 'dev'
     },
     isPR() {
-      return (
-        (this.isNetlify && process.env.PULL_REQUEST && process.env.REVIEW_ID) ||
-        (this.isVercel && !this.isDev && this.branchName !== 'master')
-      )
-    },
-    prId() {
-      // Vercel doesn't currently support returning the PR number
-      // `REVIEW_ID` is provided by Netlify
-      return this.isPR ? process.env.REVIEW_ID : ''
+      return this.isVercel && !this.isDev && this.branchName !== 'master'
     },
     dropdownText() {
       // Dropdown button text
       if (this.isPR) {
         // Vercel doesn't currently support returning the PR number
-        return this.prId ? `Pull #${this.prId}` : 'Pull Request'
+        return 'Pull Request'
       } else if (this.isLocal) {
         return 'Local Copy'
       } else if (this.isDev) {
