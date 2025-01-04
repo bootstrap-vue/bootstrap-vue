@@ -53,19 +53,8 @@
         Currently v{{ version }}. Code licensed
         <a href="https://github.com/bootstrap-vue/bootstrap-vue/blob/master/LICENSE" target="_blank">MIT</a>.
         Docs generated with
-        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a><template v-if="!isVercel">.</template>
-        <template v-else-if="isVercel">
-          and proudly hosted on <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank">Vercel</a>.
-        </template>
+        <a href="https://nuxtjs.org/" target="_blank">Nuxt.js</a>.
       </p>
-
-      <template v-if="isVercel">
-        <p class="mt-3 text-center">
-          <a href="https://vercel.com/?utm_source=bootstrapvue" target="_blank" rel="noopener">
-            <img src="~assets/powered-by-vercel.svg" width="159" height="33">
-          </a>
-        </p>
-      </template>
     </b-container>
   </footer>
 </template>
@@ -85,11 +74,6 @@ export default {
   },
   data() {
     return { version }
-  },
-  computed: {
-    isVercel() {
-      return Boolean(process.env.VERCEL_NOW)
-    }
   }
 }
 </script>

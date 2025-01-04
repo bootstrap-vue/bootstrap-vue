@@ -47,15 +47,9 @@
         toggle-class="mr-md-2"
         right
       >
-        <template v-if="isPR || isDev || isLocal">
-          <b-dropdown-item v-if="isPR" active href="/">
-            Pull Request - {{ branchName }}
-          </b-dropdown-item>
-          <b-dropdown-item v-else-if="isLocal" active href="/">
+        <template v-if="isLocal">
+          <b-dropdown-item active href="/">
             Local copy
-          </b-dropdown-item>
-          <b-dropdown-item :active="isDev" :href="devURL" rel="nofollow">
-            Development
           </b-dropdown-item>
           <b-dropdown-item :href="prodURL">
             Latest (v{{ version }})
@@ -183,35 +177,22 @@ export default {
     devURL() {
       return BASE_URL_DEV
     },
-    isVercel() {
-      return Boolean(process.env.VERCEL_NOW)
-    },
-    branchName() {
-      return this.isVercel ? process.env.VERCEL_BRANCH || '' : ''
-    },
-    isDev() {
-      // In our case, `production` is the dev branch preview (Vercel)
-      return this.isVercel && this.branchName === 'dev'
-    },
-    isPR() {
-      return this.isVercel && !this.isDev && this.branchName !== 'master'
-    },
     dropdownText() {
-      // Dropdown button text
-      if (this.isPR) {
-        // Vercel doesn't currently support returning the PR number
-        return 'Pull Request'
-      } else if (this.isLocal) {
+      if (this.isLocal) {
         return 'Local Copy'
-      } else if (this.isDev) {
-        return 'Development'
       }
+
       return `v${version}`
     }
   },
   mounted() {
-    const host = window.location.host || ''
-    this.isLocal = host === 'localhost' || host === '127.0.0.1'
+    this.isLocal = this.isLocalHost()
+  },
+  methods: {
+    isLocalHost() {
+      const host = window.location.host || ''
+      return host === 'localhost' || host === '127.0.0.1'
+    }
   }
 }
 </script>

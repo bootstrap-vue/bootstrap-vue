@@ -363,21 +363,6 @@
         </b-button>
 
         <BVContributors></BVContributors>
-
-        <hr style="withd: 90%">
-
-        <div class="text-center mb-n4" aria-labeledby="parners-heading">
-          <h3 id="partners-heading" class="mx-auto mt-4">Partners</h3>
-          <p class="text-muted mb-4"><b>BootstrapVue</b> would like to thank our partners</p>
-          <a
-            href="https://vercel.com/?utm_source=bootstrapvue"
-            target="_blank"
-            rel="noopener follow"
-            class="bvd-partner d-inline-block p-1"
-          >
-            <b-img-lazy src="~/assets/vercel.svg" alt="Vercel logo"></b-img-lazy>
-          </a>
-        </div>
       </b-container>
     </section>
 
