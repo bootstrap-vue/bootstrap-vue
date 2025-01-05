@@ -32,16 +32,16 @@
           <b-dropdown-item active href="/">
             Local copy
           </b-dropdown-item>
-          <b-dropdown-item :href="prodURL">
+          <b-dropdown-item :href="url">
             Latest (v{{ version }})
           </b-dropdown-item>
         </template>
         <template v-else>
-          <b-dropdown-item active :href="prodURL">
+          <b-dropdown-item active :href="url">
             Latest (v{{ version }})
           </b-dropdown-item>
-          <b-dropdown-item :href="devURL" rel="nofollow">
-            Development
+          <b-dropdown-item to="/docs/reference/changelog">
+            Changelog
           </b-dropdown-item>
         </template>
       </b-nav-item-dropdown>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { BASE_URL, BASE_URL_DEV } from '~/constants'
+import { BASE_URL } from '~/constants'
 import { version } from '~/content'
 import BvBadge from '~/components/bv-badge'
 import OpencollectiveLogo from '~/components/opencollective-logo'
@@ -100,11 +100,8 @@ export default {
     }
   },
   computed: {
-    prodURL() {
+    url() {
       return BASE_URL
-    },
-    devURL() {
-      return BASE_URL_DEV
     },
     dropdownText() {
       if (this.isLocal) {
@@ -119,7 +116,7 @@ export default {
   },
   methods: {
     isLocalHost() {
-      const host = window.location.host || ''
+      const host = window.location.hostname || ''
       return host === 'localhost' || host === '127.0.0.1'
     }
   }
