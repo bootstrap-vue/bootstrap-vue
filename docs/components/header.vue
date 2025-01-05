@@ -75,7 +75,7 @@
         target="_blank"
         :link-attrs="{ 'aria-label': 'Open Collective' }"
       >
-        <opencollective-logo width="1em" height="1em" class="b-icon bi"></opencollective-logo>
+        <b-icon icon="opencollective"></b-icon>
       </b-nav-item>
     </b-navbar-nav>
   </b-navbar>
@@ -85,14 +85,10 @@
 import { BASE_URL } from '~/constants'
 import { version } from '~/content'
 import BvBadge from '~/components/bv-badge'
-import OpencollectiveLogo from '~/components/opencollective-logo'
 
 export default {
   name: 'BVHeader',
-  components: {
-    BvBadge,
-    OpencollectiveLogo
-  },
+  components: { BvBadge },
   data() {
     return {
       version,
