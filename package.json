@@ -54,7 +54,7 @@
     "./types"
   ],
   "scripts": {
-    "audit": "improved-yarn-audit --ignore-dev-deps --min-severity moderate -e 1488",
+    "audit": "improved-yarn-audit --ignore-dev-deps --min-severity moderate --exclude GHSA-vc8w-jr9v-vj7f",
     "build": "scripts/build.sh",
     "bundlewatch": "bundlewatch --config .bundlewatch.config.json",
     "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
