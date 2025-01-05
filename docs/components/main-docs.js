@@ -3,6 +3,7 @@ import QuickLinks from '~/components/quick-links'
 import Reload from '~/components/reload'
 import Section from '~/components/section'
 import { mergeData } from 'vue-functional-data-merge'
+import { bootstrapVersion, vueVersion } from '~/content'
 
 // @vue/component
 export default {
@@ -58,10 +59,24 @@ export default {
     const $quickLinks = h(QuickLinks)
 
     // Body section
-    const $bodySection = h(Section, {
-      props: { play: true },
-      domProps: { innerHTML: body || '' }
+    const $bodySectionContent = h({
+      delimiters: ['[[', ']]'], // change the delimiters to avoid conflicts with code examples
+      data() {
+        return {
+          bootstrapVersion,
+          vueVersion
+        }
+      },
+      template: `<div>${body}</div>`
     })
+
+    const $bodySection = h(
+      Section,
+      {
+        props: { play: true }
+      },
+      [$bodySectionContent]
+    )
 
     return h(Main, mergeData(data, { props: { tag } }), [
       $leadSection,
