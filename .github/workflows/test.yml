@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [16]
+        node: [20]
 
     steps:
       - name: Clone repository
@@ -57,7 +57,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [16]
+        node: [20]
 
     steps:
       - name: Clone repository
@@ -94,7 +94,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [12, 14, 16]
+        node: [18, 20, 22]
 
     steps:
       - name: Clone repository
