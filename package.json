@@ -65,7 +65,7 @@
     "docs-dev": "cross-env NODE_ENV=docs nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
     "lint": "eslint --ext .js,.md,.vue ./",
-    "postinstall": "opencollective || exit 0",
+    "postinstall": "opencollective || exit 0; echo '\nNOTICE: bootstrap-vue is no longer actively maintained and will not receive future updates. Please switch to bootstrap-vue-next for ongoing development and support: https://github.com/bootstrap-vue-next/bootstrap-vue-next\nFor details: https://github.com/bootstrap-vue/bootstrap-vue/issues/6872#issuecomment-2123267104\n'"
     "prepare": "husky install && yarn run build",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "yarn run prettify && yarn run test && yarn run build && yarn run release-notes && standard-version",

@@ -7,7 +7,13 @@ import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
 import docsMixin from '~/plugins/docs-mixin'
-import { icons as iconsMeta, bootstrapIconsVersion, bootstrapIconsCount } from '~/content'
+import {
+  icons as iconsMeta,
+  bootstrapIconsVersion,
+  bootstrapIconsCount,
+  bootstrapVersion,
+  vueVersion
+} from '~/content'
 import readmeData from '~/../src/icons/README.md'
 
 const { titleLead = '', body = '', baseTOC = {} } = readmeData
@@ -35,7 +41,9 @@ export default {
       // Key for icons meta is `''` (empty slug)
       meta: iconsMeta[''],
       bootstrapIconsVersion,
-      bootstrapIconsCount
+      bootstrapIconsCount,
+      bootstrapVersion,
+      vueVersion
     }
   },
   computed: {

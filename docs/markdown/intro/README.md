@@ -119,10 +119,10 @@ version of Vue.js, Bootstrap v4 and BootstrapVue:
 
 ```bash
 # With npm
-npm install vue bootstrap bootstrap-vue
+npm install vue bootstrap@4 bootstrap-vue
 
 # With yarn
-yarn add vue bootstrap bootstrap-vue
+yarn add vue bootstrap@4 bootstrap-vue
 ```
 
 Then, register BootstrapVue in your app entry point (typically `app.js` or `main.js`):
@@ -712,14 +712,14 @@ JavaScript files.
 <!-- Add this to <head> -->
 
 <!-- Load required Bootstrap and BootstrapVue CSS -->
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap@{{ bootstrapVersion }}/dist/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
 <!-- Load polyfills to support older browsers -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
-<script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="https://unpkg.com/vue@{{ vueVersion }}/dist/vue.min.js"></script>
 <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 <!-- Load the following for BootstrapVueIcons support -->

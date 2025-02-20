@@ -26,7 +26,7 @@ tags to load the required JavaScript and CSS in your page.
     <link
       type="text/css"
       rel="stylesheet"
-      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+      href="https://unpkg.com/bootstrap@[[ bootstrapVersion ]]/dist/css/bootstrap.min.css"
     />
     <link
       type="text/css"
@@ -38,7 +38,7 @@ tags to load the required JavaScript and CSS in your page.
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
 
     <!-- Required scripts -->
-    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@[[ vueVersion ]]/dist/vue.js"></script>
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   </head>
   <body>
