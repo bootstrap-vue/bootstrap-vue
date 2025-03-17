@@ -59,8 +59,8 @@
 
 <h2 align="center">Links</h2>
 
-- 📘 [Documentation](https://bootstrap-vue.org)
-- 🔨 [Release Notes](https://bootstrap-vue.org/docs/reference/changelog)
+- 📘 [Documentation](https://bootstrap-vue.github.io/bootstrap-vue/)
+- 🔨 [Release Notes](https://bootstrap-vue.github.io/bootstrap-vue/docs/reference/changelog)
 - 💬 [Discord Chat](https://discord.gg/j2Mtcny)
 - 🐦 [Twitter](https://twitter.com/BootstrapVue)
 
