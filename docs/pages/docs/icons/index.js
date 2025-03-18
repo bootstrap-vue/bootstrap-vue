@@ -1,5 +1,4 @@
 import AnchoredHeading from '~/components/anchored-heading'
-import CarbonAd from '~/components/carbon-ad'
 import Componentdoc from '~/components/componentdoc'
 import IconsTable from '~/components/icons-table'
 import Importdoc from '~/components/importdoc'
@@ -23,7 +22,6 @@ export default {
   name: 'BDVIcons',
   components: {
     AnchoredHeading,
-    CarbonAd,
     Componentdoc,
     IconsTable,
     Importdoc,
@@ -62,7 +60,6 @@ export default {
   template: `
     <Main class="bd-components">
       <Section tag="header">${titleLead}</Section>
-      <CarbonAd key="ad-/docs/icons"></CarbonAd>
       <QuickLinks key="quick-/docs/icons"></QuickLinks>
       <Section play>${body}</Section>
       <Section class="bd-component-reference">
