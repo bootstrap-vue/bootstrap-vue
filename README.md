@@ -63,11 +63,6 @@
 
 <h2 align="center">Sponsors</h2>
 
-Support this project by becoming a sponsor.
-
-Your logo will show up here with a link to your website.
-[[Become a sponsor](https://opencollective.com/bootstrap-vue#sponsor)]
-
 <a href="https://opencollective.com/bootstrap-vue/sponsor/0/website" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/1/website" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/sponsor/1/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/2/website" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/sponsor/2/avatar.svg"></a>
@@ -79,9 +74,15 @@ Your logo will show up here with a link to your website.
 <a href="https://opencollective.com/bootstrap-vue/sponsor/8/website" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/bootstrap-vue/sponsor/9/website" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/sponsor/9/avatar.svg"></a>
 
+Support this project by [becoming a sponsor](https://opencollective.com/bootstrap-vue#sponsor).
+
+<small>**Disclaimer:** This is a donation. No goods or services are expected in return. Any requests
+for refunds for those purposes will be rejected.</small>
+
 <h2 align="center">Backers</h2>
 
 Thank you to all our backers! 🙏
+
 [[Become a backer](https://opencollective.com/bootstrap-vue#backer)]
 
 <a href="https://opencollective.com/bootstrap-vue#backers" target="_blank" rel="noopener"><img src="https://opencollective.com/bootstrap-vue/backers.svg?width=890"></a>
