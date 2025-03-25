@@ -136,7 +136,7 @@ jobs:
           coverage-vue3/coverage-final.json
 
       - name: CodeCov
-        uses: codecov/codecov-action@v3.1.1
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
