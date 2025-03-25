@@ -53,7 +53,7 @@ Examples:
 We also welcome financial contributions in full transparency on our
 [Open Collective](https://opencollective.com/bootstrap-vue). Anyone can file an expense. If the
 expense makes sense for the development of the community, it will be "merged" in the ledger of our
-open collective by the core contributors and the person who filed the expense will be reimbursed.
+Open Collective by the core contributors and the person who filed the expense will be reimbursed.
 
 Consider asking your company to also support this open source project by
 [becoming a sponsor](https://opencollective.com/bootstrap-vue/contribute/).
