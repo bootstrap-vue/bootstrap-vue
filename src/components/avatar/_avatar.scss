@@ -141,7 +141,7 @@
 
   a,
   .btn {
-    &.b-avatar:hover:not(.disabled):not(disabled) {
+    &.b-avatar:hover:not(.disabled):not([disabled]) {
       z-index: 1;
     }
   }
