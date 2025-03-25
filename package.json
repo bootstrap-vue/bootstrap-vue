@@ -28,10 +28,6 @@
       "url": "https://github.com/tmorehouse"
     },
     {
-      "name": "Jacob Müller",
-      "url": "https://github.com/jackmu95"
-    },
-    {
       "name": "Hiws",
       "url": "https://github.com/Hiws"
     },
@@ -58,14 +54,14 @@
     "./types"
   ],
   "scripts": {
-    "audit": "improved-yarn-audit --ignore-dev-deps --min-severity moderate -e 1488",
+    "audit": "improved-yarn-audit --ignore-dev-deps --min-severity moderate --exclude GHSA-vc8w-jr9v-vj7f",
     "build": "scripts/build.sh",
     "bundlewatch": "bundlewatch --config .bundlewatch.config.json",
     "docs-build": "cross-env NODE_ENV=docs nuxt build -c docs/nuxt.config.js",
     "docs-dev": "cross-env NODE_ENV=docs nuxt dev -c docs/nuxt.config.js",
     "docs-gen": "cross-env NODE_ENV=docs nuxt generate -c docs/nuxt.config.js",
     "lint": "eslint --ext .js,.md,.vue ./",
-    "postinstall": "opencollective || exit 0; echo '\nNOTICE: bootstrap-vue is no longer actively maintained and will not receive future updates. Please switch to bootstrap-vue-next for ongoing development and support: https://github.com/bootstrap-vue-next/bootstrap-vue-next\nFor details: https://github.com/bootstrap-vue/bootstrap-vue/issues/6872#issuecomment-2123267104\n'"
+    "postinstall": "opencollective || exit 0; echo '\nNOTICE: bootstrap-vue is no longer actively maintained and will not receive future updates. Please switch to bootstrap-vue-next for ongoing development and support: https://github.com/bootstrap-vue-next/bootstrap-vue-next\nFor details: https://github.com/bootstrap-vue/bootstrap-vue/issues/6872#issuecomment-2123267104\n'",
     "prepare": "husky install && yarn run build",
     "prettify": "prettier --write '**/*.{js,json,md,scss,ts,vue}'",
     "release": "yarn run prettify && yarn run test && yarn run build && yarn run release-notes && standard-version",
@@ -108,7 +104,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-plugin-istanbul": "^6.0.0",
-    "bootstrap-icons": "^1.5.0",
+    "bootstrap-icons": "^1.11.0",
     "bundlewatch": "^0.3.2",
     "clean-css-cli": "^4.3.0",
     "codemirror": "^5.61.0",

@@ -35,7 +35,7 @@ tags to load the required JavaScript and CSS in your page.
     />
 
     <!-- Load polyfills to support older browsers -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=es2015%2CIntersectionObserver"></script>
 
     <!-- Required scripts -->
     <script src="https://unpkg.com/vue@[[ vueVersion ]]/dist/vue.js"></script>

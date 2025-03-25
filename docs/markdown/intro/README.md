@@ -27,7 +27,6 @@ The online documentation comprises:
 - [Icons](/docs/icons) - Icons and icon plugin documentation <b-badge>v2.2.0+</b-badge>
 - [Reference](/docs/reference) - Reference information and documentation
 - [Playground](/play) - Online playground
-- [Themes](/themes) - Themes and dashboards
 
 ## Prerequisites
 
@@ -716,7 +715,7 @@ JavaScript files.
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
 
 <!-- Load polyfills to support older browsers -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
 <script src="https://unpkg.com/vue@{{ vueVersion }}/dist/vue.min.js"></script>
@@ -841,9 +840,9 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 ```
 
-Alternatively, use [Polyfill.io](https://polyfill.io/) to dynamically serve browser specific
-polyfills via `<script>` tags in the HTML `<head>` section. See the [Browser](#browser) section
-above for an example.
+Alternatively, use [Cloudflare's polyfill](https://cdnjs.cloudflare.com/polyfill/) to dynamically
+serve browser specific polyfills via `<script>` tags in the HTML `<head>` section. See the
+[Browser](#browser) section above for an example.
 
 ## Tooling support
 
