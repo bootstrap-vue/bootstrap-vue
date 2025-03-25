@@ -11,7 +11,7 @@
   "style": "./dist/bootstrap-vue.css",
   "license": "MIT",
   "repository": "bootstrap-vue/bootstrap-vue",
-  "homepage": "https://bootstrap-vue.org",
+  "homepage": "https://bootstrap-vue.github.io/bootstrap-vue",
   "types": "./src/index.d.ts",
   "web-types": "./dist/web-types.json",
   "vetur": {

@@ -404,13 +404,13 @@ const processIconGroup = groupSlug => {
   webTypes.contributions.html['vue-bootstrap-icons'] = iconNames.map(name => ({
     name,
     icon: `${svgPrefix}${svgs[name]}</svg>`,
-    'doc-url': 'https://bootstrap-vue.org/docs/icons/#icons-1'
+    'doc-url': 'https://bootstrap-vue.github.io/bootstrap-vue/docs/icons/#icons-1'
   }))
 
   webTypes.contributions.html['vue-bootstrap-icons-kebabized'] = iconNames.map(name => ({
     name: kebabCase(name),
     icon: `${svgPrefix}${svgs[name]}</svg>`,
-    'doc-url': 'https://bootstrap-vue.org/docs/icons/#icons-1'
+    'doc-url': 'https://bootstrap-vue.github.io/bootstrap-vue/docs/icons/#icons-1'
   }))
 
   // Process each regular component
