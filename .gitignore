@@ -1,7 +1,5 @@
 .idea/
-.now/
 .nuxt/
-.vercel/
 .vscode/
 coverage/
 coverage-vue3/
