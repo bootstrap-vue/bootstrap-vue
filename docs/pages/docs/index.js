@@ -1,4 +1,3 @@
-import CarbonAd from '~/components/carbon-ad'
 import Main from '~/components/main'
 import QuickLinks from '~/components/quick-links'
 import Section from '~/components/section'
@@ -31,7 +30,6 @@ const { titleLead = '', body = '', baseTOC = {} } = readmeData
 export default {
   name: 'BDVDocs',
   components: {
-    CarbonAd,
     Main,
     QuickLinks,
     Section
@@ -75,7 +73,6 @@ export default {
   template: `
     <Main>
       <Section tag="header">${titleLead}</Section>
-      <CarbonAd key="ad-/docs"></CarbonAd>
       <QuickLinks key="quick-/docs"></QuickLinks>
       <Section>${body}</Section>
     </Main>`

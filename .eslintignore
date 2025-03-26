@@ -1,6 +1,4 @@
-.now/
 .nuxt/
-.vercel/
 coverage/
 dist/
 docs-dist/

@@ -23,13 +23,19 @@ const RX_CODE_FILENAME = /^\/\/ ([\w,\s-]+\.[A-Za-z]{1,4})\n/m
 const ANCHOR_LINK_HEADING_LEVELS = [2, 3, 4, 5]
 
 // Determine if documentation generation is published production docs
-// Must be from 'bootstrap-vue/bootstrap-vue' repo 'master' branch
-const IS_PROD_DOCS =
-  process.env.VERCEL_GITHUB_ORG === 'bootstrap-vue' &&
-  process.env.VERCEL_GITHUB_REPO === 'bootstrap-vue' &&
-  process.env.VERCEL_GITHUB_COMMIT_REF === 'master'
+const IS_PROD_DOCS = !!process.env.GITHUB_ACTIONS
 
 // --- Utility methods ---
+
+const getBaseUrlPath = url => {
+  const { pathname } = new URL(url)
+
+  if (pathname.endsWith('/')) {
+    return pathname
+  }
+
+  return `${pathname}/`
+}
 
 // Get routes by a given dir
 const getRoutesByDir = (root, dir, excludes = []) =>
@@ -146,33 +152,12 @@ renderer.table = function() {
 module.exports = {
   srcDir: __dirname,
 
+  target: 'static',
   modern: 'client',
 
   env: {
-    // ENV vars provided by Netlify build:
-    // - `true` if on Netlify (dev or PR)
-    NETLIFY: process.env.NETLIFY,
-    // Determines the context from netlify (`production`, `deploy-preview` or `branch-deploy`)
-    // In our case, `production` means the dev branch (bootstrap-vue.netlify.com)
-    NETLIFY_CONTEXT: process.env.NETLIFY ? process.env.CONTEXT : null,
-    // - `true` if triggered by a Pull request commit
-    PULL_REQUEST: process.env.NETLIFY ? process.env.PULL_REQUEST : null,
-    // - If the previous is `true`, this will be the PR number
-    REVIEW_ID: process.env.NETLIFY && process.env.PULL_REQUEST ? process.env.REVIEW_ID : null,
-    // ENV vars provided by Vercel/Zeit Now build
-    // https://zeit.co/docs/v2/build-step#system-environment-variables
-    // - `true` if on Zeit Now (dev or PR)
-    VERCEL_NOW: process.env.VERCEL_GITHUB_DEPLOYMENT,
-    // - The branch name used for the deploy (i.e. `dev`, `master`, `patch-1`, etc.)
-    VERCEL_BRANCH: process.env.VERCEL_GITHUB_COMMIT_REF,
-    // - The Commit SHA hash
-    VERCEL_COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA,
-    // - The deployment URL
-    VERCEL_URL: process.env.VERCEL_URL,
-    // - The Github Organization (ie. bootstrap-vue)
-    VERCEL_GITHUB_ORG: process.env.VERCEL_GITHUB_ORG,
-    // - The repo is the organization (i.e. bootstrap-vue)
-    VERCEL_GITHUB_REPO: process.env.VERCEL_GITHUB_REPO
+    // ENV vars provided by CI/CD system
+    GITHUB_ACTIONS: !!process.env.GITHUB_ACTIONS
   },
 
   build: {
@@ -244,6 +229,10 @@ module.exports = {
     transpile: [({ isLegacy }) => isLegacy && 'highlight.js']
   },
 
+  router: {
+    base: getBaseUrlPath(BASE_URL)
+  },
+
   loading: {
     color: '#ccc',
     height: '3px'
@@ -308,6 +297,7 @@ module.exports = {
     if (!IS_PROD_DOCS) {
       return false
     }
+
     return {
       hostname: BASE_URL,
       // Exclude any redirect pages from sitemaps
@@ -321,7 +311,8 @@ module.exports = {
     meta: [{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' }],
     script: [
       {
-        src: '//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver',
+        src:
+          'https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?version=4.8.0&features=es2015%2CIntersectionObserver',
         crossorigin: 'anonymous'
       }
     ]
