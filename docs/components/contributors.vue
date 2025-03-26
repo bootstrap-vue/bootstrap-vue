@@ -136,7 +136,7 @@ export default {
 
       xhr.open('GET', url, true)
       xhr.addEventListener('load', onLoad, {
-        signal: this.controller?.signal
+        signal: this.controller ? this.controller.signal : undefined
       })
       // Initiate the request
       xhr.send()
