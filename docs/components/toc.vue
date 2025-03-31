@@ -57,8 +57,14 @@ export default {
     }
   },
   created() {
-    this.$root.$on('docs-set-toc', toc => {
+    const handleDocsSetToc = toc => {
       this.toc = toc
+    }
+
+    this.$root.$on('docs-set-toc', handleDocsSetToc)
+
+    this.$once('hook:beforeDestroy', () => {
+      this.$root.$off('docs-set-toc', handleDocsSetToc)
     })
   },
   mounted() {
