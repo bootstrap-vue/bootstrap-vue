@@ -154,7 +154,7 @@
           },
           {
             "prop": "noLocalSorting",
-            "description": "Disabled the internal sorting routine, and expects the user to provde the items sorted. Sorting controls will still be available"
+            "description": "Disabled the internal sorting routine, and expects the user to provide the items sorted. Sorting controls will still be available"
           },
           {
             "prop": "noProviderFiltering",
