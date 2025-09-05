@@ -4,7 +4,7 @@ import { transform, disableScriptTags } from '@babel/standalone'
 
 // Babel broke the standalone version via PR https://github.com/babel/babel/pull/10420
 // Which assumes the browser supports String.prototype.trimLeft/Right
-// IE 11 does not support either, and polyfill.io does not polyfill them
+// IE 11 does not support either, and Cloudflare's polyfills do not polyfill them
 // So we do it here (as this file is only loaded if we need transpilation):
 if (typeof window !== 'undefined') {
   const Proto = window.String.prototype

@@ -209,6 +209,7 @@ export const offsetTop = $el =>
 
 // Scroll an in-page link target into view
 export const scrollTargetIntoView = (event, href) => {
+  event.preventDefault()
   event.stopPropagation()
   // We use an attribute `querySelector()` rather than `getElementByID()`,
   // as some auto-generated ID's are invalid or not unique
@@ -223,6 +224,14 @@ export const scrollTargetIntoView = (event, href) => {
       $el.tabIndex = -1
       // Focus the heading
       $el.focus()
+      // Update the URL to show the hash without changing the current path
+      const currentPath = window.location.pathname + window.location.search
+      if (history.pushState) {
+        history.pushState(null, null, currentPath + '#' + id)
+      } else {
+        // Fallback for older browsers
+        window.location.hash = id
+      }
     })
   }
 }
