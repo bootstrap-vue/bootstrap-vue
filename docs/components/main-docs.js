@@ -5,6 +5,12 @@ import Section from '~/components/section'
 import { mergeData } from 'vue-functional-data-merge'
 import { bootstrapVersion, vueVersion } from '~/content'
 
+const interpolate = (template, ctx) =>
+  template.replace(/\[\[([\s\S]+?)\]\]/g, (_, key) => {
+    key = key.trim()
+    return ctx[key] || ''
+  })
+
 // @vue/component
 export default {
   name: 'BVMainDocs',
@@ -59,15 +65,13 @@ export default {
     const $quickLinks = h(QuickLinks)
 
     // Body section
-    const $bodySectionContent = h({
-      delimiters: ['[[', ']]'], // change the delimiters to avoid conflicts with code examples
-      data() {
-        return {
+    const $bodySectionContent = h('div', {
+      domProps: {
+        innerHTML: interpolate(body || '', {
           bootstrapVersion,
           vueVersion
-        }
-      },
-      template: `<div>${body}</div>`
+        })
+      }
     })
 
     const $bodySection = h(
