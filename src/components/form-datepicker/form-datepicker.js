@@ -1,5 +1,6 @@
 import { extend } from '../../vue'
 import { NAME_FORM_DATEPICKER } from '../../constants/components'
+import { CALENDAR_TYPE_DAY, CALENDAR_TYPE_MONTH, CALENDAR_TYPE_YEAR } from '../../constants/date'
 import { EVENT_NAME_CONTEXT, EVENT_NAME_HIDDEN, EVENT_NAME_SHOWN } from '../../constants/events'
 import { PROP_TYPE_BOOLEAN, PROP_TYPE_DATE_STRING, PROP_TYPE_STRING } from '../../constants/props'
 import { SLOT_NAME_BUTTON_CONTENT } from '../../constants/slots'
@@ -10,9 +11,18 @@ import { makeModelMixin } from '../../utils/model'
 import { omit, pick, sortKeys } from '../../utils/object'
 import { makeProp, makePropsConfigurable, pluckProps } from '../../utils/props'
 import { idMixin, props as idProps } from '../../mixins/id'
-import { BIconCalendar, BIconCalendarFill } from '../../icons/icons'
+import {
+  BIconCalendar,
+  BIconCalendarFill,
+  BIconCalendar3,
+  BIconCalendar3Fill,
+  BIconCalendarDay,
+  BIconCalendarDayFill,
+  BIconCalendarMonth,
+  BIconCalendarMonthFill
+} from '../../icons/icons'
 import { BButton } from '../button/button'
-import { BCalendar, props as BCalendarProps } from '../calendar/calendar'
+import { BCalendar, NO_DATE_SELECTED, props as BCalendarProps } from '../calendar/calendar'
 import {
   BVFormBtnLabelControl,
   props as BVFormBtnLabelControlProps
@@ -103,6 +113,13 @@ export const BFormDatepicker = /*#__PURE__*/ extend({
     },
     computedResetValue() {
       return formatYMD(constrainDate(this.resetValue)) || ''
+    },
+    labelNoSelection() {
+      if (this.labelNoDateSelected !== NO_DATE_SELECTED) {
+        return this.labelNoDateSelected
+      }
+
+      return `No ${this.type} selected`
     }
   },
   watch: {
@@ -194,15 +211,32 @@ export const BFormDatepicker = /*#__PURE__*/ extend({
     },
     // Render helpers
     defaultButtonFn({ isHovered, hasFocus }) {
-      return this.$createElement(isHovered || hasFocus ? BIconCalendarFill : BIconCalendar, {
-        attrs: { 'aria-hidden': 'true' }
-      })
+      return this.$createElement(
+        isHovered || hasFocus
+          ? this.type === CALENDAR_TYPE_MONTH
+            ? BIconCalendarMonthFill
+            : this.type === CALENDAR_TYPE_DAY
+              ? BIconCalendarDayFill
+              : this.type === CALENDAR_TYPE_YEAR
+                ? BIconCalendar3Fill
+                : BIconCalendarFill
+          : this.type === CALENDAR_TYPE_MONTH
+            ? BIconCalendarMonth
+            : this.type === CALENDAR_TYPE_DAY
+              ? BIconCalendarDay
+              : this.type === CALENDAR_TYPE_YEAR
+                ? BIconCalendar3
+                : BIconCalendar,
+        {
+          attrs: { 'aria-hidden': 'true' }
+        }
+      )
     }
   },
   render(h) {
     const { localYMD, disabled, readonly, dark, $props, $scopedSlots } = this
     const placeholder = isUndefinedOrNull(this.placeholder)
-      ? this.labelNoDateSelected
+      ? this.labelNoSelection
       : this.placeholder
 
     // Optional footer buttons

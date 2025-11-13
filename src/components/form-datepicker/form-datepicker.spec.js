@@ -559,4 +559,115 @@ describe('form-date', () => {
 
     wrapper.destroy()
   })
+
+  it('type prop gets passed to the b-calendar component correctly', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'type-test',
+        type: 'year',
+        value: ''
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $toggle = wrapper.find('button#type-test')
+    $toggle.trigger('click')
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const $picker = wrapper.find('.b-calendar')
+    expect($picker.findAll('.col.year').length).toEqual(10)
+
+    wrapper.destroy()
+  })
+
+  it('formatting based on type is correct', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachTo: createContainer(),
+      propsData: {
+        type: 'year',
+        value: '2021-01-01'
+      }
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.vm.formattedValue).toBe('2021')
+    wrapper.setProps({
+      type: 'month'
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.vm.formattedValue).toBe('January')
+    wrapper.setProps({
+      type: 'day'
+    })
+
+    await waitNT(wrapper.vm)
+    await waitRAF()
+    expect(wrapper.vm.formattedValue).toBe('Friday')
+
+    wrapper.destroy()
+  })
+
+  it('proper icon is used based on type', async () => {
+    const wrapper = mount(BFormDatepicker, {
+      attachTo: createContainer(),
+      propsData: {
+        id: 'test-type-icon',
+        type: 'date',
+        value: ''
+      }
+    })
+
+    expect(wrapper.vm).toBeDefined()
+    await waitNT(wrapper.vm)
+    await waitRAF()
+
+    const typeIcons = {
+      date: 'calendar',
+      day: 'calendar-day',
+      month: 'calendar-month',
+      year: 'calendar3'
+    }
+
+    const $toggle = wrapper.find('button#test-type-icon')
+    const $label = wrapper.find('button#test-type-icon ~ label')
+
+    for (const type of Object.keys(typeIcons)) {
+      wrapper.setProps({
+        type
+      })
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
+
+      await $toggle.trigger('mouseenter')
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeFalsy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeTruthy()
+
+      await $toggle.trigger('mouseleave')
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
+
+      await $label.trigger('mouseenter')
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeFalsy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeTruthy()
+
+      await $label.trigger('mouseleave')
+      expect($toggle.find(`svg.bi-${typeIcons[type]}`).exists()).toBeTruthy()
+      expect($toggle.find(`svg.bi-${typeIcons[type]}-fill`).exists()).toBeFalsy()
+    }
+
+    expect.assertions(Object.keys(typeIcons).length * 10 + 1)
+    wrapper.destroy()
+  })
 })
