@@ -159,6 +159,8 @@ export const props = makePropsConfigurable(
     // Day of week to start calendar on
     // `0` (Sunday), `1` (Monday), ... `6` (Saturday)
     startWeekday: makeProp(PROP_TYPE_NUMBER_STRING, 0),
+    // always display 6 weeks even when a month only have 5
+    alwaysSixWeeks: makeProp(PROP_TYPE_BOOLEAN, false),
     // Variant color to use for today's date (defaults to `selectedVariant`)
     todayVariant: makeProp(PROP_TYPE_STRING),
     // Always return the `v-model` value as a date object
@@ -460,7 +462,7 @@ export const BCalendar = extend({
       const weekOffset = (this.computedWeekStarts > startIndex ? 7 : 0) - this.computedWeekStarts
       // Build the calendar matrix
       let currentDay = 0 - weekOffset - startIndex
-      for (let week = 0; week < 6 && currentDay < daysInMonth; week++) {
+      for (let week = 0; week < 6 && (this.alwaysSixWeeks || currentDay < daysInMonth); week++) {
         // For each week
         matrix[week] = []
         // The following could be a map function
