@@ -125,6 +125,7 @@ export const props = makePropsConfigurable(
     centered: makeProp(PROP_TYPE_BOOLEAN, false),
     contentClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
     dialogClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
+    draggable: makeProp(PROP_TYPE_BOOLEAN, false),
     footerBgVariant: makeProp(PROP_TYPE_STRING),
     footerBorderVariant: makeProp(PROP_TYPE_STRING),
     footerClass: makeProp(PROP_TYPE_ARRAY_OBJECT_STRING),
@@ -267,7 +268,8 @@ export const BModal = /*#__PURE__*/ extend({
         {
           [`bg-${this.headerBgVariant}`]: this.headerBgVariant,
           [`text-${this.headerTextVariant}`]: this.headerTextVariant,
-          [`border-${this.headerBorderVariant}`]: this.headerBorderVariant
+          [`border-${this.headerBorderVariant}`]: this.headerBorderVariant,
+          'modal-drag': this.draggable
         },
         this.headerClass
       ]
@@ -611,6 +613,23 @@ export const BModal = /*#__PURE__*/ extend({
       }
       eventOn(modal, 'mouseup', onceModalMouseup, EVENT_OPTIONS_NO_CAPTURE)
     },
+    onHeaderMouseDown(event) {
+      const modal = this.$refs.modal
+      const header = this.$refs.header
+      // If modal is draggable and clicked target is the header
+      // Then modal modal can be dragged
+      if (this.draggable && event.target === header) {
+        this.onDrag(modal)
+      }
+    },
+    onHeaderMouseUp() {
+      const modal = this.$refs.modal
+      if (this.draggable) {
+        // Removes the mousedown event from modal when dragging is over
+        // This prevents being able to drag the modal by another part than the header when is has been drag before
+        modal.onmousedown = null
+      }
+    },
     onClickOut(event) {
       if (this.ignoreBackdropClick) {
         // Click was initiated inside the modal content, but finished outside.
@@ -641,6 +660,41 @@ export const BModal = /*#__PURE__*/ extend({
       // If ESC pressed, hide modal
       if (event.keyCode === CODE_ESC && this.isVisible && !this.noCloseOnEsc) {
         this.hide(TRIGGER_ESC)
+      }
+    },
+    onDrag(element) {
+      let pos1 = 0
+      let pos2 = 0
+      let pos3 = 0
+      let pos4 = 0
+      element.onmousedown = dragMouseDown
+
+      function dragMouseDown(e) {
+        e = e || window.event
+        e.preventDefault()
+        pos3 = e.clientX
+        pos4 = e.clientY
+        document.onmouseup = _event => closeDragElement(_event, element)
+        document.onmousemove = elementDrag
+      }
+
+      function elementDrag(e) {
+        e = e || window.event
+        e.preventDefault()
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX
+        pos2 = pos4 - e.clientY
+        pos3 = e.clientX
+        pos4 = e.clientY
+        // set the element's new position:
+        element.style.top = element.offsetTop - pos2 + 'px'
+        element.style.left = element.offsetLeft - pos1 + 'px'
+      }
+
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null
+        document.onmousemove = null
       }
     },
     // Document focusin listener
@@ -821,6 +875,7 @@ export const BModal = /*#__PURE__*/ extend({
             staticClass: 'modal-header',
             class: this.headerClasses,
             attrs: { id: this.modalHeaderId },
+            on: { mousedown: this.onHeaderMouseDown, mouseup: this.onHeaderMouseUp },
             ref: 'header'
           },
           [$modalHeader]

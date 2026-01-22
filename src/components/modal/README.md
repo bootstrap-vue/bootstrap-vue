@@ -458,6 +458,23 @@ prop `scrollable` to `true`.
 <!-- b-modal-scrollable-content.vue -->
 ```
 
+### Draggable modal
+
+You can make your modal draggable by setting the `draggable` prop to `true`. This will let you drag
+it over the screen by grabbing the header.
+
+```html
+<div>
+  <b-button v-b-modal.modal-draggable>Launch draggable modal</b-button>
+
+  <b-modal id="modal-draggable" draggable title="BootstrapVue">
+    <p class="my-4">Draggable modal!</p>
+  </b-modal>
+</div>
+
+<!-- b-modal-draggable-content.vue -->
+```
+
 ### Vertically centered modal
 
 Vertically center your modal in the viewport by setting the `centered` prop.

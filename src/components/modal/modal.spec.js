@@ -780,6 +780,192 @@ describe('modal', () => {
       wrapper.destroy()
     })
 
+    it('mousedown inside header and mousemove when modal is draggable moves the modal', async () => {
+      let trigger = null
+      let called = false
+      const wrapper = mount(BModal, {
+        attachTo: document.body,
+        propsData: {
+          static: true,
+          id: 'test',
+          visible: true,
+          draggable: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            called = true
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      const $header = wrapper.find('.modal-header')
+      expect($header.exists()).toBe(true)
+
+      const $dialog = wrapper.find('div.modal-dialog')
+      expect($dialog.exists()).toBe(true)
+
+      const $footer = wrapper.find('footer.modal-footer')
+      expect($footer.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+
+      expect(wrapper.emitted('hide')).toBeUndefined()
+      expect(trigger).toEqual(null)
+
+      // Try and move modal via a "dragged" click
+      // starting from inside modal header
+      await $header.trigger('mousedown', { clientX: 0, clientY: 0 })
+      await $header.trigger('mousemove', { clientX: 100, clientY: 100 })
+      await $header.trigger('mouseup')
+      await $header.trigger('click')
+      await waitRAF()
+      await waitRAF()
+      expect(called).toEqual(false)
+      expect(trigger).toEqual(null)
+
+      // Modal should not be closed
+      expect($modal.element.style.display).toEqual('block')
+
+      // Modal should have been moved away
+      expect($modal.element.style.top).toEqual('100px')
+
+      wrapper.destroy()
+    })
+
+    it('mousedown inside body and mousemove when modal is draggable does not move the modal', async () => {
+      let trigger = null
+      let called = false
+      const wrapper = mount(BModal, {
+        attachTo: document.body,
+        propsData: {
+          static: true,
+          id: 'test',
+          visible: true,
+          draggable: true
+        },
+        listeners: {
+          hide: bvEvent => {
+            called = true
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      const $dialog = wrapper.find('div.modal-dialog')
+      expect($dialog.exists()).toBe(true)
+
+      const $footer = wrapper.find('footer.modal-footer')
+      expect($footer.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+
+      expect(wrapper.emitted('hide')).toBeUndefined()
+      expect(trigger).toEqual(null)
+
+      // Try and move modal via a "dragged"
+      // starting from inside modal body
+      await $dialog.trigger('mousedown')
+      await $dialog.trigger('mousemove')
+      await $modal.trigger('mouseup')
+      await $modal.trigger('click')
+      await waitRAF()
+      await waitRAF()
+      expect(called).toEqual(false)
+      expect(trigger).toEqual(null)
+
+      // Modal should not be closed
+      expect($modal.element.style.display).toEqual('block')
+      console.log('[click in body]', $modal.element.style.top)
+      // Modal should not have been moved away
+      expect($modal.element.style.top).toBe('')
+
+      wrapper.destroy()
+    })
+
+    it('mousedown inside header and mousemove when modal is not draggable does not move the modal', async () => {
+      let trigger = null
+      let called = false
+      const wrapper = mount(BModal, {
+        attachTo: document.body,
+        propsData: {
+          static: true,
+          id: 'test',
+          visible: true,
+          draggable: false
+        },
+        listeners: {
+          hide: bvEvent => {
+            called = true
+            trigger = bvEvent.trigger
+          }
+        }
+      })
+
+      expect(wrapper.vm).toBeDefined()
+
+      await waitNT(wrapper.vm)
+      await waitRAF()
+      await waitNT(wrapper.vm)
+      await waitRAF()
+
+      const $modal = wrapper.find('div.modal')
+      expect($modal.exists()).toBe(true)
+
+      const $header = wrapper.find('.modal-header')
+      expect($header.exists()).toBe(true)
+
+      const $dialog = wrapper.find('div.modal-dialog')
+      expect($dialog.exists()).toBe(true)
+
+      const $footer = wrapper.find('footer.modal-footer')
+      expect($footer.exists()).toBe(true)
+
+      expect($modal.element.style.display).toEqual('block')
+
+      expect(wrapper.emitted('hide')).toBeUndefined()
+      expect(trigger).toEqual(null)
+
+      // Try and move modal via a "dragged" click
+      // starting from inside modal header
+      await $header.trigger('mousedown', { clientX: 0, clientY: 0 })
+      await $header.trigger('mousemove', { clientX: 100, clientY: 100 })
+      await $header.trigger('mouseup')
+      await $header.trigger('click')
+      await waitRAF()
+      await waitRAF()
+      expect(called).toEqual(false)
+      expect(trigger).toEqual(null)
+
+      // Modal should not be closed
+      expect($modal.element.style.display).toEqual('block')
+      console.log('[click not draggable]', $modal.element.style.top)
+      // Modal should not have been moved away
+      expect($modal.element.style.top).toBe('')
+
+      wrapper.destroy()
+    })
+
     it('$root bv::show::modal and bv::hide::modal work', async () => {
       const wrapper = mount(BModal, {
         attachTo: document.body,
