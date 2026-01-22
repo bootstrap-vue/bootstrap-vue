@@ -267,4 +267,16 @@ describe('progress-bar', () => {
 
     wrapper.destroy()
   })
+
+  it('has aria-label attribute when explicitly set', () => {
+    const wrapper = mount(BProgressBar, {
+      attrs: {
+        'aria-label': 'ariaLabel'
+      }
+    })
+
+    expect(wrapper.attributes('aria-label')).toBe('ariaLabel')
+
+    wrapper.destroy()
+  })
 })
